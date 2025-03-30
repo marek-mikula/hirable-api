@@ -1,6 +1,6 @@
-# Alpacca REST API
+# Hirable REST API
 
-API for Alpacca learning management system
+API for Hirable app.
 
 ## Sanctum authentication
 

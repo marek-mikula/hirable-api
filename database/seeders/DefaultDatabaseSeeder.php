@@ -15,7 +15,7 @@ class DefaultDatabaseSeeder extends Seeder
     {
         ActivityLog::withoutActivityLogs(function (): void {
             $company = new Company();
-            $company->name = 'Alpacca';
+            $company->name = 'Hirable';
             $company->email = (string) config('app.contact_email');
             $company->id_number = '123456789';
             $company->website = 'https://www.example.com';
@@ -25,7 +25,7 @@ class DefaultDatabaseSeeder extends Seeder
             $admin->company_id = $company->id;
             $admin->company_role = RoleEnum::ADMIN;
             $admin->language = LanguageEnum::CS;
-            $admin->firstname = 'Alpacca';
+            $admin->firstname = 'Hirable';
             $admin->lastname = 'Admin';
             $admin->prefix = null;
             $admin->postfix = null;

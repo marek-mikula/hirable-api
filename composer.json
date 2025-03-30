@@ -1,10 +1,10 @@
 {
-    "name": "marek-mikula/alpacca-api",
+    "name": "marek-mikula/hirable-api",
     "version": "1.0.0",
     "type": "project",
-    "description": "API for Alpacca learning management system",
+    "description": "API for Hirable app.",
     "keywords": [
-        "alpacca",
+        "hirable",
         "laravel",
         "lms",
         "saas"

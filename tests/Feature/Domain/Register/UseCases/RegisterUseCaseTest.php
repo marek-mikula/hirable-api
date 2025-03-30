@@ -37,7 +37,7 @@ it('tests token without email', function (): void {
         'agreementIp' => '127.0.0.1',
         'agreementAcceptedAt' => now(),
         'company' => CompanyData::from([
-            'name' => 'Alpacca s.r.o.',
+            'name' => 'Hirable s.r.o.',
             'email' => 'info@example.com',
             'idNumber' => '999000111',
             'website' => 'https://www.example.com',
@@ -65,7 +65,7 @@ it('tests successful registration', function (): void {
         'agreementIp' => '127.0.0.1',
         'agreementAcceptedAt' => now()->subDays(20),
         'company' => CompanyData::from([
-            'name' => 'Alpacca s.r.o.',
+            'name' => 'Hirable s.r.o.',
             'email' => 'info@example.com',
             'idNumber' => '999000111',
             'website' => 'https://www.example.com',

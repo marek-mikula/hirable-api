@@ -70,7 +70,7 @@ it('tests auth process - registration, login, logout', function (): void {
         'lastname' => 'Example',
         'password' => $password,
         'passwordConfirm' => $password,
-        'companyName' => 'Alpacca s.r.o.',
+        'companyName' => 'Hirable s.r.o.',
         'companyEmail' => $companyEmail,
         'companyIdNumber' => '999000111',
         'companyWebsite' => 'https://www.example.com',
@@ -109,7 +109,7 @@ it('tests auth process - registration, login, logout', function (): void {
     assertTrue($user->is_email_verified);
 
     // assert correct company attributes
-    assertSame('Alpacca s.r.o.', $company->name);
+    assertSame('Hirable s.r.o.', $company->name);
     assertSame($companyEmail, $company->email);
     assertSame('999000111', $company->id_number);
     assertSame('https://www.example.com', $company->website);

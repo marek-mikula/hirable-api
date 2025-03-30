@@ -138,7 +138,7 @@ return [
     |
     */
 
-    'admin_email' => env('APP_ADMIN_EMAIL', 'admin@alpacca.cz'),
+    'admin_email' => env('APP_ADMIN_EMAIL', 'admin@hirable.cz'),
 
     /*
     |--------------------------------------------------------------------------
@@ -150,6 +150,6 @@ return [
     |
     */
 
-    'contact_email' => env('APP_CONTACT_EMAIL', 'info@alpacca.cz'),
+    'contact_email' => env('APP_CONTACT_EMAIL', 'info@hirable.cz'),
 
 ];

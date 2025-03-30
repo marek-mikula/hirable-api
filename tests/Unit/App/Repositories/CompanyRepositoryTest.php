@@ -30,7 +30,7 @@ it('tests store method', function (): void {
     $repository = app(CompanyRepositoryInterface::class);
 
     $input = StoreInput::from([
-        'name' => 'Alpacca s.r.o.',
+        'name' => 'Hirable s.r.o.',
         'email' => 'info@example.com',
         'idNumber' => '999000111',
         'website' => 'https://www.example.com',
@@ -51,7 +51,7 @@ it('tests update method', function (): void {
     $repository = app(CompanyRepositoryInterface::class);
 
     $input = UpdateInput::from([
-        'name' => 'Alpacca s.r.o.',
+        'name' => 'Hirable s.r.o.',
         'email' => 'info@example.com',
         'idNumber' => '999000111',
         'website' => 'https://www.example.com',
