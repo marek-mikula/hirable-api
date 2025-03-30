@@ -1,0 +1,46 @@
+<?php
+
+namespace {{ namespace }};
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Database\Factories\{{ class }}Factory;
+use App\Models\Builders\{{ class }}Builder;
+
+/**
+ * @property-read int $id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ *
+ * @method static {{ class }}Factory factory($count = null, $state = [])
+ * @method static {{ class }}Builder query()
+ */
+class {{ class }} extends Model
+{
+    use HasFactory;
+
+    protected $primaryKey = 'id';
+
+    protected $table = '';
+
+    public $timestamps = true;
+
+    protected $fillable = [];
+
+    protected $casts = [];
+
+    /**
+     * @param  Builder  $query
+     */
+    public function newEloquentBuilder($query): {{ class }}Builder
+    {
+        return new {{ class }}Builder($query);
+    }
+
+    protected static function newFactory(): {{ class }}Factory
+    {
+        return {{ class }}Factory::new();
+    }
+}

@@ -1,0 +1,18 @@
+<?php
+
+namespace Domain\Auth\Http\Requests;
+
+use App\Http\Requests\AuthRequest;
+
+class AuthMeRequest extends AuthRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [];
+    }
+}

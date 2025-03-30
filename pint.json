@@ -1,0 +1,22 @@
+{
+    "preset": "laravel",
+    "exclude": [
+        "bootstrap/cache",
+        "docker",
+        "docs",
+        "public",
+        "resources",
+        "storage",
+        "stubs",
+        "vendor"
+    ],
+    "notName": [
+        "*.blade.php"
+    ],
+    "rules": {
+        "new_with_parentheses": {
+            "anonymous_class": true,
+            "named_class": true
+        }
+    }
+}

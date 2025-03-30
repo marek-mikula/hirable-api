@@ -1,0 +1,32 @@
+<?php
+
+namespace Support\Grid\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Support\Grid\Data\Definition\GridColumnDefinition;
+
+/**
+ * @property GridColumnDefinition $resource
+ */
+class GridColumnResource extends JsonResource
+{
+    public function __construct(GridColumnDefinition $resource)
+    {
+        parent::__construct($resource);
+    }
+
+    public function toArray(Request $request): array
+    {
+        return [
+            'key' => $this->resource->key,
+            'label' => $this->resource->label,
+            'enabled' => $this->resource->enabled,
+            'width' => $this->resource->width,
+            'minWidth' => $this->resource->minWidth,
+            'maxWidth' => $this->resource->maxWidth,
+            'allowToggle' => $this->resource->allowToggle,
+            'allowSort' => $this->resource->allowSort,
+        ];
+    }
+}

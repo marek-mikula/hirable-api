@@ -1,0 +1,25 @@
+<?php
+
+namespace Tests\Unit\Support\File\Schedule;
+
+use App\Models\File;
+use Illuminate\Support\Facades\Queue;
+use Support\File\Jobs\DeleteDeletedFilesJob;
+use Support\File\Schedule\DeleteDeletedFilesSchedule;
+
+/** @covers \Support\File\Schedule\DeleteDeletedFilesSchedule::__invoke */
+it('dispatches job to delete expired tokens', function (): void {
+    Queue::fake([
+        DeleteDeletedFilesJob::class,
+    ]);
+
+    DeleteDeletedFilesSchedule::call();
+
+    Queue::assertNothingPushed();
+
+    File::factory()->ofDeletedAt(now())->create();
+
+    DeleteDeletedFilesSchedule::call();
+
+    Queue::assertPushed(DeleteDeletedFilesJob::class);
+});

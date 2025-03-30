@@ -1,0 +1,20 @@
+<?php
+
+namespace Support\Token\Providers;
+
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+
+class ServiceProvider extends BaseServiceProvider
+{
+    public function register(): void
+    {
+        $this->app->register(RouteServiceProvider::class);
+        $this->app->register(ConsoleServiceProvider::class);
+        $this->app->register(DeferrableProvider::class);
+    }
+
+    public function boot(): void
+    {
+        //
+    }
+}

@@ -1,0 +1,32 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Enums\NotificationTypeEnum;
+use App\Notifications\Notification;
+use Illuminate\Notifications\Messages\MailMessage;
+
+class {{ class }} extends Notification
+{
+    public NotificationTypeEnum $type = NotificationTypeEnum::AUTH_REGISTERED;
+
+    public function __construct()
+    {
+        //
+    }
+
+    public function via(object $notifiable): array
+    {
+        return ['mail'];
+    }
+
+    public function toMail(object $notifiable): MailMessage
+    {
+        // todo
+    }
+
+    public function toArray(object $notifiable): array
+    {
+        return [];
+    }
+}

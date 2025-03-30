@@ -1,0 +1,22 @@
+<?php
+
+namespace Support\Token\Actions;
+
+use App\Models\Token;
+use Lorisleiva\Actions\Action;
+use Support\Token\Enums\TokenTypeEnum;
+
+class GetTokenLinkAction extends Action
+{
+    public function handle(Token $token): string
+    {
+        $uri = match ($token->type) {
+            TokenTypeEnum::INVITATION => '/invitation?token={token}',
+            TokenTypeEnum::REGISTRATION => '/register?token={token}',
+            TokenTypeEnum::RESET_PASSWORD => '/password-reset?token={token}',
+            TokenTypeEnum::EMAIL_VERIFICATION => '/verify-email?token={token}',
+        };
+
+        return frontendLink($uri, ['token' => $token->secret_token]);
+    }
+}
