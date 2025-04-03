@@ -43,7 +43,7 @@ class GetUsersForIndexUseCase extends UseCase
                 }
 
                 if ($gridQuery->hasSortKey('role')) {
-                    $query->orderBy('role', $gridQuery->sort['role']->value);
+                    $query->orderBy('company_role', $gridQuery->sort['role']->value);
                 }
 
                 if ($gridQuery->hasSortKey('createdAt')) {
