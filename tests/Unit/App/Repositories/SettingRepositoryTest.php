@@ -22,10 +22,10 @@ it('tests find method', function (): void {
 
     $setting = Setting::factory()
         ->ofUser($user)
-        ->ofKey(SettingKeyEnum::GRID_USERS)
+        ->ofKey(SettingKeyEnum::GRID_CANDIDATE)
         ->create();
 
-    $model = $repository->find($user, SettingKeyEnum::GRID_USERS);
+    $model = $repository->find($user, SettingKeyEnum::GRID_CANDIDATE);
 
     assertNotNull($model);
     assertTrue($setting->is($model));
@@ -38,15 +38,15 @@ it('tests findOrNew method', function (): void {
 
     $user = User::factory()->create();
 
-    $setting = $repository->findOrNew($user, SettingKeyEnum::GRID_USERS);
+    $setting = $repository->findOrNew($user, SettingKeyEnum::GRID_CANDIDATE);
 
     assertModelMissing($setting);
     assertSame($user->id, $setting->user_id);
-    assertSame(SettingKeyEnum::GRID_USERS, $setting->key);
+    assertSame(SettingKeyEnum::GRID_CANDIDATE, $setting->key);
 
     $setting->save();
 
-    $setting = $repository->findOrNew($user, SettingKeyEnum::GRID_USERS);
+    $setting = $repository->findOrNew($user, SettingKeyEnum::GRID_CANDIDATE);
 
     assertModelExists($setting);
 });

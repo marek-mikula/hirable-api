@@ -18,7 +18,7 @@ class SettingFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'key' => SettingKeyEnum::GRID_USERS,
+            'key' => SettingKeyEnum::GRID_CANDIDATE,
             'data' => [],
         ];
     }

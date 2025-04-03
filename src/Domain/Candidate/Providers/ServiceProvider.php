@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\User\Providers;
+namespace Domain\Candidate\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

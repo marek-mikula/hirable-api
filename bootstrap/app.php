@@ -20,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             Domain\Verification\Providers\ServiceProvider::class,
             Domain\Company\Providers\ServiceProvider::class,
             Domain\Search\Providers\ServiceProvider::class,
-            Domain\User\Providers\ServiceProvider::class,
+            Domain\Candidate\Providers\ServiceProvider::class,
         ],
 
         // do not autoload providers from /bootstrap/providers.php path

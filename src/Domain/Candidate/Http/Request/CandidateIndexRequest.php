@@ -1,12 +1,12 @@
 <?php
 
-namespace Domain\User\Http\Request;
+namespace Domain\Candidate\Http\Request;
 
 use App\Http\Requests\Request;
 use Support\Grid\Actions\CollectGridRequestQueryAction;
 use Support\Grid\Data\Query\GridRequestQuery;
 
-class UserIndexRequest extends Request
+class CandidateIndexRequest extends Request
 {
     public function authorize(): bool
     {

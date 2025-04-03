@@ -1,27 +1,28 @@
 <?php
 
-namespace Domain\User\UseCases;
+namespace Domain\Candidate\UseCases;
 
-use App\Models\Builders\UserBuilder;
+use App\Models\Builders\CandidateBuilder;
+use App\Models\Candidate;
 use App\Models\User;
 use App\UseCases\UseCase;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
-class GetUsersForIndexUseCase extends UseCase
+class GetCandidatesForIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {
-        return User::query()
-            ->where('company_id', '=', $user->company_id)
-            ->when($gridQuery->hasSearchQuery(), function (UserBuilder $query) use ($gridQuery): void {
-                $query->where(function (UserBuilder $query) use ($gridQuery): void {
+        return Candidate::query()
+            ->when($gridQuery->hasSearchQuery(), function (CandidateBuilder $query) use ($gridQuery): void {
+                $query->where(function (CandidateBuilder $query) use ($gridQuery): void {
                     $query
                         ->where('firstname', 'like', "%{$gridQuery->searchQuery}%")
-                        ->orWhere('lastname', 'like', "%{$gridQuery->searchQuery}%");
+                        ->orWhere('lastname', 'like', "%{$gridQuery->searchQuery}%")
+                        ->orWhere('email', 'like', "%{$gridQuery->searchQuery}%");
                 });
             })
-            ->when($gridQuery->hasSort(), function (UserBuilder $query) use ($gridQuery): void {
+            ->when($gridQuery->hasSort(), function (CandidateBuilder $query) use ($gridQuery): void {
                 if ($gridQuery->hasSortKey('id')) {
                     $query->orderBy('id', $gridQuery->sort['id']->value);
                 }
@@ -38,18 +39,10 @@ class GetUsersForIndexUseCase extends UseCase
                     $query->orderBy('email', $gridQuery->sort['email']->value);
                 }
 
-                if ($gridQuery->hasSortKey('phone')) {
-                    $query->orderBy('phone', $gridQuery->sort['phone']->value);
-                }
-
-                if ($gridQuery->hasSortKey('role')) {
-                    $query->orderBy('company_role', $gridQuery->sort['role']->value);
-                }
-
                 if ($gridQuery->hasSortKey('createdAt')) {
                     $query->orderBy('created_at', $gridQuery->sort['createdAt']->value);
                 }
-            }, function (UserBuilder $query): void {
+            }, function (CandidateBuilder $query): void {
                 $query->orderBy('id', 'desc');
             })
             ->paginate(

@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\User\Providers;
+namespace Domain\Candidate\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -11,9 +11,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->routes(static function (): void {
             Route::middleware('api')
-                ->prefix('api/users')
-                ->name('api.user.')
-                ->group(__DIR__.'/../Routes/user.php');
+                ->prefix('api/candidates')
+                ->name('api.candidate.')
+                ->group(__DIR__.'/../Routes/candidate.php');
         });
     }
 }

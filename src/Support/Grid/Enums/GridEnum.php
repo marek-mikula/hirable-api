@@ -2,24 +2,24 @@
 
 namespace Support\Grid\Enums;
 
-use Support\Grid\Grids\UserGrid;
+use Support\Grid\Grids\CandidateGrid;
 use Support\Setting\Enums\SettingKeyEnum;
 
 enum GridEnum: string
 {
-    case USER = 'user';
+    case CANDIDATE = 'candidate';
 
     public function getClass(): string
     {
         return match ($this) {
-            self::USER => UserGrid::class,
+            self::CANDIDATE => CandidateGrid::class,
         };
     }
 
     public function getSettingKey(): SettingKeyEnum
     {
         return match ($this) {
-            self::USER => SettingKeyEnum::GRID_USERS,
+            self::CANDIDATE => SettingKeyEnum::GRID_CANDIDATE,
         };
     }
 }
