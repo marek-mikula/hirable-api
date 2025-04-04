@@ -16,6 +16,7 @@ $folderGroups = [
 
     // Domain groups
     [['domain', 'domain-auth'], ['Feature/Domain/Auth', 'Unit/Domain/Auth']],
+    [['domain', 'domain-candidate'], ['Feature/Domain/Candidate', 'Unit/Domain/Candidate']],
     [['domain', 'domain-company'], ['Feature/Domain/Company', 'Unit/Domain/Company']],
     [['domain', 'domain-password'], ['Feature/Domain/Password', 'Unit/Domain/Password']],
     [['domain', 'domain-register'], ['Feature/Domain/Register', 'Unit/Domain/Register']],

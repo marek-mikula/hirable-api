@@ -27,6 +27,11 @@ class CompanyInvitationGrid implements Grid
                     allowToggle: false,
                 ),
                 new GridColumnDefinition(
+                    key: 'link',
+                    label: 'model.common.link',
+                    allowToggle: false,
+                ),
+                new GridColumnDefinition(
                     key: 'email',
                     label: 'model.common.email',
                 ),
