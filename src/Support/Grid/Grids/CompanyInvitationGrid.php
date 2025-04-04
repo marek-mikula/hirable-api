@@ -25,11 +25,13 @@ class CompanyInvitationGrid implements Grid
                     key: 'state',
                     label: 'model.common.state',
                     allowToggle: false,
+                    allowSort: false,
                 ),
                 new GridColumnDefinition(
                     key: 'link',
                     label: 'model.common.link',
                     allowToggle: false,
+                    allowSort: false,
                 ),
                 new GridColumnDefinition(
                     key: 'email',
@@ -38,6 +40,10 @@ class CompanyInvitationGrid implements Grid
                 new GridColumnDefinition(
                     key: 'role',
                     label: 'model.common.role',
+                ),
+                new GridColumnDefinition(
+                    key: 'usedAt',
+                    label: 'model.token.usedAt',
                 ),
                 new GridColumnDefinition(
                     key: 'validUntil',

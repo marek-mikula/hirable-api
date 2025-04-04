@@ -153,3 +153,15 @@ it('tests delete method', function (): void {
 
     assertModelMissing($token);
 });
+
+/** @covers \App\Repositories\Token\TokenRepository::markUsed */
+it('tests markUsed method', function (): void {
+    /** @var TokenRepositoryInterface $repository */
+    $repository = app(TokenRepositoryInterface::class);
+
+    $token = Token::factory()->create(['used_at' => null]);
+
+    $token = $repository->markUsed($token);
+
+    assertNotNull($token->used_at);
+});

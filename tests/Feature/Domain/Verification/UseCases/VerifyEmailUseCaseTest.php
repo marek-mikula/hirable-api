@@ -10,7 +10,6 @@ use Domain\Verification\UseCases\VerifyEmailUseCase;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
 
-use function Pest\Laravel\assertModelMissing;
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertNull;
@@ -42,10 +41,12 @@ it('tests verify method - correct token', function (): void {
 
     $user = VerifyEmailUseCase::make()->handle($token);
 
+    $token->refresh();
+
     assertNotNull($user->email_verified_at);
     assertTrue($user->is_email_verified);
 
-    assertModelMissing($token);
+    assertNotNull($token->used_at);
 
     Notification::assertSentTo($user, EmailVerifiedNotification::class);
 });

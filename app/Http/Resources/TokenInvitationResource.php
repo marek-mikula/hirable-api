@@ -24,7 +24,9 @@ class TokenInvitationResource extends JsonResource
             'email' => (string) $this->resource->getDataValue('email'),
             'role' => RoleEnum::from((string) $this->resource->getDataValue('role'))->value,
             'isExpired' => $this->resource->is_expired,
+            'isUsed' => $this->resource->is_used,
             'link' => $this->resource->link,
+            'usedAt' => $this->resource->used_at?->toIso8601String(),
             'validUntil' => $this->resource->valid_until->toIso8601String(),
             'createdAt' => $this->resource->created_at->toIso8601String(),
         ];

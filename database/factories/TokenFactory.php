@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Token;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Support\Str;
 use Support\Token\Enums\TokenTypeEnum;
@@ -25,14 +26,22 @@ class TokenFactory extends Factory
             'type' => $type,
             'token' => Str::random(40),
             'data' => [],
+            'used_at' => null,
             'valid_until' => now()->addMinutes(30),
         ];
     }
 
-    public function expired(): static
+    public function used(?Carbon $datetime = null): static
     {
         return $this->state(fn (array $attributes) => [
-            'valid_until' => now()->subDay(),
+            'used_at' => $datetime ?? now()->subDay(),
+        ]);
+    }
+
+    public function expired(?Carbon $datetime = null): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'valid_until' => $datetime ?? now()->subDay(),
         ]);
     }
 

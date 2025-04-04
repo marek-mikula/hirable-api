@@ -9,6 +9,11 @@ use Support\Token\Schedule\DeleteExpiredTokensSchedule;
 
 /** @covers \Support\Token\Schedule\DeleteExpiredTokensSchedule::__invoke */
 it('dispatches job to delete expired tokens', function (): void {
+    $days = 10;
+
+    // set config value
+    config()->set('token.keep_days', $days);
+
     Queue::fake([
         DeleteExpiredTokensJob::class,
     ]);
@@ -17,7 +22,13 @@ it('dispatches job to delete expired tokens', function (): void {
 
     Queue::assertNothingPushed();
 
-    Token::factory()->expired()->create();
+    Token::factory()->expired(now())->create();
+
+    DeleteExpiredTokensSchedule::call();
+
+    Queue::assertNothingPushed();
+
+    Token::factory()->expired(now()->subDays($days))->create();
 
     DeleteExpiredTokensSchedule::call();
 

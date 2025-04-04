@@ -22,10 +22,12 @@ use Support\Token\Enums\TokenTypeEnum;
  * @property string $token
  * @property string|null $code
  * @property array $data
+ * @property Carbon|null $used_at
  * @property Carbon $valid_until
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read bool $is_expired
+ * @property-read bool $is_used
  * @property-read string $secret_token
  * @property-read string $link
  * @property-read User|null $user
@@ -49,12 +51,14 @@ class Token extends Model
         'type',
         'token',
         'data',
+        'used_at',
         'valid_until',
     ];
 
     protected $casts = [
         'type' => TokenTypeEnum::class,
         'data' => 'array',
+        'used_at' => 'datetime',
         'valid_until' => 'datetime',
     ];
 
@@ -71,6 +75,11 @@ class Token extends Model
     protected function isExpired(): Attribute
     {
         return Attribute::get(fn (): bool => ! $this->valid_until->isFuture());
+    }
+
+    protected function isUsed(): Attribute
+    {
+        return Attribute::get(fn (): bool => ! empty($this->used_at));
     }
 
     public function user(): BelongsTo

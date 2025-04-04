@@ -19,6 +19,6 @@ class DeleteExpiredTokensSchedule extends Schedule
 
     private function shouldRun(): bool
     {
-        return Token::query()->expired()->exists();
+        return Token::query()->readyToDelete()->exists();
     }
 }

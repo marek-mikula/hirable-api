@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
 
 use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertModelMissing;
 use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 use function Tests\Common\Helpers\assertDatetime;
@@ -76,8 +76,10 @@ it('tests successful registration', function (): void {
 
     $user = RegisterUseCase::make()->handle($registrationToken, $data);
 
+    $registrationToken->refresh();
+
     assertInstanceOf(User::class, $user);
-    assertModelMissing($registrationToken);
+    assertNotNull($registrationToken->used_at);
 
     Notification::assertSentTo($user, RegisterRegisteredNotification::class);
 

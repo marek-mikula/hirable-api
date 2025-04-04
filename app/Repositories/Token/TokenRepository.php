@@ -75,4 +75,13 @@ final class TokenRepository implements TokenRepositoryInterface
     {
         throw_if(! $token->delete(), RepositoryException::deleted(Token::class));
     }
+
+    public function markUsed(Token $token): Token
+    {
+        $token->used_at = now();
+
+        throw_if(! $token->save(), RepositoryException::saved(Token::class));
+
+        return $token;
+    }
 }

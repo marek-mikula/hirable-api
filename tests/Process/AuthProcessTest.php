@@ -17,7 +17,6 @@ use function Pest\Laravel\assertAuthenticated;
 use function Pest\Laravel\assertDatabaseEmpty;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertGuest;
-use function Pest\Laravel\assertModelMissing;
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\postJson;
 use function PHPUnit\Framework\assertNotNull;
@@ -81,6 +80,8 @@ it('tests auth process - registration, login, logout', function (): void {
         'Accept-Language' => LanguageEnum::CS->value,
     ]);
 
+    $token->refresh();
+
     assertResponse($response, ResponseCodeEnum::SUCCESS);
     assertDatabaseHas(User::class, ['email' => $email]);
     assertDatabaseHas(Company::class, ['email' => $companyEmail]);
@@ -116,8 +117,8 @@ it('tests auth process - registration, login, logout', function (): void {
 
     Notification::assertSentTo($user, RegisterRegisteredNotification::class);
 
-    // token for registration should be deleted
-    assertModelMissing($token);
+    // token for registration should be marked as used
+    assertNotNull($token->used_at);
 
     // try to get user resource from secured endpoint
     $response = getJson(route('api.auth.me'));

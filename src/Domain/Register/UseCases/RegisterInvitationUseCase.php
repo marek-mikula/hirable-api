@@ -73,7 +73,7 @@ class RegisterInvitationUseCase extends UseCase
                 'phone' => null,
             ]));
 
-            $this->tokenRepository->delete($token);
+            $this->tokenRepository->markUsed($token);
 
             $user->notify(new RegisterRegisteredNotification());
 

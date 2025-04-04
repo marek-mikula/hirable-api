@@ -49,7 +49,7 @@ class TokenMiddleware
         $token = $this->tokenRepository->findByTokenAndType($token, ...$types);
 
         // check token validity
-        if (! $token || $token->is_expired) {
+        if (! $token || $token->is_expired || $token->is_used) {
             throw new HttpException(responseCode: ResponseCodeEnum::TOKEN_INVALID);
         }
 

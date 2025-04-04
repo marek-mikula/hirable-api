@@ -18,4 +18,6 @@ interface TokenRepositoryInterface
     public function findLatestByTypeAndUser(TokenTypeEnum $type, User $user): ?Token;
 
     public function delete(Token $token): void;
+
+    public function markUsed(Token $token): Token;
 }

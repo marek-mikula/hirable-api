@@ -37,7 +37,7 @@ class VerifyEmailUseCase extends UseCase
         ): User {
             $user = $this->userRepository->verifyEmail($user);
 
-            $this->tokenRepository->delete($token);
+            $this->tokenRepository->markUsed($token);
 
             $user->notify(new EmailVerifiedNotification());
 

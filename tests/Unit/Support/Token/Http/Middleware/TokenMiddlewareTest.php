@@ -124,6 +124,41 @@ it('denies expired token', function (): void {
 });
 
 /** @covers \Support\Token\Http\Middleware\TokenMiddleware::handle */
+it('denies used token', function (): void {
+    $encryptedToken = 'encrypted_token';
+    $decryptedToken = 'decrypted_token';
+
+    $token = Token::factory()->ofType(TokenTypeEnum::REGISTRATION)->ofToken($decryptedToken)->used()->create();
+
+    $request = createRequest(TokenRequest::class, data: ['token' => $encryptedToken], method: 'POST');
+
+    $next = function (): void {};
+
+    mock('encrypter', function (MockInterface $mock) use ($encryptedToken, $decryptedToken): void {
+        $mock
+            ->shouldReceive('decryptString')
+            ->with($encryptedToken)
+            ->once()
+            ->andReturn($decryptedToken);
+    });
+
+    mock(TokenRepositoryInterface::class, function (MockInterface $mock) use ($decryptedToken, $token): void {
+        $mock
+            ->shouldReceive('findByTokenAndType')
+            ->with($decryptedToken, TokenTypeEnum::REGISTRATION)
+            ->once()
+            ->andReturn($token);
+    });
+
+    /** @var TokenMiddleware $middleware */
+    $middleware = app(TokenMiddleware::class);
+
+    assertHttpException(function () use ($middleware, $request, $next): void {
+        $middleware->handle($request, $next, TokenTypeEnum::REGISTRATION->value);
+    }, ResponseCodeEnum::TOKEN_INVALID);
+});
+
+/** @covers \Support\Token\Http\Middleware\TokenMiddleware::handle */
 it('accepts correct token', function (): void {
     $encryptedToken = 'encrypted_token';
     $decryptedToken = 'decrypted_token';

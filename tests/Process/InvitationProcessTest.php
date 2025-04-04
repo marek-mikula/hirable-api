@@ -16,9 +16,9 @@ use function Pest\Laravel\assertAuthenticated;
 use function Pest\Laravel\assertDatabaseEmpty;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertGuest;
-use function Pest\Laravel\assertModelMissing;
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\postJson;
+use function PHPUnit\Framework\assertNotNull;
 use function Tests\Common\Helpers\actingAs;
 use function Tests\Common\Helpers\actingAsGuest;
 use function Tests\Common\Helpers\assertResponse;
@@ -81,6 +81,8 @@ it('tests invitation process', function (): void {
         'Accept-Language' => LanguageEnum::CS->value,
     ]);
 
+    $token->refresh();
+
     assertResponse($response, ResponseCodeEnum::SUCCESS);
     assertAuthenticated('api');
 
@@ -93,8 +95,8 @@ it('tests invitation process', function (): void {
         'company_role' => $role->value,
     ]);
 
-    // token for invitation should be deleted
-    assertModelMissing($token);
+    // token for invitation should be marked as used
+    assertNotNull($token->used_at);
 
     // try to get user resource from secured endpoint
     $response = getJson(route('api.auth.me'));

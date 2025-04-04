@@ -12,8 +12,8 @@ use Support\Token\Enums\TokenTypeEnum;
 
 use function Pest\Laravel\assertDatabaseEmpty;
 use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertModelMissing;
 use function Pest\Laravel\postJson;
+use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertNotSame;
 use function Tests\Common\Helpers\assertResponse;
 
@@ -57,11 +57,15 @@ it('tests password reset process', function (): void {
         'passwordConfirm' => 'Test.1234',
     ]);
 
+    $token->refresh();
+
     $user->refresh();
 
     assertResponse($response, ResponseCodeEnum::SUCCESS);
-    assertModelMissing($token);
     assertNotSame($previousPasswordHash, $user->password);
+
+    // token should be marked as used
+    assertNotNull($token->used_at);
 
     Notification::assertSentTo($user, ChangedNotification::class);
 });

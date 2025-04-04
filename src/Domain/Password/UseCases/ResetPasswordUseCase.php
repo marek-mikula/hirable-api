@@ -7,6 +7,7 @@ use App\Repositories\Token\TokenRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Password\Notifications\ChangedNotification;
+use Illuminate\Support\Facades\DB;
 
 class ResetPasswordUseCase extends UseCase
 {
@@ -19,10 +20,16 @@ class ResetPasswordUseCase extends UseCase
     {
         $user = $token->loadMissing('user')->user;
 
-        $this->userRepository->changePassword($user, $newPassword);
+        DB::transaction(function () use (
+            $user,
+            $token,
+            $newPassword,
+        ): void {
+            $this->userRepository->changePassword($user, $newPassword);
 
-        $this->tokenRepository->delete($token);
+            $this->tokenRepository->markUsed($token);
 
-        $user->notify(new ChangedNotification());
+            $user->notify(new ChangedNotification());
+        }, attempts: 5);
     }
 }

@@ -14,6 +14,7 @@ return new class() extends Migration
             $table->unsignedTinyInteger('type')->index('tokens_type_index');
             $table->string('token')->index('tokens_token_index');
             $table->text('data');
+            $table->timestamp('used_at')->nullable();
             $table->timestamp('valid_until');
             $table->timestamps();
 

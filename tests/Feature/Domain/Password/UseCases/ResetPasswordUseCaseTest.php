@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
 
-use function Pest\Laravel\assertModelMissing;
+use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertTrue;
 
 /** @covers \Domain\Password\UseCases\ResetPasswordUseCase::handle */
@@ -28,7 +28,9 @@ it('tests password reset', function (): void {
 
     ResetPasswordUseCase::make()->handle($token, $password);
 
-    assertModelMissing($token);
+    $token->refresh();
+
+    assertNotNull($token->used_at);
 
     $user->refresh();
 

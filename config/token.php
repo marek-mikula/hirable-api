@@ -6,6 +6,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Token keep days (in days)
+    |--------------------------------------------------------------------------
+    |
+    | These options controls the number of days the expired or used tokens
+    | are left in DB. After this number of days, the tokens get deleted.
+    |
+    */
+
+    'keep_days' => 30,
+
+    /*
+    |--------------------------------------------------------------------------
     | Token validity (in minutes)
     |--------------------------------------------------------------------------
     |
