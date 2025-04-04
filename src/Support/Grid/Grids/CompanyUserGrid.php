@@ -8,18 +8,22 @@ use Support\Grid\Data\Definition\GridColumnDefinition;
 use Support\Grid\Data\Definition\GridDefinition;
 use Support\Grid\Enums\GridEnum;
 
-class CandidateGrid implements Grid
+class CompanyUserGrid implements Grid
 {
     public function getDefinition(User $user): GridDefinition
     {
         return new GridDefinition(
-            identifier: GridEnum::CANDIDATE,
+            identifier: GridEnum::COMPANY_USER,
             keyAttribute: 'id',
             columns: [
                 new GridColumnDefinition(
                     key: 'id',
                     label: 'model.common.id',
                     allowToggle: false,
+                ),
+                new GridColumnDefinition(
+                    key: 'role',
+                    label: 'model.common.role',
                 ),
                 new GridColumnDefinition(
                     key: 'firstname',
@@ -32,11 +36,6 @@ class CandidateGrid implements Grid
                 new GridColumnDefinition(
                     key: 'email',
                     label: 'model.common.email',
-                ),
-                new GridColumnDefinition(
-                    key: 'linkedin',
-                    label: 'model.common.linkedin',
-                    allowSort: false,
                 ),
                 new GridColumnDefinition(
                     key: 'createdAt',

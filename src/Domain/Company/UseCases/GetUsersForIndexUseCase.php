@@ -1,30 +1,34 @@
 <?php
 
-namespace Domain\Candidate\UseCases;
+namespace Domain\Company\UseCases;
 
-use App\Models\Builders\CandidateBuilder;
-use App\Models\Candidate;
+use App\Models\Builders\UserBuilder;
 use App\Models\User;
 use App\UseCases\UseCase;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
-class GetCandidatesForIndexUseCase extends UseCase
+class GetUsersForIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {
-        return Candidate::query()
-            ->when($gridQuery->hasSearchQuery(), function (CandidateBuilder $query) use ($gridQuery): void {
-                $query->where(function (CandidateBuilder $query) use ($gridQuery): void {
+        $company = $user->loadMissing('company')->company;
+
+        return User::query()
+            ->whereCompany($company->id)
+            ->when($gridQuery->hasSearchQuery(), function (UserBuilder $query) use ($gridQuery): void {
+                $query->where(function (UserBuilder $query) use ($gridQuery): void {
                     $query
                         ->where('firstname', 'like', "%{$gridQuery->searchQuery}%")
                         ->orWhere('lastname', 'like', "%{$gridQuery->searchQuery}%")
                         ->orWhere('email', 'like', "%{$gridQuery->searchQuery}%");
                 });
             })
-            ->when($gridQuery->hasSort(), function (CandidateBuilder $query) use ($gridQuery): void {
+            ->when($gridQuery->hasSort(), function (UserBuilder $query) use ($gridQuery): void {
                 if ($gridQuery->hasSortKey('id')) {
                     $query->orderBy('id', $gridQuery->sort['id']->value);
+                } elseif ($gridQuery->hasSortKey('role')) {
+                    $query->orderBy('company_role', $gridQuery->sort['role']->value);
                 } elseif ($gridQuery->hasSortKey('firstname')) {
                     $query->orderBy('firstname', $gridQuery->sort['firstname']->value);
                 } elseif ($gridQuery->hasSortKey('lastname')) {
@@ -34,7 +38,7 @@ class GetCandidatesForIndexUseCase extends UseCase
                 } elseif ($gridQuery->hasSortKey('createdAt')) {
                     $query->orderBy('created_at', $gridQuery->sort['createdAt']->value);
                 }
-            }, function (CandidateBuilder $query): void {
+            }, function (UserBuilder $query): void {
                 $query->orderBy('id', 'desc');
             })
             ->paginate(
