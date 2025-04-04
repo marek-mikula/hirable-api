@@ -38,8 +38,6 @@ class Token extends Model
     use HasArrayData;
     use HasFactory;
 
-    public const CODE_LENGTH = 16;
-
     protected $primaryKey = 'id';
 
     protected $table = 'tokens';
