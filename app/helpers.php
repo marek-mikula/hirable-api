@@ -95,3 +95,10 @@ if (! function_exists('usesSoftDeletes')) {
         return once(static fn () => collect(class_uses_recursive($class))->contains(SoftDeletes::class));
     }
 }
+
+if (! function_exists('injectClosure')) {
+    function injectClosure(callable $closure): callable
+    {
+        return fn() => app()->call($closure);
+    }
+}
