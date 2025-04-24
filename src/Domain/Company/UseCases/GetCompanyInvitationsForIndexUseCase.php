@@ -9,7 +9,7 @@ use App\UseCases\UseCase;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
-class GetInvitationsForIndexUseCase extends UseCase
+class GetCompanyInvitationsForIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {

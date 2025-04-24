@@ -6,7 +6,6 @@ enum ResponseCodeEnum
 {
     // 2XX
     case SUCCESS;
-    case VERIFY_EMAIL;
     case CREATED;
 
     // 4XX
@@ -36,7 +35,6 @@ enum ResponseCodeEnum
     {
         return match ($this) {
             // 200
-            self::VERIFY_EMAIL,
             self::SUCCESS => 200,
 
             // 201

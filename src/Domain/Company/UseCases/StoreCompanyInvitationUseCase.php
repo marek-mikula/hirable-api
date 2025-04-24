@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
 
-class StoreInvitationUseCase extends UseCase
+class StoreCompanyInvitationUseCase extends UseCase
 {
     public function __construct(
         private readonly TokenRepositoryInterface $tokenRepository,

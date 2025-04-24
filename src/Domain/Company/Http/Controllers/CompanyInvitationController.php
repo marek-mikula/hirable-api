@@ -7,8 +7,8 @@ use App\Http\Controllers\ApiController;
 use App\Http\Resources\Collections\TokenInvitationPaginatedCollection;
 use Domain\Company\Http\Requests\CompanyInvitationIndexRequest;
 use Domain\Company\Http\Requests\CompanyInvitationsStoreRequest;
-use Domain\Company\UseCases\GetInvitationsForIndexUseCase;
-use Domain\Company\UseCases\StoreInvitationUseCase;
+use Domain\Company\UseCases\GetCompanyInvitationsForIndexUseCase;
+use Domain\Company\UseCases\StoreCompanyInvitationUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
@@ -23,7 +23,7 @@ class CompanyInvitationController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $invitations = GetInvitationsForIndexUseCase::make()->handle($user, $gridQuery);
+        $invitations = GetCompanyInvitationsForIndexUseCase::make()->handle($user, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_INVITATION, $gridQuery));
 
@@ -34,7 +34,7 @@ class CompanyInvitationController extends ApiController
 
     public function store(CompanyInvitationsStoreRequest $request): JsonResponse
     {
-        StoreInvitationUseCase::make()->handle($request->user(), $request->toData());
+        StoreCompanyInvitationUseCase::make()->handle($request->user(), $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS);
     }
