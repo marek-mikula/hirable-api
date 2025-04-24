@@ -8,22 +8,22 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-if (! function_exists('isEnv')) {
+if (!function_exists('isEnv')) {
     function isEnv(EnvEnum ...$environments): bool
     {
         return app()->environment(...collect($environments)->pluck('value')->all());
     }
 }
 
-if (! function_exists('telescopeEnabled')) {
+if (!function_exists('telescopeEnabled')) {
     function telescopeEnabled(): bool
     {
         // do not boot Telescope on production or testing environment, never
-        return ! isEnv(EnvEnum::PRODUCTION, EnvEnum::TESTING) && config('telescope.enabled');
+        return !isEnv(EnvEnum::PRODUCTION, EnvEnum::TESTING) && config('telescope.enabled');
     }
 }
 
-if (! function_exists('frontendLink')) {
+if (!function_exists('frontendLink')) {
     function frontendLink(string $uri, array $params = []): string
     {
         $frontEndUrl = (string) config('app.frontend_url');
@@ -34,7 +34,7 @@ if (! function_exists('frontendLink')) {
     }
 }
 
-if (! function_exists('buildUrl')) {
+if (!function_exists('buildUrl')) {
     /**
      * @param  string[]  $parts
      */
@@ -56,7 +56,7 @@ if (! function_exists('buildUrl')) {
     }
 }
 
-if (! function_exists('__n')) {
+if (!function_exists('__n')) {
     function __n(
         NotificationTypeEnum $type,
         string $channel,
@@ -68,14 +68,14 @@ if (! function_exists('__n')) {
     }
 }
 
-if (! function_exists('formatter')) {
+if (!function_exists('formatter')) {
     function formatter(): Formatter
     {
         return app(Formatter::class);
     }
 }
 
-if (! function_exists('collectEnum')) {
+if (!function_exists('collectEnum')) {
     /**
      * @template TEnumClass of BackedEnum
      *
@@ -89,14 +89,14 @@ if (! function_exists('collectEnum')) {
     }
 }
 
-if (! function_exists('usesSoftDeletes')) {
+if (!function_exists('usesSoftDeletes')) {
     function usesSoftDeletes(string $class): bool
     {
         return once(static fn () => collect(class_uses_recursive($class))->contains(SoftDeletes::class));
     }
 }
 
-if (! function_exists('injectClosure')) {
+if (!function_exists('injectClosure')) {
     function injectClosure(callable $closure): callable
     {
         return fn () => app()->call($closure);

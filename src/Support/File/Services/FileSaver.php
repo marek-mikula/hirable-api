@@ -114,7 +114,7 @@ class FileSaver
             // the loop, because logically shallower
             // folders were not created either
             foreach (array_reverse($folders, preserve_keys: true) as $folder => $status) {
-                if (! $status) {
+                if (!$status) {
                     break;
                 }
 
@@ -142,7 +142,7 @@ class FileSaver
         foreach ($incrementFolders as $folder) {
             // create directory only if it does not
             // already exist
-            $result[$folder] = ! $storage->exists($folder) && $storage->makeDirectory($folder);
+            $result[$folder] = !$storage->exists($folder) && $storage->makeDirectory($folder);
         }
 
         return $result;

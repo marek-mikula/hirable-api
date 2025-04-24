@@ -40,13 +40,13 @@ class CompanyUpdateRequest extends AuthRequest
                 ]),
             ],
             'name' => [
-                new ExcludeIf(! in_array('name', $keys)),
+                new ExcludeIf(!in_array('name', $keys)),
                 'required',
                 'string',
                 'max:255',
             ],
             'email' => [
-                new ExcludeIf(! in_array('email', $keys)),
+                new ExcludeIf(!in_array('email', $keys)),
                 'required',
                 'string',
                 'max:255',
@@ -54,14 +54,14 @@ class CompanyUpdateRequest extends AuthRequest
                 (new Unique(Company::class, 'email'))->ignore($user->company_id),
             ],
             'idNumber' => [
-                new ExcludeIf(! in_array('idNumber', $keys)),
+                new ExcludeIf(!in_array('idNumber', $keys)),
                 'required',
                 'string',
                 'max:255',
                 (new Unique(Company::class, 'id_number'))->ignore($user->company_id),
             ],
             'website' => [
-                new ExcludeIf(! in_array('website', $keys)),
+                new ExcludeIf(!in_array('website', $keys)),
                 'nullable',
                 'string',
                 'url',

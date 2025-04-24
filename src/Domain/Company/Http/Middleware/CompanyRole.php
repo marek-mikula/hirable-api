@@ -28,7 +28,7 @@ final class CompanyRole
 
         $hasAnyRole = $roles->some(static fn (RoleEnum $role) => $user->company_role === $role);
 
-        if (! $hasAnyRole) {
+        if (!$hasAnyRole) {
             throw new HttpException(responseCode: ResponseCodeEnum::UNAUTHORIZED, data: [
                 'roles' => $roles->pluck('value')->all(),
             ]);

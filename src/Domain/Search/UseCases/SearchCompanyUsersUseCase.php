@@ -22,7 +22,7 @@ class SearchCompanyUsersUseCase extends UseCase
             ->select(['id', 'firstname', 'lastname'])
             ->when($data->hasQuery(), function (Builder $query) use ($data): void {
                 $query->where(function (Builder $query) use ($data): void {
-                    if (! empty($numericItems = $data->getNumericItems())) {
+                    if (!empty($numericItems = $data->getNumericItems())) {
                         $query->whereIn('id', $numericItems);
                     }
 

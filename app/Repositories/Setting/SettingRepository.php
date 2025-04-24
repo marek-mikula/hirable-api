@@ -24,7 +24,7 @@ class SettingRepository implements SettingRepositoryInterface
     {
         $model = $this->find($user, $key);
 
-        if (! $model) {
+        if (!$model) {
             $model = new Setting();
             $model->key = $key;
             $model->user_id = $user->id;
@@ -37,13 +37,13 @@ class SettingRepository implements SettingRepositoryInterface
 
     public function save(Setting $setting): Setting
     {
-        throw_if(! $setting->save(), RepositoryException::saved(Setting::class));
+        throw_if(!$setting->save(), RepositoryException::saved(Setting::class));
 
         return $setting;
     }
 
     public function delete(Setting $setting): void
     {
-        throw_if(! $setting->delete(), RepositoryException::deleted(Setting::class));
+        throw_if(!$setting->delete(), RepositoryException::deleted(Setting::class));
     }
 }

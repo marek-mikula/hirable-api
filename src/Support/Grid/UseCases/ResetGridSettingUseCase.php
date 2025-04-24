@@ -20,7 +20,7 @@ class ResetGridSettingUseCase extends UseCase
     {
         $setting = $this->settingRepository->find($user, $grid->getSettingKey());
 
-        if (! $setting) {
+        if (!$setting) {
             return;
         }
 
@@ -36,7 +36,7 @@ class ResetGridSettingUseCase extends UseCase
 
         // there was no data to save, used had no query
         // string saved, so we can safely delete the row
-        if (! $setting->hasData()) {
+        if (!$setting->hasData()) {
             $this->settingRepository->delete($setting);
 
             return;

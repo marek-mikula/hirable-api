@@ -31,12 +31,12 @@ class RegisterUseCase extends UseCase
     public function handle(Token $token, RegisterData $data): User
     {
         throw_if(
-            condition: ! $token->hasDataValue('email') || $token->type !== TokenTypeEnum::REGISTRATION,
+            condition: !$token->hasDataValue('email') || $token->type !== TokenTypeEnum::REGISTRATION,
             exception: new HttpException(responseCode: ResponseCodeEnum::TOKEN_INVALID)
         );
 
         throw_if(
-            condition: ! $data->company,
+            condition: !$data->company,
             exception: new \Exception('Basic registration needs company data.')
         );
 

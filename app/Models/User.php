@@ -123,7 +123,7 @@ class User extends Authenticatable
 
     protected function isEmailVerified(): Attribute
     {
-        return Attribute::get(fn (): bool => ! empty($this->email_verified_at));
+        return Attribute::get(fn (): bool => !empty($this->email_verified_at));
     }
 
     protected function fullName(): Attribute
@@ -131,11 +131,11 @@ class User extends Authenticatable
         return Attribute::get(function (): string {
             $name = sprintf('%s %s', $this->firstname, $this->lastname);
 
-            if (! empty($this->prefix)) {
+            if (!empty($this->prefix)) {
                 $name = sprintf('%s %s', $this->prefix, $name);
             }
 
-            if (! empty($this->postfix)) {
+            if (!empty($this->postfix)) {
                 $name = sprintf('%s %s', $name, $this->postfix);
             }
 

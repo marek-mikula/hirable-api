@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $this->bootApiRateLimiter();
 
         // disable lazy loading on non-prod servers
-        Model::preventLazyLoading(! isEnv(EnvEnum::PRODUCTION));
+        Model::preventLazyLoading(!isEnv(EnvEnum::PRODUCTION));
     }
 
     private function bootApiRateLimiter(): void

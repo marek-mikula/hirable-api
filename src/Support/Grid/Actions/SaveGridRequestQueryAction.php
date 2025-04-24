@@ -30,7 +30,7 @@ class SaveGridRequestQueryAction extends Action
 
         $query = GetGridQueryUseCase::make()->handle($user, $definition, $mappedSetting);
 
-        if (! $this->hasQueryChanged($requestQuery, $query)) {
+        if (!$this->hasQueryChanged($requestQuery, $query)) {
             return;
         }
 
@@ -42,17 +42,17 @@ class SaveGridRequestQueryAction extends Action
             $columnDefinition = $definition->getColumn($key);
 
             // column was probably removed from the definition => skip
-            if (! $columnDefinition) {
+            if (!$columnDefinition) {
                 continue;
             }
 
             // column does not allow sort => skip
-            if (! $columnDefinition->allowSort) {
+            if (!$columnDefinition->allowSort) {
                 continue;
             }
 
             // column is disabled => skip
-            if (! $columnDefinition->enabled) {
+            if (!$columnDefinition->enabled) {
                 continue;
             }
 
@@ -73,13 +73,13 @@ class SaveGridRequestQueryAction extends Action
         }
 
         foreach ($requestQuery->sort as $key => $order) {
-            if (! array_key_exists($key, $query->sort) || $requestQuery->sort[$key] !== $query->sort[$key]) {
+            if (!array_key_exists($key, $query->sort) || $requestQuery->sort[$key] !== $query->sort[$key]) {
                 return true;
             }
         }
 
         foreach ($query->sort as $key => $order) {
-            if (! array_key_exists($key, $requestQuery->sort) || $query->sort[$key] !== $requestQuery->sort[$key]) {
+            if (!array_key_exists($key, $requestQuery->sort) || $query->sort[$key] !== $requestQuery->sort[$key]) {
                 return true;
             }
         }

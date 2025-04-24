@@ -28,13 +28,13 @@ class SetColumnWidthUseCase extends UseCase
 
         // grid does not allow user
         // to change the settings
-        if (! $definition->allowSettings) {
+        if (!$definition->allowSettings) {
             return;
         }
 
         $column = $definition->getColumn($data->key);
 
-        if (! $column) {
+        if (!$column) {
             throw new \Exception(sprintf('Undefined grid column %s.', $data->key));
         }
 

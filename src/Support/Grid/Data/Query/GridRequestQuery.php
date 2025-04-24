@@ -19,12 +19,12 @@ class GridRequestQuery extends Data
 
     public function hasSearchQuery(): bool
     {
-        return ! empty($this->searchQuery);
+        return !empty($this->searchQuery);
     }
 
     public function hasSort(): bool
     {
-        return ! empty($this->sort);
+        return !empty($this->sort);
     }
 
     public function hasSortKey(string $key): bool

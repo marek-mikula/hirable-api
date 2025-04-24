@@ -74,12 +74,12 @@ class Token extends Model
 
     protected function isExpired(): Attribute
     {
-        return Attribute::get(fn (): bool => ! $this->valid_until->isFuture());
+        return Attribute::get(fn (): bool => !$this->valid_until->isFuture());
     }
 
     protected function isUsed(): Attribute
     {
-        return Attribute::get(fn (): bool => ! empty($this->used_at));
+        return Attribute::get(fn (): bool => !empty($this->used_at));
     }
 
     public function user(): BelongsTo

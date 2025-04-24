@@ -15,7 +15,7 @@ class SupportServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        if (! isEnv(EnvEnum::PRODUCTION, EnvEnum::TESTING)) {
+        if (!isEnv(EnvEnum::PRODUCTION, EnvEnum::TESTING)) {
             $this->app->register(NotificationPreviewServiceProvider::class);
         }
 

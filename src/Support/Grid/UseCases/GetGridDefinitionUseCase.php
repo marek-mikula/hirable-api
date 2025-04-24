@@ -23,11 +23,11 @@ class GetGridDefinitionUseCase extends UseCase
 
         // grid does not allow user
         // to change the settings
-        if (! $definition->allowSettings) {
+        if (!$definition->allowSettings) {
             return $definition;
         }
 
-        if (! $setting) {
+        if (!$setting) {
             return $definition;
         }
 
@@ -50,7 +50,7 @@ class GetGridDefinitionUseCase extends UseCase
 
         $this->mergeColumns($definition, $setting->columns);
 
-        if (! empty($setting->order)) {
+        if (!empty($setting->order)) {
             $this->orderColumns($definition, $setting->order);
         }
 
@@ -66,7 +66,7 @@ class GetGridDefinitionUseCase extends UseCase
             $columnDefinition = $definition->getColumn($key);
 
             // column was probably removed from the definition => skip
-            if (! $columnDefinition) {
+            if (!$columnDefinition) {
                 continue;
             }
 
@@ -90,7 +90,7 @@ class GetGridDefinitionUseCase extends UseCase
         // new columns were probably added and user
         // had some order saved from the past
         if (count($order) !== count($definition->columns)) {
-            $missingColumns = Arr::where($definition->columns, static fn (GridColumnDefinition $column) => ! in_array($column->key, $order));
+            $missingColumns = Arr::where($definition->columns, static fn (GridColumnDefinition $column) => !in_array($column->key, $order));
         }
 
         if (empty($missingColumns)) {

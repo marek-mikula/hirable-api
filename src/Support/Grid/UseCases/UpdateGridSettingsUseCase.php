@@ -28,7 +28,7 @@ class UpdateGridSettingsUseCase extends UseCase
 
         // grid does not allow user
         // to change the settings
-        if (! $definition->allowSettings) {
+        if (!$definition->allowSettings) {
             return null;
         }
 
@@ -47,14 +47,14 @@ class UpdateGridSettingsUseCase extends UseCase
 
             // filter columns from user, so we
             // don't save any invalid columns
-            if (! $columnDefinition) {
+            if (!$columnDefinition) {
                 continue;
             }
 
             $order[] = $column->key;
 
             // this column cannot be toggled
-            if (! $columnDefinition->allowToggle) {
+            if (!$columnDefinition->allowToggle) {
                 continue;
             }
 

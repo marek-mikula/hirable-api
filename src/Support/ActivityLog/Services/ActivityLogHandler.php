@@ -19,7 +19,7 @@ class ActivityLogHandler
 
     public function handleCreated(LogOptions $options, Model $model): void
     {
-        if (! $this->manager->isEnabled()) {
+        if (!$this->manager->isEnabled()) {
             return;
         }
 
@@ -28,7 +28,7 @@ class ActivityLogHandler
         $data = $model->toArray();
 
         foreach (array_keys($data) as $attribute) {
-            if (! in_array($attribute, $allowedAttributes)) {
+            if (!in_array($attribute, $allowedAttributes)) {
                 Arr::forget($data, $attribute);
             }
         }
@@ -41,7 +41,7 @@ class ActivityLogHandler
 
     public function handleUpdated(LogOptions $options, Model $model): void
     {
-        if (! $this->manager->isEnabled()) {
+        if (!$this->manager->isEnabled()) {
             return;
         }
 
@@ -50,7 +50,7 @@ class ActivityLogHandler
         $data = [];
 
         foreach ($model->getChanges() as $attribute => $value) {
-            if (! in_array($attribute, $allowedAttributes)) {
+            if (!in_array($attribute, $allowedAttributes)) {
                 continue;
             }
 
@@ -60,7 +60,7 @@ class ActivityLogHandler
             ];
         }
 
-        if (! $options->shouldLogEmptyUpdates() && empty($data)) {
+        if (!$options->shouldLogEmptyUpdates() && empty($data)) {
             return;
         }
 
@@ -72,7 +72,7 @@ class ActivityLogHandler
 
     public function handleDeleted(LogOptions $options, Model $model, bool $force = false): void
     {
-        if (! $this->manager->isEnabled()) {
+        if (!$this->manager->isEnabled()) {
             return;
         }
 
@@ -82,7 +82,7 @@ class ActivityLogHandler
         // Laravel also triggers `deleted` event
         // => do not log this event, log only
         // force deleted event
-        if ($usesSoftDeletes && ! $force && $model->isForceDeleting()) {
+        if ($usesSoftDeletes && !$force && $model->isForceDeleting()) {
             return;
         }
 
@@ -102,7 +102,7 @@ class ActivityLogHandler
 
     public function handleRestored(LogOptions $options, Model $model): void
     {
-        if (! $this->manager->isEnabled()) {
+        if (!$this->manager->isEnabled()) {
             return;
         }
 

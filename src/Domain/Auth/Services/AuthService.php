@@ -22,12 +22,12 @@ class AuthService
         $user = $this->userRepository->findByEmail($data->email);
 
         // user not found or passwords do not match
-        if (! $user || ! Hash::check($data->password, $user->password)) {
+        if (!$user || !Hash::check($data->password, $user->password)) {
             throw new HttpException(responseCode: ResponseCodeEnum::INVALID_CREDENTIALS);
         }
 
         // user needs to verify his email
-        if (! $user->is_email_verified) {
+        if (!$user->is_email_verified) {
             throw new HttpException(responseCode: ResponseCodeEnum::EMAIL_VERIFICATION_NEEDED);
         }
 

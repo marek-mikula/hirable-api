@@ -18,7 +18,7 @@ class GetGridQueryUseCase extends UseCase
             'sort' => [],
         ]);
 
-        if (! $setting) {
+        if (!$setting) {
             return $query;
         }
 
@@ -37,17 +37,17 @@ class GetGridQueryUseCase extends UseCase
             $columnDefinition = $definition->getColumn($key);
 
             // column was probably removed from the definition => skip
-            if (! $columnDefinition) {
+            if (!$columnDefinition) {
                 continue;
             }
 
             // column does not allow sort => skip
-            if (! $columnDefinition->allowSort) {
+            if (!$columnDefinition->allowSort) {
                 continue;
             }
 
             // column is disabled => skip
-            if (! $columnDefinition->enabled) {
+            if (!$columnDefinition->enabled) {
                 continue;
             }
 

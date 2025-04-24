@@ -29,7 +29,7 @@ final class UserRepository implements UserRepositoryInterface
         $user->agreement_accepted_at = $input->agreementAcceptedAt;
         $user->email_verified_at = $input->emailVerifiedAt;
 
-        throw_if(! $user->save(), RepositoryException::stored(User::class));
+        throw_if(!$user->save(), RepositoryException::stored(User::class));
 
         $user->setRelation('company', $input->company);
 
@@ -53,7 +53,7 @@ final class UserRepository implements UserRepositoryInterface
         $user->postfix = $input->postfix;
         $user->phone = $input->phone;
 
-        throw_if(! $user->save(), RepositoryException::updated(User::class));
+        throw_if(!$user->save(), RepositoryException::updated(User::class));
 
         return $user;
     }
@@ -62,7 +62,7 @@ final class UserRepository implements UserRepositoryInterface
     {
         $user->email_verified_at = $timestamp ?? now();
 
-        throw_if(! $user->save(), RepositoryException::updated(User::class));
+        throw_if(!$user->save(), RepositoryException::updated(User::class));
 
         return $user;
     }
@@ -71,7 +71,7 @@ final class UserRepository implements UserRepositoryInterface
     {
         $user->password = $password;
 
-        throw_if(! $user->save(), RepositoryException::updated(User::class));
+        throw_if(!$user->save(), RepositoryException::updated(User::class));
 
         return $user;
     }

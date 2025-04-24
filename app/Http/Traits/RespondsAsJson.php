@@ -15,11 +15,11 @@ trait RespondsAsJson
     ): JsonResponse {
         $content = ['code' => $code->name];
 
-        if (! empty($message)) {
+        if (!empty($message)) {
             $content['message'] = $message;
         }
 
-        if (! empty($data)) {
+        if (!empty($data)) {
             $content['data'] = $data;
         }
 

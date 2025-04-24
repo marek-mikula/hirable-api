@@ -59,15 +59,15 @@ class GridSettingMapper implements SettingMapper
             ->filter(fn (GridColumnSetting $column) => $column->enabled !== null || $column->width !== null)
             ->all();
 
-        if (! empty($data->columns)) {
+        if (!empty($data->columns)) {
             $keepKeys[] = 'columns';
         }
 
-        if (! empty($data->searchQuery)) {
+        if (!empty($data->searchQuery)) {
             $keepKeys[] = 'searchQuery';
         }
 
-        if (! empty($data->sort)) {
+        if (!empty($data->sort)) {
             $keepKeys[] = 'sort';
         }
 

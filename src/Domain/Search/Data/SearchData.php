@@ -12,12 +12,12 @@ class SearchData extends Data
 
     public function hasQuery(): bool
     {
-        return ! empty($this->query);
+        return !empty($this->query);
     }
 
     public function getFulltextQuery(): ?string
     {
-        if (! $this->hasQuery()) {
+        if (!$this->hasQuery()) {
             return null;
         }
 
@@ -30,7 +30,7 @@ class SearchData extends Data
 
     public function getNumericItems(): array
     {
-        if (! $this->hasQuery()) {
+        if (!$this->hasQuery()) {
             return [];
         }
 

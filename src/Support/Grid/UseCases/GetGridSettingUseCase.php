@@ -21,7 +21,7 @@ class GetGridSettingUseCase extends UseCase
     {
         $setting = $this->settingRepository->find($user, $grid->getSettingKey());
 
-        if (! $setting) {
+        if (!$setting) {
             return null;
         }
 

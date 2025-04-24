@@ -25,7 +25,7 @@ class VerifyEmailUseCase extends UseCase
         $token->loadMissing('user');
 
         throw_if(
-            condition: ! $token->user,
+            condition: !$token->user,
             exception: new HttpException(responseCode: ResponseCodeEnum::TOKEN_INVALID)
         );
 

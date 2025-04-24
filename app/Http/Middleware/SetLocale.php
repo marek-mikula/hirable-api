@@ -18,7 +18,7 @@ final class SetLocale
 
         $locale = LanguageEnum::tryFrom($locale);
 
-        if (! $locale) {
+        if (!$locale) {
             $locale = LanguageEnum::from((string) config('app.locale'));
         }
 

@@ -27,7 +27,7 @@ class NotificationPreviewController extends WebController
         /** @var NotificationData|null $notification */
         $notification = $domain?->notifications?->first();
 
-        abort_if(! $notification, code: 404, message: 'There are no notifications for preview!');
+        abort_if(!$notification, code: 404, message: 'There are no notifications for preview!');
 
         // redirect to detail of the first notification
         return redirect()->route('notification_preview.show', ['type' => $notification->getType()->value]);
@@ -39,7 +39,7 @@ class NotificationPreviewController extends WebController
 
         $notification = $this->findNotification($notifications, $type);
 
-        abort_if(! $notification, code: 404, message: 'Notification not found!');
+        abort_if(!$notification, code: 404, message: 'Notification not found!');
 
         return view('notifications-preview::preview', [
             'notifications' => $notifications,
@@ -54,13 +54,13 @@ class NotificationPreviewController extends WebController
         // decode passed base64 html code for preview
         // to include generated data from outside the
         // iframe when previewing the mail
-        if (! empty($html)) {
+        if (!empty($html)) {
             return base64_decode($html);
         }
 
         $notification = $this->findNotification($this->notificationRegistrar->getNotifications(), $type);
 
-        abort_if(! $notification, code: 404, message: 'Notification not found!');
+        abort_if(!$notification, code: 404, message: 'Notification not found!');
 
         return $notification->getMail()->mailable;
     }

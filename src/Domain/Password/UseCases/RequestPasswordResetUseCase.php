@@ -23,13 +23,13 @@ class RequestPasswordResetUseCase extends UseCase
     {
         $user = $this->userRepository->findByEmail($email);
 
-        if (! $user) {
+        if (!$user) {
             return;
         }
 
         $throttleMinutes = config('token.throttle.reset_password');
 
-        if (! empty($throttleMinutes)) {
+        if (!empty($throttleMinutes)) {
             $nextPossibleAt = now()->subMinutes((int) $throttleMinutes);
 
             $existingToken = $this->tokenRepository->findLatestByTypeAndUser(TokenTypeEnum::RESET_PASSWORD, $user);
@@ -37,7 +37,7 @@ class RequestPasswordResetUseCase extends UseCase
             // user requested the reset password for this
             // email not even that long ago => deny sending
             // another request
-            if ($existingToken && ! $existingToken->is_expired && $existingToken->created_at->gt($nextPossibleAt)) {
+            if ($existingToken && !$existingToken->is_expired && $existingToken->created_at->gt($nextPossibleAt)) {
                 throw new HttpException(responseCode: ResponseCodeEnum::RESET_ALREADY_REQUESTED, data: [
                     'retryInMinutes' => ceil($existingToken->created_at->diffInMinutes($nextPossibleAt, absolute: true)),
                 ]);

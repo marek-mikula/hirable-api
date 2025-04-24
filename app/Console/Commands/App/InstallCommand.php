@@ -28,7 +28,7 @@ class InstallCommand extends Command
         $this->clearStorage();
 
         // link storage folder
-        if (! $this->isStorageLinked()) {
+        if (!$this->isStorageLinked()) {
             $this->call('storage:link');
         }
 

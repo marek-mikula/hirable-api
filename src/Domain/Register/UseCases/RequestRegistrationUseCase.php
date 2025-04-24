@@ -23,7 +23,7 @@ class RequestRegistrationUseCase extends UseCase
     {
         $throttleMinutes = config('token.throttle.registration');
 
-        if (! empty($throttleMinutes)) {
+        if (!empty($throttleMinutes)) {
             $nextPossibleAt = now()->subMinutes((int) $throttleMinutes);
 
             $existingToken = $this->tokenRepository->findLatestByTypeAndEmail(TokenTypeEnum::REGISTRATION, $email);
@@ -31,7 +31,7 @@ class RequestRegistrationUseCase extends UseCase
             // user requested the registration for this
             // email not even that long ago => deny sending
             // another request
-            if ($existingToken && ! $existingToken->is_expired && $existingToken->created_at->gt($nextPossibleAt)) {
+            if ($existingToken && !$existingToken->is_expired && $existingToken->created_at->gt($nextPossibleAt)) {
                 throw new HttpException(responseCode: ResponseCodeEnum::REGISTRATION_ALREADY_REQUESTED, data: [
                     'retryInMinutes' => ceil($existingToken->created_at->diffInMinutes($nextPossibleAt, absolute: true)),
                 ]);

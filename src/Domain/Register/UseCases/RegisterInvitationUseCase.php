@@ -31,14 +31,14 @@ class RegisterInvitationUseCase extends UseCase
     public function handle(Token $token, RegisterData $data): User
     {
         throw_if(
-            condition: ! $token->hasDataValue('email', 'role', 'companyId') || ! $token->user_id || $token->type !== TokenTypeEnum::INVITATION,
+            condition: !$token->hasDataValue('email', 'role', 'companyId') || !$token->user_id || $token->type !== TokenTypeEnum::INVITATION,
             exception: new HttpException(responseCode: ResponseCodeEnum::TOKEN_INVALID)
         );
 
         $company = $this->companyRepository->find((int) $token->getDataValue('companyId'));
 
         throw_if(
-            condition: ! $company,
+            condition: !$company,
             exception: new HttpException(responseCode: ResponseCodeEnum::TOKEN_INVALID)
         );
 

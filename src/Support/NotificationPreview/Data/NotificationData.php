@@ -87,7 +87,7 @@ class NotificationData extends Data
 
     public function getDatabase(): array
     {
-        throw_if(! $this->hasChannel('database'), new \Exception(sprintf('Notification %s does not support database channel.', $this->getNotificationClass())));
+        throw_if(!$this->hasChannel('database'), new \Exception(sprintf('Notification %s does not support database channel.', $this->getNotificationClass())));
 
         $notifiable = $this->getNotifiable();
 
@@ -103,7 +103,7 @@ class NotificationData extends Data
 
     public function getMail(): NotificationMailData
     {
-        throw_if(! $this->hasChannel('mail'), new \Exception(sprintf('Notification %s does not support mail channel.', $this->getNotificationClass())));
+        throw_if(!$this->hasChannel('mail'), new \Exception(sprintf('Notification %s does not support mail channel.', $this->getNotificationClass())));
 
         $notifiable = $this->getNotifiable();
 

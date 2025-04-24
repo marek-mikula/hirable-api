@@ -22,7 +22,7 @@ final class FileRepository implements FileRepositoryInterface
         $file->size = $input->size;
         $file->data = $input->data;
 
-        throw_if(! $file->save(), RepositoryException::stored(File::class));
+        throw_if(!$file->save(), RepositoryException::stored(File::class));
 
         $file->setRelation('fileable', $input->fileable);
 
@@ -31,7 +31,7 @@ final class FileRepository implements FileRepositoryInterface
 
     public function save(File $file): File
     {
-        throw_if(! $file->save(), RepositoryException::saved(File::class));
+        throw_if(!$file->save(), RepositoryException::saved(File::class));
 
         return $file;
     }
@@ -39,9 +39,9 @@ final class FileRepository implements FileRepositoryInterface
     public function delete(File $file, bool $force = false): File
     {
         if ($force) {
-            throw_if(! $file->forceDelete(), RepositoryException::forceDeleted(File::class));
+            throw_if(!$file->forceDelete(), RepositoryException::forceDeleted(File::class));
         } else {
-            throw_if(! $file->delete(), RepositoryException::deleted(File::class));
+            throw_if(!$file->delete(), RepositoryException::deleted(File::class));
         }
 
         return $file;

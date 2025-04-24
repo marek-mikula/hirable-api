@@ -27,7 +27,7 @@ final class CompanyRepository implements CompanyRepositoryInterface
         $company->id_number = $input->idNumber;
         $company->website = $input->website;
 
-        throw_if(! $company->save(), RepositoryException::stored(Company::class));
+        throw_if(!$company->save(), RepositoryException::stored(Company::class));
 
         return $company;
     }
@@ -39,7 +39,7 @@ final class CompanyRepository implements CompanyRepositoryInterface
         $company->id_number = $input->idNumber;
         $company->website = $input->website;
 
-        throw_if(! $company->save(), RepositoryException::updated(Company::class));
+        throw_if(!$company->save(), RepositoryException::updated(Company::class));
 
         return $company;
     }

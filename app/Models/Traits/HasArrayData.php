@@ -12,7 +12,7 @@ trait HasArrayData
     public function hasDataValue(string ...$keys): bool
     {
         foreach ($keys as $key) {
-            if (! Arr::exists($this->data, $key)) {
+            if (!Arr::exists($this->data, $key)) {
                 return false;
             }
         }
@@ -56,6 +56,6 @@ trait HasArrayData
 
     public function hasData(): bool
     {
-        return ! empty($this->data);
+        return !empty($this->data);
     }
 }

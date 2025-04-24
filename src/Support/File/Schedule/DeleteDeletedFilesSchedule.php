@@ -10,7 +10,7 @@ class DeleteDeletedFilesSchedule extends Schedule
 {
     public function __invoke(): void
     {
-        if (! $this->shouldRun()) {
+        if (!$this->shouldRun()) {
             return;
         }
 
