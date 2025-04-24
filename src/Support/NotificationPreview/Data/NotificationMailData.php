@@ -65,7 +65,7 @@ class NotificationMailData extends Data
             $email = empty($address->address) ? 'EMPTY EMAIL' : $address->address;
             $name = empty($address->name) ? 'EMPTY NAME' : (string) $address->name;
 
-            return "{$email}<{$name}>";
+            return sprintf('%s<%s>', $email, $name);
         });
 
         if ($addresses->isNotEmpty()) {

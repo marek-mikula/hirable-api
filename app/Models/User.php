@@ -129,14 +129,14 @@ class User extends Authenticatable
     protected function fullName(): Attribute
     {
         return Attribute::get(function (): string {
-            $name = "{$this->firstname} {$this->lastname}";
+            $name = sprintf('%s %s', $this->firstname, $this->lastname);
 
             if (! empty($this->prefix)) {
-                $name = "{$this->prefix} {$name}";
+                $name = sprintf('%s %s', $this->prefix, $name);
             }
 
             if (! empty($this->postfix)) {
-                $name = "{$name}, {$this->postfix}";
+                $name = sprintf('%s %s', $name, $this->postfix);
             }
 
             return $name;

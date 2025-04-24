@@ -17,7 +17,7 @@ final class TokenRepository implements TokenRepositoryInterface
 
         // use either explicitly set valid minutes
         // or use the default value from config
-        $validMinutes = $input->validMinutes ?: (int) config("token.validity.{$input->type->value}");
+        $validMinutes = $input->validMinutes ?: (int) config(sprintf('token.validity.%s', $input->type->value));
 
         throw_if($validMinutes <= 0, new \InvalidArgumentException('Validity time for token cannot be less than 0.'));
 

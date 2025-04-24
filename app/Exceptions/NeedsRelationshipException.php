@@ -15,11 +15,12 @@ class NeedsRelationshipException extends \Exception
      */
     public function __construct(string $resource, string $model, string|array $relationships)
     {
-        $message = vsprintf('Model %s needs to have loaded relationships (%s) in %s.', [
+        $message = sprintf(
+            'Model %s needs to have loaded relationships (%s) in %s.',
             $model,
             collect(Arr::wrap($relationships))->implode(', '),
-            $resource,
-        ]);
+            $resource
+        );
 
         parent::__construct(message: $message);
     }

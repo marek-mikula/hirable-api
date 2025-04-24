@@ -35,7 +35,7 @@ class SetColumnWidthUseCase extends UseCase
         $column = $definition->getColumn($data->key);
 
         if (! $column) {
-            throw new \Exception("Undefined grid column {$data->key}.");
+            throw new \Exception(sprintf('Undefined grid column %s.', $data->key));
         }
 
         $setting = $this->settingRepository->findOrNew($user, $grid->getSettingKey());

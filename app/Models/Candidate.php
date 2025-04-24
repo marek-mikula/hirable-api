@@ -48,7 +48,7 @@ class Candidate extends Model
 
     protected function fullName(): Attribute
     {
-        return Attribute::get(fn (): string => "{$this->firstname} {$this->lastname}");
+        return Attribute::get(fn (): string => sprintf('%s %s', $this->firstname, $this->lastname));
     }
 
     /**

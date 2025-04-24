@@ -46,7 +46,7 @@ class InstallCommand extends Command
 
         // clean all previous files in storage
         foreach (FileDomainEnum::cases() as $domain) {
-            $this->components->task("Clearing {$domain->getDisk()} disk", function () use ($domain): void {
+            $this->components->task(sprintf('Clearing %s disk', $domain->getDisk()), function () use ($domain): void {
                 $storage = Storage::disk($domain->getDisk());
 
                 foreach ($storage->directories('/') as $directory) {

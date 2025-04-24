@@ -20,6 +20,6 @@ class GetModelSubFoldersAction extends Action
         $from = ($k * $step) + 1;
         $to = ($k + 1) * $step;
 
-        return ["{$from}-{$to}", (string) $id, ...$folders];
+        return [sprintf('%s-%s', $from, $to), (string) $id, ...$folders];
     }
 }

@@ -38,7 +38,7 @@ class SearchCompanyUsersUseCase extends UseCase
             ->get()
             ->map(static fn (User $item) => ResultData::from([
                 'value' => $item->id,
-                'label' => $item->is($user) ? "{$item->full_name} (".__('common.you').')' : $item->full_name,
+                'label' => $item->is($user) ? sprintf('%s (%s)', $item->full_name, __('common.you')) : $item->full_name,
             ]));
     }
 }

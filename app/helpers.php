@@ -29,7 +29,7 @@ if (! function_exists('frontendLink')) {
         $frontEndUrl = (string) config('app.frontend_url');
 
         return collect($params)->reduce(function (string $url, mixed $value, string $param): string {
-            return Str::replace("{{$param}}", (string) $value, $url);
+            return Str::replace(sprintf('{%s}', $param), (string) $value, $url);
         }, buildUrl([$frontEndUrl, $uri]));
     }
 }
@@ -64,7 +64,7 @@ if (! function_exists('__n')) {
         array $replace = [],
         ?string $locale = null
     ): array|string {
-        return __("notifications.{$type->value}.{$channel}.{$key}", $replace, $locale);
+        return __(sprintf('notifications.%s.%s.%s', $type->value, $channel, $key), $replace, $locale);
     }
 }
 
@@ -99,6 +99,6 @@ if (! function_exists('usesSoftDeletes')) {
 if (! function_exists('injectClosure')) {
     function injectClosure(callable $closure): callable
     {
-        return fn() => app()->call($closure);
+        return fn () => app()->call($closure);
     }
 }

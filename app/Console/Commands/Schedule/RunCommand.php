@@ -21,14 +21,14 @@ class RunCommand extends Command
         /** @var Event $event */
         $event = $events->first(static fn (Event $event) => $event->description === $selectedEvent);
 
-        if (! $this->confirm("Are you sure you want to run the \"{$event->description}\" schedule?", true)) {
+        if (! $this->confirm(sprintf('Are you sure you want to run the "%s" schedule?', $event->description), true)) {
             return 0;
         }
 
         try {
             $event->run(app());
         } catch (\Exception $e) {
-            $this->error("Schedule failed with message \"{$e->getMessage()}\".");
+            $this->error(sprintf('Schedule failed with message "%s".', $e->getMessage()));
 
             return 1;
         }
