@@ -16,7 +16,8 @@ class RequestRegistrationUseCase extends UseCase
 {
     public function __construct(
         private readonly TokenRepositoryInterface $tokenRepository,
-    ) {}
+    ) {
+    }
 
     public function handle(string $email): void
     {

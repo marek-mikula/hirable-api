@@ -16,7 +16,8 @@ class NotificationPreviewController extends WebController
 {
     public function __construct(
         private readonly NotificationRegistrar $notificationRegistrar,
-    ) {}
+    ) {
+    }
 
     public function index(): RedirectResponse
     {

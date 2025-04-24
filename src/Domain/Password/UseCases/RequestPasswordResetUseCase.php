@@ -16,7 +16,8 @@ class RequestPasswordResetUseCase extends UseCase
     public function __construct(
         private readonly TokenRepositoryInterface $tokenRepository,
         private readonly UserRepositoryInterface $userRepository,
-    ) {}
+    ) {
+    }
 
     public function handle(string $email): void
     {

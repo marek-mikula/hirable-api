@@ -10,7 +10,9 @@ use Support\ActivityLog\Jobs\SaveActivityLogsJob;
 
 class ActivityLogSaver
 {
-    public function __construct(private readonly ActivityLogManager $manager) {}
+    public function __construct(private readonly ActivityLogManager $manager)
+    {
+    }
 
     public function save(array $logs, bool $forceSync = false): void
     {

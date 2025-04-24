@@ -25,7 +25,8 @@ class RegisterInvitationUseCase extends UseCase
         private readonly CompanyRepositoryInterface $companyRepository,
         private readonly TokenRepositoryInterface $tokenRepository,
         private readonly UserRepositoryInterface $userRepository,
-    ) {}
+    ) {
+    }
 
     public function handle(Token $token, RegisterData $data): User
     {

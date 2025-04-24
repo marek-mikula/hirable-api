@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 class FileRemover
 {
-    public function __construct(private readonly FileRepositoryInterface $fileRepository) {}
+    public function __construct(private readonly FileRepositoryInterface $fileRepository)
+    {
+    }
 
     /**
      * @param  File[]  $files

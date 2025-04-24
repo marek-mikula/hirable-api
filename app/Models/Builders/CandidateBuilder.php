@@ -2,4 +2,6 @@
 
 namespace App\Models\Builders;
 
-class CandidateBuilder extends Builder {}
+class CandidateBuilder extends Builder
+{
+}

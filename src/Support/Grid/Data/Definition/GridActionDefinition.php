@@ -10,5 +10,6 @@ class GridActionDefinition extends Data
         public string $key,
         public string $label,
         public bool $needsRefresh,
-    ) {}
+    ) {
+    }
 }

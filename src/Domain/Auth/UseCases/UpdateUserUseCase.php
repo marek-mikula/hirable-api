@@ -15,7 +15,8 @@ class UpdateUserUseCase extends UseCase
 {
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,
-    ) {}
+    ) {
+    }
 
     public function handle(User $user, array $values): User
     {

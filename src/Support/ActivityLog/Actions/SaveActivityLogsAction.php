@@ -11,7 +11,8 @@ class SaveActivityLogsAction extends Action
     public function __construct(
         private readonly ActivityLogManager $manager,
         private readonly ActivityLogSaver $saver,
-    ) {}
+    ) {
+    }
 
     public function handle(): void
     {

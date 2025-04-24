@@ -14,7 +14,8 @@ class AuthService
 {
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,
-    ) {}
+    ) {
+    }
 
     public function login(LoginData $data): User
     {

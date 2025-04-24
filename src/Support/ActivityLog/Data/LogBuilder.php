@@ -16,7 +16,8 @@ class LogBuilder
     private function __construct(
         private readonly Model $subject,
         private readonly string $action,
-    ) {}
+    ) {
+    }
 
     public static function create(Model $subject, string $action): static
     {

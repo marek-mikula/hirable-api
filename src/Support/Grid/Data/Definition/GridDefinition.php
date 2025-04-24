@@ -24,7 +24,8 @@ class GridDefinition extends Data
         public PerPageEnum $perPage = PerPageEnum::HUNDRED,
         public bool $stickyHeader = true,
         public bool $stickyFooter = true,
-    ) {}
+    ) {
+    }
 
     public function getColumn(string $key): ?GridColumnDefinition
     {

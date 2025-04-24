@@ -9,5 +9,6 @@ class ValidationData
         public array $invalidInputs,
         public ?\Closure $before = null,
         public ?\Closure $after = null,
-    ) {}
+    ) {
+    }
 }

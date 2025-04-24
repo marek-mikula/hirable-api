@@ -12,7 +12,8 @@ class UpdateCompanyUseCase extends UseCase
 {
     public function __construct(
         private readonly CompanyRepositoryInterface $companyRepository,
-    ) {}
+    ) {
+    }
 
     public function handle(User $user, array $values): Company
     {

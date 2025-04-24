@@ -8,7 +8,9 @@ use Support\ActivityLog\Data\LogOptions;
 
 class ActivityLogHandler
 {
-    public function __construct(private readonly ActivityLogManager $manager) {}
+    public function __construct(private readonly ActivityLogManager $manager)
+    {
+    }
 
     public static function instance(): static
     {

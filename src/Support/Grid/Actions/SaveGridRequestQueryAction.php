@@ -17,7 +17,8 @@ class SaveGridRequestQueryAction extends Action
     public function __construct(
         private readonly SettingRepositoryInterface $settingRepository,
         private readonly GridSettingMapper $mapper,
-    ) {}
+    ) {
+    }
 
     public function handle(User $user, GridEnum $grid, GridRequestQuery $requestQuery): void
     {

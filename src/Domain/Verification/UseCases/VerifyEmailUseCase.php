@@ -17,7 +17,8 @@ class VerifyEmailUseCase extends UseCase
     public function __construct(
         private readonly TokenRepositoryInterface $tokenRepository,
         private readonly UserRepositoryInterface $userRepository,
-    ) {}
+    ) {
+    }
 
     public function handle(Token $token): User
     {

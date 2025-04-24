@@ -26,7 +26,8 @@ class TokenMiddleware
     public function __construct(
         private readonly TokenRepositoryInterface $tokenRepository,
         private readonly TokenResolver $tokenResolver,
-    ) {}
+    ) {
+    }
 
     /**
      * @throws HttpException

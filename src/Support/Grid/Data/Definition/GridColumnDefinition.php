@@ -25,5 +25,6 @@ class GridColumnDefinition extends Data
         public ?int $maxWidth = null,
         public bool $allowToggle = true,
         public bool $allowSort = true,
-    ) {}
+    ) {
+    }
 }

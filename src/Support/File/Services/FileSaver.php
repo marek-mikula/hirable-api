@@ -16,7 +16,9 @@ use Support\File\Exceptions\UnableToSaveFileException;
 
 class FileSaver
 {
-    public function __construct(private readonly FileRepositoryInterface $fileRepository) {}
+    public function __construct(private readonly FileRepositoryInterface $fileRepository)
+    {
+    }
 
     /**
      * Saves given files to the local storage with given type and sub-folder
