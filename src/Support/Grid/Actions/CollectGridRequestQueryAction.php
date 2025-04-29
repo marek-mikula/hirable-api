@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Grid\Actions;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Request;
 use Lorisleiva\Actions\Action;
 use Support\Grid\Data\Query\GridRequestQuery;
 use Support\Grid\Enums\OrderEnum;
@@ -14,10 +14,10 @@ class CollectGridRequestQueryAction extends Action
 {
     public function handle(Request $request): GridRequestQuery
     {
-        $searchQuery = $request->get('searchQuery');
-        $page = (int) $request->get('page', 1);
+        $searchQuery = $request->string('searchQuery');
         $sort = $request->get('sort', []);
-        $perPage = $request->get('perPage', PerPageEnum::default()->value);
+        $page = $request->integer('page', 1);
+        $perPage = $request->integer('perPage', PerPageEnum::default()->value);
 
         return GridRequestQuery::from([
             'page' => $page < 0 ? 1 : $page,

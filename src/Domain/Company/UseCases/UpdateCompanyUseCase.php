@@ -36,6 +36,6 @@ class UpdateCompanyUseCase extends UseCase
             $input[$key] = $value;
         }
 
-        return $this->companyRepository->update($company, CompanyUpdateInput::from($input));
+        return $this->companyRepository->update($company, new CompanyUpdateInput(...$input));
     }
 }
