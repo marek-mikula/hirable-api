@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Domain\Register\Http\Controllers;
 
 /** @covers \Domain\Register\Http\Controllers\RegisterController::request */

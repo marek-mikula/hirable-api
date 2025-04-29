@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\Setting\Mappers;
 
 use Illuminate\Support\Arr;

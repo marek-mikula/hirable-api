@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\ActivityLog\Facades;
 
 use Illuminate\Database\Eloquent\Model;

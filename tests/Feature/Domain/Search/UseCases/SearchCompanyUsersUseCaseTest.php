@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Domain\Search\UseCases;
 
 /** @covers \Domain\Search\UseCases\SearchCompanyUsersUseCase::handle */

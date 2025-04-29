@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\Grid\Data\Definition;
 
 use Spatie\LaravelData\Data;

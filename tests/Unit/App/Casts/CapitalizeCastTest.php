@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\App\Casts;
 
 use App\Casts\Capitalize;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Password\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;

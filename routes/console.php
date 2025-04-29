@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schedule;
 
 // prune telescope entries older than 168 hours (7 days)

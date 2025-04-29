@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\NotificationPreview\Services;
 
 use App\Models\Token;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Password\Http\Controllers\PasswordController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;

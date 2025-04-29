@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Domain\Candidate\UseCases;
 
 /** @covers \Domain\Candidate\UseCases\GetCandidatesForIndexUseCase::handle */

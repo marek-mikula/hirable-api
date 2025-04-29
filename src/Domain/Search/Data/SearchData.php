@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Search\Data;
 
 use Spatie\LaravelData\Data;

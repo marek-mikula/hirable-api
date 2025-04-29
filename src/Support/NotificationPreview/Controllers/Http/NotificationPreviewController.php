@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\NotificationPreview\Controllers\Http;
 
 use App\Enums\NotificationTypeEnum;

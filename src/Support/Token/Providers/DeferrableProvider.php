@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\Token\Providers;
 
 use Illuminate\Contracts\Support\DeferrableProvider as BaseDeferrableProvider;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\File\Providers;
 
 use Illuminate\Console\Scheduling\Schedule;

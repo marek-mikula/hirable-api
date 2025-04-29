@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Company\Http\Controllers\CompanyController;
 use Domain\Company\Http\Controllers\CompanyInvitationController;
 use Domain\Company\Http\Controllers\CompanyUserController;

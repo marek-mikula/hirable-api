@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\Grid\Http\Requests;
 
 use App\Http\Requests\AuthRequest;

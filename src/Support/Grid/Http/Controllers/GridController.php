@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\Grid\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;

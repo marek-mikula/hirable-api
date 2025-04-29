@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Casts\Capitalize;
@@ -136,7 +138,7 @@ class User extends Authenticatable
             }
 
             if (!empty($this->postfix)) {
-                $name = sprintf('%s %s', $name, $this->postfix);
+                $name = sprintf('%s, %s', $name, $this->postfix);
             }
 
             return $name;

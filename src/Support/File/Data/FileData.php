@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\File\Data;
 
 use Illuminate\Http\UploadedFile;

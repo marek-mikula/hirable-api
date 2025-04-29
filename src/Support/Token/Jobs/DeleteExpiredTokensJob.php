@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\Token\Jobs;
 
 use App\Jobs\ScheduleJob;

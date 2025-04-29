@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Verification\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;

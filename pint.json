@@ -21,6 +21,7 @@
         "cast_spaces": {
             "space": "single"
         },
-        "unary_operator_spaces": true
+        "unary_operator_spaces": true,
+        "declare_strict_types": true
     }
 }

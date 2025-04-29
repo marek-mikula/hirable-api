@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Support\File\Exceptions;
 
 use Support\File\Data\FileData;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Verification\Mail;
 
 use App\Enums\NotificationTypeEnum;

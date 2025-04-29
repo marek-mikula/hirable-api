@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Search\Http\Requests;
 
 use App\Http\Requests\AuthRequest;

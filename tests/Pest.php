@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Support\ActivityLog\Facades\ActivityLog;

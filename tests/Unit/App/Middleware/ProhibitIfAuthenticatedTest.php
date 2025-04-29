@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Enums\ResponseCodeEnum;
 use App\Http\Middleware\ProhibitIfAuthenticated;
 use App\Models\User;

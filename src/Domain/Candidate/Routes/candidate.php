@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Candidate\Http\Controllers\CandidateController;
 use Illuminate\Support\Facades\Route;
 

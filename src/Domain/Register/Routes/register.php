@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Register\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;

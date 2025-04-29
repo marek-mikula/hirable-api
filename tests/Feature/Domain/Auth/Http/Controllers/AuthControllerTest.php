@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Domain\Auth\Http\Controllers;
 
 /** @covers \Domain\Auth\Http\Controllers\AuthController::login */

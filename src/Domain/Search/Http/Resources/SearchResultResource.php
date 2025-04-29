@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Search\Http\Resources;
 
 use Domain\Search\Data\ResultData;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 use Support\Grid\Http\Controllers\GridController;
 use Support\Grid\Http\Controllers\GridSettingController;

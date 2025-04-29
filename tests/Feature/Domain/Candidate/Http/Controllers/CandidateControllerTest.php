@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Domain\Candidate\Http\Controllers;
 
 /** @covers \Domain\Candidate\Http\Controllers\CandidateController::index */
