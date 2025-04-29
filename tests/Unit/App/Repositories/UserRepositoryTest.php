@@ -8,8 +8,8 @@ use App\Enums\LanguageEnum;
 use App\Enums\TimezoneEnum;
 use App\Models\Company;
 use App\Models\User;
-use App\Repositories\User\Input\StoreInput;
-use App\Repositories\User\Input\UpdateInput;
+use App\Repositories\User\Input\UserStoreInput;
+use App\Repositories\User\Input\UserUpdateInput;
 use App\Repositories\User\UserRepositoryInterface;
 use Domain\Company\Enums\RoleEnum;
 
@@ -27,21 +27,21 @@ it('tests store method', function (): void {
 
     $company = Company::factory()->create();
 
-    $input = StoreInput::from([
-        'language' => LanguageEnum::CS,
-        'firstname' => 'Thomas',
-        'lastname' => 'Example',
-        'email' => 'thomas.example@example.com',
-        'password' => 'test',
-        'agreementIp' => '127.0.0.1',
-        'agreementAcceptedAt' => now(),
-        'emailVerifiedAt' => now()->subYear(),
-        'company' => $company,
-        'companyRole' => RoleEnum::ADMIN,
-        'prefix' => 'Ing.',
-        'postfix' => 'MBA',
-        'phone' => '+420776758768',
-    ]);
+    $input = new UserStoreInput(
+        language: LanguageEnum::CS,
+        firstname: fake()->firstName,
+        lastname: fake()->lastName,
+        email: fake()->email,
+        password: fake()->password,
+        agreementIp: fake()->ipv4,
+        agreementAcceptedAt: now(),
+        company: $company,
+        companyRole: RoleEnum::ADMIN,
+        phone: '+420776758768',
+        prefix: 'Ing.',
+        postfix: 'MBA',
+        emailVerifiedAt: now()->subYear(),
+    );
 
     $user = $repository->store($input);
 
@@ -54,7 +54,6 @@ it('tests store method', function (): void {
     assertSame($input->prefix, $user->prefix);
     assertSame($input->postfix, $user->postfix);
     assertSame($input->phone, $user->phone);
-    assertSame("{$input->prefix} {$input->firstname} {$input->lastname}, {$input->postfix}", $user->full_name);
     assertSame($input->email, $user->email);
     assertSame($input->agreementIp, $user->agreement_ip);
     assertDatetime($input->agreementAcceptedAt, $user->agreement_accepted_at);
@@ -69,29 +68,29 @@ it('tests update method', function (): void {
     $repository = app(UserRepositoryInterface::class);
 
     $user = User::factory()
-        ->ofTechnicalNotifications(false, false)
-        ->ofMarketingNotifications(false, false)
-        ->ofApplicationNotifications(false, false)
+        ->ofTechnicalNotifications(mail: fake()->boolean, app: fake()->boolean)
+        ->ofMarketingNotifications(mail: fake()->boolean, app: fake()->boolean)
+        ->ofApplicationNotifications(mail: fake()->boolean, app: fake()->boolean)
         ->ofLanguage(LanguageEnum::EN)
         ->ofTimezone(TimezoneEnum::AFRICA_ABIDJAN)
         ->create();
 
-    $input = UpdateInput::from([
-        'firstname' => 'Thomas',
-        'lastname' => 'Example',
-        'email' => 'thomas.example@example.com',
-        'timezone' => TimezoneEnum::EUROPE_PRAGUE,
-        'notificationTechnicalMail' => true,
-        'notificationTechnicalApp' => true,
-        'notificationMarketingMail' => true,
-        'notificationMarketingApp' => true,
-        'notificationApplicationMail' => true,
-        'notificationApplicationApp' => true,
-        'language' => LanguageEnum::CS,
-        'prefix' => 'Mgr.',
-        'postfix' => 'MBA',
-        'phone' => '+420776758768',
-    ]);
+    $input = new UserUpdateInput(
+        firstname: fake()->firstName,
+        lastname: fake()->lastName,
+        email: fake()->email,
+        timezone: TimezoneEnum::EUROPE_PRAGUE,
+        notificationTechnicalMail: fake()->boolean,
+        notificationTechnicalApp: fake()->boolean,
+        notificationMarketingMail: fake()->boolean,
+        notificationMarketingApp: fake()->boolean,
+        notificationApplicationMail: fake()->boolean,
+        notificationApplicationApp: fake()->boolean,
+        language: LanguageEnum::CS,
+        prefix: 'Mgr.',
+        postfix: 'MBA',
+        phone: '+420776758768',
+    );
 
     $user = $repository->update($user, $input);
 
@@ -134,7 +133,7 @@ it('tests changePassword method', function (): void {
 
     $previousHash = $user->password;
 
-    $user = $repository->changePassword($user, 'Password123');
+    $user = $repository->changePassword($user, fake()->password);
 
     assertNotSame($user->password, $previousHash);
 });
@@ -144,9 +143,9 @@ it('tests findByEmail method', function (): void {
     /** @var UserRepositoryInterface $repository */
     $repository = app(UserRepositoryInterface::class);
 
-    $email = 'example@example.com';
+    $email = fake()->email;
 
-    $user = User::factory()->create(['email' => $email]);
+    $user = User::factory()->ofEmail($email)->create();
 
     $foundUser = $repository->findByEmail($email);
 

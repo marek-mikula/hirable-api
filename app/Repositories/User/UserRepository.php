@@ -7,13 +7,13 @@ namespace App\Repositories\User;
 use App\Enums\LanguageEnum;
 use App\Exceptions\RepositoryException;
 use App\Models\User;
-use App\Repositories\User\Input\StoreInput;
-use App\Repositories\User\Input\UpdateInput;
+use App\Repositories\User\Input\UserStoreInput;
+use App\Repositories\User\Input\UserUpdateInput;
 use Carbon\Carbon;
 
 final class UserRepository implements UserRepositoryInterface
 {
-    public function store(StoreInput $input): User
+    public function store(UserStoreInput $input): User
     {
         $user = new User();
 
@@ -38,7 +38,7 @@ final class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
-    public function update(User $user, UpdateInput $input): User
+    public function update(User $user, UserUpdateInput $input): User
     {
         $user->firstname = $input->firstname;
         $user->lastname = $input->lastname;

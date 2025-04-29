@@ -7,7 +7,7 @@ namespace Domain\Auth\UseCases;
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\Models\User;
-use App\Repositories\User\Input\UpdateInput;
+use App\Repositories\User\Input\UserUpdateInput;
 use App\Repositories\User\UserRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Password\Notifications\ChangedNotification;
@@ -61,6 +61,6 @@ class UpdateUserUseCase extends UseCase
             $input[$key] = $value;
         }
 
-        return $this->userRepository->update($user, UpdateInput::from($input));
+        return $this->userRepository->update($user, new UserUpdateInput(...$input));
     }
 }

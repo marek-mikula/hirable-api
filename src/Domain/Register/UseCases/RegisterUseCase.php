@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Repositories\Company\CompanyRepositoryInterface;
 use App\Repositories\Company\Input\CompanyStoreInput;
 use App\Repositories\Token\TokenRepositoryInterface;
-use App\Repositories\User\Input\StoreInput as UserStoreInput;
+use App\Repositories\User\Input\UserStoreInput;
 use App\Repositories\User\UserRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Company\Enums\RoleEnum;
@@ -56,25 +56,22 @@ class RegisterUseCase extends UseCase
                 website: $data->company->website,
             ));
 
-            $user = $this->userRepository->store(UserStoreInput::from([
-                'language' => LanguageEnum::tryFrom(app()->getLocale()),
-                'firstname' => $data->firstname,
-                'lastname' => $data->lastname,
-                'email' => $email,
-                'password' => $data->password,
-                'agreementIp' => $data->agreementIp,
-                'agreementAcceptedAt' => $data->agreementAcceptedAt,
+            $user = $this->userRepository->store(new UserStoreInput(
+                language: LanguageEnum::tryFrom(app()->getLocale()),
+                firstname: $data->firstname,
+                lastname: $data->lastname,
+                email: $email,
+                password: $data->password,
+                agreementIp: $data->agreementIp,
+                agreementAcceptedAt: $data->agreementAcceptedAt,
                 // mark immediately email as verified, because
                 // user has registered through a link, which he
                 // received to his email => we can safely say
                 // the email is verified
-                'emailVerifiedAt' => now(),
-                'company' => $company,
-                'companyRole' => RoleEnum::ADMIN,
-                'prefix' => null,
-                'postfix' => null,
-                'phone' => null,
-            ]));
+                company: $company,
+                companyRole: RoleEnum::ADMIN,
+                emailVerifiedAt: now(),
+            ));
 
             $this->tokenRepository->markUsed($token);
 
