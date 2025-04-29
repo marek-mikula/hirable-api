@@ -6,8 +6,8 @@ namespace Tests\Unit\App\Repositories;
 
 use App\Models\Company;
 use App\Repositories\Company\CompanyRepositoryInterface;
-use App\Repositories\Company\Input\StoreInput;
-use App\Repositories\Company\Input\UpdateInput;
+use App\Repositories\Company\Input\CompanyStoreInput;
+use App\Repositories\Company\Input\CompanyUpdateInput;
 
 use function Pest\Laravel\assertModelExists;
 use function PHPUnit\Framework\assertSame;
@@ -31,12 +31,12 @@ it('tests store method', function (): void {
     /** @var CompanyRepositoryInterface $repository */
     $repository = app(CompanyRepositoryInterface::class);
 
-    $input = StoreInput::from([
-        'name' => 'Hirable s.r.o.',
-        'email' => 'info@example.com',
-        'idNumber' => '999000111',
-        'website' => 'https://www.example.com',
-    ]);
+    $input = new CompanyStoreInput(
+        name: fake()->company,
+        email: fake()->companyEmail,
+        idNumber: fake()->numerify('#########'),
+        website: fake()->url,
+    );
 
     $company = $repository->store($input);
 
@@ -52,12 +52,12 @@ it('tests update method', function (): void {
     /** @var CompanyRepositoryInterface $repository */
     $repository = app(CompanyRepositoryInterface::class);
 
-    $input = UpdateInput::from([
-        'name' => 'Hirable s.r.o.',
-        'email' => 'info@example.com',
-        'idNumber' => '999000111',
-        'website' => 'https://www.example.com',
-    ]);
+    $input = new CompanyUpdateInput(
+        name: fake()->company,
+        email: fake()->companyEmail,
+        idNumber: fake()->numerify('#########'),
+        website: fake()->url,
+    );
 
     $company = $repository->update(Company::factory()->create(), $input);
 

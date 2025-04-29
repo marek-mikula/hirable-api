@@ -8,10 +8,7 @@ class RepositoryException extends \Exception
 {
     public function __construct(string $model, string $action)
     {
-        parent::__construct(vsprintf('Model %s could not have been %s!', [
-            $model,
-            $action,
-        ]));
+        parent::__construct(sprintf('Model %s could not have been %s!', $model, $action));
     }
 
     public static function saved(string $model): static

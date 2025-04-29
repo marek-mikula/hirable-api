@@ -10,7 +10,7 @@ use App\Exceptions\HttpException;
 use App\Models\Token;
 use App\Models\User;
 use App\Repositories\Company\CompanyRepositoryInterface;
-use App\Repositories\Company\Input\StoreInput as CompanyStoreInput;
+use App\Repositories\Company\Input\CompanyStoreInput;
 use App\Repositories\Token\TokenRepositoryInterface;
 use App\Repositories\User\Input\StoreInput as UserStoreInput;
 use App\Repositories\User\UserRepositoryInterface;
@@ -49,12 +49,12 @@ class RegisterUseCase extends UseCase
             $data,
             $email,
         ): User {
-            $company = $this->companyRepository->store(CompanyStoreInput::from([
-                'name' => $data->company->name,
-                'email' => $data->company->email,
-                'idNumber' => $data->company->idNumber,
-                'website' => $data->company->website,
-            ]));
+            $company = $this->companyRepository->store(new CompanyStoreInput(
+                name: $data->company->name,
+                email: $data->company->email,
+                idNumber: $data->company->idNumber,
+                website: $data->company->website,
+            ));
 
             $user = $this->userRepository->store(UserStoreInput::from([
                 'language' => LanguageEnum::tryFrom(app()->getLocale()),

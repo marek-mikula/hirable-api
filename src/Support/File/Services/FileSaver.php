@@ -6,7 +6,7 @@ namespace Support\File\Services;
 
 use App\Models\File;
 use App\Repositories\File\FileRepositoryInterface;
-use App\Repositories\File\Input\StoreInput;
+use App\Repositories\File\Input\FileStoreInput;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -80,16 +80,16 @@ class FileSaver
                     $paths[] = $path;
 
                     try {
-                        $model = $this->fileRepository->store(StoreInput::from([
-                            'fileable' => $fileable,
-                            'type' => $type,
-                            'path' => $path,
-                            'extension' => $file->getExtension(),
-                            'name' => $file->getName(),
-                            'mime' => $file->getMime(),
-                            'size' => $file->getSize(),
-                            'data' => $file->data,
-                        ]));
+                        $model = $this->fileRepository->store(new FileStoreInput(
+                            fileable: $fileable,
+                            type: $type,
+                            path: $path,
+                            extension: $file->getExtension(),
+                            name: $file->getName(),
+                            mime: $file->getMime(),
+                            size: $file->getSize(),
+                            data: $file->data,
+                        ));
                     } catch (\Exception $e) {
                         throw new UnableToSaveFileException($file, $type, $subFolder, previous: $e);
                     }

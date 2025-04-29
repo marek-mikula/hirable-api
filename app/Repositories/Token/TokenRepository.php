@@ -7,13 +7,13 @@ namespace App\Repositories\Token;
 use App\Exceptions\RepositoryException;
 use App\Models\Token;
 use App\Models\User;
-use App\Repositories\Token\Input\StoreInput;
+use App\Repositories\Token\Input\TokenStoreInput;
 use Illuminate\Support\Str;
 use Support\Token\Enums\TokenTypeEnum;
 
 final class TokenRepository implements TokenRepositoryInterface
 {
-    public function store(StoreInput $input): Token
+    public function store(TokenStoreInput $input): Token
     {
         $token = new Token();
 

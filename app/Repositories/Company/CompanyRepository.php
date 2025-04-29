@@ -6,8 +6,8 @@ namespace App\Repositories\Company;
 
 use App\Exceptions\RepositoryException;
 use App\Models\Company;
-use App\Repositories\Company\Input\StoreInput;
-use App\Repositories\Company\Input\UpdateInput;
+use App\Repositories\Company\Input\CompanyStoreInput;
+use App\Repositories\Company\Input\CompanyUpdateInput;
 
 final class CompanyRepository implements CompanyRepositoryInterface
 {
@@ -20,7 +20,7 @@ final class CompanyRepository implements CompanyRepositoryInterface
         return $company;
     }
 
-    public function store(StoreInput $input): Company
+    public function store(CompanyStoreInput $input): Company
     {
         $company = new Company();
 
@@ -34,7 +34,7 @@ final class CompanyRepository implements CompanyRepositoryInterface
         return $company;
     }
 
-    public function update(Company $company, UpdateInput $input): Company
+    public function update(Company $company, CompanyUpdateInput $input): Company
     {
         $company->name = $input->name;
         $company->email = $input->email;

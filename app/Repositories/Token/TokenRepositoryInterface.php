@@ -6,12 +6,12 @@ namespace App\Repositories\Token;
 
 use App\Models\Token;
 use App\Models\User;
-use App\Repositories\Token\Input\StoreInput;
+use App\Repositories\Token\Input\TokenStoreInput;
 use Support\Token\Enums\TokenTypeEnum;
 
 interface TokenRepositoryInterface
 {
-    public function store(StoreInput $input): Token;
+    public function store(TokenStoreInput $input): Token;
 
     public function findByTokenAndType(string $token, TokenTypeEnum ...$type): ?Token;
 

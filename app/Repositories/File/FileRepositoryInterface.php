@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Repositories\File;
 
 use App\Models\File;
-use App\Repositories\File\Input\StoreInput;
+use App\Repositories\File\Input\FileStoreInput;
 
 interface FileRepositoryInterface
 {
-    public function store(StoreInput $input): File;
+    public function store(FileStoreInput $input): File;
 
     public function save(File $file): File;
 

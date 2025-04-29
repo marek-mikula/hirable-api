@@ -7,7 +7,7 @@ namespace Tests\Unit\App\Repositories;
 use App\Models\File;
 use App\Models\User;
 use App\Repositories\File\FileRepositoryInterface;
-use App\Repositories\File\Input\StoreInput;
+use App\Repositories\File\Input\FileStoreInput;
 use Illuminate\Support\Str;
 use Support\File\Enums\FileTypeEnum;
 
@@ -38,18 +38,16 @@ it('tests store method', function (): void {
 
     $user = User::factory()->create();
 
-    $input = StoreInput::from([
-        'fileable' => $user,
-        'type' => FileTypeEnum::TEMP,
-        'path' => Str::uuid()->toString().'.jpg',
-        'extension' => 'jpg',
-        'name' => 'thumbnail.jpg',
-        'mime' => 'image/jpeg',
-        'size' => 340,
-        'data' => [
-            'key' => 'value',
-        ],
-    ]);
+    $input = new FileStoreInput(
+        fileable: $user,
+        type: FileTypeEnum::TEMP,
+        path: Str::uuid()->toString().'.jpg',
+        extension: 'jpg',
+        name: 'thumbnail.jpg',
+        mime: 'image/jpeg',
+        size: 340,
+        data: ['key' => fake()->word],
+    );
 
     $file = $repository->store($input);
 
@@ -62,9 +60,9 @@ it('tests store method', function (): void {
     assertSame($input->name, $file->name);
     assertSame($input->mime, $file->mime);
     assertSame($input->size, $file->size);
-    assertTrue($file->relationLoaded('fileable'));
     assertTrue($file->hasDataValue('key'));
-    assertSame('value', $file->getDataValue('key'));
+    assertSame($input->data['key'], $file->getDataValue('key'));
+    assertTrue($file->relationLoaded('fileable'));
 });
 
 /** @covers \App\Repositories\File\FileRepository::delete */

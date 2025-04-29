@@ -6,7 +6,7 @@ namespace Tests\Unit\App\Repositories;
 
 use App\Models\Token;
 use App\Models\User;
-use App\Repositories\Token\Input\StoreInput;
+use App\Repositories\Token\Input\TokenStoreInput;
 use App\Repositories\Token\TokenRepositoryInterface;
 use Illuminate\Support\Str;
 use Support\Token\Enums\TokenTypeEnum;
@@ -32,14 +32,12 @@ it('tests store method - valid minutes from input', function (): void {
 
     $email = 'example@example.com';
 
-    $token = $repository->store(StoreInput::from([
-        'type' => TokenTypeEnum::REGISTRATION,
-        'data' => [
-            'email' => $email,
-        ],
-        'validMinutes' => $validMinutes,
-        'user' => $user,
-    ]));
+    $token = $repository->store(new TokenStoreInput(
+        type: TokenTypeEnum::REGISTRATION,
+        data: ['email' => $email],
+        validMinutes: $validMinutes,
+        user: $user,
+    ));
 
     assertModelExists($token);
     assertTrue($token->user->is($user));
@@ -60,9 +58,9 @@ it('tests store method - valid minutes from config', function (): void {
     // set config value
     config()->set("token.validity.{$type->value}", $validMinutes);
 
-    $token = $repository->store(StoreInput::from([
-        'type' => $type,
-    ]));
+    $token = $repository->store(new TokenStoreInput(
+        type: $type,
+    ));
 
     assertModelExists($token);
     assertDatetime($token->valid_until, now()->addMinutes($validMinutes));

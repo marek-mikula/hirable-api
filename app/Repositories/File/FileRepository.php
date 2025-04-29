@@ -6,11 +6,11 @@ namespace App\Repositories\File;
 
 use App\Exceptions\RepositoryException;
 use App\Models\File;
-use App\Repositories\File\Input\StoreInput;
+use App\Repositories\File\Input\FileStoreInput;
 
 final class FileRepository implements FileRepositoryInterface
 {
-    public function store(StoreInput $input): File
+    public function store(FileStoreInput $input): File
     {
         $file = new File();
 

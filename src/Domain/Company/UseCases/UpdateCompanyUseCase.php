@@ -7,7 +7,7 @@ namespace Domain\Company\UseCases;
 use App\Models\Company;
 use App\Models\User;
 use App\Repositories\Company\CompanyRepositoryInterface;
-use App\Repositories\Company\Input\UpdateInput;
+use App\Repositories\Company\Input\CompanyUpdateInput;
 use App\UseCases\UseCase;
 
 class UpdateCompanyUseCase extends UseCase
@@ -36,6 +36,6 @@ class UpdateCompanyUseCase extends UseCase
             $input[$key] = $value;
         }
 
-        return $this->companyRepository->update($company, UpdateInput::from($input));
+        return $this->companyRepository->update($company, CompanyUpdateInput::from($input));
     }
 }

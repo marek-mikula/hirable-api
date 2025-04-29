@@ -6,7 +6,7 @@ namespace Domain\Register\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Repositories\Token\Input\StoreInput;
+use App\Repositories\Token\Input\TokenStoreInput;
 use App\Repositories\Token\TokenRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Register\Notifications\RegisterRequestNotification;
@@ -45,7 +45,7 @@ class RequestRegistrationUseCase extends UseCase
             // transaction, so the token gets deleted,
             // if email sending fails
             DB::transaction(function () use ($email): void {
-                $token = $this->tokenRepository->store(StoreInput::from([
+                $token = $this->tokenRepository->store(TokenStoreInput::from([
                     'type' => TokenTypeEnum::REGISTRATION,
                     'data' => [
                         'email' => $email,

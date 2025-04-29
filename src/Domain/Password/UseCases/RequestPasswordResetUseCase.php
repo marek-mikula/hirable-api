@@ -6,7 +6,7 @@ namespace Domain\Password\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Repositories\Token\Input\StoreInput;
+use App\Repositories\Token\Input\TokenStoreInput;
 use App\Repositories\Token\TokenRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use App\UseCases\UseCase;
@@ -46,7 +46,7 @@ class RequestPasswordResetUseCase extends UseCase
             }
         }
 
-        $token = $this->tokenRepository->store(StoreInput::from([
+        $token = $this->tokenRepository->store(TokenStoreInput::from([
             'type' => TokenTypeEnum::RESET_PASSWORD,
             'user' => $user,
         ]));

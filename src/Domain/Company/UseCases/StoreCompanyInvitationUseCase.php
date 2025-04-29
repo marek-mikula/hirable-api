@@ -8,7 +8,7 @@ use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\Models\Token;
 use App\Models\User;
-use App\Repositories\Token\Input\StoreInput;
+use App\Repositories\Token\Input\TokenStoreInput;
 use App\Repositories\Token\TokenRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Company\Http\Requests\Data\InvitationStoreData;
@@ -50,7 +50,7 @@ class StoreCompanyInvitationUseCase extends UseCase
             $user,
             $data,
         ): Token {
-            $token = $this->tokenRepository->store(StoreInput::from([
+            $token = $this->tokenRepository->store(TokenStoreInput::from([
                 'type' => TokenTypeEnum::INVITATION,
                 'user' => $user,
                 'data' => [
