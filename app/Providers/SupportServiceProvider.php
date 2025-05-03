@@ -12,6 +12,7 @@ use Support\Grid\Providers\ServiceProvider as GridServiceProvider;
 use Support\NotificationPreview\Providers\ServiceProvider as NotificationPreviewServiceProvider;
 use Support\Setting\Providers\ServiceProvider as SettingServiceProvider;
 use Support\Token\Providers\ServiceProvider as TokenServiceProvider;
+use Support\Classifier\Providers\ServiceProvider as ClassifierServiceProvider;
 
 class SupportServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,7 @@ class SupportServiceProvider extends ServiceProvider
         $this->app->register(FileServiceProvider::class);
         $this->app->register(GridServiceProvider::class);
         $this->app->register(SettingServiceProvider::class);
+        $this->app->register(ClassifierServiceProvider::class);
     }
 
     public function boot(): void
