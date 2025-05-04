@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Candidate\Models;
 
 use Carbon\Carbon;
-use Database\Factories\CandidateFactory;
+use Domain\Candidate\Database\Factories\CandidateFactory;
 use Domain\Candidate\Models\Builders\CandidateBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -6,11 +6,11 @@ namespace Support\Notification\Models;
 
 use App\Models\Traits\HasArrayData;
 use Carbon\Carbon;
-use Database\Factories\NotificationFactory;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\DatabaseNotification;
+use Support\Notification\Database\Factories\NotificationFactory;
 use Support\Notification\Enums\NotificationTypeEnum;
 
 /**

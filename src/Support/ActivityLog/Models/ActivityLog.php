@@ -6,11 +6,11 @@ namespace Support\ActivityLog\Models;
 
 use App\Models\Traits\HasArrayData;
 use Carbon\Carbon;
-use Database\Factories\ActivityLogFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Support\ActivityLog\Database\Factories\ActivityLogFactory;
 
 /**
  * @property-read int $id

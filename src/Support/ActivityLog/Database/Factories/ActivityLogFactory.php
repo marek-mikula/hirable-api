@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Database\Factories;
+namespace Support\ActivityLog\Database\Factories;
 
+use Database\Factories\Factory;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;

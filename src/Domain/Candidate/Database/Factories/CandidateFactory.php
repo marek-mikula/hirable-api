@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Database\Factories;
+namespace Domain\Candidate\Database\Factories;
 
+use Database\Factories\Factory;
 use Domain\Candidate\Models\Candidate;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Support\Str;
