@@ -6,8 +6,8 @@ namespace Domain\Company\Http\Middleware;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Models\User;
 use Domain\Company\Enums\RoleEnum;
+use Domain\User\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;

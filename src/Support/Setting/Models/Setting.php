@@ -6,10 +6,10 @@ namespace Support\Setting\Models;
 
 use App\Models\Traits\HasArrayData;
 use Carbon\Carbon;
-use Database\Factories\SettingFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
+use Support\Setting\Database\Factories\SettingFactory;
 use Support\Setting\Enums\SettingKeyEnum;
 use Support\Setting\Models\Builders\SettingBuilder;
 

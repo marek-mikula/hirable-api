@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\File\Services;
 
-use App\Models\File;
 use Illuminate\Support\Facades\Storage;
+use Support\File\Models\File;
 use Support\File\Services\FileRemover;
 
 use function Pest\Laravel\assertModelMissing;

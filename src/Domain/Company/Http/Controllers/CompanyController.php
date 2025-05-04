@@ -6,8 +6,8 @@ namespace Domain\Company\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
-use App\Http\Resources\CompanyResource;
 use Domain\Company\Http\Requests\CompanyUpdateRequest;
+use Domain\Company\Http\Resources\CompanyResource;
 use Domain\Company\UseCases\UpdateCompanyUseCase;
 use Illuminate\Http\JsonResponse;
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Domain\Auth\Database\Seeders;
 
 use App\Enums\LanguageEnum;
-use App\Models\Company;
-use App\Models\User;
 use Domain\Company\Enums\RoleEnum;
+use Domain\Company\Models\Company;
+use Domain\User\Models\User;
 use Illuminate\Database\Seeder;
 
 class AuthDatabaseSeeder extends Seeder

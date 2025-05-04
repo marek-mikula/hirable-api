@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Console\Commands;
 
-use App\Enums\NotificationTypeEnum;
 use Illuminate\Console\Command;
+use Support\Notification\Enums\NotificationTypeEnum;
 use Support\NotificationPreview\Data\NotificationData;
 use Support\NotificationPreview\Data\NotificationDomain;
 use Support\NotificationPreview\Services\NotificationRegistrar;

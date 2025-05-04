@@ -4,7 +4,7 @@
      * @var \Support\Token\Models\Token $token
     */
 
-    $type = \App\Enums\NotificationTypeEnum::REGISTER_REQUEST;
+    $type = \Support\Notification\Enums\NotificationTypeEnum::REGISTER_REQUEST;
 
 @endphp
 

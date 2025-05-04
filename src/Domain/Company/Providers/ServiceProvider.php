@@ -11,10 +11,14 @@ class ServiceProvider extends BaseServiceProvider
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(DeferrableProvider::class);
     }
 
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'invitation');
+        $this->loadMigrationsFrom([
+            __DIR__ . '/../Database/Migrations'
+        ]);
     }
 }

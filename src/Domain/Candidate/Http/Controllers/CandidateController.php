@@ -6,8 +6,8 @@ namespace Domain\Candidate\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
-use App\Http\Resources\CandidatePaginatedCollection;
 use Domain\Candidate\Http\Request\CandidateIndexRequest;
+use Domain\Candidate\Http\Resources\Collections\CandidatePaginatedCollection;
 use Domain\Candidate\UseCases\GetCandidatesForIndexUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;

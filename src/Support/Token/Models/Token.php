@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Support\Token\Models;
 
 use App\Models\Traits\HasArrayData;
-use App\Models\User;
 use Carbon\Carbon;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

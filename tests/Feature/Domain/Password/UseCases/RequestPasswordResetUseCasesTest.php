@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\Password\UseCases;
 
 use App\Enums\ResponseCodeEnum;
-use App\Models\User;
 use Domain\Password\Notifications\ResetRequestNotification;
 use Domain\Password\UseCases\RequestPasswordResetUseCase;
+use Domain\User\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Models\Token;

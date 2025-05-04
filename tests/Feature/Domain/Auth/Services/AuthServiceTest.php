@@ -6,9 +6,9 @@ namespace Tests\Unit\Domain\Auth\Services;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Requests\AuthRequest;
-use App\Models\User;
 use Domain\Auth\Http\Requests\Data\LoginData;
 use Domain\Auth\Services\AuthService;
+use Domain\User\Models\User;
 
 use function Pest\Laravel\assertAuthenticatedAs;
 use function Pest\Laravel\assertGuest;

@@ -1,11 +1,11 @@
 @php
 
     /**
-     * @var \App\Models\User $notifiable
+     * @var \Domain\User\Models\User $notifiable
      * @var \Support\Token\Models\Token $token
      */
 
-    $type = \App\Enums\NotificationTypeEnum::PASSWORD_RESET_REQUEST;
+    $type = \Support\Notification\Enums\NotificationTypeEnum::PASSWORD_RESET_REQUEST;
 
 @endphp
 

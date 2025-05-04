@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Support\Token\Repositories;
 
 use App\Exceptions\RepositoryException;
-use App\Models\User;
+use Domain\User\Models\User;
 use Illuminate\Support\Str;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Models\Token;

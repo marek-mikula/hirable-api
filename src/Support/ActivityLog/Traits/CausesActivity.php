@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Support\ActivityLog\Traits;
 
-use App\Models\ActivityLog;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Support\ActivityLog\Data\LogBuilder;
 use Support\ActivityLog\Facades\ActivityLog as ActivityLogFacade;
+use Support\ActivityLog\Models\ActivityLog;
 
 /**
  * @mixin Model

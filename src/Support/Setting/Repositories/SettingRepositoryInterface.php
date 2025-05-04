@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Setting\Repositories;
 
-use App\Models\User;
+use Domain\User\Models\User;
 use Support\Setting\Enums\SettingKeyEnum;
 use Support\Setting\Models\Setting;
 

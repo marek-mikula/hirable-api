@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\NotificationTypeEnum;
-use App\Models\Notification;
-use App\Models\User;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
+use Support\Notification\Enums\NotificationTypeEnum;
+use Support\Notification\Models\Notification;
 
 /**
  * @extends BaseFactory<Notification>

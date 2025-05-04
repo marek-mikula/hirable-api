@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Services;
 
-use App\Models\User;
 use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Notifications\InvitationSentNotification;
 use Domain\Password\Notifications\ChangedNotification;
 use Domain\Password\Notifications\ResetRequestNotification;
 use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\Register\Notifications\RegisterRequestNotification;
+use Domain\User\Models\User;
 use Domain\Verification\Notifications\EmailVerifiedNotification;
 use Domain\Verification\Notifications\VerifyEmailNotification;
 use Illuminate\Notifications\AnonymousNotifiable;

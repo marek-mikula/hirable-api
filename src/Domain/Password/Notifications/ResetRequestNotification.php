@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Password\Notifications;
 
-use App\Enums\NotificationTypeEnum;
-use App\Models\User;
 use App\Notifications\QueueNotification;
 use Domain\Password\Mail\ResetRequestMail;
+use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
+use Support\Notification\Enums\NotificationTypeEnum;
 use Support\Token\Models\Token;
 
 class ResetRequestNotification extends QueueNotification

@@ -1,11 +1,11 @@
 @php
 
     /**
-     * @var \App\Models\User $notifiable
+     * @var \Domain\User\Models\User $notifiable
      * @var \Support\Token\Models\Token $token
     */
 
-    $type = \App\Enums\NotificationTypeEnum::VERIFICATION_VERIFY_EMAIL;
+    $type = \Support\Notification\Enums\NotificationTypeEnum::VERIFICATION_VERIFY_EMAIL;
 
 @endphp
 

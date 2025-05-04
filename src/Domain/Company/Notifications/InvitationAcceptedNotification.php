@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Company\Notifications;
 
-use App\Enums\NotificationTypeEnum;
-use App\Models\User;
 use App\Notifications\QueueNotification;
 use Domain\Company\Mail\InvitationAcceptedMail;
+use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
+use Support\Notification\Enums\NotificationTypeEnum;
 
 class InvitationAcceptedNotification extends QueueNotification
 {

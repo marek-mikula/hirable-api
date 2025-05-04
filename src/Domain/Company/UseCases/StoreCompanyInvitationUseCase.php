@@ -6,10 +6,10 @@ namespace Domain\Company\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Models\User;
 use App\UseCases\UseCase;
 use Domain\Company\Http\Requests\Data\InvitationStoreData;
 use Domain\Company\Notifications\InvitationSentNotification;
+use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;

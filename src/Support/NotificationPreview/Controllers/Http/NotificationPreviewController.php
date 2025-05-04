@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Controllers\Http;
 
-use App\Enums\NotificationTypeEnum;
 use App\Http\Controllers\WebController;
 use App\Mail\Mailable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
+use Support\Notification\Enums\NotificationTypeEnum;
 use Support\NotificationPreview\Data\NotificationData;
 use Support\NotificationPreview\Data\NotificationDomain;
 use Support\NotificationPreview\Services\NotificationRegistrar;

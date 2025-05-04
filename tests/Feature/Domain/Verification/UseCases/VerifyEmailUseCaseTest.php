@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\Verification\UseCases;
 
 use App\Enums\ResponseCodeEnum;
-use App\Models\User;
+use Domain\User\Models\User;
 use Domain\Verification\Notifications\EmailVerifiedNotification;
 use Domain\Verification\UseCases\VerifyEmailUseCase;
 use Illuminate\Support\Facades\Notification;

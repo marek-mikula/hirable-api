@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Company\UseCases;
 
-use App\Models\Company;
-use App\Models\User;
-use App\Repositories\Company\CompanyRepositoryInterface;
-use App\Repositories\Company\Input\CompanyUpdateInput;
 use App\UseCases\UseCase;
+use Domain\Company\Models\Company;
+use Domain\Company\Repositories\CompanyRepositoryInterface;
+use Domain\Company\Repositories\Input\CompanyUpdateInput;
+use Domain\User\Models\User;
 
 class UpdateCompanyUseCase extends UseCase
 {

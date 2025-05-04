@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Register\Http\Requests;
 
-use App\Models\Company;
+use Domain\Company\Models\Company;
 use Domain\Register\Http\Requests\RegisterRegisterRequest;
 use Illuminate\Support\Str;
 use Tests\Common\Data\ValidationData;

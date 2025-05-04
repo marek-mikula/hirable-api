@@ -6,9 +6,9 @@ namespace Domain\Password\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Repositories\User\UserRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Password\Notifications\ResetRequestNotification;
+use Domain\User\Repositories\UserRepositoryInterface;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Repositories\Input\TokenStoreInput;
 use Support\Token\Repositories\TokenRepositoryInterface;

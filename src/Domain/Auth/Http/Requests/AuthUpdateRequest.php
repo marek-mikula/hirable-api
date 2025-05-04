@@ -7,7 +7,7 @@ namespace Domain\Auth\Http\Requests;
 use App\Enums\LanguageEnum;
 use App\Enums\TimezoneEnum;
 use App\Http\Requests\AuthRequest;
-use App\Models\User;
+use Domain\User\Models\User;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\ExcludeIf;
 use Illuminate\Validation\Rules\In;

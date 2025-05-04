@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Domain\Company\UseCases;
 
-use App\Models\Company;
-use App\Models\User;
 use Domain\Company\Enums\RoleEnum;
+use Domain\Company\Models\Company;
 use Domain\Company\UseCases\UpdateCompanyUseCase;
+use Domain\User\Models\User;
 
 use function PHPUnit\Framework\assertSame;
 

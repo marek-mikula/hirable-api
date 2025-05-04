@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Support\ActivityLog;
 
-use App\Models\User;
+use Domain\User\Models\User;
 use Support\ActivityLog\Facades\ActivityLog;
 use Support\ActivityLog\Facades\CauserResolver;
 use Tests\Common\Models\TestModel;

@@ -17,6 +17,7 @@ class SupportServiceProvider extends ServiceProvider
         \Support\Token\Providers\ServiceProvider::class,
         \Support\Classifier\Providers\ServiceProvider::class,
         \Support\Format\Providers\ServiceProvider::class,
+        \Support\Notification\Providers\ServiceProvider::class,
     ];
 
     public function register(): void

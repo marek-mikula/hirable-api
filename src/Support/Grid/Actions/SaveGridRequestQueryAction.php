@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Grid\Actions;
 
-use App\Models\User;
+use Domain\User\Models\User;
 use Lorisleiva\Actions\Action;
 use Support\Grid\Data\Query\GridQuery;
 use Support\Grid\Data\Query\GridRequestQuery;

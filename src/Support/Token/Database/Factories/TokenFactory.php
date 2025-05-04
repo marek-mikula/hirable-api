@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Support\Token\Database\Factories;
 
-use App\Models\User;
 use Carbon\Carbon;
 use Database\Factories\Factory;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Support\Str;
 use Support\Token\Enums\TokenTypeEnum;

@@ -6,10 +6,10 @@ namespace Tests\Process;
 
 use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
-use App\Models\Company;
-use App\Models\User;
 use Domain\Company\Enums\RoleEnum;
+use Domain\Company\Models\Company;
 use Domain\Company\Notifications\InvitationSentNotification;
+use Domain\User\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Models\Token;

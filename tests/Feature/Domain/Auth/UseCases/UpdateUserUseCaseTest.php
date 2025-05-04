@@ -7,9 +7,9 @@ namespace Tests\Unit\Domain\Auth\UseCases;
 use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
 use App\Enums\TimezoneEnum;
-use App\Models\User;
 use Domain\Auth\UseCases\UpdateUserUseCase;
 use Domain\Password\Notifications\ChangedNotification;
+use Domain\User\Models\User;
 use Illuminate\Support\Facades\Notification;
 
 use function PHPUnit\Framework\assertNotSame;

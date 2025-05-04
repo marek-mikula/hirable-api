@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\File\Services;
 
-use App\Models\File;
-use App\Models\User;
-use App\Repositories\File\FileRepositoryInterface;
+use Domain\User\Models\User;
 use Illuminate\Http\Testing\File as TestingFile;
 use Illuminate\Support\Facades\Storage;
 use Support\File\Data\FileData;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Exceptions\UnableToSaveFileException;
+use Support\File\Models\File;
+use Support\File\Repositories\FileRepositoryInterface;
 use Support\File\Services\FileSaver;
 
 use function Pest\Laravel\assertDatabaseCount;

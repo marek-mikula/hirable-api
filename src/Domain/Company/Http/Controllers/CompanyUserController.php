@@ -6,9 +6,9 @@ namespace Domain\Company\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
-use App\Http\Resources\Collections\UserPaginatedCollection;
 use Domain\Company\Http\Requests\CompanyUserIndexRequest;
 use Domain\Company\UseCases\GetCompanyUsersForIndexUseCase;
+use Domain\User\Http\Resources\Collections\UserPaginatedCollection;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;

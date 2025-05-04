@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Domain\Candidate\UseCases;
 
-use App\Models\Builders\CandidateBuilder;
-use App\Models\Candidate;
-use App\Models\User;
 use App\UseCases\UseCase;
+use Domain\Candidate\Models\Builders\CandidateBuilder;
+use Domain\Candidate\Models\Candidate;
+use Domain\User\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 

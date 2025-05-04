@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Data;
 
-use App\Enums\NotificationTypeEnum;
 use App\Notifications\Notification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Spatie\LaravelData\Data;
+use Support\Notification\Enums\NotificationTypeEnum;
 
 class NotificationData extends Data
 {

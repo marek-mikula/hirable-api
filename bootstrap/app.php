@@ -12,7 +12,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withProviders(
         providers: [
             App\Providers\AppServiceProvider::class,
-            App\Providers\RepositoryServiceProvider::class,
             App\Providers\SupportServiceProvider::class,
             App\Providers\DomainServiceProvider::class,
         ],

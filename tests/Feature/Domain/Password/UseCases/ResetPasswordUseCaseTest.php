@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Password\UseCases;
 
-use App\Models\User;
 use Domain\Password\Notifications\ChangedNotification;
 use Domain\Password\UseCases\ResetPasswordUseCase;
+use Domain\User\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;

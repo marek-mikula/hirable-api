@@ -4,7 +4,7 @@
      * @var \Support\Token\Models\Token $token
     */
 
-    $type = \App\Enums\NotificationTypeEnum::INVITATION_SENT;
+    $type = \Support\Notification\Enums\NotificationTypeEnum::INVITATION_SENT;
 
 @endphp
 

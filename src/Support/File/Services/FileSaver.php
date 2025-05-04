@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Support\File\Services;
 
-use App\Models\File;
-use App\Repositories\File\FileRepositoryInterface;
-use App\Repositories\File\Input\FileStoreInput;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +12,9 @@ use Illuminate\Support\Facades\Storage;
 use Support\File\Data\FileData;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Exceptions\UnableToSaveFileException;
+use Support\File\Models\File;
+use Support\File\Repositories\FileRepositoryInterface;
+use Support\File\Repositories\Input\FileStoreInput;
 
 class FileSaver
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Verification\Notifications;
 
-use App\Enums\NotificationTypeEnum;
-use App\Models\User;
 use App\Notifications\QueueNotification;
+use Domain\User\Models\User;
 use Domain\Verification\Mail\VerifyEmailMail;
 use Illuminate\Queue\Attributes\WithoutRelations;
+use Support\Notification\Enums\NotificationTypeEnum;
 use Support\Token\Models\Token;
 
 class VerifyEmailNotification extends QueueNotification

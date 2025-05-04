@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\ActivityLog;
-use App\Models\User;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;
+use Support\ActivityLog\Models\ActivityLog;
 
 /**
  * @extends BaseFactory<ActivityLog>

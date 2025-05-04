@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Grid\Grids;
 
-use App\Models\User;
+use Domain\User\Models\User;
 use Support\Grid\Contracts\Grid;
 use Support\Grid\Data\Definition\GridColumnDefinition;
 use Support\Grid\Data\Definition\GridDefinition;

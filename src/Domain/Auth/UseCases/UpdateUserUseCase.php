@@ -6,11 +6,11 @@ namespace Domain\Auth\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Models\User;
-use App\Repositories\User\Input\UserUpdateInput;
-use App\Repositories\User\UserRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Password\Notifications\ChangedNotification;
+use Domain\User\Models\User;
+use Domain\User\Repositories\Input\UserUpdateInput;
+use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
 class UpdateUserUseCase extends UseCase
