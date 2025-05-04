@@ -21,6 +21,8 @@ use Support\Classifier\Enums\ClassifierTypeEnum;
 
 return [
 
+    'cache_enabled' => env('CLASSIFIER_CACHE_ENABLED', true),
+
     /*
     |--------------------------------------------------------------------------
     | Classifier cache time (in minutes)
@@ -31,7 +33,7 @@ return [
     |
     */
 
-    'cache_time' => (int) env('CLASSIFIER_CACHE_TIME', 7 * 24 * 60),
+    'cache_time' => env('CLASSIFIER_CACHE_TIME', 7 * 24 * 60),
 
     'types' => [
         ClassifierTypeEnum::GENDER->value => [

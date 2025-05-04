@@ -22,7 +22,7 @@ class ClassifierRepository implements ClassifierRepositoryInterface
             ->whereType($type)
             ->get();
 
-        return $this->classifierSortService->sort($type, $collection);
+        return $this->classifierSortService->sort($type, $collection)->values();
     }
 
     public function getValuesForTypes(array $types): array
@@ -46,7 +46,7 @@ class ClassifierRepository implements ClassifierRepositoryInterface
 
         // sort classifier collections
         foreach ($result as $key => $collection) {
-            $result[$key] = $this->classifierSortService->sort(ClassifierTypeEnum::from($key), $collection);
+            $result[$key] = $this->classifierSortService->sort(ClassifierTypeEnum::from($key), $collection)->values();
         }
 
         return $result;
