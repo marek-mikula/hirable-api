@@ -7,12 +7,12 @@ namespace Tests\Process;
 use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
 use App\Models\Company;
-use App\Models\Token;
 use App\Models\User;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Notifications\InvitationSentNotification;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
 
 use function Pest\Laravel\assertAuthenticated;
 use function Pest\Laravel\assertDatabaseEmpty;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\App\Models;
+namespace Tests\Unit\Support\Token\Models;
 
-use App\Models\Token;
 use Mockery\MockInterface;
 use Support\Token\Actions\GetTokenLinkAction;
+use Support\Token\Models\Token;
 
 use function Pest\Laravel\mock;
 use function Pest\Laravel\travel;
@@ -14,7 +14,7 @@ use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
-/** @covers \App\Models\Token::link */
+/** @covers \Support\Token\Models\Token::link */
 it('correctly handles url attribute', function (): void {
     $url = 'https://www.seznam.cz';
 
@@ -25,7 +25,7 @@ it('correctly handles url attribute', function (): void {
     assertSame($url, $token->link);
 });
 
-/** @covers \App\Models\Token::secretToken */
+/** @covers \Support\Token\Models\Token::secretToken */
 it('correctly handles secretToken attribute', function (): void {
     $token = new Token();
 
@@ -38,7 +38,7 @@ it('correctly handles secretToken attribute', function (): void {
     assertSame('Ciphered token', $token->secret_token);
 });
 
-/** @covers \App\Models\Token::isExpired */
+/** @covers \Support\Token\Models\Token::isExpired */
 it('correctly handles isExpired attribute', function (): void {
     $token = new Token();
 

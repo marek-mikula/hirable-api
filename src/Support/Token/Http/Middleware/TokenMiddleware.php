@@ -6,11 +6,11 @@ namespace Support\Token\Http\Middleware;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Repositories\Token\TokenRepositoryInterface;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Repositories\TokenRepositoryInterface;
 use Support\Token\Services\TokenResolver;
 use Symfony\Component\HttpFoundation\Response;
 

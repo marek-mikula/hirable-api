@@ -6,7 +6,6 @@ namespace Domain\Password\Mail;
 
 use App\Enums\NotificationTypeEnum;
 use App\Mail\QueueMailable;
-use App\Models\Token;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Attachment;
@@ -15,6 +14,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Illuminate\Queue\SerializesModels;
+use Support\Token\Models\Token;
 
 class ResetRequestMail extends QueueMailable
 {

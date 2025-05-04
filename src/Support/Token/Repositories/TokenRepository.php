@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Token;
+namespace Support\Token\Repositories;
 
 use App\Exceptions\RepositoryException;
-use App\Models\Token;
 use App\Models\User;
-use App\Repositories\Token\Input\TokenStoreInput;
 use Illuminate\Support\Str;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
+use Support\Token\Repositories\Input\TokenStoreInput;
 
 final class TokenRepository implements TokenRepositoryInterface
 {

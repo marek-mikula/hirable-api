@@ -6,13 +6,13 @@ namespace Domain\Register\Mail;
 
 use App\Enums\NotificationTypeEnum;
 use App\Mail\Mailable;
-use App\Models\Token;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Queue\Attributes\WithoutRelations;
+use Support\Token\Models\Token;
 
 class RegisterRequestMail extends Mailable
 {

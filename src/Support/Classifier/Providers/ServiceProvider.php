@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Support\Classifier\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Support\Classifier\Services\ClassifierConfigService;
-use Support\Classifier\Services\ClassifierTranslateService;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -14,8 +12,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../Config/classifier.php', 'classifier');
 
-        $this->app->singleton(ClassifierConfigService::class);
-        $this->app->singleton(ClassifierTranslateService::class);
+        $this->app->register(DeferrableProvider::class);
     }
 
     public function boot(): void

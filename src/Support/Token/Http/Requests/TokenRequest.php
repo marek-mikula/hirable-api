@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Support\Token\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\Token;
+use Support\Token\Models\Token;
 use Support\Token\Services\TokenResolver;
 
 class TokenRequest extends Request

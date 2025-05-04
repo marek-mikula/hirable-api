@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Support\Token\Jobs;
 
 use App\Jobs\ScheduleJob;
-use App\Models\Token;
-use App\Repositories\Token\TokenRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Support\Token\Models\Token;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 class DeleteExpiredTokensJob extends ScheduleJob
 {

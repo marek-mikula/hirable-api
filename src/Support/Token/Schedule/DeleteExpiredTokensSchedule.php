@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Support\Token\Schedule;
 
-use App\Models\Token;
 use App\Schedule\Schedule;
 use Support\Token\Jobs\DeleteExpiredTokensJob;
+use Support\Token\Models\Token;
 
 class DeleteExpiredTokensSchedule extends Schedule
 {

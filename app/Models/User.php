@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Support\ActivityLog\Traits\CausesActivity;
+use Support\Token\Models\Token;
 
 /**
  * @property-read int $id

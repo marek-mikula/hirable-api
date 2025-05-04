@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Support\Token\Services;
 
-use App\Models\Token;
 use Support\Token\Http\Middleware\TokenMiddleware;
+use Support\Token\Models\Token;
 
 class TokenResolver
 {

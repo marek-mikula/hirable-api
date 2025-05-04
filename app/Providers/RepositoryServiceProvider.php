@@ -10,8 +10,6 @@ use App\Repositories\File\FileRepository;
 use App\Repositories\File\FileRepositoryInterface;
 use App\Repositories\Setting\SettingRepository;
 use App\Repositories\Setting\SettingRepositoryInterface;
-use App\Repositories\Token\TokenRepository;
-use App\Repositories\Token\TokenRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Contracts\Support\DeferrableProvider;
@@ -23,7 +21,6 @@ class RepositoryServiceProvider extends ServiceProvider implements DeferrablePro
     private array $repositories = [
         FileRepositoryInterface::class => FileRepository::class,
         UserRepositoryInterface::class => UserRepository::class,
-        TokenRepositoryInterface::class => TokenRepository::class,
         CompanyRepositoryInterface::class => CompanyRepository::class,
         SettingRepositoryInterface::class => SettingRepository::class,
     ];

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Password\UseCases;
 
-use App\Models\Token;
 use App\Models\User;
 use Domain\Password\Notifications\ChangedNotification;
 use Domain\Password\UseCases\ResetPasswordUseCase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
 
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertTrue;

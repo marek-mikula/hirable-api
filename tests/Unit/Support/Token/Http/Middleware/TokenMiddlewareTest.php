@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Unit\Support\Token\Http\Middleware;
 
 use App\Enums\ResponseCodeEnum;
-use App\Models\Token;
-use App\Repositories\Token\TokenRepositoryInterface;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Mockery\MockInterface;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Http\Middleware\TokenMiddleware;
 use Support\Token\Http\Requests\TokenRequest;
+use Support\Token\Models\Token;
+use Support\Token\Repositories\TokenRepositoryInterface;
 use Support\Token\Services\TokenResolver;
 
 use function Pest\Laravel\mock;

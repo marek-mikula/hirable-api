@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Domain\Register\Notifications;
 
 use App\Enums\NotificationTypeEnum;
-use App\Models\Token;
 use App\Notifications\QueueNotification;
 use Domain\Register\Mail\RegisterRequestMail;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Queue\Attributes\WithoutRelations;
+use Support\Token\Models\Token;
 
 class RegisterRequestNotification extends QueueNotification
 {

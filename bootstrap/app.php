@@ -14,15 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
             App\Providers\AppServiceProvider::class,
             App\Providers\RepositoryServiceProvider::class,
             App\Providers\SupportServiceProvider::class,
-
-            // Domains
-            Domain\Auth\Providers\ServiceProvider::class,
-            Domain\Register\Providers\ServiceProvider::class,
-            Domain\Password\Providers\ServiceProvider::class,
-            Domain\Verification\Providers\ServiceProvider::class,
-            Domain\Company\Providers\ServiceProvider::class,
-            Domain\Search\Providers\ServiceProvider::class,
-            Domain\Candidate\Providers\ServiceProvider::class,
+            App\Providers\DomainServiceProvider::class,
         ],
 
         // do not autoload providers from /bootstrap/providers.php path

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Services;
 
-use App\Models\Token;
 use App\Models\User;
 use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Notifications\InvitationSentNotification;
@@ -19,6 +18,7 @@ use Illuminate\Support\Collection;
 use Support\NotificationPreview\Data\NotificationData;
 use Support\NotificationPreview\Data\NotificationDomain;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
 
 class NotificationRegistrar
 {

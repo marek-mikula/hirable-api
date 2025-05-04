@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Database\Factories;
+namespace Support\Token\Database\Factories;
 
-use App\Models\Token;
 use App\Models\User;
 use Carbon\Carbon;
+use Database\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Support\Str;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
 
 /**
  * @extends BaseFactory<Token>

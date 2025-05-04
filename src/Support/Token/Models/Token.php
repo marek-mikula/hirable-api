@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace Support\Token\Models;
 
-use App\Models\Builders\TokenBuilder;
 use App\Models\Traits\HasArrayData;
+use App\Models\User;
 use Carbon\Carbon;
-use Database\Factories\TokenFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +14,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Crypt;
 use Support\Token\Actions\GetTokenLinkAction;
+use Support\Token\Database\Factories\TokenFactory;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Builders\TokenBuilder;
 
 /**
  * @property-read int $id

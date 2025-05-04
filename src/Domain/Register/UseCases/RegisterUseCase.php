@@ -7,11 +7,9 @@ namespace Domain\Register\UseCases;
 use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Models\Token;
 use App\Models\User;
 use App\Repositories\Company\CompanyRepositoryInterface;
 use App\Repositories\Company\Input\CompanyStoreInput;
-use App\Repositories\Token\TokenRepositoryInterface;
 use App\Repositories\User\Input\UserStoreInput;
 use App\Repositories\User\UserRepositoryInterface;
 use App\UseCases\UseCase;
@@ -20,6 +18,8 @@ use Domain\Register\Http\Requests\Data\RegisterData;
 use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Illuminate\Support\Facades\DB;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 class RegisterUseCase extends UseCase
 {

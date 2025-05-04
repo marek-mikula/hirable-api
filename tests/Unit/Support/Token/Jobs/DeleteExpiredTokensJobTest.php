@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Support\Token\Jobs;
 
-use App\Models\Token;
 use Support\Token\Jobs\DeleteExpiredTokensJob;
+use Support\Token\Models\Token;
 
 use function Pest\Laravel\assertModelExists;
 use function Pest\Laravel\assertModelMissing;

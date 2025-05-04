@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\App\Repositories;
+namespace Tests\Unit\Support\Token\Repositories;
 
-use App\Models\Token;
 use App\Models\User;
-use App\Repositories\Token\Input\TokenStoreInput;
-use App\Repositories\Token\TokenRepositoryInterface;
 use Illuminate\Support\Str;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
+use Support\Token\Repositories\Input\TokenStoreInput;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 use function Pest\Laravel\assertDatabaseEmpty;
 use function Pest\Laravel\assertModelExists;
@@ -19,7 +19,7 @@ use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 use function Tests\Common\Helpers\assertDatetime;
 
-/** @covers \App\Repositories\Token\TokenRepository::store */
+/** @covers \Support\Token\Repositories\TokenRepository::store */
 it('tests store method - valid minutes from input', function (): void {
     /** @var TokenRepositoryInterface $repository */
     $repository = app(TokenRepositoryInterface::class);
@@ -46,7 +46,7 @@ it('tests store method - valid minutes from input', function (): void {
     assertSame($token->getDataValue('email'), $email);
 });
 
-/** @covers \App\Repositories\Token\TokenRepository::store */
+/** @covers \Support\Token\Repositories\TokenRepository::store */
 it('tests store method - valid minutes from config', function (): void {
     /** @var TokenRepositoryInterface $repository */
     $repository = app(TokenRepositoryInterface::class);
@@ -66,7 +66,7 @@ it('tests store method - valid minutes from config', function (): void {
     assertDatetime($token->valid_until, now()->addMinutes($validMinutes));
 });
 
-/** @covers \App\Repositories\Token\TokenRepository::findByTokenAndType */
+/** @covers \Support\Token\Repositories\TokenRepository::findByTokenAndType */
 it('tests findByTokenAndType method', function (): void {
     /** @var TokenRepositoryInterface $repository */
     $repository = app(TokenRepositoryInterface::class);
@@ -85,7 +85,7 @@ it('tests findByTokenAndType method', function (): void {
     assertTrue($foundToken->is($token));
 });
 
-/** @covers \App\Repositories\Token\TokenRepository::findByTokenAndType */
+/** @covers \Support\Token\Repositories\TokenRepository::findByTokenAndType */
 it('tests findByTokenAndType method - multiple types', function (): void {
     /** @var TokenRepositoryInterface $repository */
     $repository = app(TokenRepositoryInterface::class);
@@ -104,7 +104,7 @@ it('tests findByTokenAndType method - multiple types', function (): void {
     assertTrue($foundToken->is($token));
 });
 
-/** @covers \App\Repositories\Token\TokenRepository::findLatestByTypeAndEmail */
+/** @covers \Support\Token\Repositories\TokenRepository::findLatestByTypeAndEmail */
 it('tests findLatestByTypeAndEmail method', function (): void {
     /** @var TokenRepositoryInterface $repository */
     $repository = app(TokenRepositoryInterface::class);
@@ -122,7 +122,7 @@ it('tests findLatestByTypeAndEmail method', function (): void {
     assertSame($latestId, $token?->id);
 });
 
-/** @covers \App\Repositories\Token\TokenRepository::findLatestByTypeAndUser */
+/** @covers \Support\Token\Repositories\TokenRepository::findLatestByTypeAndUser */
 it('tests findLatestByTypeAndUser method', function (): void {
     /** @var TokenRepositoryInterface $repository */
     $repository = app(TokenRepositoryInterface::class);
@@ -142,7 +142,7 @@ it('tests findLatestByTypeAndUser method', function (): void {
     assertSame($latestId, $token?->id);
 });
 
-/** @covers \App\Repositories\Token\TokenRepository::delete */
+/** @covers \Support\Token\Repositories\TokenRepository::delete */
 it('tests delete method', function (): void {
     /** @var TokenRepositoryInterface $repository */
     $repository = app(TokenRepositoryInterface::class);
@@ -154,7 +154,7 @@ it('tests delete method', function (): void {
     assertModelMissing($token);
 });
 
-/** @covers \App\Repositories\Token\TokenRepository::markUsed */
+/** @covers \Support\Token\Repositories\TokenRepository::markUsed */
 it('tests markUsed method', function (): void {
     /** @var TokenRepositoryInterface $repository */
     $repository = app(TokenRepositoryInterface::class);
