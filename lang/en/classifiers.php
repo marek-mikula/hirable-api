@@ -6,11 +6,32 @@ use Support\Classifier\Enums\ClassifierTypeEnum;
 
 return [
 
-    ClassifierTypeEnum::GENDER->value => [],
+    ClassifierTypeEnum::GENDER->value => [
+        'male' => 'Male',
+        'female' => 'Female',
+    ],
 
-    ClassifierTypeEnum::LANGUAGE->value => [],
+    ClassifierTypeEnum::LANGUAGE->value => [
+        'english' => 'English',
+        'czech' => 'Czech',
+        'slovak' => 'Slovak',
+        'german' => 'German',
+        'russian' => 'Russian',
+        'spanish' => 'Spanish',
+        'french' => 'French',
+        'polish' => 'Polish',
+        'chinese' => 'Chinese',
+    ],
 
-    ClassifierTypeEnum::LANGUAGE_LEVEL->value => [],
+    ClassifierTypeEnum::LANGUAGE_LEVEL->value => [
+        'a1' => 'A1 - Beginner',
+        'a2' => 'A2 - Elementary',
+        'b1' => 'B1 - Intermediate',
+        'b2' => 'B2 - Upper intermediate',
+        'c1' => 'C1 - Advanced',
+        'c2' => 'C2 - Proficient',
+        'native' => 'Native speaker',
+    ],
 
     ClassifierTypeEnum::BENEFIT->value => [
         'meal_contribution' => 'Meal contribution',
@@ -44,13 +65,34 @@ return [
         'seniority_vacation_bonus' => 'Extra vacation for years of service',
     ],
 
-    ClassifierTypeEnum::EMPLOYMENT_TYPE->value => [],
+    ClassifierTypeEnum::EMPLOYMENT_TYPE->value => [
+        'freelance' => 'Freelance',
+        'internship' => 'Internship',
+        'contract' => 'Work contract',
+    ],
 
-    ClassifierTypeEnum::EMPLOYMENT_FORM->value => [],
+    ClassifierTypeEnum::EMPLOYMENT_FORM->value => [
+        'on_site' => 'On-site',
+        'remote' => 'Remote',
+        'hybrid' => 'Hybrid',
+    ],
 
-    ClassifierTypeEnum::SENIORITY->value => [],
+    ClassifierTypeEnum::SENIORITY->value => [
+        'junior' => 'Junior',
+        'medior' => 'Medior',
+        'senior' => 'Senior',
+    ],
 
-    ClassifierTypeEnum::EDUCATION_LEVEL->value => [],
+    ClassifierTypeEnum::EDUCATION_LEVEL->value => [
+        'primary' => 'Primary education',
+        'secondary_no_certificate' => 'Secondary education without diploma or certificate',
+        'secondary_certificate' => 'Secondary education with high school diploma',
+        'secondary_practice_certificate' => 'Secondary education with practical certificate',
+        'higher' => 'Higher professional education',
+        'bachelor' => 'Bachelor’s degree',
+        'master' => 'Master’s degree',
+        'doctor' => 'Doctorate / PhD',
+    ],
 
     ClassifierTypeEnum::FIELD->value => [
         'admin' => 'Administration',
