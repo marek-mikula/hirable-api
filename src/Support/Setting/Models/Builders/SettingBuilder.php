@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Models\Builders;
+namespace Support\Setting\Models\Builders;
 
+use App\Models\Builders\Builder;
 use App\Models\Builders\Traits\BelongsToUser;
 use Support\Setting\Enums\SettingKeyEnum;
 

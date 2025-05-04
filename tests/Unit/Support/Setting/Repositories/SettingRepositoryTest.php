@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\App\Repositories;
+namespace Tests\Unit\Support\Setting\Repositories;
 
-use App\Models\Setting;
 use App\Models\User;
-use App\Repositories\Setting\SettingRepositoryInterface;
 use Support\Setting\Enums\SettingKeyEnum;
+use Support\Setting\Models\Setting;
+use Support\Setting\Repositories\SettingRepositoryInterface;
 
 use function Pest\Laravel\assertModelExists;
 use function Pest\Laravel\assertModelMissing;
@@ -15,7 +15,7 @@ use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
-/** @covers \App\Repositories\Setting\SettingRepository::find */
+/** @covers \Support\Setting\Repositories\SettingRepository::find */
 it('tests find method', function (): void {
     /** @var SettingRepositoryInterface $repository */
     $repository = app(SettingRepositoryInterface::class);
@@ -33,7 +33,7 @@ it('tests find method', function (): void {
     assertTrue($setting->is($model));
 });
 
-/** @covers \App\Repositories\Setting\SettingRepository::findOrNew */
+/** @covers \Support\Setting\Repositories\SettingRepository::findOrNew */
 it('tests findOrNew method', function (): void {
     /** @var SettingRepositoryInterface $repository */
     $repository = app(SettingRepositoryInterface::class);
@@ -53,7 +53,7 @@ it('tests findOrNew method', function (): void {
     assertModelExists($setting);
 });
 
-/** @covers \App\Repositories\Setting\SettingRepository::save */
+/** @covers \Support\Setting\Repositories\SettingRepository::save */
 it('tests save method', function (): void {
     /** @var SettingRepositoryInterface $repository */
     $repository = app(SettingRepositoryInterface::class);

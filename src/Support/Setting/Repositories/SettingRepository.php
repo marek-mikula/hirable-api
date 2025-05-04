@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Setting;
+namespace Support\Setting\Repositories;
 
 use App\Exceptions\RepositoryException;
-use App\Models\Setting;
 use App\Models\User;
 use Support\Setting\Enums\SettingKeyEnum;
+use Support\Setting\Models\Setting;
 
 class SettingRepository implements SettingRepositoryInterface
 {

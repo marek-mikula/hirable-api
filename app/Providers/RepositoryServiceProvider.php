@@ -8,8 +8,6 @@ use App\Repositories\Company\CompanyRepository;
 use App\Repositories\Company\CompanyRepositoryInterface;
 use App\Repositories\File\FileRepository;
 use App\Repositories\File\FileRepositoryInterface;
-use App\Repositories\Setting\SettingRepository;
-use App\Repositories\Setting\SettingRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Contracts\Support\DeferrableProvider;
@@ -22,7 +20,6 @@ class RepositoryServiceProvider extends ServiceProvider implements DeferrablePro
         FileRepositoryInterface::class => FileRepository::class,
         UserRepositoryInterface::class => UserRepository::class,
         CompanyRepositoryInterface::class => CompanyRepository::class,
-        SettingRepositoryInterface::class => SettingRepository::class,
     ];
 
     public function register(): void
