@@ -12,7 +12,7 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../Config/classifier.php', 'classifier');
+        $this->mergeConfigFrom(__DIR__ . '/../Config/classifier.php', 'classifier');
 
         $this->app->singleton(ClassifierConfigService::class);
         $this->app->singleton(ClassifierTranslateService::class);
@@ -20,6 +20,8 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot(): void
     {
-        //
+        $this->loadMigrationsFrom([
+            __DIR__ . '/../Database/Migrations'
+        ]);
     }
 }
