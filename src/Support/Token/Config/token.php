@@ -31,22 +31,22 @@ return [
 
     'validity' => [
 
-        TokenTypeEnum::REGISTRATION->value => env(
+        TokenTypeEnum::REGISTRATION->value => (int) env(
             key: 'TOKEN_VALIDITY_REGISTRATION',
             default: 14 * 24 * 60 // 14 days
         ),
 
-        TokenTypeEnum::RESET_PASSWORD->value => env(
+        TokenTypeEnum::RESET_PASSWORD->value => (int) env(
             key: 'TOKEN_VALIDITY_RESET_PASSWORD',
             default: 30 // 30 minutes
         ),
 
-        TokenTypeEnum::EMAIL_VERIFICATION->value => env(
+        TokenTypeEnum::EMAIL_VERIFICATION->value => (int) env(
             key: 'TOKEN_VALIDITY_EMAIL_VERIFICATION',
             default: 7 * 24 * 60 // 7 days
         ),
 
-        TokenTypeEnum::INVITATION->value => env(
+        TokenTypeEnum::INVITATION->value => (int) env(
             key: 'TOKEN_VALIDITY_INVITATION',
             default: 14 * 24 * 60 // 14 days
         ),
@@ -66,12 +66,12 @@ return [
 
     'throttle' => [
 
-        'registration' => env(
+        'registration' => (int) env(
             key: 'TOKEN_THROTTLE_REGISTRATION',
             default: 15 // 15 minutes
         ),
 
-        'reset_password' => env(
+        'reset_password' => (int) env(
             key: 'TOKEN_THROTTLE_RESET_PASSWORD',
             default: 15 // 15 minutes
         ),

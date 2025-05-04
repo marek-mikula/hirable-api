@@ -10,6 +10,8 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function register(): void
     {
+        $this->mergeConfigFrom(__DIR__.'/../Config/token.php', 'token');
+
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(ConsoleServiceProvider::class);
         $this->app->register(DeferrableProvider::class);

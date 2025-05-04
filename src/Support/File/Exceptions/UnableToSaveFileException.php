@@ -11,13 +11,14 @@ class UnableToSaveFileException extends \Exception
 {
     public function __construct(FileData $file, FileTypeEnum $type, ?string $subFolder, ?\Exception $previous = null)
     {
-        $message = vsprintf('Unable to save file %s to disk with type %s to %s (mime: %s, size: %s).', [
+        $message = sprintf(
+            'Unable to save file %s to disk with type %s to %s (mime: %s, size: %s).',
             $file->getName(),
             $type->value,
             $subFolder ?? '/',
             $file->getMime(),
             $file->getSize(),
-        ]);
+        );
 
         return parent::__construct(message: $message, previous: $previous);
     }

@@ -34,9 +34,7 @@ class CheckCommand extends Command
             return 0;
         }
 
-        $this->error(vsprintf('There are some missing notification types in the preview: %s.', [
-            $missingTypes->implode(', '),
-        ]));
+        $this->error(sprintf('There are some missing notification types in the preview: %s.', $missingTypes->implode(', ')));
 
         return 1;
     }

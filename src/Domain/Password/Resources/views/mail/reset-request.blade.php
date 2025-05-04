@@ -18,7 +18,7 @@ $type = \App\Enums\NotificationTypeEnum::PASSWORD_RESET_REQUEST;
 {{ __n($type, 'mail', 'body.action') }}
 </x-mail::button>
 
-{{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->datetime($token->valid_until, withSeconds: true)]) }}
+{{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->formatDatetime($token->valid_until, withSeconds: true)]) }}
 
 {{ __n($type, 'mail', 'body.line3') }}
 

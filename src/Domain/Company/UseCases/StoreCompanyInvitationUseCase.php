@@ -50,15 +50,15 @@ class StoreCompanyInvitationUseCase extends UseCase
             $user,
             $data,
         ): Token {
-            $token = $this->tokenRepository->store(TokenStoreInput::from([
-                'type' => TokenTypeEnum::INVITATION,
-                'user' => $user,
-                'data' => [
+            $token = $this->tokenRepository->store(new TokenStoreInput(
+                type: TokenTypeEnum::INVITATION,
+                data: [
                     'companyId' => $user->company_id,
                     'role' => $data->role->value,
                     'email' => $data->email,
                 ],
-            ]));
+                user: $user,
+            ));
 
             Notification::route('mail', $data->email)->notify(new InvitationSentNotification(token: $token));
 

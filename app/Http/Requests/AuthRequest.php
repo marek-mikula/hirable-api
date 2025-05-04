@@ -14,9 +14,7 @@ class AuthRequest extends Request
             /** @var User|null $user */
             $user = parent::user($guard);
 
-            throw_if(empty($user), new \Exception(vsprintf('Unauthenticated user in %s. Add auth middleware.', [
-                AuthRequest::class,
-            ])));
+            throw_if(empty($user), new \Exception(sprintf('Unauthenticated user in %s. Add auth middleware.', AuthRequest::class)));
 
             return $user;
         });

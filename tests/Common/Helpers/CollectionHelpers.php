@@ -31,10 +31,11 @@ function assertCollectionsAreSame(Collection $expected, Collection $actual): voi
     $expected = $expected->map($normalizer);
     $actual = $actual->map($normalizer);
 
-    $message = vsprintf('Collection [%s] do no match the expected collection [%s].', [
+    $message = sprintf(
+        'Collection [%s] do no match the expected collection [%s].',
         $actual->implode(', '),
         $expected->implode(', '),
-    ]);
+    );
 
     assertSame($expected->count(), $actual->count(), message: $message);
     assertTrue($expected->diff($actual)->isEmpty(), message: $message);

@@ -45,12 +45,12 @@ class RequestRegistrationUseCase extends UseCase
             // transaction, so the token gets deleted,
             // if email sending fails
             DB::transaction(function () use ($email): void {
-                $token = $this->tokenRepository->store(TokenStoreInput::from([
-                    'type' => TokenTypeEnum::REGISTRATION,
-                    'data' => [
+                $token = $this->tokenRepository->store(new TokenStoreInput(
+                    type: TokenTypeEnum::REGISTRATION,
+                    data: [
                         'email' => $email,
                     ],
-                ]));
+                ));
 
                 Notification::route('mail', $email)->notifyNow(new RegisterRequestNotification(token: $token));
             }, attempts: 5);

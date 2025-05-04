@@ -70,6 +70,6 @@ class TokenMiddleware
     {
         throw_if(empty($types), new \InvalidArgumentException('At least one token type needs to be specified.'));
 
-        return vsprintf('%s:%s', [self::IDENTIFIER, collect($types)->pluck('value')->join(',')]);
+        return sprintf('%s:%s', self::IDENTIFIER, collect($types)->pluck('value')->join(','));
     }
 }

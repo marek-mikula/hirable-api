@@ -46,10 +46,10 @@ class RequestPasswordResetUseCase extends UseCase
             }
         }
 
-        $token = $this->tokenRepository->store(TokenStoreInput::from([
-            'type' => TokenTypeEnum::RESET_PASSWORD,
-            'user' => $user,
-        ]));
+        $token = $this->tokenRepository->store(new TokenStoreInput(
+            type: TokenTypeEnum::RESET_PASSWORD,
+            user: $user,
+        ));
 
         $user->notify(new ResetRequestNotification(token: $token));
     }

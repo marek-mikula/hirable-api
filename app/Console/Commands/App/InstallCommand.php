@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\App;
 
-use Database\Seeders\DefaultDatabaseSeeder;
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Support\File\Enums\FileDomainEnum;
@@ -13,7 +13,7 @@ class InstallCommand extends Command
 {
     protected $signature = 'app:install';
 
-    protected $description = 'Installs fresh application.';
+    protected $description = 'Installs application.';
 
     public function handle(): int
     {
@@ -24,7 +24,7 @@ class InstallCommand extends Command
         $this->call('migrate:fresh');
 
         // seed default data
-        $this->call('db:seed', ['--class' => DefaultDatabaseSeeder::class]);
+        $this->call('db:seed', ['--class' => DatabaseSeeder::class]);
 
         // clear all files in storage
         $this->clearStorage();
@@ -33,6 +33,8 @@ class InstallCommand extends Command
         if (!$this->isStorageLinked()) {
             $this->call('storage:link');
         }
+
+        $this->components->info('App installed.');
 
         return 0;
     }

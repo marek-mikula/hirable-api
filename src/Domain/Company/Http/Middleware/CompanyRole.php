@@ -46,6 +46,6 @@ final class CompanyRole
     {
         throw_if(empty($roles), new \InvalidArgumentException('At least one company role needs to be specified.'));
 
-        return vsprintf('%s:%s', [self::IDENTIFIER, collect($roles)->pluck('value')->join(',')]);
+        return sprintf('%s:%s', self::IDENTIFIER, collect($roles)->pluck('value')->join(','));
     }
 }

@@ -13,7 +13,7 @@ $type = \App\Enums\NotificationTypeEnum::INVITATION_SENT;
 
 {{ __n($type, 'mail', 'body.line1', ['application' => (string) config('app.name')]) }}
 
-{{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->datetime($token->valid_until, withSeconds: true)]) }}
+{{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->formatDatetime($token->valid_until, withSeconds: true)]) }}
 
 <x-mail::button :url="$token->link">
 {{ __n($type, 'mail', 'body.action') }}

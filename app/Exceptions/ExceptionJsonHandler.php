@@ -72,11 +72,12 @@ class ExceptionJsonHandler
         if ($isDebug) {
             $message = $e->getMessage();
             $data['trace'] = collect($e->getTrace())
-                ->map(static fn (array $trace): string => vsprintf('%s:%s (@%s)', [
+                ->map(static fn (array $trace): string => sprintf(
+                    '%s:%s (@%s)',
                     $trace['file'] ?? $trace['class'] ?? '',
                     $trace['line'] ?? '',
                     $trace['function'],
-                ]))
+                ))
                 ->all();
         }
 

@@ -1,0 +1,99 @@
+<?php
+
+declare(strict_types=1);
+
+use Support\Classifier\Database\Seeders\ClassifierBenefitDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierCurrencyDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierEducationLevelDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierEmploymentFormDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierEmploymentTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierGenderDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierFieldDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierInterviewTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierLanguageDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierLanguageLevelDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierPhonePrefixDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierRefusalTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierRejectionTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierSeniorityDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierTestTypeDatabaseSeeder;
+use Support\Classifier\Enums\ClassifierTypeEnum;
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Classifier cache time (in minutes)
+    |--------------------------------------------------------------------------
+    |
+    | This parameter controls the cache time of the classifier
+    | values.
+    |
+    */
+
+    'cache_time' => (int) env('CLASSIFIER_CACHE_TIME', 7 * 24 * 60),
+
+    'types' => [
+        ClassifierTypeEnum::GENDER->value => [
+            'translate' => true,
+            'seeder' => ClassifierGenderDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::CURRENCY->value => [
+            'translate' => false,
+            'seeder' => ClassifierCurrencyDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::LANGUAGE->value => [
+            'translate' => true,
+            'seeder' => ClassifierLanguageDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::LANGUAGE_LEVEL->value => [
+            'translate' => true,
+            'seeder' => ClassifierLanguageLevelDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::BENEFIT->value => [
+            'translate' => true,
+            'seeder' => ClassifierBenefitDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::EMPLOYMENT_TYPE->value => [
+            'translate' => true,
+            'seeder' => ClassifierEmploymentTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::EMPLOYMENT_FORM->value => [
+            'translate' => true,
+            'seeder' => ClassifierEmploymentFormDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::SENIORITY->value => [
+            'translate' => true,
+            'seeder' => ClassifierSeniorityDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::EDUCATION_LEVEL->value => [
+            'translate' => true,
+            'seeder' => ClassifierEducationLevelDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::FIELD->value => [
+            'translate' => true,
+            'seeder' => ClassifierFieldDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::PHONE_PREFIX->value => [
+            'translate' => false,
+            'seeder' => ClassifierPhonePrefixDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::INTERVIEW_TYPE->value => [
+            'translate' => true,
+            'seeder' => ClassifierInterviewTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::TEST_TYPE->value => [
+            'translate' => true,
+            'seeder' => ClassifierTestTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::REFUSAL_TYPE->value => [
+            'translate' => true,
+            'seeder' => ClassifierRefusalTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::REJECTION_TYPE->value => [
+            'translate' => true,
+            'seeder' => ClassifierRejectionTypeDatabaseSeeder::class,
+        ],
+    ],
+
+];

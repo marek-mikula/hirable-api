@@ -17,7 +17,7 @@ $type = \App\Enums\NotificationTypeEnum::REGISTER_REQUEST;
 {{ __n($type, 'mail', 'body.action') }}
 </x-mail::button>
 
-{{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->datetime($token->valid_until, withSeconds: true)]) }}
+{{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->formatDatetime($token->valid_until, withSeconds: true)]) }}
 
 {{ __('notifications.common.regards') }},
 <br>

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 use App\Enums\EnvEnum;
 use App\Enums\NotificationTypeEnum;
-use App\Services\Formatter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Support\Format\Services\Formatter;
 
 if (!function_exists('isEnv')) {
     function isEnv(EnvEnum ...$environments): bool
