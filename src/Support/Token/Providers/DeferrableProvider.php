@@ -15,6 +15,7 @@ class DeferrableProvider extends ServiceProvider implements BaseDeferrableProvid
     public function register(): void
     {
         $this->app->singleton(TokenResolver::class);
+
         $this->app->bind(TokenRepositoryInterface::class, TokenRepository::class);
     }
 

@@ -23,4 +23,9 @@ class ClassifierConfigService
 
         return (string) $seederClass;
     }
+
+    public function getOrder(ClassifierTypeEnum $type): ?array
+    {
+        return config(sprintf('classifier.types.%s.order', $type->value));
+    }
 }

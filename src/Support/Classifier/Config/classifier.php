@@ -49,6 +49,15 @@ return [
         ClassifierTypeEnum::LANGUAGE_LEVEL->value => [
             'translate' => true,
             'seeder' => ClassifierLanguageLevelDatabaseSeeder::class,
+            'order' => [
+                'a1',
+                'a2',
+                'b1',
+                'b2',
+                'c1',
+                'c2',
+                'native',
+            ]
         ],
         ClassifierTypeEnum::BENEFIT->value => [
             'translate' => true,
@@ -65,10 +74,25 @@ return [
         ClassifierTypeEnum::SENIORITY->value => [
             'translate' => true,
             'seeder' => ClassifierSeniorityDatabaseSeeder::class,
+            'order' => [
+                'junior',
+                'medior',
+                'senior',
+            ]
         ],
         ClassifierTypeEnum::EDUCATION_LEVEL->value => [
             'translate' => true,
             'seeder' => ClassifierEducationLevelDatabaseSeeder::class,
+            'order' => [
+                'primary',
+                'secondary_no_certificate',
+                'secondary_certificate',
+                'secondary_practice_certificate',
+                'higher',
+                'bachelor',
+                'master',
+                'doctor'
+            ],
         ],
         ClassifierTypeEnum::FIELD->value => [
             'translate' => true,
@@ -77,6 +101,14 @@ return [
         ClassifierTypeEnum::PHONE_PREFIX->value => [
             'translate' => false,
             'seeder' => ClassifierPhonePrefixDatabaseSeeder::class,
+            'order' => [
+                '+420',
+                '+421',
+                '+49',
+                '+48',
+                '+43',
+                '+380',
+            ],
         ],
         ClassifierTypeEnum::INTERVIEW_TYPE->value => [
             'translate' => true,

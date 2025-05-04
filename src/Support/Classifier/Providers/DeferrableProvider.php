@@ -6,22 +6,30 @@ namespace Support\Classifier\Providers;
 
 use Illuminate\Contracts\Support\DeferrableProvider as BaseDeferrableProvider;
 use Illuminate\Support\ServiceProvider;
+use Support\Classifier\Repositories\ClassifierRepository;
+use Support\Classifier\Repositories\ClassifierRepositoryInterface;
 use Support\Classifier\Services\ClassifierConfigService;
+use Support\Classifier\Services\ClassifierSortService;
 use Support\Classifier\Services\ClassifierTranslateService;
 
 class DeferrableProvider extends ServiceProvider implements BaseDeferrableProvider
 {
     public function register(): void
     {
+        $this->app->singleton(ClassifierSortService::class);
         $this->app->singleton(ClassifierConfigService::class);
         $this->app->singleton(ClassifierTranslateService::class);
+
+        $this->app->bind(ClassifierRepositoryInterface::class, ClassifierRepository::class);
     }
 
     public function provides(): array
     {
         return [
+            ClassifierSortService::class,
             ClassifierConfigService::class,
             ClassifierTranslateService::class,
+            ClassifierRepositoryInterface::class,
         ];
     }
 }
