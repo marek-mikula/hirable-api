@@ -6,13 +6,13 @@ namespace Domain\Verification\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Models\Token;
-use App\Models\User;
-use App\Repositories\Token\TokenRepositoryInterface;
-use App\Repositories\User\UserRepositoryInterface;
 use App\UseCases\UseCase;
+use Domain\User\Models\User;
+use Domain\User\Repositories\UserRepositoryInterface;
 use Domain\Verification\Notifications\EmailVerifiedNotification;
 use Illuminate\Support\Facades\DB;
+use Support\Token\Models\Token;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 class VerifyEmailUseCase extends UseCase
 {

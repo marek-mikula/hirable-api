@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Tests\Process;
 
 use App\Enums\ResponseCodeEnum;
-use App\Models\Token;
-use App\Models\User;
 use Domain\Password\Notifications\ChangedNotification;
 use Domain\Password\Notifications\ResetRequestNotification;
+use Domain\User\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
 
 use function Pest\Laravel\assertDatabaseEmpty;
 use function Pest\Laravel\assertDatabaseHas;

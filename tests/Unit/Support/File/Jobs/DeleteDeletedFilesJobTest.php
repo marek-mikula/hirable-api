@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Support\File\Jobs;
 
-use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 use Support\File\Jobs\DeleteDeletedFilesJob;
+use Support\File\Models\File;
 
 use function Pest\Laravel\assertModelExists;
 use function Pest\Laravel\assertModelMissing;

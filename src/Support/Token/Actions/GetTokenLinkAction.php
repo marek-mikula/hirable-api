@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Support\Token\Actions;
 
-use App\Models\Token;
 use Lorisleiva\Actions\Action;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
 
 class GetTokenLinkAction extends Action
 {

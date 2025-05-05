@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Support\Grid\UseCases;
 
-use App\Models\User;
 use App\UseCases\UseCase;
+use Domain\User\Models\User;
 use Illuminate\Support\Arr;
 use Support\Grid\Contracts\Grid;
 use Support\Grid\Data\Definition\GridColumnDefinition;

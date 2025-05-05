@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Support\ActivityLog\Services;
 
-use App\Models\ActivityLog;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Support\ActivityLog\Data\Log;
 use Support\ActivityLog\Jobs\SaveActivityLogsJob;
+use Support\ActivityLog\Models\ActivityLog;
 
 class ActivityLogSaver
 {

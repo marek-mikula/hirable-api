@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Register\Http\Requests;
 
-use App\Models\Company;
+use Domain\Company\Models\Company;
 use Domain\Register\Http\Requests\Data\CompanyData;
 use Domain\Register\Http\Requests\Data\RegisterData;
 use Illuminate\Validation\Rules\Password;

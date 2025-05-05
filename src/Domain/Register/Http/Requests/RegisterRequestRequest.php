@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Register\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Models\User;
+use Domain\User\Models\User;
 use Illuminate\Validation\Rules\Unique;
 
 class RegisterRequestRequest extends Request

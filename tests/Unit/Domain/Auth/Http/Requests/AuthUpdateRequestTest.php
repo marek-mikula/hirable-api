@@ -6,8 +6,8 @@ namespace Tests\Unit\Domain\Auth\Http\Requests;
 
 use App\Enums\LanguageEnum;
 use App\Enums\TimezoneEnum;
-use App\Models\User;
 use Domain\Auth\Http\Requests\AuthUpdateRequest;
+use Domain\User\Models\User;
 use Illuminate\Support\Str;
 use Tests\Common\Data\ValidationData;
 

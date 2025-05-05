@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Support\Grid\UseCases;
 
-use App\Models\User;
 use App\UseCases\UseCase;
+use Domain\User\Models\User;
 use Support\Grid\Data\Definition\GridDefinition;
 use Support\Grid\Data\Query\GridQuery;
 use Support\Grid\Data\Settings\GridSetting;

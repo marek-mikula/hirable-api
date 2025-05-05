@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Support\File\Services;
 
-use App\Models\File;
-use App\Repositories\File\FileRepositoryInterface;
 use Illuminate\Support\Facades\Storage;
+use Support\File\Models\File;
+use Support\File\Repositories\FileRepositoryInterface;
 
 class FileRemover
 {

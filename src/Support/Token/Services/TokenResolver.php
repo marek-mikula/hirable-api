@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Support\Token\Services;
 
-use App\Models\Token;
 use Support\Token\Http\Middleware\TokenMiddleware;
+use Support\Token\Models\Token;
 
 class TokenResolver
 {
@@ -18,7 +18,7 @@ class TokenResolver
     {
         if ($this->token === null) {
             throw new \Exception(
-                message: vsprintf('No token found! Haven\'t you forgotten to add the %s to your route?', [TokenMiddleware::class])
+                message: sprintf('No token found! Haven\'t you forgotten to add the %s to your route?', TokenMiddleware::class)
             );
         }
 

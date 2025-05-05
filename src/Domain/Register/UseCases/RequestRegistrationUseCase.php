@@ -6,13 +6,13 @@ namespace Domain\Register\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Repositories\Token\Input\TokenStoreInput;
-use App\Repositories\Token\TokenRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Register\Notifications\RegisterRequestNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Repositories\Input\TokenStoreInput;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 class RequestRegistrationUseCase extends UseCase
 {
@@ -45,12 +45,12 @@ class RequestRegistrationUseCase extends UseCase
             // transaction, so the token gets deleted,
             // if email sending fails
             DB::transaction(function () use ($email): void {
-                $token = $this->tokenRepository->store(TokenStoreInput::from([
-                    'type' => TokenTypeEnum::REGISTRATION,
-                    'data' => [
+                $token = $this->tokenRepository->store(new TokenStoreInput(
+                    type: TokenTypeEnum::REGISTRATION,
+                    data: [
                         'email' => $email,
                     ],
-                ]));
+                ));
 
                 Notification::route('mail', $email)->notifyNow(new RegisterRequestNotification(token: $token));
             }, attempts: 5);

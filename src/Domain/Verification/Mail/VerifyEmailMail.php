@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Domain\Verification\Mail;
 
-use App\Enums\NotificationTypeEnum;
 use App\Mail\Mailable;
-use App\Models\Token;
-use App\Models\User;
+use Domain\User\Models\User;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
+use Support\Notification\Enums\NotificationTypeEnum;
+use Support\Token\Models\Token;
 
 class VerifyEmailMail extends Mailable
 {

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Grid\Actions;
 
-use App\Models\User;
-use App\Repositories\Setting\SettingRepositoryInterface;
+use Domain\User\Models\User;
 use Lorisleiva\Actions\Action;
 use Support\Grid\Data\Query\GridQuery;
 use Support\Grid\Data\Query\GridRequestQuery;
@@ -13,6 +12,7 @@ use Support\Grid\Enums\GridEnum;
 use Support\Grid\UseCases\GetGridDefinitionUseCase;
 use Support\Grid\UseCases\GetGridQueryUseCase;
 use Support\Setting\Mappers\GridSettingMapper;
+use Support\Setting\Repositories\SettingRepositoryInterface;
 
 class SaveGridRequestQueryAction extends Action
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Support\Token\Services;
 
-use App\Models\Token;
+use Support\Token\Models\Token;
 use Support\Token\Services\TokenResolver;
 
 use function PHPUnit\Framework\assertStringContainsString;

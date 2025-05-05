@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Company\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
-use App\Models\Company;
+use Domain\Company\Models\Company;
 use Illuminate\Validation\Rules\ExcludeIf;
 use Illuminate\Validation\Rules\In;
 use Illuminate\Validation\Rules\Unique;

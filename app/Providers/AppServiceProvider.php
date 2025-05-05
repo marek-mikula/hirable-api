@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Enums\EnvEnum;
-use App\Services\Formatter;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -23,8 +22,6 @@ class AppServiceProvider extends ServiceProvider
         if (isEnv(EnvEnum::TESTING)) {
             $this->loadTestingMigrations();
         }
-
-        $this->app->singleton(Formatter::class);
     }
 
     public function boot(): void

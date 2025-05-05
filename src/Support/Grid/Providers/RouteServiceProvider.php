@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(static function (): void {
             Route::middleware('api')
                 ->prefix('/api/grids')
-                ->name('api.grid.')
+                ->name('api.grids.')
                 ->group(__DIR__.'/../Routes/grid.php');
         });
     }

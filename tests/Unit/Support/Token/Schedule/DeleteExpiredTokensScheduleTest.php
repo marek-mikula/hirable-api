@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Support\Token\Schedule;
 
-use App\Models\Token;
 use Illuminate\Support\Facades\Queue;
 use Support\Token\Jobs\DeleteExpiredTokensJob;
+use Support\Token\Models\Token;
 use Support\Token\Schedule\DeleteExpiredTokensSchedule;
 
 /** @covers \Support\Token\Schedule\DeleteExpiredTokensSchedule::__invoke */

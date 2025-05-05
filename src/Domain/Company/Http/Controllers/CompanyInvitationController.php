@@ -6,7 +6,6 @@ namespace Domain\Company\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
-use App\Http\Resources\Collections\TokenInvitationPaginatedCollection;
 use Domain\Company\Http\Requests\CompanyInvitationIndexRequest;
 use Domain\Company\Http\Requests\CompanyInvitationsStoreRequest;
 use Domain\Company\UseCases\GetCompanyInvitationsForIndexUseCase;
@@ -14,6 +13,7 @@ use Domain\Company\UseCases\StoreCompanyInvitationUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
+use Support\Token\Http\Resources\Collections\TokenInvitationPaginatedCollection;
 
 use function Illuminate\Support\defer;
 

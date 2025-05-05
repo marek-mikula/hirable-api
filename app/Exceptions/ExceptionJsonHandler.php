@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use App\Enums\ResponseCodeEnum;
-use App\Http\Traits\RespondsAsJson;
+use App\Http\Controllers\Traits\RespondsAsJson;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -72,11 +72,12 @@ class ExceptionJsonHandler
         if ($isDebug) {
             $message = $e->getMessage();
             $data['trace'] = collect($e->getTrace())
-                ->map(static fn (array $trace): string => vsprintf('%s:%s (@%s)', [
+                ->map(static fn (array $trace): string => sprintf(
+                    '%s:%s (@%s)',
                     $trace['file'] ?? $trace['class'] ?? '',
                     $trace['line'] ?? '',
                     $trace['function'],
-                ]))
+                ))
                 ->all();
         }
 

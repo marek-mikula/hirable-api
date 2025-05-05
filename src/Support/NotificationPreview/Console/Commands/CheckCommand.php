@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Console\Commands;
 
-use App\Enums\NotificationTypeEnum;
 use Illuminate\Console\Command;
+use Support\Notification\Enums\NotificationTypeEnum;
 use Support\NotificationPreview\Data\NotificationData;
 use Support\NotificationPreview\Data\NotificationDomain;
 use Support\NotificationPreview\Services\NotificationRegistrar;
@@ -34,9 +34,7 @@ class CheckCommand extends Command
             return 0;
         }
 
-        $this->error(vsprintf('There are some missing notification types in the preview: %s.', [
-            $missingTypes->implode(', '),
-        ]));
+        $this->error(sprintf('There are some missing notification types in the preview: %s.', $missingTypes->implode(', ')));
 
         return 1;
     }

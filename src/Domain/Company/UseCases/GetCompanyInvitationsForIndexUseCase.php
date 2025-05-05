@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Company\UseCases;
 
-use App\Models\Builders\TokenBuilder;
-use App\Models\Token;
-use App\Models\User;
 use App\UseCases\UseCase;
+use Domain\User\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
+use Support\Token\Models\Builders\TokenBuilder;
+use Support\Token\Models\Token;
 
 class GetCompanyInvitationsForIndexUseCase extends UseCase
 {

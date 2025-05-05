@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Traits\RespondsAsJson;
+use App\Http\Controllers\Traits\RespondsAsJson;
 
 abstract class ApiController extends Controller
 {

@@ -12,7 +12,7 @@ final class SetLocale
 {
     public function handle(Request $request, \Closure $next): Response
     {
-        // Try to parse language from:
+        // Try to get language from:
         // a) query string
         // b) Accept-Language header
         // c) default value

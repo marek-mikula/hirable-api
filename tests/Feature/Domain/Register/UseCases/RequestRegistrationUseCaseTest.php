@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\Register\UseCases;
 
 use App\Enums\ResponseCodeEnum;
-use App\Models\Token;
 use Domain\Register\Notifications\RegisterRequestNotification;
 use Domain\Register\UseCases\RequestRegistrationUseCase;
 use Illuminate\Contracts\Notifications\Dispatcher;
 use Illuminate\Support\Facades\Notification;
 use Mockery\MockInterface;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseEmpty;

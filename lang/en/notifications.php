@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Enums\NotificationTypeEnum;
+use Support\Notification\Enums\NotificationTypeEnum;
 
 return [
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Domain\Search\UseCases;
 
-use App\Models\User;
 use App\UseCases\UseCase;
 use Domain\Search\Data\ResultData;
 use Domain\Search\Data\SearchData;
+use Domain\User\Models\User;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 

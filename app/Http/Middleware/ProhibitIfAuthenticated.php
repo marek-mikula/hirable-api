@@ -6,8 +6,8 @@ namespace App\Http\Middleware;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Http\Resources\AuthUserResource;
-use App\Models\User;
+use Domain\Auth\Http\Resources\AuthUserResource;
+use Domain\User\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -1,12 +1,12 @@
 @php
 
-/**
- * @var \Illuminate\Support\Collection<\Support\NotificationPreview\Data\NotificationDomain> $notifications
- * @var \Support\NotificationPreview\Data\NotificationData $notification
- */
+    /**
+     * @var \Illuminate\Support\Collection<\Support\NotificationPreview\Data\NotificationDomain> $notifications
+     * @var \Support\NotificationPreview\Data\NotificationData $notification
+     */
 
 @endphp
-<!doctype html>
+        <!doctype html>
 <html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
@@ -62,7 +62,8 @@
                                 @endif
                                 {{ $n->label }}
                             </span>
-                            <a href="{{ route('notification_preview.show', ['type' => $n->getType()->value]) }}" class="absolute inset-0"></a>
+                            <a href="{{ route('notification_preview.show', ['type' => $n->getType()->value]) }}"
+                               class="absolute inset-0"></a>
                         </li>
                     @endforeach
                 @endforeach
@@ -81,7 +82,8 @@
                 </h2>
                 <div class="mt-1 text-sm leading-6 text-gray-700 space-x-2">
                     @foreach($notification->getChannels() as $channel)
-                        <a href="#{{ $channel }}" class="rounded bg-primary-50 px-2 py-1 text-sm text-primary-600 shadow-sm hover:bg-primary-100">
+                        <a href="#{{ $channel }}"
+                           class="rounded bg-primary-50 px-2 py-1 text-sm text-primary-600 shadow-sm hover:bg-primary-100">
                             {{ str($channel)->title() }}
                         </a>
                     @endforeach
@@ -99,15 +101,15 @@
                 <h2 class="text-base font-semibold leading-7 text-gray-900">
                     Notification category
                 </h2>
-                @if($notification->getType()->getCategory() === \App\Enums\NotificationCategoryEnum::CRUCIAL)
+                @if($notification->getType()->getCategory() === \Support\Notification\Enums\NotificationCategoryEnum::CRUCIAL)
                     <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
                         {{ $notification->getType()->getCategory()->name }}
                     </span>
-                @elseif($notification->getType()->getCategory() === \App\Enums\NotificationCategoryEnum::TECHNICAL)
+                @elseif($notification->getType()->getCategory() === \Support\Notification\Enums\NotificationCategoryEnum::TECHNICAL)
                     <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
                         {{ $notification->getType()->getCategory()->name }}
                     </span>
-                @elseif($notification->getType()->getCategory() === \App\Enums\NotificationCategoryEnum::MARKETING)
+                @elseif($notification->getType()->getCategory() === \Support\Notification\Enums\NotificationCategoryEnum::MARKETING)
                     <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
                         {{ $notification->getType()->getCategory()->name }}
                     </span>
@@ -177,7 +179,8 @@
                             <i class="bi bi-envelope" title="Mail notification"></i>
                             <span class="ml-1">Mail</span>
                         </h2>
-                        <a href="{{ route('notification_preview.mail', ['type' => $notification->getType()->value]) }}" class="rounded bg-white px-2 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        <a href="{{ route('notification_preview.mail', ['type' => $notification->getType()->value]) }}"
+                           class="rounded bg-white px-2 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                             Open in window
                         </a>
                     </div>
@@ -237,7 +240,8 @@
                                 Preview
                             </h2>
                             <div class="mt-1 rounded-lg overflow-hidden" style="height: 500px;">
-                                <iframe class="w-full h-full" src="{{ route('notification_preview.mail', ['type' => $notification->getType()->value, 'html' => $notification->getMail()->base64Html()]) }}"></iframe>
+                                <iframe class="w-full h-full"
+                                        src="{{ route('notification_preview.mail', ['type' => $notification->getType()->value, 'html' => $notification->getMail()->base64Html()]) }}"></iframe>
                             </div>
                         </div>
                     </div>

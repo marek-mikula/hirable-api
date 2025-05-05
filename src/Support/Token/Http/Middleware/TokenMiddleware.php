@@ -6,11 +6,11 @@ namespace Support\Token\Http\Middleware;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Repositories\Token\TokenRepositoryInterface;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Repositories\TokenRepositoryInterface;
 use Support\Token\Services\TokenResolver;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -70,6 +70,6 @@ class TokenMiddleware
     {
         throw_if(empty($types), new \InvalidArgumentException('At least one token type needs to be specified.'));
 
-        return vsprintf('%s:%s', [self::IDENTIFIER, collect($types)->pluck('value')->join(',')]);
+        return sprintf('%s:%s', self::IDENTIFIER, collect($types)->pluck('value')->join(','));
     }
 }

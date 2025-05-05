@@ -6,7 +6,7 @@ namespace Domain\Register\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
-use App\Http\Resources\AuthUserResource;
+use Domain\Auth\Http\Resources\AuthUserResource;
 use Domain\Auth\Services\AuthService;
 use Domain\Register\Http\Requests\RegisterRegisterRequest;
 use Domain\Register\Http\Requests\RegisterRequestRequest;

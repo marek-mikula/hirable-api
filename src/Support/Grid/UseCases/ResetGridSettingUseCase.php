@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Support\Grid\UseCases;
 
-use App\Models\User;
-use App\Repositories\Setting\SettingRepositoryInterface;
 use App\UseCases\UseCase;
+use Domain\User\Models\User;
 use Support\Grid\Enums\GridEnum;
 use Support\Setting\Mappers\GridSettingMapper;
+use Support\Setting\Repositories\SettingRepositoryInterface;
 
 class ResetGridSettingUseCase extends UseCase
 {

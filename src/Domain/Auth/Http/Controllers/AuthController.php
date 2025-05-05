@@ -6,11 +6,11 @@ namespace Domain\Auth\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
-use App\Http\Resources\AuthUserResource;
 use Domain\Auth\Http\Requests\AuthLoginRequest;
 use Domain\Auth\Http\Requests\AuthLogoutRequest;
 use Domain\Auth\Http\Requests\AuthMeRequest;
 use Domain\Auth\Http\Requests\AuthUpdateRequest;
+use Domain\Auth\Http\Resources\AuthUserResource;
 use Domain\Auth\Services\AuthService;
 use Domain\Auth\UseCases\UpdateUserUseCase;
 use Illuminate\Http\JsonResponse;

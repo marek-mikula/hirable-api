@@ -1,26 +1,26 @@
 @php
 
-/**
- * @var \App\Models\User $notifiable
- * @var \App\Models\Token $token
-*/
+    /**
+     * @var \Domain\User\Models\User $notifiable
+     * @var \Support\Token\Models\Token $token
+    */
 
-$type = \App\Enums\NotificationTypeEnum::VERIFICATION_VERIFY_EMAIL;
+    $type = \Support\Notification\Enums\NotificationTypeEnum::VERIFICATION_VERIFY_EMAIL;
 
 @endphp
 
 <x-mail::message>
-{{ __('notifications.common.salutation') }},
+    {{ __('notifications.common.salutation') }},
 
-{{ __n($type, 'mail', 'body.line1') }}
+    {{ __n($type, 'mail', 'body.line1') }}
 
-<x-mail::button :url="$token->link">
-{{ __n($type, 'mail', 'body.action') }}
-</x-mail::button>
+    <x-mail::button :url="$token->link">
+        {{ __n($type, 'mail', 'body.action') }}
+    </x-mail::button>
 
-{{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->datetime($token->valid_until, withSeconds: true)]) }}
+    {{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->formatDatetime($token->valid_until, withSeconds: true)]) }}
 
-{{ __('notifications.common.regards') }},
-<br>
-{{ __('notifications.common.signature', ['application' => (string) config('app.name')]) }}
+    {{ __('notifications.common.regards') }},
+    <br>
+    {{ __('notifications.common.signature', ['application' => (string) config('app.name')]) }}
 </x-mail::message>

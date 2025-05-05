@@ -6,16 +6,16 @@ namespace Domain\Company\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
-use App\Models\Token;
-use App\Models\User;
-use App\Repositories\Token\Input\TokenStoreInput;
-use App\Repositories\Token\TokenRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Company\Http\Requests\Data\InvitationStoreData;
 use Domain\Company\Notifications\InvitationSentNotification;
+use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
+use Support\Token\Repositories\Input\TokenStoreInput;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 class StoreCompanyInvitationUseCase extends UseCase
 {
@@ -50,15 +50,15 @@ class StoreCompanyInvitationUseCase extends UseCase
             $user,
             $data,
         ): Token {
-            $token = $this->tokenRepository->store(TokenStoreInput::from([
-                'type' => TokenTypeEnum::INVITATION,
-                'user' => $user,
-                'data' => [
+            $token = $this->tokenRepository->store(new TokenStoreInput(
+                type: TokenTypeEnum::INVITATION,
+                data: [
                     'companyId' => $user->company_id,
                     'role' => $data->role->value,
                     'email' => $data->email,
                 ],
-            ]));
+                user: $user,
+            ));
 
             Notification::route('mail', $data->email)->notify(new InvitationSentNotification(token: $token));
 

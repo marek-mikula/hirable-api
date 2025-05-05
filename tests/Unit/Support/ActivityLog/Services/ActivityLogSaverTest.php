@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Support\ActivityLog\Services;
 
-use App\Models\ActivityLog;
-use App\Models\User;
+use Domain\User\Models\User;
 use Illuminate\Support\Facades\Queue;
 use Support\ActivityLog\Data\Log;
 use Support\ActivityLog\Jobs\SaveActivityLogsJob;
+use Support\ActivityLog\Models\ActivityLog;
 use Support\ActivityLog\Services\ActivityLogSaver;
 
 use function Pest\Laravel\assertDatabaseCount;

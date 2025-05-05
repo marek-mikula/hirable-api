@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Password\UseCases;
 
-use App\Models\Token;
-use App\Repositories\Token\TokenRepositoryInterface;
-use App\Repositories\User\UserRepositoryInterface;
 use App\UseCases\UseCase;
 use Domain\Password\Notifications\ChangedNotification;
+use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
+use Support\Token\Models\Token;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 class ResetPasswordUseCase extends UseCase
 {

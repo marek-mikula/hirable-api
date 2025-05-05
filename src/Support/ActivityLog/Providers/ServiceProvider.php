@@ -17,7 +17,7 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function register(): void
     {
-        $this->app->register(DeferrableProvider::class);
+        $this->app->register(DeferrableServiceProvider::class);
 
         $this->app->singleton(ActivityLogCauserResolver::class);
         $this->app->singleton(ActivityLogHandler::class);
@@ -33,7 +33,9 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot(): void
     {
-        //
+        $this->loadMigrationsFrom([
+            __DIR__ . '/../Database/Migrations'
+        ]);
     }
 
     private function registerConsoleHandler(): void

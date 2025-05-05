@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Middleware\ProhibitIfAuthenticated;
-use App\Models\User;
+use Domain\User\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 use function PHPUnit\Framework\assertTrue;
