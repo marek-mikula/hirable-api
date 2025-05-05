@@ -63,7 +63,7 @@ class Company extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): CompanyBuilder
+    public function newEloquentBuilder($query): CompanyBuilder // @pest-ignore-type
     {
         return new CompanyBuilder($query);
     }

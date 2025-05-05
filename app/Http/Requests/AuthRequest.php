@@ -8,7 +8,7 @@ use Domain\User\Models\User;
 
 class AuthRequest extends Request
 {
-    public function user($guard = null): User
+    public function user($guard = null): User // @pest-ignore-type
     {
         return once(function () use ($guard): User {
             /** @var User|null $user */

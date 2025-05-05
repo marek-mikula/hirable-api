@@ -97,7 +97,7 @@ class Token extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): TokenBuilder
+    public function newEloquentBuilder($query): TokenBuilder // @pest-ignore-type
     {
         return new TokenBuilder($query);
     }

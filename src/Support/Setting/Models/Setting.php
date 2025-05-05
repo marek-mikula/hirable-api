@@ -49,7 +49,7 @@ class Setting extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): SettingBuilder
+    public function newEloquentBuilder($query): SettingBuilder // @pest-ignore-type
     {
         return new SettingBuilder($query);
     }

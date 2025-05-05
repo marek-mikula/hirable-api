@@ -11,7 +11,7 @@ abstract class Notification extends BaseNotification
 {
     public NotificationTypeEnum $type;
 
-    public function databaseType($notifiable): string
+    public function databaseType($notifiable): string // @pest-ignore-type
     {
         // defines the type for database notifications
         return $this->type->value;
