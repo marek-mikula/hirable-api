@@ -25,12 +25,12 @@ class FileData extends Data
 
     public function getMime(): string
     {
-        return $this->file->getMimeType() ?: $this->file->getClientMimeType() ?: 'unknown';
+        return ($this->file->getMimeType() ?: $this->file->getClientMimeType()) ?: 'unknown';
     }
 
     public function getExtension(): string
     {
-        return $this->file->getExtension() ?: $this->file->getClientOriginalExtension() ?: 'unknown';
+        return ($this->file->getExtension() ?: $this->file->getClientOriginalExtension()) ?: 'unknown';
     }
 
     public function getSize(): int

@@ -8,7 +8,7 @@ use Spatie\LaravelData\Data;
 
 class GridColumnSetting extends Data
 {
-    public ?bool $enabled;
+    public ?bool $enabled = null;
 
-    public ?int $width;
+    public ?int $width = null;
 }

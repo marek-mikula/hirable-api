@@ -11,11 +11,11 @@ use Support\Grid\Enums\PerPageEnum;
 
 class GridSetting extends Data
 {
-    public ?PerPageEnum $perPage;
+    public ?PerPageEnum $perPage = null;
 
-    public ?bool $stickyHeader;
+    public ?bool $stickyHeader = null;
 
-    public ?bool $stickyFooter;
+    public ?bool $stickyFooter = null;
 
     /** @var array<string,GridColumnSetting> key is the column key */
     public array $columns;
@@ -23,7 +23,7 @@ class GridSetting extends Data
     /** @var string[] list of column keys */
     public array $order;
 
-    public ?string $searchQuery;
+    public ?string $searchQuery = null;
 
     /** @var array<string,OrderEnum> key is the column key */
     public array $sort;

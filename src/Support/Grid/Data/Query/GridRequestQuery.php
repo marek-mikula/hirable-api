@@ -14,7 +14,7 @@ class GridRequestQuery extends Data
 
     public PerPageEnum $perPage;
 
-    public ?string $searchQuery;
+    public ?string $searchQuery = null;
 
     /** @var array<string,OrderEnum> key is column key */
     public array $sort;

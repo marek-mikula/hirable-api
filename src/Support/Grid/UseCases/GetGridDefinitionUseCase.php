@@ -103,9 +103,7 @@ class GetGridDefinitionUseCase extends UseCase
 
         // sort only those columns, which are
         // in the order array
-        uasort($columns, static function (GridColumnDefinition $a, GridColumnDefinition $b) use ($order): int {
-            return array_search($a->key, $order) <=> array_search($b->key, $order);
-        });
+        uasort($columns, static fn(GridColumnDefinition $a, GridColumnDefinition $b): int => array_search($a->key, $order) <=> array_search($b->key, $order));
 
         // append missing columns to the end
         // because we have no way how to sort

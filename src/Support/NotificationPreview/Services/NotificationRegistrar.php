@@ -41,19 +41,13 @@ class NotificationRegistrar
 
                             return new RegisterRequestNotification(token: $token);
                         },
-                        notifiable: function () {
-                            return (new AnonymousNotifiable())->route('mail', 'example@example.com');
-                        }
+                        notifiable: fn() => (new AnonymousNotifiable())->route('mail', 'example@example.com')
                     ),
                     NotificationData::create(
                         label: 'Registered',
                         description: 'Notification notifies user that he successfully finished his registration.',
-                        notification: function (User $notifiable) {
-                            return new RegisterRegisteredNotification();
-                        },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
+                        notification: fn(User $notifiable) => new RegisterRegisteredNotification(),
+                        notifiable: fn() => User::factory()->make(),
                     ),
                 ],
             ),
@@ -68,19 +62,13 @@ class NotificationRegistrar
 
                             return new VerifyEmailNotification(token: $token);
                         },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
+                        notifiable: fn() => User::factory()->make(),
                     ),
                     NotificationData::create(
                         label: 'Email verified',
                         description: 'Notification informs the user that his email has been verified.',
-                        notification: function (User $notifiable) {
-                            return new EmailVerifiedNotification();
-                        },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
+                        notification: fn(User $notifiable) => new EmailVerifiedNotification(),
+                        notifiable: fn() => User::factory()->make(),
                     ),
                 ],
             ),
@@ -95,19 +83,13 @@ class NotificationRegistrar
 
                             return new ResetRequestNotification(token: $token);
                         },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
+                        notifiable: fn() => User::factory()->make(),
                     ),
                     NotificationData::create(
                         label: 'Reset',
                         description: 'Notification notifies user that his password was successfully reset.',
-                        notification: function (User $notifiable) {
-                            return new ChangedNotification();
-                        },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
+                        notification: fn(User $notifiable) => new ChangedNotification(),
+                        notifiable: fn() => User::factory()->make(),
                     ),
                 ]
             ),
@@ -124,9 +106,7 @@ class NotificationRegistrar
 
                             return new InvitationSentNotification(token: $token);
                         },
-                        notifiable: function () {
-                            return (new AnonymousNotifiable())->route('mail', 'example@example.com');
-                        },
+                        notifiable: fn() => (new AnonymousNotifiable())->route('mail', 'example@example.com'),
                     ),
                     NotificationData::create(
                         label: 'Invitation accepted',
@@ -136,9 +116,7 @@ class NotificationRegistrar
 
                             return new InvitationAcceptedNotification(user: $user);
                         },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
+                        notifiable: fn() => User::factory()->make(),
                     ),
                 ]
             ),

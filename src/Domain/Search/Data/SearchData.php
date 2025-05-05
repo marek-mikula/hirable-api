@@ -8,7 +8,7 @@ use Spatie\LaravelData\Data;
 
 class SearchData extends Data
 {
-    public ?string $query;
+    public ?string $query = null;
 
     public int $limit;
 

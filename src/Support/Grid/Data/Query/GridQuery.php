@@ -9,9 +9,9 @@ use Support\Grid\Enums\OrderEnum;
 
 class GridQuery extends Data
 {
-    public ?int $page;
+    public ?int $page = null;
 
-    public ?string $searchQuery;
+    public ?string $searchQuery = null;
 
     /** @var array<string,OrderEnum> key is column key */
     public array $sort;
