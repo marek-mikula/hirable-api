@@ -40,9 +40,9 @@ class TelescopeServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Gate::define('viewTelescope', fn(User $user): bool => $user->email === (string) config('app.admin_email'));
+        Gate::define('viewTelescope', fn (User $user): bool => $user->email === (string) config('app.admin_email'));
 
-        Telescope::auth(fn(Request $request): bool => isEnv(EnvEnum::LOCAL) || Gate::check('viewTelescope', [$request->user()]));
+        Telescope::auth(fn (Request $request): bool => isEnv(EnvEnum::LOCAL) || Gate::check('viewTelescope', [$request->user()]));
     }
 
     private function hideSensitiveRequestDetails(): void

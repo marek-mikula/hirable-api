@@ -26,7 +26,7 @@ class CachedClassifierRepositoryProxy implements ClassifierRepositoryInterface
 
         $cacheTime = now()->addSeconds($this->classifierConfigService->getCacheTime());
 
-        return Cache::memo('file')->remember($key, $cacheTime, fn() => $this->classifierRepository->getValuesForType($type));
+        return Cache::memo('file')->remember($key, $cacheTime, fn () => $this->classifierRepository->getValuesForType($type));
     }
 
     public function getValuesForTypes(array $types): array

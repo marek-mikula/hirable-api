@@ -55,7 +55,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'passwordConfirm',
         ]);
 
-        $exceptions->shouldRenderJsonWhen(fn(Request $request, Throwable $e): bool => $request->expectsJson());
+        $exceptions->shouldRenderJsonWhen(fn (Request $request, Throwable $e): bool => $request->expectsJson());
 
         // define render process
         $exceptions->render(function (Throwable $e, Request $request) {

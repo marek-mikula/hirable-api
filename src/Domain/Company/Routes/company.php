@@ -8,6 +8,8 @@ use Domain\Company\Http\Controllers\CompanyUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(static function (): void {
+    Route::get('/', [CompanyController::class, 'show'])
+        ->name('show');
     Route::patch('/', [CompanyController::class, 'update'])
         ->name('update');
 

@@ -18,8 +18,15 @@ class ClassifierBuilder extends Builder
         return $this->where('type', $type->value);
     }
 
-    public function whereValue(string $value): static
+    /**
+     * @param string|string[] $value
+     */
+    public function whereValue(string|array $value): static
     {
+        if (is_array($value)) {
+            return $this->whereIn('value', $value);
+        }
+
         return $this->where('value', $value);
     }
 }

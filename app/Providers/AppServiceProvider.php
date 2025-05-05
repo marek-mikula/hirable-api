@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
     private function bootApiRateLimiter(): void
     {
-        RateLimiter::for('api', fn(Request $request) => Limit::perMinute(60)->by($request->ip()));
+        RateLimiter::for('api', fn (Request $request) => Limit::perMinute(60)->by($request->ip()));
     }
 
     private function loadTestingMigrations(): void

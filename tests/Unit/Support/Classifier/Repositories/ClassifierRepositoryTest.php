@@ -10,11 +10,12 @@ use Support\Classifier\Repositories\ClassifierRepositoryInterface;
 
 use function Tests\Common\Helpers\assertCollectionsAreSame;
 
-beforeEach(function (): void {
-    // turn off caching of classifiers, so we
-    // know that we use DB repository
-    config()->set('classifier.cache_enabled', false);
-});
+uses()
+    ->beforeEach(function (): void {
+        // turn off caching of classifiers, so we
+        // know that we use DB repository
+        config()->set('classifier.cache_enabled', false);
+    });
 
 /** @covers \Support\Classifier\Repositories\ClassifierRepository::getValuesForType */
 it('tests getValuesForType method', function (): void {

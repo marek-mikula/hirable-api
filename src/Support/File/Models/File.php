@@ -67,7 +67,7 @@ class File extends Model
 
     protected function realPath(): Attribute
     {
-        return Attribute::get(fn(): string => Storage::disk($this->type->getDomain()->getDisk())->path($this->path));
+        return Attribute::get(fn (): string => Storage::disk($this->type->getDomain()->getDisk())->path($this->path));
     }
 
     public function fileable(): MorphTo

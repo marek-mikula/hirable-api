@@ -71,9 +71,9 @@ class NotificationPreviewController extends WebController
     {
         /** @var NotificationData|null $notification */
         $notification = $notifications
-            ->map(fn(NotificationDomain $domain): Collection => $domain->notifications)
+            ->map(fn (NotificationDomain $domain): Collection => $domain->notifications)
             ->flatten()
-            ->first(fn(NotificationData $notification): bool => $notification->getType() === $type);
+            ->first(fn (NotificationData $notification): bool => $notification->getType() === $type);
 
         return $notification;
     }

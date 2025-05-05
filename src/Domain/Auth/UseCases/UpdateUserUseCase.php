@@ -22,6 +22,10 @@ class UpdateUserUseCase extends UseCase
 
     public function handle(User $user, array $values): User
     {
+        if (empty($values)) {
+            return $user;
+        }
+
         // password update
         if (array_key_exists('password', $values)) {
             // check if user entered different password
@@ -34,10 +38,6 @@ class UpdateUserUseCase extends UseCase
             $user->notify(new ChangedNotification());
 
             unset($values['password']);
-        }
-
-        if (empty($values)) {
-            return $user;
         }
 
         $input = [

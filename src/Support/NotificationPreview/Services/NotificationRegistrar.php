@@ -41,13 +41,13 @@ class NotificationRegistrar
 
                             return new RegisterRequestNotification(token: $token);
                         },
-                        notifiable: fn() => (new AnonymousNotifiable())->route('mail', 'example@example.com')
+                        notifiable: fn () => (new AnonymousNotifiable())->route('mail', 'example@example.com')
                     ),
                     NotificationData::create(
                         label: 'Registered',
                         description: 'Notification notifies user that he successfully finished his registration.',
-                        notification: fn(User $notifiable) => new RegisterRegisteredNotification(),
-                        notifiable: fn() => User::factory()->make(),
+                        notification: fn (User $notifiable) => new RegisterRegisteredNotification(),
+                        notifiable: fn () => User::factory()->make(),
                     ),
                 ],
             ),
@@ -62,13 +62,13 @@ class NotificationRegistrar
 
                             return new VerifyEmailNotification(token: $token);
                         },
-                        notifiable: fn() => User::factory()->make(),
+                        notifiable: fn () => User::factory()->make(),
                     ),
                     NotificationData::create(
                         label: 'Email verified',
                         description: 'Notification informs the user that his email has been verified.',
-                        notification: fn(User $notifiable) => new EmailVerifiedNotification(),
-                        notifiable: fn() => User::factory()->make(),
+                        notification: fn (User $notifiable) => new EmailVerifiedNotification(),
+                        notifiable: fn () => User::factory()->make(),
                     ),
                 ],
             ),
@@ -83,13 +83,13 @@ class NotificationRegistrar
 
                             return new ResetRequestNotification(token: $token);
                         },
-                        notifiable: fn() => User::factory()->make(),
+                        notifiable: fn () => User::factory()->make(),
                     ),
                     NotificationData::create(
                         label: 'Reset',
                         description: 'Notification notifies user that his password was successfully reset.',
-                        notification: fn(User $notifiable) => new ChangedNotification(),
-                        notifiable: fn() => User::factory()->make(),
+                        notification: fn (User $notifiable) => new ChangedNotification(),
+                        notifiable: fn () => User::factory()->make(),
                     ),
                 ]
             ),
@@ -106,7 +106,7 @@ class NotificationRegistrar
 
                             return new InvitationSentNotification(token: $token);
                         },
-                        notifiable: fn() => (new AnonymousNotifiable())->route('mail', 'example@example.com'),
+                        notifiable: fn () => (new AnonymousNotifiable())->route('mail', 'example@example.com'),
                     ),
                     NotificationData::create(
                         label: 'Invitation accepted',
@@ -116,7 +116,7 @@ class NotificationRegistrar
 
                             return new InvitationAcceptedNotification(user: $user);
                         },
-                        notifiable: fn() => User::factory()->make(),
+                        notifiable: fn () => User::factory()->make(),
                     ),
                 ]
             ),
