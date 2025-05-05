@@ -10,7 +10,7 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function register(): void
     {
-        $this->app->register(DeferrableProvider::class);
+        $this->app->register(DeferrableServiceProvider::class);
     }
 
     public function boot(): void

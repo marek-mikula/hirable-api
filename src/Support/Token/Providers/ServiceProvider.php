@@ -14,7 +14,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(ConsoleServiceProvider::class);
-        $this->app->register(DeferrableProvider::class);
+        $this->app->register(DeferrableServiceProvider::class);
     }
 
     public function boot(): void

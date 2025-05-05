@@ -10,7 +10,7 @@ use Support\Token\Repositories\TokenRepository;
 use Support\Token\Repositories\TokenRepositoryInterface;
 use Support\Token\Services\TokenResolver;
 
-class DeferrableProvider extends ServiceProvider implements BaseDeferrableProvider
+class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrableProvider
 {
     public function register(): void
     {

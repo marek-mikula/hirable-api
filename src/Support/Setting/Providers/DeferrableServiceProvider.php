@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Support\Setting\Repositories\SettingRepository;
 use Support\Setting\Repositories\SettingRepositoryInterface;
 
-class DeferrableProvider extends ServiceProvider implements BaseDeferrableProvider
+class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrableProvider
 {
     public function register(): void
     {

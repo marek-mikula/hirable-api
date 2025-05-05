@@ -8,7 +8,7 @@ use Illuminate\Contracts\Support\DeferrableProvider as BaseDeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use Support\Format\Services\Formatter;
 
-class DeferrableProvider extends ServiceProvider implements BaseDeferrableProvider
+class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrableProvider
 {
     public function register(): void
     {

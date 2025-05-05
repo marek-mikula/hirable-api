@@ -12,7 +12,8 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../Config/classifier.php', 'classifier');
 
-        $this->app->register(DeferrableProvider::class);
+        $this->app->register(DeferrableServiceProvider::class);
+        $this->app->register(RouteServiceProvider::class);
     }
 
     public function boot(): void

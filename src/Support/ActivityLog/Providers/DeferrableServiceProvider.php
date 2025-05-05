@@ -11,7 +11,7 @@ use Support\ActivityLog\Services\ActivityLogHandler;
 use Support\ActivityLog\Services\ActivityLogManager;
 use Support\ActivityLog\Services\ActivityLogSaver;
 
-class DeferrableProvider extends ServiceProvider implements BaseDeferrableProvider
+class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrableProvider
 {
     public function register(): void
     {

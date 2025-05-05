@@ -14,7 +14,7 @@ use Support\Classifier\Services\ClassifierConfigService;
 use Support\Classifier\Services\ClassifierSortService;
 use Support\Classifier\Services\ClassifierTranslateService;
 
-class DeferrableProvider extends ServiceProvider implements BaseDeferrableProvider
+class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrableProvider
 {
     public function register(): void
     {
