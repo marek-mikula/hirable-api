@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Support\Classifier\Http\Resources\Collections;
 
-use App\Http\Resources\Collections\PaginatedCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Support\Classifier\Http\Resources\ClassifierResource;
 
-class ClassifierCollection extends PaginatedCollection
+class ClassifierCollection extends ResourceCollection
 {
     public $collects = ClassifierResource::class;
 }

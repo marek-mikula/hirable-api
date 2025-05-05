@@ -19,7 +19,7 @@ class ClassifierController extends ApiController
         $list = GetClassifierListUseCase::make()->handle($type);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'values' => new ClassifierCollection($list),
+            'classifiers' => new ClassifierCollection($list),
         ]);
     }
 }
