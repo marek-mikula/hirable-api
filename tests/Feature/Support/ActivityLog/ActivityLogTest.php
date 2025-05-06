@@ -71,9 +71,7 @@ it('creates no logs when logging is disabled', function (): void {
 /** @covers \Support\ActivityLog\Services\ActivityLogHandler::handleCreated */
 it('creates log on created event', function (): void {
     /** @var User $causer */
-    $causer = ActivityLog::withoutActivityLogs(function (): User {
-        return User::factory()->create();
-    });
+    $causer = ActivityLog::withoutActivityLogs(fn (): User => User::factory()->create());
 
     CauserResolver::setCauser($causer);
 
@@ -105,9 +103,7 @@ it('creates log on updated event', function (): void {
     });
 
     /** @var User $causer */
-    $causer = ActivityLog::withoutActivityLogs(function (): User {
-        return User::factory()->create();
-    });
+    $causer = ActivityLog::withoutActivityLogs(fn (): User => User::factory()->create());
 
     CauserResolver::setCauser($causer);
 
@@ -144,9 +140,7 @@ it('creates log on deleted event', function (): void {
     });
 
     /** @var User $causer */
-    $causer = ActivityLog::withoutActivityLogs(function (): User {
-        return User::factory()->create();
-    });
+    $causer = ActivityLog::withoutActivityLogs(fn (): User => User::factory()->create());
 
     CauserResolver::setCauser($causer);
 
@@ -196,9 +190,7 @@ it('creates log on restored event', function (): void {
     });
 
     /** @var User $causer */
-    $causer = ActivityLog::withoutActivityLogs(function (): User {
-        return User::factory()->create();
-    });
+    $causer = ActivityLog::withoutActivityLogs(fn (): User => User::factory()->create());
 
     CauserResolver::setCauser($causer);
 

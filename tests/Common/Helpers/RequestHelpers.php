@@ -30,9 +30,7 @@ function assertRequestValid(string $class, ValidationData $data): void
 
     // obtain rules from request class and filter only those
     // rules that we want to test with given validation data
-    $rules = Arr::where($request->rules(), function (mixed $value, string $key) use ($keys): bool {
-        return in_array(Str::before($key, '.'), $keys);
-    });
+    $rules = Arr::where($request->rules(), fn (mixed $value, string $key): bool => in_array(Str::before($key, '.'), $keys));
 
     // create validator instance
     $validator = Validator::make(data: $requestData, rules: $rules);

@@ -49,7 +49,7 @@ class Classifier extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): ClassifierBuilder
+    public function newEloquentBuilder($query): ClassifierBuilder // @pest-ignore-type
     {
         return new ClassifierBuilder($query);
     }

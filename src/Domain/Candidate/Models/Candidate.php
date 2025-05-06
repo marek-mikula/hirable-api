@@ -56,7 +56,7 @@ class Candidate extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): CandidateBuilder
+    public function newEloquentBuilder($query): CandidateBuilder // @pest-ignore-type
     {
         return new CandidateBuilder($query);
     }

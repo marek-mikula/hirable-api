@@ -79,29 +79,68 @@ $ sail art app:install
 
 You should exclude listed folders from indexing for better performance if your IDE allows it.
 
-- `storage`
-- `vendor`
-- `public`
 - `bootstrap/cache`
+- `docs`
+- `public`
+- `resources`
+- `storage`
+- `stubs`
+- `vendor`
 
 ## Commands
 
-Tests
+Refactor code (dry-run)
 
 ```bash
-$ sail test
+$ sail composer refactor:dry
 ```
 
-Code formatting
+Refactor code
+
+```bash
+$ sail composer refactor:dry
+```
+
+Reformat code
 
 ```bash
 $ sail composer format
 ```
 
-Code analyse
+Run all tests
 
 ```bash
-$ sail composer analyse
+$ sail composer test
+```
+
+Check code format
+
+```bash
+$ sail composer test:lint
+```
+
+Check type coverage
+
+```bash
+$ sail composer test:type-coverage
+```
+
+Check coverage
+
+```bash
+$ sail composer test:coverage
+```
+
+Analyse code
+
+```bash
+$ sail composer test:analyse
+```
+
+Run all test commands at once
+
+```bash
+$ sail composer test:all
 ```
 
 ## Notifications preview
@@ -111,6 +150,6 @@ at `/notifications-preview`.
 
 The preview is available only on `debug` and `local` environments.
 
-## Standards
+## Coding standards
 
 [Here](docs/standards/index.md).

@@ -20,7 +20,7 @@ class ClassifierFactory extends Factory
     {
         return [
             'type' => fake()->randomElement(ClassifierTypeEnum::cases()),
-            'value' => str(fake()->unique()->word)->lower()->snake(),
+            'value' => str(fake()->unique()->word)->lower()->snake()->toString(),
         ];
     }
 

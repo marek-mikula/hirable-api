@@ -33,7 +33,7 @@ final class ProhibitIfAuthenticated
     /**
      * @throws HttpException
      */
-    private function handleJsonResponse(?string $guard): void
+    private function handleJsonResponse(?string $guard): never
     {
         /** @var User $user */
         $user = auth()->guard($guard)->user();

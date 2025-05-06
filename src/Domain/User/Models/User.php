@@ -168,7 +168,7 @@ class User extends Authenticatable
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): UserBuilder
+    public function newEloquentBuilder($query): UserBuilder // @pest-ignore-type
     {
         return new UserBuilder($query);
     }

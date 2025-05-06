@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Auth\Http\Resources;
 
 use App\Http\Resources\Traits\ChecksRelations;
-use Domain\Company\Http\Resources\CompanyResource;
 use Domain\User\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -52,7 +51,7 @@ class AuthUserResource extends JsonResource
                     'app' => $this->resource->notification_application_app,
                 ],
             ],
-            'company' => new CompanyResource($this->resource->company),
+            'companyName' => $this->resource->company->name,
         ];
     }
 }

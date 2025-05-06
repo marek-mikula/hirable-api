@@ -8,7 +8,7 @@ use Spatie\LaravelData\Data;
 
 class TestData extends Data
 {
-    public ?string $firstname;
+    public ?string $firstname = null;
 
-    public ?string $lastname;
+    public ?string $lastname = null;
 }

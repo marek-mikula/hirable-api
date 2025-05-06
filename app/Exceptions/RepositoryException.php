@@ -6,7 +6,7 @@ namespace App\Exceptions;
 
 class RepositoryException extends \Exception
 {
-    public function __construct(string $model, string $action)
+    final public function __construct(string $model, string $action)
     {
         parent::__construct(sprintf('Model %s could not have been %s!', $model, $action));
     }

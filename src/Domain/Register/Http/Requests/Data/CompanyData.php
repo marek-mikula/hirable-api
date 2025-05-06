@@ -14,5 +14,5 @@ class CompanyData extends Data
 
     public string $idNumber;
 
-    public ?string $website;
+    public ?string $website = null;
 }

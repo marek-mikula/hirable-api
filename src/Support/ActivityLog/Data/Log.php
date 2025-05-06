@@ -10,9 +10,9 @@ use Spatie\LaravelData\Data;
 class Log extends Data
 {
     /** @var class-string<Model>|null */
-    public ?string $causer;
+    public ?string $causer = null;
 
-    public ?int $causerId;
+    public ?int $causerId = null;
 
     /** @var class-string<Model> */
     public string $subject;

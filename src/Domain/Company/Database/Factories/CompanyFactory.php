@@ -22,6 +22,7 @@ class CompanyFactory extends Factory
             'email' => fake()->unique()->companyEmail,
             'id_number' => fake()->numerify('#########'),
             'website' => fake()->url,
+            'environment' => null,
         ];
     }
 

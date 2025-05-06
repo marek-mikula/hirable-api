@@ -99,6 +99,7 @@ uses(TestCase::class)
 */
 
 require_once __DIR__.'/Common/Helpers/AuthHelpers.php';
+require_once __DIR__.'/Common/Helpers/ArrayHelpers.php';
 require_once __DIR__.'/Common/Helpers/CollectionHelpers.php';
 require_once __DIR__.'/Common/Helpers/DatetimeHelpers.php';
 require_once __DIR__.'/Common/Helpers/ExceptionHelpers.php';

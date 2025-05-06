@@ -30,9 +30,7 @@ if (!function_exists('frontendLink')) {
     {
         $frontEndUrl = (string) config('app.frontend_url');
 
-        return collect($params)->reduce(function (string $url, mixed $value, string $param): string {
-            return Str::replace(sprintf('{%s}', $param), (string) $value, $url);
-        }, buildUrl([$frontEndUrl, $uri]));
+        return collect($params)->reduce(fn (string $url, mixed $value, string $param): string => Str::replace(sprintf('{%s}', $param), (string) $value, $url), buildUrl([$frontEndUrl, $uri]));
     }
 }
 

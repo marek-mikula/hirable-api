@@ -68,7 +68,7 @@ class LogOptions
 
     public function getCreatedAttributes(): array
     {
-        return $this->createdAttributes === null ? $this->updatedAttributes : $this->createdAttributes;
+        return $this->createdAttributes ?? $this->updatedAttributes;
     }
 
     public function shouldLogEmptyUpdates(): bool

@@ -19,5 +19,5 @@ class RegisterData extends Data
 
     public Carbon $agreementAcceptedAt;
 
-    public ?CompanyData $company;
+    public ?CompanyData $company = null;
 }

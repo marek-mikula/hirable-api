@@ -53,7 +53,7 @@ it('tests store method - valid minutes from config', function (): void {
 
     $type = TokenTypeEnum::REGISTRATION;
 
-    $validMinutes = rand(1, 160);
+    $validMinutes = random_int(1, 160);
 
     // set config value
     config()->set("token.validity.{$type->value}", $validMinutes);
