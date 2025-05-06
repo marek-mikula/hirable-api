@@ -75,7 +75,7 @@ class CompanyUpdateRequest extends AuthRequest
                 new ExcludeIf(!in_array('environment', $keys)),
                 'nullable',
                 'string',
-                'max:500',
+                'max:1000',
             ],
             'benefits' => [
                 new ExcludeIf(!in_array('benefits', $keys)),
