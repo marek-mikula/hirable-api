@@ -39,7 +39,7 @@ class CompanyUpdateRequest extends AuthRequest
                     'email',
                     'idNumber',
                     'website',
-                    'culture',
+                    'environment',
                     'benefits',
                 ]),
             ],
@@ -71,8 +71,8 @@ class CompanyUpdateRequest extends AuthRequest
                 'url',
                 'max:255',
             ],
-            'culture' => [
-                new ExcludeIf(!in_array('culture', $keys)),
+            'environment' => [
+                new ExcludeIf(!in_array('environment', $keys)),
                 'nullable',
                 'string',
                 'max:500',
@@ -96,7 +96,7 @@ class CompanyUpdateRequest extends AuthRequest
 
         foreach ($this->input('keys', []) as $key) {
             $data[$key] = match ($key) {
-                'name', 'email', 'idNumber', 'culture' => (string) $this->input($key),
+                'name', 'email', 'idNumber', 'environment' => (string) $this->input($key),
                 'website' => $this->filled($key) ? (string) $this->input($key) : null,
                 'benefits' => $this->collect('benefits')->all(),
             };

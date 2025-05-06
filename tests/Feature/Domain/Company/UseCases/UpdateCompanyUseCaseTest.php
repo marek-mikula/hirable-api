@@ -35,7 +35,7 @@ it('tests update company use case - all attributes', function (): void {
         'email' => fake()->companyEmail,
         'idNumber' => fake()->numerify('#########'),
         'website' => fake()->url,
-        'culture' => fake()->text(500),
+        'environment' => fake()->text(500),
         'benefits' => $benefits
     ];
 
@@ -45,6 +45,6 @@ it('tests update company use case - all attributes', function (): void {
     assertSame($values['email'], $company->email);
     assertSame($values['idNumber'], $company->id_number);
     assertSame($values['website'], $company->website);
-    assertSame($values['culture'], $company->culture);
+    assertSame($values['environment'], $company->environment);
     assertArraysAreSame($values['benefits'], $company->benefits->pluck('value')->all());
 });

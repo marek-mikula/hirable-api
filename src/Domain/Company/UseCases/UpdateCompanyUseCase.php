@@ -39,7 +39,7 @@ class UpdateCompanyUseCase extends UseCase
             'email' => $company->email,
             'idNumber' => $company->id_number,
             'website' => $company->website,
-            'culture' => $company->culture,
+            'environment' => $company->environment,
         ];
 
         foreach ($values as $key => $value) {

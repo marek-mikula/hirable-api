@@ -32,7 +32,7 @@ class CompanyResource extends JsonResource
             'idNumber' => $this->resource->id_number,
             'email' => $this->resource->email,
             'website' => $this->resource->website,
-            'culture' => $this->resource->culture,
+            'environment' => $this->resource->environment,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'benefits' => new ClassifierCollection($this->resource->benefits),
         ];

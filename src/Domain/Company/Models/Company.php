@@ -24,7 +24,7 @@ use Support\Classifier\Models\Classifier;
  * @property string $email
  * @property string $id_number
  * @property string|null $website
- * @property string|null $culture
+ * @property string|null $environment
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Collection<User> $users
@@ -48,7 +48,7 @@ class Company extends Model
         'email',
         'id_number',
         'website',
-        'culture',
+        'environment',
     ];
 
     protected $casts = [
