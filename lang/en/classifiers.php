@@ -231,4 +231,23 @@ return [
         'other_reason' => 'Other reason',
     ],
 
+    ClassifierTypeEnum::SALARY_TYPE->value => [
+        'monthly' => 'Per month',
+        'yearly' => 'Per year',
+        'hourly' => 'Per hour',
+        'daily' => 'Per day',
+        'quarterly' => 'Per quarter',
+    ],
+
+    ClassifierTypeEnum::DOCUMENT_TYPE->value => [
+        'cv' => 'CV',
+        'cover_letter' => 'Cover letter',
+        'certificate' => 'Certificate',
+        'educational_certificate' => 'Education certificate',
+        'reference' => 'Recommendation',
+        'criminal_record' => 'Criminal record',
+        'health_certificate' => 'Health certificate',
+        'other' => 'Other',
+    ]
+
 ];

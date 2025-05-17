@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Support\Classifier\Database\Seeders\ClassifierBenefitDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierCurrencyDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierDocumentTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierEducationLevelDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierEmploymentFormDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierEmploymentTypeDatabaseSeeder;
@@ -15,6 +16,7 @@ use Support\Classifier\Database\Seeders\ClassifierLanguageLevelDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierPhonePrefixDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierRefusalTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierRejectionTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierSalaryTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSeniorityDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierTestTypeDatabaseSeeder;
 use Support\Classifier\Enums\ClassifierTypeEnum;
@@ -127,6 +129,14 @@ return [
         ClassifierTypeEnum::REJECTION_TYPE->value => [
             'translate' => true,
             'seeder' => ClassifierRejectionTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::SALARY_TYPE->value => [
+            'translate' => true,
+            'seeder' => ClassifierSalaryTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::DOCUMENT_TYPE->value => [
+            'translate' => true,
+            'seeder' => ClassifierDocumentTypeDatabaseSeeder::class,
         ],
     ],
 

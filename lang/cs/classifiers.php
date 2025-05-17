@@ -231,4 +231,23 @@ return [
         'other_reason' => 'Jiný důvod',
     ],
 
+    ClassifierTypeEnum::SALARY_TYPE->value => [
+        'monthly' => 'Za měsíc',
+        'yearly' => 'Za rok',
+        'hourly' => 'Za hodinu',
+        'daily' => 'Za den',
+        'quarterly' => 'Za kvartál',
+    ],
+
+    ClassifierTypeEnum::DOCUMENT_TYPE->value => [
+        'cv' => 'Životopis',
+        'cover_letter' => 'Motivační dopis',
+        'certificate' => 'Certifikace',
+        'educational_certificate' => 'Potvrzení vzdělání',
+        'reference' => 'Doporučení',
+        'criminal_record' => 'Výpis z rejstříku trestů',
+        'health_certificate' => 'Potvrzení o zdravotní způsobilosti',
+        'other' => 'Ostatní',
+    ],
+
 ];
