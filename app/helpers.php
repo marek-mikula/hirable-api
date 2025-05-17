@@ -92,7 +92,7 @@ if (!function_exists('collectEnum')) {
 if (!function_exists('usesSoftDeletes')) {
     function usesSoftDeletes(string $class): bool
     {
-        return once(static fn () => collect(class_uses_recursive($class))->contains(SoftDeletes::class));
+        return (bool) once(static fn () => collect(class_uses_recursive($class))->contains(SoftDeletes::class));
     }
 }
 

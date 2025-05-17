@@ -18,7 +18,7 @@ class NotificationDomain extends Data
 
     public function getLabel(): string
     {
-        return once(fn (): string => str($this->key)->replace('-', ' ')->title());
+        return once(fn (): string => str($this->key)->replace('-', ' ')->title()->toString());
     }
 
     public static function create(string $key, array $notifications): static
