@@ -25,7 +25,7 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $address
  * @property int $salary_from
  * @property int|null $salary_to
- * @property string $salary_type classifier value
+ * @property string $salary_frequency classifier value
  * @property string $salary_currency classifier value
  * @property string|null $salary_var
  * @property string|null $min_education_level classifier value
@@ -60,7 +60,7 @@ class Position extends Model
         'address',
         'salary_from',
         'salary_to',
-        'salary_type',
+        'salary_frequency',
         'salary_currency',
         'salary_var',
         'min_education_level',

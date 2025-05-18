@@ -16,6 +16,7 @@ use Support\Classifier\Database\Seeders\ClassifierLanguageLevelDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierPhonePrefixDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierRefusalTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierRejectionTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierSalaryFrequencyDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSalaryTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSeniorityDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierTestTypeDatabaseSeeder;
@@ -129,6 +130,17 @@ return [
         ClassifierTypeEnum::REJECTION_TYPE->value => [
             'translate' => true,
             'seeder' => ClassifierRejectionTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::SALARY_FREQUENCY->value => [
+            'translate' => true,
+            'seeder' => ClassifierSalaryFrequencyDatabaseSeeder::class,
+            'order' => [
+                'hourly',
+                'daily',
+                'monthly',
+                'quarterly',
+                'yearly',
+            ],
         ],
         ClassifierTypeEnum::SALARY_TYPE->value => [
             'translate' => true,

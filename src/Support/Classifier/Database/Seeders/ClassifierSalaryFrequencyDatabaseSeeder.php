@@ -6,18 +6,21 @@ namespace Support\Classifier\Database\Seeders;
 
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
-class ClassifierSalaryTypeDatabaseSeeder extends AbstractClassifierDatabaseSeeder
+class ClassifierSalaryFrequencyDatabaseSeeder extends AbstractClassifierDatabaseSeeder
 {
     protected function getValues(): array
     {
         return [
-            'gross',
-            'net',
+            'monthly',
+            'yearly',
+            'hourly',
+            'daily',
+            'quarterly'
         ];
     }
 
     protected function getType(): ClassifierTypeEnum
     {
-        return ClassifierTypeEnum::SALARY_TYPE;
+        return ClassifierTypeEnum::SALARY_FREQUENCY;
     }
 }

@@ -28,7 +28,7 @@ class PositionFactory extends Factory
             'EUR',
         ];
 
-        $salaryTypes = [
+        $salaryFrequencies = [
             'hourly',
             'daily',
             'monthly',
@@ -48,7 +48,7 @@ class PositionFactory extends Factory
             'address' => fake()->address,
             'salary_from' => $salary,
             'salary_to' => $salarySpan ? ($salary + fake()->numberBetween(10000, 50000)) : null,
-            'salary_type' => fake()->randomElement($salaryTypes),
+            'salary_frequency' => fake()->randomElement($salaryFrequencies),
             'salary_currency' => fake()->randomElement($currencies),
             'salary_var' => fake()->words(asText: true),
             'min_education_level' => str(fake()->word)->transliterate()->lower()->snake()->toString(),

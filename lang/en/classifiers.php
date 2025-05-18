@@ -231,12 +231,17 @@ return [
         'other_reason' => 'Other reason',
     ],
 
-    ClassifierTypeEnum::SALARY_TYPE->value => [
+    ClassifierTypeEnum::SALARY_FREQUENCY->value => [
         'monthly' => 'Per month',
         'yearly' => 'Per year',
         'hourly' => 'Per hour',
         'daily' => 'Per day',
         'quarterly' => 'Per quarter',
+    ],
+
+    ClassifierTypeEnum::SALARY_TYPE->value => [
+        'gross' => 'Gross',
+        'net' => 'Net',
     ],
 
     ClassifierTypeEnum::DOCUMENT_TYPE->value => [

@@ -231,12 +231,17 @@ return [
         'other_reason' => 'Jiný důvod',
     ],
 
-    ClassifierTypeEnum::SALARY_TYPE->value => [
+    ClassifierTypeEnum::SALARY_FREQUENCY->value => [
         'monthly' => 'Za měsíc',
         'yearly' => 'Za rok',
         'hourly' => 'Za hodinu',
         'daily' => 'Za den',
         'quarterly' => 'Za kvartál',
+    ],
+
+    ClassifierTypeEnum::SALARY_TYPE->value => [
+        'gross' => 'Hrubá',
+        'net' => 'Čistá',
     ],
 
     ClassifierTypeEnum::DOCUMENT_TYPE->value => [

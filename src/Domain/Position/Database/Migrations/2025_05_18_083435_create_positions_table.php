@@ -20,7 +20,7 @@ return new class () extends Migration {
             $table->string('address')->nullable();
             $table->unsignedInteger('salary_from');
             $table->unsignedInteger('salary_to')->nullable();
-            $table->string('salary_type');
+            $table->string('salary_frequency');
             $table->string('salary_currency');
             $table->string('salary_var')->nullable();
             $table->string('min_education_level')->nullable();

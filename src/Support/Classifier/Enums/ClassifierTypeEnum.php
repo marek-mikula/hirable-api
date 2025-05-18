@@ -21,6 +21,7 @@ enum ClassifierTypeEnum: string
     case TEST_TYPE = 'test_type';
     case REFUSAL_TYPE = 'refusal_type';
     case REJECTION_TYPE = 'rejection_type';
+    case SALARY_FREQUENCY = 'salary_frequency';
     case SALARY_TYPE = 'salary_type';
     case DOCUMENT_TYPE = 'document_type';
 }
