@@ -6,8 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
-use Database\Factories\{{ class }}Factory;
-use App\Models\Builders\{{ class }}Builder;
 
 /**
  * @property-read int $id
