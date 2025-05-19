@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Classifier\Services;
 
+use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Models\Classifier;
 
 class ClassifierTranslateService
@@ -13,17 +14,22 @@ class ClassifierTranslateService
     ) {
     }
 
-    public function translate(Classifier $classifier): string
+    public function translateValue(ClassifierTypeEnum $type, string $value): string
     {
-        if (!$this->classifierConfigService->supportsTranslation($classifier->type)) {
-            return $classifier->value;
+        if (!$this->classifierConfigService->supportsTranslation($type)) {
+            return $value;
         }
 
-        return __($this->getTranslationKey($classifier));
+        return __($this->getTranslationKey($type, $value));
     }
 
-    public function getTranslationKey(Classifier $classifier): string
+    public function translate(Classifier $classifier): string
     {
-        return sprintf('classifiers.%s.%s', $classifier->type->value, $classifier->value);
+        return $this->translateValue($classifier->type, $classifier->value);
+    }
+
+    public function getTranslationKey(ClassifierTypeEnum $type, string $value): string
+    {
+        return sprintf('classifiers.%s.%s', $type->value, $value);
     }
 }

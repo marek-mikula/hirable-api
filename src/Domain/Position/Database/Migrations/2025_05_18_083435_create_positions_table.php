@@ -16,6 +16,8 @@ return new class () extends Migration {
             $table->string('name');
             $table->string('department')->nullable();
             $table->string('field')->nullable();
+            $table->json('employment_types');
+            $table->json('employment_forms');
             $table->boolean('is_technical');
             $table->string('address')->nullable();
             $table->unsignedInteger('salary_from');
@@ -23,9 +25,15 @@ return new class () extends Migration {
             $table->string('salary_frequency');
             $table->string('salary_currency');
             $table->string('salary_var')->nullable();
+            $table->json('benefits');
             $table->string('min_education_level')->nullable();
             $table->string('seniority')->nullable();
             $table->unsignedTinyInteger('experience')->nullable();
+            $table->json('driving_licences');
+            $table->json('technologies');
+            $table->json('certificates');
+            $table->json('language_requirements');
+            $table->json('required_documents');
             $table->string('note', 2000)->nullable();
             $table->timestamps();
 

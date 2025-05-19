@@ -8,5 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(static function (): void {
     Route::prefix('/suggest')->as('suggest.')->group(function (): void {
         Route::get('/departments', [PositionSuggestController::class, 'suggestDepartments'])->name('departments');
+        Route::get('/technologies', [PositionSuggestController::class, 'suggestTechnologies'])->name('technologies');
+        Route::get('/certificates', [PositionSuggestController::class, 'suggestCertificates'])->name('certificates');
     });
 });

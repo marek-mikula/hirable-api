@@ -21,6 +21,8 @@ use Illuminate\Database\Query\Builder;
  * @property string $name
  * @property string|null $department classifier value
  * @property string|null $field classifier value
+ * @property string[] $employment_types
+ * @property string[] $employment_forms
  * @property boolean $is_technical
  * @property string|null $address
  * @property int $salary_from
@@ -28,9 +30,15 @@ use Illuminate\Database\Query\Builder;
  * @property string $salary_frequency classifier value
  * @property string $salary_currency classifier value
  * @property string|null $salary_var
+ * @property string[] $benefits
  * @property string|null $min_education_level classifier value
  * @property string|null $seniority classifier value
  * @property int|null $experience
+ * @property string[] $driving_licences array of classifier values
+ * @property string[] $technologies
+ * @property string[] $certificates
+ * @property string[] $language_requirements array of classifier values
+ * @property string[] $required_documents array of classifier values
  * @property string|null $note
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -56,6 +64,8 @@ class Position extends Model
         'name',
         'department',
         'field',
+        'employment_types',
+        'employment_forms',
         'is_technical',
         'address',
         'salary_from',
@@ -63,14 +73,39 @@ class Position extends Model
         'salary_frequency',
         'salary_currency',
         'salary_var',
+        'benefits',
         'min_education_level',
         'seniority',
         'experience',
+        'driving_licences',
+        'technologies',
+        'certificates',
+        'language_requirements',
+        'required_documents',
         'note',
     ];
 
+    protected $attributes = [
+        'employment_types' => '[]',
+        'employment_forms' => '[]',
+        'benefits' => '[]',
+        'driving_licences' => '[]',
+        'technologies' => '[]',
+        'certificates' => '[]',
+        'language_requirements' => '[]',
+        'required_documents' => '[]',
+    ];
+
     protected $casts = [
-        'is_technical' => 'boolean'
+        'employment_types' => 'array',
+        'employment_forms' => 'array',
+        'is_technical' => 'boolean',
+        'benefits' => 'array',
+        'driving_licences' => 'array',
+        'technologies' => 'array',
+        'certificates' => 'array',
+        'language_requirements' => 'array',
+        'required_documents' => 'array',
     ];
 
     public function company(): BelongsTo
