@@ -7,6 +7,7 @@ namespace Domain\Position\Models;
 use Carbon\Carbon;
 use Domain\Company\Models\Company;
 use Domain\Position\Database\Factories\PositionFactory;
+use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Builders\PositionBuilder;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read int $id
  * @property int $company_id
  * @property int $user_id
+ * @property PositionStateEnum $state
  * @property string $name
  * @property string|null $department classifier value
  * @property string|null $field classifier value
@@ -61,6 +63,7 @@ class Position extends Model
     protected $fillable = [
         'company_id',
         'user_id',
+        'state',
         'name',
         'department',
         'field',
@@ -97,6 +100,7 @@ class Position extends Model
     ];
 
     protected $casts = [
+        'state' => PositionStateEnum::class,
         'employment_types' => 'array',
         'employment_forms' => 'array',
         'is_technical' => 'boolean',

@@ -13,6 +13,7 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('company_id');
             $table->foreignId('user_id');
+            $table->string('state', 10);
             $table->string('name');
             $table->string('department')->nullable();
             $table->string('field')->nullable();

@@ -6,6 +6,7 @@ namespace Domain\Position\Database\Factories;
 
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
+use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
@@ -41,6 +42,7 @@ class PositionFactory extends Factory
         return [
             'company_id' => Company::factory(),
             'user_id' => User::factory(),
+            'state' => PositionStateEnum::ACTIVE,
             'name' => fake()->jobTitle,
             'department' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
             'field' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
