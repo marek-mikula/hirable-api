@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Request;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\AuthRequest;
 
-class PositionSuggestRequest extends Request
+class PositionSuggestRequest extends AuthRequest
 {
     public function authorize(): bool
     {
