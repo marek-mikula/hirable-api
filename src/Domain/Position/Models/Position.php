@@ -23,9 +23,9 @@ use Illuminate\Database\Query\Builder;
  * @property string $name
  * @property string|null $department classifier value
  * @property string|null $field classifier value
- * @property string[] $workloads
- * @property string[] $employment_relationships
- * @property string[] $employment_forms
+ * @property string[] $workloads classifier values
+ * @property string[] $employment_relationships classifier values
+ * @property string[] $employment_forms classifier values
  * @property string $description
  * @property boolean $is_technical
  * @property string|null $address
@@ -34,7 +34,7 @@ use Illuminate\Database\Query\Builder;
  * @property string $salary_frequency classifier value
  * @property string $salary_currency classifier value
  * @property string|null $salary_var
- * @property string[] $benefits
+ * @property string[] $benefits classifier values
  * @property string|null $min_education_level classifier value
  * @property string|null $seniority classifier value
  * @property int|null $experience
