@@ -23,7 +23,8 @@ use Illuminate\Database\Query\Builder;
  * @property string $name
  * @property string|null $department classifier value
  * @property string|null $field classifier value
- * @property string[] $employment_types
+ * @property string $workload
+ * @property string[] $employment_relationships
  * @property string[] $employment_forms
  * @property string $description
  * @property boolean $is_technical
@@ -66,7 +67,8 @@ class Position extends Model
         'name',
         'department',
         'field',
-        'employment_types',
+        'workload',
+        'employment_relationships',
         'employment_forms',
         'description',
         'is_technical',
@@ -87,7 +89,7 @@ class Position extends Model
     ];
 
     protected $attributes = [
-        'employment_types' => '[]',
+        'employment_relationships' => '[]',
         'employment_forms' => '[]',
         'benefits' => '[]',
         'driving_licences' => '[]',
@@ -97,7 +99,7 @@ class Position extends Model
 
     protected $casts = [
         'state' => PositionStateEnum::class,
-        'employment_types' => 'array',
+        'employment_relationships' => 'array',
         'employment_forms' => 'array',
         'is_technical' => 'boolean',
         'benefits' => 'array',

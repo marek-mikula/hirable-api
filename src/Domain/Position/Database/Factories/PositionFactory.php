@@ -46,8 +46,13 @@ class PositionFactory extends Factory
             'name' => fake()->jobTitle,
             'department' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
             'field' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
-            'employment_types' => [],
-            'employment_forms' => [],
+            'workload' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
+            'employment_relationships' => [
+                str(fake()->word)->transliterate()->lower()->snake()->toString()
+            ],
+            'employment_forms' => [
+                str(fake()->word)->transliterate()->lower()->snake()->toString()
+            ],
             'description' => fake()->text(2000),
             'is_technical' => $isTechnical,
             'address' => fake()->address,

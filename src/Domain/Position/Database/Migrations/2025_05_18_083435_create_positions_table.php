@@ -17,7 +17,8 @@ return new class () extends Migration {
             $table->string('name');
             $table->string('department')->nullable();
             $table->string('field')->nullable();
-            $table->json('employment_types');
+            $table->string('workload');
+            $table->json('employment_relationships');
             $table->json('employment_forms');
             $table->string('description', 2000);
             $table->boolean('is_technical');
