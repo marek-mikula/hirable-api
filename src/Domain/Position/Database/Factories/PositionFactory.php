@@ -48,6 +48,7 @@ class PositionFactory extends Factory
             'field' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
             'employment_types' => [],
             'employment_forms' => [],
+            'description' => fake()->text(2000),
             'is_technical' => $isTechnical,
             'address' => fake()->address,
             'salary_from' => $salary,
@@ -60,11 +61,9 @@ class PositionFactory extends Factory
             'seniority' => $isTechnical ? str(fake()->word)->transliterate()->lower()->snake()->toString() : null,
             'experience' => fake()->numberBetween(0, 10),
             'driving_licences' => [],
-            'technologies' => [],
-            'certificates' => [],
             'language_requirements' => [],
             'required_documents' => [],
-            'note' => fake()->boolean ? fake()->text(500) : null,
+            'note' => fake()->boolean ? fake()->text(2000) : null,
         ];
     }
 }

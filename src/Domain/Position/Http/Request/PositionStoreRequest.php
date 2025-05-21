@@ -16,7 +16,9 @@ class PositionStoreRequest extends AuthRequest
 
     public function rules(): array
     {
-        return [];
+        return [
+
+        ];
     }
 
     public function toData(): PositionStoreData

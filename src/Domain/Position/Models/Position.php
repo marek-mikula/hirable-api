@@ -25,6 +25,7 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $field classifier value
  * @property string[] $employment_types
  * @property string[] $employment_forms
+ * @property string $description
  * @property boolean $is_technical
  * @property string|null $address
  * @property int $salary_from
@@ -37,8 +38,6 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $seniority classifier value
  * @property int|null $experience
  * @property string[] $driving_licences array of classifier values
- * @property string[] $technologies
- * @property string[] $certificates
  * @property string[] $language_requirements array of classifier values
  * @property string[] $required_documents array of classifier values
  * @property string|null $note
@@ -69,6 +68,7 @@ class Position extends Model
         'field',
         'employment_types',
         'employment_forms',
+        'description',
         'is_technical',
         'address',
         'salary_from',
@@ -81,8 +81,6 @@ class Position extends Model
         'seniority',
         'experience',
         'driving_licences',
-        'technologies',
-        'certificates',
         'language_requirements',
         'required_documents',
         'note',
@@ -93,8 +91,6 @@ class Position extends Model
         'employment_forms' => '[]',
         'benefits' => '[]',
         'driving_licences' => '[]',
-        'technologies' => '[]',
-        'certificates' => '[]',
         'language_requirements' => '[]',
         'required_documents' => '[]',
     ];
@@ -106,8 +102,6 @@ class Position extends Model
         'is_technical' => 'boolean',
         'benefits' => 'array',
         'driving_licences' => 'array',
-        'technologies' => 'array',
-        'certificates' => 'array',
         'language_requirements' => 'array',
         'required_documents' => 'array',
     ];
