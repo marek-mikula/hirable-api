@@ -6,7 +6,7 @@ namespace Support\Classifier\Database\Seeders;
 
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
-class ClassifierEmploymentTypeDatabaseSeeder extends AbstractClassifierDatabaseSeeder
+class ClassifierEmploymentRelationshipDatabaseSeeder extends AbstractClassifierDatabaseSeeder
 {
     protected function getValues(): array
     {
@@ -19,6 +19,6 @@ class ClassifierEmploymentTypeDatabaseSeeder extends AbstractClassifierDatabaseS
 
     protected function getType(): ClassifierTypeEnum
     {
-        return ClassifierTypeEnum::EMPLOYMENT_TYPE;
+        return ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP;
     }
 }

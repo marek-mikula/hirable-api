@@ -8,7 +8,7 @@ use Support\Classifier\Database\Seeders\ClassifierDocumentTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierDrivingLicenceDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierEducationLevelDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierEmploymentFormDatabaseSeeder;
-use Support\Classifier\Database\Seeders\ClassifierEmploymentTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierEmploymentRelationshipDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierGenderDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierFieldDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierInterviewTypeDatabaseSeeder;
@@ -21,6 +21,7 @@ use Support\Classifier\Database\Seeders\ClassifierSalaryFrequencyDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSalaryTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSeniorityDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierTestTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierWorkloadDatabaseSeeder;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
 return [
@@ -69,9 +70,13 @@ return [
             'translate' => true,
             'seeder' => ClassifierBenefitDatabaseSeeder::class,
         ],
-        ClassifierTypeEnum::EMPLOYMENT_TYPE->value => [
+        ClassifierTypeEnum::WORKLOAD->value => [
             'translate' => true,
-            'seeder' => ClassifierEmploymentTypeDatabaseSeeder::class,
+            'seeder' => ClassifierWorkloadDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP->value => [
+            'translate' => true,
+            'seeder' => ClassifierEmploymentRelationshipDatabaseSeeder::class,
         ],
         ClassifierTypeEnum::EMPLOYMENT_FORM->value => [
             'translate' => true,

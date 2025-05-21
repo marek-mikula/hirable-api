@@ -29,7 +29,7 @@ class PositionResource extends JsonResource
             'name' => $this->resource->name,
             'department' => $this->resource->department,
             'field' => $this->resource->field,
-            'workload' => $this->resource->workload,
+            'workloads' => $this->resource->workloads,
             'employmentRelationships' => $this->resource->employment_relationships,
             'employmentForms' => $this->resource->employment_forms,
             'description' => $this->resource->description,

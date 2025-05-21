@@ -65,7 +65,12 @@ return [
         'seniority_vacation_bonus' => 'Extra vacation for years of service',
     ],
 
-    ClassifierTypeEnum::EMPLOYMENT_TYPE->value => [
+    ClassifierTypeEnum::WORKLOAD->value => [
+        'full_time' => 'Full-time',
+        'part_time' => 'Part-time',
+    ],
+
+    ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP->value => [
         'freelance' => 'Freelance',
         'internship' => 'Internship',
         'contract' => 'Work contract',

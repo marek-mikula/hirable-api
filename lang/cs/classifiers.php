@@ -65,7 +65,12 @@ return [
         'seniority_vacation_bonus' => 'Dovolená navíc za odpracovaná léta',
     ],
 
-    ClassifierTypeEnum::EMPLOYMENT_TYPE->value => [
+    ClassifierTypeEnum::WORKLOAD->value => [
+        'full_time' => 'Full-time',
+        'part_time' => 'Part-time',
+    ],
+
+    ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP->value => [
         'freelance' => 'Freelance (IČO)',
         'internship' => 'Stáž',
         'contract' => 'Pracovní smlouva',
