@@ -249,17 +249,6 @@ return [
         'net' => 'Net',
     ],
 
-    ClassifierTypeEnum::DOCUMENT_TYPE->value => [
-        'cv' => 'CV',
-        'cover_letter' => 'Cover letter',
-        'certificate' => 'Certificate',
-        'educational_certificate' => 'Education certificate',
-        'reference' => 'Recommendation',
-        'criminal_record' => 'Criminal record',
-        'health_certificate' => 'Health certificate',
-        'other' => 'Other',
-    ],
-
     ClassifierTypeEnum::DRIVING_LICENCE->value => [
         'am' => 'AM - Small mopeds and light quadricycles (up to 45 km/h)',
         'a1' => 'A1 - Motorcycles up to 125 cc and 11 kW, minimum age 16',

@@ -35,7 +35,6 @@ return new class () extends Migration {
             $table->unsignedTinyInteger('experience')->nullable();
             $table->json('driving_licences');
             $table->json('language_requirements');
-            $table->json('required_documents');
             $table->string('note', 2000)->nullable();
             $table->timestamps();
 

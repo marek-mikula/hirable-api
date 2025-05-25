@@ -41,7 +41,6 @@ use Illuminate\Database\Query\Builder;
  * @property int|null $experience
  * @property string[] $driving_licences array of classifier values
  * @property string[] $language_requirements array of classifier values
- * @property string[] $required_documents array of classifier values
  * @property string|null $note
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -86,7 +85,6 @@ class Position extends Model
         'experience',
         'driving_licences',
         'language_requirements',
-        'required_documents',
         'note',
     ];
 
@@ -97,7 +95,6 @@ class Position extends Model
         'benefits' => '[]',
         'driving_licences' => '[]',
         'language_requirements' => '[]',
-        'required_documents' => '[]',
     ];
 
     protected $casts = [
@@ -109,7 +106,6 @@ class Position extends Model
         'benefits' => 'array',
         'driving_licences' => 'array',
         'language_requirements' => 'array',
-        'required_documents' => 'array',
     ];
 
     public function company(): BelongsTo

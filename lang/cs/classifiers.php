@@ -249,17 +249,6 @@ return [
         'net' => 'Čistá',
     ],
 
-    ClassifierTypeEnum::DOCUMENT_TYPE->value => [
-        'cv' => 'Životopis',
-        'cover_letter' => 'Motivační dopis',
-        'certificate' => 'Certifikace',
-        'educational_certificate' => 'Potvrzení vzdělání',
-        'reference' => 'Doporučení',
-        'criminal_record' => 'Výpis z rejstříku trestů',
-        'health_certificate' => 'Potvrzení o zdravotní způsobilosti',
-        'other' => 'Ostatní',
-    ],
-
     ClassifierTypeEnum::DRIVING_LICENCE->value => [
         'am' => 'AM - Malé mopedy a lehké čtyřkolky (do 45 km/h)',
         'a1' => 'A1 - Motocykly do 125 cm³ a 11 kW, věk od 16 let',

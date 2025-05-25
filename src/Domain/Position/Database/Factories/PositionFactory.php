@@ -70,7 +70,6 @@ class PositionFactory extends Factory
             'experience' => fake()->numberBetween(0, 10),
             'driving_licences' => [],
             'language_requirements' => [],
-            'required_documents' => [],
             'note' => fake()->boolean ? fake()->text(2000) : null,
         ];
     }
