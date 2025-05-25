@@ -55,6 +55,7 @@ class PositionFactory extends Factory
             'employment_forms' => [
                 str(fake()->word)->transliterate()->lower()->snake()->toString()
             ],
+            'job_seats_num' => fake()->numberBetween(1, 100),
             'description' => fake()->text(2000),
             'is_technical' => $isTechnical,
             'address' => fake()->address,

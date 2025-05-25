@@ -26,6 +26,7 @@ use Illuminate\Database\Query\Builder;
  * @property string[] $workloads classifier values
  * @property string[] $employment_relationships classifier values
  * @property string[] $employment_forms classifier values
+ * @property int $job_seats_num
  * @property string $description
  * @property boolean $is_technical
  * @property string|null $address
@@ -70,6 +71,7 @@ class Position extends Model
         'workloads',
         'employment_relationships',
         'employment_forms',
+        'job_seats_num',
         'description',
         'is_technical',
         'address',
