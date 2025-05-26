@@ -12,7 +12,7 @@ use function Pest\Laravel\assertModelExists;
 use function Pest\Laravel\assertModelMissing;
 
 /** @covers \Support\File\Jobs\DeleteDeletedFilesJob::handle */
-it('deletes deleted files', function (): void {
+it('correctly deletes deleted files', function (): void {
     $file = File::factory()->create();
     $deletedFile = File::factory()->ofDeletedAt(now())->create();
 

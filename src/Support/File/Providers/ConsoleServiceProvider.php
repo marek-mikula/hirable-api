@@ -7,6 +7,7 @@ namespace Support\File\Providers;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
 use Support\File\Schedule\DeleteDeletedFilesSchedule;
+use Support\File\Schedule\DeleteHangingFilesSchedule;
 
 class ConsoleServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,11 @@ class ConsoleServiceProvider extends ServiceProvider
             $schedule->call(DeleteDeletedFilesSchedule::class)
                 ->description('Deletes soft-deleted files from DB and disk.')
                 ->dailyAt('00:00');
+
+            $schedule->call(DeleteHangingFilesSchedule::class)
+                ->description('Deletes hanging files without any relationship.')
+                ->monthly()
+                ->at('00:00');
 
             return $schedule;
         });

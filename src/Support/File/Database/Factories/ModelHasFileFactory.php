@@ -34,4 +34,11 @@ class ModelHasFileFactory extends Factory
             'fileable_id' => $fileable->getKey(),
         ]);
     }
+
+    public function ofFile(File $file): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'file_id' => $file->id,
+        ]);
+    }
 }
