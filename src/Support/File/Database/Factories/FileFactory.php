@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Support\File\Database\Factories;
 
 use Database\Factories\Factory;
-use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Testing\File as FakeFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -25,7 +23,7 @@ class FileFactory extends Factory
     {
         $type = FileTypeEnum::TEMP;
 
-        $filename = Str::uuid().'.jpg';
+        $filename = sprintf('%s.jpg', Str::uuid()->toString());
 
         $file = FakeFile::fake()->image($filename);
 
@@ -38,8 +36,6 @@ class FileFactory extends Factory
             'path' => $path,
             'extension' => 'jpg',
             'size' => 300,
-            'fileable_type' => User::class,
-            'fileable_id' => $this->isMaking ? null : User::factory(),
             'data' => [],
         ];
     }
@@ -48,14 +44,6 @@ class FileFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'type' => $type,
-        ]);
-    }
-
-    public function ofFileable(Model $model): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'fileable_type' => $model::class,
-            'fileable_id' => (int) $model->getAttribute('id'),
         ]);
     }
 }

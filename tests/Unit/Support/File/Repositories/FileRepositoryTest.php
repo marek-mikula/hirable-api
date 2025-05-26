@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Support\File\Repositories;
 
-use Domain\User\Models\User;
 use Illuminate\Support\Str;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
@@ -36,10 +35,7 @@ it('tests store method', function (): void {
     /** @var FileRepositoryInterface $repository */
     $repository = app(FileRepositoryInterface::class);
 
-    $user = User::factory()->create();
-
     $input = new FileStoreInput(
-        fileable: $user,
         type: FileTypeEnum::TEMP,
         path: Str::uuid()->toString().'.jpg',
         extension: 'jpg',
@@ -52,8 +48,6 @@ it('tests store method', function (): void {
     $file = $repository->store($input);
 
     assertModelExists($file);
-    assertSame($user->id, $file->fileable_id);
-    assertSame($user::class, $file->fileable_type);
     assertSame($input->type, $file->type);
     assertSame($input->path, $file->path);
     assertSame($input->extension, $file->extension);
@@ -62,7 +56,6 @@ it('tests store method', function (): void {
     assertSame($input->size, $file->size);
     assertTrue($file->hasDataValue('key'));
     assertSame($input->data['key'], $file->getDataValue('key'));
-    assertTrue($file->relationLoaded('fileable'));
 });
 
 /** @covers \Support\File\Repositories\FileRepository::delete */

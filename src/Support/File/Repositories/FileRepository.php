@@ -14,8 +14,6 @@ final class FileRepository implements FileRepositoryInterface
     {
         $file = new File();
 
-        $file->fileable_type = $input->fileable::class;
-        $file->fileable_id = (int) $input->fileable->getAttribute('id');
         $file->type = $input->type;
         $file->path = $input->path;
         $file->extension = $input->extension;
@@ -25,8 +23,6 @@ final class FileRepository implements FileRepositoryInterface
         $file->data = $input->data;
 
         throw_if(!$file->save(), RepositoryException::stored(File::class));
-
-        $file->setRelation('fileable', $input->fileable);
 
         return $file;
     }

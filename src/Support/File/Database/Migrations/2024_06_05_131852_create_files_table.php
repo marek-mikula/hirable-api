@@ -17,8 +17,7 @@ return new class () extends Migration {
             $table->string('path');
             $table->string('extension');
             $table->unsignedBigInteger('size');
-            $table->morphs('fileable');
-            $table->text('data');
+            $table->json('data');
             $table->timestamps();
             $table->softDeletes();
         });

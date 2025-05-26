@@ -20,7 +20,7 @@ class SettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
+            'user_id' => $this->isMaking ? null : User::factory(),
             'key' => SettingKeyEnum::GRID_CANDIDATE,
             'data' => [],
         ];

@@ -40,8 +40,8 @@ class PositionFactory extends Factory
         $salary = fake()->numberBetween(5000, 150000);
 
         return [
-            'company_id' => Company::factory(),
-            'user_id' => User::factory(),
+            'company_id' => $this->isMaking ? null : Company::factory(),
+            'user_id' => $this->isMaking ? null : User::factory(),
             'state' => PositionStateEnum::ACTIVE,
             'name' => fake()->jobTitle,
             'department' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
