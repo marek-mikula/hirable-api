@@ -65,6 +65,10 @@ class GridSettingMapper implements SettingMapper
             $keepKeys[] = 'columns';
         }
 
+        if (!empty($data->order)) {
+            $keepKeys[] = 'order';
+        }
+
         if (!empty($data->searchQuery)) {
             $keepKeys[] = 'searchQuery';
         }
