@@ -23,7 +23,7 @@ class PositionStoreRequest extends AuthRequest
             'operation' => [
                 'required',
                 'string',
-                new In(['save', 'create']),
+                new In(['create', 'open']),
             ],
             'name' => [
                 'required',

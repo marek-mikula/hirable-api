@@ -29,7 +29,7 @@ class PositionStoreUseCase extends UseCase
         $input = new PositionStoreInput(
             company: $user->loadMissing('company')->company,
             user: $user,
-            state: $data->operation === 'create' ? PositionStateEnum::ACTIVE : PositionStateEnum::DRAFT,
+            state: $data->operation === 'open' ? PositionStateEnum::OPENED : PositionStateEnum::DRAFT,
             name: $data->name,
             department: $data->department,
             field: $data->field,

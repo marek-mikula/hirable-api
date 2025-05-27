@@ -7,7 +7,7 @@ namespace Domain\Position\Enums;
 enum PositionStateEnum: string
 {
     case DRAFT = 'draft';
-    case ACTIVE = 'active';
-    case INACTIVE = 'inactive';
+    case OPENED = 'opened';
+    case CLOSED = 'closed';
     case CANCELED = 'canceled';
 }
