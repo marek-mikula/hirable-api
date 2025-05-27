@@ -11,7 +11,7 @@ use Domain\Position\Http\Request\PositionStoreRequest;
 use Domain\Position\Http\Resources\Collections\PositionPaginatedCollection;
 use Domain\Position\Http\Resources\PositionResource;
 use Domain\Position\UseCases\GetPositionsForIndexUseCase;
-use Domain\Position\UseCases\PositionStoreUseCase;
+use Domain\Position\UseCases\StorePositionUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
@@ -37,7 +37,7 @@ class PositionController extends ApiController
 
     public function store(PositionStoreRequest $request): JsonResponse
     {
-        $position = PositionStoreUseCase::make()->handle($request->user(), $request->toData());
+        $position = StorePositionUseCase::make()->handle($request->user(), $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'position' => new PositionResource($position),
