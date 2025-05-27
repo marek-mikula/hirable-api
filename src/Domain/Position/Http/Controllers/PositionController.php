@@ -15,10 +15,6 @@ class PositionController extends ApiController
 {
     public function store(PositionStoreRequest $request): JsonResponse
     {
-        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'position' => $request->toData()->toArray(),
-        ]);
-
         $position = PositionStoreUseCase::make()->handle($request->user(), $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [

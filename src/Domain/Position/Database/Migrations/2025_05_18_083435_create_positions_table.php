@@ -26,6 +26,7 @@ return new class () extends Migration {
             $table->string('address')->nullable();
             $table->unsignedInteger('salary_from');
             $table->unsignedInteger('salary_to')->nullable();
+            $table->string('salary_type');
             $table->string('salary_frequency');
             $table->string('salary_currency');
             $table->string('salary_var')->nullable();
@@ -33,7 +34,12 @@ return new class () extends Migration {
             $table->string('min_education_level')->nullable();
             $table->string('seniority')->nullable();
             $table->unsignedTinyInteger('experience')->nullable();
-            $table->json('driving_licences');
+            $table->string('driving_licence');
+            $table->unsignedTinyInteger('organisation_skills');
+            $table->unsignedTinyInteger('team_skills');
+            $table->unsignedTinyInteger('time_management');
+            $table->unsignedTinyInteger('communication_skills');
+            $table->unsignedTinyInteger('leadership');
             $table->json('language_requirements');
             $table->string('note', 2000)->nullable();
             $table->timestamps();

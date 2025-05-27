@@ -32,6 +32,7 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $address
  * @property int $salary_from
  * @property int|null $salary_to
+ * @property string $salary_type classifier value
  * @property string $salary_frequency classifier value
  * @property string $salary_currency classifier value
  * @property string|null $salary_var
@@ -39,8 +40,13 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $min_education_level classifier value
  * @property string|null $seniority classifier value
  * @property int|null $experience
- * @property string[] $driving_licences array of classifier values
- * @property string[] $language_requirements array of classifier values
+ * @property string|null $driving_licence classifier value
+ * @property int $organisation_skills scale 0 - 10
+ * @property int $team_skills scale 0 - 10
+ * @property int $time_management scale 0 - 10
+ * @property int $communication_skills scale 0 - 10
+ * @property int $leadership scale 0 - 10
+ * @property array[] $language_requirements array of classifier values
  * @property string|null $note
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -83,7 +89,12 @@ class Position extends Model
         'min_education_level',
         'seniority',
         'experience',
-        'driving_licences',
+        'driving_licence',
+        'organisation_skills',
+        'team_skills',
+        'time_management',
+        'communication_skills',
+        'leadership',
         'language_requirements',
         'note',
     ];
@@ -93,7 +104,6 @@ class Position extends Model
         'employment_relationships' => '[]',
         'employment_forms' => '[]',
         'benefits' => '[]',
-        'driving_licences' => '[]',
         'language_requirements' => '[]',
     ];
 
@@ -104,7 +114,6 @@ class Position extends Model
         'employment_forms' => 'array',
         'is_technical' => 'boolean',
         'benefits' => 'array',
-        'driving_licences' => 'array',
         'language_requirements' => 'array',
     ];
 
