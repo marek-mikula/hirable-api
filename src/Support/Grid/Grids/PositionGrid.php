@@ -25,7 +25,7 @@ class PositionGrid implements Grid
                 ),
                 new GridColumnDefinition(
                     key: 'name',
-                    label: 'model.common.name',
+                    label: 'model.common.title',
                 ),
                 new GridColumnDefinition(
                     key: 'state',
