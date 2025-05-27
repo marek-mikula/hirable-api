@@ -21,8 +21,8 @@ class CompanyBenefitFactory extends Factory
     public function definition(): array
     {
         return [
-            'company_id' => Company::factory(),
-            'benefit_id' => Classifier::factory()->ofType(ClassifierTypeEnum::BENEFIT),
+            'company_id' => $this->isMaking ? null : Company::factory(),
+            'benefit_id' => $this->isMaking ? null : Classifier::factory()->ofType(ClassifierTypeEnum::BENEFIT),
         ];
     }
 

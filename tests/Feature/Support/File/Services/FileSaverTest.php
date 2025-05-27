@@ -11,11 +11,13 @@ use Support\File\Data\FileData;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Exceptions\UnableToSaveFileException;
 use Support\File\Models\File;
+use Support\File\Models\ModelHasFile;
 use Support\File\Repositories\FileRepositoryInterface;
 use Support\File\Services\FileSaver;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseEmpty;
+use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\mock;
 use function PHPUnit\Framework\assertInstanceOf;
 use function PHPUnit\Framework\assertSame;
@@ -25,7 +27,7 @@ use function Tests\Common\Helpers\assertException;
 
 /** @covers \Support\File\Services\FileSaver::saveFiles */
 it('correctly saves collection of files', function (): void {
-    $user = User::factory()->create();
+    $fileable = User::factory()->create();
 
     $type = FileTypeEnum::TEMP;
 
@@ -35,9 +37,10 @@ it('correctly saves collection of files', function (): void {
     $saver = app(FileSaver::class);
 
     assertDatabaseEmpty(File::class);
+    assertDatabaseEmpty(ModelHasFile::class);
 
     $files = $saver->saveFiles(
-        fileable: $user,
+        fileable: $fileable,
         type: $type,
         files: [
             FileData::make(TestingFile::fake()->image('test1.jpg')->size(1), ['key0' => 'value0']),
@@ -51,6 +54,7 @@ it('correctly saves collection of files', function (): void {
     );
 
     assertDatabaseCount(File::class, 3);
+    assertDatabaseCount(ModelHasFile::class, 3);
 
     $mimes = [
         'test1.jpg' => 'image/jpeg',
@@ -80,6 +84,13 @@ it('correctly saves collection of files', function (): void {
         // assert meta data
         assertTrue($file->hasDataValue("key{$i}"));
         assertSame("value{$i}", $file->getDataValue("key{$i}"));
+
+        // assert relationship between fileable and files
+        assertDatabaseHas(ModelHasFile::class, [
+            'file_id' => $file->id,
+            'fileable_id' => $fileable->id,
+            'fileable_type' => $fileable::class,
+        ]);
     }
 });
 
@@ -119,6 +130,7 @@ it('correctly removes files and folders when saving fails', function (): void {
     });
 
     assertDatabaseEmpty(File::class);
+    assertDatabaseEmpty(ModelHasFile::class);
 
     // assert that folders were removed when exception was thrown
     $storage->assertMissing('/images/users');

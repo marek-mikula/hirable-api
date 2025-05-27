@@ -65,7 +65,12 @@ return [
         'seniority_vacation_bonus' => 'Extra vacation for years of service',
     ],
 
-    ClassifierTypeEnum::EMPLOYMENT_TYPE->value => [
+    ClassifierTypeEnum::WORKLOAD->value => [
+        'full_time' => 'Full-time',
+        'part_time' => 'Part-time',
+    ],
+
+    ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP->value => [
         'freelance' => 'Freelance',
         'internship' => 'Internship',
         'contract' => 'Work contract',
@@ -230,5 +235,37 @@ return [
         'failed_background_check' => 'Failed background check',
         'other_reason' => 'Other reason',
     ],
+
+    ClassifierTypeEnum::SALARY_FREQUENCY->value => [
+        'monthly' => 'Per month',
+        'yearly' => 'Per year',
+        'hourly' => 'Per hour',
+        'daily' => 'Per day',
+        'quarterly' => 'Per quarter',
+    ],
+
+    ClassifierTypeEnum::SALARY_TYPE->value => [
+        'gross' => 'Gross',
+        'net' => 'Net',
+    ],
+
+    ClassifierTypeEnum::DRIVING_LICENCE->value => [
+        'am' => 'AM - Small mopeds and light quadricycles (up to 45 km/h)',
+        'a1' => 'A1 - Motorcycles up to 125 cc and 11 kW, minimum age 16',
+        'a2' => 'A2 - Motorcycles up to 35 kW, minimum age 18',
+        'a' => 'A - Unlimited motorcycles, minimum age 24 (or 20 with A2 experience)',
+        'b' => 'B - Passenger cars up to 3.5 tons and max. 8 passengers excluding driver',
+        'b96' => 'B96 - Extension of category B (vehicle combination up to 4,250 kg)',
+        'be' => 'BE - Car + trailer over 750 kg (combination up to 7,000 kg)',
+        'c1' => 'C1 - Lorries from 3.5 to 7.5 tons',
+        'c1e' => 'C1E - C1 + trailer, combination up to 12,000 kg',
+        'c' => 'C - Lorries over 3.5 tons',
+        'ce' => 'CE - C + trailer over 750 kg (no combination weight limit)',
+        'd1' => 'D1 - Buses up to 17 seats and max. 8 meters in length',
+        'd1e' => 'D1E - D1 + trailer over 750 kg',
+        'd' => 'D - Buses without limits on length or number of seats',
+        'de' => 'DE - D + trailer over 750 kg',
+        't' => 'T - Tractors and self-propelled work machines',
+    ]
 
 ];

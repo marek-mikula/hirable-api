@@ -10,7 +10,7 @@ use Support\File\Models\File;
 use Support\File\Schedule\DeleteDeletedFilesSchedule;
 
 /** @covers \Support\File\Schedule\DeleteDeletedFilesSchedule::__invoke */
-it('dispatches job to delete expired tokens', function (): void {
+it('dispatches job to delete deleted files', function (): void {
     Queue::fake([
         DeleteDeletedFilesJob::class,
     ]);

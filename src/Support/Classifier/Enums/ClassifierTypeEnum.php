@@ -11,7 +11,8 @@ enum ClassifierTypeEnum: string
     case LANGUAGE = 'language';
     case LANGUAGE_LEVEL = 'language_level';
     case BENEFIT = 'benefit';
-    case EMPLOYMENT_TYPE = 'employment_type';
+    case WORKLOAD = 'workload';
+    case EMPLOYMENT_RELATIONSHIP = 'employment_relationship';
     case EMPLOYMENT_FORM = 'employment_form';
     case SENIORITY = 'seniority';
     case EDUCATION_LEVEL = 'education_level';
@@ -21,4 +22,7 @@ enum ClassifierTypeEnum: string
     case TEST_TYPE = 'test_type';
     case REFUSAL_TYPE = 'refusal_type';
     case REJECTION_TYPE = 'rejection_type';
+    case SALARY_FREQUENCY = 'salary_frequency';
+    case SALARY_TYPE = 'salary_type';
+    case DRIVING_LICENCE = 'driving_licence';
 }

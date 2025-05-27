@@ -38,6 +38,12 @@ return [
             'throw' => false,
         ],
 
+        'positions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/positions'),
+            'throw' => false,
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

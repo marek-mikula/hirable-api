@@ -65,7 +65,12 @@ return [
         'seniority_vacation_bonus' => 'Dovolená navíc za odpracovaná léta',
     ],
 
-    ClassifierTypeEnum::EMPLOYMENT_TYPE->value => [
+    ClassifierTypeEnum::WORKLOAD->value => [
+        'full_time' => 'Full-time',
+        'part_time' => 'Part-time',
+    ],
+
+    ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP->value => [
         'freelance' => 'Freelance (IČO)',
         'internship' => 'Stáž',
         'contract' => 'Pracovní smlouva',
@@ -230,5 +235,37 @@ return [
         'failed_background_check' => 'Neprošel bezpečnostní prověrkou',
         'other_reason' => 'Jiný důvod',
     ],
+
+    ClassifierTypeEnum::SALARY_FREQUENCY->value => [
+        'monthly' => 'Za měsíc',
+        'yearly' => 'Za rok',
+        'hourly' => 'Za hodinu',
+        'daily' => 'Za den',
+        'quarterly' => 'Za kvartál',
+    ],
+
+    ClassifierTypeEnum::SALARY_TYPE->value => [
+        'gross' => 'Hrubá',
+        'net' => 'Čistá',
+    ],
+
+    ClassifierTypeEnum::DRIVING_LICENCE->value => [
+        'am' => 'AM - Malé mopedy a lehké čtyřkolky (do 45 km/h)',
+        'a1' => 'A1 - Motocykly do 125 cm³ a 11 kW, věk od 16 let',
+        'a2' => 'A2 - Motocykly do 35 kW, věk od 18 let',
+        'a' => 'A - Neomezené motocykly, věk od 24 let (nebo od 20 let s praxí na A2)',
+        'b' => 'B - Osobní automobily do 3,5 t a max. 8 osob kromě řidiče',
+        'b96' => 'B96 - Rozšíření skupiny B (souprava do 4 250 kg)',
+        'be' => 'BE - Osobní automobil + přívěs nad 750 kg (souprava do 7 000 kg)',
+        'c1' => 'C1 - Nákladní vozidla od 3,5 t do 7,5 t',
+        'c1e' => 'C1E - C1 + přívěs, souprava do 12 000 kg',
+        'c' => 'C - Nákladní vozidla nad 3,5 t',
+        'ce' => 'CE - C + přívěs nad 750 kg (souprava bez omezení)',
+        'd1' => 'D1 - Autobusy do 17 míst k sezení a do 8 m délky',
+        'd1e' => 'D1E - D1 + přívěs nad 750 kg',
+        'd' => 'D - Autobusy bez omezení počtu míst a délky',
+        'de' => 'DE - D + přívěs nad 750 kg',
+        't' => 'T - Traktory a samojízdné pracovní stroje',
+    ]
 
 ];
