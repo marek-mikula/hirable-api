@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
+use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
-use Domain\Position\Http\Request\Data\PositionStoreData;
+use Domain\Position\Http\Request\Data\PositionData;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\Rules\In;
 
@@ -23,7 +24,11 @@ class PositionStoreRequest extends AuthRequest
             'operation' => [
                 'required',
                 'string',
-                new In(['create', 'open']),
+                new In([
+                    PositionOperationEnum::CREATE->value,
+                    PositionOperationEnum::OPEN->value,
+                    PositionOperationEnum::SEND_FOR_APPROVAL->value,
+                ]),
             ],
             'name' => [
                 'required',
@@ -209,10 +214,10 @@ class PositionStoreRequest extends AuthRequest
         ];
     }
 
-    public function toData(): PositionStoreData
+    public function toData(): PositionData
     {
-        return PositionStoreData::from([
-            'operation' => (string) $this->input('operation'),
+        return PositionData::from([
+            'operation' => PositionOperationEnum::from((string) $this->input('operation')),
             'name' => (string) $this->input('name'),
             'department' => $this->filled('department') ? (string) $this->input('department') : null,
             'field' => $this->filled('field') ? (string) $this->input('field') : null,

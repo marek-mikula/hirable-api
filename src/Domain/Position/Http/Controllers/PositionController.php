@@ -9,11 +9,13 @@ use App\Http\Controllers\ApiController;
 use Domain\Position\Http\Request\PositionIndexRequest;
 use Domain\Position\Http\Request\PositionShowRequest;
 use Domain\Position\Http\Request\PositionStoreRequest;
+use Domain\Position\Http\Request\PositionUpdateRequest;
 use Domain\Position\Http\Resources\Collections\PositionPaginatedCollection;
 use Domain\Position\Http\Resources\PositionResource;
 use Domain\Position\Models\Position;
 use Domain\Position\UseCases\GetPositionsForIndexUseCase;
 use Domain\Position\UseCases\StorePositionUseCase;
+use Domain\Position\UseCases\UpdatePositionUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
@@ -40,6 +42,23 @@ class PositionController extends ApiController
     public function store(PositionStoreRequest $request): JsonResponse
     {
         $position = StorePositionUseCase::make()->handle($request->user(), $request->toData());
+
+        if (!$position->relationLoaded('files')) {
+            $position->loadMissing('files');
+        }
+
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'position' => new PositionResource($position),
+        ]);
+    }
+
+    public function update(PositionUpdateRequest $request, Position $position): JsonResponse
+    {
+        $position = UpdatePositionUseCase::make()->handle($request->user(), $position, $request->toData());
+
+        if (!$position->relationLoaded('files')) {
+            $position->loadMissing('files');
+        }
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'position' => new PositionResource($position),

@@ -9,7 +9,7 @@ use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Http\Request\Data\PositionData;
 use Domain\Position\Models\Position;
-use Domain\Position\Repositories\Inputs\PositionStoreInput;
+use Domain\Position\Repositories\Inputs\PositionUpdateInput;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +17,7 @@ use Support\File\Actions\GetModelSubFoldersAction;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Services\FileSaver;
 
-class StorePositionUseCase extends UseCase
+class UpdatePositionUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionRepositoryInterface $positionRepository,
@@ -25,14 +25,14 @@ class StorePositionUseCase extends UseCase
     ) {
     }
 
-    public function handle(User $user, PositionData $data): Position
+    public function handle(User $user, Position $position, PositionData $data): Position
     {
-        $input = new PositionStoreInput(
-            company: $user->loadMissing('company')->company,
-            user: $user,
-            state: $data->operation === PositionOperationEnum::OPEN
-                ? PositionStateEnum::OPENED
-                : PositionStateEnum::DRAFT,
+        if ($data->hasFiles()) {
+            $position->loadMissing('files');
+        }
+
+        $input = new PositionUpdateInput(
+            state: $data->operation === PositionOperationEnum::OPEN ? PositionStateEnum::OPENED : $position->state,
             name: $data->name,
             department: $data->department,
             field: $data->field,
@@ -68,11 +68,12 @@ class StorePositionUseCase extends UseCase
         );
 
         return DB::transaction(function () use (
+            $user,
+            $position,
             $data,
             $input,
-            $user,
         ): Position {
-            $position = $this->positionRepository->store($input);
+            $position = $this->positionRepository->update($position, $input);
 
             // save files if any
             if ($data->hasFiles()) {
@@ -83,7 +84,7 @@ class StorePositionUseCase extends UseCase
                     folders: GetModelSubFoldersAction::make()->handle($position)
                 );
 
-                $position->setRelation('files', $files);
+                $position->setRelation('files', $position->files->push(...$files));
             }
 
             return $position;

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Request\Data;
 
+use Domain\Position\Enums\PositionOperationEnum;
 use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Data;
 use Support\File\Data\FileData;
 
-class PositionStoreData extends Data
+class PositionData extends Data
 {
-    public string $operation;
+    public PositionOperationEnum $operation;
 
     public string $name;
 
