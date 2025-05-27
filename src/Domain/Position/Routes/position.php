@@ -13,4 +13,8 @@ Route::middleware('auth:sanctum')->group(static function (): void {
     Route::prefix('/suggest')->as('suggest.')->group(function (): void {
         Route::get('/departments', [PositionSuggestController::class, 'suggestDepartments'])->name('departments');
     });
+
+    Route::prefix('/{position}')->whereNumber('position')->group(function (): void {
+        Route::get('/', [PositionController::class, 'show'])->name('show');
+    });
 });

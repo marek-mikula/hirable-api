@@ -9,6 +9,7 @@ use App\Casts\Lowercase;
 use Carbon\Carbon;
 use Domain\Company\Database\Factories\CompanyFactory;
 use Domain\Company\Models\Builders\CompanyBuilder;
+use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +29,7 @@ use Support\Classifier\Models\Classifier;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Collection<User> $users
+ * @property-read Collection<Position> $positions
  * @property-read Collection<Classifier> $benefits
  *
  * @method static CompanyFactory factory($count = null, $state = [])
@@ -60,6 +62,15 @@ class Company extends Model
     {
         return $this->hasMany(
             related: User::class,
+            foreignKey: 'company_id',
+            localKey: 'id',
+        );
+    }
+
+    public function positions(): HasMany
+    {
+        return $this->hasMany(
+            related: Position::class,
             foreignKey: 'company_id',
             localKey: 'id',
         );
