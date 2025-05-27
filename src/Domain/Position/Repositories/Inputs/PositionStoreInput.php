@@ -11,6 +11,7 @@ use Domain\User\Models\User;
 class PositionStoreInput
 {
     /**
+     * @param string[] $drivingLicences
      * @param string[] $workloads
      * @param string[] $employmentRelationships
      * @param string[] $employmentForms
@@ -38,7 +39,7 @@ class PositionStoreInput
         public ?string $minEducationLevel,
         public ?string $seniority,
         public ?int $experience,
-        public ?string $drivingLicence,
+        public array $drivingLicences,
         public int $organisationSkills,
         public int $teamSkills,
         public int $timeManagement,

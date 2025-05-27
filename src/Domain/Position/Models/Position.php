@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
+use Support\File\Models\Traits\HasFiles;
 
 /**
  * @property-read int $id
@@ -40,7 +41,7 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $min_education_level classifier value
  * @property string|null $seniority classifier value
  * @property int|null $experience
- * @property string|null $driving_licence classifier value
+ * @property string[] $driving_licences classifier values
  * @property int $organisation_skills scale 0 - 10
  * @property int $team_skills scale 0 - 10
  * @property int $time_management scale 0 - 10
@@ -59,6 +60,7 @@ use Illuminate\Database\Query\Builder;
 class Position extends Model
 {
     use HasFactory;
+    use HasFiles;
 
     protected $primaryKey = 'id';
 
@@ -82,6 +84,7 @@ class Position extends Model
         'address',
         'salary_from',
         'salary_to',
+        'salary_type',
         'salary_frequency',
         'salary_currency',
         'salary_var',
@@ -89,7 +92,7 @@ class Position extends Model
         'min_education_level',
         'seniority',
         'experience',
-        'driving_licence',
+        'driving_licences',
         'organisation_skills',
         'team_skills',
         'time_management',
@@ -105,6 +108,7 @@ class Position extends Model
         'employment_forms' => '[]',
         'benefits' => '[]',
         'language_requirements' => '[]',
+        'driving_licences' => '[]',
     ];
 
     protected $casts = [
@@ -115,6 +119,7 @@ class Position extends Model
         'is_technical' => 'boolean',
         'benefits' => 'array',
         'language_requirements' => 'array',
+        'driving_licences' => 'array',
     ];
 
     public function company(): BelongsTo

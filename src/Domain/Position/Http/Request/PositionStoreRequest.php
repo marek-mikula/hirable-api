@@ -106,8 +106,11 @@ class PositionStoreRequest extends AuthRequest
                 'integer',
                 'min:0',
             ],
-            'drivingLicence' => [
-                'nullable',
+            'drivingLicences' => [
+                'array',
+            ],
+            'drivingLicences.*' => [
+                'required',
                 'string',
             ],
             'organisationSkills' => [
@@ -227,7 +230,7 @@ class PositionStoreRequest extends AuthRequest
             'minEducationLevel' => $this->filled('minEducationLevel') ? (string) $this->input('minEducationLevel') : null,
             'seniority' => $this->filled('seniority') ? (string) $this->input('seniority') : null,
             'experience' => $this->filled('experience') ? (int) $this->input('experience') : null,
-            'drivingLicence' => $this->filled('drivingLicence') ? (string) $this->input('drivingLicence') : null,
+            'drivingLicences' => $this->collect('drivingLicences')->map(fn (mixed $val) => (string) $val)->all(),
             'organisationSkills' => (int) $this->input('organisationSkills'),
             'teamSkills' => (int) $this->input('teamSkills'),
             'timeManagement' => (int) $this->input('timeManagement'),

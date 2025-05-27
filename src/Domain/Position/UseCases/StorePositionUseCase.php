@@ -47,7 +47,7 @@ class StorePositionUseCase extends UseCase
             minEducationLevel: $data->minEducationLevel,
             seniority: $data->seniority,
             experience: $data->experience,
-            drivingLicence: $data->drivingLicence,
+            drivingLicences: $data->drivingLicences,
             organisationSkills: $data->organisationSkills,
             teamSkills: $data->teamSkills,
             timeManagement: $data->timeManagement,
@@ -73,12 +73,14 @@ class StorePositionUseCase extends UseCase
 
             // save files if any
             if ($data->hasFiles()) {
-                $this->fileSaver->saveFiles(
+                $files = $this->fileSaver->saveFiles(
                     fileable: $position,
                     type: FileTypeEnum::POSITION_FILE,
                     files: $data->getFilesData(),
                     folders: GetModelSubFoldersAction::make()->handle($position)
                 );
+
+                $position->setRelation('files', $files);
             }
 
             return $position;

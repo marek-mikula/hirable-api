@@ -34,7 +34,7 @@ return new class () extends Migration {
             $table->string('min_education_level')->nullable();
             $table->string('seniority')->nullable();
             $table->unsignedTinyInteger('experience')->nullable();
-            $table->string('driving_licence')->nullable();
+            $table->json('driving_licences');
             $table->unsignedTinyInteger('organisation_skills');
             $table->unsignedTinyInteger('team_skills');
             $table->unsignedTinyInteger('time_management');

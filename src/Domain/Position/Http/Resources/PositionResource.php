@@ -8,6 +8,7 @@ use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Position\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Support\File\Http\Resources\Collections\FileCollection;
 
 /**
  * @property Position $resource
@@ -23,6 +24,8 @@ class PositionResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+        $this->checkLoadedRelations(['files'], Position::class);
+
         return [
             'id' => $this->resource->id,
             'state' => $this->resource->state->value,
@@ -38,6 +41,7 @@ class PositionResource extends JsonResource
             'address' => $this->resource->address,
             'salaryFrom' => $this->resource->salary_from,
             'salaryTo' => $this->resource->salary_to,
+            'salaryType' => $this->resource->salary_type,
             'salaryFrequency' => $this->resource->salary_frequency,
             'salaryCurrency' => $this->resource->salary_currency,
             'salaryVar' => $this->resource->salary_var,
@@ -45,7 +49,7 @@ class PositionResource extends JsonResource
             'minEducationLevel' => $this->resource->min_education_level,
             'seniority' => $this->resource->seniority,
             'experience' => $this->resource->experience,
-            'drivingLicence' => $this->resource->driving_licence,
+            'drivingLicences' => $this->resource->driving_licences,
             'organisationSkills' => $this->resource->organisation_skills,
             'teamSkills' => $this->resource->team_skills,
             'timeManagement' => $this->resource->time_management,
@@ -55,6 +59,7 @@ class PositionResource extends JsonResource
             'note' => $this->resource->note,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
+            'files' => new FileCollection($this->resource->files),
         ];
     }
 }

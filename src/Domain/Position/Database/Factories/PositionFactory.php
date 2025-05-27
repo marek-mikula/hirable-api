@@ -42,7 +42,7 @@ class PositionFactory extends Factory
         return [
             'company_id' => $this->isMaking ? null : Company::factory(),
             'user_id' => $this->isMaking ? null : User::factory(),
-            'state' => PositionStateEnum::ACTIVE,
+            'state' => PositionStateEnum::OPENED,
             'name' => fake()->jobTitle,
             'department' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
             'field' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
@@ -68,7 +68,7 @@ class PositionFactory extends Factory
             'min_education_level' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
             'seniority' => $isTechnical ? str(fake()->word)->transliterate()->lower()->snake()->toString() : null,
             'experience' => fake()->numberBetween(0, 10),
-            'driving_licence' => null,
+            'driving_licences' => [],
             'organisation_skills' => fake()->numberBetween(0, 10),
             'team_skills' => fake()->numberBetween(0, 10),
             'time_management' => fake()->numberBetween(0, 10),

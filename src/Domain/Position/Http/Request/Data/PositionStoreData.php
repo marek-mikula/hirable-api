@@ -46,7 +46,8 @@ class PositionStoreData extends Data
 
     public ?int $experience;
 
-    public ?string $drivingLicence;
+    /** @var string[] */
+    public array $drivingLicences;
 
     public int $organisationSkills;
 
