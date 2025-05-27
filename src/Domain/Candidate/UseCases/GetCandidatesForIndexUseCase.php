@@ -25,16 +25,18 @@ class GetCandidatesForIndexUseCase extends UseCase
                 });
             })
             ->when($gridQuery->hasSort(), function (CandidateBuilder $query) use ($gridQuery): void {
-                if ($gridQuery->hasSortKey('id')) {
-                    $query->orderBy('id', $gridQuery->sort['id']->value);
-                } elseif ($gridQuery->hasSortKey('firstname')) {
-                    $query->orderBy('firstname', $gridQuery->sort['firstname']->value);
-                } elseif ($gridQuery->hasSortKey('lastname')) {
-                    $query->orderBy('lastname', $gridQuery->sort['lastname']->value);
-                } elseif ($gridQuery->hasSortKey('email')) {
-                    $query->orderBy('email', $gridQuery->sort['email']->value);
-                } elseif ($gridQuery->hasSortKey('createdAt')) {
-                    $query->orderBy('created_at', $gridQuery->sort['createdAt']->value);
+                foreach ($gridQuery->sort as $column => $order) {
+                    if ($column === 'id') {
+                        $query->orderBy('id', $order->value);
+                    } elseif ($column === 'firstname') {
+                        $query->orderBy('firstname', $order->value);
+                    } elseif ($column === 'lastname') {
+                        $query->orderBy('lastname', $order->value);
+                    } elseif ($column === 'email') {
+                        $query->orderBy('email', $order->value);
+                    } elseif ($column === 'createdAt') {
+                        $query->orderBy('created_at', $order->value);
+                    }
                 }
             }, function (CandidateBuilder $query): void {
                 $query->orderBy('id', 'desc');

@@ -26,16 +26,20 @@ class GetPositionsForIndexUseCase extends UseCase
                 });
             })
             ->when($gridQuery->hasSort(), function (PositionBuilder $query) use ($gridQuery): void {
-                if ($gridQuery->hasSortKey('id')) {
-                    $query->orderBy('id', $gridQuery->sort['id']->value);
-                } elseif ($gridQuery->hasSortKey('state')) {
-                    $query->orderBy('state', $gridQuery->sort['state']->value);
-                } elseif ($gridQuery->hasSortKey('name')) {
-                    $query->orderBy('name', $gridQuery->sort['name']->value);
-                } elseif ($gridQuery->hasSortKey('lastname')) {
-                    $query->orderBy('lastname', $gridQuery->sort['lastname']->value);
-                } elseif ($gridQuery->hasSortKey('createdAt')) {
-                    $query->orderBy('created_at', $gridQuery->sort['createdAt']->value);
+                foreach ($gridQuery->sort as $column => $order) {
+                    if ($column === 'id') {
+                        $query->orderBy('id', $order->value);
+                    } elseif ($column === 'state') {
+                        $query->orderBy('state', $order->value);
+                    } elseif ($column === 'name') {
+                        $query->orderBy('name', $order->value);
+                    } elseif ($column === 'lastname') {
+                        $query->orderBy('lastname', $order->value);
+                    } elseif ($column === 'department') {
+                        $query->orderBy('department', $order->value);
+                    } elseif ($column === 'createdAt') {
+                        $query->orderBy('created_at', $order->value);
+                    }
                 }
             }, function (PositionBuilder $query): void {
                 $query->orderBy('id', 'desc');
