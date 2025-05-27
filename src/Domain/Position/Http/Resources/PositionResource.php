@@ -27,6 +27,7 @@ class PositionResource extends JsonResource
             'id' => $this->resource->id,
             'state' => $this->resource->state->value,
             'name' => $this->resource->name,
+            'department' => $this->resource->department,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];

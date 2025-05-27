@@ -21,7 +21,7 @@ use Illuminate\Database\Query\Builder;
  * @property int $user_id
  * @property PositionStateEnum $state
  * @property string $name
- * @property string|null $department classifier value
+ * @property string|null $department
  * @property string|null $field classifier value
  * @property string[] $workloads classifier values
  * @property string[] $employment_relationships classifier values

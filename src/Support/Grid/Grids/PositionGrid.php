@@ -28,6 +28,10 @@ class PositionGrid implements Grid
                     label: 'model.common.title',
                 ),
                 new GridColumnDefinition(
+                    key: 'department',
+                    label: 'model.position.department',
+                ),
+                new GridColumnDefinition(
                     key: 'state',
                     label: 'model.common.state',
                 ),
