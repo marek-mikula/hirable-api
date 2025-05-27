@@ -24,12 +24,12 @@ class PositionGrid implements Grid
                     allowToggle: false,
                 ),
                 new GridColumnDefinition(
-                    key: 'state',
-                    label: 'model.common.state',
-                ),
-                new GridColumnDefinition(
                     key: 'name',
                     label: 'model.common.name',
+                ),
+                new GridColumnDefinition(
+                    key: 'state',
+                    label: 'model.common.state',
                 ),
                 new GridColumnDefinition(
                     key: 'createdAt',
