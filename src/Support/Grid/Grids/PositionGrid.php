@@ -36,6 +36,10 @@ class PositionGrid implements Grid
                     label: 'model.common.state',
                 ),
                 new GridColumnDefinition(
+                    key: 'approvalState',
+                    label: 'model.position.approvalState',
+                ),
+                new GridColumnDefinition(
                     key: 'createdAt',
                     label: 'model.common.createdAt',
                 ),

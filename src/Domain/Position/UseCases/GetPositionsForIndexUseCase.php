@@ -33,6 +33,8 @@ class GetPositionsForIndexUseCase extends UseCase
                         $query->orderBy('id', $order->value);
                     } elseif ($column === 'state') {
                         $query->orderBy('state', $order->value);
+                    } elseif ($column === 'approvalState') {
+                        $query->orderBy('approval_state', $order->value);
                     } elseif ($column === 'name') {
                         $query->orderBy('name', $order->value);
                     } elseif ($column === 'lastname') {

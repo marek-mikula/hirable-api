@@ -7,6 +7,7 @@ namespace Domain\Position\Models;
 use Carbon\Carbon;
 use Domain\Company\Models\Company;
 use Domain\Position\Database\Factories\PositionFactory;
+use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Builders\PositionBuilder;
@@ -23,6 +24,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $company_id
  * @property int $user_id
  * @property PositionStateEnum $state
+ * @property PositionApprovalStateEnum|null $approval_state
  * @property string $name
  * @property string|null $department
  * @property string|null $field classifier value
@@ -74,6 +76,7 @@ class Position extends Model
         'company_id',
         'user_id',
         'state',
+        'approval_state',
         'name',
         'department',
         'field',
@@ -115,6 +118,7 @@ class Position extends Model
 
     protected $casts = [
         'state' => PositionStateEnum::class,
+        'approval_state' => PositionApprovalStateEnum::class,
         'workloads' => 'array',
         'employment_relationships' => 'array',
         'employment_forms' => 'array',

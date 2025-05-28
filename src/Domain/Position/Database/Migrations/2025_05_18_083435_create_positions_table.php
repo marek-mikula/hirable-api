@@ -14,6 +14,7 @@ return new class () extends Migration {
             $table->foreignId('company_id');
             $table->foreignId('user_id');
             $table->string('state', 10);
+            $table->string('approval_state', 10)->nullable();
             $table->string('name');
             $table->string('department')->nullable();
             $table->string('field')->nullable();
