@@ -23,7 +23,8 @@ class GetPositionsForIndexUseCase extends UseCase
             ->when($gridQuery->hasSearchQuery(), function (PositionBuilder $query) use ($gridQuery): void {
                 $query->where(function (PositionBuilder $query) use ($gridQuery): void {
                     $query
-                        ->where('name', 'like', "%{$gridQuery->searchQuery}%");
+                        ->where('name', 'like', "%{$gridQuery->searchQuery}%")
+                        ->orWhere('department', 'like', "%{$gridQuery->searchQuery}%");
                 });
             })
             ->when($gridQuery->hasSort(), function (PositionBuilder $query) use ($gridQuery): void {
