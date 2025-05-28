@@ -18,8 +18,6 @@ class CompanyController extends ApiController
     {
         $company = $request->user()->loadMissing('company')->company;
 
-        $company->loadMissing('benefits');
-
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'company' => new CompanyResource($company),
         ]);
@@ -28,8 +26,6 @@ class CompanyController extends ApiController
     public function update(CompanyUpdateRequest $request): JsonResponse
     {
         $company = UpdateCompanyUseCase::make()->handle($request->user(), $request->getValues());
-
-        $company->loadMissing('benefits');
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'company' => new CompanyResource($company),

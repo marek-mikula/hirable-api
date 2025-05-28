@@ -45,16 +45,16 @@ class PositionFactory extends Factory
             'state' => PositionStateEnum::OPENED,
             'approval_state' => null,
             'name' => fake()->jobTitle,
-            'department' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
-            'field' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
+            'department' => str(fake()->word)->transliterate()->lower()->toString(),
+            'field' => str(fake()->word)->transliterate()->lower()->toString(),
             'workloads' => [
-                str(fake()->word)->transliterate()->lower()->snake()->toString()
+                str(fake()->word)->transliterate()->lower()->toString()
             ],
             'employment_relationships' => [
-                str(fake()->word)->transliterate()->lower()->snake()->toString()
+                str(fake()->word)->transliterate()->lower()->toString()
             ],
             'employment_forms' => [
-                str(fake()->word)->transliterate()->lower()->snake()->toString()
+                str(fake()->word)->transliterate()->lower()->toString()
             ],
             'job_seats_num' => fake()->numberBetween(1, 100),
             'description' => fake()->text(2000),
@@ -66,8 +66,8 @@ class PositionFactory extends Factory
             'salary_currency' => fake()->randomElement($currencies),
             'salary_var' => fake()->words(asText: true),
             'benefits' => [],
-            'min_education_level' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
-            'seniority' => $isTechnical ? str(fake()->word)->transliterate()->lower()->snake()->toString() : null,
+            'min_education_level' => str(fake()->word)->transliterate()->lower()->toString(),
+            'seniority' => $isTechnical ? str(fake()->word)->transliterate()->lower()->toString() : null,
             'experience' => fake()->numberBetween(0, 10),
             'driving_licences' => [],
             'organisation_skills' => fake()->numberBetween(0, 10),

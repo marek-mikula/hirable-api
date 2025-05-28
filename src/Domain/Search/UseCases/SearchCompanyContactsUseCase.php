@@ -5,23 +5,24 @@ declare(strict_types=1);
 namespace Domain\Search\UseCases;
 
 use App\UseCases\UseCase;
+use Domain\Company\Models\CompanyContact;
 use Domain\Search\Data\ResultData;
 use Domain\Search\Data\SearchData;
 use Domain\User\Models\User;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 
-class SearchCompanyUsersUseCase extends UseCase
+class SearchCompanyContactsUseCase extends UseCase
 {
     /**
      * @return Collection<ResultData>
      */
-    public function handle(User $user, SearchData $data, bool $ignoreAuth): Collection
+    public function handle(User $user, SearchData $data): Collection
     {
         $company = $user->loadMissing('company')->company;
 
-        return User::query()
-            ->select(['id', 'firstname', 'lastname'])
+        return CompanyContact::query()
+            ->select(['id', 'firstname', 'lastname', 'company_name'])
             ->when($data->hasQuery(), function (Builder $query) use ($data): void {
                 $query->where(function (Builder $query) use ($data): void {
                     $words = $data->getQueryWords();
@@ -34,19 +35,17 @@ class SearchCompanyUsersUseCase extends UseCase
                         $query
                             ->orWhere('firstname', 'like', "%{$word}%")
                             ->orWhere('lastname', 'like', "%{$word}%")
-                            ->orWhere('email', 'like', "%{$word}%");
+                            ->orWhere('email', 'like', "%{$word}%")
+                            ->orWhere('company_name', 'like', "%{$word}%");
                     }
                 });
-            })
-            ->when($ignoreAuth, function (Builder $query) use ($user): void {
-                $query->where('id', '<>', $user->id);
             })
             ->where('company_id', '=', $company->id)
             ->limit($data->limit)
             ->get()
-            ->map(static fn (User $item) => ResultData::from([
+            ->map(static fn (CompanyContact $item) => ResultData::from([
                 'value' => $item->id,
-                'label' => $item->is($user) ? sprintf('%s (%s)', $item->full_name, __('common.you')) : $item->full_name,
+                'label' => $item->company_name ? sprintf('%s (%s)', $item->full_name, $item->company_name) : $item->full_name,
             ]));
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Company\Providers;
 
-use Domain\Company\Repositories\CompanyBenefitRepository;
-use Domain\Company\Repositories\CompanyBenefitRepositoryInterface;
+use Domain\Company\Repositories\CompanyContactRepository;
+use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Company\Repositories\CompanyRepository;
 use Domain\Company\Repositories\CompanyRepositoryInterface;
 use Illuminate\Contracts\Support\DeferrableProvider as BaseDeferrableProvider;
@@ -16,14 +16,14 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
     public function register(): void
     {
         $this->app->bind(CompanyRepositoryInterface::class, CompanyRepository::class);
-        $this->app->bind(CompanyBenefitRepositoryInterface::class, CompanyBenefitRepository::class);
+        $this->app->bind(CompanyContactRepositoryInterface::class, CompanyContactRepository::class);
     }
 
     public function provides(): array
     {
         return [
             CompanyRepositoryInterface::class,
-            CompanyBenefitRepositoryInterface::class,
+            CompanyContactRepositoryInterface::class,
         ];
     }
 }

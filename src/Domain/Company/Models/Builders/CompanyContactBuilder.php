@@ -6,7 +6,7 @@ namespace Domain\Company\Models\Builders;
 
 use App\Models\Builders\Builder;
 
-class CompanyBenefitBuilder extends Builder
+class CompanyContactBuilder extends Builder
 {
     public function whereCompany(int $id): static
     {

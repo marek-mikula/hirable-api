@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Company\Http\Resources;
 
-use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Company\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Support\Classifier\Actions\ToClassifierAction;
+use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Http\Resources\Collections\ClassifierCollection;
 
 /**
@@ -15,8 +16,6 @@ use Support\Classifier\Http\Resources\Collections\ClassifierCollection;
  */
 class CompanyResource extends JsonResource
 {
-    use ChecksRelations;
-
     public function __construct(Company $resource)
     {
         parent::__construct($resource);
@@ -24,8 +23,6 @@ class CompanyResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['benefits'], Company::class);
-
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
@@ -34,7 +31,7 @@ class CompanyResource extends JsonResource
             'website' => $this->resource->website,
             'environment' => $this->resource->environment,
             'createdAt' => $this->resource->created_at->toIso8601String(),
-            'benefits' => new ClassifierCollection($this->resource->benefits),
+            'benefits' => new ClassifierCollection(ToClassifierAction::make()->handle($this->resource->benefits, ClassifierTypeEnum::BENEFIT)),
         ];
     }
 }

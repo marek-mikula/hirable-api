@@ -33,8 +33,6 @@ return new class () extends Migration {
             $table->timestamp('agreement_accepted_at');
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
-
-            $table->fullText(['firstname', 'lastname', 'email'], 'users_fulltext');
         });
     }
 
