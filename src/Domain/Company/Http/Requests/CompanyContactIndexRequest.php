@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Domain\Company\Http\Requests;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\AuthRequest;
 use Support\Grid\Traits\AsGridRequest;
 
-class CompanyContactIndexRequest extends Request
+class CompanyContactIndexRequest extends AuthRequest
 {
     use AsGridRequest;
 

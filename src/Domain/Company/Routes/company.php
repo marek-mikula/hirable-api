@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Domain\Company\Http\Controllers\CompanyContactController;
+use Domain\Company\Http\Controllers\CompanyContactSuggestController;
 use Domain\Company\Http\Controllers\CompanyController;
 use Domain\Company\Http\Controllers\CompanyInvitationController;
 use Domain\Company\Http\Controllers\CompanyUserController;
@@ -20,6 +21,10 @@ Route::middleware('auth:sanctum')->group(static function (): void {
     Route::prefix('/contacts')->as('contacts.')->group(static function (): void {
         Route::get('/', [CompanyContactController::class, 'index'])->name('index');
         Route::post('/', [CompanyContactController::class, 'store'])->name('store');
+
+        Route::prefix('/suggest')->as('suggest.')->group(static function (): void {
+            Route::get('/companies', [CompanyContactSuggestController::class, 'companies'])->name('companies');
+        });
     });
 
     Route::prefix('/users')->as('users.')->group(static function (): void {
