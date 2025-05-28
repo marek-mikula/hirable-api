@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Token\Actions;
 
-use Lorisleiva\Actions\Action;
+use App\Actions\Action;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Models\Token;
 

@@ -11,3 +11,9 @@ it('tests store method', function (): void {
     /** @var PositionRepositoryInterface $repository */
     $repository = app(PositionRepositoryInterface::class);
 })->todo();
+
+/** @covers \Domain\Position\Repositories\PositionRepository::store */
+it('tests update method', function (): void {
+    /** @var PositionRepositoryInterface $repository */
+    $repository = app(PositionRepositoryInterface::class);
+})->todo();

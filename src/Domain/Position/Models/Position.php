@@ -7,12 +7,14 @@ namespace Domain\Position\Models;
 use Carbon\Carbon;
 use Domain\Company\Models\Company;
 use Domain\Position\Database\Factories\PositionFactory;
+use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Builders\PositionBuilder;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Query\Builder;
 use Support\File\Models\Traits\HasFiles;
 
@@ -138,6 +140,29 @@ class Position extends Model
             foreignKey: 'user_id',
             ownerKey: 'id',
         );
+    }
+
+    public function users(): MorphToMany
+    {
+        return $this->morphedByMany(
+            related: User::class,
+            name: 'model',
+            table: 'model_has_positions',
+            foreignPivotKey: 'position_id',
+            relatedPivotKey: 'model_id',
+            parentKey: 'id',
+            relatedKey: 'id',
+        )->withPivot(['role']);
+    }
+
+    public function approvers(): MorphToMany
+    {
+        return $this->users()->wherePivot('role', PositionRoleEnum::APPROVER->value);
+    }
+
+    public function hiringManagers(): MorphToMany
+    {
+        return $this->users()->wherePivot('role', PositionRoleEnum::HIRING_MANAGER->value);
     }
 
     /**

@@ -9,15 +9,16 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::create('model_has_files', static function (Blueprint $table): void {
+        Schema::create('model_has_positions', static function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('file_id');
-            $table->morphs('fileable');
+            $table->foreignId('position_id');
+            $table->morphs('model');
+            $table->string('role');
             $table->timestamps();
 
-            $table->foreign('file_id')
+            $table->foreign('position_id')
                 ->references('id')
-                ->on('files')
+                ->on('positions')
                 ->cascadeOnDelete()
                 ->restrictOnUpdate();
         });
@@ -25,6 +26,6 @@ return new class () extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('model_has_files');
+        Schema::dropIfExists('model_has_positions');
     }
 };

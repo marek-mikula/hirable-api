@@ -8,6 +8,10 @@ use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Position\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Support\Classifier\Actions\ToClassifierAction;
+use Support\Classifier\Enums\ClassifierTypeEnum;
+use Support\Classifier\Http\Resources\ClassifierResource;
+use Support\Classifier\Http\Resources\Collections\ClassifierCollection;
 use Support\File\Http\Resources\Collections\FileCollection;
 
 /**
@@ -26,36 +30,49 @@ class PositionResource extends JsonResource
     {
         $this->checkLoadedRelations(['files'], Position::class);
 
+        $toClassifier = ToClassifierAction::make();
+
         return [
             'id' => $this->resource->id,
             'state' => $this->resource->state->value,
             'name' => $this->resource->name,
             'department' => $this->resource->department,
-            'field' => $this->resource->field,
-            'workloads' => $this->resource->workloads,
-            'employmentRelationships' => $this->resource->employment_relationships,
-            'employmentForms' => $this->resource->employment_forms,
+            'field' => $this->resource->field
+                ? new ClassifierResource($toClassifier->handle($this->resource->field, ClassifierTypeEnum::FIELD))
+                : null,
+            'workloads' => new ClassifierCollection($toClassifier->handle($this->resource->workloads, ClassifierTypeEnum::WORKLOAD)),
+            'employmentRelationships' => new ClassifierCollection($toClassifier->handle($this->resource->employment_relationships, ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP)),
+            'employmentForms' => new ClassifierCollection($toClassifier->handle($this->resource->employment_forms, ClassifierTypeEnum::EMPLOYMENT_FORM)),
             'jobSeatsNum' => $this->resource->job_seats_num,
             'description' => $this->resource->description,
             'isTechnical' => $this->resource->is_technical,
             'address' => $this->resource->address,
             'salaryFrom' => $this->resource->salary_from,
             'salaryTo' => $this->resource->salary_to,
-            'salaryType' => $this->resource->salary_type,
-            'salaryFrequency' => $this->resource->salary_frequency,
-            'salaryCurrency' => $this->resource->salary_currency,
+            'salaryType' => new ClassifierResource($toClassifier->handle($this->resource->salary_type, ClassifierTypeEnum::SALARY_TYPE)),
+            'salaryFrequency' => new ClassifierResource($toClassifier->handle($this->resource->salary_frequency, ClassifierTypeEnum::SALARY_FREQUENCY)),
+            'salaryCurrency' => new ClassifierResource($toClassifier->handle($this->resource->salary_currency, ClassifierTypeEnum::CURRENCY)),
             'salaryVar' => $this->resource->salary_var,
-            'benefits' => $this->resource->benefits,
-            'minEducationLevel' => $this->resource->min_education_level,
-            'seniority' => $this->resource->seniority,
+            'benefits' => new ClassifierCollection($toClassifier->handle($this->resource->benefits, ClassifierTypeEnum::BENEFIT)),
+            'minEducationLevel' => $this->resource->min_education_level
+                ? new ClassifierResource($toClassifier->handle($this->resource->min_education_level, ClassifierTypeEnum::EDUCATION_LEVEL))
+                : null,
+            'seniority' => $this->resource->seniority
+                ? new ClassifierResource($toClassifier->handle($this->resource->seniority, ClassifierTypeEnum::SENIORITY))
+                : null,
             'experience' => $this->resource->experience,
-            'drivingLicences' => $this->resource->driving_licences,
+            'drivingLicences' => new ClassifierCollection($toClassifier->handle($this->resource->driving_licences, ClassifierTypeEnum::DRIVING_LICENCE)),
             'organisationSkills' => $this->resource->organisation_skills,
             'teamSkills' => $this->resource->team_skills,
             'timeManagement' => $this->resource->time_management,
             'communicationSkills' => $this->resource->communication_skills,
             'leadership' => $this->resource->leadership,
-            'languageRequirements' => $this->resource->language_requirements,
+            'languageRequirements' => array_map(function (array $requirement) use ($toClassifier): array {
+                $requirement['language'] = new ClassifierResource($toClassifier->handle($requirement['language'], ClassifierTypeEnum::LANGUAGE));
+                $requirement['level'] = new ClassifierResource($toClassifier->handle($requirement['level'], ClassifierTypeEnum::LANGUAGE_LEVEL));
+
+                return $requirement;
+            }, $this->resource->language_requirements),
             'note' => $this->resource->note,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
