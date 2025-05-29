@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Support\Grid\Grids;
 
 use Domain\User\Models\User;
-use Support\Grid\Contracts\Grid;
 use Support\Grid\Data\Definition\GridColumnDefinition;
 use Support\Grid\Data\Definition\GridDefinition;
 use Support\Grid\Enums\GridEnum;
@@ -38,6 +37,11 @@ class CompanyContactGrid implements Grid
                 new GridColumnDefinition(
                     key: 'email',
                     label: 'model.common.email',
+                ),
+                new GridColumnDefinition(
+                    key: 'note',
+                    label: 'model.common.note',
+                    allowSort: false,
                 ),
             ],
             actions: [],

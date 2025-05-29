@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Support\Grid\Contracts;
+namespace Support\Grid\Grids;
 
 use Domain\User\Models\User;
 use Support\Grid\Data\Definition\GridDefinition;
