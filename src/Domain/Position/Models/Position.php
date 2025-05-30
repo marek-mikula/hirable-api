@@ -6,12 +6,14 @@ namespace Domain\Position\Models;
 
 use Carbon\Carbon;
 use Domain\Company\Models\Company;
+use Domain\Company\Models\CompanyContact;
 use Domain\Position\Database\Factories\PositionFactory;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Builders\PositionBuilder;
 use Domain\User\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,6 +59,10 @@ use Support\File\Models\Traits\HasFiles;
  * @property Carbon $updated_at
  * @property-read Company $company
  * @property-read User $user
+ * @property-read Collection<User> $users
+ * @property-read Collection<User> $approvers
+ * @property-read Collection<User> $hiringManagers
+ * @property-read Collection<CompanyContact> $externalApprovers
  *
  * @method static PositionFactory factory($count = null, $state = [])
  * @method static PositionBuilder query()
@@ -167,6 +173,19 @@ class Position extends Model
     public function hiringManagers(): MorphToMany
     {
         return $this->users()->wherePivot('role', PositionRoleEnum::HIRING_MANAGER->value);
+    }
+
+    public function externalApprovers(): MorphToMany
+    {
+        return $this->morphedByMany(
+            related: CompanyContact::class,
+            name: 'model',
+            table: 'model_has_positions',
+            foreignPivotKey: 'position_id',
+            relatedPivotKey: 'model_id',
+            parentKey: 'id',
+            relatedKey: 'id',
+        )->withPivot(['role'])->wherePivot('role', PositionRoleEnum::APPROVER->value);
     }
 
     /**

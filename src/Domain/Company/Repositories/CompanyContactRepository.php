@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Domain\Company\Repositories;
 
 use App\Exceptions\RepositoryException;
+use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Repositories\Input\CompanyContactStoreInput;
+use Illuminate\Database\Eloquent\Collection;
 
 class CompanyContactRepository implements CompanyContactRepositoryInterface
 {
@@ -26,5 +28,13 @@ class CompanyContactRepository implements CompanyContactRepositoryInterface
         $contact->setRelation('company', $input->company);
 
         return $contact;
+    }
+
+    public function getByIdsAndCompany(Company $company, array $ids): Collection
+    {
+        return CompanyContact::query()
+            ->where('company_id', $company->id)
+            ->whereIn('id', $ids)
+            ->get();
     }
 }

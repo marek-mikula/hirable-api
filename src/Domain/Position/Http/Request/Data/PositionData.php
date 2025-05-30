@@ -80,9 +80,33 @@ class PositionData extends Data
     /** @var LanguageRequirementData[] */
     public array $languageRequirements;
 
+    /** @var int[] */
+    public array $hiringManagers;
+
+    /** @var int[] */
+    public array $approvers;
+
+    /** @var int[] */
+    public array $externalApprovers;
+
     public function hasFiles(): bool
     {
         return !empty($this->files);
+    }
+
+    public function hasHiringManagers(): bool
+    {
+        return !empty($this->hiringManagers);
+    }
+
+    public function hasApprovers(): bool
+    {
+        return !empty($this->approvers);
+    }
+
+    public function hasExternalApprovers(): bool
+    {
+        return !empty($this->externalApprovers);
     }
 
     /**

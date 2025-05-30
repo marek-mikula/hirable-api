@@ -8,7 +8,7 @@ use Domain\Company\Models\Company;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\User\Models\User;
 
-class PositionStoreInput
+readonly class PositionStoreInput
 {
     /**
      * @param string[] $drivingLicences

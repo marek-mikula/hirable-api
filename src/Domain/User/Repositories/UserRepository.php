@@ -7,9 +7,11 @@ namespace Domain\User\Repositories;
 use App\Enums\LanguageEnum;
 use App\Exceptions\RepositoryException;
 use Carbon\Carbon;
+use Domain\Company\Models\Company;
 use Domain\User\Models\User;
 use Domain\User\Repositories\Input\UserStoreInput;
 use Domain\User\Repositories\Input\UserUpdateInput;
+use Illuminate\Database\Eloquent\Collection;
 
 final class UserRepository implements UserRepositoryInterface
 {
@@ -86,5 +88,13 @@ final class UserRepository implements UserRepositoryInterface
             ->first();
 
         return $user;
+    }
+
+    public function getByIdsAndCompany(Company $company, array $ids): Collection
+    {
+        return User::query()
+            ->whereCompany($company->id)
+            ->whereIn('id', $ids)
+            ->get();
     }
 }

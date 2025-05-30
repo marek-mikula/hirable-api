@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Resources;
 
 use App\Http\Resources\Traits\ChecksRelations;
+use Domain\Company\Http\Resources\Collection\CompanyContactCollection;
 use Domain\Position\Models\Position;
+use Domain\User\Http\Resources\Collections\UserCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Support\Classifier\Actions\ToClassifierAction;
@@ -28,7 +30,12 @@ class PositionResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['files'], Position::class);
+        $this->checkLoadedRelations([
+            'files',
+            'hiringManagers',
+            'approvers',
+            'externalApprovers',
+        ], Position::class);
 
         $toClassifier = ToClassifierAction::make();
 
@@ -78,6 +85,9 @@ class PositionResource extends JsonResource
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
             'files' => new FileCollection($this->resource->files),
+            'hiringManagers' => new UserCollection($this->resource->hiringManagers),
+            'approvers' => new UserCollection($this->resource->approvers),
+            'externalApprovers' => new CompanyContactCollection($this->resource->externalApprovers),
         ];
     }
 }

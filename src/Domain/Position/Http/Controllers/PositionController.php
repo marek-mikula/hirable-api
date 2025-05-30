@@ -67,7 +67,12 @@ class PositionController extends ApiController
 
     public function show(PositionShowRequest $request, Position $position): JsonResponse
     {
-        $position->loadMissing('files');
+        $position->loadMissing([
+            'files',
+            'hiringManagers',
+            'approvers',
+            'externalApprovers'
+        ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'position' => new PositionResource($position),

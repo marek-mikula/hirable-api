@@ -18,7 +18,12 @@ class GetPositionsForIndexUseCase extends UseCase
         $company = $user->loadMissing('company')->company;
 
         return Position::query()
-            ->with('files')
+            ->with([
+                'files',
+                'hiringManagers',
+                'approvers',
+                'externalApprovers',
+            ])
             ->where('company_id', $company->id)
             ->when($gridQuery->hasSearchQuery(), function (PositionBuilder $query) use ($gridQuery): void {
                 $query->where(function (PositionBuilder $query) use ($gridQuery): void {

@@ -6,7 +6,7 @@ namespace Domain\Position\Repositories\Inputs;
 
 use Domain\Position\Enums\PositionStateEnum;
 
-class PositionUpdateInput
+readonly class PositionUpdateInput
 {
     /**
      * @param string[] $drivingLicences

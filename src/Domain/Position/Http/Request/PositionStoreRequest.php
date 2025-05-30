@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
+use Domain\Company\Models\CompanyContact;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionData;
+use Domain\User\Models\User;
+use Illuminate\Validation\Rules\Exists;
 use Illuminate\Validation\Rules\File;
 use Illuminate\Validation\Rules\In;
 
@@ -20,6 +23,8 @@ class PositionStoreRequest extends AuthRequest
 
     public function rules(): array
     {
+        $user = $this->user();
+
         return [
             'operation' => [
                 'required',
@@ -211,6 +216,32 @@ class PositionStoreRequest extends AuthRequest
                 'required',
                 'string',
             ],
+            'hiringManagers' => [
+                'array',
+            ],
+            'hiringManagers.*' => [
+                'required',
+                'integer',
+                (new Exists(User::class, 'id'))->where('company_id', $user->company_id)
+            ],
+            'approvers' => [
+                'array',
+            ],
+            'approvers.*' => [
+                'required',
+                'integer',
+                (new Exists(User::class, 'id'))->where('company_id', $user->company_id)
+            ],
+            'externalApprovers' => [
+                'array',
+            ],
+            'externalApprovers.*' => [
+                'required',
+                'integer',
+                (new Exists(CompanyContact::class, 'id'))->where('company_id', $user->company_id)
+            ],
+
+            // todo validate that user is not hiring manager and also an approver
         ];
     }
 
@@ -253,6 +284,9 @@ class PositionStoreRequest extends AuthRequest
                     'level' => (string) $item['level'],
                 ]);
             }),
+            'hiringManagers' => $this->collect('hiringManagers')->map(fn (mixed $value) => (int) $value)->all(),
+            'approvers' => $this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all(),
+            'externalApprovers' => $this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all(),
         ]);
     }
 }

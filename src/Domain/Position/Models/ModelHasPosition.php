@@ -26,6 +26,7 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon $updated_at
  * @property-read Company $company
  * @property-read User $user
+ * @property-read Model $model
  *
  * @method static PositionFactory factory($count = null, $state = [])
  * @method static ModelHasPositionBuilder query()
@@ -58,6 +59,16 @@ class ModelHasPosition extends Model
         return $this->belongsTo(
             related: Position::class,
             foreignKey: 'position_id',
+            ownerKey: 'id',
+        );
+    }
+
+    public function model(): BelongsTo
+    {
+        return $this->morphTo(
+            name: 'model',
+            type: 'model_type',
+            id: 'model_id',
             ownerKey: 'id',
         );
     }
