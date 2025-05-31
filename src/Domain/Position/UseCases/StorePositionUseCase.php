@@ -6,6 +6,7 @@ namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\Company\Repositories\CompanyContactRepositoryInterface;
+use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
@@ -14,6 +15,8 @@ use Domain\Position\Models\Position;
 use Domain\Position\Repositories\Inputs\PositionStoreInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
+use Domain\Position\Services\PositionApprovalService;
+use Domain\Position\Services\PositionDraftValidationService;
 use Domain\User\Models\User;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +28,9 @@ class StorePositionUseCase extends UseCase
 {
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
+        private readonly PositionDraftValidationService $positionDraftValidationService,
         private readonly CompanyContactRepositoryInterface $companyContactRepository,
+        private readonly PositionApprovalService $positionApprovalService,
         private readonly PositionRepositoryInterface $positionRepository,
         private readonly UserRepositoryInterface $userRepository,
         private readonly FileSaver $fileSaver,
@@ -34,6 +39,8 @@ class StorePositionUseCase extends UseCase
 
     public function handle(User $user, PositionData $data): Position
     {
+        $this->positionDraftValidationService->validate(null, $data);
+
         $company = $user->loadMissing('company')->company;
 
         $input = new PositionStoreInput(
@@ -42,6 +49,10 @@ class StorePositionUseCase extends UseCase
             state: $data->operation === PositionOperationEnum::OPEN
                 ? PositionStateEnum::OPENED
                 : PositionStateEnum::DRAFT,
+            approvalState: $data->operation === PositionOperationEnum::SEND_FOR_APPROVAL
+                ? PositionApprovalStateEnum::PENDING
+                : null,
+            approvalRound: null,
             name: $data->name,
             department: $data->department,
             field: $data->field,
@@ -123,6 +134,10 @@ class StorePositionUseCase extends UseCase
                 );
 
                 $position->setRelation('files', $files);
+            }
+
+            if ($position->approval_state === PositionApprovalStateEnum::PENDING) {
+                $this->positionApprovalService->sendForApproval($position);
             }
 
             return $position;

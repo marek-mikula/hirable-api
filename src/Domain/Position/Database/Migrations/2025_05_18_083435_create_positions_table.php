@@ -15,6 +15,7 @@ return new class () extends Migration {
             $table->foreignId('user_id');
             $table->string('state', 10);
             $table->string('approval_state', 10)->nullable();
+            $table->unsignedTinyInteger('approval_round')->nullable();
             $table->string('name');
             $table->string('department')->nullable();
             $table->string('field')->nullable();
@@ -45,17 +46,17 @@ return new class () extends Migration {
             $table->string('note', 2000)->nullable();
             $table->timestamps();
 
-            $table->foreign('company_id')
+            $table->foreign('company_id', 'position_company_foreign')
                 ->references('id')
                 ->on('companies')
-                ->cascadeOnDelete()
-                ->restrictOnUpdate();
+                ->restrictOnUpdate()
+                ->cascadeOnDelete();
 
-            $table->foreign('user_id')
+            $table->foreign('user_id', 'position_user_foreign')
                 ->references('id')
                 ->on('users')
-                ->restrictOnDelete()
-                ->restrictOnUpdate();
+                ->restrictOnUpdate()
+                ->restrictOnDelete();
         });
     }
 

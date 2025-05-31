@@ -13,6 +13,7 @@ use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\User\Database\Factories\UserFactory;
 use Domain\User\Models\Builders\UserBuilder;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,7 +60,7 @@ use Support\Token\Models\Token;
  * @method static UserFactory factory($count = null, $state = [])
  * @method static UserBuilder query()
  */
-class User extends Authenticatable
+class User extends Authenticatable implements HasLocalePreference
 {
     use CausesActivity;
     use HasFactory;
@@ -176,5 +177,10 @@ class User extends Authenticatable
     protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
+    }
+
+    public function preferredLocale(): string
+    {
+        return $this->language->value;
     }
 }

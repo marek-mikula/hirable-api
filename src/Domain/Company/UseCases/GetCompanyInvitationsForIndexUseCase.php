@@ -15,10 +15,8 @@ class GetCompanyInvitationsForIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {
-        $company = $user->loadMissing('company')->company;
-
         return Token::query()
-            ->whereCompany($company->id)
+            ->whereCompany($user->company_id)
             ->when($gridQuery->hasSearchQuery(), function (TokenBuilder $query) use ($gridQuery): void {
                 $query->where(function (TokenBuilder $query) use ($gridQuery): void {
                     $query

@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Query\Builder;
 use Support\File\Models\Traits\HasFiles;
@@ -27,6 +28,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $user_id
  * @property PositionStateEnum $state
  * @property PositionApprovalStateEnum|null $approval_state
+ * @property int|null $approval_round
  * @property string $name
  * @property string|null $department
  * @property string|null $field classifier value
@@ -59,6 +61,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property Carbon $updated_at
  * @property-read Company $company
  * @property-read User $user
+ * @property-read Collection<ModelHasPosition> $models
  * @property-read Collection<User> $users
  * @property-read Collection<User> $approvers
  * @property-read Collection<User> $hiringManagers
@@ -83,6 +86,7 @@ class Position extends Model
         'user_id',
         'state',
         'approval_state',
+        'approval_round',
         'name',
         'department',
         'field',
@@ -149,6 +153,15 @@ class Position extends Model
             related: User::class,
             foreignKey: 'user_id',
             ownerKey: 'id',
+        );
+    }
+
+    public function models(): HasMany
+    {
+        return $this->hasMany(
+            related: ModelHasPosition::class,
+            foreignKey: 'position_id',
+            localKey: 'id',
         );
     }
 

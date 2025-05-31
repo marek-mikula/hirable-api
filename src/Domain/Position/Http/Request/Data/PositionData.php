@@ -109,6 +109,11 @@ class PositionData extends Data
         return !empty($this->externalApprovers);
     }
 
+    public function hasAnyApprovers(): bool
+    {
+        return $this->hasHiringManagers() || $this->hasApprovers() || $this->hasExternalApprovers();
+    }
+
     /**
      * @return FileData[]
      */

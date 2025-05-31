@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories\Inputs;
 
 use Domain\Company\Models\Company;
+use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\User\Models\User;
 
@@ -22,6 +23,8 @@ readonly class PositionStoreInput
         public Company $company,
         public User $user,
         public PositionStateEnum $state,
+        public ?PositionApprovalStateEnum $approvalState,
+        public ?int $approvalRound,
         public string $name,
         public ?string $department,
         public ?string $field,

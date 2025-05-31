@@ -1,0 +1,75 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\Position\Models;
+
+use Carbon\Carbon;
+use Domain\Position\Database\Factories\PositionApprovalFactory;
+use Domain\Position\Enums\PositionApprovalStateEnum;
+use Domain\Position\Models\Builders\PositionApprovalBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Query\Builder;
+
+/**
+ * @property-read int $id
+ * @property int $model_has_position_id
+ * @property PositionApprovalStateEnum $state
+ * @property string|null $note
+ * @property Carbon|null $decided_at
+ * @property Carbon|null $canceled_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property-read ModelHasPosition $modelHasPosition
+ *
+ * @method static PositionApprovalFactory factory($count = null, $state = [])
+ * @method static PositionApprovalBuilder query()
+ */
+class PositionApproval extends Model
+{
+    use HasFactory;
+
+    protected $primaryKey = 'id';
+
+    protected $table = 'position_approvals';
+
+    public $timestamps = true;
+
+    protected $fillable = [
+        'model_has_position_id',
+        'state',
+        'note',
+        'decided_at',
+        'canceled_at',
+    ];
+
+    protected $casts = [
+        'state' => PositionApprovalStateEnum::class,
+        'decided_at' => 'datetime',
+        'canceled_at' => 'datetime',
+    ];
+
+    public function modelHasPosition(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: ModelHasPosition::class,
+            foreignKey: 'model_has_position_id',
+            ownerKey: 'id',
+        );
+    }
+
+    /**
+     * @param  Builder  $query
+     */
+    public function newEloquentBuilder($query): PositionApprovalBuilder
+    {
+        return new PositionApprovalBuilder($query);
+    }
+
+    protected static function newFactory(): PositionApprovalFactory
+    {
+        return PositionApprovalFactory::new();
+    }
+}

@@ -99,4 +99,22 @@ return [
         ],
     ],
 
+    NotificationTypeEnum::POSITION_APPROVAL->value => [
+        'mail' => [
+            'subject' => 'Position to approve :position',
+            'body' => [
+                'line1' => '',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_EXTERNAL_APPROVAL->value => [
+        'mail' => [
+            'subject' => 'Position to approve :position',
+            'body' => [
+                'line1' => '',
+            ],
+        ],
+    ],
+
 ];

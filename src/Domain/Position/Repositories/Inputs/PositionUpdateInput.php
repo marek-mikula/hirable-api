@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Repositories\Inputs;
 
+use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionStateEnum;
 
 readonly class PositionUpdateInput
@@ -18,6 +19,8 @@ readonly class PositionUpdateInput
      */
     public function __construct(
         public PositionStateEnum $state,
+        public ?PositionApprovalStateEnum $approvalState,
+        public ?int $approvalRound,
         public string $name,
         public ?string $department,
         public ?string $field,

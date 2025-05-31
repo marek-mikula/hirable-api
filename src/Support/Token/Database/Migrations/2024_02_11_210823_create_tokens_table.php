@@ -27,8 +27,8 @@ return new class () extends Migration {
             $table->foreign('user_id', 'tokens_user_foreign')
                 ->references('id')
                 ->on('users')
-                ->cascadeOnDelete()
-                ->restrictOnUpdate();
+                ->restrictOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

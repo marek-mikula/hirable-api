@@ -19,7 +19,7 @@ return new class () extends Migration {
             $table->string('company_name')->nullable();
             $table->timestamps();
 
-            $table->foreign('company_id')
+            $table->foreign('company_id', 'company_contacts_company_foreign')
                 ->references('id')
                 ->on('companies')
                 ->restrictOnUpdate()

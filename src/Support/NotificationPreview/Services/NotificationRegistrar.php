@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Services;
 
+use Domain\Company\Models\CompanyContact;
 use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Notifications\InvitationSentNotification;
 use Domain\Password\Notifications\ChangedNotification;
 use Domain\Password\Notifications\ResetRequestNotification;
+use Domain\Position\Models\Position;
+use Domain\Position\Notifications\PositionApprovalNotification;
+use Domain\Position\Notifications\PositionExternalApprovalNotification;
 use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\Register\Notifications\RegisterRequestNotification;
 use Domain\User\Models\User;
@@ -117,6 +121,31 @@ class NotificationRegistrar
                             return new InvitationAcceptedNotification(user: $user);
                         },
                         notifiable: fn () => User::factory()->make(),
+                    ),
+                ]
+            ),
+            NotificationDomain::create(
+                key: 'position',
+                notifications: [
+                    NotificationData::create(
+                        label: 'Approval',
+                        description: 'Notification sends user position to approve.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+
+                            return new PositionApprovalNotification(position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                    ),
+                    NotificationData::create(
+                        label: 'External approval',
+                        description: 'Notification sends external user position to approve.',
+                        notification: function (CompanyContact $notifiable) {
+                            $position = Position::factory()->make();
+
+                            return new PositionExternalApprovalNotification(position: $position);
+                        },
+                        notifiable: fn () => CompanyContact::factory()->make(),
                     ),
                 ]
             ),

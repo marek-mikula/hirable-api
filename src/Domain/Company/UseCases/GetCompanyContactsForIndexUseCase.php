@@ -15,10 +15,8 @@ class GetCompanyContactsForIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {
-        $company = $user->loadMissing('company')->company;
-
         return CompanyContact::query()
-            ->whereCompany($company->id)
+            ->whereCompany($user->company_id)
             ->when($gridQuery->hasSearchQuery(), function (CompanyContactBuilder $query) use ($gridQuery): void {
                 $query->where(function (CompanyContactBuilder $query) use ($gridQuery): void {
                     $query

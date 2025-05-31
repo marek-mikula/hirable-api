@@ -6,6 +6,7 @@ namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\Company\Repositories\CompanyContactRepositoryInterface;
+use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
@@ -14,6 +15,8 @@ use Domain\Position\Models\Position;
 use Domain\Position\Repositories\Inputs\PositionUpdateInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
+use Domain\Position\Services\PositionApprovalService;
+use Domain\Position\Services\PositionDraftValidationService;
 use Domain\User\Models\User;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +28,9 @@ class UpdatePositionUseCase extends UseCase
 {
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
+        private readonly PositionDraftValidationService $positionDraftValidationService,
         private readonly CompanyContactRepositoryInterface $companyContactRepository,
+        private readonly PositionApprovalService $positionApprovalService,
         private readonly PositionRepositoryInterface $positionRepository,
         private readonly UserRepositoryInterface $userRepository,
         private readonly FileSaver $fileSaver,
@@ -34,6 +39,8 @@ class UpdatePositionUseCase extends UseCase
 
     public function handle(User $user, Position $position, PositionData $data): Position
     {
+        $this->positionDraftValidationService->validate($position, $data);
+
         if ($data->hasFiles()) {
             $position->loadMissing('files');
         }
@@ -47,7 +54,15 @@ class UpdatePositionUseCase extends UseCase
         ]);
 
         $input = new PositionUpdateInput(
-            state: $data->operation === PositionOperationEnum::OPEN ? PositionStateEnum::OPENED : $position->state,
+            state: $data->operation === PositionOperationEnum::OPEN
+                ? PositionStateEnum::OPENED
+                : $position->state,
+            approvalState: $data->operation === PositionOperationEnum::SEND_FOR_APPROVAL
+                ? PositionApprovalStateEnum::PENDING
+                : $position->approval_state,
+            approvalRound: $data->operation === PositionOperationEnum::SEND_FOR_APPROVAL
+                ? null
+                : $position->approval_state,
             name: $data->name,
             department: $data->department,
             field: $data->field,
@@ -124,6 +139,10 @@ class UpdatePositionUseCase extends UseCase
                 );
 
                 $position->setRelation('files', $position->files->push(...$files));
+            }
+
+            if ($position->approval_state === PositionApprovalStateEnum::PENDING) {
+                $this->positionApprovalService->sendForApproval($position);
             }
 
             return $position;

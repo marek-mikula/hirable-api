@@ -18,9 +18,14 @@ enum NotificationTypeEnum: string
     case INVITATION_SENT = 'invitation:sent';
     case INVITATION_ACCEPTED = 'invitation:accepted';
 
+    case POSITION_APPROVAL = 'position:approval';
+    case POSITION_EXTERNAL_APPROVAL = 'position:external-approval';
+
     public function getCategory(): NotificationCategoryEnum
     {
         return match ($this) {
+            self::POSITION_APPROVAL,
+            self::POSITION_EXTERNAL_APPROVAL,
             self::INVITATION_SENT,
             self::REGISTER_REQUEST,
             self::REGISTER_REGISTERED,

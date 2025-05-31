@@ -15,8 +15,6 @@ class GetPositionsForIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {
-        $company = $user->loadMissing('company')->company;
-
         return Position::query()
             ->with([
                 'files',
@@ -24,7 +22,7 @@ class GetPositionsForIndexUseCase extends UseCase
                 'approvers',
                 'externalApprovers',
             ])
-            ->where('company_id', $company->id)
+            ->where('company_id', $user->company_id)
             ->when($gridQuery->hasSearchQuery(), function (PositionBuilder $query) use ($gridQuery): void {
                 $query->where(function (PositionBuilder $query) use ($gridQuery): void {
                     $query

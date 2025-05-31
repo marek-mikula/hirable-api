@@ -11,6 +11,11 @@ use Domain\Position\Repositories\Inputs\PositionUpdateInput;
 
 class PositionRepository implements PositionRepositoryInterface
 {
+    public function find(int $positionId, array $with = []): ?Position
+    {
+        return Position::query()->with($with)->find($positionId);
+    }
+
     public function store(PositionStoreInput $input): Position
     {
         $position = new Position();
@@ -18,6 +23,8 @@ class PositionRepository implements PositionRepositoryInterface
         $position->company_id = $input->company->id;
         $position->user_id = $input->user->id;
         $position->state = $input->state;
+        $position->approval_state = $input->approvalState;
+        $position->approval_round = $input->approvalRound;
         $position->name = $input->name;
         $position->department = $input->department;
         $position->field = $input->field;
@@ -61,6 +68,8 @@ class PositionRepository implements PositionRepositoryInterface
     public function update(Position $position, PositionUpdateInput $input): Position
     {
         $position->state = $input->state;
+        $position->approval_state = $input->approvalState;
+        $position->approval_round = $input->approvalRound;
         $position->name = $input->name;
         $position->department = $input->department;
         $position->field = $input->field;
@@ -95,6 +104,15 @@ class PositionRepository implements PositionRepositoryInterface
         $position->employment_forms = $input->employmentForms;
         $position->benefits = $input->benefits;
         $position->language_requirements = $input->languageRequirements;
+
+        throw_if(!$position->save(), RepositoryException::updated(Position::class));
+
+        return $position;
+    }
+
+    public function updateApprovalRound(Position $position, ?int $round): Position
+    {
+        $position->approval_round = $round;
 
         throw_if(!$position->save(), RepositoryException::updated(Position::class));
 

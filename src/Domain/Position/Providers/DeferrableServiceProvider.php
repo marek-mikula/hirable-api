@@ -6,6 +6,8 @@ namespace Domain\Position\Providers;
 
 use Domain\Position\Repositories\ModelHasPositionRepository;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
+use Domain\Position\Repositories\PositionApprovalRepository;
+use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\Position\Repositories\PositionRepository;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\Position\Repositories\PositionSuggestRepository;
@@ -20,6 +22,7 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
         $this->app->bind(PositionRepositoryInterface::class, PositionRepository::class);
         $this->app->bind(PositionSuggestRepositoryInterface::class, PositionSuggestRepository::class);
         $this->app->bind(ModelHasPositionRepositoryInterface::class, ModelHasPositionRepository::class);
+        $this->app->bind(PositionApprovalRepositoryInterface::class, PositionApprovalRepository::class);
     }
 
     public function provides(): array
@@ -28,6 +31,7 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
             PositionRepositoryInterface::class,
             PositionSuggestRepositoryInterface::class,
             ModelHasPositionRepositoryInterface::class,
+            PositionApprovalRepositoryInterface::class,
         ];
     }
 }

@@ -10,9 +10,9 @@ use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionData;
 use Domain\User\Models\User;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Exists;
 use Illuminate\Validation\Rules\File;
-use Illuminate\Validation\Rules\In;
 
 class PositionStoreRequest extends AuthRequest
 {
@@ -29,11 +29,7 @@ class PositionStoreRequest extends AuthRequest
             'operation' => [
                 'required',
                 'string',
-                new In([
-                    PositionOperationEnum::CREATE->value,
-                    PositionOperationEnum::OPEN->value,
-                    PositionOperationEnum::SEND_FOR_APPROVAL->value,
-                ]),
+                new Enum(PositionOperationEnum::class),
             ],
             'name' => [
                 'required',
@@ -242,6 +238,7 @@ class PositionStoreRequest extends AuthRequest
             ],
 
             // todo validate that user is not hiring manager and also an approver
+            // todo validate that user has not assigned himself as HM or approver
         ];
     }
 

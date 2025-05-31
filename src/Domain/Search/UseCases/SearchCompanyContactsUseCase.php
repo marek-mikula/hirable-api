@@ -19,8 +19,6 @@ class SearchCompanyContactsUseCase extends UseCase
      */
     public function handle(User $user, SearchData $data): Collection
     {
-        $company = $user->loadMissing('company')->company;
-
         return CompanyContact::query()
             ->select(['id', 'firstname', 'lastname', 'company_name'])
             ->when($data->hasQuery(), function (Builder $query) use ($data): void {
@@ -40,7 +38,7 @@ class SearchCompanyContactsUseCase extends UseCase
                     }
                 });
             })
-            ->where('company_id', '=', $company->id)
+            ->where('company_id', $user->company_id)
             ->limit($data->limit)
             ->get()
             ->map(static fn (CompanyContact $item) => ResultData::from([

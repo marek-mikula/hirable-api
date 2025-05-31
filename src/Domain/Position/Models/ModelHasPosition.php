@@ -6,6 +6,7 @@ namespace Domain\Position\Models;
 
 use Carbon\Carbon;
 use Domain\Company\Models\Company;
+use Domain\Company\Models\CompanyContact;
 use Domain\Position\Database\Factories\ModelHasPositionFactory;
 use Domain\Position\Database\Factories\PositionFactory;
 use Domain\Position\Enums\PositionRoleEnum;
@@ -26,7 +27,7 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon $updated_at
  * @property-read Company $company
  * @property-read User $user
- * @property-read Model $model
+ * @property-read User|CompanyContact $model
  *
  * @method static PositionFactory factory($count = null, $state = [])
  * @method static ModelHasPositionBuilder query()

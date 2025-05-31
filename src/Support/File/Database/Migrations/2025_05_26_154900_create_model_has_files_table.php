@@ -15,11 +15,11 @@ return new class () extends Migration {
             $table->morphs('fileable');
             $table->timestamps();
 
-            $table->foreign('file_id')
+            $table->foreign('file_id', 'model_has_files_file_foreign')
                 ->references('id')
                 ->on('files')
-                ->cascadeOnDelete()
-                ->restrictOnUpdate();
+                ->restrictOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

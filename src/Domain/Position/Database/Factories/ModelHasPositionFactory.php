@@ -10,6 +10,7 @@ use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @extends BaseFactory<ModelHasPosition>
@@ -26,5 +27,27 @@ class ModelHasPositionFactory extends Factory
             'model_id' => $this->isMaking ? null : User::factory(),
             'role' => PositionRoleEnum::HIRING_MANAGER,
         ];
+    }
+
+    public function ofPosition(Position $position): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'position_id' => $position->id,
+        ]);
+    }
+
+    public function ofModel(Model $model): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'model_type' => $model::class,
+            'model_id' => $model->getKey(),
+        ]);
+    }
+
+    public function ofRole(PositionRoleEnum $role): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => $role,
+        ]);
     }
 }
