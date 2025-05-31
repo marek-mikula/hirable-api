@@ -137,7 +137,7 @@ class StorePositionUseCase extends UseCase
             }
 
             if ($position->approval_state === PositionApprovalStateEnum::PENDING) {
-                $this->positionApprovalService->sendForApproval($position);
+                $this->positionApprovalService->sendForApproval($user, $position);
             }
 
             return $position;

@@ -7,12 +7,15 @@ namespace Domain\Position\Mail;
 use App\Mail\QueueMailable;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Models\Position;
+use Domain\User\Models\User;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Notification\Enums\NotificationTypeEnum;
+use Support\Token\Actions\GetTokenLinkAction;
+use Support\Token\Models\Token;
 
 class PositionExternalApprovalMail extends QueueMailable
 {
@@ -20,7 +23,11 @@ class PositionExternalApprovalMail extends QueueMailable
         #[WithoutRelations]
         private readonly CompanyContact $notifiable,
         #[WithoutRelations]
+        private readonly User $user,
+        #[WithoutRelations]
         private readonly Position $position,
+        #[WithoutRelations]
+        private readonly Token $token,
     ) {
         parent::__construct();
     }
@@ -43,7 +50,9 @@ class PositionExternalApprovalMail extends QueueMailable
             markdown: 'position::mail.external-approval',
             with: [
                 'notifiable' => $this->notifiable,
+                'user' => $this->user,
                 'position' => $this->position,
+                'link' => GetTokenLinkAction::make()->handle($this->token),
             ]
         );
     }

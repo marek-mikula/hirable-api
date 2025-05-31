@@ -20,6 +20,8 @@ class PositionApprovalMail extends QueueMailable
         #[WithoutRelations]
         private readonly User $notifiable,
         #[WithoutRelations]
+        private readonly User $user,
+        #[WithoutRelations]
         private readonly Position $position,
     ) {
         parent::__construct();
@@ -43,7 +45,9 @@ class PositionApprovalMail extends QueueMailable
             markdown: 'position::mail.approval',
             with: [
                 'notifiable' => $this->notifiable,
+                'user' => $this->user,
                 'position' => $this->position,
+                'link' => frontendLink('/positions/{id}/edit', ['id' => $this->position->id])
             ]
         );
     }

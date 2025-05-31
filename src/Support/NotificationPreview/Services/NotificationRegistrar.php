@@ -132,8 +132,9 @@ class NotificationRegistrar
                         description: 'Notification sends user position to approve.',
                         notification: function (User $notifiable) {
                             $position = Position::factory()->make();
+                            $user = User::factory()->make();
 
-                            return new PositionApprovalNotification(position: $position);
+                            return new PositionApprovalNotification(user: $user, position: $position);
                         },
                         notifiable: fn () => User::factory()->make(),
                     ),
@@ -142,8 +143,14 @@ class NotificationRegistrar
                         description: 'Notification sends external user position to approve.',
                         notification: function (CompanyContact $notifiable) {
                             $position = Position::factory()->make();
+                            $user = User::factory()->make();
+                            $token = Token::factory()->ofType(TokenTypeEnum::EXTERNAL_APPROVAL)->make();
 
-                            return new PositionExternalApprovalNotification(position: $position);
+                            return new PositionExternalApprovalNotification(
+                                user: $user,
+                                position: $position,
+                                token: $token
+                            );
                         },
                         notifiable: fn () => CompanyContact::factory()->make(),
                     ),

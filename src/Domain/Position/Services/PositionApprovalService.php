@@ -13,16 +13,21 @@ use Domain\Position\Notifications\PositionApprovalNotification;
 use Domain\Position\Notifications\PositionExternalApprovalNotification;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
+use Domain\User\Models\User;
+use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Repositories\Input\TokenStoreInput;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 class PositionApprovalService
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,
         private readonly PositionRepositoryInterface $positionRepository,
+        private readonly TokenRepositoryInterface $tokenRepository,
     ) {
     }
 
-    public function sendForApproval(Position $position, ?int $round = null): bool
+    public function sendForApproval(User $user, Position $position, ?int $round = null): bool
     {
         if ($position->approval_state !== PositionApprovalStateEnum::PENDING) {
             throw new \Exception('Cannot send position for approval in case it is not in state pending.');
@@ -48,24 +53,41 @@ class PositionApprovalService
             ->get();
 
         if ($models->isEmpty()) {
-            return $this->sendForApproval($position, $nextRound + 1);
+            return $this->sendForApproval($user, $position, $nextRound + 1);
         }
 
         $this->positionRepository->updateApprovalRound($position, $nextRound);
 
-        $models->each(fn (ModelHasPosition $model) => $this->sendApproval($position, $model));
+        $models->each(fn (ModelHasPosition $model) => $this->sendApproval($user, $position, $model));
 
         return true;
     }
 
-    private function sendApproval(Position $position, ModelHasPosition $model): void
+    private function sendApproval(User $user, Position $position, ModelHasPosition $model): void
     {
-        $this->positionApprovalRepository->store($model);
+        // create approval item
+        $approval = $this->positionApprovalRepository->store($model);
 
-        $notification = $model->model instanceof CompanyContact
-            ? new PositionExternalApprovalNotification($position)
-            : new PositionApprovalNotification($position);
+        // external approver needs a custom link with token
+        if ($model->model instanceof CompanyContact) {
+            $token = $this->tokenRepository->store(new TokenStoreInput(
+                type: TokenTypeEnum::EXTERNAL_APPROVAL,
+                data: ['approvalId' => $approval->id],
+                validUntil: now()->addDays(14) // todo make customizable
+            ));
 
-        $model->model->notify($notification);
+            $model->model->notify(new PositionExternalApprovalNotification(
+                user: $user,
+                position: $position,
+                token: $token,
+            ));
+
+            return;
+        }
+
+        $model->model->notify(new PositionApprovalNotification(
+            user: $user,
+            position: $position
+        ));
     }
 }

@@ -17,6 +17,8 @@ class PositionApprovalNotification extends QueueNotification
 
     public function __construct(
         #[WithoutRelations]
+        private readonly User $user,
+        #[WithoutRelations]
         private readonly Position $position,
     ) {
         parent::__construct();
@@ -32,7 +34,11 @@ class PositionApprovalNotification extends QueueNotification
 
     public function toMail(User $notifiable): PositionApprovalMail
     {
-        return new PositionApprovalMail(notifiable: $notifiable, position: $this->position);
+        return new PositionApprovalMail(
+            notifiable: $notifiable,
+            user: $this->user,
+            position: $this->position
+        );
     }
 
     public function toDatabase(User $notifiable): array

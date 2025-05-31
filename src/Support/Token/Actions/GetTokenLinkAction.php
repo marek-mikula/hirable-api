@@ -17,6 +17,7 @@ class GetTokenLinkAction extends Action
             TokenTypeEnum::REGISTRATION => '/register?token={token}',
             TokenTypeEnum::RESET_PASSWORD => '/password-reset?token={token}',
             TokenTypeEnum::EMAIL_VERIFICATION => '/verify-email?token={token}',
+            TokenTypeEnum::EXTERNAL_APPROVAL => '/approve?token={token}'
         };
 
         return frontendLink($uri, ['token' => $token->secret_token]);

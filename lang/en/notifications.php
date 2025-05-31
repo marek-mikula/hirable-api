@@ -101,18 +101,18 @@ return [
 
     NotificationTypeEnum::POSITION_APPROVAL->value => [
         'mail' => [
-            'subject' => 'Position to approve :position',
+            'subject' => 'Position to approve - :position',
             'body' => [
-                'line1' => '',
+                'line1' => 'There is a new position ":position" in application from user :user that needs your approval. You can check the position <a href=":link">here</a>',
             ],
         ],
     ],
 
     NotificationTypeEnum::POSITION_EXTERNAL_APPROVAL->value => [
         'mail' => [
-            'subject' => 'Position to approve :position',
+            'subject' => 'Position to approve - :position',
             'body' => [
-                'line1' => '',
+                'line1' => 'User :user has assigned you to position ":position" as an approver in :application app. You can check the position <a href=":link">here</a>',
             ],
         ],
     ],

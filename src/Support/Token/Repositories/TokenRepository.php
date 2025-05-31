@@ -17,11 +17,17 @@ final class TokenRepository implements TokenRepositoryInterface
     {
         $token = new Token();
 
-        // use either explicitly set valid minutes
-        // or use the default value from config
-        $validMinutes = $input->validMinutes ?: (int) config(sprintf('token.validity.%s', $input->type->value));
+        $validUntil = $input->validUntil; // todo make test for this
 
-        throw_if($validMinutes <= 0, new \InvalidArgumentException('Validity time for token cannot be less than 0.'));
+        if (!$validUntil) {
+            // use either explicitly set valid minutes
+            // or use the default value from config
+            $validMinutes = $input->validMinutes ?: (int) config(sprintf('token.validity.%s', $input->type->value));
+
+            throw_if($validMinutes <= 0, new \InvalidArgumentException('Validity time for token cannot be less than or equal 0.'));
+
+            $validUntil = now()->addMinutes($validMinutes);
+        }
 
         $value = hash_hmac('sha256', Str::random(40), (string) config('app.key'));
 
@@ -29,7 +35,7 @@ final class TokenRepository implements TokenRepositoryInterface
         $token->type = $input->type;
         $token->token = $value;
         $token->data = $input->data;
-        $token->valid_until = now()->addMinutes($validMinutes);
+        $token->valid_until = $validUntil;
 
         throw_if(!$token->save(), RepositoryException::stored(Token::class));
 
