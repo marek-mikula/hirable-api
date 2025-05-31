@@ -10,7 +10,7 @@ use Domain\Position\Http\Request\PositionIndexRequest;
 use Domain\Position\Http\Request\PositionShowRequest;
 use Domain\Position\Http\Request\PositionStoreRequest;
 use Domain\Position\Http\Request\PositionUpdateRequest;
-use Domain\Position\Http\Resources\Collections\PositionPaginatedCollection;
+use Domain\Position\Http\Resources\Collections\PositionListPaginatedCollection;
 use Domain\Position\Http\Resources\PositionResource;
 use Domain\Position\Models\Position;
 use Domain\Position\UseCases\GetPositionsForIndexUseCase;
@@ -35,7 +35,7 @@ class PositionController extends ApiController
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::POSITION, $gridQuery));
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'positions' => new PositionPaginatedCollection($positions),
+            'positions' => new PositionListPaginatedCollection($positions),
         ]);
     }
 
