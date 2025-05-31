@@ -43,9 +43,15 @@ class PositionController extends ApiController
     {
         $position = StorePositionUseCase::make()->handle($request->user(), $request->toData());
 
-        if (!$position->relationLoaded('files')) {
-            $position->loadMissing('files');
-        }
+        $position->loadMissing([
+            'files',
+            'hiringManagers',
+            'approvers',
+            'externalApprovers',
+            'approvals',
+            'approvals.modelHasPosition',
+            'approvals.modelHasPosition.model',
+        ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'position' => new PositionResource($position),
@@ -56,9 +62,15 @@ class PositionController extends ApiController
     {
         $position = UpdatePositionUseCase::make()->handle($request->user(), $position, $request->toData());
 
-        if (!$position->relationLoaded('files')) {
-            $position->loadMissing('files');
-        }
+        $position->loadMissing([
+            'files',
+            'hiringManagers',
+            'approvers',
+            'externalApprovers',
+            'approvals',
+            'approvals.modelHasPosition',
+            'approvals.modelHasPosition.model',
+        ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'position' => new PositionResource($position),
@@ -71,7 +83,10 @@ class PositionController extends ApiController
             'files',
             'hiringManagers',
             'approvers',
-            'externalApprovers'
+            'externalApprovers',
+            'approvals',
+            'approvals.modelHasPosition',
+            'approvals.modelHasPosition.model',
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [

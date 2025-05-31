@@ -12,6 +12,7 @@ use Domain\Position\Database\Factories\PositionFactory;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Models\Builders\ModelHasPositionBuilder;
 use Domain\User\Models\User;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,6 +26,7 @@ use Illuminate\Database\Query\Builder;
  * @property PositionRoleEnum $role
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read bool $is_external
  * @property-read Company $company
  * @property-read User $user
  * @property-read User|CompanyContact $model
@@ -54,6 +56,11 @@ class ModelHasPosition extends Model
     protected $casts = [
         'role' => PositionRoleEnum::class,
     ];
+
+    protected function isExternal(): Attribute
+    {
+        return Attribute::get(fn (): bool => $this->model_type === CompanyContact::class);
+    }
 
     public function position(): BelongsTo
     {

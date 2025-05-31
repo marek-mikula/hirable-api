@@ -7,6 +7,7 @@ namespace Domain\Position\Database\Factories;
 use Database\Factories\Factory;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Models\ModelHasPosition;
+use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
@@ -21,6 +22,7 @@ class PositionApprovalFactory extends Factory
     {
         return [
             'model_has_position_id' => $this->isMaking ? null : ModelHasPosition::factory(),
+            'position_id' => $this->isMaking ? null : Position::factory(),
             'state' => PositionApprovalStateEnum::PENDING,
             'node' => null,
             'decided_at' => null,

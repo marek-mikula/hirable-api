@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
+use Domain\Company\Models\CompanyContact;
 use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionOperationEnum;
@@ -12,6 +13,7 @@ use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Http\Request\Data\PositionData;
 use Domain\Position\Models\Position;
+use Domain\Position\Models\PositionApproval;
 use Domain\Position\Repositories\Inputs\PositionStoreInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
@@ -22,6 +24,7 @@ use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Support\File\Actions\GetModelSubFoldersAction;
 use Support\File\Enums\FileTypeEnum;
+use Support\File\Models\File;
 use Support\File\Services\FileSaver;
 
 class StorePositionUseCase extends UseCase
@@ -89,15 +92,15 @@ class StorePositionUseCase extends UseCase
 
         $hiringManagers = $data->hasHiringManagers()
             ? $this->userRepository->getByIdsAndCompany($company, $data->hiringManagers)
-            : null;
+            : modelCollection(User::class);
 
         $approvers = $data->hasApprovers()
             ? $this->userRepository->getByIdsAndCompany($company, $data->approvers)
-            : null;
+            : modelCollection(User::class);
 
         $externalApprovers = $data->hasExternalApprovers()
             ? $this->companyContactRepository->getByIdsAndCompany($company, $data->externalApprovers)
-            : null;
+            : modelCollection(CompanyContact::class);
 
         return DB::transaction(function () use (
             $data,
@@ -109,20 +112,21 @@ class StorePositionUseCase extends UseCase
         ): Position {
             $position = $this->positionRepository->store($input);
 
-            if ($hiringManagers !== null) {
+            if ($hiringManagers->isNotEmpty()) {
                 $this->modelHasPositionRepository->storeMany($position, $hiringManagers, PositionRoleEnum::HIRING_MANAGER);
-                $position->setRelation('hiringManagers', $hiringManagers);
             }
 
-            if ($approvers !== null) {
+            if ($approvers->isNotEmpty()) {
                 $this->modelHasPositionRepository->storeMany($position, $approvers, PositionRoleEnum::APPROVER);
-                $position->setRelation('approvers', $approvers);
             }
 
-            if ($externalApprovers !== null) {
+            if ($externalApprovers->isNotEmpty()) {
                 $this->modelHasPositionRepository->storeMany($position, $externalApprovers, PositionRoleEnum::APPROVER);
-                $position->setRelation('externalApprovers', $externalApprovers);
             }
+
+            $position->setRelation('hiringManagers', $hiringManagers);
+            $position->setRelation('approvers', $approvers);
+            $position->setRelation('externalApprovers', $externalApprovers);
 
             // save files if any
             if ($data->hasFiles()) {
@@ -134,10 +138,16 @@ class StorePositionUseCase extends UseCase
                 );
 
                 $position->setRelation('files', $files);
+            } else {
+                $position->setRelation('files', modelCollection(File::class));
             }
 
+            // send position for approval if needed
             if ($position->approval_state === PositionApprovalStateEnum::PENDING) {
-                $this->positionApprovalService->sendForApproval($user, $position);
+                $approvals = $this->positionApprovalService->sendForApproval($user, $position);
+                $position->setRelation('approvals', $approvals);
+            } else {
+                $position->setRelation('approvals', modelCollection(PositionApproval::class));
             }
 
             return $position;

@@ -12,15 +12,22 @@ return new class () extends Migration {
         Schema::create('position_approvals', static function (Blueprint $table): void {
             $table->id();
             $table->foreignId('model_has_position_id');
+            $table->foreignId('position_id');
             $table->string('state', 10);
             $table->string('note', 300)->nullable();
             $table->timestamp('decided_at')->nullable();
             $table->timestamp('canceled_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('model_has_position_id', 'position_aporovals_model_foreign')
+            $table->foreign('model_has_position_id', 'position_approvals_model_foreign')
                 ->references('id')
                 ->on('model_has_positions')
+                ->restrictOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreign('position_id', 'position_approvals_position_foreign')
+                ->references('id')
+                ->on('positions')
                 ->restrictOnUpdate()
                 ->cascadeOnDelete();
         });

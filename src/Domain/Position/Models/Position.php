@@ -62,10 +62,12 @@ use Support\File\Models\Traits\HasFiles;
  * @property-read Company $company
  * @property-read User $user
  * @property-read Collection<ModelHasPosition> $models
+ * @property-read Collection<CompanyContact> $companyContacts
+ * @property-read Collection<CompanyContact> $externalApprovers
  * @property-read Collection<User> $users
  * @property-read Collection<User> $approvers
  * @property-read Collection<User> $hiringManagers
- * @property-read Collection<CompanyContact> $externalApprovers
+ * @property-read Collection<PositionApproval> $approvals
  *
  * @method static PositionFactory factory($count = null, $state = [])
  * @method static PositionBuilder query()
@@ -165,6 +167,24 @@ class Position extends Model
         );
     }
 
+    public function companyContacts(): MorphToMany
+    {
+        return $this->morphedByMany(
+            related: CompanyContact::class,
+            name: 'model',
+            table: 'model_has_positions',
+            foreignPivotKey: 'position_id',
+            relatedPivotKey: 'model_id',
+            parentKey: 'id',
+            relatedKey: 'id',
+        )->withPivot(['role']);
+    }
+
+    public function externalApprovers(): MorphToMany
+    {
+        return $this->companyContacts()->wherePivot('role', PositionRoleEnum::APPROVER->value);
+    }
+
     public function users(): MorphToMany
     {
         return $this->morphedByMany(
@@ -188,17 +208,13 @@ class Position extends Model
         return $this->users()->wherePivot('role', PositionRoleEnum::HIRING_MANAGER->value);
     }
 
-    public function externalApprovers(): MorphToMany
+    public function approvals(): HasMany
     {
-        return $this->morphedByMany(
-            related: CompanyContact::class,
-            name: 'model',
-            table: 'model_has_positions',
-            foreignPivotKey: 'position_id',
-            relatedPivotKey: 'model_id',
-            parentKey: 'id',
-            relatedKey: 'id',
-        )->withPivot(['role'])->wherePivot('role', PositionRoleEnum::APPROVER->value);
+        return $this->hasMany(
+            related: PositionApproval::class,
+            foreignKey: 'position_id',
+            localKey: 'id',
+        );
     }
 
     /**

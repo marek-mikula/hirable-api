@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
+use Domain\Company\Models\CompanyContact;
 use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionOperationEnum;
@@ -41,13 +42,11 @@ class UpdatePositionUseCase extends UseCase
     {
         $this->positionDraftValidationService->validate($position, $data);
 
-        if ($data->hasFiles()) {
-            $position->loadMissing('files');
-        }
-
         $company = $user->loadMissing('company')->company;
 
         $position->loadMissing([
+            'approvals',
+            'files',
             'hiringManagers',
             'approvers',
             'externalApprovers',
@@ -99,15 +98,15 @@ class UpdatePositionUseCase extends UseCase
 
         $hiringManagers = $data->hasHiringManagers()
             ? $this->userRepository->getByIdsAndCompany($company, $data->hiringManagers)
-            : null;
+            : modelCollection(User::class);
 
         $approvers = $data->hasApprovers()
             ? $this->userRepository->getByIdsAndCompany($company, $data->approvers)
-            : null;
+            : modelCollection(User::class);
 
         $externalApprovers = $data->hasExternalApprovers()
             ? $this->companyContactRepository->getByIdsAndCompany($company, $data->externalApprovers)
-            : null;
+            : modelCollection(CompanyContact::class);
 
         return DB::transaction(function () use (
             $user,
@@ -121,12 +120,11 @@ class UpdatePositionUseCase extends UseCase
             $position = $this->positionRepository->update($position, $input);
 
             $this->modelHasPositionRepository->sync($position, $position->hiringManagers, $hiringManagers, PositionRoleEnum::HIRING_MANAGER);
-            $position->setRelation('hiringManagers', $hiringManagers);
-
             $this->modelHasPositionRepository->sync($position, $position->approvers, $approvers, PositionRoleEnum::APPROVER);
-            $position->setRelation('approvers', $approvers);
-
             $this->modelHasPositionRepository->sync($position, $position->externalApprovers, $externalApprovers, PositionRoleEnum::APPROVER);
+
+            $position->setRelation('hiringManagers', $hiringManagers);
+            $position->setRelation('approvers', $approvers);
             $position->setRelation('externalApprovers', $externalApprovers);
 
             // save files if any
@@ -142,7 +140,8 @@ class UpdatePositionUseCase extends UseCase
             }
 
             if ($position->approval_state === PositionApprovalStateEnum::PENDING) {
-                $this->positionApprovalService->sendForApproval($user, $position);
+                $approvals = $this->positionApprovalService->sendForApproval($user, $position);
+                $position->setRelation('approvals', $position->approvals->push(...$approvals));
             }
 
             return $position;

@@ -72,8 +72,7 @@ class FileSaver
                 $storage,
                 &$paths,
             ): EloquentCollection {
-                /** @var EloquentCollection<File> $models */
-                $models = (new File())->newCollection();
+                $models = modelCollection(File::class);
 
                 foreach ($files as $file) {
                     $path = $storage->putFile($subFolder, $file->file);

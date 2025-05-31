@@ -6,6 +6,7 @@ namespace Domain\Position\Http\Resources;
 
 use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Company\Http\Resources\Collection\CompanyContactCollection;
+use Domain\Position\Http\Resources\Collections\PositionApprovalCollection;
 use Domain\Position\Models\Position;
 use Domain\User\Http\Resources\Collections\UserCollection;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class PositionResource extends JsonResource
             'hiringManagers',
             'approvers',
             'externalApprovers',
+            'approvals',
         ], Position::class);
 
         $toClassifier = ToClassifierAction::make();
@@ -89,6 +91,7 @@ class PositionResource extends JsonResource
             'hiringManagers' => new UserCollection($this->resource->hiringManagers),
             'approvers' => new UserCollection($this->resource->approvers),
             'externalApprovers' => new CompanyContactCollection($this->resource->externalApprovers),
+            'approvals' => new PositionApprovalCollection($this->resource->approvals),
         ];
     }
 }

@@ -16,10 +16,12 @@ trait ChecksRelations
      * @param  string[]  $relations
      * @param  class-string<Model>  $model
      */
-    protected function checkLoadedRelations(array $relations, string $model): void
+    protected function checkLoadedRelations(array $relations, string $model, ?Model $resource = null): void
     {
+        $resource = $resource ?? $this->resource;
+
         foreach ($relations as $relation) {
-            throw_unless($this->resource->relationLoaded($relation), new NeedsRelationshipException(static::class, $model, $relation));
+            throw_unless($resource->relationLoaded($relation), new NeedsRelationshipException(static::class, $model, $relation));
         }
     }
 }
