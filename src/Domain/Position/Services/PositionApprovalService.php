@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\Position\Services;
 
-use Domain\Company\Models\CompanyContact;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Models\ModelHasPosition;
@@ -46,15 +45,15 @@ class PositionApprovalService
             return (new PositionApproval())->newCollection();
         }
 
-        $role = match ($nextRound) {
-            1 => PositionRoleEnum::HIRING_MANAGER,
-            2 => PositionRoleEnum::APPROVER,
+        $roles = match ($nextRound) {
+            1 => [PositionRoleEnum::HIRING_MANAGER->value],
+            2 => [PositionRoleEnum::APPROVER->value, PositionRoleEnum::EXTERNAL_APPROVER->value],
         };
 
         $models = ModelHasPosition::query()
             ->with('model')
             ->where('position_id', $position->id)
-            ->where('role', $role->value)
+            ->whereIn('role', $roles)
             ->get();
 
         if ($models->isEmpty()) {
@@ -72,7 +71,7 @@ class PositionApprovalService
         $approval = $this->positionApprovalRepository->store($position, $model);
 
         // external approver needs a custom link with token
-        if ($model->model instanceof CompanyContact) {
+        if ($model->role === PositionRoleEnum::EXTERNAL_APPROVER) {
             $token = $this->tokenRepository->store(new TokenStoreInput(
                 type: TokenTypeEnum::EXTERNAL_APPROVAL,
                 data: ['approvalId' => $approval->id],

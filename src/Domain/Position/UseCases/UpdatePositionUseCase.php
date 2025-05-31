@@ -121,7 +121,7 @@ class UpdatePositionUseCase extends UseCase
 
             $this->modelHasPositionRepository->sync($position, $position->hiringManagers, $hiringManagers, PositionRoleEnum::HIRING_MANAGER);
             $this->modelHasPositionRepository->sync($position, $position->approvers, $approvers, PositionRoleEnum::APPROVER);
-            $this->modelHasPositionRepository->sync($position, $position->externalApprovers, $externalApprovers, PositionRoleEnum::APPROVER);
+            $this->modelHasPositionRepository->sync($position, $position->externalApprovers, $externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER);
 
             $position->setRelation('hiringManagers', $hiringManagers);
             $position->setRelation('approvers', $approvers);

@@ -13,7 +13,7 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('position_id');
             $table->morphs('model');
-            $table->string('role');
+            $table->string('role', 20);
             $table->timestamps();
 
             $table->foreign('position_id', 'model_has_positions_position_foreign')

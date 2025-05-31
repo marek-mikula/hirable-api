@@ -182,7 +182,7 @@ class Position extends Model
 
     public function externalApprovers(): MorphToMany
     {
-        return $this->companyContacts()->wherePivot('role', PositionRoleEnum::APPROVER->value);
+        return $this->companyContacts()->wherePivot('role', PositionRoleEnum::EXTERNAL_APPROVER->value);
     }
 
     public function users(): MorphToMany

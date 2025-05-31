@@ -43,6 +43,7 @@ class PositionResource extends JsonResource
 
         return [
             'id' => $this->resource->id,
+            'userId' => $this->resource->user_id,
             'state' => $this->resource->state->value,
             'approvalState' => $this->resource->approval_state?->value,
             'approvalRound' => $this->resource->approval_round,

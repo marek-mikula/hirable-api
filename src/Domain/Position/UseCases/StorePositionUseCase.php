@@ -121,7 +121,7 @@ class StorePositionUseCase extends UseCase
             }
 
             if ($externalApprovers->isNotEmpty()) {
-                $this->modelHasPositionRepository->storeMany($position, $externalApprovers, PositionRoleEnum::APPROVER);
+                $this->modelHasPositionRepository->storeMany($position, $externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER);
             }
 
             $position->setRelation('hiringManagers', $hiringManagers);

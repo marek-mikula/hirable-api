@@ -35,7 +35,6 @@ class PositionApprovalResource extends JsonResource
             'state' => $this->resource->state->value,
             'note' => $this->resource->note,
             'decidedAt' => $this->resource->decided_at?->toIso8601String(),
-            'canceledAt' => $this->resource->canceled_at?->toIso8601String(),
             'model' => $this->resource->modelHasPosition->is_external
                 ? new CompanyContactResource($this->resource->modelHasPosition->model)
                 : new UserResource($this->resource->modelHasPosition->model)

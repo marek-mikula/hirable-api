@@ -20,7 +20,6 @@ use Illuminate\Database\Query\Builder;
  * @property PositionApprovalStateEnum $state
  * @property string|null $note
  * @property Carbon|null $decided_at
- * @property Carbon|null $canceled_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read ModelHasPosition $modelHasPosition
@@ -45,13 +44,11 @@ class PositionApproval extends Model
         'state',
         'note',
         'decided_at',
-        'canceled_at',
     ];
 
     protected $casts = [
         'state' => PositionApprovalStateEnum::class,
         'decided_at' => 'datetime',
-        'canceled_at' => 'datetime',
     ];
 
     public function modelHasPosition(): BelongsTo

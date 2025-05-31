@@ -8,4 +8,5 @@ enum PositionRoleEnum: string
 {
     case HIRING_MANAGER = 'hiringManager';
     case APPROVER = 'approver';
+    case EXTERNAL_APPROVER = 'externalApprover';
 }
