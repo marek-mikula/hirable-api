@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Company\Http\Requests;
 
+use App\Enums\LanguageEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Http\Requests\Data\ContactStoreData;
 use Domain\Company\Models\CompanyContact;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Unique;
 
 class CompanyContactStoreRequest extends AuthRequest
@@ -21,6 +23,11 @@ class CompanyContactStoreRequest extends AuthRequest
         $user = $this->user();
 
         return [
+            'language' => [
+                'required',
+                'string',
+                new Enum(LanguageEnum::class),
+            ],
             'firstname' => [
                 'required',
                 'string',
@@ -53,6 +60,7 @@ class CompanyContactStoreRequest extends AuthRequest
     public function toData(): ContactStoreData
     {
         return ContactStoreData::from([
+           'language' => LanguageEnum::from((string) $this->input('language')),
            'firstname' => (string) $this->input('firstname'),
            'lastname' => (string) $this->input('lastname'),
            'email' => (string) $this->input('email'),

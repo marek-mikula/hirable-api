@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Company\Database\Factories;
 
+use App\Enums\LanguageEnum;
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
@@ -22,6 +23,7 @@ class CompanyContactFactory extends Factory
 
         return [
             'company_id' => $this->isMaking ? null : Company::factory(),
+            'language' => LanguageEnum::EN,
             'firstname' => fake()->firstName($gender),
             'lastname' => fake()->lastName($gender),
             'email' => fake()->unique()->email,

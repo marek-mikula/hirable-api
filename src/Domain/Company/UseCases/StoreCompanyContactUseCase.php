@@ -22,6 +22,7 @@ class StoreCompanyContactUseCase extends UseCase
     {
         $input = new CompanyContactStoreInput(
             company: $user->loadMissing('company')->company,
+            language: $data->language,
             firstname: $data->firstname,
             lastname: $data->lastname,
             email: $data->email,

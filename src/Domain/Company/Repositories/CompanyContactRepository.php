@@ -17,6 +17,7 @@ class CompanyContactRepository implements CompanyContactRepositoryInterface
         $contact = new CompanyContact();
 
         $contact->company_id = $input->company->id;
+        $contact->language = $input->language;
         $contact->firstname = $input->firstname;
         $contact->lastname = $input->lastname;
         $contact->email = $input->email;

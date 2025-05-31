@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Company\Models;
 
+use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Company\Database\Factories\CompanyContactFactory;
 use Domain\Company\Models\Builders\CompanyContactBuilder;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +19,7 @@ use Support\Notification\Traits\Notifiable;
 /**
  * @property-read int $id
  * @property int $company_id
+ * @property LanguageEnum $language
  * @property string $firstname
  * @property string $lastname
  * @property-read string $full_name
@@ -30,7 +33,7 @@ use Support\Notification\Traits\Notifiable;
  * @method static CompanyContactFactory factory($count = null, $state = [])
  * @method static CompanyContactBuilder query()
  */
-class CompanyContact extends Model
+class CompanyContact extends Model implements HasLocalePreference
 {
     use HasFactory;
     use Notifiable;
@@ -43,6 +46,7 @@ class CompanyContact extends Model
 
     protected $fillable = [
         'company_id',
+        'language',
         'firstname',
         'lastname',
         'email',
@@ -50,7 +54,9 @@ class CompanyContact extends Model
         'company_name',
     ];
 
-    protected $casts = [];
+    protected $casts = [
+        'language' => LanguageEnum::class,
+    ];
 
     protected function fullName(): Attribute
     {
@@ -77,5 +83,10 @@ class CompanyContact extends Model
     protected static function newFactory(): CompanyContactFactory
     {
         return CompanyContactFactory::new();
+    }
+
+    public function preferredLocale(): string
+    {
+        return $this->language->value;
     }
 }

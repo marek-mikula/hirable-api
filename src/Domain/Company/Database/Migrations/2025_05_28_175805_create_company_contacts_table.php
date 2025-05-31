@@ -12,6 +12,7 @@ return new class () extends Migration {
         Schema::create('company_contacts', static function (Blueprint $table): void {
             $table->id();
             $table->foreignId('company_id');
+            $table->string('language', 2);
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');
