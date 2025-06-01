@@ -23,7 +23,7 @@ class AuthUserResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['company'], User::class);
+        $this->checkLoadedRelations('company');
 
         return [
             'id' => $this->resource->id,

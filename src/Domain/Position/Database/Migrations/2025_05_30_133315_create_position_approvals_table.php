@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->string('state', 20);
             $table->string('note', 300)->nullable();
             $table->timestamp('decided_at')->nullable();
+            $table->timestamp('notified_at')->nullable();
             $table->timestamps();
 
             $table->foreign('model_has_position_id', 'position_approvals_model_foreign')

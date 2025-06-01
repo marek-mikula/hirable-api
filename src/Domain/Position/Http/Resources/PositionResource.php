@@ -37,7 +37,7 @@ class PositionResource extends JsonResource
             'approvers',
             'externalApprovers',
             'approvals',
-        ], Position::class);
+        ]);
 
         $toClassifier = ToClassifierAction::make();
 

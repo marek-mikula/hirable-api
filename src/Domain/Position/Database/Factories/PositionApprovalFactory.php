@@ -26,6 +26,7 @@ class PositionApprovalFactory extends Factory
             'state' => PositionApprovalStateEnum::PENDING,
             'node' => null,
             'decided_at' => null,
+            'notified_at' => null,
         ];
     }
 

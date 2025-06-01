@@ -6,7 +6,6 @@ namespace Domain\Position\Http\Resources;
 
 use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Company\Http\Resources\CompanyContactResource;
-use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\PositionApproval;
 use Domain\User\Http\Resources\UserResource;
 use Illuminate\Http\Request;
@@ -26,8 +25,8 @@ class PositionApprovalResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['modelHasPosition'], PositionApproval::class);
-        $this->checkLoadedRelations(['model'], ModelHasPosition::class, $this->resource->modelHasPosition);
+        $this->checkLoadedRelations('modelHasPosition');
+        $this->checkLoadedRelations('model', $this->resource->modelHasPosition);
 
         return [
             'id' => $this->resource->id,
@@ -35,9 +34,12 @@ class PositionApprovalResource extends JsonResource
             'state' => $this->resource->state->value,
             'note' => $this->resource->note,
             'decidedAt' => $this->resource->decided_at?->toIso8601String(),
+            'notifiedAt' => $this->resource->notified_at?->toIso8601String(),
             'model' => $this->resource->modelHasPosition->is_external
                 ? new CompanyContactResource($this->resource->modelHasPosition->model)
-                : new UserResource($this->resource->modelHasPosition->model)
+                : new UserResource($this->resource->modelHasPosition->model),
+            'createdAt' => $this->resource->created_at->toIso8601String(),
+            'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];
     }
 }
