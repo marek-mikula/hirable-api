@@ -40,6 +40,8 @@ class UpdatePositionUseCase extends UseCase
 
     public function handle(User $user, Position $position, PositionData $data): Position
     {
+        // todo fix approval process when you delete one approver
+
         $this->positionDraftValidationService->validate($position, $data);
 
         $company = $user->loadMissing('company')->company;

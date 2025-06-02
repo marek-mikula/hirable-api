@@ -11,6 +11,7 @@ use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
+use Illuminate\Support\Str;
 
 /**
  * @extends BaseFactory<User>
@@ -23,17 +24,28 @@ class UserFactory extends Factory
     {
         $gender = fake()->randomElement(['male', 'female']);
 
+        $firstname = fake()->firstName($gender);
+        $lastname = fake()->lastName($gender);
+
+        $email = sprintf(
+            '%s.%s%d@%s',
+            Str::lower($firstname),
+            Str::lower($lastname),
+            fake()->unique()->numerify(),
+            fake()->safeEmailDomain,
+        );
+
         return [
             'company_id' => $this->isMaking ? null : Company::factory(),
             'company_role' => RoleEnum::ADMIN,
             'language' => LanguageEnum::EN,
             'timezone' => null,
-            'firstname' => fake()->firstName($gender),
-            'lastname' => fake()->lastName($gender),
+            'firstname' => $firstname,
+            'lastname' => $lastname,
             'prefix' => null,
             'postfix' => null,
             'phone' => null,
-            'email' => fake()->unique()->safeEmail(),
+            'email' => $email,
             'email_verified_at' => now(),
             'password' => 'Admin.123',
             'agreement_ip' => '127.0.0.1',

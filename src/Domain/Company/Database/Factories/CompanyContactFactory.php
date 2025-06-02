@@ -9,6 +9,7 @@ use Database\Factories\Factory;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
+use Illuminate\Support\Str;
 
 /**
  * @extends BaseFactory<CompanyContact>
@@ -21,12 +22,23 @@ class CompanyContactFactory extends Factory
     {
         $gender = fake()->randomElement(['male', 'female']);
 
+        $firstname = fake()->firstName($gender);
+        $lastname = fake()->lastName($gender);
+
+        $email = sprintf(
+            '%s.%s%d@%s',
+            Str::lower($firstname),
+            Str::lower($lastname),
+            fake()->unique()->numerify(),
+            fake()->safeEmailDomain,
+        );
+
         return [
             'company_id' => $this->isMaking ? null : Company::factory(),
             'language' => LanguageEnum::EN,
-            'firstname' => fake()->firstName($gender),
-            'lastname' => fake()->lastName($gender),
-            'email' => fake()->unique()->email,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'email' => $email,
             'note' => fake()->boolean ? fake()->text(300) : null,
             'company_name' => fake()->company
         ];

@@ -37,6 +37,8 @@ class SendRejectedNotificationsListener extends QueuedListener
 
         // send notifications to all previous and current approvers
         // and also to the owner of the position
+        // filter out model who rejected the positions, because he
+        // already knows the position is rejected
         $event->position
             ->models()
             ->with('model')
@@ -44,6 +46,7 @@ class SendRejectedNotificationsListener extends QueuedListener
             ->get()
             ->map(fn (ModelHasPosition $modelHasPosition) => $modelHasPosition->model)
             ->add($owner)
+            ->filter(fn (User|CompanyContact $model) => !$model->is($event->rejectedBy))
             ->each(function (User|CompanyContact $model) use ($event): void {
                 $model->notify(
                     new PositionRejectedNotification(
