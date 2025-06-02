@@ -101,18 +101,29 @@ return [
 
     NotificationTypeEnum::POSITION_APPROVAL->value => [
         'mail' => [
-            'subject' => 'Position to approve - :position',
+            'subject' => 'Position to approve 👍 - :position',
             'body' => [
-                'line1' => 'There is a new position ":position" in application from user :user that needs your approval. You can check the position <a href=":link">here</a>',
+                'line1_internal' => 'There is a new position ":position" in application from user :user that needs your approval. You can check the position <a href=":link">here</a>',
+                'line1_external' => 'User :user has assigned you to position ":position" as an approver in :application app. You can check the position <a href=":link">here</a>',
             ],
         ],
     ],
 
-    NotificationTypeEnum::POSITION_EXTERNAL_APPROVAL->value => [
+    NotificationTypeEnum::POSITION_REJECTED->value => [
         'mail' => [
-            'subject' => 'Position to approve - :position',
+            'subject' => 'Position rejected ❌ - :position',
             'body' => [
-                'line1' => 'User :user has assigned you to position ":position" as an approver in :application app. You can check the position <a href=":link">here</a>',
+                'line1_internal' => 'Position ":position" was rejected by user :user.',
+                'line1_external' => 'Position ":position" was rejected by external approver :user.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVED->value => [
+        'mail' => [
+            'subject' => 'Position approved 🎉 - :position',
+            'body' => [
+                'line1' => 'Your position ":position" was successfully approved by all approvers.',
             ],
         ],
     ],

@@ -29,6 +29,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property PositionStateEnum $state
  * @property PositionApprovalStateEnum|null $approval_state
  * @property int|null $approval_round
+ * @property Carbon|null $approve_until
  * @property string $name
  * @property string|null $department
  * @property string|null $field classifier value
@@ -89,6 +90,7 @@ class Position extends Model
         'state',
         'approval_state',
         'approval_round',
+        'approve_until',
         'name',
         'department',
         'field',
@@ -131,6 +133,7 @@ class Position extends Model
     protected $casts = [
         'state' => PositionStateEnum::class,
         'approval_state' => PositionApprovalStateEnum::class,
+        'approve_until' => 'date',
         'workloads' => 'array',
         'employment_relationships' => 'array',
         'employment_forms' => 'array',
@@ -180,11 +183,6 @@ class Position extends Model
         )->withPivot(['role']);
     }
 
-    public function externalApprovers(): MorphToMany
-    {
-        return $this->companyContacts()->wherePivot('role', PositionRoleEnum::EXTERNAL_APPROVER->value);
-    }
-
     public function users(): MorphToMany
     {
         return $this->morphedByMany(
@@ -196,6 +194,11 @@ class Position extends Model
             parentKey: 'id',
             relatedKey: 'id',
         )->withPivot(['role']);
+    }
+
+    public function externalApprovers(): MorphToMany
+    {
+        return $this->companyContacts()->wherePivot('role', PositionRoleEnum::EXTERNAL_APPROVER->value);
     }
 
     public function approvers(): MorphToMany

@@ -8,8 +8,7 @@ use App\Enums\LanguageEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Http\Requests\Data\ContactStoreData;
 use Domain\Company\Models\CompanyContact;
-use Illuminate\Validation\Rules\Enum;
-use Illuminate\Validation\Rules\Unique;
+use Illuminate\Validation\Rule;
 
 class CompanyContactStoreRequest extends AuthRequest
 {
@@ -26,7 +25,7 @@ class CompanyContactStoreRequest extends AuthRequest
             'language' => [
                 'required',
                 'string',
-                new Enum(LanguageEnum::class),
+                Rule::enum(LanguageEnum::class),
             ],
             'firstname' => [
                 'required',
@@ -42,7 +41,7 @@ class CompanyContactStoreRequest extends AuthRequest
                 'required',
                 'string',
                 'email',
-                (new Unique(CompanyContact::class))->where('company_id', $user->company_id),
+                Rule::unique(CompanyContact::class)->where('company_id', $user->company_id),
             ],
             'note' => [
                 'nullable',

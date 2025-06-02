@@ -8,18 +8,29 @@ return [
 
     NotificationTypeEnum::POSITION_APPROVAL->value => [
         'mail' => [
-            'subject' => 'Pozice ke schválení - :position',
+            'subject' => 'Pozice ke schválení 👍 - :position',
             'body' => [
-                'line1' => 'V aplikaci je nová pozice ":position" od uživatele :user, která potřebuje Váš souhlas. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line1_internal' => 'V aplikaci je nová pozice ":position" od uživatele :user, která potřebuje Váš souhlas. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line1_external' => 'Uživatel :user Váš přiřadil k pozici ":position" jako schvalovatele v aplikaci :application. Na pozici se můžete podívat <a href=":link">zde</a>',
             ],
         ],
     ],
 
-    NotificationTypeEnum::POSITION_EXTERNAL_APPROVAL->value => [
+    NotificationTypeEnum::POSITION_REJECTED->value => [
         'mail' => [
-            'subject' => 'Pozice ke schválení - :position',
+            'subject' => 'Pozice zamítnuta ❌ - :position',
             'body' => [
-                'line1' => 'Uživatel :user Váš přiřadil k pozici ":position" jako schvalovatele v aplikaci :application. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line1_internal' => 'Pozice ":position" byla zamítnuta uživatelem :user.',
+                'line1_external' => 'Pozice ":position" byla zamítnuta externím schvalovatelem :user.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVED->value => [
+        'mail' => [
+            'subject' => 'Pozice schválena 🎉 - :position',
+            'body' => [
+                'line1' => 'Vaše pozice ":position" byla úspěšně schválena všemi schvalovateli.',
             ],
         ],
     ],

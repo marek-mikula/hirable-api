@@ -30,6 +30,7 @@ class PositionApprovalResource extends JsonResource
 
         return [
             'id' => $this->resource->id,
+            'positionId' => $this->resource->position_id,
             'role' => $this->resource->modelHasPosition->role->value,
             'state' => $this->resource->state->value,
             'note' => $this->resource->note,

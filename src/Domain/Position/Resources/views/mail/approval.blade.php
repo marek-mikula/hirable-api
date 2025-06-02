@@ -1,7 +1,7 @@
 @php
 
 /**
-* @var \Domain\User\Models\User $notifiable
+* @var \Domain\User\Models\User|\Domain\Company\Models\CompanyContact $notifiable
 * @var \Domain\User\Models\User $user
 * @var \Domain\Position\Models\Position $position
 * @var string $link
@@ -9,12 +9,14 @@
 
 $type = \Support\Notification\Enums\NotificationTypeEnum::POSITION_APPROVAL;
 
+$translation = $notifiable instanceof \Domain\Company\Models\CompanyContact ? 'external' : 'internal';
+
 @endphp
 
 <x-mail::message>
 {{ __('notifications.common.salutation') }},
 
-{!! __n($type, 'mail', 'body.line1', ['position' => $position->name, 'user' => $user->full_name, 'link' => $link]) !!}
+{!! __n($type, 'mail', sprintf('body.line1_%s', $translation), ['position' => $position->name, 'user' => $user->full_name, 'link' => $link]) !!}
 
 {{ __('notifications.common.regards') }},
 <br>

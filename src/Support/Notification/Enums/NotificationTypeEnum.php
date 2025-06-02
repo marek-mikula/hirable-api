@@ -19,13 +19,13 @@ enum NotificationTypeEnum: string
     case INVITATION_ACCEPTED = 'invitation:accepted';
 
     case POSITION_APPROVAL = 'position:approval';
-    case POSITION_EXTERNAL_APPROVAL = 'position:external-approval';
+    case POSITION_REJECTED = 'position:rejected';
+    case POSITION_APPROVED = 'position:approved';
 
     public function getCategory(): NotificationCategoryEnum
     {
         return match ($this) {
             self::POSITION_APPROVAL,
-            self::POSITION_EXTERNAL_APPROVAL,
             self::INVITATION_SENT,
             self::REGISTER_REQUEST,
             self::REGISTER_REGISTERED,
@@ -34,7 +34,9 @@ enum NotificationTypeEnum: string
             self::PASSWORD_RESET_REQUEST,
             self::PASSWORD_CHANGED => NotificationCategoryEnum::CRUCIAL,
 
-            self::INVITATION_ACCEPTED => NotificationCategoryEnum::APPLICATION,
+            self::INVITATION_ACCEPTED,
+            self::POSITION_REJECTED,
+            self::POSITION_APPROVED => NotificationCategoryEnum::APPLICATION,
         };
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Request\Data;
 
+use Carbon\Carbon;
 use Domain\Position\Enums\PositionOperationEnum;
 use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Data;
@@ -88,6 +89,8 @@ class PositionData extends Data
 
     /** @var int[] */
     public array $externalApprovers;
+
+    public ?Carbon $approveUntil;
 
     public function hasFiles(): bool
     {

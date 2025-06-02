@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Position\Mail;
 
 use App\Mail\QueueMailable;
-use Domain\Company\Models\CompanyContact;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Mail\Mailables\Address;
@@ -14,20 +13,14 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Notification\Enums\NotificationTypeEnum;
-use Support\Token\Actions\GetTokenLinkAction;
-use Support\Token\Models\Token;
 
-class PositionExternalApprovalMail extends QueueMailable
+class PositionApprovedMail extends QueueMailable
 {
     public function __construct(
         #[WithoutRelations]
-        private readonly CompanyContact $notifiable,
-        #[WithoutRelations]
-        private readonly User $user,
+        private readonly User $notifiable,
         #[WithoutRelations]
         private readonly Position $position,
-        #[WithoutRelations]
-        private readonly Token $token,
     ) {
         parent::__construct();
     }
@@ -38,7 +31,7 @@ class PositionExternalApprovalMail extends QueueMailable
             to: [
                 new Address(address: $this->notifiable->email, name: $this->notifiable->full_name),
             ],
-            subject: __n(NotificationTypeEnum::POSITION_EXTERNAL_APPROVAL, 'mail', 'subject', [
+            subject: __n(NotificationTypeEnum::POSITION_APPROVED, 'mail', 'subject', [
                 'position' => $this->position->name,
             ]),
         );
@@ -47,12 +40,10 @@ class PositionExternalApprovalMail extends QueueMailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'position::mail.external-approval',
+            markdown: 'position::mail.approved',
             with: [
                 'notifiable' => $this->notifiable,
-                'user' => $this->user,
                 'position' => $this->position,
-                'link' => GetTokenLinkAction::make()->handle($this->token),
             ]
         );
     }

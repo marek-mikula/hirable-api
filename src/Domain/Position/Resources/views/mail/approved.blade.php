@@ -2,19 +2,17 @@
 
 /**
 * @var \Domain\User\Models\User $notifiable
-* @var \Domain\User\Models\User $user
 * @var \Domain\Position\Models\Position $position
-* @var string $link
 */
 
-$type = \Support\Notification\Enums\NotificationTypeEnum::POSITION_EXTERNAL_APPROVAL;
+$type = \Support\Notification\Enums\NotificationTypeEnum::POSITION_APPROVED;
 
 @endphp
 
 <x-mail::message>
 {{ __('notifications.common.salutation') }},
 
-{!! __n($type, 'mail', 'body.line1', ['position' => $position->name, 'application' => (string) config('app.name'), 'user' => $user->full_name, 'link' => $link]) !!}
+{!! __n($type, 'mail', 'body.line1', ['position' => $position->name]) !!}
 
 {{ __('notifications.common.regards') }},
 <br>

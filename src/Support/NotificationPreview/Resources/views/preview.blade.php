@@ -62,8 +62,7 @@
                                 @endif
                                 {{ $n->label }}
                             </span>
-                            <a href="{{ route('notification_preview.show', ['type' => $n->getType()->value]) }}"
-                               class="absolute inset-0"></a>
+                            <a href="{{ route('notification_preview.show', ['type' => $n->getType()->value, 'key' => $n->key]) }}" class="absolute inset-0"></a>
                         </li>
                     @endforeach
                 @endforeach
@@ -179,7 +178,7 @@
                             <i class="bi bi-envelope" title="Mail notification"></i>
                             <span class="ml-1">Mail</span>
                         </h2>
-                        <a href="{{ route('notification_preview.mail', ['type' => $notification->getType()->value]) }}"
+                        <a href="{{ route('notification_preview.mail', ['type' => $notification->getType()->value, 'key' => $notification->key]) }}"
                            class="rounded bg-white px-2 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                             Open in window
                         </a>
@@ -240,8 +239,7 @@
                                 Preview
                             </h2>
                             <div class="mt-1 rounded-lg overflow-hidden" style="height: 500px;">
-                                <iframe class="w-full h-full"
-                                        src="{{ route('notification_preview.mail', ['type' => $notification->getType()->value, 'html' => $notification->getMail()->base64Html()]) }}"></iframe>
+                                <iframe class="w-full h-full" src="{{ route('notification_preview.mail', ['type' => $notification->getType()->value, 'html' => $notification->getMail()->base64Html()]) }}"></iframe>
                             </div>
                         </div>
                     </div>

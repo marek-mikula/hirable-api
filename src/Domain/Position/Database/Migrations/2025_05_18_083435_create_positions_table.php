@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->string('state', 20);
             $table->string('approval_state', 20)->nullable();
             $table->unsignedTinyInteger('approval_round')->nullable();
+            $table->date('approve_until')->nullable();
             $table->string('name');
             $table->string('department')->nullable();
             $table->string('field')->nullable();

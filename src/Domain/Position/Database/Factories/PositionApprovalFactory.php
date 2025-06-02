@@ -43,4 +43,31 @@ class PositionApprovalFactory extends Factory
             'state' => $state,
         ]);
     }
+
+    public function approved(?string $note = null): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'state' => PositionApprovalStateEnum::APPROVED,
+            'note' => $note,
+        ]);
+    }
+    public function rejected(?string $note = null): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'state' => PositionApprovalStateEnum::APPROVED,
+            'note' => $note,
+        ]);
+    }
+    public function canceled(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'state' => PositionApprovalStateEnum::APPROVED,
+        ]);
+    }
+    public function expired(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'state' => PositionApprovalStateEnum::APPROVED,
+        ]);
+    }
 }

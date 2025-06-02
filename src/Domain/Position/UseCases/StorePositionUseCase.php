@@ -49,12 +49,9 @@ class StorePositionUseCase extends UseCase
         $input = new PositionStoreInput(
             company: $company,
             user: $user,
-            state: $data->operation === PositionOperationEnum::OPEN
-                ? PositionStateEnum::OPENED
-                : PositionStateEnum::DRAFT,
-            approvalState: $data->operation === PositionOperationEnum::SEND_FOR_APPROVAL
-                ? PositionApprovalStateEnum::PENDING
-                : null,
+            state: $data->operation === PositionOperationEnum::OPEN ? PositionStateEnum::OPENED : PositionStateEnum::DRAFT,
+            approvalState: $data->operation === PositionOperationEnum::SEND_FOR_APPROVAL ? PositionApprovalStateEnum::PENDING : null,
+            approveUntil: $data->approveUntil,
             approvalRound: null,
             name: $data->name,
             department: $data->department,

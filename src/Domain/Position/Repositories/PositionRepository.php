@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories;
 
 use App\Exceptions\RepositoryException;
+use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Models\Position;
 use Domain\Position\Repositories\Inputs\PositionStoreInput;
 use Domain\Position\Repositories\Inputs\PositionUpdateInput;
@@ -25,6 +26,7 @@ class PositionRepository implements PositionRepositoryInterface
         $position->state = $input->state;
         $position->approval_state = $input->approvalState;
         $position->approval_round = $input->approvalRound;
+        $position->approve_until = $input->approveUntil;
         $position->name = $input->name;
         $position->department = $input->department;
         $position->field = $input->field;
@@ -70,6 +72,7 @@ class PositionRepository implements PositionRepositoryInterface
         $position->state = $input->state;
         $position->approval_state = $input->approvalState;
         $position->approval_round = $input->approvalRound;
+        $position->approve_until = $input->approveUntil;
         $position->name = $input->name;
         $position->department = $input->department;
         $position->field = $input->field;
@@ -110,9 +113,10 @@ class PositionRepository implements PositionRepositoryInterface
         return $position;
     }
 
-    public function updateApprovalRound(Position $position, ?int $round): Position
+    public function updateApproval(Position $position, ?int $round, ?PositionApprovalStateEnum $state): Position
     {
         $position->approval_round = $round;
+        $position->approval_state = $state;
 
         throw_if(!$position->save(), RepositoryException::updated(Position::class));
 

@@ -6,7 +6,7 @@ namespace Support\Grid\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Arr;
-use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 use Support\Grid\Enums\PerPageEnum;
 use Support\Grid\Http\Requests\Data\GridColumnSettingData;
 use Support\Grid\Http\Requests\Data\GridSettingData;
@@ -24,7 +24,7 @@ class GridSettingUpdateRequest extends AuthRequest
             'perPage' => [
                 'required',
                 'integer',
-                new Enum(PerPageEnum::class),
+                Rule::enum(PerPageEnum::class),
             ],
             'stickyHeader' => [
                 'boolean',

@@ -62,6 +62,7 @@ class UpdatePositionUseCase extends UseCase
             approvalRound: $data->operation === PositionOperationEnum::SEND_FOR_APPROVAL
                 ? null
                 : $position->approval_state,
+            approveUntil:  $data->approveUntil,
             name: $data->name,
             department: $data->department,
             field: $data->field,

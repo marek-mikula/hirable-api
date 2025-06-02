@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
+use Carbon\Carbon;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionData;
 use Domain\User\Models\User;
-use Illuminate\Validation\Rules\Enum;
-use Illuminate\Validation\Rules\Exists;
-use Illuminate\Validation\Rules\File;
+use Illuminate\Validation\Rule;
 
 class PositionStoreRequest extends AuthRequest
 {
@@ -29,7 +28,7 @@ class PositionStoreRequest extends AuthRequest
             'operation' => [
                 'required',
                 'string',
-                new Enum(PositionOperationEnum::class),
+                Rule::enum(PositionOperationEnum::class),
             ],
             'name' => [
                 'required',
@@ -193,7 +192,7 @@ class PositionStoreRequest extends AuthRequest
             ],
             'files.*' => [
                 'required',
-                File::default()
+                Rule::file()
                     ->max('10MB')
                     ->extensions(['pdf', 'docx', 'xlsx'])
             ],
@@ -218,7 +217,7 @@ class PositionStoreRequest extends AuthRequest
             'hiringManagers.*' => [
                 'required',
                 'integer',
-                (new Exists(User::class, 'id'))->where('company_id', $user->company_id)
+                Rule::exists(User::class, 'id')->where('company_id', $user->company_id),
             ],
             'approvers' => [
                 'array',
@@ -226,7 +225,7 @@ class PositionStoreRequest extends AuthRequest
             'approvers.*' => [
                 'required',
                 'integer',
-                (new Exists(User::class, 'id'))->where('company_id', $user->company_id)
+                Rule::exists(User::class, 'id')->where('company_id', $user->company_id),
             ],
             'externalApprovers' => [
                 'array',
@@ -234,8 +233,13 @@ class PositionStoreRequest extends AuthRequest
             'externalApprovers.*' => [
                 'required',
                 'integer',
-                (new Exists(CompanyContact::class, 'id'))->where('company_id', $user->company_id)
+                Rule::exists(CompanyContact::class, 'id')->where('company_id', $user->company_id),
             ],
+            'approveUntil' => [
+                'required_with:hiringManagers,approvers,externalApprovers',
+                'nullable',
+                Rule::date()->format('Y-m-d')->afterToday(),
+            ]
 
             // todo validate that user is not hiring manager and also an approver
             // todo validate that user has not assigned himself as HM or approver
@@ -284,6 +288,7 @@ class PositionStoreRequest extends AuthRequest
             'hiringManagers' => $this->collect('hiringManagers')->map(fn (mixed $value) => (int) $value)->all(),
             'approvers' => $this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all(),
             'externalApprovers' => $this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all(),
+            'approveUntil' => $this->filled('approveUntil') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('approveUntil')) : null,
         ]);
     }
 }

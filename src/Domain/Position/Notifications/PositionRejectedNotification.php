@@ -6,24 +6,24 @@ namespace Domain\Position\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Company\Models\CompanyContact;
-use Domain\Position\Mail\PositionApprovalMail;
+use Domain\Position\Mail\PositionRejectedMail;
 use Domain\Position\Models\Position;
+use Domain\Position\Models\PositionApproval;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Notification\Enums\NotificationTypeEnum;
-use Support\Token\Models\Token;
 
-class PositionApprovalNotification extends QueueNotification
+class PositionRejectedNotification extends QueueNotification
 {
-    public NotificationTypeEnum $type = NotificationTypeEnum::POSITION_APPROVAL;
+    public NotificationTypeEnum $type = NotificationTypeEnum::POSITION_REJECTED;
 
     public function __construct(
         #[WithoutRelations]
-        private readonly User $user,
+        private readonly User|CompanyContact $rejectedBy,
+        #[WithoutRelations]
+        private readonly PositionApproval $approval,
         #[WithoutRelations]
         private readonly Position $position,
-        #[WithoutRelations]
-        private readonly ?Token $token = null,
     ) {
         parent::__construct();
     }
@@ -32,7 +32,7 @@ class PositionApprovalNotification extends QueueNotification
     {
         if ($notifiable instanceof CompanyContact) {
             return [
-                'mail',
+                'mail'
             ];
         }
 
@@ -42,13 +42,13 @@ class PositionApprovalNotification extends QueueNotification
         ];
     }
 
-    public function toMail(User|CompanyContact $notifiable): PositionApprovalMail
+    public function toMail(User|CompanyContact $notifiable): PositionRejectedMail
     {
-        return new PositionApprovalMail(
+        return new PositionRejectedMail(
             notifiable: $notifiable,
-            user: $this->user,
-            position: $this->position,
-            token: $this->token,
+            rejectedBy: $this->rejectedBy,
+            approval: $this->approval,
+            position: $this->position
         );
     }
 

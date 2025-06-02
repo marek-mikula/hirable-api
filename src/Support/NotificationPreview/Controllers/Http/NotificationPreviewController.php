@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Support\NotificationPreview\Controllers\Http;
 
 use App\Http\Controllers\WebController;
+use App\Http\Requests\Request;
 use App\Mail\Mailable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -35,11 +36,11 @@ class NotificationPreviewController extends WebController
         return redirect()->route('notification_preview.show', ['type' => $notification->getType()->value]);
     }
 
-    public function show(NotificationTypeEnum $type): View
+    public function show(NotificationTypeEnum $type, Request $request): View
     {
         $notifications = $this->notificationRegistrar->getNotifications();
 
-        $notification = $this->findNotification($notifications, $type);
+        $notification = $this->findNotification($notifications, $type, $request->query('key'));
 
         abort_if(!$notification, code: 404, message: 'Notification not found!');
 
@@ -49,9 +50,9 @@ class NotificationPreviewController extends WebController
         ]);
     }
 
-    public function mail(NotificationTypeEnum $type): Mailable|string
+    public function mail(NotificationTypeEnum $type, Request $request): Mailable|string
     {
-        $html = request()->query('html');
+        $html = $request->query('html');
 
         // decode passed base64 html code for preview
         // to include generated data from outside the
@@ -60,20 +61,20 @@ class NotificationPreviewController extends WebController
             return base64_decode($html);
         }
 
-        $notification = $this->findNotification($this->notificationRegistrar->getNotifications(), $type);
+        $notification = $this->findNotification($this->notificationRegistrar->getNotifications(), $type, $request->query('key'));
 
         abort_if(!$notification, code: 404, message: 'Notification not found!');
 
         return $notification->getMail()->mailable;
     }
 
-    private function findNotification(Collection $notifications, NotificationTypeEnum $type): ?NotificationData
+    private function findNotification(Collection $notifications, NotificationTypeEnum $type, ?string $key): ?NotificationData
     {
         /** @var NotificationData|null $notification */
         $notification = $notifications
             ->map(fn (NotificationDomain $domain): Collection => $domain->notifications)
             ->flatten()
-            ->first(fn (NotificationData $notification): bool => $notification->getType() === $type);
+            ->first(fn (NotificationData $notification): bool => $notification->getType() === $type && (!$key || $key === $notification->key));
 
         return $notification;
     }

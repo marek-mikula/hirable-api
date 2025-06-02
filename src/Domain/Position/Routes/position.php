@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Domain\Position\Http\Controllers\PositionApprovalController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionFileController;
 use Domain\Position\Http\Controllers\PositionSuggestController;
@@ -20,7 +21,15 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::patch('/', [PositionController::class, 'update'])->name('update');
 
         Route::prefix('/files')->as('files.')->group(function (): void {
-            Route::delete('/{file}', [PositionFileController::class, 'destroy'])->name('destroy');
+            Route::delete('/{file}', [PositionFileController::class, 'destroy'])
+                ->whereNumber('file')
+                ->name('destroy');
+        });
+
+        Route::prefix('/approvals')->as('approvals.')->group(function (): void {
+            Route::patch('/{approval}', [PositionApprovalController::class, 'update'])
+                ->whereNumber('approval')
+                ->name('update');
         });
     });
 });

@@ -8,11 +8,8 @@ use App\Enums\LanguageEnum;
 use App\Enums\TimezoneEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\User\Models\User;
-use Illuminate\Validation\Rules\Enum;
-use Illuminate\Validation\Rules\ExcludeIf;
-use Illuminate\Validation\Rules\In;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Validation\Rules\Unique;
 
 class AuthUpdateRequest extends AuthRequest
 {
@@ -38,7 +35,7 @@ class AuthUpdateRequest extends AuthRequest
             'keys.*' => [
                 'required',
                 'string',
-                new In([
+                Rule::in([
                     'firstname',
                     'lastname',
                     'email',
@@ -57,30 +54,30 @@ class AuthUpdateRequest extends AuthRequest
                     'prefix',
                     'postfix',
                     'phone',
-                ]),
+                ])
             ],
             'firstname' => [
-                new ExcludeIf(!in_array('firstname', $keys)),
+                Rule::excludeIf(!in_array('firstname', $keys)),
                 'required',
                 'string',
                 'max:255',
             ],
             'lastname' => [
-                new ExcludeIf(!in_array('lastname', $keys)),
+                Rule::excludeIf(!in_array('lastname', $keys)),
                 'required',
                 'string',
                 'max:255',
             ],
             'email' => [
-                new ExcludeIf(!in_array('email', $keys)),
+                Rule::excludeIf(!in_array('email', $keys)),
                 'required',
                 'string',
                 'max:255',
                 'email',
-                (new Unique(User::class, 'email'))->ignoreModel($user),
+                Rule::unique(User::class, 'email')->ignoreModel($user),
             ],
             'password' => [
-                new ExcludeIf(!in_array('password', $keys)),
+                Rule::excludeIf(!in_array('password', $keys)),
                 'required',
                 'string',
                 Password::min(8)
@@ -90,73 +87,73 @@ class AuthUpdateRequest extends AuthRequest
                     ->symbols(),
             ],
             'oldPassword' => [
-                new ExcludeIf(!in_array('password', $keys)),
+                Rule::excludeIf(!in_array('password', $keys)),
                 'required',
                 'string',
                 'current_password:api',
             ],
             'passwordConfirm' => [
-                new ExcludeIf(!in_array('password', $keys)),
+                Rule::excludeIf(!in_array('password', $keys)),
                 'required',
                 'string',
                 'same:password',
             ],
             'timezone' => [
-                new ExcludeIf(!in_array('timezone', $keys)),
+                Rule::excludeIf(!in_array('timezone', $keys)),
                 'nullable',
                 'string',
-                new Enum(TimezoneEnum::class),
+                Rule::enum(TimezoneEnum::class),
             ],
             'notificationTechnicalMail' => [
-                new ExcludeIf(!in_array('notificationTechnicalMail', $keys)),
+                Rule::excludeIf(!in_array('notificationTechnicalMail', $keys)),
                 'required',
                 'boolean',
             ],
             'notificationTechnicalApp' => [
-                new ExcludeIf(!in_array('notificationTechnicalApp', $keys)),
+                Rule::excludeIf(!in_array('notificationTechnicalApp', $keys)),
                 'required',
                 'boolean',
             ],
             'notificationMarketingMail' => [
-                new ExcludeIf(!in_array('notificationMarketingMail', $keys)),
+                Rule::excludeIf(!in_array('notificationMarketingMail', $keys)),
                 'required',
                 'boolean',
             ],
             'notificationMarketingApp' => [
-                new ExcludeIf(!in_array('notificationMarketingApp', $keys)),
+                Rule::excludeIf(!in_array('notificationMarketingApp', $keys)),
                 'required',
                 'boolean',
             ],
             'notificationApplicationMail' => [
-                new ExcludeIf(!in_array('notificationApplicationMail', $keys)),
+                Rule::excludeIf(!in_array('notificationApplicationMail', $keys)),
                 'required',
                 'boolean',
             ],
             'notificationApplicationApp' => [
-                new ExcludeIf(!in_array('notificationApplicationApp', $keys)),
+                Rule::excludeIf(!in_array('notificationApplicationApp', $keys)),
                 'required',
                 'boolean',
             ],
             'language' => [
-                new ExcludeIf(!in_array('language', $keys)),
+                Rule::excludeIf(!in_array('language', $keys)),
                 'required',
                 'string',
-                new Enum(LanguageEnum::class),
+                Rule::enum(LanguageEnum::class),
             ],
             'prefix' => [
-                new ExcludeIf(!in_array('prefix', $keys)),
+                Rule::excludeIf(!in_array('prefix', $keys)),
                 'nullable',
                 'string',
                 'max:10',
             ],
             'postfix' => [
-                new ExcludeIf(!in_array('postfix', $keys)),
+                Rule::excludeIf(!in_array('postfix', $keys)),
                 'nullable',
                 'string',
                 'max:10',
             ],
             'phone' => [
-                new ExcludeIf(!in_array('phone', $keys)),
+                Rule::excludeIf(!in_array('phone', $keys)),
                 'nullable',
                 'string',
                 'max:20',
