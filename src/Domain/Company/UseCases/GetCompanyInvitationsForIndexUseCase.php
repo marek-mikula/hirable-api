@@ -24,6 +24,7 @@ class GetCompanyInvitationsForIndexUseCase extends UseCase
                 });
             })
             ->when($gridQuery->hasSort(), function (TokenBuilder $query) use ($gridQuery): void {
+                // todo rewrite to common logic
                 foreach ($gridQuery->sort as $column => $order) {
                     if ($column === 'id') {
                         $query->orderBy('id', $order->value);

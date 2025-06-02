@@ -26,6 +26,7 @@ class GetCompanyContactsForIndexUseCase extends UseCase
                 });
             })
             ->when($gridQuery->hasSort(), function (CompanyContactBuilder $query) use ($gridQuery): void {
+                // todo rewrite to common logic
                 foreach ($gridQuery->sort as $column => $order) {
                     if ($column === 'id') {
                         $query->orderBy('id', $order->value);
