@@ -16,7 +16,12 @@ $translation = $notifiable instanceof \Domain\Company\Models\CompanyContact ? 'e
 <x-mail::message>
 {{ __('notifications.common.salutation') }},
 
-{!! __n($type, 'mail', sprintf('body.line1_%s', $translation), ['position' => $position->name, 'user' => $user->full_name, 'link' => $link]) !!}
+{!! __n($type, 'mail', sprintf('body.line1_%s', $translation), [
+    'position' => $position->name,
+    'user' => $user->full_name,
+    'link' => $link,
+    'application' => (string) config('app.name')
+]) !!}
 
 {{ __('notifications.common.regards') }},
 <br>

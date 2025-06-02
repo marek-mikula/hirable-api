@@ -46,7 +46,7 @@ class PositionRejectedMail extends QueueMailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'position:mail.rejected',
+            markdown: 'position::mail.rejected',
             with: [
                 'notifiable' => $this->notifiable,
                 'rejectedBy' => $this->rejectedBy,

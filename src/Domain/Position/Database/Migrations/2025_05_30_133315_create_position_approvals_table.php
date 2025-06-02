@@ -11,7 +11,7 @@ return new class () extends Migration {
     {
         Schema::create('position_approvals', static function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('model_has_position_id');
+            $table->foreignId('model_has_position_id'); // todo make nullable
             $table->foreignId('position_id');
             $table->string('state', 20);
             $table->string('note', 300)->nullable();

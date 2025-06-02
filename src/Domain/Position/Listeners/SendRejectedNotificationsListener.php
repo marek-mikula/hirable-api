@@ -29,8 +29,8 @@ class SendRejectedNotificationsListener extends QueuedListener
         $roles = [];
 
         // collect all roles that needs to be notified
-        for ($x = (int) $event->position->approval_round; $x > 0; $x--) {
-            $roles = array_merge($roles, $this->positionApprovalRoundService->getRolesByRound((int) $event->position->approval_round));
+        for ($round = (int) $event->position->approval_round; $round > 0; $round--) {
+            $roles = array_merge($roles, $this->positionApprovalRoundService->getRolesByRound($round));
         }
 
         $owner = $event->position->load('user')->user;
