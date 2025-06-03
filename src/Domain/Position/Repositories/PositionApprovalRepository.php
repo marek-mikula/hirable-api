@@ -10,7 +10,9 @@ use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class PositionApprovalRepository implements PositionApprovalRepositoryInterface
 {
@@ -53,6 +55,19 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
     {
         return $position
             ->approvals()
+            ->where('state', $state->value)
+            ->exists();
+    }
+
+    public function hasModelAsApproverInState(Position $position, Model $model, PositionApprovalStateEnum $state): bool
+    {
+        return $position
+            ->approvals()
+            ->whereHas('modelHasPosition', function (Builder $query) use ($model): void {
+                $query
+                    ->where('model_has_positions.model_type', $model::class)
+                    ->where('model_has_positions.model_id', $model->getKey());
+            })
             ->where('state', $state->value)
             ->exists();
     }
