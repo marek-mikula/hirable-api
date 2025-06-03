@@ -13,8 +13,8 @@ class DeleteDeletedFilesJob extends ScheduleJob
 {
     public function handle(FileRemover $fileRemover): void
     {
-        File::onlyTrashed()->chunk(100, function (Collection $files) use ($fileRemover): void {
+        File::onlyTrashed()->chunkById(100, function (Collection $files) use ($fileRemover): void {
             $fileRemover->deleteFiles($files->all());
-        });
+        }, 'files.id', 'id');
     }
 }

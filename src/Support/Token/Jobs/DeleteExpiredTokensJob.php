@@ -15,11 +15,11 @@ class DeleteExpiredTokensJob extends ScheduleJob
     {
         Token::query()
             ->readyToDelete()
-            ->chunk(50, static function (Collection $tokens) use ($tokenRepository): void {
+            ->chunkById(50, static function (Collection $tokens) use ($tokenRepository): void {
                 /** @var Token $token */
                 foreach ($tokens as $token) {
                     $tokenRepository->delete($token);
                 }
-            });
+            }, 'tokens.id', 'id');
     }
 }

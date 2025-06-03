@@ -52,4 +52,13 @@ return [
         ],
     ],
 
+    NotificationTypeEnum::POSITION_APPROVAL_EXPIRED->value => [
+        'mail' => [
+            'subject' => '⏱️ Schvalování vypršelo - :position',
+            'body' => [
+                'line1' => 'Schvalovací proces pozice ":position" vypršel.',
+            ],
+        ],
+    ],
+
 ];

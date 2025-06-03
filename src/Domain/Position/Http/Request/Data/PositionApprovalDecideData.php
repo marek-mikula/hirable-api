@@ -7,7 +7,7 @@ namespace Domain\Position\Http\Request\Data;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Spatie\LaravelData\Data;
 
-class PositionApprovalUpdateData extends Data
+class PositionApprovalDecideData extends Data
 {
     public PositionApprovalStateEnum $state;
 

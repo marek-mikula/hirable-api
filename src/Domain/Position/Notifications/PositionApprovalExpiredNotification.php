@@ -6,21 +6,19 @@ namespace Domain\Position\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Company\Models\CompanyContact;
-use Domain\Position\Mail\PositionApprovalCanceledMail;
+use Domain\Position\Mail\PositionApprovalExpiredMail;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Notification\Enums\NotificationTypeEnum;
 
-class PositionApprovalCanceledNotification extends QueueNotification
+class PositionApprovalExpiredNotification extends QueueNotification
 {
-    public NotificationTypeEnum $type = NotificationTypeEnum::POSITION_APPROVAL_CANCELED;
+    public NotificationTypeEnum $type = NotificationTypeEnum::POSITION_APPROVAL_EXPIRED;
 
     public function __construct(
         #[WithoutRelations]
         private readonly Position $position,
-        #[WithoutRelations]
-        private readonly User $canceledBy,
     ) {
         parent::__construct();
     }
@@ -29,7 +27,7 @@ class PositionApprovalCanceledNotification extends QueueNotification
     {
         if ($notifiable instanceof CompanyContact) {
             return [
-                'mail',
+                'mail'
             ];
         }
 
@@ -39,12 +37,11 @@ class PositionApprovalCanceledNotification extends QueueNotification
         ];
     }
 
-    public function toMail(User|CompanyContact $notifiable): PositionApprovalCanceledMail
+    public function toMail(User|CompanyContact $notifiable): PositionApprovalExpiredMail
     {
-        return new PositionApprovalCanceledMail(
+        return new PositionApprovalExpiredMail(
             notifiable: $notifiable,
             position: $this->position,
-            canceledBy: $this->canceledBy,
         );
     }
 

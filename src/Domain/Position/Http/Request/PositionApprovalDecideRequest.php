@@ -6,7 +6,7 @@ namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
 use Domain\Position\Enums\PositionApprovalStateEnum;
-use Domain\Position\Http\Request\Data\PositionApprovalUpdateData;
+use Domain\Position\Http\Request\Data\PositionApprovalDecideData;
 use Domain\Position\Policies\PositionApprovalPolicy;
 use Illuminate\Validation\Rule;
 
@@ -37,11 +37,11 @@ class PositionApprovalDecideRequest extends AuthRequest
         ];
     }
 
-    public function toData(): PositionApprovalUpdateData
+    public function toData(): PositionApprovalDecideData
     {
         $state = PositionApprovalStateEnum::from((string) $this->input('state'));
 
-        return PositionApprovalUpdateData::from([
+        return PositionApprovalDecideData::from([
             'state' => $state,
             'note' => $this->filled('note') || $state === PositionApprovalStateEnum::REJECTED ? (string) $this->input('note') : null,
         ]);

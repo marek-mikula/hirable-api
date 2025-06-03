@@ -9,7 +9,6 @@ use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Repositories\Outputs\ModelHasPositionSyncOutput;
-use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;

@@ -15,15 +15,13 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Notification\Enums\NotificationTypeEnum;
 
-class PositionApprovalCanceledMail extends QueueMailable
+class PositionApprovalExpiredMail extends QueueMailable
 {
     public function __construct(
         #[WithoutRelations]
         private readonly User|CompanyContact $notifiable,
         #[WithoutRelations]
         private readonly Position $position,
-        #[WithoutRelations]
-        private readonly User $canceledBy,
     ) {
         parent::__construct();
     }
@@ -34,7 +32,7 @@ class PositionApprovalCanceledMail extends QueueMailable
             to: [
                 new Address(address: $this->notifiable->email, name: $this->notifiable->full_name),
             ],
-            subject: __n(NotificationTypeEnum::POSITION_APPROVAL_CANCELED, 'mail', 'subject', [
+            subject: __n(NotificationTypeEnum::POSITION_APPROVAL_EXPIRED, 'mail', 'subject', [
                 'position' => $this->position->name,
             ]),
         );
@@ -43,11 +41,10 @@ class PositionApprovalCanceledMail extends QueueMailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'position::mail.canceled',
+            markdown: 'position::mail.expired',
             with: [
                 'notifiable' => $this->notifiable,
                 'position' => $this->position,
-                'canceledBy' => $this->canceledBy,
             ]
         );
     }

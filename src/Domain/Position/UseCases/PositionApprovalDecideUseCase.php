@@ -8,7 +8,7 @@ use App\UseCases\UseCase;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Events\PositionApprovalApprovedEvent;
 use Domain\Position\Events\PositionApprovalRejectedEvent;
-use Domain\Position\Http\Request\Data\PositionApprovalUpdateData;
+use Domain\Position\Http\Request\Data\PositionApprovalDecideData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
@@ -23,7 +23,7 @@ class PositionApprovalDecideUseCase extends UseCase
     ) {
     }
 
-    public function handle(User $user, Position $position, PositionApproval $approval, PositionApprovalUpdateData $data): PositionApproval
+    public function handle(User $user, Position $position, PositionApproval $approval, PositionApprovalDecideData $data): PositionApproval
     {
         $input = new PositionApprovalDecideInput(
             state: $data->state,

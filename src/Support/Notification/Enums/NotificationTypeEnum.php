@@ -21,6 +21,7 @@ enum NotificationTypeEnum: string
     case POSITION_APPROVAL = 'position:approval';
     case POSITION_APPROVAL_REJECTED = 'position:approval-rejected';
     case POSITION_APPROVAL_APPROVED = 'position:approval-approved';
+    case POSITION_APPROVAL_EXPIRED = 'position:approval-expired';
     case POSITION_APPROVAL_CANCELED = 'position:approval-canceled';
 
     public function getCategory(): NotificationCategoryEnum
@@ -37,6 +38,7 @@ enum NotificationTypeEnum: string
 
             self::INVITATION_ACCEPTED,
             self::POSITION_APPROVAL_REJECTED,
+            self::POSITION_APPROVAL_EXPIRED,
             self::POSITION_APPROVAL_CANCELED,
             self::POSITION_APPROVAL_APPROVED => NotificationCategoryEnum::APPLICATION,
         };

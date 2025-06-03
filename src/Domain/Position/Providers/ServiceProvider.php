@@ -13,6 +13,8 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(DeferrableServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
+        $this->app->register(AuthServiceProvider::class);
+        $this->app->register(ConsoleServiceProvider::class);
     }
 
     public function boot(): void

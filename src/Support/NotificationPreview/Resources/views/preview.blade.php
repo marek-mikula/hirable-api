@@ -46,7 +46,7 @@
 <main class="max-w-screen-xl m-auto p-4">
     <div class="grid grid-cols-5 gap-5">
         <nav class="col-span-1 flex flex-1 flex-col" aria-label="Sidebar">
-            <ul role="list" class="sticky" style="top: 10px;">
+            <ul role="list">
                 @foreach($notifications as $domain)
                     <li class="{{ $loop->first ? 'px-3 py-1' : 'px-3 py-1 mt-3' }}">
                         <i class="bi bi-box"></i>

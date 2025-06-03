@@ -136,4 +136,13 @@ return [
         ],
     ],
 
+    NotificationTypeEnum::POSITION_APPROVAL_EXPIRED->value => [
+        'mail' => [
+            'subject' => '⏱️ Approval expired - :position',
+            'body' => [
+                'line1' => 'The approval process for position ":position" has expired.',
+            ],
+        ],
+    ],
+
 ];
