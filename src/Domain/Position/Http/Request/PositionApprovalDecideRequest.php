@@ -7,13 +7,23 @@ namespace Domain\Position\Http\Request;
 use App\Http\Requests\AuthRequest;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Http\Request\Data\PositionApprovalUpdateData;
+use Domain\Position\Models\PositionApproval;
+use Domain\User\Models\User;
 use Illuminate\Validation\Rule;
 
 class PositionApprovalDecideRequest extends AuthRequest
 {
     public function authorize(): bool
     {
-        return true;
+        $user = $this->user();
+
+        /** @var PositionApproval $approval */
+        $approval = $this->route('approval');
+
+        $approval->loadMissing('modelHasPosition');
+
+        return $approval->modelHasPosition->model_id === $user->id &&
+            $approval->modelHasPosition->model_type === User::class; // user must the owner of the approval
     }
 
     public function rules(): array
