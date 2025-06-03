@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Domain\Position\Http\Controllers\PositionApprovalController;
-use Domain\Position\Http\Controllers\PositionCancelApprovalController;
+use Domain\Position\Http\Controllers\PositionApprovalDecideController;
+use Domain\Position\Http\Controllers\PositionApprovalCancelController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionFileController;
 use Domain\Position\Http\Controllers\PositionSuggestController;
@@ -22,16 +22,12 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::patch('/', [PositionController::class, 'update'])->name('update');
 
         Route::prefix('/files')->as('files.')->group(function (): void {
-            Route::delete('/{file}', [PositionFileController::class, 'destroy'])
-                ->whereNumber('file')
-                ->name('destroy');
+            Route::delete('/{file}', [PositionFileController::class, 'destroy'])->whereNumber('file')->name('destroy');
         });
 
         Route::prefix('/approvals')->as('approvals.')->group(function (): void {
-            Route::post('/cancel', PositionCancelApprovalController::class)->name('cancel');
-            Route::patch('/{approval}', [PositionApprovalController::class, 'update'])
-                ->whereNumber('approval')
-                ->name('update');
+            Route::post('/cancel', PositionApprovalCancelController::class)->name('cancel');
+            Route::patch('/{approval}/decide', PositionApprovalDecideController::class)->whereNumber('approval')->name('decide');
         });
     });
 });

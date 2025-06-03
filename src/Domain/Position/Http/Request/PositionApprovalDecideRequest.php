@@ -9,7 +9,7 @@ use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Http\Request\Data\PositionApprovalUpdateData;
 use Illuminate\Validation\Rule;
 
-class PositionApprovalUpdateRequest extends AuthRequest
+class PositionApprovalDecideRequest extends AuthRequest
 {
     public function authorize(): bool
     {
@@ -21,8 +21,9 @@ class PositionApprovalUpdateRequest extends AuthRequest
         return [
             'note' => [
                 'nullable',
+                Rule::requiredIf($this->input('state') === PositionApprovalStateEnum::REJECTED),
                 'string',
-                'max:300',
+                'max:500',
             ],
             'state' => [
                 'required',
@@ -36,9 +37,11 @@ class PositionApprovalUpdateRequest extends AuthRequest
 
     public function toData(): PositionApprovalUpdateData
     {
+        $state = PositionApprovalStateEnum::from((string) $this->input('state'));
+
         return PositionApprovalUpdateData::from([
-            'note' => $this->filled('note') ? (string) $this->input('note') : null,
-            'state' => PositionApprovalStateEnum::from((string) $this->input('state')),
+            'state' => $state,
+            'note' => $this->filled('note') || $state === PositionApprovalStateEnum::REJECTED ? (string) $this->input('note') : null,
         ]);
     }
 }

@@ -12,7 +12,7 @@ use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class CancelApprovalUseCase extends UseCase
+class PositionApprovalCancelUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionRepositoryInterface $positionRepository,

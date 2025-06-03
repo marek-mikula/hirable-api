@@ -25,7 +25,7 @@ use Support\File\Actions\GetModelSubFoldersAction;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Services\FileSaver;
 
-class UpdatePositionUseCase extends UseCase
+class PositionUpdateUseCase extends UseCase
 {
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,

@@ -161,7 +161,7 @@ class NotificationRegistrar
                         notification: function (User $notifiable) {
                             $rejectedBy = User::factory()->make();
                             $position = Position::factory()->make();
-                            $approval = PositionApproval::factory()->rejected(fake()->text(maxNbChars: 300))->make();
+                            $approval = PositionApproval::factory()->rejected(fake()->text(maxNbChars: 500))->make();
 
                             return new PositionApprovalRejectedNotification(
                                 rejectedBy: $rejectedBy,
@@ -178,7 +178,7 @@ class NotificationRegistrar
                         notification: function (User $notifiable) {
                             $rejectedBy = CompanyContact::factory()->make();
                             $position = Position::factory()->make();
-                            $approval = PositionApproval::factory()->rejected(fake()->text(maxNbChars: 300))->make();
+                            $approval = PositionApproval::factory()->rejected(fake()->text(maxNbChars: 500))->make();
 
                             return new PositionApprovalRejectedNotification(
                                 rejectedBy: $rejectedBy,

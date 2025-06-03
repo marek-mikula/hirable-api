@@ -16,7 +16,7 @@ use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class UpdatePositionApprovalUseCase extends UseCase
+class PositionApprovalDecideUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,

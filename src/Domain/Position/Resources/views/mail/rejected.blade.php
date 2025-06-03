@@ -18,11 +18,9 @@ $translation = $rejectedBy instanceof \Domain\Company\Models\CompanyContact ? 'e
 
 {!! __n($type, 'mail', sprintf('body.line1_%s', $translation), ['position' => $position->name, 'user' => $rejectedBy->full_name]) !!}
 
-@if(!empty($approval->note))
 <x-mail::panel>
-{{ $approval->note }}
+{{ (string) $approval->note }}
 </x-mail::panel>
-@endif
 
 {{ __('notifications.common.regards') }},
 <br>

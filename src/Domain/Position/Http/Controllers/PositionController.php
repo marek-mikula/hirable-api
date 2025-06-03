@@ -13,9 +13,9 @@ use Domain\Position\Http\Request\PositionUpdateRequest;
 use Domain\Position\Http\Resources\Collections\PositionListPaginatedCollection;
 use Domain\Position\Http\Resources\PositionResource;
 use Domain\Position\Models\Position;
-use Domain\Position\UseCases\GetPositionsForIndexUseCase;
-use Domain\Position\UseCases\StorePositionUseCase;
-use Domain\Position\UseCases\UpdatePositionUseCase;
+use Domain\Position\UseCases\PositionIndexUseCase;
+use Domain\Position\UseCases\PositionStoreUseCase;
+use Domain\Position\UseCases\PositionUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
@@ -30,7 +30,7 @@ class PositionController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $positions = GetPositionsForIndexUseCase::make()->handle($request->user(), $request->getGridQuery());
+        $positions = PositionIndexUseCase::make()->handle($request->user(), $request->getGridQuery());
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::POSITION, $gridQuery));
 
@@ -41,7 +41,7 @@ class PositionController extends ApiController
 
     public function store(PositionStoreRequest $request): JsonResponse
     {
-        $position = StorePositionUseCase::make()->handle($request->user(), $request->toData());
+        $position = PositionStoreUseCase::make()->handle($request->user(), $request->toData());
 
         $position->loadMissing([
             'files',
@@ -60,7 +60,7 @@ class PositionController extends ApiController
 
     public function update(PositionUpdateRequest $request, Position $position): JsonResponse
     {
-        $position = UpdatePositionUseCase::make()->handle($request->user(), $position, $request->toData());
+        $position = PositionUpdateUseCase::make()->handle($request->user(), $position, $request->toData());
 
         $position->loadMissing([
             'files',

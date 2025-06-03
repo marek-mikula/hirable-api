@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->foreignId('model_has_position_id'); // todo make nullable
             $table->foreignId('position_id');
             $table->string('state', 20);
-            $table->string('note', 300)->nullable();
+            $table->string('note', 500)->nullable();
             $table->timestamp('decided_at')->nullable();
             $table->timestamp('notified_at')->nullable();
             $table->timestamps();

@@ -6,7 +6,7 @@ namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
 
-class PositionCancelApprovalRequest extends AuthRequest
+class PositionApprovalCancelRequest extends AuthRequest
 {
     public function authorize(): bool
     {

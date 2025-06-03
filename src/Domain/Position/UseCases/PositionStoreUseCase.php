@@ -27,7 +27,7 @@ use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
 use Support\File\Services\FileSaver;
 
-class StorePositionUseCase extends UseCase
+class PositionStoreUseCase extends UseCase
 {
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
