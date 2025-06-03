@@ -24,9 +24,9 @@ return [
         ],
     ],
 
-    NotificationTypeEnum::POSITION_REJECTED->value => [
+    NotificationTypeEnum::POSITION_APPROVAL_REJECTED->value => [
         'mail' => [
-            'subject' => '❌ Pozice zamítnuta - :position',
+            'subject' => '🔴 Pozice zamítnuta - :position',
             'body' => [
                 'line1_internal' => 'Pozice ":position" byla zamítnuta uživatelem :user.',
                 'line1_external' => 'Pozice ":position" byla zamítnuta externím schvalovatelem :user.',
@@ -34,11 +34,20 @@ return [
         ],
     ],
 
-    NotificationTypeEnum::POSITION_APPROVED->value => [
+    NotificationTypeEnum::POSITION_APPROVAL_APPROVED->value => [
         'mail' => [
-            'subject' => '🎉 Pozice schválena - :position',
+            'subject' => '🟢 Pozice schválena - :position',
             'body' => [
                 'line1' => 'Vaše pozice ":position" byla úspěšně schválena všemi schvalovateli.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_CANCELED->value => [
+        'mail' => [
+            'subject' => '⚪ Schvalování zrušeno - :position',
+            'body' => [
+                'line1' => 'Schvalovací proces pozice ":position" by zrušen uživatelem :user.',
             ],
         ],
     ],

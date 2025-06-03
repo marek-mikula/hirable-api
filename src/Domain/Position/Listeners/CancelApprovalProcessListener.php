@@ -6,20 +6,18 @@ namespace Domain\Position\Listeners;
 
 use App\Listeners\Listener;
 use Domain\Position\Enums\PositionApprovalStateEnum;
-use Domain\Position\Events\PositionApprovalRejectedEvent;
+use Domain\Position\Events\PositionApprovalCanceledEvent;
 use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
-use Domain\Position\Repositories\PositionRepositoryInterface;
 
-class RejectApprovalProcessListener extends Listener
+class CancelApprovalProcessListener extends Listener
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,
-        private readonly PositionRepositoryInterface $positionRepository,
     ) {
     }
 
-    public function handle(PositionApprovalRejectedEvent $event): void
+    public function handle(PositionApprovalCanceledEvent $event): void
     {
         $position = $event->position;
 
@@ -32,10 +30,5 @@ class RejectApprovalProcessListener extends Listener
                 note: null,
             ));
         }
-
-        // update position approval process state,
-        // do not update round, because we need it
-        // in another listener to send notifications
-        $this->positionRepository->updateApproval($position, round: $position->approval_round, state: PositionApprovalStateEnum::REJECTED);
     }
 }

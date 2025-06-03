@@ -7,7 +7,7 @@
 * @var \Domain\Position\Models\Position $position
 */
 
-$type = \Support\Notification\Enums\NotificationTypeEnum::POSITION_REJECTED;
+$type = \Support\Notification\Enums\NotificationTypeEnum::POSITION_APPROVAL_REJECTED;
 
 $translation = $rejectedBy instanceof \Domain\Company\Models\CompanyContact ? 'external' : 'internal';
 

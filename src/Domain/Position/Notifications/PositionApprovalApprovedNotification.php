@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Domain\Position\Notifications;
 
 use App\Notifications\QueueNotification;
-use Domain\Position\Mail\PositionApprovedMail;
+use Domain\Position\Mail\PositionApprovalApprovedMail;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Notification\Enums\NotificationTypeEnum;
 
-class PositionApprovedNotification extends QueueNotification
+class PositionApprovalApprovedNotification extends QueueNotification
 {
-    public NotificationTypeEnum $type = NotificationTypeEnum::POSITION_APPROVED;
+    public NotificationTypeEnum $type = NotificationTypeEnum::POSITION_APPROVAL_APPROVED;
 
     public function __construct(
         #[WithoutRelations]
@@ -30,9 +30,9 @@ class PositionApprovedNotification extends QueueNotification
         ];
     }
 
-    public function toMail(User $notifiable): PositionApprovedMail
+    public function toMail(User $notifiable): PositionApprovalApprovedMail
     {
-        return new PositionApprovedMail(
+        return new PositionApprovalApprovedMail(
             notifiable: $notifiable,
             position: $this->position,
         );

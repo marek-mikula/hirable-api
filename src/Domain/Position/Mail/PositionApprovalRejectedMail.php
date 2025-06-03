@@ -16,7 +16,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Notification\Enums\NotificationTypeEnum;
 
-class PositionRejectedMail extends QueueMailable
+class PositionApprovalRejectedMail extends QueueMailable
 {
     public function __construct(
         #[WithoutRelations]
@@ -37,7 +37,7 @@ class PositionRejectedMail extends QueueMailable
             to: [
                 new Address(address: $this->notifiable->email, name: $this->notifiable->full_name),
             ],
-            subject: __n(NotificationTypeEnum::POSITION_REJECTED, 'mail', 'subject', [
+            subject: __n(NotificationTypeEnum::POSITION_APPROVAL_REJECTED, 'mail', 'subject', [
                 'position' => $this->position->name,
             ]),
         );

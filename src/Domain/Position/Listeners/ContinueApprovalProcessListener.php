@@ -6,7 +6,7 @@ namespace Domain\Position\Listeners;
 
 use App\Listeners\Listener;
 use Domain\Position\Enums\PositionApprovalStateEnum;
-use Domain\Position\Events\PositionApprovedEvent;
+use Domain\Position\Events\PositionApprovalApprovedEvent;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\Position\Services\PositionApprovalRoundService;
@@ -22,7 +22,7 @@ class ContinueApprovalProcessListener extends Listener
     ) {
     }
 
-    public function handle(PositionApprovedEvent $event): void
+    public function handle(PositionApprovalApprovedEvent $event): void
     {
         $position = $event->position;
 

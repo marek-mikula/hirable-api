@@ -14,13 +14,15 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Notification\Enums\NotificationTypeEnum;
 
-class PositionApprovedMail extends QueueMailable
+class PositionApprovalCanceledMail extends QueueMailable
 {
     public function __construct(
         #[WithoutRelations]
         private readonly User $notifiable,
         #[WithoutRelations]
         private readonly Position $position,
+        #[WithoutRelations]
+        private readonly User $canceledBy,
     ) {
         parent::__construct();
     }
@@ -31,7 +33,7 @@ class PositionApprovedMail extends QueueMailable
             to: [
                 new Address(address: $this->notifiable->email, name: $this->notifiable->full_name),
             ],
-            subject: __n(NotificationTypeEnum::POSITION_APPROVED, 'mail', 'subject', [
+            subject: __n(NotificationTypeEnum::POSITION_APPROVAL_CANCELED, 'mail', 'subject', [
                 'position' => $this->position->name,
             ]),
         );
@@ -40,10 +42,11 @@ class PositionApprovedMail extends QueueMailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'position::mail.approved',
+            markdown: 'position::mail.canceled',
             with: [
                 'notifiable' => $this->notifiable,
                 'position' => $this->position,
+                'canceledBy' => $this->canceledBy,
             ]
         );
     }

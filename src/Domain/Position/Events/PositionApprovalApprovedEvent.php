@@ -10,7 +10,7 @@ use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\User\Models\User;
 
-class PositionApprovedEvent extends Event
+class PositionApprovalApprovedEvent extends Event
 {
     public function __construct(
         public Position $position,

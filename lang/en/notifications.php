@@ -108,9 +108,9 @@ return [
         ],
     ],
 
-    NotificationTypeEnum::POSITION_REJECTED->value => [
+    NotificationTypeEnum::POSITION_APPROVAL_REJECTED->value => [
         'mail' => [
-            'subject' => '❌ Position rejected - :position',
+            'subject' => '🔴 Position rejected - :position',
             'body' => [
                 'line1_internal' => 'Position ":position" was rejected by user :user.',
                 'line1_external' => 'Position ":position" was rejected by external approver :user.',
@@ -118,11 +118,20 @@ return [
         ],
     ],
 
-    NotificationTypeEnum::POSITION_APPROVED->value => [
+    NotificationTypeEnum::POSITION_APPROVAL_APPROVED->value => [
         'mail' => [
-            'subject' => '🎉 Position approved - :position',
+            'subject' => '🟢 Position approved - :position',
             'body' => [
                 'line1' => 'Your position ":position" was successfully approved by all approvers.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_CANCELED->value => [
+        'mail' => [
+            'subject' => '⚪ Approval Cancelled - :position',
+            'body' => [
+                'line1' => 'The approval process for position ":position" has been canceled by user :user.',
             ],
         ],
     ],

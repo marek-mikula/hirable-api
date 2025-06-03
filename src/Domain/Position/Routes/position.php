@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Domain\Position\Http\Controllers\PositionApprovalController;
+use Domain\Position\Http\Controllers\PositionCancelApprovalController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionFileController;
 use Domain\Position\Http\Controllers\PositionSuggestController;
@@ -27,6 +28,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         });
 
         Route::prefix('/approvals')->as('approvals.')->group(function (): void {
+            Route::post('/cancel', PositionCancelApprovalController::class)->name('cancel');
             Route::patch('/{approval}', [PositionApprovalController::class, 'update'])
                 ->whereNumber('approval')
                 ->name('update');

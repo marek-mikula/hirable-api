@@ -6,8 +6,8 @@ namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\Position\Enums\PositionApprovalStateEnum;
-use Domain\Position\Events\PositionApprovedEvent;
-use Domain\Position\Events\PositionRejectedEvent;
+use Domain\Position\Events\PositionApprovalApprovedEvent;
+use Domain\Position\Events\PositionApprovalRejectedEvent;
 use Domain\Position\Http\Request\Data\PositionApprovalUpdateData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
@@ -39,9 +39,9 @@ class UpdatePositionApprovalUseCase extends UseCase
             $approval = $this->positionApprovalRepository->decide($approval, $input);
 
             if ($approval->state === PositionApprovalStateEnum::APPROVED) {
-                PositionApprovedEvent::dispatch($position, $approval, $user);
+                PositionApprovalApprovedEvent::dispatch($position, $approval, $user);
             } elseif ($approval->state === PositionApprovalStateEnum::REJECTED) {
-                PositionRejectedEvent::dispatch($position, $approval, $user);
+                PositionApprovalRejectedEvent::dispatch($position, $approval, $user);
             }
 
             return $approval;

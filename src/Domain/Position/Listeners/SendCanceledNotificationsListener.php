@@ -6,21 +6,21 @@ namespace Domain\Position\Listeners;
 
 use App\Listeners\QueuedListener;
 use Domain\Company\Models\CompanyContact;
-use Domain\Position\Events\PositionApprovalRejectedEvent;
+use Domain\Position\Events\PositionApprovalCanceledEvent;
 use Domain\Position\Models\ModelHasPosition;
-use Domain\Position\Notifications\PositionApprovalRejectedNotification;
+use Domain\Position\Notifications\PositionApprovalCanceledNotification;
 use Domain\Position\Services\PositionApprovalRoundService;
 use Domain\User\Models\User;
 use Illuminate\Support\Arr;
 
-class SendRejectedNotificationsListener extends QueuedListener
+class SendCanceledNotificationsListener extends QueuedListener
 {
     public function __construct(
         private readonly PositionApprovalRoundService $positionApprovalRoundService,
     ) {
     }
 
-    public function handle(PositionApprovalRejectedEvent $event): void
+    public function handle(PositionApprovalCanceledEvent $event): void
     {
         if ($event->position->approval_round === null) {
             return;
@@ -33,26 +33,18 @@ class SendRejectedNotificationsListener extends QueuedListener
             $roles = array_merge($roles, $this->positionApprovalRoundService->getRolesByRound($round));
         }
 
-        $owner = $event->position->load('user')->user;
-
         // send notifications to all previous and current approvers
-        // and also to the owner of the position
-        // filter out model who rejected the positions, because he
-        // already knows the position is rejected
         $event->position
             ->models()
             ->with('model')
             ->whereIn('role', Arr::pluck($roles, 'value'))
             ->get()
             ->map(fn (ModelHasPosition $modelHasPosition) => $modelHasPosition->model)
-            ->add($owner)
-            ->filter(fn (User|CompanyContact $model) => !$model->is($event->rejectedBy))
             ->each(function (User|CompanyContact $model) use ($event): void {
                 $model->notify(
-                    new PositionApprovalRejectedNotification(
-                        rejectedBy: $event->rejectedBy,
-                        approval: $event->approval,
+                    new PositionApprovalCanceledNotification(
                         position: $event->position,
+                        canceledBy: $event->canceledBy,
                     )
                 );
             });

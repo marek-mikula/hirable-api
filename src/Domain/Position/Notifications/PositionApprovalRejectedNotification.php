@@ -6,16 +6,16 @@ namespace Domain\Position\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Company\Models\CompanyContact;
-use Domain\Position\Mail\PositionRejectedMail;
+use Domain\Position\Mail\PositionApprovalRejectedMail;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Notification\Enums\NotificationTypeEnum;
 
-class PositionRejectedNotification extends QueueNotification
+class PositionApprovalRejectedNotification extends QueueNotification
 {
-    public NotificationTypeEnum $type = NotificationTypeEnum::POSITION_REJECTED;
+    public NotificationTypeEnum $type = NotificationTypeEnum::POSITION_APPROVAL_REJECTED;
 
     public function __construct(
         #[WithoutRelations]
@@ -42,9 +42,9 @@ class PositionRejectedNotification extends QueueNotification
         ];
     }
 
-    public function toMail(User|CompanyContact $notifiable): PositionRejectedMail
+    public function toMail(User|CompanyContact $notifiable): PositionApprovalRejectedMail
     {
-        return new PositionRejectedMail(
+        return new PositionApprovalRejectedMail(
             notifiable: $notifiable,
             rejectedBy: $this->rejectedBy,
             approval: $this->approval,

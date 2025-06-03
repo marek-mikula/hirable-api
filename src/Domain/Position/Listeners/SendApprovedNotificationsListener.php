@@ -6,8 +6,8 @@ namespace Domain\Position\Listeners;
 
 use App\Listeners\QueuedListener;
 use Domain\Position\Enums\PositionApprovalStateEnum;
-use Domain\Position\Events\PositionApprovedEvent;
-use Domain\Position\Notifications\PositionApprovedNotification;
+use Domain\Position\Events\PositionApprovalApprovedEvent;
+use Domain\Position\Notifications\PositionApprovalApprovedNotification;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 
 class SendApprovedNotificationsListener extends QueuedListener
@@ -17,7 +17,7 @@ class SendApprovedNotificationsListener extends QueuedListener
     ) {
     }
 
-    public function handle(PositionApprovedEvent $event): void
+    public function handle(PositionApprovalApprovedEvent $event): void
     {
         $hasPendingApprovals = $this->positionApprovalRepository->hasApprovalsInState($event->position, PositionApprovalStateEnum::PENDING);
 
@@ -30,7 +30,7 @@ class SendApprovedNotificationsListener extends QueuedListener
         $owner = $event->position->load('user')->user;
 
         // send notification to owner of the position
-        $owner->notify(new PositionApprovedNotification(
+        $owner->notify(new PositionApprovalApprovedNotification(
             position: $event->position,
         ));
     }

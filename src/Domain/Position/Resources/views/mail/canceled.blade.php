@@ -2,17 +2,18 @@
 
 /**
 * @var \Domain\User\Models\User $notifiable
+* @var \Domain\User\Models\User $canceledBy
 * @var \Domain\Position\Models\Position $position
 */
 
-$type = \Support\Notification\Enums\NotificationTypeEnum::POSITION_APPROVAL_APPROVED;
+$type = \Support\Notification\Enums\NotificationTypeEnum::POSITION_APPROVAL_CANCELED;
 
 @endphp
 
 <x-mail::message>
 {{ __('notifications.common.salutation') }},
 
-{!! __n($type, 'mail', 'body.line1', ['position' => $position->name]) !!}
+{!! __n($type, 'mail', 'body.line1', ['position' => $position->name, 'user' => $canceledBy->full_name]) !!}
 
 {{ __('notifications.common.regards') }},
 <br>
