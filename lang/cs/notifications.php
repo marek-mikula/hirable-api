@@ -18,8 +18,8 @@ return [
         'mail' => [
             'subject' => '👍 Pozice ke schválení - :position',
             'body' => [
-                'line1_internal' => 'V aplikaci je nová pozice ":position" od uživatele :user, která potřebuje Váš souhlas. Na pozici se můžete podívat <a href=":link">zde</a>',
-                'line1_external' => 'Uživatel :user Váš přiřadil k pozici ":position" jako schvalovatele v aplikaci :application. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line1_internal' => 'V aplikaci je nová pozice **:position** od uživatele :user, která potřebuje Váš souhlas. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line1_external' => 'Uživatel :user Váš přiřadil k pozici **:position** jako schvalovatele v aplikaci :application. Na pozici se můžete podívat <a href=":link">zde</a>',
                 'line2' => 'O schválení, prosím, rozhodněte do **:date**.'
             ],
         ],
@@ -29,8 +29,8 @@ return [
         'mail' => [
             'subject' => '🔴 Pozice zamítnuta - :position',
             'body' => [
-                'line1_internal' => 'Pozice ":position" byla zamítnuta uživatelem :user.',
-                'line1_external' => 'Pozice ":position" byla zamítnuta externím schvalovatelem :user.',
+                'line1_internal' => 'Pozice **:position** byla zamítnuta uživatelem :user.',
+                'line1_external' => 'Pozice **:position** byla zamítnuta externím schvalovatelem :user.',
             ],
         ],
     ],
@@ -39,7 +39,7 @@ return [
         'mail' => [
             'subject' => '🟢 Pozice schválena - :position',
             'body' => [
-                'line1' => 'Vaše pozice ":position" byla úspěšně schválena všemi schvalovateli.',
+                'line1' => 'Vaše pozice **:position** byla úspěšně schválena všemi schvalovateli.',
             ],
         ],
     ],
@@ -48,7 +48,7 @@ return [
         'mail' => [
             'subject' => '⚪ Schvalování zrušeno - :position',
             'body' => [
-                'line1' => 'Schvalovací proces pozice ":position" by zrušen uživatelem :user.',
+                'line1' => 'Schvalovací proces pozice **:position** by zrušen uživatelem :user.',
             ],
         ],
     ],
@@ -57,7 +57,7 @@ return [
         'mail' => [
             'subject' => '⏱️ Schvalování vypršelo - :position',
             'body' => [
-                'line1' => 'Schvalovací proces pozice ":position" vypršel.',
+                'line1' => 'Schvalovací proces pozice **:position** vypršel.',
             ],
         ],
     ],
