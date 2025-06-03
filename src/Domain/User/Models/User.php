@@ -39,14 +39,6 @@ use Support\Token\Models\Token;
  * @property string $email
  * @property string $password
  * @property string|null $remember_token
- * @property bool $notification_crucial_mail
- * @property bool $notification_crucial_app
- * @property bool $notification_technical_mail
- * @property bool $notification_technical_app
- * @property bool $notification_marketing_mail
- * @property bool $notification_marketing_app
- * @property bool $notification_application_mail
- * @property bool $notification_application_app
  * @property string $agreement_ip
  * @property Carbon $agreement_accepted_at
  * @property Carbon|null $email_verified_at
@@ -85,14 +77,6 @@ class User extends Authenticatable implements HasLocalePreference
         'email_verified_at',
         'password',
         'remember_token',
-        'notification_crucial_mail',
-        'notification_crucial_app',
-        'notification_technical_mail',
-        'notification_technical_app',
-        'notification_marketing_mail',
-        'notification_marketing_app',
-        'notification_application_mail',
-        'notification_application_app',
         'agreement_ip',
         'agreement_accepted_at',
     ];
@@ -114,14 +98,6 @@ class User extends Authenticatable implements HasLocalePreference
         'lastname' => Capitalize::class,
         'email' => Lowercase::class,
         'password' => 'hashed',
-        'notification_crucial_mail' => 'boolean',
-        'notification_crucial_app' => 'boolean',
-        'notification_technical_mail' => 'boolean',
-        'notification_technical_app' => 'boolean',
-        'notification_marketing_mail' => 'boolean',
-        'notification_marketing_app' => 'boolean',
-        'notification_application_mail' => 'boolean',
-        'notification_application_app' => 'boolean',
         'email_verified_at' => 'datetime',
         'agreement_accepted_at' => 'datetime',
     ];

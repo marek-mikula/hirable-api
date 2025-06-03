@@ -21,14 +21,6 @@ return new class () extends Migration {
             $table->string('email')->unique('users_email_unique');
             $table->string('password');
             $table->rememberToken();
-            $table->boolean('notification_crucial_mail')->default(1);
-            $table->boolean('notification_crucial_app')->default(1);
-            $table->boolean('notification_technical_mail')->default(1);
-            $table->boolean('notification_technical_app')->default(1);
-            $table->boolean('notification_marketing_mail')->default(1);
-            $table->boolean('notification_marketing_app')->default(1);
-            $table->boolean('notification_application_mail')->default(1);
-            $table->boolean('notification_application_app')->default(1);
             $table->string('agreement_ip');
             $table->timestamp('agreement_accepted_at');
             $table->timestamp('email_verified_at')->nullable();

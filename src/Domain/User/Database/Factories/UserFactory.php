@@ -51,47 +51,7 @@ class UserFactory extends Factory
             'agreement_ip' => '127.0.0.1',
             'agreement_accepted_at' => now(),
             'remember_token' => null,
-            'notification_crucial_mail' => true,
-            'notification_crucial_app' => true,
-            'notification_technical_mail' => true,
-            'notification_technical_app' => true,
-            'notification_marketing_mail' => true,
-            'notification_marketing_app' => true,
-            'notification_application_mail' => true,
-            'notification_application_app' => true,
         ];
-    }
-
-    public function ofCrucialNotifications(bool $mail = true, bool $app = true): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'notification_crucial_mail' => $mail,
-            'notification_crucial_app' => $app,
-        ]);
-    }
-
-    public function ofTechnicalNotifications(bool $mail = true, bool $app = true): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'notification_technical_mail' => $mail,
-            'notification_technical_app' => $app,
-        ]);
-    }
-
-    public function ofMarketingNotifications(bool $mail = true, bool $app = true): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'notification_marketing_mail' => $mail,
-            'notification_marketing_app' => $app,
-        ]);
-    }
-
-    public function ofApplicationNotifications(bool $mail = true, bool $app = true): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'notification_application_mail' => $mail,
-            'notification_application_app' => $app,
-        ]);
     }
 
     public function emailNotVerified(): static

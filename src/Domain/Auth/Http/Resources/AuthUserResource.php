@@ -37,20 +37,6 @@ class AuthUserResource extends JsonResource
             'postfix' => $this->resource->postfix,
             'phone' => $this->resource->phone,
             'email' => $this->resource->email,
-            'notifications' => [
-                'technical' => [
-                    'mail' => $this->resource->notification_technical_mail,
-                    'app' => $this->resource->notification_technical_app,
-                ],
-                'marketing' => [
-                    'mail' => $this->resource->notification_marketing_mail,
-                    'app' => $this->resource->notification_marketing_app,
-                ],
-                'application' => [
-                    'mail' => $this->resource->notification_application_mail,
-                    'app' => $this->resource->notification_application_app,
-                ],
-            ],
             'companyName' => $this->resource->company->name,
         ];
     }

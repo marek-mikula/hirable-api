@@ -24,25 +24,4 @@ enum NotificationTypeEnum: string
     case POSITION_APPROVAL_EXPIRED = 'position:approval-expired';
     case POSITION_APPROVAL_CANCELED = 'position:approval-canceled';
     case POSITION_APPROVAL_REMINDER = 'position:approval-reminder';
-
-    public function getCategory(): NotificationCategoryEnum
-    {
-        return match ($this) {
-            self::POSITION_APPROVAL,
-            self::INVITATION_SENT,
-            self::REGISTER_REQUEST,
-            self::REGISTER_REGISTERED,
-            self::VERIFICATION_VERIFY_EMAIL,
-            self::VERIFICATION_EMAIL_VERIFIED,
-            self::PASSWORD_RESET_REQUEST,
-            self::PASSWORD_CHANGED => NotificationCategoryEnum::CRUCIAL,
-
-            self::INVITATION_ACCEPTED,
-            self::POSITION_APPROVAL_REJECTED,
-            self::POSITION_APPROVAL_EXPIRED,
-            self::POSITION_APPROVAL_CANCELED,
-            self::POSITION_APPROVAL_REMINDER,
-            self::POSITION_APPROVAL_APPROVED => NotificationCategoryEnum::APPLICATION,
-        };
-    }
 }
