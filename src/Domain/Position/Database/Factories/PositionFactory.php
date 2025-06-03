@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Database\Factories;
 
+use Carbon\Carbon;
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
 use Domain\Position\Enums\PositionStateEnum;
@@ -80,5 +81,12 @@ class PositionFactory extends Factory
             'language_requirements' => [],
             'note' => fake()->boolean ? fake()->text(2000) : null,
         ];
+    }
+
+    public function ofApproveUntil(?Carbon $timestamp): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'approve_until' => $timestamp,
+        ]);
     }
 }
