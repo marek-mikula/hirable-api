@@ -16,6 +16,7 @@ use Domain\Position\Notifications\PositionApprovalExpiredNotification;
 use Domain\Position\Notifications\PositionApprovalNotification;
 use Domain\Position\Notifications\PositionApprovalApprovedNotification;
 use Domain\Position\Notifications\PositionApprovalRejectedNotification;
+use Domain\Position\Notifications\PositionApprovalReminderNotification;
 use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\Register\Notifications\RegisterRequestNotification;
 use Domain\User\Models\User;
@@ -237,6 +238,28 @@ class NotificationRegistrar
                         notification: function (CompanyContact $notifiable) {
                             $position = Position::factory()->make();
                             return new PositionApprovalExpiredNotification(position: $position);
+                        },
+                        notifiable: fn () => CompanyContact::factory()->make(),
+                        key: 'external'
+                    ),
+                    NotificationData::create(
+                        label: 'Reminder (internal user)',
+                        description: 'Notification informs internal user about the forgotten approval process.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionApprovalReminderNotification(position: $position, token: null);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                        key: 'internal'
+                    ),
+                    NotificationData::create(
+                        label: 'Reminder (external approver)',
+                        description: 'Notification informs external approver about the forgotten approval process.',
+                        notification: function (CompanyContact $notifiable) {
+                            $position = Position::factory()->make();
+                            $token = Token::factory()->ofType(TokenTypeEnum::EXTERNAL_APPROVAL)->make();
+
+                            return new PositionApprovalReminderNotification(position: $position, token: $token);
                         },
                         notifiable: fn () => CompanyContact::factory()->make(),
                         key: 'external'

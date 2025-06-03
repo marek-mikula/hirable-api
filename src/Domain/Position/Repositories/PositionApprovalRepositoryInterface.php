@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Repositories;
 
+use Carbon\Carbon;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
@@ -26,4 +27,9 @@ interface PositionApprovalRepositoryInterface
     public function hasApprovalsInState(Position $position, PositionApprovalStateEnum $state): bool;
 
     public function hasModelAsApproverInState(Position $position, Model $model, PositionApprovalStateEnum $state): bool;
+
+    /**
+     * @param Collection<PositionApproval> $approvals
+     */
+    public function setNotifiedAt(Collection $approvals, ?Carbon $timestamp = null): void;
 }

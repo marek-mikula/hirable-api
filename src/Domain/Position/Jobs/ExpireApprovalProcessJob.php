@@ -22,6 +22,6 @@ class ExpireApprovalProcessJob extends ScheduleJob
                 foreach ($positions as $position) {
                     PositionApprovalExpireUseCase::make()->handle($position);
                 }
-            }, 'positions.id');
+            }, 'positions.id', 'id');
     }
 }

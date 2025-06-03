@@ -62,4 +62,13 @@ return [
         ],
     ],
 
+    NotificationTypeEnum::POSITION_APPROVAL_REMINDER->value => [
+        'mail' => [
+            'subject' => '👍 Pozice čeká na schválení - :position',
+            'body' => [
+                'line1' => 'Pozice **:position** stále čeká na Vaše rozhodnotí. Na pozici se můžete podívat <a href=":link">zde</a>',
+            ],
+        ],
+    ],
+
 ];

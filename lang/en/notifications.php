@@ -146,4 +146,13 @@ return [
         ],
     ],
 
+    NotificationTypeEnum::POSITION_APPROVAL_REMINDER->value => [
+        'mail' => [
+            'subject' => '👍 Position pending approval - :position',
+            'body' => [
+                'line1' => 'Position **:position** is still awaiting your approval. You can view the position <a href=":link">here</a>',
+            ],
+        ],
+    ],
+
 ];

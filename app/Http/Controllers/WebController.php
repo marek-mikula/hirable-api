@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Domain\Company\Models\CompanyContact;
-use Domain\User\Models\User;
 use Illuminate\View\View;
 
 class WebController extends Controller

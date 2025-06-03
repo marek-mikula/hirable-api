@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories;
 
 use App\Exceptions\RepositoryException;
+use Carbon\Carbon;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
@@ -70,5 +71,16 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
             })
             ->where('state', $state->value)
             ->exists();
+    }
+
+    public function setNotifiedAt(Collection $approvals, ?Carbon $timestamp = null): void
+    {
+        $result = PositionApproval::query()
+            ->whereIn('id', $approvals->pluck('id'))
+            ->update([
+                'notified_at' => $timestamp ?? now(),
+            ]);
+
+        throw_if($result !== $approvals->count(), RepositoryException::updated(PositionApproval::class));
     }
 }

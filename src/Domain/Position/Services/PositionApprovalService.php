@@ -42,7 +42,7 @@ class PositionApprovalService
 
         // there is no next round
         if ($nextRound === $round) {
-            return (new PositionApproval())->newCollection();
+            return modelCollection(PositionApproval::class);
         }
 
         $roles = $this->positionApprovalRoundService->getRolesByRound($nextRound);
@@ -54,7 +54,7 @@ class PositionApprovalService
             ->get();
 
         if ($models->isEmpty()) {
-            return $this->sendForApproval($user, $position, $nextRound + 1);
+            return $this->sendForApproval($user, $position, $nextRound);
         }
 
         $this->positionRepository->updateApproval($position, $nextRound, $position->approval_state);
@@ -75,7 +75,7 @@ class PositionApprovalService
             $token = $this->tokenRepository->store(new TokenStoreInput(
                 type: TokenTypeEnum::EXTERNAL_APPROVAL,
                 data: ['approvalId' => $approval->id],
-                validUntil: now()->addDays(14) // todo make customizable
+                validUntil: $position->approve_until,
             ));
         }
 
