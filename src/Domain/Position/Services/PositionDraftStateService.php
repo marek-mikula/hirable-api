@@ -41,8 +41,7 @@ class PositionDraftStateService
 
         return match ($data->operation) {
             PositionOperationEnum::SEND_FOR_APPROVAL => PositionApprovalStateEnum::PENDING,
-            PositionOperationEnum::SAVE => $position->approval_state,
-            PositionOperationEnum::OPEN => null,
+            PositionOperationEnum::SAVE, PositionOperationEnum::OPEN => $data->hasAnyApprovers() ? $position->approval_state : null,
         };
     }
 }

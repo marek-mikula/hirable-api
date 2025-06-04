@@ -10,6 +10,10 @@ use Domain\Company\Models\CompanyContact;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionData;
+use Domain\Position\Validation\ValidateApprovalDuplicates;
+use Domain\Position\Validation\ValidateApprovalRequiredFields;
+use Domain\Position\Validation\ValidateApprovalSelf;
+use Domain\Position\Validation\ValidateApprovalOpen;
 use Domain\User\Models\User;
 use Illuminate\Validation\Rule;
 
@@ -240,9 +244,16 @@ class PositionStoreRequest extends AuthRequest
                 'nullable',
                 Rule::date()->format('Y-m-d')->afterToday(),
             ]
+        ];
+    }
 
-            // todo validate that user is not hiring manager and also an approver
-            // todo validate that user has not assigned himself as HM or approver
+    public function after(): array
+    {
+        return [
+            new ValidateApprovalRequiredFields(),
+            new ValidateApprovalDuplicates(),
+            new ValidateApprovalSelf($this->user()),
+            new ValidateApprovalOpen($this->route('position')),
         ];
     }
 

@@ -65,6 +65,22 @@ return [
     |
     */
 
-    'after_rules' => [],
+    'after_rules' => [
+        'position' => [
+            'approval_duplicates' => [
+                'hiring_manager' => 'Hiring manažer nemůže být zároveň schvalovatelem.',
+                'approver' => 'Schvalovatel nemůže být zároveň hiring manažer.',
+            ],
+            'approval_self' => [
+                'hiring_manager' => 'Nemůžete přiřadit sebe jako hiring manažera.',
+                'approver' => 'Nemůžete přiřadit sebe jako schvalovatele.',
+            ],
+            'approval_open' => [
+                'hiring_manager' => 'Pozici nelze otevřít, pokud má přiřazené hiring manažery.',
+                'approver' => 'Pozici nelze otevřít, pokud má přiřazené schvalovatele.',
+                'external_approver' => 'Pozici nelze otevřít, pokud má přiřazené externí schvalovatele.',
+            ],
+        ],
+    ],
 
 ];
