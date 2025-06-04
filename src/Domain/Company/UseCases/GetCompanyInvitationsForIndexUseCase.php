@@ -15,10 +15,8 @@ class GetCompanyInvitationsForIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {
-        $company = $user->loadMissing('company')->company;
-
         return Token::query()
-            ->whereCompany($company->id)
+            ->whereCompany($user->company_id)
             ->when($gridQuery->hasSearchQuery(), function (TokenBuilder $query) use ($gridQuery): void {
                 $query->where(function (TokenBuilder $query) use ($gridQuery): void {
                     $query
@@ -26,6 +24,7 @@ class GetCompanyInvitationsForIndexUseCase extends UseCase
                 });
             })
             ->when($gridQuery->hasSort(), function (TokenBuilder $query) use ($gridQuery): void {
+                // todo rewrite to common logic
                 foreach ($gridQuery->sort as $column => $order) {
                     if ($column === 'id') {
                         $query->orderBy('id', $order->value);

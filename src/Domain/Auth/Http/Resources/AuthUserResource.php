@@ -23,11 +23,12 @@ class AuthUserResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['company'], User::class);
+        $this->checkLoadedRelations('company');
 
         return [
             'id' => $this->resource->id,
             'companyRole' => $this->resource->company_role->value,
+            'companyName' => $this->resource->company->name,
             'language' => $this->resource->language->value,
             'timezone' => $this->resource->timezone?->value,
             'firstname' => $this->resource->firstname,
@@ -37,21 +38,6 @@ class AuthUserResource extends JsonResource
             'postfix' => $this->resource->postfix,
             'phone' => $this->resource->phone,
             'email' => $this->resource->email,
-            'notifications' => [
-                'technical' => [
-                    'mail' => $this->resource->notification_technical_mail,
-                    'app' => $this->resource->notification_technical_app,
-                ],
-                'marketing' => [
-                    'mail' => $this->resource->notification_marketing_mail,
-                    'app' => $this->resource->notification_marketing_app,
-                ],
-                'application' => [
-                    'mail' => $this->resource->notification_application_mail,
-                    'app' => $this->resource->notification_application_app,
-                ],
-            ],
-            'companyName' => $this->resource->company->name,
         ];
     }
 }

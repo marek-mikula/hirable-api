@@ -17,8 +17,8 @@ class DeleteHangingFilesJob extends ScheduleJob
             ->select('files.*')
             ->leftJoin('model_has_files', 'model_has_files.file_id', '=', 'files.id')
             ->whereNull('model_has_files.id')
-            ->chunk(100, function (Collection $files) use ($fileRepository): void {
+            ->chunkById(100, function (Collection $files) use ($fileRepository): void {
                 $fileRepository->deleteMany($files->all());
-            });
+            }, 'files.id', 'id');
     }
 }

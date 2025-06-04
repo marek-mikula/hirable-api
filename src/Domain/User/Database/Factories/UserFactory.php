@@ -11,6 +11,7 @@ use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
+use Illuminate\Support\Str;
 
 /**
  * @extends BaseFactory<User>
@@ -23,63 +24,34 @@ class UserFactory extends Factory
     {
         $gender = fake()->randomElement(['male', 'female']);
 
+        $firstname = fake()->firstName($gender);
+        $lastname = fake()->lastName($gender);
+
+        $email = sprintf(
+            '%s.%s%d@%s',
+            Str::lower($firstname),
+            Str::lower($lastname),
+            fake()->unique()->numerify(),
+            fake()->safeEmailDomain,
+        );
+
         return [
             'company_id' => $this->isMaking ? null : Company::factory(),
             'company_role' => RoleEnum::ADMIN,
             'language' => LanguageEnum::EN,
             'timezone' => null,
-            'firstname' => fake()->firstName($gender),
-            'lastname' => fake()->lastName($gender),
+            'firstname' => $firstname,
+            'lastname' => $lastname,
             'prefix' => null,
             'postfix' => null,
             'phone' => null,
-            'email' => fake()->unique()->safeEmail(),
+            'email' => $email,
             'email_verified_at' => now(),
             'password' => 'Admin.123',
             'agreement_ip' => '127.0.0.1',
             'agreement_accepted_at' => now(),
             'remember_token' => null,
-            'notification_crucial_mail' => true,
-            'notification_crucial_app' => true,
-            'notification_technical_mail' => true,
-            'notification_technical_app' => true,
-            'notification_marketing_mail' => true,
-            'notification_marketing_app' => true,
-            'notification_application_mail' => true,
-            'notification_application_app' => true,
         ];
-    }
-
-    public function ofCrucialNotifications(bool $mail = true, bool $app = true): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'notification_crucial_mail' => $mail,
-            'notification_crucial_app' => $app,
-        ]);
-    }
-
-    public function ofTechnicalNotifications(bool $mail = true, bool $app = true): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'notification_technical_mail' => $mail,
-            'notification_technical_app' => $app,
-        ]);
-    }
-
-    public function ofMarketingNotifications(bool $mail = true, bool $app = true): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'notification_marketing_mail' => $mail,
-            'notification_marketing_app' => $app,
-        ]);
-    }
-
-    public function ofApplicationNotifications(bool $mail = true, bool $app = true): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'notification_application_mail' => $mail,
-            'notification_application_app' => $app,
-        ]);
     }
 
     public function emailNotVerified(): static

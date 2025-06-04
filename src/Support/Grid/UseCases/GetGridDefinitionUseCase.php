@@ -7,12 +7,12 @@ namespace Support\Grid\UseCases;
 use App\UseCases\UseCase;
 use Domain\User\Models\User;
 use Illuminate\Support\Arr;
-use Support\Grid\Contracts\Grid;
 use Support\Grid\Data\Definition\GridColumnDefinition;
 use Support\Grid\Data\Definition\GridDefinition;
 use Support\Grid\Data\Settings\GridColumnSetting;
 use Support\Grid\Data\Settings\GridSetting;
 use Support\Grid\Enums\GridEnum;
+use Support\Grid\Grids\Grid;
 
 class GetGridDefinitionUseCase extends UseCase
 {

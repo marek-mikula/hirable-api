@@ -6,14 +6,15 @@ namespace Support\Classifier\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Support\Classifier\Data\ClassifierData;
 use Support\Classifier\Models\Classifier;
 
 /**
- * @property Classifier $resource
+ * @property Classifier|ClassifierData $resource
  */
 class ClassifierResource extends JsonResource
 {
-    public function __construct(Classifier $resource)
+    public function __construct(Classifier|ClassifierData $resource)
     {
         parent::__construct($resource);
     }

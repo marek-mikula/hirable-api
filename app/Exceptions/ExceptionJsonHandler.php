@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException as BaseHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -49,7 +50,7 @@ class ExceptionJsonHandler
             return $this->jsonResponse(code: ResponseCodeEnum::UNAUTHENTICATED);
         }
 
-        if ($e instanceof AuthorizationException) {
+        if ($e instanceof AuthorizationException || $e instanceof AccessDeniedHttpException) {
             return $this->jsonResponse(code: ResponseCodeEnum::UNAUTHORIZED);
         }
 

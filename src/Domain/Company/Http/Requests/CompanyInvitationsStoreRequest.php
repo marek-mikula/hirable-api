@@ -8,7 +8,7 @@ use App\Http\Requests\AuthRequest;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Http\Requests\Data\InvitationStoreData;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 
 class CompanyInvitationsStoreRequest extends AuthRequest
 {
@@ -23,7 +23,7 @@ class CompanyInvitationsStoreRequest extends AuthRequest
             'role' => [
                 'required',
                 'string',
-                new Enum(RoleEnum::class),
+                Rule::enum(RoleEnum::class),
             ],
             'email' => [
                 'required',

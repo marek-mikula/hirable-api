@@ -3,9 +3,11 @@
 declare(strict_types=1);
 
 use App\Enums\EnvEnum;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Str;
 use Support\Format\Services\Formatter;
 use Support\Notification\Enums\NotificationTypeEnum;
@@ -100,5 +102,21 @@ if (!function_exists('injectClosure')) {
     function injectClosure(callable $closure): callable
     {
         return fn () => app()->call($closure);
+    }
+}
+
+if (!function_exists('modelCollection')) {
+    /**
+     * @template T of Model
+     * @param class-string<T> $model
+     * @param T[] $models
+     * @return EloquentCollection<T>
+     */
+    function modelCollection(string $model, array $models = []): EloquentCollection
+    {
+        /** @var Model $model */
+        $model = new $model();
+
+        return $model->newCollection($models);
     }
 }

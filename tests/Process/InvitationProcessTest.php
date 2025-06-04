@@ -42,7 +42,7 @@ it('tests invitation process', function (): void {
 
     actingAs($companyUser, 'api');
 
-    $response = postJson(route('api.company.invitation.store'), [
+    $response = postJson(route('api.company.invitations.store'), [
         'role' => $role->value,
         'email' => $email,
     ]);

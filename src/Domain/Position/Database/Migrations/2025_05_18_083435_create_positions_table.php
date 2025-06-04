@@ -13,7 +13,9 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('company_id');
             $table->foreignId('user_id');
-            $table->string('state', 10);
+            $table->string('state', 20);
+            $table->unsignedTinyInteger('approval_round')->nullable();
+            $table->date('approve_until')->nullable();
             $table->string('name');
             $table->string('department')->nullable();
             $table->string('field')->nullable();
@@ -34,7 +36,7 @@ return new class () extends Migration {
             $table->string('min_education_level')->nullable();
             $table->string('seniority')->nullable();
             $table->unsignedTinyInteger('experience')->nullable();
-            $table->string('driving_licence')->nullable();
+            $table->json('driving_licences');
             $table->unsignedTinyInteger('organisation_skills');
             $table->unsignedTinyInteger('team_skills');
             $table->unsignedTinyInteger('time_management');
@@ -44,17 +46,17 @@ return new class () extends Migration {
             $table->string('note', 2000)->nullable();
             $table->timestamps();
 
-            $table->foreign('company_id')
+            $table->foreign('company_id', 'position_company_foreign')
                 ->references('id')
                 ->on('companies')
-                ->cascadeOnDelete()
-                ->restrictOnUpdate();
+                ->restrictOnUpdate()
+                ->cascadeOnDelete();
 
-            $table->foreign('user_id')
+            $table->foreign('user_id', 'position_user_foreign')
                 ->references('id')
                 ->on('users')
-                ->restrictOnDelete()
-                ->restrictOnUpdate();
+                ->restrictOnUpdate()
+                ->restrictOnDelete();
         });
     }
 

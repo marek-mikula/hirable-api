@@ -5,10 +5,17 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
+use Carbon\Carbon;
+use Domain\Company\Models\CompanyContact;
+use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
-use Domain\Position\Http\Request\Data\PositionStoreData;
-use Illuminate\Validation\Rules\File;
-use Illuminate\Validation\Rules\In;
+use Domain\Position\Http\Request\Data\PositionData;
+use Domain\Position\Validation\ValidateApprovalDuplicates;
+use Domain\Position\Validation\ValidateApprovalRequiredFields;
+use Domain\Position\Validation\ValidateApprovalSelf;
+use Domain\Position\Validation\ValidateApprovalOpen;
+use Domain\User\Models\User;
+use Illuminate\Validation\Rule;
 
 class PositionStoreRequest extends AuthRequest
 {
@@ -19,11 +26,13 @@ class PositionStoreRequest extends AuthRequest
 
     public function rules(): array
     {
+        $user = $this->user();
+
         return [
             'operation' => [
                 'required',
                 'string',
-                new In(['create', 'open']),
+                Rule::enum(PositionOperationEnum::class),
             ],
             'name' => [
                 'required',
@@ -106,8 +115,11 @@ class PositionStoreRequest extends AuthRequest
                 'integer',
                 'min:0',
             ],
-            'drivingLicence' => [
-                'nullable',
+            'drivingLicences' => [
+                'array',
+            ],
+            'drivingLicences.*' => [
+                'required',
                 'string',
             ],
             'organisationSkills' => [
@@ -184,7 +196,7 @@ class PositionStoreRequest extends AuthRequest
             ],
             'files.*' => [
                 'required',
-                File::default()
+                Rule::file()
                     ->max('10MB')
                     ->extensions(['pdf', 'docx', 'xlsx'])
             ],
@@ -203,13 +215,52 @@ class PositionStoreRequest extends AuthRequest
                 'required',
                 'string',
             ],
+            'hiringManagers' => [
+                'array',
+            ],
+            'hiringManagers.*' => [
+                'required',
+                'integer',
+                Rule::exists(User::class, 'id')->where('company_id', $user->company_id),
+            ],
+            'approvers' => [
+                'array',
+            ],
+            'approvers.*' => [
+                'required',
+                'integer',
+                Rule::exists(User::class, 'id')->where('company_id', $user->company_id),
+            ],
+            'externalApprovers' => [
+                'array',
+            ],
+            'externalApprovers.*' => [
+                'required',
+                'integer',
+                Rule::exists(CompanyContact::class, 'id')->where('company_id', $user->company_id),
+            ],
+            'approveUntil' => [
+                'required_with:hiringManagers,approvers,externalApprovers',
+                'nullable',
+                Rule::date()->format('Y-m-d')->afterToday(),
+            ]
         ];
     }
 
-    public function toData(): PositionStoreData
+    public function after(): array
     {
-        return PositionStoreData::from([
-            'operation' => (string) $this->input('operation'),
+        return [
+            new ValidateApprovalRequiredFields(),
+            new ValidateApprovalDuplicates(),
+            new ValidateApprovalSelf($this->user()),
+            new ValidateApprovalOpen($this->route('position')),
+        ];
+    }
+
+    public function toData(): PositionData
+    {
+        return PositionData::from([
+            'operation' => PositionOperationEnum::from((string) $this->input('operation')),
             'name' => (string) $this->input('name'),
             'department' => $this->filled('department') ? (string) $this->input('department') : null,
             'field' => $this->filled('field') ? (string) $this->input('field') : null,
@@ -227,7 +278,7 @@ class PositionStoreRequest extends AuthRequest
             'minEducationLevel' => $this->filled('minEducationLevel') ? (string) $this->input('minEducationLevel') : null,
             'seniority' => $this->filled('seniority') ? (string) $this->input('seniority') : null,
             'experience' => $this->filled('experience') ? (int) $this->input('experience') : null,
-            'drivingLicence' => $this->filled('drivingLicence') ? (string) $this->input('drivingLicence') : null,
+            'drivingLicences' => $this->collect('drivingLicences')->map(fn (mixed $val) => (string) $val)->all(),
             'organisationSkills' => (int) $this->input('organisationSkills'),
             'teamSkills' => (int) $this->input('teamSkills'),
             'timeManagement' => (int) $this->input('timeManagement'),
@@ -245,6 +296,10 @@ class PositionStoreRequest extends AuthRequest
                     'level' => (string) $item['level'],
                 ]);
             }),
+            'hiringManagers' => $this->collect('hiringManagers')->map(fn (mixed $value) => (int) $value)->all(),
+            'approvers' => $this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all(),
+            'externalApprovers' => $this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all(),
+            'approveUntil' => $this->filled('approveUntil') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('approveUntil')) : null,
         ]);
     }
 }

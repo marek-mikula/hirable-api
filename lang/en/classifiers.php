@@ -79,7 +79,6 @@ return [
     ClassifierTypeEnum::EMPLOYMENT_FORM->value => [
         'on_site' => 'On-site',
         'remote' => 'Remote',
-        'hybrid' => 'Hybrid',
     ],
 
     ClassifierTypeEnum::SENIORITY->value => [
@@ -226,7 +225,7 @@ return [
         'failed_testing' => 'Failed testing',
         'cultural_mismatch' => 'Cultural mismatch',
         'candidate_declined' => 'Candidate declined the offer',
-        'position_cancelled' => 'Position cancelled',
+        'position_canceled' => 'Position canceled',
         'position_filled' => 'Position filled by another candidate',
         'overqualified' => 'Overqualified',
         'incomplete_application' => 'Incomplete application',

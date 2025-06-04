@@ -17,20 +17,7 @@ class SearchData extends Data
         return !empty($this->query);
     }
 
-    public function getFulltextQuery(): ?string
-    {
-        if (!$this->hasQuery()) {
-            return null;
-        }
-
-        return str((string) $this->query)
-            ->trim()
-            ->explode(' ')
-            ->map(static fn (string $word) => "*{$word}*")
-            ->join(',');
-    }
-
-    public function getNumericItems(): array
+    public function getQueryWords(): array
     {
         if (!$this->hasQuery()) {
             return [];
@@ -38,9 +25,9 @@ class SearchData extends Data
 
         return str((string) $this->query)
             ->trim()
-            ->explode(' ')
-            ->filter(static fn (string $word) => preg_match('/^[0-9]+$/', $word))
-            ->map(static fn (string $word) => intval($word))
+            ->explode(',')
+            ->filter()
+            ->map(fn (string $word) => trim($word))
             ->all();
     }
 }

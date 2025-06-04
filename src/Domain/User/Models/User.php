@@ -13,6 +13,7 @@ use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\User\Database\Factories\UserFactory;
 use Domain\User\Models\Builders\UserBuilder;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,14 +39,6 @@ use Support\Token\Models\Token;
  * @property string $email
  * @property string $password
  * @property string|null $remember_token
- * @property bool $notification_crucial_mail
- * @property bool $notification_crucial_app
- * @property bool $notification_technical_mail
- * @property bool $notification_technical_app
- * @property bool $notification_marketing_mail
- * @property bool $notification_marketing_app
- * @property bool $notification_application_mail
- * @property bool $notification_application_app
  * @property string $agreement_ip
  * @property Carbon $agreement_accepted_at
  * @property Carbon|null $email_verified_at
@@ -59,7 +52,7 @@ use Support\Token\Models\Token;
  * @method static UserFactory factory($count = null, $state = [])
  * @method static UserBuilder query()
  */
-class User extends Authenticatable
+class User extends Authenticatable implements HasLocalePreference
 {
     use CausesActivity;
     use HasFactory;
@@ -84,14 +77,6 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'remember_token',
-        'notification_crucial_mail',
-        'notification_crucial_app',
-        'notification_technical_mail',
-        'notification_technical_app',
-        'notification_marketing_mail',
-        'notification_marketing_app',
-        'notification_application_mail',
-        'notification_application_app',
         'agreement_ip',
         'agreement_accepted_at',
     ];
@@ -113,14 +98,6 @@ class User extends Authenticatable
         'lastname' => Capitalize::class,
         'email' => Lowercase::class,
         'password' => 'hashed',
-        'notification_crucial_mail' => 'boolean',
-        'notification_crucial_app' => 'boolean',
-        'notification_technical_mail' => 'boolean',
-        'notification_technical_app' => 'boolean',
-        'notification_marketing_mail' => 'boolean',
-        'notification_marketing_app' => 'boolean',
-        'notification_application_mail' => 'boolean',
-        'notification_application_app' => 'boolean',
         'email_verified_at' => 'datetime',
         'agreement_accepted_at' => 'datetime',
     ];
@@ -176,5 +153,10 @@ class User extends Authenticatable
     protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
+    }
+
+    public function preferredLocale(): string
+    {
+        return $this->language->value;
     }
 }

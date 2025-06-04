@@ -2,8 +2,83 @@
 
 declare(strict_types=1);
 
+use Support\Notification\Enums\NotificationTypeEnum;
+
 return [
 
-    // todo
+    'common' => [
+        'salutation' => 'Zdravíčko',
+        'regards' => 'S pozdravem',
+        'signature' => 'tým :application',
+        'link' => 'Pokud odkaz tlačítka nefunguje, použijte místo toho tento link: *:link*.',
+        'rights' => 'Všechna práva vyhrazena.',
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL->value => [
+        'mail' => [
+            'subject' => '👍 Pozice ke schválení - :position',
+            'body' => [
+                'line1_internal' => 'V aplikaci je nová pozice **:position** od uživatele :user, která potřebuje Váš souhlas. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line1_external' => 'Uživatel :user Váš přiřadil k pozici **:position** jako schvalovatele v aplikaci :application. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line2' => 'O schválení, prosím, rozhodněte do **:date**.'
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_REJECTED->value => [
+        'mail' => [
+            'subject' => '🔴 Pozice zamítnuta - :position',
+            'body' => [
+                'line1_internal' => 'Pozice **:position** byla zamítnuta uživatelem :user.',
+                'line1_external' => 'Pozice **:position** byla zamítnuta externím schvalovatelem :user.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_APPROVED->value => [
+        'mail' => [
+            'subject' => '🟢 Pozice schválena - :position',
+            'body' => [
+                'line1' => 'Vaše pozice **:position** byla úspěšně schválena všemi schvalovateli.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_CANCELED->value => [
+        'mail' => [
+            'subject' => '⚪ Schvalování zrušeno - :position',
+            'body' => [
+                'line1' => 'Schvalovací proces pozice **:position** by zrušen uživatelem :user.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_EXPIRED->value => [
+        'mail' => [
+            'subject' => '⏱️ Schvalování vypršelo - :position',
+            'body' => [
+                'line1' => 'Schvalovací proces pozice **:position** vypršel.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_REMINDER->value => [
+        'mail' => [
+            'subject' => '👍 Pozice čeká na schválení - :position',
+            'body' => [
+                'line1' => 'Pozice **:position** stále čeká na Vaše rozhodnotí. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line2' => 'O schválení, prosím, rozhodněte do **:date**.'
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_OPENED->value => [
+        'mail' => [
+            'subject' => '✅ Pozice otevřena pro nábor - :position',
+            'body' => [
+                'line1' => 'Pozice, kde jste přiřazen jako hiring manažer, **:position** byla otevřena pro nábor. Na pozici se můžete podívat <a href=":link">zde</a>',
+            ],
+        ],
+    ],
 
 ];

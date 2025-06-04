@@ -6,9 +6,7 @@ namespace Domain\Company\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Models\Company;
-use Illuminate\Validation\Rules\ExcludeIf;
-use Illuminate\Validation\Rules\In;
-use Illuminate\Validation\Rules\Unique;
+use Illuminate\Validation\Rule;
 
 class CompanyUpdateRequest extends AuthRequest
 {
@@ -34,56 +32,56 @@ class CompanyUpdateRequest extends AuthRequest
             'keys.*' => [
                 'required',
                 'string',
-                new In([
+                Rule::in([
                     'name',
                     'email',
                     'idNumber',
                     'website',
                     'environment',
                     'benefits',
-                ]),
+                ])
             ],
             'name' => [
-                new ExcludeIf(!in_array('name', $keys)),
+                Rule::excludeIf(!in_array('name', $keys)).
                 'required',
                 'string',
                 'max:255',
             ],
             'email' => [
-                new ExcludeIf(!in_array('email', $keys)),
+                Rule::excludeIf(!in_array('email', $keys)).
                 'required',
                 'string',
                 'max:255',
                 'email',
-                (new Unique(Company::class, 'email'))->ignore($user->company_id),
+                Rule::unique(Company::class, 'email')->ignore($user->company_id),
             ],
             'idNumber' => [
-                new ExcludeIf(!in_array('idNumber', $keys)),
+                Rule::excludeIf(!in_array('idNumber', $keys)),
                 'required',
                 'string',
                 'max:255',
-                (new Unique(Company::class, 'id_number'))->ignore($user->company_id),
+                Rule::unique(Company::class, 'id_number')->ignore($user->company_id),
             ],
             'website' => [
-                new ExcludeIf(!in_array('website', $keys)),
+                Rule::excludeIf(!in_array('website', $keys)),
                 'nullable',
                 'string',
                 'url',
                 'max:255',
             ],
             'environment' => [
-                new ExcludeIf(!in_array('environment', $keys)),
+                Rule::excludeIf(!in_array('environment', $keys)),
                 'nullable',
                 'string',
                 'max:1000',
             ],
             'benefits' => [
-                new ExcludeIf(!in_array('benefits', $keys)),
+                Rule::excludeIf(!in_array('benefits', $keys)),
                 'nullable',
                 'array',
             ],
             'benefits.*' => [
-                new ExcludeIf(!in_array('benefits', $keys)),
+                Rule::excludeIf(!in_array('benefits', $keys)),
                 'required',
                 'string',
             ],

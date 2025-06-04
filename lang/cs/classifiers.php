@@ -79,7 +79,6 @@ return [
     ClassifierTypeEnum::EMPLOYMENT_FORM->value => [
         'on_site' => 'On-site - Na místě',
         'remote' => 'Remote - Na dálku',
-        'hybrid' => 'Hybrid',
     ],
 
     ClassifierTypeEnum::SENIORITY->value => [
@@ -226,7 +225,7 @@ return [
         'failed_testing' => 'Neprošel testováním',
         'cultural_mismatch' => 'Nepodpora kultury firmy',
         'candidate_declined' => 'Kandidát odmítl nabídku',
-        'position_cancelled' => 'Role byla zrušena',
+        'position_canceled' => 'Role byla zrušena',
         'position_filled' => 'Role byla obsazena jiným kandidátem',
         'overqualified' => 'Příliš vysoká kvalifikace',
         'incomplete_application' => 'Neúplná žádost',

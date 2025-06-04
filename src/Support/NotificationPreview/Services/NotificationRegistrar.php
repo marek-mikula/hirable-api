@@ -4,10 +4,20 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Services;
 
+use Domain\Company\Models\CompanyContact;
 use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Notifications\InvitationSentNotification;
 use Domain\Password\Notifications\ChangedNotification;
 use Domain\Password\Notifications\ResetRequestNotification;
+use Domain\Position\Models\Position;
+use Domain\Position\Models\PositionApproval;
+use Domain\Position\Notifications\PositionApprovalCanceledNotification;
+use Domain\Position\Notifications\PositionApprovalExpiredNotification;
+use Domain\Position\Notifications\PositionApprovalNotification;
+use Domain\Position\Notifications\PositionApprovalApprovedNotification;
+use Domain\Position\Notifications\PositionApprovalRejectedNotification;
+use Domain\Position\Notifications\PositionApprovalReminderNotification;
+use Domain\Position\Notifications\PositionOpenedNotification;
 use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\Register\Notifications\RegisterRequestNotification;
 use Domain\User\Models\User;
@@ -117,6 +127,158 @@ class NotificationRegistrar
                             return new InvitationAcceptedNotification(user: $user);
                         },
                         notifiable: fn () => User::factory()->make(),
+                    ),
+                ]
+            ),
+            NotificationDomain::create(
+                key: 'position',
+                notifications: [
+                    NotificationData::create(
+                        label: 'Opened',
+                        description: 'Notification informs hiring managers on position that the position has been opened for hiring.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionOpenedNotification(position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                        key: 'external'
+                    )
+                ],
+            ),
+            NotificationDomain::create(
+                key: 'position-approval',
+                notifications: [
+                    NotificationData::create(
+                        label: 'To approve (internal user)',
+                        description: 'Notification sends user position to approve.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->ofApproveUntil(now()->subDays(3))->make();
+                            $user = User::factory()->make();
+
+                            return new PositionApprovalNotification(user: $user, position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                        key: 'internal'
+                    ),
+                    NotificationData::create(
+                        label: 'To approve (external approver)',
+                        description: 'Notification sends external user position to approve.',
+                        notification: function (CompanyContact $notifiable) {
+                            $position = Position::factory()->ofApproveUntil(now()->subDays(3))->make();
+                            $user = User::factory()->make();
+                            $token = Token::factory()->ofType(TokenTypeEnum::EXTERNAL_APPROVAL)->make();
+
+                            return new PositionApprovalNotification(user: $user, position: $position, token: $token);
+                        },
+                        notifiable: fn () => CompanyContact::factory()->make(),
+                        key: 'external',
+                    ),
+                    NotificationData::create(
+                        label: 'Rejected (internal user)',
+                        description: 'Notification sends info to internal user or external approver that position has been rejected by internal user.',
+                        notification: function (User $notifiable) {
+                            $rejectedBy = User::factory()->make();
+                            $position = Position::factory()->make();
+                            $approval = PositionApproval::factory()->rejected(fake()->text(maxNbChars: 500))->make();
+
+                            return new PositionApprovalRejectedNotification(
+                                rejectedBy: $rejectedBy,
+                                approval: $approval,
+                                position: $position
+                            );
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                        key: 'internal'
+                    ),
+                    NotificationData::create(
+                        label: 'Rejected (external approver)',
+                        description: 'Notification sends info to internal user or external approver that position has been rejected by external approver.',
+                        notification: function (User $notifiable) {
+                            $rejectedBy = CompanyContact::factory()->make();
+                            $position = Position::factory()->make();
+                            $approval = PositionApproval::factory()->rejected(fake()->text(maxNbChars: 500))->make();
+
+                            return new PositionApprovalRejectedNotification(
+                                rejectedBy: $rejectedBy,
+                                approval: $approval,
+                                position: $position
+                            );
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                        key: 'external'
+                    ),
+                    NotificationData::create(
+                        label: 'Approved',
+                        description: 'Notification informs the owner of the position that it was successfully approved.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionApprovalApprovedNotification(position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                    ),
+                    NotificationData::create(
+                        label: 'Canceled (internal user)',
+                        description: 'Notification informs internal user that the approval process of specific position has been canceled by the owner.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            $canceledBy = User::factory()->make();
+                            return new PositionApprovalCanceledNotification(position: $position, canceledBy: $canceledBy);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                        key: 'internal',
+                    ),
+                    NotificationData::create(
+                        label: 'Canceled (external approver)',
+                        description: 'Notification informs external approver that the approval process of specific position has been canceled by the owner.',
+                        notification: function (CompanyContact $notifiable) {
+                            $position = Position::factory()->make();
+                            $canceledBy = User::factory()->make();
+                            return new PositionApprovalCanceledNotification(position: $position, canceledBy: $canceledBy);
+                        },
+                        notifiable: fn () => CompanyContact::factory()->make(),
+                        key: 'external',
+                    ),
+                    NotificationData::create(
+                        label: 'Expired (internal user)',
+                        description: 'Notification informs internal user that the approval process of specific position has expired.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionApprovalExpiredNotification(position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                        key: 'internal'
+                    ),
+                    NotificationData::create(
+                        label: 'Expired (external approver)',
+                        description: 'Notification informs external approver that the approval process of specific position has expired.',
+                        notification: function (CompanyContact $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionApprovalExpiredNotification(position: $position);
+                        },
+                        notifiable: fn () => CompanyContact::factory()->make(),
+                        key: 'external'
+                    ),
+                    NotificationData::create(
+                        label: 'Reminder (internal user)',
+                        description: 'Notification informs internal user about the forgotten approval process.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->ofApproveUntil(now())->make();
+                            return new PositionApprovalReminderNotification(position: $position, token: null);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                        key: 'internal'
+                    ),
+                    NotificationData::create(
+                        label: 'Reminder (external approver)',
+                        description: 'Notification informs external approver about the forgotten approval process.',
+                        notification: function (CompanyContact $notifiable) {
+                            $position = Position::factory()->ofApproveUntil(now())->make();
+                            $token = Token::factory()->ofType(TokenTypeEnum::EXTERNAL_APPROVAL)->make();
+
+                            return new PositionApprovalReminderNotification(position: $position, token: $token);
+                        },
+                        notifiable: fn () => CompanyContact::factory()->make(),
+                        key: 'external'
                     ),
                 ]
             ),

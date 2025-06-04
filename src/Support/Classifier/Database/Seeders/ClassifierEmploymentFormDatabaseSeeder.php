@@ -13,7 +13,6 @@ class ClassifierEmploymentFormDatabaseSeeder extends AbstractClassifierDatabaseS
         return [
             'on_site',
             'remote',
-            'hybrid',
         ];
     }
 

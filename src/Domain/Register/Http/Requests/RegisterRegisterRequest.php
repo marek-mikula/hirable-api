@@ -7,8 +7,8 @@ namespace Domain\Register\Http\Requests;
 use Domain\Company\Models\Company;
 use Domain\Register\Http\Requests\Data\CompanyData;
 use Domain\Register\Http\Requests\Data\RegisterData;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Validation\Rules\Unique;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Http\Requests\TokenRequest;
 
@@ -61,13 +61,13 @@ class RegisterRegisterRequest extends TokenRequest
                 'string',
                 'email',
                 'max:255',
-                new Unique(Company::class, 'email'),
+                Rule::unique(Company::class, 'email'),
             ],
             'companyIdNumber' => [
                 'required',
                 'string',
                 'max:255',
-                new Unique(Company::class, 'id_number'),
+                Rule::unique(Company::class, 'id_number'),
             ],
             'companyWebsite' => [
                 'nullable',

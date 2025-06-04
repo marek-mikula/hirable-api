@@ -8,8 +8,6 @@ use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\Company\UseCases\UpdateCompanyUseCase;
 use Domain\User\Models\User;
-use Support\Classifier\Enums\ClassifierTypeEnum;
-use Support\Classifier\Models\Classifier;
 
 use function PHPUnit\Framework\assertSame;
 use function Tests\Common\Helpers\assertArraysAreSame;
@@ -23,12 +21,10 @@ it('tests update company use case - all attributes', function (): void {
         ->ofCompany($company, RoleEnum::ADMIN)
         ->create();
 
-    $benefits = Classifier::factory()
-        ->ofType(ClassifierTypeEnum::BENEFIT)
-        ->count(2)
-        ->create()
-        ->pluck('value')
-        ->all();
+    $benefits = [
+        str(fake()->word)->transliterate()->lower()->toString(),
+        str(fake()->word)->transliterate()->lower()->toString(),
+    ];
 
     $values = [
         'name' => fake()->company,
@@ -46,5 +42,5 @@ it('tests update company use case - all attributes', function (): void {
     assertSame($values['idNumber'], $company->id_number);
     assertSame($values['website'], $company->website);
     assertSame($values['environment'], $company->environment);
-    assertArraysAreSame($values['benefits'], $company->benefits->pluck('value')->all());
+    assertArraysAreSame($values['benefits'], $company->benefits);
 });

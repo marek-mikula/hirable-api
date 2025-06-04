@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Domain\Position\Repositories\Inputs;
 
+use Carbon\Carbon;
 use Domain\Company\Models\Company;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\User\Models\User;
 
-class PositionStoreInput
+readonly class PositionStoreInput
 {
     /**
+     * @param string[] $drivingLicences
      * @param string[] $workloads
      * @param string[] $employmentRelationships
      * @param string[] $employmentForms
@@ -21,6 +23,8 @@ class PositionStoreInput
         public Company $company,
         public User $user,
         public PositionStateEnum $state,
+        public ?Carbon $approveUntil,
+        public ?int $approvalRound,
         public string $name,
         public ?string $department,
         public ?string $field,
@@ -38,7 +42,7 @@ class PositionStoreInput
         public ?string $minEducationLevel,
         public ?string $seniority,
         public ?int $experience,
-        public ?string $drivingLicence,
+        public array $drivingLicences,
         public int $organisationSkills,
         public int $teamSkills,
         public int $timeManagement,

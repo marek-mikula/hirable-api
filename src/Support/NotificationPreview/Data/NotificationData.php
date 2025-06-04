@@ -20,6 +20,8 @@ class NotificationData extends Data
 
     public \Closure $notifiable;
 
+    public ?string $key;
+
     public function getNotifiable(): Model|AnonymousNotifiable
     {
         return once(fn () => call_user_func($this->notifiable));
@@ -119,7 +121,7 @@ class NotificationData extends Data
 
     public function is(NotificationData $data): bool
     {
-        return $data->getType() === $this->getType();
+        return $data->getType() === $this->getType() && $data->key === $this->key;
     }
 
     public static function create(
@@ -127,12 +129,14 @@ class NotificationData extends Data
         string $description,
         \Closure $notification,
         \Closure $notifiable,
+        ?string $key = null,
     ): static {
         return static::from([
             'label' => $label,
             'description' => $description,
             'notification' => $notification,
             'notifiable' => $notifiable,
+            'key' => $key,
         ]);
     }
 }

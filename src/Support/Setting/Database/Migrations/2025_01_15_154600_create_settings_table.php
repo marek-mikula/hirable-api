@@ -24,8 +24,8 @@ return new class () extends Migration {
             $table->foreign('user_id', 'settings_user_foreign')
                 ->references('id')
                 ->on('users')
-                ->cascadeOnDelete()
-                ->restrictOnUpdate();
+                ->restrictOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

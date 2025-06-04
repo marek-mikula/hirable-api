@@ -6,7 +6,7 @@ namespace Domain\Register\Http\Requests;
 
 use App\Http\Requests\Request;
 use Domain\User\Models\User;
-use Illuminate\Validation\Rules\Unique;
+use Illuminate\Validation\Rule;
 
 class RegisterRequestRequest extends Request
 {
@@ -22,7 +22,7 @@ class RegisterRequestRequest extends Request
                 'required',
                 'string',
                 'email',
-                new Unique(User::class, 'email'),
+                Rule::unique(User::class, 'email'),
             ],
         ];
     }

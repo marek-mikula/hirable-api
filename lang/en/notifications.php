@@ -7,11 +7,10 @@ use Support\Notification\Enums\NotificationTypeEnum;
 return [
 
     'common' => [
-        'salutation' => 'Hello',
-        'dear' => 'Dear :name',
+        'salutation' => 'Greetings',
         'regards' => 'Best regards',
         'signature' => ':application Team',
-        'link' => 'If the button link does not work. Use this link instead: *:link*.',
+        'link' => 'If the button link does not work, use this link instead: *:link*.',
         'rights' => 'All rights reserved.',
     ],
 
@@ -92,9 +91,76 @@ return [
 
     NotificationTypeEnum::INVITATION_ACCEPTED->value => [
         'mail' => [
-            'subject' => 'Invitation accepted!',
+            'subject' => '✅ Invitation accepted',
             'body' => [
                 'line1' => 'User :name has accepted your invitation.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL->value => [
+        'mail' => [
+            'subject' => '👍 Position to approve - :position',
+            'body' => [
+                'line1_internal' => 'There is a new position **:position** in application from user :user that needs your approval. You can check the position <a href=":link">here</a>',
+                'line1_external' => 'User :user has assigned you to position **:position** as an approver in :application app. You can check the position <a href=":link">here</a>',
+                'line2' => 'Please decide on approval by: **:date**.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_REJECTED->value => [
+        'mail' => [
+            'subject' => '🔴 Position rejected - :position',
+            'body' => [
+                'line1_internal' => 'Position **:position** was rejected by user :user.',
+                'line1_external' => 'Position **:position** was rejected by external approver :user.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_APPROVED->value => [
+        'mail' => [
+            'subject' => '🟢 Position approved - :position',
+            'body' => [
+                'line1' => 'Your position **:position** was successfully approved by all approvers.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_CANCELED->value => [
+        'mail' => [
+            'subject' => '⚪ Approval Canceled - :position',
+            'body' => [
+                'line1' => 'The approval process for position **:position** has been canceled by user :user.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_EXPIRED->value => [
+        'mail' => [
+            'subject' => '⏱️ Approval expired - :position',
+            'body' => [
+                'line1' => 'The approval process for position **:position** has expired.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_APPROVAL_REMINDER->value => [
+        'mail' => [
+            'subject' => '👍 Position pending approval - :position',
+            'body' => [
+                'line1' => 'Position **:position** is still awaiting your approval. You can view the position <a href=":link">here</a>',
+                'line2' => 'Please decide on approval by: **:date**.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_OPENED->value => [
+        'mail' => [
+            'subject' => '✅ Position open for hiring - :position',
+            'body' => [
+                'line1' => 'The position, where you are assigned as hiring manager, **:position** has been opened for hiring. You can view the position <a href=":link">here</a>',
             ],
         ],
     ],

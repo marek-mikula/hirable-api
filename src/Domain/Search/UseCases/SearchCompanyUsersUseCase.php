@@ -18,24 +18,28 @@ class SearchCompanyUsersUseCase extends UseCase
      */
     public function handle(User $user, SearchData $data, bool $ignoreAuth): Collection
     {
-        $company = $user->loadMissing('company')->company;
-
         return User::query()
             ->select(['id', 'firstname', 'lastname'])
             ->when($data->hasQuery(), function (Builder $query) use ($data): void {
                 $query->where(function (Builder $query) use ($data): void {
-                    if (!empty($numericItems = $data->getNumericItems())) {
-                        $query->whereIn('id', $numericItems);
-                    }
+                    $words = $data->getQueryWords();
 
-                    $query
-                        ->orWhereFullText(['firstname', 'lastname', 'email'], $data->getFulltextQuery(), ['mode' => 'boolean']);
+                    foreach ($words as $word) {
+                        if (is_numeric($word)) {
+                            $query->orWhere('id', $word);
+                        }
+
+                        $query
+                            ->orWhere('firstname', 'like', "%{$word}%")
+                            ->orWhere('lastname', 'like', "%{$word}%")
+                            ->orWhere('email', 'like', "%{$word}%");
+                    }
                 });
             })
             ->when($ignoreAuth, function (Builder $query) use ($user): void {
                 $query->where('id', '<>', $user->id);
             })
-            ->where('company_id', '=', $company->id)
+            ->where('company_id', $user->company_id)
             ->limit($data->limit)
             ->get()
             ->map(static fn (User $item) => ResultData::from([

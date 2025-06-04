@@ -68,9 +68,6 @@ it('tests update method', function (): void {
     $repository = app(UserRepositoryInterface::class);
 
     $user = User::factory()
-        ->ofTechnicalNotifications(mail: fake()->boolean, app: fake()->boolean)
-        ->ofMarketingNotifications(mail: fake()->boolean, app: fake()->boolean)
-        ->ofApplicationNotifications(mail: fake()->boolean, app: fake()->boolean)
         ->ofLanguage(LanguageEnum::EN)
         ->ofTimezone(TimezoneEnum::AFRICA_ABIDJAN)
         ->create();
@@ -80,12 +77,6 @@ it('tests update method', function (): void {
         lastname: fake()->lastName,
         email: fake()->email,
         timezone: TimezoneEnum::EUROPE_PRAGUE,
-        notificationTechnicalMail: fake()->boolean,
-        notificationTechnicalApp: fake()->boolean,
-        notificationMarketingMail: fake()->boolean,
-        notificationMarketingApp: fake()->boolean,
-        notificationApplicationMail: fake()->boolean,
-        notificationApplicationApp: fake()->boolean,
         language: LanguageEnum::CS,
         prefix: 'Mgr.',
         postfix: 'MBA',
@@ -102,12 +93,6 @@ it('tests update method', function (): void {
     assertSame($input->prefix, $user->prefix);
     assertSame($input->postfix, $user->postfix);
     assertSame($input->phone, $user->phone);
-    assertSame($input->notificationTechnicalMail, $user->notification_technical_mail);
-    assertSame($input->notificationTechnicalApp, $user->notification_technical_app);
-    assertSame($input->notificationMarketingMail, $user->notification_marketing_mail);
-    assertSame($input->notificationMarketingApp, $user->notification_marketing_app);
-    assertSame($input->notificationApplicationMail, $user->notification_application_mail);
-    assertSame($input->notificationApplicationApp, $user->notification_application_app);
 });
 
 /** @covers \Domain\User\Repositories\UserRepository::verifyEmail */

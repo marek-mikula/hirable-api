@@ -51,6 +51,11 @@ return [
             default: 14 * 24 * 60 // 14 days
         ),
 
+        TokenTypeEnum::EXTERNAL_APPROVAL->value => (int) env(
+            key: 'TOKEN_VALIDITY_EXTERNAL_APPROVAL',
+            default: 0 // approval process has custom validity time
+        ),
+
     ],
 
     /*

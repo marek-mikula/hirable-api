@@ -18,18 +18,11 @@ enum NotificationTypeEnum: string
     case INVITATION_SENT = 'invitation:sent';
     case INVITATION_ACCEPTED = 'invitation:accepted';
 
-    public function getCategory(): NotificationCategoryEnum
-    {
-        return match ($this) {
-            self::INVITATION_SENT,
-            self::REGISTER_REQUEST,
-            self::REGISTER_REGISTERED,
-            self::VERIFICATION_VERIFY_EMAIL,
-            self::VERIFICATION_EMAIL_VERIFIED,
-            self::PASSWORD_RESET_REQUEST,
-            self::PASSWORD_CHANGED => NotificationCategoryEnum::CRUCIAL,
-
-            self::INVITATION_ACCEPTED => NotificationCategoryEnum::APPLICATION,
-        };
-    }
+    case POSITION_OPENED = 'position:opened';
+    case POSITION_APPROVAL = 'position:approval';
+    case POSITION_APPROVAL_REJECTED = 'position:approval-rejected';
+    case POSITION_APPROVAL_APPROVED = 'position:approval-approved';
+    case POSITION_APPROVAL_EXPIRED = 'position:approval-expired';
+    case POSITION_APPROVAL_CANCELED = 'position:approval-canceled';
+    case POSITION_APPROVAL_REMINDER = 'position:approval-reminder';
 }

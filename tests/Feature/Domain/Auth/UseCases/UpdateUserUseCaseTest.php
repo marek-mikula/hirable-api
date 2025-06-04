@@ -21,9 +21,6 @@ it('tests update user use case - all attributes', function (): void {
     $user = User::factory()
         ->ofLanguage(LanguageEnum::EN)
         ->ofTimezone(TimezoneEnum::AFRICA_ABIDJAN)
-        ->ofApplicationNotifications(false, false)
-        ->ofTechnicalNotifications(false, false)
-        ->ofMarketingNotifications(false, false)
         ->create();
 
     $data = [
@@ -31,12 +28,6 @@ it('tests update user use case - all attributes', function (): void {
         'lastname' => 'Example',
         'email' => 'example@example.com',
         'timezone' => TimezoneEnum::EUROPE_PRAGUE,
-        'notificationTechnicalMail' => true,
-        'notificationTechnicalApp' => true,
-        'notificationMarketingMail' => true,
-        'notificationMarketingApp' => true,
-        'notificationApplicationMail' => true,
-        'notificationApplicationApp' => true,
         'language' => LanguageEnum::CS,
         'prefix' => 'Ing.',
         'postfix' => 'MBA',
@@ -52,12 +43,6 @@ it('tests update user use case - all attributes', function (): void {
     assertSame($data['phone'], $user->phone);
     assertSame($data['email'], $user->email);
     assertSame($data['timezone'], $user->timezone);
-    assertSame($data['notificationTechnicalMail'], $user->notification_technical_mail);
-    assertSame($data['notificationTechnicalApp'], $user->notification_technical_app);
-    assertSame($data['notificationMarketingMail'], $user->notification_marketing_mail);
-    assertSame($data['notificationMarketingApp'], $user->notification_marketing_app);
-    assertSame($data['notificationApplicationMail'], $user->notification_application_mail);
-    assertSame($data['notificationApplicationApp'], $user->notification_application_app);
     assertSame($data['language'], $user->language);
 });
 

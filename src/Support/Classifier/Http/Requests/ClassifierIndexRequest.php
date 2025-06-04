@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Support\Classifier\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
-use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
 class ClassifierIndexRequest extends AuthRequest
@@ -24,7 +24,7 @@ class ClassifierIndexRequest extends AuthRequest
             'types.*' => [
                 'required',
                 'string',
-                new Enum(ClassifierTypeEnum::class),
+                Rule::enum(ClassifierTypeEnum::class),
             ]
         ];
     }

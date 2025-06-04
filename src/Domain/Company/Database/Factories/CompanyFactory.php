@@ -23,6 +23,7 @@ class CompanyFactory extends Factory
             'id_number' => fake()->numerify('#########'),
             'website' => fake()->url,
             'environment' => null,
+            'benefits' => [],
         ];
     }
 

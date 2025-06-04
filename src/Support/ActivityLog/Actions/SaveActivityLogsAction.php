@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\ActivityLog\Actions;
 
-use Lorisleiva\Actions\Action;
+use App\Actions\Action;
 use Support\ActivityLog\Services\ActivityLogManager;
 use Support\ActivityLog\Services\ActivityLogSaver;
 

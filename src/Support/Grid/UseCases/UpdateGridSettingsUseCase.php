@@ -6,9 +6,9 @@ namespace Support\Grid\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\User\Models\User;
-use Support\Grid\Contracts\Grid;
 use Support\Grid\Data\Settings\GridSetting;
 use Support\Grid\Enums\GridEnum;
+use Support\Grid\Grids\Grid;
 use Support\Grid\Http\Requests\Data\GridSettingData;
 use Support\Setting\Mappers\GridSettingMapper;
 use Support\Setting\Repositories\SettingRepositoryInterface;

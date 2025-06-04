@@ -13,6 +13,5 @@ enum QueueEnum: string
     case NOTIFICATIONS = 'notifications';
 
     // common jobs
-    // - activity logs
     case COMMON = 'common';
 }

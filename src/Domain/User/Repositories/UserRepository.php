@@ -7,9 +7,11 @@ namespace Domain\User\Repositories;
 use App\Enums\LanguageEnum;
 use App\Exceptions\RepositoryException;
 use Carbon\Carbon;
+use Domain\Company\Models\Company;
 use Domain\User\Models\User;
 use Domain\User\Repositories\Input\UserStoreInput;
 use Domain\User\Repositories\Input\UserUpdateInput;
+use Illuminate\Database\Eloquent\Collection;
 
 final class UserRepository implements UserRepositoryInterface
 {
@@ -44,12 +46,6 @@ final class UserRepository implements UserRepositoryInterface
         $user->lastname = $input->lastname;
         $user->email = $input->email;
         $user->timezone = $input->timezone;
-        $user->notification_technical_mail = $input->notificationTechnicalMail;
-        $user->notification_technical_app = $input->notificationTechnicalApp;
-        $user->notification_marketing_mail = $input->notificationMarketingMail;
-        $user->notification_marketing_app = $input->notificationMarketingApp;
-        $user->notification_application_mail = $input->notificationApplicationMail;
-        $user->notification_application_app = $input->notificationApplicationApp;
         $user->language = $input->language;
         $user->prefix = $input->prefix;
         $user->postfix = $input->postfix;
@@ -86,5 +82,13 @@ final class UserRepository implements UserRepositoryInterface
             ->first();
 
         return $user;
+    }
+
+    public function getByIdsAndCompany(Company $company, array $ids): Collection
+    {
+        return User::query()
+            ->whereCompany($company->id)
+            ->whereIn('id', $ids)
+            ->get();
     }
 }

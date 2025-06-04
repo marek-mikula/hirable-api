@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Support\File\Actions;
 
+use App\Actions\Action;
 use Illuminate\Database\Eloquent\Model;
-use Lorisleiva\Actions\Action;
 
 class GetModelSubFoldersAction extends Action
 {

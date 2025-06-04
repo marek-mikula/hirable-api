@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Database\Factories;
 
+use Carbon\Carbon;
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
 use Domain\Position\Enums\PositionStateEnum;
@@ -42,18 +43,20 @@ class PositionFactory extends Factory
         return [
             'company_id' => $this->isMaking ? null : Company::factory(),
             'user_id' => $this->isMaking ? null : User::factory(),
-            'state' => PositionStateEnum::ACTIVE,
+            'state' => PositionStateEnum::OPENED,
+            'approval_round' => null,
+            'approve_until' => null,
             'name' => fake()->jobTitle,
-            'department' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
-            'field' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
+            'department' => str(fake()->word)->transliterate()->lower()->toString(),
+            'field' => str(fake()->word)->transliterate()->lower()->toString(),
             'workloads' => [
-                str(fake()->word)->transliterate()->lower()->snake()->toString()
+                str(fake()->word)->transliterate()->lower()->toString()
             ],
             'employment_relationships' => [
-                str(fake()->word)->transliterate()->lower()->snake()->toString()
+                str(fake()->word)->transliterate()->lower()->toString()
             ],
             'employment_forms' => [
-                str(fake()->word)->transliterate()->lower()->snake()->toString()
+                str(fake()->word)->transliterate()->lower()->toString()
             ],
             'job_seats_num' => fake()->numberBetween(1, 100),
             'description' => fake()->text(2000),
@@ -65,10 +68,10 @@ class PositionFactory extends Factory
             'salary_currency' => fake()->randomElement($currencies),
             'salary_var' => fake()->words(asText: true),
             'benefits' => [],
-            'min_education_level' => str(fake()->word)->transliterate()->lower()->snake()->toString(),
-            'seniority' => $isTechnical ? str(fake()->word)->transliterate()->lower()->snake()->toString() : null,
+            'min_education_level' => str(fake()->word)->transliterate()->lower()->toString(),
+            'seniority' => $isTechnical ? str(fake()->word)->transliterate()->lower()->toString() : null,
             'experience' => fake()->numberBetween(0, 10),
-            'driving_licence' => null,
+            'driving_licences' => [],
             'organisation_skills' => fake()->numberBetween(0, 10),
             'team_skills' => fake()->numberBetween(0, 10),
             'time_management' => fake()->numberBetween(0, 10),
@@ -77,5 +80,12 @@ class PositionFactory extends Factory
             'language_requirements' => [],
             'note' => fake()->boolean ? fake()->text(2000) : null,
         ];
+    }
+
+    public function ofApproveUntil(?Carbon $timestamp): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'approve_until' => $timestamp,
+        ]);
     }
 }

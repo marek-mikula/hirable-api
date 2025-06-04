@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Support\Grid\Actions;
 
+use App\Actions\Action;
 use App\Http\Requests\Request;
-use Lorisleiva\Actions\Action;
 use Support\Grid\Data\Query\GridRequestQuery;
 use Support\Grid\Enums\OrderEnum;
 use Support\Grid\Enums\PerPageEnum;

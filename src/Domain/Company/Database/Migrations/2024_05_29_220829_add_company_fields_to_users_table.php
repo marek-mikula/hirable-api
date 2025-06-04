@@ -16,13 +16,16 @@ return new class () extends Migration {
             $table->foreign('company_id', 'users_company_foreign')
                 ->references('id')
                 ->on('companies')
-                ->cascadeOnDelete()
-                ->restrictOnUpdate();
+                ->restrictOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 
     public function down(): void
     {
-        Schema::dropColumns('users', ['company_id', 'company_role']);
+        Schema::table('users', static function (Blueprint $table): void {
+            $table->dropForeign('users_company_foreign');
+            $table->dropColumn(['company_id', 'company_role']);
+        });
     }
 };

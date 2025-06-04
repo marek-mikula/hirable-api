@@ -6,6 +6,7 @@ namespace App\Http\Resources\Traits;
 
 use App\Exceptions\NeedsRelationshipException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 /**
  * @property Model $resource
@@ -13,13 +14,14 @@ use Illuminate\Database\Eloquent\Model;
 trait ChecksRelations
 {
     /**
-     * @param  string[]  $relations
-     * @param  class-string<Model>  $model
+     * @param  string[]|string  $relations
      */
-    protected function checkLoadedRelations(array $relations, string $model): void
+    protected function checkLoadedRelations(array|string $relations, ?Model $resource = null): void
     {
-        foreach ($relations as $relation) {
-            throw_unless($this->resource->relationLoaded($relation), new NeedsRelationshipException(static::class, $model, $relation));
+        $resource = $resource ?? $this->resource;
+
+        foreach (Arr::wrap($relations) as $relation) {
+            throw_unless($resource->relationLoaded($relation), new NeedsRelationshipException(static::class, $resource::class, $relation));
         }
     }
 }
