@@ -12,11 +12,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
+use Support\Token\Models\Token;
 
 /**
  * @property-read int $id
  * @property int|null $model_has_position_id
  * @property int $position_id
+ * @property int|null $token_id
  * @property PositionApprovalStateEnum $state
  * @property string|null $note
  * @property Carbon|null $decided_at
@@ -25,6 +27,7 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon $updated_at
  * @property-read ModelHasPosition|null $modelHasPosition
  * @property-read Position $position
+ * @property-read Token|null $token
  *
  * @method static PositionApprovalFactory factory($count = null, $state = [])
  * @method static PositionApprovalBuilder query()
@@ -42,6 +45,7 @@ class PositionApproval extends Model
     protected $fillable = [
         'model_has_position_id',
         'position_id',
+        'token_id',
         'state',
         'note',
         'decided_at',
@@ -68,6 +72,15 @@ class PositionApproval extends Model
         return $this->belongsTo(
             related: Position::class,
             foreignKey: 'position_id',
+            ownerKey: 'id',
+        );
+    }
+
+    public function token(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: Token::class,
+            foreignKey: 'token_id',
             ownerKey: 'id',
         );
     }

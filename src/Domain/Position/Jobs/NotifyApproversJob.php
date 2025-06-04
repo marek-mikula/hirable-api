@@ -15,7 +15,12 @@ class NotifyApproversJob extends ScheduleJob
     {
         PositionApproval::query()
             ->needsNotification()
-            ->with(['position', 'modelHasPosition', 'modelHasPosition.model'])
+            ->with([
+                'position',
+                'modelHasPosition',
+                'modelHasPosition.model',
+                'token',
+            ])
             ->chunkById(100, function (Collection $approvals): void {
                 PositionApprovalNotifyUseCase::make()->handle($approvals);
             }, 'position_approvals.id', 'id');

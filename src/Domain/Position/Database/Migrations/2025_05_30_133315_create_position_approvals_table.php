@@ -13,6 +13,7 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('model_has_position_id')->nullable();
             $table->foreignId('position_id');
+            $table->foreignId('token_id');
             $table->string('state', 20);
             $table->string('note', 500)->nullable();
             $table->timestamp('decided_at')->nullable();
@@ -28,6 +29,12 @@ return new class () extends Migration {
             $table->foreign('position_id', 'position_approvals_position_foreign')
                 ->references('id')
                 ->on('positions')
+                ->restrictOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreign('token_id', 'position_approvals_token_foreign')
+                ->references('id')
+                ->on('tokens')
                 ->restrictOnUpdate()
                 ->cascadeOnDelete();
         });

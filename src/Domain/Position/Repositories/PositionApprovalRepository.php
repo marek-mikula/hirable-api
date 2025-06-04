@@ -14,21 +14,28 @@ use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Support\Token\Models\Token;
 
 class PositionApprovalRepository implements PositionApprovalRepositoryInterface
 {
-    public function store(Position $position, ModelHasPosition $modelHasPosition): PositionApproval
+    public function store(Position $position, ModelHasPosition $modelHasPosition, ?Token $token): PositionApproval
     {
         $approval = new PositionApproval();
 
         $approval->model_has_position_id = $modelHasPosition->id;
         $approval->position_id = $position->id;
+        $approval->token_id = $token?->id;
+
         $approval->state = PositionApprovalStateEnum::PENDING;
 
         throw_if(!$approval->save(), RepositoryException::stored(PositionApproval::class));
 
         $approval->setRelation('modelHasPosition', $modelHasPosition);
         $approval->setRelation('position', $position);
+
+        if ($token) {
+            $approval->setRelation('token', $token);
+        }
 
         return $approval;
     }

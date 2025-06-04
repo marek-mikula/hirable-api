@@ -64,20 +64,19 @@ class PositionApprovalService
 
     private function sendApproval(User $user, Position $position, ModelHasPosition $model): PositionApproval
     {
-        // create approval item
-        $approval = $this->positionApprovalRepository->store($position, $model);
-
         $token = null;
 
         // external approver needs a custom token
         // for approval process
-        if ($model->role === PositionRoleEnum::EXTERNAL_APPROVER) {
+        if ($model->is_external) {
             $token = $this->tokenRepository->store(new TokenStoreInput(
                 type: TokenTypeEnum::EXTERNAL_APPROVAL,
-                data: ['approvalId' => $approval->id],
                 validUntil: $position->approve_until,
             ));
         }
+
+        // create approval item
+        $approval = $this->positionApprovalRepository->store($position, $model, $token);
 
         $model->model->notify(new PositionApprovalNotification(
             user: $user,

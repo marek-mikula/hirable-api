@@ -10,6 +10,7 @@ use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
+use Support\Token\Models\Token;
 
 /**
  * @extends BaseFactory<PositionApproval>
@@ -23,11 +24,19 @@ class PositionApprovalFactory extends Factory
         return [
             'model_has_position_id' => $this->isMaking ? null : ModelHasPosition::factory(),
             'position_id' => $this->isMaking ? null : Position::factory(),
+            'token_id' => null,
             'state' => PositionApprovalStateEnum::PENDING,
             'node' => null,
             'decided_at' => null,
             'notified_at' => null,
         ];
+    }
+
+    public function ofToken(Token $token): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'token_id' => $token->id,
+        ]);
     }
 
     public function ofModelHasPosition(ModelHasPosition $modelHasPosition): static
