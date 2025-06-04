@@ -17,7 +17,7 @@ final class TokenRepository implements TokenRepositoryInterface
     {
         $token = new Token();
 
-        $validUntil = $input->validUntil; // todo make test for this
+        $validUntil = $input->validUntil;
 
         if (!$validUntil) {
             // use either explicitly set valid minutes

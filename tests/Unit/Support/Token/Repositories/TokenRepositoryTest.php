@@ -53,7 +53,7 @@ it('tests store method - valid minutes from config', function (): void {
 
     $type = TokenTypeEnum::REGISTRATION;
 
-    $validMinutes = random_int(1, 160);
+    $validMinutes = fake()->numberBetween(1, 160);
 
     // set config value
     config()->set("token.validity.{$type->value}", $validMinutes);
@@ -64,6 +64,26 @@ it('tests store method - valid minutes from config', function (): void {
 
     assertModelExists($token);
     assertDatetime($token->valid_until, now()->addMinutes($validMinutes));
+});
+
+/** @covers \Support\Token\Repositories\TokenRepository::store */
+it('tests store method - valid minutes from carbon', function (): void {
+    /** @var TokenRepositoryInterface $repository */
+    $repository = app(TokenRepositoryInterface::class);
+
+    $type = TokenTypeEnum::REGISTRATION;
+
+    $validMinutes = fake()->numberBetween(1, 160);
+
+    $validUntil = now()->addMinutes($validMinutes);
+
+    $token = $repository->store(new TokenStoreInput(
+        type: $type,
+        validUntil: $validUntil,
+    ));
+
+    assertModelExists($token);
+    assertDatetime($token->valid_until, $validUntil);
 });
 
 /** @covers \Support\Token\Repositories\TokenRepository::findByTokenAndType */
