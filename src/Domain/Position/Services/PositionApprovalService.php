@@ -70,7 +70,7 @@ class PositionApprovalService
         if ($model->is_external) {
             $token = $this->tokenRepository->store(new TokenStoreInput(
                 type: TokenTypeEnum::EXTERNAL_APPROVAL,
-                validUntil: $position->approve_until,
+                validUntil: $position->approve_until->copy()->endOfDay(),
             ));
         }
 

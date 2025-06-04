@@ -9,11 +9,13 @@ use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Events\PositionApprovalExpiredEvent;
 use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 class ExpireApprovalProcessListener extends Listener
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,
+        private readonly TokenRepositoryInterface $tokenRepository,
     ) {
     }
 
@@ -21,7 +23,7 @@ class ExpireApprovalProcessListener extends Listener
     {
         $position = $event->position;
 
-        $pendingApprovals = $this->positionApprovalRepository->getApprovalsInstate($position, PositionApprovalStateEnum::PENDING);
+        $pendingApprovals = $this->positionApprovalRepository->getApprovalsInstate($position, PositionApprovalStateEnum::PENDING, ['token']);
 
         // expire all pending approvals
         foreach ($pendingApprovals as $approval) {
@@ -29,6 +31,11 @@ class ExpireApprovalProcessListener extends Listener
                 state: PositionApprovalStateEnum::EXPIRED,
                 note: null,
             ));
+
+            // remove token for external approvers
+            if ($approval->token) {
+                $this->tokenRepository->delete($approval->token);
+            }
         }
     }
 }

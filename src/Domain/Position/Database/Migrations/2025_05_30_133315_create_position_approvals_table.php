@@ -36,7 +36,7 @@ return new class () extends Migration {
                 ->references('id')
                 ->on('tokens')
                 ->restrictOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
         });
     }
 

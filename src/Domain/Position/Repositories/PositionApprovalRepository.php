@@ -51,10 +51,11 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
         return $approval;
     }
 
-    public function getApprovalsInstate(Position $position, PositionApprovalStateEnum $state): Collection
+    public function getApprovalsInstate(Position $position, PositionApprovalStateEnum $state, array $with = []): Collection
     {
         return $position
             ->approvals()
+            ->with($with)
             ->where('state', $state->value)
             ->get();
     }

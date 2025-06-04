@@ -21,9 +21,10 @@ interface PositionApprovalRepositoryInterface
     public function decide(PositionApproval $approval, PositionApprovalDecideInput $input): PositionApproval;
 
     /**
+     * @param string[] $with
      * @return Collection<PositionApproval>
      */
-    public function getApprovalsInstate(Position $position, PositionApprovalStateEnum $state): Collection;
+    public function getApprovalsInstate(Position $position, PositionApprovalStateEnum $state, array $with = []): Collection;
 
     public function hasApprovalsInState(Position $position, PositionApprovalStateEnum $state): bool;
 

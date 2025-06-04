@@ -9,11 +9,13 @@ use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Events\PositionApprovalCanceledEvent;
 use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
+use Support\Token\Repositories\TokenRepositoryInterface;
 
 class CancelApprovalProcessListener extends Listener
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,
+        private readonly TokenRepositoryInterface $tokenRepository,
     ) {
     }
 
@@ -21,7 +23,7 @@ class CancelApprovalProcessListener extends Listener
     {
         $position = $event->position;
 
-        $pendingApprovals = $this->positionApprovalRepository->getApprovalsInstate($position, PositionApprovalStateEnum::PENDING);
+        $pendingApprovals = $this->positionApprovalRepository->getApprovalsInstate($position, PositionApprovalStateEnum::PENDING, ['token']);
 
         // cancel all pending approvals
         foreach ($pendingApprovals as $approval) {
@@ -29,6 +31,11 @@ class CancelApprovalProcessListener extends Listener
                 state: PositionApprovalStateEnum::CANCELED,
                 note: null,
             ));
+
+            // remove token for external approvers
+            if ($approval->token) {
+                $this->tokenRepository->delete($approval->token);
+            }
         }
     }
 }
