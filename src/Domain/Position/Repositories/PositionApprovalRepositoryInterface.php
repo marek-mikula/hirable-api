@@ -33,4 +33,9 @@ interface PositionApprovalRepositoryInterface
      * @param Collection<PositionApproval> $approvals
      */
     public function setNotifiedAt(Collection $approvals, ?Carbon $timestamp = null): void;
+
+    /**
+     * @param string[] $with
+     */
+    public function findByToken(Token $token, array $with = []): ?PositionApproval;
 }

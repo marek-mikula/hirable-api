@@ -5,9 +5,12 @@ declare(strict_types=1);
 use Domain\Position\Http\Controllers\PositionApprovalDecideController;
 use Domain\Position\Http\Controllers\PositionApprovalCancelController;
 use Domain\Position\Http\Controllers\PositionController;
+use Domain\Position\Http\Controllers\PositionExternalApprovalController;
 use Domain\Position\Http\Controllers\PositionFileController;
 use Domain\Position\Http\Controllers\PositionSuggestController;
 use Illuminate\Support\Facades\Route;
+use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Http\Middleware\TokenMiddleware;
 
 Route::middleware('auth:sanctum')->group(static function (): void {
     Route::get('/', [PositionController::class, 'index'])->name('index');
@@ -31,3 +34,11 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         });
     });
 });
+
+Route::middleware(['guest:sanctum', TokenMiddleware::apply(TokenTypeEnum::EXTERNAL_APPROVAL)])
+    ->prefix('/external-approvals')
+    ->as('external_approval')
+    ->group(function (): void {
+        Route::get('/', [PositionExternalApprovalController::class, 'show'])->name('show');
+        Route::patch('/', [PositionExternalApprovalController::class, 'decide'])->name('decide');
+    });

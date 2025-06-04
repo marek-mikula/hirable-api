@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\Position\Services;
 
-use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;

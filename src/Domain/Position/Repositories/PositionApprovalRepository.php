@@ -90,4 +90,12 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
 
         throw_if($result !== $approvals->count(), RepositoryException::updated(PositionApproval::class));
     }
+
+    public function findByToken(Token $token, array $with = []): ?PositionApproval
+    {
+        return PositionApproval::query()
+            ->with($with)
+            ->where('token_id', $token->id)
+            ->first();
+    }
 }
