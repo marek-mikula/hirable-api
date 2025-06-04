@@ -18,6 +18,7 @@ enum NotificationTypeEnum: string
     case INVITATION_SENT = 'invitation:sent';
     case INVITATION_ACCEPTED = 'invitation:accepted';
 
+    case POSITION_OPENED = 'position:opened';
     case POSITION_APPROVAL = 'position:approval';
     case POSITION_APPROVAL_REJECTED = 'position:approval-rejected';
     case POSITION_APPROVAL_APPROVED = 'position:approval-approved';

@@ -22,9 +22,7 @@ class SendCanceledNotificationsListener extends QueuedListener
 
     public function handle(PositionApprovalCanceledEvent $event): void
     {
-        if ($event->position->approval_round === null) {
-            return;
-        }
+        throw_if($event->position->approval_round === null, new \Exception('Cannot send notifications when approval round is NULL.'));
 
         $roles = [];
 

@@ -17,6 +17,7 @@ use Domain\Position\Notifications\PositionApprovalNotification;
 use Domain\Position\Notifications\PositionApprovalApprovedNotification;
 use Domain\Position\Notifications\PositionApprovalRejectedNotification;
 use Domain\Position\Notifications\PositionApprovalReminderNotification;
+use Domain\Position\Notifications\PositionOpenedNotification;
 use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\Register\Notifications\RegisterRequestNotification;
 use Domain\User\Models\User;
@@ -128,6 +129,21 @@ class NotificationRegistrar
                         notifiable: fn () => User::factory()->make(),
                     ),
                 ]
+            ),
+            NotificationDomain::create(
+                key: 'position',
+                notifications: [
+                    NotificationData::create(
+                        label: 'Opened',
+                        description: 'Notification informs hiring managers on position that the position has been opened for hiring.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionOpenedNotification(position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                        key: 'external'
+                    )
+                ],
             ),
             NotificationDomain::create(
                 key: 'position-approval',
@@ -263,7 +279,7 @@ class NotificationRegistrar
                         },
                         notifiable: fn () => CompanyContact::factory()->make(),
                         key: 'external'
-                    )
+                    ),
                 ]
             ),
         ]));

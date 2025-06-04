@@ -22,9 +22,7 @@ class SendExpiredNotificationsListener extends QueuedListener
 
     public function handle(PositionApprovalExpiredEvent $event): void
     {
-        if ($event->position->approval_round === null) {
-            return;
-        }
+        throw_if($event->position->approval_round === null, new \Exception('Cannot send notifications when approval round is NULL.'));
 
         $roles = [];
 

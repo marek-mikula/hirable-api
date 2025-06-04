@@ -10,6 +10,7 @@ use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
+use Domain\Position\Events\PositionOpenedEvent;
 use Domain\Position\Http\Request\Data\PositionData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
@@ -19,6 +20,7 @@ use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\Position\Services\PositionApprovalService;
 use Domain\User\Models\User;
 use Domain\User\Repositories\UserRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Support\File\Actions\GetModelSubFoldersAction;
@@ -116,69 +118,95 @@ class PositionUpdateUseCase extends UseCase
         ): Position {
             $position = $this->positionRepository->update($position, $input);
 
-            $hmsSync = $this->modelHasPositionRepository->sync(
-                position: $position,
-                existingModels: $position->hiringManagers,
-                models: $hiringManagers,
-                role: PositionRoleEnum::HIRING_MANAGER
-            );
-
-            $position->setRelation('hiringManagers', $hiringManagers);
-
-            if ($hmsSync->deleted->isNotEmpty()) {
-                $position->setRelation('approvals', $position->approvals->filter(function (PositionApproval $approval) use ($hmsSync) {
-                    return !$hmsSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
-                }));
-            }
-
-            $approversSync = $this->modelHasPositionRepository->sync(
-                position: $position,
-                existingModels: $position->approvers,
-                models: $approvers,
-                role: PositionRoleEnum::APPROVER
-            );
-
-            $position->setRelation('approvers', $approvers);
-
-            if ($approversSync->deleted->isNotEmpty()) {
-                $position->setRelation('approvals', $position->approvals->filter(function (PositionApproval $approval) use ($approversSync) {
-                    return !$approversSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
-                }));
-            }
-
-            $externalApproversSync = $this->modelHasPositionRepository->sync(
-                position: $position,
-                existingModels: $position->externalApprovers,
-                models: $externalApprovers,
-                role: PositionRoleEnum::EXTERNAL_APPROVER
-            );
-
-            $position->setRelation('externalApprovers', $externalApprovers);
-
-            if ($externalApproversSync->deleted->isNotEmpty()) {
-                $position->setRelation('approvals', $position->approvals->filter(function (PositionApproval $approval) use ($externalApproversSync) {
-                    return !$externalApproversSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
-                }));
-            }
-
-            // save files if any
-            if ($data->hasFiles()) {
-                $files = $this->fileSaver->saveFiles(
-                    fileable: $position,
-                    type: FileTypeEnum::POSITION_FILE,
-                    files: $data->getFilesData(),
-                    folders: GetModelSubFoldersAction::make()->handle($position)
-                );
-
-                $position->setRelation('files', $position->files->push(...$files));
-            }
+            $this->processHiringManagers($position, $hiringManagers);
+            $this->processApproversManagers($position, $approvers);
+            $this->processExternalApproversManagers($position, $externalApprovers);
+            $this->processFiles($position, $data);
 
             if ($position->state === PositionStateEnum::APPROVAL_PENDING) {
                 $approvals = $this->positionApprovalService->sendForApproval($user, $position);
                 $position->setRelation('approvals', $position->approvals->push(...$approvals));
+            } elseif ($position->state === PositionStateEnum::OPENED) {
+                PositionOpenedEvent::dispatch($position);
             }
 
             return $position;
         }, attempts: 5);
+    }
+
+    private function processHiringManagers(Position $position, Collection $hiringManagers): void
+    {
+        $hmsSync = $this->modelHasPositionRepository->sync(
+            position: $position,
+            existingModels: $position->hiringManagers,
+            models: $hiringManagers,
+            role: PositionRoleEnum::HIRING_MANAGER
+        );
+
+        $position->setRelation('hiringManagers', $hiringManagers);
+
+        if ($hmsSync->deleted->isEmpty()) {
+            return;
+        }
+
+        $position->setRelation('approvals', $position->approvals->filter(function (PositionApproval $approval) use ($hmsSync) {
+            return !$hmsSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
+        }));
+    }
+
+    private function processApproversManagers(Position $position, Collection $approvers): void
+    {
+        $approversSync = $this->modelHasPositionRepository->sync(
+            position: $position,
+            existingModels: $position->approvers,
+            models: $approvers,
+            role: PositionRoleEnum::APPROVER
+        );
+
+        $position->setRelation('approvers', $approvers);
+
+        if ($approversSync->deleted->isEmpty()) {
+            return;
+        }
+
+        $position->setRelation('approvals', $position->approvals->filter(function (PositionApproval $approval) use ($approversSync) {
+            return !$approversSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
+        }));
+    }
+
+    private function processExternalApproversManagers(Position $position, Collection $externalApprovers): void
+    {
+        $externalApproversSync = $this->modelHasPositionRepository->sync(
+            position: $position,
+            existingModels: $position->externalApprovers,
+            models: $externalApprovers,
+            role: PositionRoleEnum::EXTERNAL_APPROVER
+        );
+
+        $position->setRelation('externalApprovers', $externalApprovers);
+
+        if ($externalApproversSync->deleted->isEmpty()) {
+            return;
+        }
+
+        $position->setRelation('approvals', $position->approvals->filter(function (PositionApproval $approval) use ($externalApproversSync) {
+            return !$externalApproversSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
+        }));
+    }
+
+    private function processFiles(Position $position, PositionData $data): void
+    {
+        if (!$data->hasFiles()) {
+            return;
+        }
+
+        $files = $this->fileSaver->saveFiles(
+            fileable: $position,
+            type: FileTypeEnum::POSITION_FILE,
+            files: $data->getFilesData(),
+            folders: GetModelSubFoldersAction::make()->handle($position)
+        );
+
+        $position->setRelation('files', $position->files->push(...$files));
     }
 }
