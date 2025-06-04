@@ -67,6 +67,7 @@ return [
             'subject' => '👍 Pozice čeká na schválení - :position',
             'body' => [
                 'line1' => 'Pozice **:position** stále čeká na Vaše rozhodnotí. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line2' => 'O schválení, prosím, rozhodněte do **:date**.'
             ],
         ],
     ],

@@ -246,7 +246,7 @@ class NotificationRegistrar
                         label: 'Reminder (internal user)',
                         description: 'Notification informs internal user about the forgotten approval process.',
                         notification: function (User $notifiable) {
-                            $position = Position::factory()->make();
+                            $position = Position::factory()->ofApproveUntil(now())->make();
                             return new PositionApprovalReminderNotification(position: $position, token: null);
                         },
                         notifiable: fn () => User::factory()->make(),
@@ -256,7 +256,7 @@ class NotificationRegistrar
                         label: 'Reminder (external approver)',
                         description: 'Notification informs external approver about the forgotten approval process.',
                         notification: function (CompanyContact $notifiable) {
-                            $position = Position::factory()->make();
+                            $position = Position::factory()->ofApproveUntil(now())->make();
                             $token = Token::factory()->ofType(TokenTypeEnum::EXTERNAL_APPROVAL)->make();
 
                             return new PositionApprovalReminderNotification(position: $position, token: $token);

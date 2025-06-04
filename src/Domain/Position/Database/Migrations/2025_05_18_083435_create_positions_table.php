@@ -14,7 +14,6 @@ return new class () extends Migration {
             $table->foreignId('company_id');
             $table->foreignId('user_id');
             $table->string('state', 20);
-            $table->string('approval_state', 20)->nullable();
             $table->unsignedTinyInteger('approval_round')->nullable();
             $table->date('approve_until')->nullable();
             $table->string('name');

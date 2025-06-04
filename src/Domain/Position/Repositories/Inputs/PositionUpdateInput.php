@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories\Inputs;
 
 use Carbon\Carbon;
-use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionStateEnum;
 
 readonly class PositionUpdateInput
@@ -20,7 +19,6 @@ readonly class PositionUpdateInput
      */
     public function __construct(
         public PositionStateEnum $state,
-        public ?PositionApprovalStateEnum $approvalState,
         public ?int $approvalRound,
         public ?Carbon $approveUntil,
         public string $name,

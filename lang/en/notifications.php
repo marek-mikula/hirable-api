@@ -151,6 +151,7 @@ return [
             'subject' => '👍 Position pending approval - :position',
             'body' => [
                 'line1' => 'Position **:position** is still awaiting your approval. You can view the position <a href=":link">here</a>',
+                'line2' => 'Please decide on approval by: **:date**.',
             ],
         ],
     ],

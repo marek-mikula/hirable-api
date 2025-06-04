@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
-use Domain\Position\Enums\PositionApprovalStateEnum;
+use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Events\PositionApprovalCanceledEvent;
 use Domain\Position\Models\Position;
 use Domain\Position\Repositories\PositionRepositoryInterface;
@@ -25,7 +25,7 @@ class PositionApprovalCancelUseCase extends UseCase
             $user,
             $position
         ): Position {
-            $position = $this->positionRepository->updateApproval($position, $position->approval_round, PositionApprovalStateEnum::CANCELED);
+            $position = $this->positionRepository->updateState($position, PositionStateEnum::APPROVAL_CANCELED);
 
             PositionApprovalCanceledEvent::dispatch($position, $user);
 

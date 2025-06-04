@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Position\Validation;
 
-use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionOperationEnum;
+use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Position;
 use Illuminate\Validation\Validator;
 
@@ -25,7 +25,7 @@ class ValidateApprovalOpen
             return;
         }
 
-        if ($this->position->approval_state === PositionApprovalStateEnum::APPROVED) {
+        if ($this->position->state === PositionStateEnum::APPROVAL_APPROVED) {
             return;
         }
 

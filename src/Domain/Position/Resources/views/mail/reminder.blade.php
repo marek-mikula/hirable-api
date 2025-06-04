@@ -15,6 +15,8 @@ $type = \Support\Notification\Enums\NotificationTypeEnum::POSITION_APPROVAL_REMI
 
 {!! __n($type, 'mail', 'body.line1', ['position' => $position->name, 'link' => $link]) !!}
 
+{!! __n($type, 'mail', 'body.line2', ['date' => formatter()->formatDate($position->approve_until)]) !!}
+
 {{ __('notifications.common.regards') }},
 <br>
 {{ __('notifications.common.signature', ['application' => (string) config('app.name')]) }}

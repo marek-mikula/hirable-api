@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Position\Services;
 
-use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionRoleEnum;
+use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
@@ -34,7 +34,7 @@ class PositionApprovalService
      */
     public function sendForApproval(User $user, Position $position, ?int $round = null): Collection
     {
-        if ($position->approval_state !== PositionApprovalStateEnum::PENDING) {
+        if ($position->state !== PositionStateEnum::APPROVAL_PENDING) {
             throw new \Exception('Cannot send position for approval in case it is not in state pending.');
         }
 
@@ -57,7 +57,7 @@ class PositionApprovalService
             return $this->sendForApproval($user, $position, $nextRound);
         }
 
-        $this->positionRepository->updateApproval($position, $nextRound, $position->approval_state);
+        $this->positionRepository->updateApprovalRound($position, $nextRound);
 
         return $models->map(fn (ModelHasPosition $model) => $this->sendApproval($user, $position, $model));
     }

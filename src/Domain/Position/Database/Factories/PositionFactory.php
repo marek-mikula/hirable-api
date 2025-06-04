@@ -44,7 +44,6 @@ class PositionFactory extends Factory
             'company_id' => $this->isMaking ? null : Company::factory(),
             'user_id' => $this->isMaking ? null : User::factory(),
             'state' => PositionStateEnum::OPENED,
-            'approval_state' => null,
             'approval_round' => null,
             'approve_until' => null,
             'name' => fake()->jobTitle,

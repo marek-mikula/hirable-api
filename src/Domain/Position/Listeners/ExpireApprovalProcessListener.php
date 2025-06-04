@@ -9,13 +9,11 @@ use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Events\PositionApprovalExpiredEvent;
 use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
-use Domain\Position\Repositories\PositionRepositoryInterface;
 
 class ExpireApprovalProcessListener extends Listener
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,
-        private readonly PositionRepositoryInterface $positionRepository,
     ) {
     }
 
@@ -32,10 +30,5 @@ class ExpireApprovalProcessListener extends Listener
                 note: null,
             ));
         }
-
-        // update position approval process state,
-        // do not update round, because we need it
-        // in another listener to send notifications
-        $this->positionRepository->updateApproval($position, round: $position->approval_round, state: PositionApprovalStateEnum::EXPIRED);
     }
 }

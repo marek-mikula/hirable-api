@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Database\Factories\PositionFactory;
-use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Builders\PositionBuilder;
@@ -27,7 +26,6 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $company_id
  * @property int $user_id
  * @property PositionStateEnum $state
- * @property PositionApprovalStateEnum|null $approval_state
  * @property int|null $approval_round
  * @property Carbon|null $approve_until
  * @property string $name
@@ -88,7 +86,6 @@ class Position extends Model
         'company_id',
         'user_id',
         'state',
-        'approval_state',
         'approval_round',
         'approve_until',
         'name',
@@ -132,7 +129,6 @@ class Position extends Model
 
     protected $casts = [
         'state' => PositionStateEnum::class,
-        'approval_state' => PositionApprovalStateEnum::class,
         'approve_until' => 'date',
         'workloads' => 'array',
         'employment_relationships' => 'array',

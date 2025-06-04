@@ -6,6 +6,7 @@ namespace Domain\Position\Listeners;
 
 use App\Listeners\Listener;
 use Domain\Position\Enums\PositionApprovalStateEnum;
+use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Events\PositionApprovalApprovedEvent;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
@@ -49,6 +50,6 @@ class ContinueApprovalProcessListener extends Listener
         }
 
         // update position approval process state and round
-        $this->positionRepository->updateApproval($event->position, round: null, state: PositionApprovalStateEnum::APPROVED);
+        $this->positionRepository->updateState($event->position, PositionStateEnum::APPROVAL_APPROVED);
     }
 }

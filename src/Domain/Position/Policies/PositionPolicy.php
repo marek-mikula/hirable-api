@@ -32,19 +32,19 @@ class PositionPolicy
             return true;
         }
 
-        /** @var PositionApprovalRepositoryInterface $positionApprovalRepository */
-        $positionApprovalRepository = app(PositionApprovalRepositoryInterface::class);
+        if ($position->state === PositionStateEnum::APPROVAL_PENDING) {
+            /** @var PositionApprovalRepositoryInterface $positionApprovalRepository */
+            $positionApprovalRepository = app(PositionApprovalRepositoryInterface::class);
 
-        return $positionApprovalRepository->hasModelAsApproverInState($position, $user, PositionApprovalStateEnum::PENDING);
+            return $positionApprovalRepository->hasModelAsApproverInState($position, $user, PositionApprovalStateEnum::PENDING);
+        }
+
+        return false;
     }
 
     public function update(User $user, Position $position): bool
     {
-        if ($position->approval_state === PositionApprovalStateEnum::PENDING) {
-            return false;
-        }
-
-        if ($position->state !== PositionStateEnum::DRAFT) {
+        if ($position->state === PositionStateEnum::APPROVAL_PENDING) {
             return false;
         }
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
-use Domain\Position\Enums\PositionApprovalStateEnum;
+use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Events\PositionApprovalExpiredEvent;
 use Domain\Position\Models\Position;
 use Domain\Position\Repositories\PositionRepositoryInterface;
@@ -23,7 +23,7 @@ class PositionApprovalExpireUseCase extends UseCase
         return DB::transaction(function () use (
             $position
         ): Position {
-            $position = $this->positionRepository->updateApproval($position, $position->approval_round, PositionApprovalStateEnum::EXPIRED);
+            $position = $this->positionRepository->updateState($position, PositionStateEnum::APPROVAL_EXPIRED);
 
             PositionApprovalExpiredEvent::dispatch($position);
 

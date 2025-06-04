@@ -6,7 +6,6 @@ namespace Domain\Position\Repositories\Inputs;
 
 use Carbon\Carbon;
 use Domain\Company\Models\Company;
-use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\User\Models\User;
 
@@ -24,7 +23,6 @@ readonly class PositionStoreInput
         public Company $company,
         public User $user,
         public PositionStateEnum $state,
-        public ?PositionApprovalStateEnum $approvalState,
         public ?Carbon $approveUntil,
         public ?int $approvalRound,
         public string $name,

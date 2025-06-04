@@ -7,8 +7,9 @@ namespace Domain\Position\UseCases;
 use App\UseCases\UseCase;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Repositories\CompanyContactRepositoryInterface;
-use Domain\Position\Enums\PositionApprovalStateEnum;
+use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
+use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Http\Request\Data\PositionData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
@@ -16,8 +17,6 @@ use Domain\Position\Repositories\Inputs\PositionUpdateInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\Position\Services\PositionApprovalService;
-use Domain\Position\Services\PositionDraftStateService;
-use Domain\Position\Services\PositionDraftValidationService;
 use Domain\User\Models\User;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -30,9 +29,7 @@ class PositionUpdateUseCase extends UseCase
 {
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
-        private readonly PositionDraftValidationService $positionDraftValidationService,
         private readonly CompanyContactRepositoryInterface $companyContactRepository,
-        private readonly PositionDraftStateService $positionDraftStateService,
         private readonly PositionApprovalService $positionApprovalService,
         private readonly PositionRepositoryInterface $positionRepository,
         private readonly UserRepositoryInterface $userRepository,
@@ -42,8 +39,6 @@ class PositionUpdateUseCase extends UseCase
 
     public function handle(User $user, Position $position, PositionData $data): Position
     {
-        $this->positionDraftValidationService->validate($position, $data);
-
         $company = $user->loadMissing('company')->company;
 
         $position->loadMissing([
@@ -57,8 +52,11 @@ class PositionUpdateUseCase extends UseCase
         ]);
 
         $input = new PositionUpdateInput(
-            state: $this->positionDraftStateService->getState($position, $data),
-            approvalState: $this->positionDraftStateService->getApprovalState($position, $data),
+            state: match ($data->operation) {
+                PositionOperationEnum::SEND_FOR_APPROVAL => PositionStateEnum::APPROVAL_PENDING,
+                PositionOperationEnum::OPEN => PositionStateEnum::OPENED,
+                PositionOperationEnum::SAVE => $data->hasAnyApprovers() ? $position->state : PositionStateEnum::DRAFT,
+            },
             approvalRound: null,
             approveUntil:  $data->approveUntil,
             name: $data->name,
@@ -175,7 +173,7 @@ class PositionUpdateUseCase extends UseCase
                 $position->setRelation('files', $position->files->push(...$files));
             }
 
-            if ($position->approval_state === PositionApprovalStateEnum::PENDING) {
+            if ($position->state === PositionStateEnum::APPROVAL_PENDING) {
                 $approvals = $this->positionApprovalService->sendForApproval($user, $position);
                 $position->setRelation('approvals', $position->approvals->push(...$approvals));
             }
