@@ -8,18 +8,19 @@ use App\UseCases\UseCase;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Position\Enums\PositionApprovalStateEnum;
-use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
-use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Http\Request\Data\PositionData;
 use Domain\Position\Models\Position;
+use Domain\Position\Models\PositionApproval;
 use Domain\Position\Repositories\Inputs\PositionUpdateInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\Position\Services\PositionApprovalService;
+use Domain\Position\Services\PositionDraftStateService;
 use Domain\Position\Services\PositionDraftValidationService;
 use Domain\User\Models\User;
 use Domain\User\Repositories\UserRepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Support\File\Actions\GetModelSubFoldersAction;
 use Support\File\Enums\FileTypeEnum;
@@ -31,6 +32,7 @@ class PositionUpdateUseCase extends UseCase
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
         private readonly PositionDraftValidationService $positionDraftValidationService,
         private readonly CompanyContactRepositoryInterface $companyContactRepository,
+        private readonly PositionDraftStateService $positionDraftStateService,
         private readonly PositionApprovalService $positionApprovalService,
         private readonly PositionRepositoryInterface $positionRepository,
         private readonly UserRepositoryInterface $userRepository,
@@ -40,27 +42,23 @@ class PositionUpdateUseCase extends UseCase
 
     public function handle(User $user, Position $position, PositionData $data): Position
     {
-        // todo fix approval process when you delete one approver
-
         $this->positionDraftValidationService->validate($position, $data);
 
         $company = $user->loadMissing('company')->company;
 
         $position->loadMissing([
-            'approvals',
             'files',
+            'approvals',
+            'approvals.modelHasPosition',
+            'approvals.modelHasPosition.model',
             'hiringManagers',
             'approvers',
             'externalApprovers',
         ]);
 
         $input = new PositionUpdateInput(
-            state: $data->operation === PositionOperationEnum::OPEN
-                ? PositionStateEnum::OPENED
-                : $position->state,
-            approvalState: $data->operation === PositionOperationEnum::SEND_FOR_APPROVAL
-                ? PositionApprovalStateEnum::PENDING
-                : $position->approval_state,
+            state: $this->positionDraftStateService->getState($position, $data),
+            approvalState: $this->positionDraftStateService->getApprovalState($position, $data),
             approvalRound: null,
             approveUntil:  $data->approveUntil,
             name: $data->name,
@@ -120,13 +118,50 @@ class PositionUpdateUseCase extends UseCase
         ): Position {
             $position = $this->positionRepository->update($position, $input);
 
-            $this->modelHasPositionRepository->sync($position, $position->hiringManagers, $hiringManagers, PositionRoleEnum::HIRING_MANAGER);
-            $this->modelHasPositionRepository->sync($position, $position->approvers, $approvers, PositionRoleEnum::APPROVER);
-            $this->modelHasPositionRepository->sync($position, $position->externalApprovers, $externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER);
+            $hmsSync = $this->modelHasPositionRepository->sync(
+                position: $position,
+                existingModels: $position->hiringManagers,
+                models: $hiringManagers,
+                role: PositionRoleEnum::HIRING_MANAGER
+            );
 
             $position->setRelation('hiringManagers', $hiringManagers);
+
+            if ($hmsSync->deleted->isNotEmpty()) {
+                $position->setRelation('approvals', $position->approvals->filter(function (PositionApproval $approval) use ($hmsSync) {
+                    return !$hmsSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
+                }));
+            }
+
+            $approversSync = $this->modelHasPositionRepository->sync(
+                position: $position,
+                existingModels: $position->approvers,
+                models: $approvers,
+                role: PositionRoleEnum::APPROVER
+            );
+
             $position->setRelation('approvers', $approvers);
+
+            if ($approversSync->deleted->isNotEmpty()) {
+                $position->setRelation('approvals', $position->approvals->filter(function (PositionApproval $approval) use ($approversSync) {
+                    return !$approversSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
+                }));
+            }
+
+            $externalApproversSync = $this->modelHasPositionRepository->sync(
+                position: $position,
+                existingModels: $position->externalApprovers,
+                models: $externalApprovers,
+                role: PositionRoleEnum::EXTERNAL_APPROVER
+            );
+
             $position->setRelation('externalApprovers', $externalApprovers);
+
+            if ($externalApproversSync->deleted->isNotEmpty()) {
+                $position->setRelation('approvals', $position->approvals->filter(function (PositionApproval $approval) use ($externalApproversSync) {
+                    return !$externalApproversSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
+                }));
+            }
 
             // save files if any
             if ($data->hasFiles()) {

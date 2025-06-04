@@ -83,7 +83,6 @@ class PositionResource extends JsonResource
             'languageRequirements' => array_map(function (array $requirement) use ($toClassifier): array {
                 $requirement['language'] = new ClassifierResource($toClassifier->handle($requirement['language'], ClassifierTypeEnum::LANGUAGE));
                 $requirement['level'] = new ClassifierResource($toClassifier->handle($requirement['level'], ClassifierTypeEnum::LANGUAGE_LEVEL));
-
                 return $requirement;
             }, $this->resource->language_requirements),
             'note' => $this->resource->note,

@@ -28,6 +28,7 @@ class AuthUserResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'companyRole' => $this->resource->company_role->value,
+            'companyName' => $this->resource->company->name,
             'language' => $this->resource->language->value,
             'timezone' => $this->resource->timezone?->value,
             'firstname' => $this->resource->firstname,
@@ -37,7 +38,6 @@ class AuthUserResource extends JsonResource
             'postfix' => $this->resource->postfix,
             'phone' => $this->resource->phone,
             'email' => $this->resource->email,
-            'companyName' => $this->resource->company->name,
         ];
     }
 }

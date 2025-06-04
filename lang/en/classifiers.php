@@ -79,7 +79,6 @@ return [
     ClassifierTypeEnum::EMPLOYMENT_FORM->value => [
         'on_site' => 'On-site',
         'remote' => 'Remote',
-        'hybrid' => 'Hybrid',
     ],
 
     ClassifierTypeEnum::SENIORITY->value => [

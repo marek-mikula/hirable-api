@@ -6,6 +6,7 @@ namespace Domain\Position\Policies;
 
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionRoleEnum;
+use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Position;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
@@ -35,5 +36,18 @@ class PositionPolicy
         $positionApprovalRepository = app(PositionApprovalRepositoryInterface::class);
 
         return $positionApprovalRepository->hasModelAsApproverInState($position, $user, PositionApprovalStateEnum::PENDING);
+    }
+
+    public function update(User $user, Position $position): bool
+    {
+        if ($position->approval_state === PositionApprovalStateEnum::PENDING) {
+            return false;
+        }
+
+        if ($position->state !== PositionStateEnum::DRAFT) {
+            return false;
+        }
+
+        return $user->id === $position->user_id;
     }
 }

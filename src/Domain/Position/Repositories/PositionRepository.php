@@ -64,6 +64,8 @@ class PositionRepository implements PositionRepositoryInterface
 
         throw_if(!$position->save(), RepositoryException::stored(Position::class));
 
+        $position->setRelation('user', $input->user);
+
         return $position;
     }
 
