@@ -23,7 +23,7 @@ class ClassifierRejectionTypeDatabaseSeeder extends AbstractClassifierDatabaseSe
             'failed_testing',
             'cultural_mismatch',
             'candidate_declined',
-            'position_cancelled',
+            'position_canceled',
             'position_filled',
             'overqualified',
             'incomplete_application',

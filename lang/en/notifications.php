@@ -130,7 +130,7 @@ return [
 
     NotificationTypeEnum::POSITION_APPROVAL_CANCELED->value => [
         'mail' => [
-            'subject' => '⚪ Approval Cancelled - :position',
+            'subject' => '⚪ Approval Canceled - :position',
             'body' => [
                 'line1' => 'The approval process for position **:position** has been canceled by user :user.',
             ],

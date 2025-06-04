@@ -26,19 +26,28 @@ class PositionApprovalResource extends JsonResource
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations('modelHasPosition');
-        $this->checkLoadedRelations('model', $this->resource->modelHasPosition);
+
+        if ($this->resource->modelHasPosition) {
+            $this->checkLoadedRelations('model', $this->resource->modelHasPosition);
+        }
+
+        if ($this->resource->modelHasPosition && $this->resource->modelHasPosition->is_external) {
+            $model = new CompanyContactResource($this->resource->modelHasPosition->model);
+        } elseif ($this->resource->modelHasPosition) {
+            $model = new UserResource($this->resource->modelHasPosition->model);
+        } else {
+            $model = null;
+        }
 
         return [
             'id' => $this->resource->id,
             'positionId' => $this->resource->position_id,
-            'role' => $this->resource->modelHasPosition->role->value,
+            'role' => $this->resource->modelHasPosition?->role->value,
             'state' => $this->resource->state->value,
             'note' => $this->resource->note,
             'decidedAt' => $this->resource->decided_at?->toIso8601String(),
             'notifiedAt' => $this->resource->notified_at?->toIso8601String(),
-            'model' => $this->resource->modelHasPosition->is_external
-                ? new CompanyContactResource($this->resource->modelHasPosition->model)
-                : new UserResource($this->resource->modelHasPosition->model),
+            'model' => $model,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];

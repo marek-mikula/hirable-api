@@ -15,7 +15,7 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @property-read int $id
- * @property int $model_has_position_id
+ * @property int|null $model_has_position_id
  * @property int $position_id
  * @property PositionApprovalStateEnum $state
  * @property string|null $note
@@ -23,7 +23,7 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon|null $notified_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property-read ModelHasPosition $modelHasPosition
+ * @property-read ModelHasPosition|null $modelHasPosition
  * @property-read Position $position
  *
  * @method static PositionApprovalFactory factory($count = null, $state = [])

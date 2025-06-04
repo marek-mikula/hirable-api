@@ -11,7 +11,7 @@ return new class () extends Migration {
     {
         Schema::create('position_approvals', static function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('model_has_position_id'); // todo make nullable
+            $table->foreignId('model_has_position_id')->nullable();
             $table->foreignId('position_id');
             $table->string('state', 20);
             $table->string('note', 500)->nullable();
@@ -23,7 +23,7 @@ return new class () extends Migration {
                 ->references('id')
                 ->on('model_has_positions')
                 ->restrictOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
 
             $table->foreign('position_id', 'position_approvals_position_foreign')
                 ->references('id')
