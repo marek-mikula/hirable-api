@@ -38,7 +38,7 @@ class CompanyInvitationStoreUseCase extends UseCase
         }
 
         $userAlreadyExists = User::query()
-            ->where('company_id', $user->company_id)
+            ->whereCompany($user->company_id)
             ->where('email', $data->email)
             ->exists();
 

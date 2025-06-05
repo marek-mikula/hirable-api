@@ -26,6 +26,7 @@ class CompanyContactResource extends JsonResource
             'firstname' => $this->resource->firstname,
             'lastname' => $this->resource->lastname,
             'fullName' => $this->resource->full_name,
+            'label' => $this->resource->label,
             'email' => $this->resource->email,
             'note' => $this->resource->note,
             'companyName' => $this->resource->company_name,

@@ -19,7 +19,7 @@ class PositionIndexUseCase extends UseCase
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {
         return Position::query()
-            ->where('company_id', $user->company_id)
+            ->whereCompany($user->company_id)
             ->where(function (PositionBuilder $query) use ($user) {
                 $query
                     // my own positions

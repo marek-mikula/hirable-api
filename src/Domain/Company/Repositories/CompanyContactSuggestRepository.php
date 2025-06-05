@@ -15,7 +15,7 @@ class CompanyContactSuggestRepository implements CompanyContactSuggestRepository
         return CompanyContact::query()
             ->select('company_name')
             ->whereNotNull('company_name')
-            ->where('company_id', $company->id)
+            ->whereCompany($company->id)
             ->when(!empty($value), function (CompanyContactBuilder $query) use ($value): void {
                 $query->where('company_name', 'like', "%{$value}%");
             })

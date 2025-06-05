@@ -22,6 +22,7 @@ use Support\Notification\Traits\Notifiable;
  * @property LanguageEnum $language
  * @property string $firstname
  * @property string $lastname
+ * @property-read string $label
  * @property-read string $full_name
  * @property string $email
  * @property string|null $note
@@ -57,6 +58,11 @@ class CompanyContact extends Model implements HasLocalePreference
     protected $casts = [
         'language' => LanguageEnum::class,
     ];
+
+    protected function label(): Attribute
+    {
+        return Attribute::get(fn (): string => $this->company_name ? sprintf('%s (%s)', $this->full_name, $this->company_name) : $this->full_name);
+    }
 
     protected function fullName(): Attribute
     {
