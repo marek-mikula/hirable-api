@@ -11,7 +11,7 @@ use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
-class PositionApprovalNotifyUseCase extends UseCase
+class PositionApprovalRemindUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository
@@ -34,7 +34,7 @@ class PositionApprovalNotifyUseCase extends UseCase
                 ));
             }
 
-            $this->positionApprovalRepository->setNotifiedAt($approvals);
+            $this->positionApprovalRepository->setRemindedAt($approvals);
         }, attempts: 5);
     }
 }

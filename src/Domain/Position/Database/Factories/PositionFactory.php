@@ -38,6 +38,11 @@ class PositionFactory extends Factory
             'yearly',
         ];
 
+        $salaryTypes = [
+            'gross',
+            'net',
+        ];
+
         $salary = fake()->numberBetween(5000, 150000);
 
         return [
@@ -64,6 +69,7 @@ class PositionFactory extends Factory
             'address' => fake()->address,
             'salary_from' => $salary,
             'salary_to' => $salarySpan ? ($salary + fake()->numberBetween(10000, 50000)) : null,
+            'salary_type' => fake()->randomElement($salaryTypes),
             'salary_frequency' => fake()->randomElement($salaryFrequencies),
             'salary_currency' => fake()->randomElement($currencies),
             'salary_var' => fake()->words(asText: true),
@@ -80,6 +86,13 @@ class PositionFactory extends Factory
             'language_requirements' => [],
             'note' => fake()->boolean ? fake()->text(2000) : null,
         ];
+    }
+
+    public function ofState(PositionStateEnum $state): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'state' => $state,
+        ]);
     }
 
     public function ofApproveUntil(?Carbon $timestamp): static

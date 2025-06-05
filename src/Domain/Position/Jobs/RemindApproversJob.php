@@ -6,15 +6,15 @@ namespace Domain\Position\Jobs;
 
 use App\Jobs\ScheduleJob;
 use Domain\Position\Models\PositionApproval;
-use Domain\Position\UseCases\PositionApprovalNotifyUseCase;
+use Domain\Position\UseCases\PositionApprovalRemindUseCase;
 use Illuminate\Database\Eloquent\Collection;
 
-class NotifyApproversJob extends ScheduleJob
+class RemindApproversJob extends ScheduleJob
 {
     public function handle(): void
     {
         PositionApproval::query()
-            ->needsNotification()
+            ->needsReminder()
             ->with([
                 'position',
                 'modelHasPosition',
@@ -22,7 +22,7 @@ class NotifyApproversJob extends ScheduleJob
                 'token',
             ])
             ->chunkById(100, function (Collection $approvals): void {
-                PositionApprovalNotifyUseCase::make()->handle($approvals);
+                PositionApprovalRemindUseCase::make()->handle($approvals);
             }, 'position_approvals.id', 'id');
     }
 }

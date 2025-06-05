@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Database\Factories\ModelHasPositionFactory;
-use Domain\Position\Database\Factories\PositionFactory;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Models\Builders\ModelHasPositionBuilder;
 use Domain\User\Models\User;
@@ -31,7 +30,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read User $user
  * @property-read User|CompanyContact $model
  *
- * @method static PositionFactory factory($count = null, $state = [])
+ * @method static ModelHasPositionFactory factory($count = null, $state = [])
  * @method static ModelHasPositionBuilder query()
  */
 class ModelHasPosition extends Model

@@ -22,7 +22,7 @@ use Support\Token\Models\Token;
  * @property PositionApprovalStateEnum $state
  * @property string|null $note
  * @property Carbon|null $decided_at
- * @property Carbon|null $notified_at
+ * @property Carbon|null $reminded_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read ModelHasPosition|null $modelHasPosition
@@ -49,13 +49,13 @@ class PositionApproval extends Model
         'state',
         'note',
         'decided_at',
-        'notified_at',
+        'reminded_at',
     ];
 
     protected $casts = [
         'state' => PositionApprovalStateEnum::class,
         'decided_at' => 'datetime',
-        'notified_at' => 'datetime',
+        'reminded_at' => 'datetime',
     ];
 
     public function modelHasPosition(): BelongsTo

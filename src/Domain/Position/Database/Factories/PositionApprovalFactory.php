@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Database\Factories;
 
+use Carbon\Carbon;
 use Database\Factories\Factory;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Models\ModelHasPosition;
@@ -26,10 +27,17 @@ class PositionApprovalFactory extends Factory
             'position_id' => $this->isMaking ? null : Position::factory(),
             'token_id' => null,
             'state' => PositionApprovalStateEnum::PENDING,
-            'node' => null,
+            'note' => null,
             'decided_at' => null,
-            'notified_at' => null,
+            'reminded_at' => null,
         ];
+    }
+
+    public function ofRemindedAt(?Carbon $timestamp): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'reminded_at' => $timestamp,
+        ]);
     }
 
     public function ofToken(Token $token): static
@@ -43,6 +51,7 @@ class PositionApprovalFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'model_has_position_id' => $modelHasPosition->id,
+            'position_id' => $modelHasPosition->position_id,
         ]);
     }
 

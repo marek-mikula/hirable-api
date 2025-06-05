@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Domain\Position\Schedules;
 
 use App\Schedule\Schedule;
-use Domain\Position\Jobs\NotifyApproversJob;
+use Domain\Position\Jobs\RemindApproversJob;
 use Domain\Position\Models\PositionApproval;
 
-class NotifyApproversSchedule extends Schedule
+class RemindApproversSchedule extends Schedule
 {
     public function __invoke(): void
     {
@@ -16,13 +16,13 @@ class NotifyApproversSchedule extends Schedule
             return;
         }
 
-        NotifyApproversJob::dispatch();
+        RemindApproversJob::dispatch();
     }
 
     private function shouldRun(): bool
     {
         return PositionApproval::query()
-            ->needsNotification()
+            ->needsReminder()
             ->exists();
     }
 }

@@ -13,7 +13,6 @@ use Support\Token\Schedule\DeleteExpiredTokensSchedule;
 it('dispatches job to delete expired tokens', function (): void {
     $days = 10;
 
-    // set config value
     config()->set('token.keep_days', $days);
 
     Queue::fake([

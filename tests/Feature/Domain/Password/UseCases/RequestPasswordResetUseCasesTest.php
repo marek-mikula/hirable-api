@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Password\UseCases;
+namespace Tests\Feature\Domain\Password\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use Domain\Password\Notifications\ResetRequestNotification;
@@ -40,7 +40,7 @@ it('tests requestReset method - correct email', function (): void {
 it('tests requestReset method - existing token still active', function (): void {
     $throttleMinutes = 10;
 
-    config()->set('token.throttle.reset_password', $throttleMinutes);
+    config()->set(sprintf('token.throttle.%s', TokenTypeEnum::RESET_PASSWORD->value), $throttleMinutes);
 
     $user = User::factory()->create();
 
@@ -61,7 +61,7 @@ it('tests requestReset method - existing token still active', function (): void 
 it('tests requestReset method - existing token invalid', function (): void {
     $throttleMinutes = 10;
 
-    config()->set('token.throttle.reset_password', $throttleMinutes);
+    config()->set(sprintf('token.throttle.%s', TokenTypeEnum::RESET_PASSWORD->value), $throttleMinutes);
 
     $user = User::factory()->create();
 
