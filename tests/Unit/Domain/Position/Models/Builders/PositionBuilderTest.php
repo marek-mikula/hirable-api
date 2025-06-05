@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Position\Models;
+namespace Tests\Unit\Domain\Position\Models\Builders;
 
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Position;

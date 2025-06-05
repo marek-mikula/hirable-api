@@ -9,7 +9,7 @@ use Support\File\Jobs\DeleteHangingFilesJob;
 use Support\File\Models\File;
 use Support\File\Schedule\DeleteHangingFilesSchedule;
 
-/** @covers \Support\File\Schedule\DeleteHangingFilesSchedule::__invoke */
+/** @covers \Support\File\Schedule\DeleteHangingFilesSchedule */
 it('dispatches job to delete hanging files', function (): void {
     Queue::fake([
         DeleteHangingFilesJob::class,

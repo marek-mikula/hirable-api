@@ -12,7 +12,7 @@ use Domain\Position\Models\PositionApproval;
 use Domain\Position\Schedules\RemindApproversSchedule;
 use Illuminate\Support\Facades\Queue;
 
-/** @covers \Domain\Position\Schedules\RemindApproversSchedule::__invoke */
+/** @covers \Domain\Position\Schedules\RemindApproversSchedule */
 it('correctly dispatches job to notify approvals', function (): void {
     Queue::fake([
         RemindApproversJob::class,

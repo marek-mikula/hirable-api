@@ -13,7 +13,7 @@ use Domain\User\Repositories\Input\UserUpdateInput;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
-class UpdateUserUseCase extends UseCase
+class AuthUpdateUseCase extends UseCase
 {
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,

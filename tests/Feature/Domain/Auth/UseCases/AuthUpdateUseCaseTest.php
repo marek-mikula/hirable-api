@@ -7,7 +7,7 @@ namespace Tests\Feature\Domain\Auth\UseCases;
 use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
 use App\Enums\TimezoneEnum;
-use Domain\Auth\UseCases\UpdateUserUseCase;
+use Domain\Auth\UseCases\AuthUpdateUseCase;
 use Domain\Password\Notifications\ChangedNotification;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\Notification;
@@ -16,7 +16,7 @@ use function PHPUnit\Framework\assertNotSame;
 use function PHPUnit\Framework\assertSame;
 use function Tests\Common\Helpers\assertHttpException;
 
-/** @covers \Domain\Auth\UseCases\UpdateUserUseCase::handle */
+/** @covers \Domain\Auth\UseCases\AuthUpdateUseCase::handle */
 it('tests update user use case - all attributes', function (): void {
     $user = User::factory()
         ->ofLanguage(LanguageEnum::EN)
@@ -34,7 +34,7 @@ it('tests update user use case - all attributes', function (): void {
         'phone' => '+420887656453',
     ];
 
-    $user = UpdateUserUseCase::make()->handle($user, $data);
+    $user = AuthUpdateUseCase::make()->handle($user, $data);
 
     assertSame($data['firstname'], $user->firstname);
     assertSame($data['lastname'], $user->lastname);
@@ -46,7 +46,7 @@ it('tests update user use case - all attributes', function (): void {
     assertSame($data['language'], $user->language);
 });
 
-/** @covers \Domain\Auth\UseCases\UpdateUserUseCase::handle */
+/** @covers \Domain\Auth\UseCases\AuthUpdateUseCase::handle */
 it('tests update user use case - only password', function (): void {
     $user = User::factory()->ofPassword('Password.1234')->create();
 
@@ -56,14 +56,14 @@ it('tests update user use case - only password', function (): void {
 
     $passwordPrevious = $user->password;
 
-    $user = UpdateUserUseCase::make()->handle($user, $data);
+    $user = AuthUpdateUseCase::make()->handle($user, $data);
 
     assertNotSame($passwordPrevious, $user->password);
 
     Notification::assertSentTo($user, ChangedNotification::class);
 });
 
-/** @covers \Domain\Auth\UseCases\UpdateUserUseCase::handle */
+/** @covers \Domain\Auth\UseCases\AuthUpdateUseCase::handle */
 it('tests update user use case - same password must throw an error', function (): void {
     $user = User::factory()->ofPassword('Password.123')->create();
 
@@ -72,7 +72,7 @@ it('tests update user use case - same password must throw an error', function ()
     ];
 
     assertHttpException(function () use ($user, $data): void {
-        UpdateUserUseCase::make()->handle($user, $data);
+        AuthUpdateUseCase::make()->handle($user, $data);
     }, ResponseCodeEnum::CLIENT_ERROR);
 
     Notification::assertNotSentTo($user, ChangedNotification::class);

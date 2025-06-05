@@ -9,7 +9,7 @@ use Support\Token\Jobs\DeleteExpiredTokensJob;
 use Support\Token\Models\Token;
 use Support\Token\Schedule\DeleteExpiredTokensSchedule;
 
-/** @covers \Support\Token\Schedule\DeleteExpiredTokensSchedule::__invoke */
+/** @covers \Support\Token\Schedule\DeleteExpiredTokensSchedule */
 it('dispatches job to delete expired tokens', function (): void {
     $days = 10;
 
