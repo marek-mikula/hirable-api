@@ -10,7 +10,7 @@ use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Models\Classifier;
 use Support\Classifier\Repositories\ClassifierRepositoryInterface;
 
-class GetClassifierIndexUseCase extends UseCase
+class ClassifierIndexUseCase extends UseCase
 {
     public function __construct(
         private readonly ClassifierRepositoryInterface $classifierRepository,

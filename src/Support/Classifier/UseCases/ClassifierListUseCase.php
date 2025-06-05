@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Repositories\ClassifierRepositoryInterface;
 
-class GetClassifierListUseCase extends UseCase
+class ClassifierListUseCase extends UseCase
 {
     public function __construct(
         private readonly ClassifierRepositoryInterface $classifierRepository,
