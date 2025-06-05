@@ -17,7 +17,7 @@ use Support\Token\Models\Token;
 use Support\Token\Repositories\Input\TokenStoreInput;
 use Support\Token\Repositories\TokenRepositoryInterface;
 
-class StoreCompanyInvitationUseCase extends UseCase
+class CompanyInvitationStoreUseCase extends UseCase
 {
     public function __construct(
         private readonly TokenRepositoryInterface $tokenRepository,

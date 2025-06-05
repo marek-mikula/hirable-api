@@ -10,11 +10,11 @@ use Illuminate\Support\Collection;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
-function assertCollectionsAreSame(Collection $expected, Collection $actual): void
+function normalizeCollection(Collection $collection): Collection
 {
-    $normalizer = function (mixed $item): mixed {
+    return $collection->map(function (mixed $item): mixed {
         if ($item instanceof Model) {
-            return (int) $item->getKey();
+            return $item->getKey();
         }
 
         if ($item instanceof \BackedEnum) {
@@ -26,10 +26,13 @@ function assertCollectionsAreSame(Collection $expected, Collection $actual): voi
         }
 
         return $item;
-    };
+    });
+}
 
-    $expected = $expected->map($normalizer);
-    $actual = $actual->map($normalizer);
+function assertCollectionsAreSame(Collection $expected, Collection $actual): void
+{
+    $expected = normalizeCollection($expected);
+    $actual = normalizeCollection($actual);
 
     $message = sprintf(
         'Collection [%s] do no match the expected collection [%s].',

@@ -7,7 +7,7 @@ namespace Domain\Company\Http\Controllers;
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Company\Http\Requests\CompanyUserIndexRequest;
-use Domain\Company\UseCases\GetCompanyUsersForIndexUseCase;
+use Domain\Company\UseCases\CompanyUserIndexUseCase;
 use Domain\User\Http\Resources\Collections\UserPaginatedCollection;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
@@ -23,7 +23,7 @@ class CompanyUserController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $users = GetCompanyUsersForIndexUseCase::make()->handle($user, $gridQuery);
+        $users = CompanyUserIndexUseCase::make()->handle($user, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_USER, $gridQuery));
 

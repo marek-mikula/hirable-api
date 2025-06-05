@@ -11,7 +11,7 @@ use Support\Grid\Data\Query\GridRequestQuery;
 use Support\Token\Models\Builders\TokenBuilder;
 use Support\Token\Models\Token;
 
-class GetCompanyInvitationsForIndexUseCase extends UseCase
+class CompanyInvitationIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {

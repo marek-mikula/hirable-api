@@ -11,7 +11,7 @@ use Domain\User\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
-class GetCompanyContactsForIndexUseCase extends UseCase
+class CompanyContactIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {

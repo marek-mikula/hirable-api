@@ -9,7 +9,7 @@ use App\Http\Controllers\ApiController;
 use Domain\Company\Http\Requests\CompanyShowRequest;
 use Domain\Company\Http\Requests\CompanyUpdateRequest;
 use Domain\Company\Http\Resources\CompanyResource;
-use Domain\Company\UseCases\UpdateCompanyUseCase;
+use Domain\Company\UseCases\CompanyUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
 class CompanyController extends ApiController
@@ -25,7 +25,7 @@ class CompanyController extends ApiController
 
     public function update(CompanyUpdateRequest $request): JsonResponse
     {
-        $company = UpdateCompanyUseCase::make()->handle($request->user(), $request->getValues());
+        $company = CompanyUpdateUseCase::make()->handle($request->user(), $request->getValues());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'company' => new CompanyResource($company),

@@ -11,7 +11,7 @@ use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyContactStoreInput;
 use Domain\User\Models\User;
 
-class StoreCompanyContactUseCase extends UseCase
+class CompanyContactStoreUseCase extends UseCase
 {
     public function __construct(
         private readonly CompanyContactRepositoryInterface $companyContactRepository,

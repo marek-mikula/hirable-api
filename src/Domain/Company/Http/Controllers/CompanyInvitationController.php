@@ -8,8 +8,8 @@ use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Company\Http\Requests\CompanyInvitationIndexRequest;
 use Domain\Company\Http\Requests\CompanyInvitationsStoreRequest;
-use Domain\Company\UseCases\GetCompanyInvitationsForIndexUseCase;
-use Domain\Company\UseCases\StoreCompanyInvitationUseCase;
+use Domain\Company\UseCases\CompanyInvitationIndexUseCase;
+use Domain\Company\UseCases\CompanyInvitationStoreUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
@@ -25,7 +25,7 @@ class CompanyInvitationController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $invitations = GetCompanyInvitationsForIndexUseCase::make()->handle($user, $gridQuery);
+        $invitations = CompanyInvitationIndexUseCase::make()->handle($user, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_INVITATION, $gridQuery));
 
@@ -36,7 +36,7 @@ class CompanyInvitationController extends ApiController
 
     public function store(CompanyInvitationsStoreRequest $request): JsonResponse
     {
-        StoreCompanyInvitationUseCase::make()->handle($request->user(), $request->toData());
+        CompanyInvitationStoreUseCase::make()->handle($request->user(), $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS);
     }

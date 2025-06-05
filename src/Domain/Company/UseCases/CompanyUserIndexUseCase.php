@@ -10,7 +10,7 @@ use Domain\User\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
-class GetCompanyUsersForIndexUseCase extends UseCase
+class CompanyUserIndexUseCase extends UseCase
 {
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {

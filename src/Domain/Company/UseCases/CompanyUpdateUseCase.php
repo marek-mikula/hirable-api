@@ -10,7 +10,7 @@ use Domain\Company\Repositories\CompanyRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyUpdateInput;
 use Domain\User\Models\User;
 
-class UpdateCompanyUseCase extends UseCase
+class CompanyUpdateUseCase extends UseCase
 {
     public function __construct(
         private readonly CompanyRepositoryInterface $companyRepository,
