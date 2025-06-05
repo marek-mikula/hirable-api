@@ -10,36 +10,6 @@ use Tests\TestCase;
 
 use function Pest\Laravel\withHeader;
 
-$folderGroups = [
-    // Global groups
-    [['feature'], ['Feature']],
-    [['process'], ['Process']],
-    [['unit'], ['Unit']],
-
-    // Domain groups
-    [['domain', 'domain-auth'], ['Feature/Domain/Auth', 'Unit/Domain/Auth']],
-    [['domain', 'domain-candidate'], ['Feature/Domain/Candidate', 'Unit/Domain/Candidate']],
-    [['domain', 'domain-company'], ['Feature/Domain/Company', 'Unit/Domain/Company']],
-    [['domain', 'domain-password'], ['Feature/Domain/Password', 'Unit/Domain/Password']],
-    [['domain', 'domain-register'], ['Feature/Domain/Register', 'Unit/Domain/Register']],
-    [['domain', 'domain-search'], ['Feature/Domain/Search', 'Unit/Domain/Search']],
-    [['domain', 'domain-verification'], ['Feature/Domain/Verification', 'Unit/Domain/Verification']],
-
-    // Support groups
-    [['support', 'support-activity-log'], ['Feature/Support/ActivityLog', 'Unit/Support/ActivityLog']],
-    [['support', 'support-file'], ['Feature/Support/File', 'Unit/Support/File']],
-    [['support', 'support-grid'], ['Feature/Support/Grid', 'Unit/Support/Grid']],
-    [['support', 'support-setting'], ['Feature/Support/Setting', 'Unit/Support/Setting']],
-    [['support', 'support-token'], ['Feature/Support/Token', 'Unit/Support/Token']],
-
-    // Common groups
-    [['app'], ['Feature/App', 'Unit/App']],
-];
-
-foreach ($folderGroups as [$groups, $folders]) {
-    uses()->group(...$groups)->in(...$folders);
-}
-
 /*
 |--------------------------------------------------------------------------
 | Test Case
