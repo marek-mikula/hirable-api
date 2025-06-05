@@ -13,7 +13,7 @@ use function PHPUnit\Framework\assertSame;
 use function Tests\Common\Helpers\assertArraysAreSame;
 
 /** @covers \Domain\Company\UseCases\CompanyUpdateUseCase::handle */
-it('tests update company use case - all attributes', function (): void {
+it('correctly updates company - all attributes', function (): void {
     $company = Company::factory()
         ->create();
 
