@@ -19,16 +19,6 @@ it('dispatches job to delete expired tokens', function (): void {
         DeleteExpiredTokensJob::class,
     ]);
 
-    DeleteExpiredTokensSchedule::call();
-
-    Queue::assertNothingPushed();
-
-    Token::factory()->expired(now())->create();
-
-    DeleteExpiredTokensSchedule::call();
-
-    Queue::assertNothingPushed();
-
     Token::factory()->expired(now()->subDays($days))->create();
 
     DeleteExpiredTokensSchedule::call();

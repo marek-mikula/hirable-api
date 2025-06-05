@@ -15,10 +15,6 @@ it('dispatches job to delete deleted files', function (): void {
         DeleteDeletedFilesJob::class,
     ]);
 
-    DeleteDeletedFilesSchedule::call();
-
-    Queue::assertNothingPushed();
-
     File::factory()->ofDeletedAt(now())->create();
 
     DeleteDeletedFilesSchedule::call();

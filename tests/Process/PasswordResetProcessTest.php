@@ -23,6 +23,7 @@ it('tests password reset process', function (): void {
     // process contains these steps:
     // 1. password reset request
     // 2. password reset
+
     $user = User::factory()
         ->ofPassword('Test.123')
         ->create();

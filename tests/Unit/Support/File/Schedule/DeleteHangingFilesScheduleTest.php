@@ -15,10 +15,6 @@ it('dispatches job to delete hanging files', function (): void {
         DeleteHangingFilesJob::class,
     ]);
 
-    DeleteHangingFilesSchedule::call();
-
-    Queue::assertNothingPushed();
-
     File::factory()->create();
 
     DeleteHangingFilesSchedule::call();

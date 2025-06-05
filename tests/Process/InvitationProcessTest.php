@@ -34,6 +34,7 @@ it('tests invitation process', function (): void {
     // 3. call of /auth/me endpoint
     // 4. logout
     // 5. login
+
     $company = Company::factory()->create();
     $companyUser = User::factory()->ofCompany($company, RoleEnum::ADMIN)->create();
 
