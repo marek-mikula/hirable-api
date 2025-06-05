@@ -52,16 +52,16 @@ it('tests getByIdsAndCompany method', function (): void {
     $company1 = Company::factory()->create();
     $company2 = Company::factory()->create();
 
-    $contacts1 = CompanyContact::factory()->count(2)->ofCompany($company1)->create();
+    $contacts = CompanyContact::factory()->count(2)->ofCompany($company1)->create();
 
     // create other dummy contacts
     CompanyContact::factory()->count(2)->ofCompany($company2)->create();
 
-    $result1 = $repository->getByIdsAndCompany($company1, $contacts1->pluck('id')->all());
+    $result1 = $repository->getByIdsAndCompany($company1, $contacts->pluck('id')->all());
 
-    assertCollectionsAreSame($contacts1, $result1);
+    assertCollectionsAreSame($contacts, $result1);
 
-    $result2 = $repository->getByIdsAndCompany($company2, $contacts1->pluck('id')->all());
+    $result2 = $repository->getByIdsAndCompany($company2, $contacts->pluck('id')->all());
 
     assertEmpty($result2);
 });

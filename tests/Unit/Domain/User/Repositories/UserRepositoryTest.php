@@ -14,10 +14,12 @@ use Domain\User\Repositories\Input\UserUpdateInput;
 use Domain\User\Repositories\UserRepositoryInterface;
 
 use function Pest\Laravel\assertModelExists;
+use function PHPUnit\Framework\assertEmpty;
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertNotSame;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
+use function Tests\Common\Helpers\assertCollectionsAreSame;
 use function Tests\Common\Helpers\assertDatetime;
 
 /** @covers \Domain\User\Repositories\UserRepository::store */
@@ -136,4 +138,26 @@ it('tests findByEmail method', function (): void {
 
     assertNotNull($foundUser);
     assertTrue($foundUser->is($user));
+});
+
+/** @covers \Domain\User\Repositories\UserRepository::getByIdsAndCompany */
+it('tests getByIdsAndCompany method', function (): void {
+    /** @var UserRepositoryInterface $repository */
+    $repository = app(UserRepositoryInterface::class);
+
+    $company1 = Company::factory()->create();
+    $company2 = Company::factory()->create();
+
+    $users = User::factory()->ofCompany($company1, RoleEnum::USER)->count(2)->create();
+
+    // create dummy users in different company
+    User::factory()->ofCompany($company2, RoleEnum::USER)->count(2)->create();
+
+    $result1 = $repository->getByIdsAndCompany($company1, $users->pluck('id')->all());
+
+    assertCollectionsAreSame($users, $result1);
+
+    $result2 = $repository->getByIdsAndCompany($company2, $users->pluck('id')->all());
+
+    assertEmpty($result2);
 });
