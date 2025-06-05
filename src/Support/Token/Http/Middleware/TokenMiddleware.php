@@ -11,8 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Repositories\TokenRepositoryInterface;
-use Support\Token\Services\TokenResolver;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Process\TokenResolver;
 
 class TokenMiddleware
 {

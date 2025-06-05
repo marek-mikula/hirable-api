@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Support\Token\Services;
+namespace Tests\Process;
 
 use Support\Token\Http\Middleware\TokenMiddleware;
 use Support\Token\Models\Token;

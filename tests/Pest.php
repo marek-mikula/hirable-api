@@ -9,6 +9,7 @@ use Support\File\Enums\FileDomainEnum;
 use Tests\TestCase;
 
 use function Pest\Laravel\withHeader;
+use function Pest\Laravel\withoutDefer;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,9 @@ uses(TestCase::class)
         // set Referer header, so EnsureFrontendRequestsAreStateful
         // starts the session
         withHeader('Referer', (string) config('app.frontend_url'));
+
+        // invoke all deferred functions immediatelly
+        withoutDefer();
     })
     ->in('Feature', 'Process', 'Unit');
 
