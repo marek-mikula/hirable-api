@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Tests\Unit\Support\Token\Services;
 
 use Support\Token\Models\Token;
-use Support\Token\Services\TokenResolver;
+use Tests\Process\TokenResolver;
 
 use function PHPUnit\Framework\assertStringContainsString;
 use function PHPUnit\Framework\assertTrue;
 use function Tests\Common\Helpers\assertException;
 
 /**
- * @covers \Support\Token\Services\TokenResolver::getToken
- * @covers \Support\Token\Services\TokenResolver::setToken
+ * @covers \Tests\Process\TokenResolver::getToken
+ * @covers \Tests\Process\TokenResolver::setToken
  */
 it('correctly sets and gets token', function (): void {
     /** @var TokenResolver $resolver */

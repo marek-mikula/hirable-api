@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Auth\Services;
+namespace Tests\Feature\Domain\Auth\Services;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Requests\AuthRequest;

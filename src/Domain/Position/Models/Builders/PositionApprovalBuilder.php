@@ -9,18 +9,20 @@ use Domain\Position\Enums\PositionApprovalStateEnum;
 
 class PositionApprovalBuilder extends Builder
 {
-    public function needsNotification(): static
+    public function needsReminder(): static
     {
-        return $this->where(function (PositionApprovalBuilder $query): void {
+        $remindDays = (int) config('position.approval.remind_days');
+
+        return $this->where(function (PositionApprovalBuilder $query) use ($remindDays): void {
             $query
-                ->where(function (PositionApprovalBuilder $query): void {
+                ->where(function (PositionApprovalBuilder $query) use ($remindDays): void {
                     $query
-                        ->where(function (PositionApprovalBuilder $query): void {
+                        ->where(function (PositionApprovalBuilder $query) use ($remindDays): void {
                             $query
-                                ->whereNull('notified_at')
-                                ->whereDate('created_at', '<=', now()->subDays(2));
+                                ->whereNull('reminded_at')
+                                ->whereDate('created_at', '<=', now()->subDays($remindDays));
                         })
-                        ->orWhereDate('notified_at', '<=', now()->subDays(2));
+                        ->orWhereDate('reminded_at', '<=', now()->subDays($remindDays));
                 })
                 ->where('state', PositionApprovalStateEnum::PENDING->value);
         });

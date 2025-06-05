@@ -23,7 +23,7 @@ class RequestRegistrationUseCase extends UseCase
 
     public function handle(string $email): void
     {
-        $throttleMinutes = config('token.throttle.registration');
+        $throttleMinutes = config(sprintf('token.throttle.%s', TokenTypeEnum::REGISTRATION->value));
 
         if (!empty($throttleMinutes)) {
             $nextPossibleAt = now()->subMinutes((int) $throttleMinutes);

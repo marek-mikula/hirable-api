@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Providers;
 
 use Domain\Position\Schedules\ExpireApprovalProcessSchedule;
-use Domain\Position\Schedules\NotifyApproversSchedule;
+use Domain\Position\Schedules\RemindApproversSchedule;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,7 +27,7 @@ class ConsoleServiceProvider extends ServiceProvider
                 ->description('Expires all pending approval processes if they take too long.')
                 ->dailyAt('00:00');
 
-            $schedule->call(NotifyApproversSchedule::class)
+            $schedule->call(RemindApproversSchedule::class)
                 ->description('Notifies approvers that have not decided yet on their approval.')
                 ->dailyAt('06:00');
 

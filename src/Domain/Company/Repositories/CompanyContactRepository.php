@@ -34,7 +34,7 @@ class CompanyContactRepository implements CompanyContactRepositoryInterface
     public function getByIdsAndCompany(Company $company, array $ids): Collection
     {
         return CompanyContact::query()
-            ->where('company_id', $company->id)
+            ->whereCompany($company->id)
             ->whereIn('id', $ids)
             ->get();
     }

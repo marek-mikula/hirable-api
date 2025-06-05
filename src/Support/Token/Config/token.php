@@ -31,30 +31,15 @@ return [
 
     'validity' => [
 
-        TokenTypeEnum::REGISTRATION->value => (int) env(
-            key: 'TOKEN_VALIDITY_REGISTRATION',
-            default: 14 * 24 * 60 // 14 days
-        ),
+        TokenTypeEnum::REGISTRATION->value => 14 * 24 * 60, // 14 days,
 
-        TokenTypeEnum::RESET_PASSWORD->value => (int) env(
-            key: 'TOKEN_VALIDITY_RESET_PASSWORD',
-            default: 30 // 30 minutes
-        ),
+        TokenTypeEnum::RESET_PASSWORD->value => 30, // 30 minutes
 
-        TokenTypeEnum::EMAIL_VERIFICATION->value => (int) env(
-            key: 'TOKEN_VALIDITY_EMAIL_VERIFICATION',
-            default: 7 * 24 * 60 // 7 days
-        ),
+        TokenTypeEnum::EMAIL_VERIFICATION->value => 7 * 24 * 60, // 7 days
 
-        TokenTypeEnum::INVITATION->value => (int) env(
-            key: 'TOKEN_VALIDITY_INVITATION',
-            default: 14 * 24 * 60 // 14 days
-        ),
+        TokenTypeEnum::INVITATION->value => 14 * 24 * 60, // 14 days
 
-        TokenTypeEnum::EXTERNAL_APPROVAL->value => (int) env(
-            key: 'TOKEN_VALIDITY_EXTERNAL_APPROVAL',
-            default: 0 // approval process has custom validity time
-        ),
+        TokenTypeEnum::EXTERNAL_APPROVAL->value => 0, // approval process has custom validity time
 
     ],
 
@@ -71,15 +56,9 @@ return [
 
     'throttle' => [
 
-        'registration' => (int) env(
-            key: 'TOKEN_THROTTLE_REGISTRATION',
-            default: 15 // 15 minutes
-        ),
+        TokenTypeEnum::REGISTRATION->value => 15, // 15 minutes,
 
-        'reset_password' => (int) env(
-            key: 'TOKEN_THROTTLE_RESET_PASSWORD',
-            default: 15 // 15 minutes
-        ),
+        TokenTypeEnum::RESET_PASSWORD->value => 15, // 15 minutes,
 
     ],
 

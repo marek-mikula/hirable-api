@@ -12,7 +12,7 @@ use Domain\Auth\Http\Requests\AuthMeRequest;
 use Domain\Auth\Http\Requests\AuthUpdateRequest;
 use Domain\Auth\Http\Resources\AuthUserResource;
 use Domain\Auth\Services\AuthService;
-use Domain\Auth\UseCases\UpdateUserUseCase;
+use Domain\Auth\UseCases\AuthUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
 class AuthController extends ApiController
@@ -56,7 +56,7 @@ class AuthController extends ApiController
 
     public function update(AuthUpdateRequest $request): JsonResponse
     {
-        $user = UpdateUserUseCase::make()->handle($request->user(), $request->getValues());
+        $user = AuthUpdateUseCase::make()->handle($request->user(), $request->getValues());
 
         // load needed relationships
         $user->loadMissing('company');

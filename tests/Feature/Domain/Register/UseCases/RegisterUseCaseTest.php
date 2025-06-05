@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Register\UseCases;
+namespace Tests\Feature\Domain\Register\UseCases;
 
 use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;

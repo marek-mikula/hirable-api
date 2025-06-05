@@ -29,7 +29,7 @@ class RequestPasswordResetUseCase extends UseCase
             return;
         }
 
-        $throttleMinutes = config('token.throttle.reset_password');
+        $throttleMinutes = config(sprintf('token.throttle.%s', TokenTypeEnum::RESET_PASSWORD->value));
 
         if (!empty($throttleMinutes)) {
             $nextPossibleAt = now()->subMinutes((int) $throttleMinutes);

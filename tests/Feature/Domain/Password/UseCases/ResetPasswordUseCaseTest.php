@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Password\UseCases;
+namespace Tests\Feature\Domain\Password\UseCases;
 
 use Domain\Password\Notifications\ChangedNotification;
 use Domain\Password\UseCases\ResetPasswordUseCase;

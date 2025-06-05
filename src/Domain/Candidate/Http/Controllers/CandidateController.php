@@ -8,7 +8,7 @@ use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Candidate\Http\Request\CandidateIndexRequest;
 use Domain\Candidate\Http\Resources\Collections\CandidatePaginatedCollection;
-use Domain\Candidate\UseCases\GetCandidatesForIndexUseCase;
+use Domain\Candidate\UseCases\CandidateIndexUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
@@ -23,7 +23,7 @@ class CandidateController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $candidates = GetCandidatesForIndexUseCase::make()->handle($user, $gridQuery);
+        $candidates = CandidateIndexUseCase::make()->handle($user, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::CANDIDATE, $gridQuery));
 

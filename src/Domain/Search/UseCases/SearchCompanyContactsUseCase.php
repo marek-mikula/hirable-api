@@ -21,6 +21,7 @@ class SearchCompanyContactsUseCase extends UseCase
     {
         return CompanyContact::query()
             ->select(['id', 'firstname', 'lastname', 'company_name'])
+            ->whereCompany($user->company_id)
             ->when($data->hasQuery(), function (Builder $query) use ($data): void {
                 $query->where(function (Builder $query) use ($data): void {
                     $words = $data->getQueryWords();
@@ -38,12 +39,11 @@ class SearchCompanyContactsUseCase extends UseCase
                     }
                 });
             })
-            ->where('company_id', $user->company_id)
             ->limit($data->limit)
             ->get()
             ->map(static fn (CompanyContact $item) => ResultData::from([
                 'value' => $item->id,
-                'label' => $item->company_name ? sprintf('%s (%s)', $item->full_name, $item->company_name) : $item->full_name,
+                'label' => $item->label,
             ]));
     }
 }

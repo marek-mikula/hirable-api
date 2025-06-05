@@ -68,3 +68,15 @@ it('tests save method', function (): void {
 
     assertSame($user2->id, $setting->user_id);
 });
+
+/** @covers \Support\Setting\Repositories\SettingRepository::delete */
+it('tests delete method', function (): void {
+    /** @var SettingRepositoryInterface $repository */
+    $repository = app(SettingRepositoryInterface::class);
+
+    $setting = Setting::factory()->create();
+
+    $repository->delete($setting);
+
+    assertModelMissing($setting);
+});

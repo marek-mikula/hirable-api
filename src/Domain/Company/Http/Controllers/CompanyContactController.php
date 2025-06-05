@@ -10,8 +10,8 @@ use Domain\Company\Http\Requests\CompanyContactIndexRequest;
 use Domain\Company\Http\Requests\CompanyContactStoreRequest;
 use Domain\Company\Http\Resources\Collection\CompanyContactPaginatedCollection;
 use Domain\Company\Http\Resources\CompanyContactResource;
-use Domain\Company\UseCases\GetCompanyContactsForIndexUseCase;
-use Domain\Company\UseCases\StoreCompanyContactUseCase;
+use Domain\Company\UseCases\CompanyContactIndexUseCase;
+use Domain\Company\UseCases\CompanyContactStoreUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
@@ -26,7 +26,7 @@ class CompanyContactController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $contacts = GetCompanyContactsForIndexUseCase::make()->handle($user, $gridQuery);
+        $contacts = CompanyContactIndexUseCase::make()->handle($user, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_CONTACT, $gridQuery));
 
@@ -37,7 +37,7 @@ class CompanyContactController extends ApiController
 
     public function store(CompanyContactStoreRequest $request): JsonResponse
     {
-        $contact = StoreCompanyContactUseCase::make()->handle($request->user(), $request->toData());
+        $contact = CompanyContactStoreUseCase::make()->handle($request->user(), $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'contact' => new CompanyContactResource($contact),

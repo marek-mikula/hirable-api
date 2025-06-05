@@ -81,12 +81,12 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
             ->exists();
     }
 
-    public function setNotifiedAt(Collection $approvals, ?Carbon $timestamp = null): void
+    public function setRemindedAt(Collection $approvals, ?Carbon $timestamp = null): void
     {
         $result = PositionApproval::query()
             ->whereIn('id', $approvals->pluck('id'))
             ->update([
-                'notified_at' => $timestamp ?? now(),
+                'reminded_at' => $timestamp ?? now(),
             ]);
 
         throw_if($result !== $approvals->count(), RepositoryException::updated(PositionApproval::class));

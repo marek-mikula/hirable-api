@@ -19,6 +19,8 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot(): void
     {
+        $this->mergeConfigFrom(__DIR__.'/../Config/position.php', 'position');
+
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'position');
 
         $this->loadMigrationsFrom([

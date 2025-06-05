@@ -12,14 +12,14 @@ use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Http\Requests\ClassifierIndexRequest;
 use Support\Classifier\Http\Requests\ClassifierListRequest;
 use Support\Classifier\Http\Resources\Collections\ClassifierCollection;
-use Support\Classifier\UseCases\GetClassifierIndexUseCase;
-use Support\Classifier\UseCases\GetClassifierListUseCase;
+use Support\Classifier\UseCases\ClassifierIndexUseCase;
+use Support\Classifier\UseCases\ClassifierListUseCase;
 
 class ClassifierController extends ApiController
 {
     public function index(ClassifierIndexRequest $request): JsonResponse
     {
-        $index = GetClassifierIndexUseCase::make()->handle($request->getTypes());
+        $index = ClassifierIndexUseCase::make()->handle($request->getTypes());
 
         $index = array_map(fn (Collection $classifiers) => new ClassifierCollection($classifiers), $index);
 
@@ -30,7 +30,7 @@ class ClassifierController extends ApiController
 
     public function list(ClassifierListRequest $request, ClassifierTypeEnum $type): JsonResponse
     {
-        $list = GetClassifierListUseCase::make()->handle($type);
+        $list = ClassifierListUseCase::make()->handle($type);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'classifiers' => new ClassifierCollection($list),

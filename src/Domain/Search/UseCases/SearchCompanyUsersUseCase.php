@@ -20,6 +20,7 @@ class SearchCompanyUsersUseCase extends UseCase
     {
         return User::query()
             ->select(['id', 'firstname', 'lastname'])
+            ->whereCompany($user->company_id)
             ->when($data->hasQuery(), function (Builder $query) use ($data): void {
                 $query->where(function (Builder $query) use ($data): void {
                     $words = $data->getQueryWords();
@@ -39,7 +40,6 @@ class SearchCompanyUsersUseCase extends UseCase
             ->when($ignoreAuth, function (Builder $query) use ($user): void {
                 $query->where('id', '<>', $user->id);
             })
-            ->where('company_id', $user->company_id)
             ->limit($data->limit)
             ->get()
             ->map(static fn (User $item) => ResultData::from([

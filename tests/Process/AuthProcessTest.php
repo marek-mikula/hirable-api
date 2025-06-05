@@ -33,6 +33,7 @@ it('tests auth process - registration, login, logout', function (): void {
     // 3. call of /auth/me endpoint
     // 4. logout
     // 5. login
+
     $email = 'example@example.com';
     $password = 'Test.123';
 

@@ -13,11 +13,11 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('model_has_position_id')->nullable();
             $table->foreignId('position_id');
-            $table->foreignId('token_id');
+            $table->foreignId('token_id')->nullable();
             $table->string('state', 20);
             $table->string('note', 500)->nullable();
             $table->timestamp('decided_at')->nullable();
-            $table->timestamp('notified_at')->nullable();
+            $table->timestamp('reminded_at')->nullable();
             $table->timestamps();
 
             $table->foreign('model_has_position_id', 'position_approvals_model_foreign')

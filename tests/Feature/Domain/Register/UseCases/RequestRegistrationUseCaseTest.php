@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Register\UseCases;
+namespace Tests\Feature\Domain\Register\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use Domain\Register\Notifications\RegisterRequestNotification;
@@ -59,7 +59,7 @@ it('tests correct email', function (): void {
 it('tests existing token still active', function (): void {
     $throttleMinutes = 10;
 
-    config()->set('token.throttle.registration', $throttleMinutes);
+    config()->set(sprintf('token.throttle.%s', TokenTypeEnum::REGISTRATION->value), $throttleMinutes);
 
     $email = 'test@example.com';
 
@@ -84,7 +84,7 @@ it('tests existing token still active', function (): void {
 it('tests existing token invalid', function (): void {
     $throttleMinutes = 10;
 
-    config()->set('token.throttle.registration', $throttleMinutes);
+    config()->set(sprintf('token.throttle.%s', TokenTypeEnum::REGISTRATION->value), $throttleMinutes);
 
     $email = 'test@example.com';
 

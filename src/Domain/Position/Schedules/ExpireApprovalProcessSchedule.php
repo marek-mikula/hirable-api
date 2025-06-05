@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Position\Schedules;
 
 use App\Schedule\Schedule;
-use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Jobs\ExpireApprovalProcessJob;
 use Domain\Position\Models\Position;
 
@@ -23,8 +22,7 @@ class ExpireApprovalProcessSchedule extends Schedule
     private function shouldRun(): bool
     {
         return Position::query()
-            ->whereDate('approve_until', '<', now())
-            ->where('state', '=', PositionStateEnum::APPROVAL_PENDING->value)
+            ->approvalExpired()
             ->exists();
     }
 }

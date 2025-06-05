@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Verification\UseCases;
+namespace Tests\Feature\Domain\Verification\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use Domain\User\Models\User;

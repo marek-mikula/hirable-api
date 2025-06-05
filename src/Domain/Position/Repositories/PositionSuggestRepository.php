@@ -15,7 +15,7 @@ class PositionSuggestRepository implements PositionSuggestRepositoryInterface
         return Position::query()
             ->select('department')
             ->whereNotNull('department')
-            ->where('company_id', $user->company_id)
+            ->whereCompany($user->company_id)
             ->when(!empty($value), function (PositionBuilder $query) use ($value): void {
                 $query->where('department', 'like', "%{$value}%");
             })
