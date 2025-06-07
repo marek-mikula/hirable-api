@@ -40,7 +40,6 @@ class PositionOpenedMail extends QueueMailable
     public function content(): Content
     {
         $link = frontendLink('/positions/{id}', ['id' => $this->position->id]);
-        ;
 
         return new Content(
             markdown: 'position::mail.opened',

@@ -25,7 +25,7 @@ class ValidateApprovalOpen
             return;
         }
 
-        if ($this->position->state === PositionStateEnum::APPROVAL_APPROVED) {
+        if ($this->position?->state === PositionStateEnum::APPROVAL_APPROVED) {
             return;
         }
 

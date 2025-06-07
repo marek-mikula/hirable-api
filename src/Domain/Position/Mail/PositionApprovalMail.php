@@ -48,7 +48,7 @@ class PositionApprovalMail extends QueueMailable
     {
         $link = $this->token
             ? GetTokenLinkAction::make()->handle($this->token)
-            : frontendLink('/positions/{id}/edit', ['id' => $this->position->id]);
+            : frontendLink('/positions/edit/{id}', ['id' => $this->position->id]);
 
         return new Content(
             markdown: 'position::mail.approval',
