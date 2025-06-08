@@ -30,7 +30,6 @@ class AuthUpdateRequest extends AuthRequest
             'keys' => [
                 'required',
                 'array',
-                'min:1',
             ],
             'keys.*' => [
                 'required',
@@ -165,7 +164,7 @@ class AuthUpdateRequest extends AuthRequest
     {
         $data = [];
 
-        foreach ($this->input('keys', []) as $key) {
+        foreach ($this->array('keys') as $key) {
             $data[$key] = match ($key) {
                 'firstname', 'lastname', 'email', 'password' => (string) $this->input($key),
                 'timezone' => $this->filled($key) ? $this->enum($key, TimezoneEnum::class) : null,

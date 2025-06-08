@@ -23,7 +23,6 @@ class PositionRepository implements PositionRepositoryInterface
 
         $position->company_id = $input->company->id;
         $position->user_id = $input->user->id;
-        $position->state = $input->state;
         $position->approval_round = $input->approvalRound;
         $position->approve_until = $input->approveUntil;
         $position->name = $input->name;
@@ -33,14 +32,8 @@ class PositionRepository implements PositionRepositoryInterface
         $position->description = $input->description;
         $position->is_technical = $input->isTechnical;
         $position->address = $input->address;
-
-        if (empty($input->salary)) {
-            $position->salary_from = $input->salaryFrom;
-            $position->salary_to = $input->salaryTo;
-        } else {
-            $position->salary_from = $input->salary;
-        }
-
+        $position->salary_from = $input->salaryFrom;
+        $position->salary_to = $input->salaryTo;
         $position->salary_type = $input->salaryType;
         $position->salary_frequency = $input->salaryFrequency;
         $position->salary_currency = $input->salaryCurrency;
@@ -70,7 +63,6 @@ class PositionRepository implements PositionRepositoryInterface
 
     public function update(Position $position, PositionUpdateInput $input): Position
     {
-        $position->state = $input->state;
         $position->approval_round = $input->approvalRound;
         $position->approve_until = $input->approveUntil;
         $position->name = $input->name;
@@ -80,14 +72,8 @@ class PositionRepository implements PositionRepositoryInterface
         $position->description = $input->description;
         $position->is_technical = $input->isTechnical;
         $position->address = $input->address;
-
-        if (empty($input->salary)) {
-            $position->salary_from = $input->salaryFrom;
-            $position->salary_to = $input->salaryTo;
-        } else {
-            $position->salary_from = $input->salary;
-        }
-
+        $position->salary_from = $input->salaryFrom;
+        $position->salary_to = $input->salaryTo;
         $position->salary_type = $input->salaryType;
         $position->salary_frequency = $input->salaryFrequency;
         $position->salary_currency = $input->salaryCurrency;
@@ -115,6 +101,12 @@ class PositionRepository implements PositionRepositoryInterface
 
     public function updateState(Position $position, PositionStateEnum $state): Position
     {
+        // validate state
+        throw_if(
+            condition: $position->state !== $state && !in_array($state, $position->state->getNextStates()),
+            exception: RepositoryException::updated(Position::class)
+        );
+
         $position->state = $state;
 
         throw_if(!$position->save(), RepositoryException::updated(Position::class));

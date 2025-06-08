@@ -27,7 +27,6 @@ class CompanyUpdateRequest extends AuthRequest
             'keys' => [
                 'required',
                 'array',
-                'min:1',
             ],
             'keys.*' => [
                 'required',
@@ -92,7 +91,7 @@ class CompanyUpdateRequest extends AuthRequest
     {
         $data = [];
 
-        foreach ($this->input('keys', []) as $key) {
+        foreach ($this->array('keys') as $key) {
             $data[$key] = match ($key) {
                 'name', 'email', 'idNumber', 'environment' => (string) $this->input($key),
                 'website' => $this->filled($key) ? (string) $this->input($key) : null,

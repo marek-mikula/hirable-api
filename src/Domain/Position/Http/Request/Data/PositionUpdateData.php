@@ -1,0 +1,135 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\Position\Http\Request\Data;
+
+use Carbon\Carbon;
+use Domain\Position\Enums\PositionOperationEnum;
+use Illuminate\Http\UploadedFile;
+use Spatie\LaravelData\Data;
+use Support\File\Data\FileData;
+
+class PositionUpdateData extends Data
+{
+    public PositionOperationEnum $operation;
+
+    /** @var string[] */
+    public array $keys;
+
+    public ?string $name;
+
+    public ?string $department;
+
+    public ?string $field;
+
+    public ?int $jobSeatsNum;
+
+    public ?string $description;
+
+    public ?bool $isTechnical;
+
+    public ?string $address;
+
+    public ?int $salaryFrom;
+
+    public ?int $salaryTo;
+
+    public ?int $salary;
+
+    public ?string $salaryType;
+
+    public ?string $salaryFrequency;
+
+    public ?string $salaryCurrency;
+
+    public ?string $salaryVar;
+
+    public ?string $minEducationLevel;
+
+    public ?string $seniority;
+
+    public ?int $experience;
+
+    /** @var string[] */
+    public array $drivingLicences;
+
+    public ?int $organisationSkills;
+
+    public ?int $teamSkills;
+
+    public ?int $timeManagement;
+
+    public ?int $communicationSkills;
+
+    public ?int $leadership;
+
+    public ?string $note;
+
+    /** @var string[] */
+    public array $workloads;
+
+    /** @var string[] */
+    public array $employmentRelationships;
+
+    /** @var string[] */
+    public array $employmentForms;
+
+    /** @var string[] */
+    public array $benefits;
+
+    /** @var UploadedFile[] */
+    public array $files;
+
+    /** @var LanguageRequirementData[] */
+    public array $languageRequirements;
+
+    /** @var int[] */
+    public array $hiringManagers;
+
+    /** @var int[] */
+    public array $approvers;
+
+    /** @var int[] */
+    public array $externalApprovers;
+
+    public ?Carbon $approveUntil;
+
+    public function hasFiles(): bool
+    {
+        return !empty($this->files);
+    }
+
+    public function hasHiringManagers(): bool
+    {
+        return !empty($this->hiringManagers);
+    }
+
+    public function hasApprovers(): bool
+    {
+        return !empty($this->approvers);
+    }
+
+    public function hasExternalApprovers(): bool
+    {
+        return !empty($this->externalApprovers);
+    }
+
+    public function hasAnyApprovers(): bool
+    {
+        return $this->hasHiringManagers() || $this->hasApprovers() || $this->hasExternalApprovers();
+    }
+
+    /**
+     * @return FileData[]
+     */
+    public function getFilesData(): array
+    {
+        return array_map(fn (UploadedFile $file) => FileData::make($file), $this->files);
+    }
+
+    public function hasKey(string $key): bool
+    {
+        return in_array($key, $this->keys);
+    }
+}

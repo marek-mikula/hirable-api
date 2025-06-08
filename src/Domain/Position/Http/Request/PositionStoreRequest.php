@@ -253,7 +253,7 @@ class PositionStoreRequest extends AuthRequest
             new ValidateApprovalRequiredFields(),
             new ValidateApprovalDuplicates(),
             new ValidateApprovalSelf($this->user()),
-            new ValidateApprovalOpen($this->route('position')),
+            new ValidateApprovalOpen(),
         ];
     }
 
