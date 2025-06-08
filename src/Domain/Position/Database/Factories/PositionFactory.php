@@ -77,6 +77,7 @@ class PositionFactory extends Factory
             'min_education_level' => str(fake()->word)->transliterate()->lower()->toString(),
             'seniority' => $isTechnical ? str(fake()->word)->transliterate()->lower()->toString() : null,
             'experience' => fake()->numberBetween(0, 10),
+            'hard_skills' => null,
             'organisation_skills' => fake()->numberBetween(0, 10),
             'team_skills' => fake()->numberBetween(0, 10),
             'time_management' => fake()->numberBetween(0, 10),

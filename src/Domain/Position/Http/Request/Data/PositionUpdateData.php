@@ -51,6 +51,8 @@ class PositionUpdateData extends Data
 
     public ?int $experience;
 
+    public ?string $hardSkills;
+
     public ?int $organisationSkills;
 
     public ?int $teamSkills;

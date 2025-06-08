@@ -38,6 +38,7 @@ readonly class PositionStoreInput
         public ?string $minEducationLevel,
         public ?string $seniority,
         public ?int $experience,
+        public ?string $hardSkills,
         public int $organisationSkills,
         public int $teamSkills,
         public int $timeManagement,

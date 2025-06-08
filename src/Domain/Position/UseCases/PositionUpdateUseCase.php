@@ -78,6 +78,7 @@ class PositionUpdateUseCase extends UseCase
             minEducationLevel: $data->hasKey('minEducationLevel') ? $data->minEducationLevel : $position->min_education_level,
             seniority: $data->hasKey('seniority') ? $data->seniority : $position->seniority,
             experience: $data->hasKey('experience') ? $data->experience : $position->experience,
+            hardSkills: $data->hasKey('hardSkills') ? $data->hardSkills : $position->hard_skills,
             organisationSkills: $data->hasKey('organisationSkills') ? $data->organisationSkills : $position->organisation_skills,
             teamSkills: $data->hasKey('teamSkills') ? $data->teamSkills : $position->team_skills,
             timeManagement: $data->hasKey('timeManagement') ? $data->timeManagement : $position->time_management,

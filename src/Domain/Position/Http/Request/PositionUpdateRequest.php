@@ -68,6 +68,7 @@ class PositionUpdateRequest extends AuthRequest
                     'minEducationLevel',
                     'seniority',
                     'experience',
+                    'hardSkills',
                     'organisationSkills',
                     'teamSkills',
                     'timeManagement',
@@ -188,6 +189,12 @@ class PositionUpdateRequest extends AuthRequest
                 'nullable',
                 'integer',
                 'min:0',
+            ],
+            'hardSkills' => [
+                Rule::excludeIf(!in_array('hardSkills', $keys)),
+                'nullable',
+                'string',
+                'max:2000',
             ],
             'organisationSkills' => [
                 Rule::excludeIf(!in_array('organisationSkills', $keys)),
@@ -381,6 +388,7 @@ class PositionUpdateRequest extends AuthRequest
             'minEducationLevel' => in_array('minEducationLevel', $keys) ? ($this->filled('minEducationLevel') ? (string) $this->input('minEducationLevel') : null) : null,
             'seniority' => in_array('seniority', $keys) ? ($this->filled('seniority') ? (string) $this->input('seniority') : null) : null,
             'experience' => in_array('experience', $keys) ? ($this->filled('experience') ? (int) $this->input('experience') : null) : null,
+            'hardSkills' => in_array('hardSkills', $keys) ? ($this->filled('hardSkills') ? (string) $this->input('hardSkills') : null) : null,
             'organisationSkills' => in_array('organisationSkills', $keys) ? ((int) $this->input('organisationSkills')) : null,
             'teamSkills' => in_array('teamSkills', $keys) ? ((int) $this->input('teamSkills')) : null,
             'timeManagement' => in_array('timeManagement', $keys) ? ((int) $this->input('timeManagement')) : null,

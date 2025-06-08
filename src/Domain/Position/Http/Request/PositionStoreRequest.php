@@ -115,6 +115,11 @@ class PositionStoreRequest extends AuthRequest
                 'integer',
                 'min:0',
             ],
+            'hardSkills' => [
+                'nullable',
+                'string',
+                'max:2000',
+            ],
             'organisationSkills' => [
                 'required',
                 'integer',
@@ -271,6 +276,7 @@ class PositionStoreRequest extends AuthRequest
             'minEducationLevel' => $this->filled('minEducationLevel') ? (string) $this->input('minEducationLevel') : null,
             'seniority' => $this->filled('seniority') ? (string) $this->input('seniority') : null,
             'experience' => $this->filled('experience') ? (int) $this->input('experience') : null,
+            'hardSkills' => $this->filled('hardSkills') ? (string) $this->input('hardSkills') : null,
             'organisationSkills' => (int) $this->input('organisationSkills'),
             'teamSkills' => (int) $this->input('teamSkills'),
             'timeManagement' => (int) $this->input('timeManagement'),
