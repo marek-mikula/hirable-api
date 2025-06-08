@@ -48,9 +48,6 @@ class PositionData extends Data
 
     public ?int $experience;
 
-    /** @var string[] */
-    public array $drivingLicences;
-
     public int $organisationSkills;
 
     public int $teamSkills;

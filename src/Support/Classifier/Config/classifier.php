@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Support\Classifier\Database\Seeders\ClassifierBenefitDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierCurrencyDatabaseSeeder;
-use Support\Classifier\Database\Seeders\ClassifierDrivingLicenceDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierEducationLevelDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierEmploymentFormDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierEmploymentRelationshipDatabaseSeeder;
@@ -150,10 +149,6 @@ return [
         ClassifierTypeEnum::SALARY_TYPE->value => [
             'translate' => true,
             'seeder' => ClassifierSalaryTypeDatabaseSeeder::class,
-        ],
-        ClassifierTypeEnum::DRIVING_LICENCE->value => [
-            'translate' => true,
-            'seeder' => ClassifierDrivingLicenceDatabaseSeeder::class,
         ],
     ],
 

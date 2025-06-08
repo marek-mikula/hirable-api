@@ -69,7 +69,6 @@ class PositionStoreUseCase extends UseCase
             minEducationLevel: $data->minEducationLevel,
             seniority: $data->seniority,
             experience: $data->experience,
-            drivingLicences: $data->drivingLicences,
             organisationSkills: $data->organisationSkills,
             teamSkills: $data->teamSkills,
             timeManagement: $data->timeManagement,

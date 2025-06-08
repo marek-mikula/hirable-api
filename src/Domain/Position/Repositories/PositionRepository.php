@@ -42,7 +42,6 @@ class PositionRepository implements PositionRepositoryInterface
         $position->min_education_level = $input->minEducationLevel;
         $position->seniority = $input->seniority;
         $position->experience = $input->experience;
-        $position->driving_licences = $input->drivingLicences;
         $position->organisation_skills = $input->organisationSkills;
         $position->team_skills = $input->teamSkills;
         $position->time_management = $input->timeManagement;
@@ -82,7 +81,6 @@ class PositionRepository implements PositionRepositoryInterface
         $position->min_education_level = $input->minEducationLevel;
         $position->seniority = $input->seniority;
         $position->experience = $input->experience;
-        $position->driving_licences = $input->drivingLicences;
         $position->organisation_skills = $input->organisationSkills;
         $position->team_skills = $input->teamSkills;
         $position->time_management = $input->timeManagement;

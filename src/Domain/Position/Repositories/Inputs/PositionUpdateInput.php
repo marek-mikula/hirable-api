@@ -9,7 +9,6 @@ use Carbon\Carbon;
 readonly class PositionUpdateInput
 {
     /**
-     * @param string[] $drivingLicences
      * @param string[] $workloads
      * @param string[] $employmentRelationships
      * @param string[] $employmentForms
@@ -35,7 +34,6 @@ readonly class PositionUpdateInput
         public ?string $minEducationLevel,
         public ?string $seniority,
         public ?int $experience,
-        public array $drivingLicences,
         public int $organisationSkills,
         public int $teamSkills,
         public int $timeManagement,

@@ -73,7 +73,6 @@ class PositionResource extends JsonResource
                 ? new ClassifierResource($toClassifier->handle($this->resource->seniority, ClassifierTypeEnum::SENIORITY))
                 : null,
             'experience' => $this->resource->experience,
-            'drivingLicences' => new ClassifierCollection($toClassifier->handle($this->resource->driving_licences, ClassifierTypeEnum::DRIVING_LICENCE)),
             'organisationSkills' => $this->resource->organisation_skills,
             'teamSkills' => $this->resource->team_skills,
             'timeManagement' => $this->resource->time_management,
