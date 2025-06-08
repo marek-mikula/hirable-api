@@ -52,4 +52,9 @@ class PositionPolicy
 
         return !in_array($position->state, $notInStates) && $user->id === $position->user_id;
     }
+
+    public function duplicate(User $user, Position $position): bool
+    {
+        return $this->show($user, $position);
+    }
 }

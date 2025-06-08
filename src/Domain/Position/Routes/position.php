@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Domain\Position\Http\Controllers\PositionApprovalDecideController;
 use Domain\Position\Http\Controllers\PositionApprovalCancelController;
 use Domain\Position\Http\Controllers\PositionController;
+use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
 use Domain\Position\Http\Controllers\PositionFileController;
 use Domain\Position\Http\Controllers\PositionSuggestController;
@@ -23,6 +24,8 @@ Route::middleware('auth:sanctum')->group(static function (): void {
     Route::prefix('/{position}')->whereNumber('position')->group(function (): void {
         Route::get('/', [PositionController::class, 'show'])->name('show');
         Route::patch('/', [PositionController::class, 'update'])->name('update');
+
+        Route::post('/duplicate', PositionDuplicateController::class)->name('duplicate');
 
         Route::prefix('/files')->as('files.')->group(function (): void {
             Route::delete('/{file}', [PositionFileController::class, 'destroy'])->whereNumber('file')->name('destroy');
