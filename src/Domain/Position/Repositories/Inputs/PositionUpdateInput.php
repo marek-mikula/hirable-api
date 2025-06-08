@@ -46,6 +46,9 @@ readonly class PositionUpdateInput
         public array $employmentForms,
         public array $benefits,
         public array $languageRequirements,
+        public int $hardSkillsRelevance,
+        public int $softSkillsRelevance,
+        public int $languageSkillsRelevance,
     ) {
     }
 }

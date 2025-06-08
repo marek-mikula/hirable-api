@@ -85,6 +85,9 @@ class PositionFactory extends Factory
             'leadership' => fake()->numberBetween(0, 10),
             'language_requirements' => [],
             'note' => fake()->boolean ? fake()->text(2000) : null,
+            'hard_skills_relevance' => fake()->numberBetween(0, 10),
+            'soft_skills_relevance' => fake()->numberBetween(0, 10),
+            'language_skills_relevance' => fake()->numberBetween(0, 10),
         ];
     }
 

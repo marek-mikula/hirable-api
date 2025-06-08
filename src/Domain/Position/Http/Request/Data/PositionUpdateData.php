@@ -94,6 +94,12 @@ class PositionUpdateData extends Data
 
     public ?Carbon $approveUntil;
 
+    public ?int $hardSkillsRelevance;
+
+    public ?int $softSkillsRelevance;
+
+    public ?int $languageSkillsRelevance;
+
     public function hasFiles(): bool
     {
         return !empty($this->files);

@@ -85,6 +85,9 @@ class PositionResource extends JsonResource
                 return $requirement;
             }, $this->resource->language_requirements),
             'note' => $this->resource->note,
+            'hardSkillsRelevance' => $this->resource->hard_skills_relevance,
+            'softSkillsRelevance' => $this->resource->soft_skills_relevance,
+            'languageSkillsRelevance' => $this->resource->language_skills_relevance,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
             'files' => new FileCollection($this->resource->files),

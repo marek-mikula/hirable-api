@@ -241,7 +241,25 @@ class PositionStoreRequest extends AuthRequest
                 'required_with:hiringManagers,approvers,externalApprovers',
                 'nullable',
                 Rule::date()->format('Y-m-d')->afterToday(),
-            ]
+            ],
+            'hardSkillsRelevance' => [
+                'required',
+                'integer',
+                'min:0',
+                'max:10',
+            ],
+            'softSkillsRelevance' => [
+                'required',
+                'integer',
+                'min:0',
+                'max:10',
+            ],
+            'languageSkillsRelevance' => [
+                'required',
+                'integer',
+                'min:0',
+                'max:10',
+            ],
         ];
     }
 
@@ -298,6 +316,9 @@ class PositionStoreRequest extends AuthRequest
             'approvers' => $this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all(),
             'externalApprovers' => $this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all(),
             'approveUntil' => $this->filled('approveUntil') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('approveUntil')) : null,
+            'hardSkillsRelevance' => (int) $this->input('hardSkillsRelevance'),
+            'softSkillsRelevance' => (int) $this->input('softSkillsRelevance'),
+            'languageSkillsRelevance' => (int) $this->input('languageSkillsRelevance'),
         ]);
     }
 }

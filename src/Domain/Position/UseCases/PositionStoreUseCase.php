@@ -80,10 +80,10 @@ class PositionStoreUseCase extends UseCase
             employmentRelationships: $data->employmentRelationships,
             employmentForms: $data->employmentForms,
             benefits: $data->benefits,
-            languageRequirements: array_map(fn ($requirement) => [
-                'language' => $requirement->language,
-                'level' => $requirement->level,
-            ], $data->languageRequirements),
+            languageRequirements: array_map(fn ($requirement) => $requirement->toArray(), $data->languageRequirements),
+            hardSkillsRelevance: $data->hardSkillsRelevance,
+            softSkillsRelevance: $data->softSkillsRelevance,
+            languageSkillsRelevance: $data->languageSkillsRelevance,
         );
 
         $hiringManagers = $data->hasHiringManagers()

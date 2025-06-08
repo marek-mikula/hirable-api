@@ -85,6 +85,9 @@ class PositionUpdateRequest extends AuthRequest
                     'approvers',
                     'externalApprovers',
                     'approveUntil',
+                    'hardSkillsRelevance',
+                    'softSkillsRelevance',
+                    'languageSkillsRelevance',
                 ])
             ],
             'operation' => [
@@ -344,6 +347,27 @@ class PositionUpdateRequest extends AuthRequest
                 'nullable',
                 Rule::date()->format('Y-m-d')->afterToday(),
             ],
+            'hardSkillsRelevance' => [
+                Rule::excludeIf(!in_array('hardSkillsRelevance', $keys)),
+                'required',
+                'integer',
+                'min:0',
+                'max:10',
+            ],
+            'softSkillsRelevance' => [
+                Rule::excludeIf(!in_array('softSkillsRelevance', $keys)),
+                'required',
+                'integer',
+                'min:0',
+                'max:10',
+            ],
+            'languageSkillsRelevance' => [
+                Rule::excludeIf(!in_array('languageSkillsRelevance', $keys)),
+                'required',
+                'integer',
+                'min:0',
+                'max:10',
+            ],
         ];
     }
 
@@ -410,6 +434,9 @@ class PositionUpdateRequest extends AuthRequest
             'approvers' => in_array('approvers', $keys) ? ($this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all()) : [],
             'externalApprovers' => in_array('externalApprovers', $keys) ? ($this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all()) : [],
             'approveUntil' => in_array('approveUntil', $keys) ? ($this->filled('approveUntil') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('approveUntil')) : null) : null,
+            'hardSkillsRelevance' => in_array('hardSkillsRelevance', $keys) ? ((int) $this->input('hardSkillsRelevance')) : null,
+            'softSkillsRelevance' => in_array('softSkillsRelevance', $keys) ? ((int) $this->input('softSkillsRelevance')) : null,
+            'languageSkillsRelevance' => in_array('languageSkillsRelevance', $keys) ? ((int) $this->input('languageSkillsRelevance')) : null,
         ]);
     }
 }
