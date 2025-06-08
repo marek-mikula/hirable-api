@@ -23,6 +23,7 @@ class PositionRepository implements PositionRepositoryInterface
 
         $position->company_id = $input->company->id;
         $position->user_id = $input->user->id;
+        $position->state = PositionStateEnum::DRAFT;
         $position->approval_round = $input->approvalRound;
         $position->approve_until = $input->approveUntil;
         $position->name = $input->name;
