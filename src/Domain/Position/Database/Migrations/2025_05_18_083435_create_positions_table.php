@@ -44,9 +44,9 @@ return new class () extends Migration {
             $table->unsignedTinyInteger('leadership');
             $table->json('language_requirements');
             $table->string('note', 2000)->nullable();
-            $table->unsignedTinyInteger('hard_skills_relevance');
-            $table->unsignedTinyInteger('soft_skills_relevance');
-            $table->unsignedTinyInteger('language_skills_relevance');
+            $table->unsignedTinyInteger('hard_skills_weight');
+            $table->unsignedTinyInteger('soft_skills_weight');
+            $table->unsignedTinyInteger('language_skills_weight');
             $table->timestamps();
 
             $table->foreign('company_id', 'position_company_foreign')

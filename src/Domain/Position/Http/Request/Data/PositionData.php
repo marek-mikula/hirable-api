@@ -91,11 +91,11 @@ class PositionData extends Data
 
     public ?Carbon $approveUntil;
 
-    public int $hardSkillsRelevance;
+    public int $hardSkillsWeight;
 
-    public int $softSkillsRelevance;
+    public int $softSkillsWeight;
 
-    public int $languageSkillsRelevance;
+    public int $languageSkillsWeight;
 
     public function hasFiles(): bool
     {

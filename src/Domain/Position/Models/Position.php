@@ -56,9 +56,9 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $leadership scale 0 - 10
  * @property array[] $language_requirements array of classifier values
  * @property string|null $note
- * @property int $hard_skills_relevance scale 0 - 10
- * @property int $soft_skills_relevance scale 0 - 10
- * @property int $language_skills_relevance scale 0 - 10
+ * @property int $hard_skills_weight scale 0 - 10
+ * @property int $soft_skills_weight scale 0 - 10
+ * @property int $language_skills_weight scale 0 - 10
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Company $company
@@ -119,9 +119,9 @@ class Position extends Model
         'leadership',
         'language_requirements',
         'note',
-        'hard_skills_relevance',
-        'soft_skills_relevance',
-        'language_skills_relevance',
+        'hard_skills_weight',
+        'soft_skills_weight',
+        'language_skills_weight',
     ];
 
     protected $attributes = [

@@ -85,9 +85,9 @@ class PositionUpdateRequest extends AuthRequest
                     'approvers',
                     'externalApprovers',
                     'approveUntil',
-                    'hardSkillsRelevance',
-                    'softSkillsRelevance',
-                    'languageSkillsRelevance',
+                    'hardSkillsWeight',
+                    'softSkillsWeight',
+                    'languageSkillsWeight',
                 ])
             ],
             'operation' => [
@@ -347,22 +347,22 @@ class PositionUpdateRequest extends AuthRequest
                 'nullable',
                 Rule::date()->format('Y-m-d')->afterToday(),
             ],
-            'hardSkillsRelevance' => [
-                Rule::excludeIf(!in_array('hardSkillsRelevance', $keys)),
+            'hardSkillsWeight' => [
+                Rule::excludeIf(!in_array('hardSkillsWeight', $keys)),
                 'required',
                 'integer',
                 'min:0',
                 'max:10',
             ],
-            'softSkillsRelevance' => [
-                Rule::excludeIf(!in_array('softSkillsRelevance', $keys)),
+            'softSkillsWeight' => [
+                Rule::excludeIf(!in_array('softSkillsWeight', $keys)),
                 'required',
                 'integer',
                 'min:0',
                 'max:10',
             ],
-            'languageSkillsRelevance' => [
-                Rule::excludeIf(!in_array('languageSkillsRelevance', $keys)),
+            'languageSkillsWeight' => [
+                Rule::excludeIf(!in_array('languageSkillsWeight', $keys)),
                 'required',
                 'integer',
                 'min:0',
@@ -434,9 +434,9 @@ class PositionUpdateRequest extends AuthRequest
             'approvers' => in_array('approvers', $keys) ? ($this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all()) : [],
             'externalApprovers' => in_array('externalApprovers', $keys) ? ($this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all()) : [],
             'approveUntil' => in_array('approveUntil', $keys) ? ($this->filled('approveUntil') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('approveUntil')) : null) : null,
-            'hardSkillsRelevance' => in_array('hardSkillsRelevance', $keys) ? ((int) $this->input('hardSkillsRelevance')) : null,
-            'softSkillsRelevance' => in_array('softSkillsRelevance', $keys) ? ((int) $this->input('softSkillsRelevance')) : null,
-            'languageSkillsRelevance' => in_array('languageSkillsRelevance', $keys) ? ((int) $this->input('languageSkillsRelevance')) : null,
+            'hardSkillsWeight' => in_array('hardSkillsWeight', $keys) ? ((int) $this->input('hardSkillsWeight')) : null,
+            'softSkillsWeight' => in_array('softSkillsWeight', $keys) ? ((int) $this->input('softSkillsWeight')) : null,
+            'languageSkillsWeight' => in_array('languageSkillsWeight', $keys) ? ((int) $this->input('languageSkillsWeight')) : null,
         ]);
     }
 }

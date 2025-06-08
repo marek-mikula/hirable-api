@@ -242,19 +242,19 @@ class PositionStoreRequest extends AuthRequest
                 'nullable',
                 Rule::date()->format('Y-m-d')->afterToday(),
             ],
-            'hardSkillsRelevance' => [
+            'hardSkillsWeight' => [
                 'required',
                 'integer',
                 'min:0',
                 'max:10',
             ],
-            'softSkillsRelevance' => [
+            'softSkillsWeight' => [
                 'required',
                 'integer',
                 'min:0',
                 'max:10',
             ],
-            'languageSkillsRelevance' => [
+            'languageSkillsWeight' => [
                 'required',
                 'integer',
                 'min:0',
@@ -316,9 +316,9 @@ class PositionStoreRequest extends AuthRequest
             'approvers' => $this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all(),
             'externalApprovers' => $this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all(),
             'approveUntil' => $this->filled('approveUntil') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('approveUntil')) : null,
-            'hardSkillsRelevance' => (int) $this->input('hardSkillsRelevance'),
-            'softSkillsRelevance' => (int) $this->input('softSkillsRelevance'),
-            'languageSkillsRelevance' => (int) $this->input('languageSkillsRelevance'),
+            'hardSkillsWeight' => (int) $this->input('hardSkillsWeight'),
+            'softSkillsWeight' => (int) $this->input('softSkillsWeight'),
+            'languageSkillsWeight' => (int) $this->input('languageSkillsWeight'),
         ]);
     }
 }

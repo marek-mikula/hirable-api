@@ -54,9 +54,9 @@ class PositionRepository implements PositionRepositoryInterface
         $position->employment_forms = $input->employmentForms;
         $position->benefits = $input->benefits;
         $position->language_requirements = $input->languageRequirements;
-        $position->hard_skills_relevance = $input->hardSkillsRelevance;
-        $position->soft_skills_relevance = $input->softSkillsRelevance;
-        $position->language_skills_relevance = $input->languageSkillsRelevance;
+        $position->hard_skills_weight = $input->hardSkillsWeight;
+        $position->soft_skills_weight = $input->softSkillsWeight;
+        $position->language_skills_weight = $input->languageSkillsWeight;
 
         throw_if(!$position->save(), RepositoryException::stored(Position::class));
 
@@ -97,9 +97,9 @@ class PositionRepository implements PositionRepositoryInterface
         $position->employment_forms = $input->employmentForms;
         $position->benefits = $input->benefits;
         $position->language_requirements = $input->languageRequirements;
-        $position->hard_skills_relevance = $input->hardSkillsRelevance;
-        $position->soft_skills_relevance = $input->softSkillsRelevance;
-        $position->language_skills_relevance = $input->languageSkillsRelevance;
+        $position->hard_skills_weight = $input->hardSkillsWeight;
+        $position->soft_skills_weight = $input->softSkillsWeight;
+        $position->language_skills_weight = $input->languageSkillsWeight;
 
         throw_if(!$position->save(), RepositoryException::updated(Position::class));
 
