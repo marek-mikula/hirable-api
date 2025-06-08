@@ -123,4 +123,9 @@ class PositionRepository implements PositionRepositoryInterface
 
         return $position;
     }
+
+    public function delete(Position $position): void
+    {
+        throw_if(!$position->delete(), RepositoryException::deleted(Position::class));
+    }
 }

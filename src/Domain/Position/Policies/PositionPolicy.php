@@ -53,6 +53,17 @@ class PositionPolicy
         return !in_array($position->state, $notInStates) && $user->id === $position->user_id;
     }
 
+    public function delete(User $user, Position $position): bool
+    {
+        $notInStates = [
+            PositionStateEnum::OPENED,
+            PositionStateEnum::CLOSED,
+            PositionStateEnum::CANCELED,
+        ];
+
+        return !in_array($position->state, $notInStates) && $user->id === $position->user_id;
+    }
+
     public function duplicate(User $user, Position $position): bool
     {
         return $this->show($user, $position);

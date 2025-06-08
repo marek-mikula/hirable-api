@@ -6,6 +6,7 @@ namespace Domain\Position\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use Domain\Position\Http\Request\PositionDeleteRequest;
 use Domain\Position\Http\Request\PositionIndexRequest;
 use Domain\Position\Http\Request\PositionShowRequest;
 use Domain\Position\Http\Request\PositionStoreRequest;
@@ -13,6 +14,7 @@ use Domain\Position\Http\Request\PositionUpdateRequest;
 use Domain\Position\Http\Resources\Collections\PositionListPaginatedCollection;
 use Domain\Position\Http\Resources\PositionResource;
 use Domain\Position\Models\Position;
+use Domain\Position\UseCases\PositionDeleteUseCase;
 use Domain\Position\UseCases\PositionIndexUseCase;
 use Domain\Position\UseCases\PositionStoreUseCase;
 use Domain\Position\UseCases\PositionUpdateUseCase;
@@ -92,5 +94,12 @@ class PositionController extends ApiController
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'position' => new PositionResource($position),
         ]);
+    }
+
+    public function delete(PositionDeleteRequest $request, Position $position): JsonResponse
+    {
+        PositionDeleteUseCase::make()->handle($request->user(), $position);
+
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS);
     }
 }

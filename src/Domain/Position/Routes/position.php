@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
     Route::prefix('/{position}')->whereNumber('position')->group(function (): void {
         Route::get('/', [PositionController::class, 'show'])->name('show');
         Route::patch('/', [PositionController::class, 'update'])->name('update');
-
+        Route::delete('/', [PositionController::class, 'delete'])->name('delete');
         Route::post('/duplicate', PositionDuplicateController::class)->name('duplicate');
 
         Route::prefix('/files')->as('files.')->group(function (): void {

@@ -35,3 +35,9 @@ it('tests updateApprovalRound method', function (): void {
     /** @var PositionRepositoryInterface $repository */
     $repository = app(PositionRepositoryInterface::class);
 })->todo();
+
+/** @covers \Domain\Position\Repositories\PositionRepository::delete */
+it('tests delete method', function (): void {
+    /** @var PositionRepositoryInterface $repository */
+    $repository = app(PositionRepositoryInterface::class);
+})->todo();

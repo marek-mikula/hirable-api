@@ -15,3 +15,6 @@ it('PositionController@update', function (): void {})->todo();
 
 /** @covers \Domain\Position\Http\Controllers\PositionController::show */
 it('PositionController@show', function (): void {})->todo();
+
+/** @covers \Domain\Position\Http\Controllers\PositionController::delete */
+it('PositionController@delete', function (): void {})->todo();

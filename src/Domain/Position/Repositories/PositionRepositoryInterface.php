@@ -20,4 +20,6 @@ interface PositionRepositoryInterface
     public function updateState(Position $position, PositionStateEnum $state): Position;
 
     public function updateApprovalRound(Position $position, ?int $round): Position;
+
+    public function delete(Position $position): void;
 }
