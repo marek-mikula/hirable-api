@@ -19,6 +19,7 @@ use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\Position\Services\PositionApprovalService;
 use Domain\User\Models\User;
 use Domain\User\Repositories\UserRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Support\File\Actions\GetModelSubFoldersAction;
 use Support\File\Enums\FileTypeEnum;
@@ -41,14 +42,15 @@ class PositionStoreUseCase extends UseCase
     {
         $company = $user->loadMissing('company')->company;
 
+        $state = match ($data->operation) {
+            PositionOperationEnum::SEND_FOR_APPROVAL => PositionStateEnum::APPROVAL_PENDING,
+            PositionOperationEnum::OPEN => PositionStateEnum::OPENED,
+            PositionOperationEnum::SAVE => PositionStateEnum::DRAFT,
+        };
+
         $input = new PositionStoreInput(
             company: $company,
             user: $user,
-            state: match ($data->operation) {
-                PositionOperationEnum::SEND_FOR_APPROVAL => PositionStateEnum::APPROVAL_PENDING,
-                PositionOperationEnum::OPEN => PositionStateEnum::OPENED,
-                PositionOperationEnum::SAVE => PositionStateEnum::DRAFT,
-            },
             approveUntil: $data->approveUntil,
             approvalRound: null,
             name: $data->name,
@@ -58,9 +60,8 @@ class PositionStoreUseCase extends UseCase
             description: $data->description,
             isTechnical: $data->isTechnical,
             address: $data->address,
-            salaryFrom: $data->salaryFrom,
-            salaryTo: $data->salaryTo,
-            salary: $data->salary,
+            salaryFrom: (int) ($data->salary ?? $data->salaryFrom),
+            salaryTo: $data->salary ? null : $data->salaryTo,
             salaryType: $data->salaryType,
             salaryFrequency: $data->salaryFrequency,
             salaryCurrency: $data->salaryCurrency,
@@ -68,7 +69,7 @@ class PositionStoreUseCase extends UseCase
             minEducationLevel: $data->minEducationLevel,
             seniority: $data->seniority,
             experience: $data->experience,
-            drivingLicences: $data->drivingLicences,
+            hardSkills: $data->hardSkills,
             organisationSkills: $data->organisationSkills,
             teamSkills: $data->teamSkills,
             timeManagement: $data->timeManagement,
@@ -100,6 +101,7 @@ class PositionStoreUseCase extends UseCase
         return DB::transaction(function () use (
             $data,
             $input,
+            $state,
             $user,
             $hiringManagers,
             $approvers,
@@ -107,37 +109,15 @@ class PositionStoreUseCase extends UseCase
         ): Position {
             $position = $this->positionRepository->store($input);
 
-            if ($hiringManagers->isNotEmpty()) {
-                $this->modelHasPositionRepository->storeMany($position, $hiringManagers, PositionRoleEnum::HIRING_MANAGER);
+            if ($position->state !== $state) {
+                $position = $this->positionRepository->updateState($position, $state);
             }
 
-            if ($approvers->isNotEmpty()) {
-                $this->modelHasPositionRepository->storeMany($position, $approvers, PositionRoleEnum::APPROVER);
-            }
+            $this->processHiringManagers($position, $hiringManagers);
+            $this->processApprovers($position, $approvers);
+            $this->processExternalApprovers($position, $externalApprovers);
+            $this->processFiles($position, $data);
 
-            if ($externalApprovers->isNotEmpty()) {
-                $this->modelHasPositionRepository->storeMany($position, $externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER);
-            }
-
-            $position->setRelation('hiringManagers', $hiringManagers);
-            $position->setRelation('approvers', $approvers);
-            $position->setRelation('externalApprovers', $externalApprovers);
-
-            // save files if any
-            if ($data->hasFiles()) {
-                $files = $this->fileSaver->saveFiles(
-                    fileable: $position,
-                    type: FileTypeEnum::POSITION_FILE,
-                    files: $data->getFilesData(),
-                    folders: GetModelSubFoldersAction::make()->handle($position)
-                );
-
-                $position->setRelation('files', $files);
-            } else {
-                $position->setRelation('files', modelCollection(File::class));
-            }
-
-            // send position for approval if needed
             if ($position->state === PositionStateEnum::APPROVAL_PENDING) {
                 $approvals = $this->positionApprovalService->sendForApproval($user, $position);
                 $position->setRelation('approvals', $approvals);
@@ -147,5 +127,56 @@ class PositionStoreUseCase extends UseCase
 
             return $position;
         }, attempts: 5);
+    }
+
+    private function processHiringManagers(Position $position, Collection $hiringManagers): void
+    {
+        if ($hiringManagers->isEmpty()) {
+            return;
+        }
+
+        $this->modelHasPositionRepository->storeMany($position, $hiringManagers, PositionRoleEnum::HIRING_MANAGER);
+
+        $position->setRelation('hiringManagers', $hiringManagers);
+    }
+
+    private function processApprovers(Position $position, Collection $approvers): void
+    {
+        if ($approvers->isEmpty()) {
+            return;
+        }
+
+        $this->modelHasPositionRepository->storeMany($position, $approvers, PositionRoleEnum::APPROVER);
+
+        $position->setRelation('approvers', $approvers);
+    }
+
+    private function processExternalApprovers(Position $position, Collection $externalApprovers): void
+    {
+        if ($externalApprovers->isEmpty()) {
+            return;
+        }
+
+        $this->modelHasPositionRepository->storeMany($position, $externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER);
+
+        $position->setRelation('externalApprovers', $externalApprovers);
+    }
+
+    private function processFiles(Position $position, PositionData $data): void
+    {
+        if (!$data->hasFiles()) {
+            $position->setRelation('files', modelCollection(File::class));
+
+            return;
+        }
+
+        $files = $this->fileSaver->saveFiles(
+            fileable: $position,
+            type: FileTypeEnum::POSITION_FILE,
+            files: $data->getFilesData(),
+            folders: GetModelSubFoldersAction::make()->handle($position)
+        );
+
+        $position->setRelation('files', $files);
     }
 }

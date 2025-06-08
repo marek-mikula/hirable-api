@@ -10,21 +10,24 @@ use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Data;
 use Support\File\Data\FileData;
 
-class PositionData extends Data
+class PositionUpdateData extends Data
 {
     public PositionOperationEnum $operation;
 
-    public string $name;
+    /** @var string[] */
+    public array $keys;
+
+    public ?string $name;
 
     public ?string $department;
 
     public ?string $field;
 
-    public int $jobSeatsNum;
+    public ?int $jobSeatsNum;
 
-    public string $description;
+    public ?string $description;
 
-    public bool $isTechnical;
+    public ?bool $isTechnical;
 
     public ?string $address;
 
@@ -34,11 +37,11 @@ class PositionData extends Data
 
     public ?int $salary;
 
-    public string $salaryType;
+    public ?string $salaryType;
 
-    public string $salaryFrequency;
+    public ?string $salaryFrequency;
 
-    public string $salaryCurrency;
+    public ?string $salaryCurrency;
 
     public ?string $salaryVar;
 
@@ -50,15 +53,15 @@ class PositionData extends Data
 
     public ?string $hardSkills;
 
-    public int $organisationSkills;
+    public ?int $organisationSkills;
 
-    public int $teamSkills;
+    public ?int $teamSkills;
 
-    public int $timeManagement;
+    public ?int $timeManagement;
 
-    public int $communicationSkills;
+    public ?int $communicationSkills;
 
-    public int $leadership;
+    public ?int $leadership;
 
     public ?string $note;
 
@@ -122,5 +125,10 @@ class PositionData extends Data
     public function getFilesData(): array
     {
         return array_map(fn (UploadedFile $file) => FileData::make($file), $this->files);
+    }
+
+    public function hasKey(string $key): bool
+    {
+        return in_array($key, $this->keys);
     }
 }

@@ -5,16 +5,10 @@ declare(strict_types=1);
 namespace Domain\Position\Validation;
 
 use Domain\Position\Enums\PositionOperationEnum;
-use Domain\Position\Enums\PositionStateEnum;
-use Domain\Position\Models\Position;
 use Illuminate\Validation\Validator;
 
 class ValidateApprovalOpen
 {
-    public function __construct(private readonly ?Position $position)
-    {
-    }
-
     public function __invoke(Validator $validator): void
     {
         $data = $validator->getData();
@@ -22,10 +16,6 @@ class ValidateApprovalOpen
         $operation = PositionOperationEnum::from((string) $data['operation']);
 
         if ($operation !== PositionOperationEnum::OPEN) {
-            return;
-        }
-
-        if ($this->position->state === PositionStateEnum::APPROVAL_APPROVED) {
             return;
         }
 

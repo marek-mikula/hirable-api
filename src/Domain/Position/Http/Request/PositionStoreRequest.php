@@ -115,12 +115,10 @@ class PositionStoreRequest extends AuthRequest
                 'integer',
                 'min:0',
             ],
-            'drivingLicences' => [
-                'array',
-            ],
-            'drivingLicences.*' => [
-                'required',
+            'hardSkills' => [
+                'nullable',
                 'string',
+                'max:2000',
             ],
             'organisationSkills' => [
                 'required',
@@ -253,7 +251,7 @@ class PositionStoreRequest extends AuthRequest
             new ValidateApprovalRequiredFields(),
             new ValidateApprovalDuplicates(),
             new ValidateApprovalSelf($this->user()),
-            new ValidateApprovalOpen($this->route('position')),
+            new ValidateApprovalOpen(),
         ];
     }
 
@@ -278,7 +276,7 @@ class PositionStoreRequest extends AuthRequest
             'minEducationLevel' => $this->filled('minEducationLevel') ? (string) $this->input('minEducationLevel') : null,
             'seniority' => $this->filled('seniority') ? (string) $this->input('seniority') : null,
             'experience' => $this->filled('experience') ? (int) $this->input('experience') : null,
-            'drivingLicences' => $this->collect('drivingLicences')->map(fn (mixed $val) => (string) $val)->all(),
+            'hardSkills' => $this->filled('hardSkills') ? (string) $this->input('hardSkills') : null,
             'organisationSkills' => (int) $this->input('organisationSkills'),
             'teamSkills' => (int) $this->input('teamSkills'),
             'timeManagement' => (int) $this->input('timeManagement'),

@@ -11,7 +11,7 @@ use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Events\PositionOpenedEvent;
-use Domain\Position\Http\Request\Data\PositionData;
+use Domain\Position\Http\Request\Data\PositionUpdateData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Repositories\Inputs\PositionUpdateInput;
@@ -39,7 +39,7 @@ class PositionUpdateUseCase extends UseCase
     ) {
     }
 
-    public function handle(User $user, Position $position, PositionData $data): Position
+    public function handle(User $user, Position $position, PositionUpdateData $data): Position
     {
         $company = $user->loadMissing('company')->company;
 
@@ -53,57 +53,57 @@ class PositionUpdateUseCase extends UseCase
             'externalApprovers',
         ]);
 
+        $state = match ($data->operation) {
+            PositionOperationEnum::SEND_FOR_APPROVAL => PositionStateEnum::APPROVAL_PENDING,
+            PositionOperationEnum::OPEN => PositionStateEnum::OPENED,
+            PositionOperationEnum::SAVE => $data->hasAnyApprovers() || $position->state === PositionStateEnum::OPENED ? $position->state : PositionStateEnum::DRAFT,
+        };
+
         $input = new PositionUpdateInput(
-            state: match ($data->operation) {
-                PositionOperationEnum::SEND_FOR_APPROVAL => PositionStateEnum::APPROVAL_PENDING,
-                PositionOperationEnum::OPEN => PositionStateEnum::OPENED,
-                PositionOperationEnum::SAVE => $data->hasAnyApprovers() ? $position->state : PositionStateEnum::DRAFT,
-            },
             approvalRound: null,
-            approveUntil:  $data->approveUntil,
-            name: $data->name,
-            department: $data->department,
-            field: $data->field,
-            jobSeatsNum: $data->jobSeatsNum,
-            description: $data->description,
-            isTechnical: $data->isTechnical,
-            address: $data->address,
-            salaryFrom: $data->salaryFrom,
-            salaryTo: $data->salaryTo,
-            salary: $data->salary,
-            salaryType: $data->salaryType,
-            salaryFrequency: $data->salaryFrequency,
-            salaryCurrency: $data->salaryCurrency,
-            salaryVar: $data->salaryVar,
-            minEducationLevel: $data->minEducationLevel,
-            seniority: $data->seniority,
-            experience: $data->experience,
-            drivingLicences: $data->drivingLicences,
-            organisationSkills: $data->organisationSkills,
-            teamSkills: $data->teamSkills,
-            timeManagement: $data->timeManagement,
-            communicationSkills: $data->communicationSkills,
-            leadership: $data->leadership,
-            note: $data->note,
-            workloads: $data->workloads,
-            employmentRelationships: $data->employmentRelationships,
-            employmentForms: $data->employmentForms,
-            benefits: $data->benefits,
+            approveUntil:  $data->hasKey('approveUntil') ? $data->approveUntil : $position->approve_until,
+            name: $data->hasKey('name') ? $data->name : $position->name,
+            department: $data->hasKey('department') ? $data->department : $position->department,
+            field: $data->hasKey('field') ? $data->field : $position->field,
+            jobSeatsNum: $data->hasKey('jobSeatsNum') ? $data->jobSeatsNum : $position->job_seats_num,
+            description: $data->hasKey('description') ? $data->description : $position->description,
+            isTechnical: $data->hasKey('isTechnical') ? $data->isTechnical : $position->is_technical,
+            address: $data->hasKey('address') ? $data->address : $position->address,
+            salaryFrom: $data->hasKey('salary') ? (int) ($data->salary ?? $data->salaryFrom) : $position->salary_from,
+            salaryTo: $data->hasKey('salary') ? ($data->salary ? null : $data->salaryTo) : $position->salary_to,
+            salaryType: $data->hasKey('salaryType') ? $data->salaryType : $position->salary_type,
+            salaryFrequency: $data->hasKey('salaryFrequency') ? $data->salaryFrequency : $position->salary_frequency,
+            salaryCurrency: $data->hasKey('salaryCurrency') ? $data->salaryCurrency : $position->salary_currency,
+            salaryVar: $data->hasKey('salaryVar') ? $data->salaryVar : $position->salary_var,
+            minEducationLevel: $data->hasKey('minEducationLevel') ? $data->minEducationLevel : $position->min_education_level,
+            seniority: $data->hasKey('seniority') ? $data->seniority : $position->seniority,
+            experience: $data->hasKey('experience') ? $data->experience : $position->experience,
+            hardSkills: $data->hasKey('hardSkills') ? $data->hardSkills : $position->hard_skills,
+            organisationSkills: $data->hasKey('organisationSkills') ? $data->organisationSkills : $position->organisation_skills,
+            teamSkills: $data->hasKey('teamSkills') ? $data->teamSkills : $position->team_skills,
+            timeManagement: $data->hasKey('timeManagement') ? $data->timeManagement : $position->time_management,
+            communicationSkills: $data->hasKey('communicationSkills') ? $data->communicationSkills : $position->communication_skills,
+            leadership: $data->hasKey('leadership') ? $data->leadership : $position->leadership,
+            note: $data->hasKey('note') ? $data->note : $position->note,
+            workloads: $data->hasKey('workloads') ? $data->workloads : $position->workloads,
+            employmentRelationships: $data->hasKey('employmentRelationships') ? $data->employmentRelationships : $position->employment_relationships,
+            employmentForms: $data->hasKey('employmentForms') ? $data->employmentForms : $position->employment_forms,
+            benefits: $data->hasKey('benefits') ? $data->benefits : $position->benefits,
             languageRequirements: array_map(fn ($requirement) => [
                 'language' => $requirement->language,
                 'level' => $requirement->level,
             ], $data->languageRequirements),
         );
 
-        $hiringManagers = $data->hasHiringManagers()
+        $hiringManagers = $data->hasKey('hiringManagers') && $data->hasHiringManagers()
             ? $this->userRepository->getByIdsAndCompany($company, $data->hiringManagers)
             : modelCollection(User::class);
 
-        $approvers = $data->hasApprovers()
+        $approvers = $data->hasKey('approvers') && $data->hasApprovers()
             ? $this->userRepository->getByIdsAndCompany($company, $data->approvers)
             : modelCollection(User::class);
 
-        $externalApprovers = $data->hasExternalApprovers()
+        $externalApprovers = $data->hasKey('externalApprovers') && $data->hasExternalApprovers()
             ? $this->companyContactRepository->getByIdsAndCompany($company, $data->externalApprovers)
             : modelCollection(CompanyContact::class);
 
@@ -111,6 +111,7 @@ class PositionUpdateUseCase extends UseCase
             $user,
             $position,
             $data,
+            $state,
             $input,
             $hiringManagers,
             $approvers,
@@ -118,15 +119,19 @@ class PositionUpdateUseCase extends UseCase
         ): Position {
             $position = $this->positionRepository->update($position, $input);
 
-            $this->processHiringManagers($position, $hiringManagers);
-            $this->processApprovers($position, $approvers);
-            $this->processExternalApprovers($position, $externalApprovers);
+            if ($state !== $position->state) {
+                $position = $this->positionRepository->updateState($position, $state);
+            }
+
+            $this->processHiringManagers($position, $data, $hiringManagers);
+            $this->processApprovers($position, $data, $approvers);
+            $this->processExternalApprovers($position, $data, $externalApprovers);
             $this->processFiles($position, $data);
 
-            if ($position->state === PositionStateEnum::APPROVAL_PENDING) {
+            if ($position->wasChanged('state') && $position->state === PositionStateEnum::APPROVAL_PENDING) {
                 $approvals = $this->positionApprovalService->sendForApproval($user, $position);
                 $position->setRelation('approvals', $position->approvals->push(...$approvals));
-            } elseif ($position->state === PositionStateEnum::OPENED) {
+            } elseif ($position->wasChanged('state') && $position->state === PositionStateEnum::OPENED) {
                 PositionOpenedEvent::dispatch($position);
             }
 
@@ -134,8 +139,12 @@ class PositionUpdateUseCase extends UseCase
         }, attempts: 5);
     }
 
-    private function processHiringManagers(Position $position, Collection $hiringManagers): void
+    private function processHiringManagers(Position $position, PositionUpdateData $data, Collection $hiringManagers): void
     {
+        if (!$data->hasKey('hiringManagers')) {
+            return;
+        }
+
         $hmsSync = $this->modelHasPositionRepository->sync(
             position: $position,
             existingModels: $position->hiringManagers,
@@ -156,8 +165,12 @@ class PositionUpdateUseCase extends UseCase
         $position->setRelation('approvals', $newApprovals);
     }
 
-    private function processApprovers(Position $position, Collection $approvers): void
+    private function processApprovers(Position $position, PositionUpdateData $data, Collection $approvers): void
     {
+        if (!$data->hasKey('approvers')) {
+            return;
+        }
+
         $approversSync = $this->modelHasPositionRepository->sync(
             position: $position,
             existingModels: $position->approvers,
@@ -178,8 +191,12 @@ class PositionUpdateUseCase extends UseCase
         $position->setRelation('approvals', $newApprovals);
     }
 
-    private function processExternalApprovers(Position $position, Collection $externalApprovers): void
+    private function processExternalApprovers(Position $position, PositionUpdateData $data, Collection $externalApprovers): void
     {
+        if (!$data->hasKey('externalApprovers')) {
+            return;
+        }
+
         $externalApproversSync = $this->modelHasPositionRepository->sync(
             position: $position,
             existingModels: $position->externalApprovers,
@@ -200,9 +217,9 @@ class PositionUpdateUseCase extends UseCase
         $position->setRelation('approvals', $newApprovals);
     }
 
-    private function processFiles(Position $position, PositionData $data): void
+    private function processFiles(Position $position, PositionUpdateData $data): void
     {
-        if (!$data->hasFiles()) {
+        if (!$data->hasKey('files') || !$data->hasFiles()) {
             return;
         }
 

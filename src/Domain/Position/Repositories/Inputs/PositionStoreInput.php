@@ -6,13 +6,11 @@ namespace Domain\Position\Repositories\Inputs;
 
 use Carbon\Carbon;
 use Domain\Company\Models\Company;
-use Domain\Position\Enums\PositionStateEnum;
 use Domain\User\Models\User;
 
 readonly class PositionStoreInput
 {
     /**
-     * @param string[] $drivingLicences
      * @param string[] $workloads
      * @param string[] $employmentRelationships
      * @param string[] $employmentForms
@@ -22,7 +20,6 @@ readonly class PositionStoreInput
     public function __construct(
         public Company $company,
         public User $user,
-        public PositionStateEnum $state,
         public ?Carbon $approveUntil,
         public ?int $approvalRound,
         public string $name,
@@ -32,9 +29,8 @@ readonly class PositionStoreInput
         public string $description,
         public bool $isTechnical,
         public ?string $address,
-        public ?int $salaryFrom,
+        public int $salaryFrom,
         public ?int $salaryTo,
-        public ?int $salary,
         public string $salaryType,
         public string $salaryFrequency,
         public string $salaryCurrency,
@@ -42,7 +38,7 @@ readonly class PositionStoreInput
         public ?string $minEducationLevel,
         public ?string $seniority,
         public ?int $experience,
-        public array $drivingLicences,
+        public ?string $hardSkills,
         public int $organisationSkills,
         public int $teamSkills,
         public int $timeManagement,

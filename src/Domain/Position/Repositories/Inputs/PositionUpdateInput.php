@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories\Inputs;
 
 use Carbon\Carbon;
-use Domain\Position\Enums\PositionStateEnum;
 
 readonly class PositionUpdateInput
 {
     /**
-     * @param string[] $drivingLicences
      * @param string[] $workloads
      * @param string[] $employmentRelationships
      * @param string[] $employmentForms
@@ -18,7 +16,6 @@ readonly class PositionUpdateInput
      * @param array[] $languageRequirements
      */
     public function __construct(
-        public PositionStateEnum $state,
         public ?int $approvalRound,
         public ?Carbon $approveUntil,
         public string $name,
@@ -28,9 +25,8 @@ readonly class PositionUpdateInput
         public string $description,
         public bool $isTechnical,
         public ?string $address,
-        public ?int $salaryFrom,
+        public int $salaryFrom,
         public ?int $salaryTo,
-        public ?int $salary,
         public string $salaryType,
         public string $salaryFrequency,
         public string $salaryCurrency,
@@ -38,7 +34,7 @@ readonly class PositionUpdateInput
         public ?string $minEducationLevel,
         public ?string $seniority,
         public ?int $experience,
-        public array $drivingLicences,
+        public ?string $hardSkills,
         public int $organisationSkills,
         public int $teamSkills,
         public int $timeManagement,

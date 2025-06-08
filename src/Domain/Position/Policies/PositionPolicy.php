@@ -44,10 +44,12 @@ class PositionPolicy
 
     public function update(User $user, Position $position): bool
     {
-        if ($position->state === PositionStateEnum::APPROVAL_PENDING) {
-            return false;
-        }
+        $notInStates = [
+            PositionStateEnum::APPROVAL_PENDING,
+            PositionStateEnum::CLOSED,
+            PositionStateEnum::CANCELED,
+        ];
 
-        return $user->id === $position->user_id;
+        return !in_array($position->state, $notInStates) && $user->id === $position->user_id;
     }
 }
