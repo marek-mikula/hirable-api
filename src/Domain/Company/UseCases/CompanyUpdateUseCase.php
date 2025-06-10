@@ -27,8 +27,6 @@ class CompanyUpdateUseCase extends UseCase
             'email' => $company->email,
             'idNumber' => $company->id_number,
             'website' => $company->website,
-            'environment' => $company->environment,
-            'benefits' => $company->benefits,
         ];
 
         foreach ($values as $key => $value) {

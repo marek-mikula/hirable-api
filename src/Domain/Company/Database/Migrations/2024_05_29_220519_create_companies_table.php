@@ -15,8 +15,6 @@ return new class () extends Migration {
             $table->string('email')->unique('companies_email_unique');
             $table->string('id_number')->unique('companies_id_number_unique');
             $table->string('website')->nullable();
-            $table->string('environment', 1000)->nullable();
-            $table->json('benefits');
             $table->timestamps();
         });
     }

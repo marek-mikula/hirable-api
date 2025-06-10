@@ -23,8 +23,6 @@ use Illuminate\Database\Query\Builder;
  * @property string $email
  * @property string $id_number
  * @property string|null $website
- * @property string|null $environment
- * @property string[] $benefits
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Collection<User> $users
@@ -49,18 +47,13 @@ class Company extends Model
         'email',
         'id_number',
         'website',
-        'environment',
-        'benefits',
     ];
 
-    protected $attributes = [
-        'benefits' => '[]'
-    ];
+    protected $attributes = [];
 
     protected $casts = [
         'name' => Capitalize::class,
         'email' => Lowercase::class,
-        'benefits' => 'array',
     ];
 
     public function users(): HasMany

@@ -11,8 +11,6 @@ readonly class CompanyUpdateInput
         public string $email,
         public string $idNumber,
         public ?string $website,
-        public ?string $environment,
-        public array $benefits,
     ) {
     }
 }

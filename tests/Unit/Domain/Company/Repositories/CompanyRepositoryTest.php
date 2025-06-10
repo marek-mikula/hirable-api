@@ -57,11 +57,6 @@ it('tests update method', function (): void {
         email: fake()->companyEmail,
         idNumber: fake()->numerify('#########'),
         website: fake()->url,
-        environment: fake()->text(500),
-        benefits: [
-            str(fake()->word)->transliterate()->lower()->toString(),
-            str(fake()->word)->transliterate()->lower()->toString(),
-        ]
     );
 
     $company = $repository->update(Company::factory()->create(), $input);
@@ -70,6 +65,4 @@ it('tests update method', function (): void {
     assertSame($input->email, $company->email);
     assertSame($input->idNumber, $company->id_number);
     assertSame($input->website, $company->website);
-    assertSame($input->environment, $company->environment);
-    assertSame($input->benefits, $company->benefits);
 });

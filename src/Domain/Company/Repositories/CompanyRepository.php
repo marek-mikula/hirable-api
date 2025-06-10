@@ -40,8 +40,6 @@ final class CompanyRepository implements CompanyRepositoryInterface
         $company->email = $input->email;
         $company->id_number = $input->idNumber;
         $company->website = $input->website;
-        $company->environment = $input->environment;
-        $company->benefits = $input->benefits;
 
         throw_if(!$company->save(), RepositoryException::updated(Company::class));
 
