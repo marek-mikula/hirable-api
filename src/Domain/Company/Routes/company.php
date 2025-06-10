@@ -26,8 +26,12 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::prefix('/contacts')->as('contacts.')->group(static function (): void {
             Route::get('/', [CompanyContactController::class, 'index'])->name('index');
             Route::post('/', [CompanyContactController::class, 'store'])->name('store');
-            Route::patch('/{contact}', [CompanyContactController::class, 'update'])->whereNumber('contact')->name('update');
             Route::get('/suggest-companies', CompanyContactSuggestCompaniesController::class)->name('suggest_companies');
+
+            Route::prefix('/{contact}')->whereNumber('contact')->group(static function (): void {
+                Route::patch('/', [CompanyContactController::class, 'update'])->name('update');
+                Route::delete('/', [CompanyContactController::class, 'delete'])->name('delete');
+            });
         });
     });
 });

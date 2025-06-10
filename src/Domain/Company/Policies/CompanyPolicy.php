@@ -55,4 +55,9 @@ class CompanyPolicy
     {
         return $this->show($user, $company) && $company->id === $contact->company_id;
     }
+
+    public function deleteContact(User $user, Company $company, CompanyContact $contact): bool
+    {
+        return $this->show($user, $company) && $company->id === $contact->company_id;
+    }
 }

@@ -27,7 +27,7 @@ class ContinueApprovalProcessListener extends Listener
     {
         $position = $event->position;
 
-        $hasPendingApprovals = $this->positionApprovalRepository->hasApprovalsInState($position, PositionApprovalStateEnum::PENDING);
+        $hasPendingApprovals = $this->positionApprovalRepository->hasApprovalsOnPositionInState($position, PositionApprovalStateEnum::PENDING);
 
         // there are still some approvals left
         // => ignore this listener

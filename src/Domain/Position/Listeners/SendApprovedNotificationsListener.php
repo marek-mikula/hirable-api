@@ -19,7 +19,7 @@ class SendApprovedNotificationsListener extends QueuedListener
 
     public function handle(PositionApprovalApprovedEvent $event): void
     {
-        $hasPendingApprovals = $this->positionApprovalRepository->hasApprovalsInState($event->position, PositionApprovalStateEnum::PENDING);
+        $hasPendingApprovals = $this->positionApprovalRepository->hasApprovalsOnPositionInState($event->position, PositionApprovalStateEnum::PENDING);
 
         // there are still some approvals left
         // => ignore this listener

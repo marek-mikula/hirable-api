@@ -6,6 +6,7 @@ namespace Domain\Company\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use Domain\Company\Http\Requests\CompanyContactDeleteRequest;
 use Domain\Company\Http\Requests\CompanyContactIndexRequest;
 use Domain\Company\Http\Requests\CompanyContactStoreRequest;
 use Domain\Company\Http\Requests\CompanyContactUpdateRequest;
@@ -13,6 +14,7 @@ use Domain\Company\Http\Resources\Collection\CompanyContactPaginatedCollection;
 use Domain\Company\Http\Resources\CompanyContactResource;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
+use Domain\Company\UseCases\CompanyContactDeleteUseCase;
 use Domain\Company\UseCases\CompanyContactIndexUseCase;
 use Domain\Company\UseCases\CompanyContactStoreUseCase;
 use Domain\Company\UseCases\CompanyContactUpdateUseCase;
@@ -55,5 +57,12 @@ class CompanyContactController extends ApiController
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'contact' => new CompanyContactResource($contact),
         ]);
+    }
+
+    public function delete(CompanyContactDeleteRequest $request, Company $company, CompanyContact $contact): JsonResponse
+    {
+        CompanyContactDeleteUseCase::make()->handle($contact);
+
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS);
     }
 }

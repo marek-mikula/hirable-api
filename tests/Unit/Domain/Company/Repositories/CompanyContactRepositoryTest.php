@@ -11,6 +11,7 @@ use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyContactStoreInput;
 use Domain\Company\Repositories\Input\CompanyContactUpdateInput;
 
+use function Pest\Laravel\assertModelMissing;
 use function PHPUnit\Framework\assertEmpty;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
@@ -69,6 +70,18 @@ it('tests update method', function (): void {
     assertSame($input->email, $contact->email);
     assertSame($input->note, $contact->note);
     assertSame($input->companyName, $contact->company_name);
+});
+
+/** @covers \Domain\Company\Repositories\CompanyContactRepository::delete */
+it('tests delete method', function (): void {
+    /** @var CompanyContactRepositoryInterface $repository */
+    $repository = app(CompanyContactRepositoryInterface::class);
+
+    $contact = CompanyContact::factory()->create();
+
+    $repository->delete($contact);
+
+    assertModelMissing($contact);
 });
 
 /** @covers \Domain\Company\Repositories\CompanyContactRepository::getByIdsAndCompany */

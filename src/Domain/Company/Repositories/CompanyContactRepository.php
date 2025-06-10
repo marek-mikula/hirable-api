@@ -46,6 +46,11 @@ class CompanyContactRepository implements CompanyContactRepositoryInterface
         return $contact;
     }
 
+    public function delete(CompanyContact $contact): void
+    {
+        throw_if(!$contact->delete(), RepositoryException::deleted(CompanyContact::class));
+    }
+
     public function getByIdsAndCompany(Company $company, array $ids): Collection
     {
         return CompanyContact::query()

@@ -21,7 +21,11 @@ interface ModelHasPositionRepositoryInterface
      */
     public function storeMany(Position $position, Collection $models, PositionRoleEnum $role): Collection;
 
-    public function delete(Position $position, Model $model, PositionRoleEnum $role): void;
+    public function deleteByRoleOnPosition(Position $position, Model $model, PositionRoleEnum $role): void;
+
+    public function deleteByModel(Model $model): void;
+
+    public function delete(ModelHasPosition $model): void;
 
     /**
      * @param Position $position

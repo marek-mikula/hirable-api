@@ -16,6 +16,8 @@ interface CompanyContactRepositoryInterface
 
     public function update(CompanyContact $contact, CompanyContactUpdateInput $input): CompanyContact;
 
+    public function delete(CompanyContact $contact): void;
+
     /**
      * @param int[] $ids
      * @return Collection<CompanyContact>

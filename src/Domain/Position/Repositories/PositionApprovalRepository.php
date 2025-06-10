@@ -51,7 +51,7 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
         return $approval;
     }
 
-    public function getApprovalsInstate(Position $position, PositionApprovalStateEnum $state, array $with = []): Collection
+    public function getApprovalsOnPositionInstate(Position $position, PositionApprovalStateEnum $state, array $with = []): Collection
     {
         return $position
             ->approvals()
@@ -60,7 +60,7 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
             ->get();
     }
 
-    public function hasApprovalsInState(Position $position, PositionApprovalStateEnum $state): bool
+    public function hasApprovalsOnPositionInState(Position $position, PositionApprovalStateEnum $state): bool
     {
         return $position
             ->approvals()
@@ -68,7 +68,7 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
             ->exists();
     }
 
-    public function hasModelAsApproverInState(Position $position, Model $model, PositionApprovalStateEnum $state): bool
+    public function hasModelAsApproverOnPositionInState(Position $position, Model $model, PositionApprovalStateEnum $state): bool
     {
         return $position
             ->approvals()
@@ -79,6 +79,19 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
             })
             ->where('state', $state->value)
             ->exists();
+    }
+
+    public function getApprovalsByModelInstate(Model $model, PositionApprovalStateEnum $state, array $with = []): Collection
+    {
+        return PositionApproval::query()
+            ->with($with)
+            ->where('state', $state->value)
+            ->whereHas('modelHasPosition', function (Builder $query) use ($model): void {
+                $query
+                    ->where('model_has_positions.model_type', $model::class)
+                    ->where('model_has_positions.model_id', $model->getKey());
+            })
+            ->get();
     }
 
     public function setRemindedAt(Collection $approvals, ?Carbon $timestamp = null): void

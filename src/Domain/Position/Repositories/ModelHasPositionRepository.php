@@ -36,15 +36,35 @@ class ModelHasPositionRepository implements ModelHasPositionRepositoryInterface
         return $models->map(fn (Model $model) => $this->store($position, $model, $role));
     }
 
-    public function delete(Position $position, Model $model, PositionRoleEnum $role): void
+    public function deleteByRoleOnPosition(Position $position, Model $model, PositionRoleEnum $role): void
     {
-        $state = ModelHasPosition::query()
+        /** @var ModelHasPosition|null $model */
+        $model = ModelHasPosition::query()
+            ->where('position_id', $position->id)
             ->where('model_type', $model::class)
             ->where('model_id', $model->getKey())
             ->where('role', $role->value)
-            ->delete();
+            ->first();
 
-        throw_if(!$state, RepositoryException::deleted(ModelHasPosition::class));
+        if ($model) {
+            $this->delete($model);
+        }
+    }
+
+    public function deleteByModel(Model $model): void
+    {
+        ModelHasPosition::query()
+            ->where('model_type', $model::class)
+            ->where('model_id', $model->getKey())
+            ->get()
+            ->each(function (ModelHasPosition $model) {
+                $this->delete($model);
+            });
+    }
+
+    public function delete(ModelHasPosition $model): void
+    {
+        throw_if(!$model->delete(), RepositoryException::deleted(ModelHasPosition::class));
     }
 
     public function sync(
@@ -74,7 +94,7 @@ class ModelHasPositionRepository implements ModelHasPositionRepositoryInterface
 
         /** @var Model $model */
         foreach ($existingModels as $model) {
-            $this->delete($position, $model, $role);
+            $this->deleteByRoleOnPosition($position, $model, $role);
 
             $deleted->push($model);
         }

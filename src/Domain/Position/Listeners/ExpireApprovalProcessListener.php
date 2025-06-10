@@ -23,7 +23,7 @@ class ExpireApprovalProcessListener extends Listener
     {
         $position = $event->position;
 
-        $pendingApprovals = $this->positionApprovalRepository->getApprovalsInstate($position, PositionApprovalStateEnum::PENDING, ['token']);
+        $pendingApprovals = $this->positionApprovalRepository->getApprovalsOnPositionInstate($position, PositionApprovalStateEnum::PENDING, ['token']);
 
         // expire all pending approvals
         foreach ($pendingApprovals as $approval) {

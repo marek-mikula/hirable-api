@@ -24,11 +24,17 @@ interface PositionApprovalRepositoryInterface
      * @param string[] $with
      * @return Collection<PositionApproval>
      */
-    public function getApprovalsInstate(Position $position, PositionApprovalStateEnum $state, array $with = []): Collection;
+    public function getApprovalsOnPositionInstate(Position $position, PositionApprovalStateEnum $state, array $with = []): Collection;
 
-    public function hasApprovalsInState(Position $position, PositionApprovalStateEnum $state): bool;
+    public function hasApprovalsOnPositionInState(Position $position, PositionApprovalStateEnum $state): bool;
 
-    public function hasModelAsApproverInState(Position $position, Model $model, PositionApprovalStateEnum $state): bool;
+    public function hasModelAsApproverOnPositionInState(Position $position, Model $model, PositionApprovalStateEnum $state): bool;
+
+    /**
+     * @param string[] $with
+     * @return Collection<PositionApproval>
+     */
+    public function getApprovalsByModelInstate(Model $model, PositionApprovalStateEnum $state, array $with = []): Collection;
 
     /**
      * @param Collection<PositionApproval> $approvals

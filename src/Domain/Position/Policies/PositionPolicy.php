@@ -36,7 +36,7 @@ class PositionPolicy
             /** @var PositionApprovalRepositoryInterface $positionApprovalRepository */
             $positionApprovalRepository = app(PositionApprovalRepositoryInterface::class);
 
-            return $positionApprovalRepository->hasModelAsApproverInState($position, $user, PositionApprovalStateEnum::PENDING);
+            return $positionApprovalRepository->hasModelAsApproverOnPositionInState($position, $user, PositionApprovalStateEnum::PENDING);
         }
 
         return false;

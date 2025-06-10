@@ -14,6 +14,7 @@ enum ResponseCodeEnum
     case CLIENT_ERROR;
     case TOKEN_MISMATCH;
     case EMAIL_VERIFICATION_NEEDED;
+    case CONTACT_PENDING_APPROVALS;
     case UNAUTHORIZED;
     case TOKEN_MISSING;
     case TOKEN_CORRUPTED;
@@ -45,6 +46,7 @@ enum ResponseCodeEnum
             // 400
             self::TOKEN_MISMATCH,
             self::EMAIL_VERIFICATION_NEEDED,
+            self::CONTACT_PENDING_APPROVALS,
             self::CLIENT_ERROR => 400,
 
             // 401
