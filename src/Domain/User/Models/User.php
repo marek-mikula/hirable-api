@@ -7,7 +7,6 @@ namespace Domain\User\Models;
 use App\Casts\Capitalize;
 use App\Casts\Lowercase;
 use App\Enums\LanguageEnum;
-use App\Enums\TimezoneEnum;
 use Carbon\Carbon;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
@@ -30,7 +29,6 @@ use Support\Token\Models\Token;
  * @property int $company_id
  * @property RoleEnum $company_role
  * @property LanguageEnum $language
- * @property TimezoneEnum|null $timezone
  * @property string $firstname
  * @property string $lastname
  * @property string|null $prefix
@@ -93,7 +91,6 @@ class User extends Authenticatable implements HasLocalePreference
     protected $casts = [
         'company_role' => RoleEnum::class,
         'language' => LanguageEnum::class,
-        'timezone' => TimezoneEnum::class,
         'firstname' => Capitalize::class,
         'lastname' => Capitalize::class,
         'email' => Lowercase::class,

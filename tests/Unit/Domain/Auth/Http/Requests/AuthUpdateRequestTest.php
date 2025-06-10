@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\Auth\Http\Requests;
 
 use App\Enums\LanguageEnum;
-use App\Enums\TimezoneEnum;
 use Domain\Auth\Http\Requests\AuthUpdateRequest;
 use Domain\User\Models\User;
 use Illuminate\Support\Str;
@@ -54,8 +53,6 @@ it('tests request validation rules', function (ValidationData $data): void {
     [new ValidationData(data: ['keys' => ['password'], 'password' => 'Password.123', 'passwordConfirm' => null], invalidInputs: ['passwordConfirm'])],
     [new ValidationData(data: ['keys' => ['password'], 'password' => 'Password.123', 'passwordConfirm' => 1], invalidInputs: ['passwordConfirm'])],
     [new ValidationData(data: ['keys' => ['password'], 'password' => 'Password.123', 'passwordConfirm' => 'test'], invalidInputs: ['passwordConfirm'])],
-    [new ValidationData(data: ['keys' => ['timezone'], 'timezone' => 1], invalidInputs: ['timezone'])],
-    [new ValidationData(data: ['keys' => ['timezone'], 'timezone' => 'test'], invalidInputs: ['timezone'])],
     [new ValidationData(data: ['keys' => ['notificationTechnicalMail'], 'notificationTechnicalMail' => null], invalidInputs: ['notificationTechnicalMail'])],
     [new ValidationData(data: ['keys' => ['notificationTechnicalMail'], 'notificationTechnicalMail' => 'test'], invalidInputs: ['notificationTechnicalMail'])],
     [new ValidationData(data: ['keys' => ['notificationTechnicalApp'], 'notificationTechnicalApp' => null], invalidInputs: ['notificationTechnicalApp'])],
@@ -81,7 +78,6 @@ it('tests request validation rules', function (ValidationData $data): void {
             'firstname',
             'lastname',
             'email',
-            'timezone',
             'password',
             'notificationTechnicalMail',
             'notificationTechnicalApp',
@@ -103,7 +99,6 @@ it('tests request validation rules', function (ValidationData $data): void {
         'password' => 'Password.123',
         'oldPassword' => 'SecretPassword.123',
         'passwordConfirm' => 'Password.123',
-        'timezone' => TimezoneEnum::AFRICA_ABIDJAN->value,
         'notificationTechnicalMail' => 1,
         'notificationTechnicalApp' => 1,
         'notificationMarketingMail' => 1,

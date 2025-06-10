@@ -6,7 +6,6 @@ namespace Tests\Feature\Domain\Auth\UseCases;
 
 use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
-use App\Enums\TimezoneEnum;
 use Domain\Auth\UseCases\AuthUpdateUseCase;
 use Domain\Password\Notifications\ChangedNotification;
 use Domain\User\Models\User;
@@ -20,14 +19,12 @@ use function Tests\Common\Helpers\assertHttpException;
 it('tests update user use case - all attributes', function (): void {
     $user = User::factory()
         ->ofLanguage(LanguageEnum::EN)
-        ->ofTimezone(TimezoneEnum::AFRICA_ABIDJAN)
         ->create();
 
     $data = [
         'firstname' => 'Thomas',
         'lastname' => 'Example',
         'email' => 'example@example.com',
-        'timezone' => TimezoneEnum::EUROPE_PRAGUE,
         'language' => LanguageEnum::CS,
         'prefix' => 'Ing.',
         'postfix' => 'MBA',
@@ -42,7 +39,6 @@ it('tests update user use case - all attributes', function (): void {
     assertSame($data['postfix'], $user->postfix);
     assertSame($data['phone'], $user->phone);
     assertSame($data['email'], $user->email);
-    assertSame($data['timezone'], $user->timezone);
     assertSame($data['language'], $user->language);
 });
 

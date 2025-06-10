@@ -45,7 +45,6 @@ final class UserRepository implements UserRepositoryInterface
         $user->firstname = $input->firstname;
         $user->lastname = $input->lastname;
         $user->email = $input->email;
-        $user->timezone = $input->timezone;
         $user->language = $input->language;
         $user->prefix = $input->prefix;
         $user->postfix = $input->postfix;

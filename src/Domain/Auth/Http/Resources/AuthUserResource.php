@@ -30,7 +30,6 @@ class AuthUserResource extends JsonResource
             'companyRole' => $this->resource->company_role->value,
             'companyName' => $this->resource->company->name,
             'language' => $this->resource->language->value,
-            'timezone' => $this->resource->timezone?->value,
             'firstname' => $this->resource->firstname,
             'lastname' => $this->resource->lastname,
             'fullName' => $this->resource->full_name,

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\User\Repositories;
 
 use App\Enums\LanguageEnum;
-use App\Enums\TimezoneEnum;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\User\Models\User;
@@ -71,14 +70,12 @@ it('tests update method', function (): void {
 
     $user = User::factory()
         ->ofLanguage(LanguageEnum::EN)
-        ->ofTimezone(TimezoneEnum::AFRICA_ABIDJAN)
         ->create();
 
     $input = new UserUpdateInput(
         firstname: fake()->firstName,
         lastname: fake()->lastName,
         email: fake()->email,
-        timezone: TimezoneEnum::EUROPE_PRAGUE,
         language: LanguageEnum::CS,
         prefix: 'Mgr.',
         postfix: 'MBA',
@@ -91,7 +88,6 @@ it('tests update method', function (): void {
     assertSame($input->firstname, $user->firstname);
     assertSame($input->lastname, $user->lastname);
     assertSame($input->email, $user->email);
-    assertSame($input->timezone, $user->timezone);
     assertSame($input->prefix, $user->prefix);
     assertSame($input->postfix, $user->postfix);
     assertSame($input->phone, $user->phone);

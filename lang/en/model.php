@@ -32,7 +32,6 @@ return [
     ],
 
     'user' => [
-        'timezone' => 'Timezone',
         'language' => 'Language',
         'password' => 'Password',
         'current_password' => 'Current password',

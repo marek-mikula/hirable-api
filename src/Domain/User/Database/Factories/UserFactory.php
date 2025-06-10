@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\User\Database\Factories;
 
 use App\Enums\LanguageEnum;
-use App\Enums\TimezoneEnum;
 use Database\Factories\Factory;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
@@ -39,7 +38,6 @@ class UserFactory extends Factory
             'company_id' => $this->isMaking ? null : Company::factory(),
             'company_role' => RoleEnum::ADMIN,
             'language' => LanguageEnum::EN,
-            'timezone' => null,
             'firstname' => $firstname,
             'lastname' => $lastname,
             'prefix' => null,
@@ -86,13 +84,6 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'language' => $language,
-        ]);
-    }
-
-    public function ofTimezone(?TimezoneEnum $timezone): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'timezone' => $timezone,
         ]);
     }
 

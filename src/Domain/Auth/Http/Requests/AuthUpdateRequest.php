@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Auth\Http\Requests;
 
 use App\Enums\LanguageEnum;
-use App\Enums\TimezoneEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\User\Models\User;
 use Illuminate\Validation\Rule;
@@ -38,7 +37,6 @@ class AuthUpdateRequest extends AuthRequest
                     'firstname',
                     'lastname',
                     'email',
-                    'timezone',
                     'password',
                     'notificationTechnicalMail',
                     'notificationTechnicalApp',
@@ -96,12 +94,6 @@ class AuthUpdateRequest extends AuthRequest
                 'required',
                 'string',
                 'same:password',
-            ],
-            'timezone' => [
-                Rule::excludeIf(!in_array('timezone', $keys)),
-                'nullable',
-                'string',
-                Rule::enum(TimezoneEnum::class),
             ],
             'notificationTechnicalMail' => [
                 Rule::excludeIf(!in_array('notificationTechnicalMail', $keys)),
@@ -167,7 +159,6 @@ class AuthUpdateRequest extends AuthRequest
         foreach ($this->array('keys') as $key) {
             $data[$key] = match ($key) {
                 'firstname', 'lastname', 'email', 'password' => (string) $this->input($key),
-                'timezone' => $this->filled($key) ? $this->enum($key, TimezoneEnum::class) : null,
                 'notificationTechnicalMail',
                 'notificationTechnicalApp',
                 'notificationMarketingMail',

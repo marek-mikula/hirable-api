@@ -44,7 +44,6 @@ class AuthUpdateUseCase extends UseCase
             'firstname' => $user->firstname,
             'lastname' => $user->lastname,
             'email' => $user->email,
-            'timezone' => $user->timezone,
             'language' => $user->language,
             'prefix' => $user->prefix,
             'postfix' => $user->postfix,

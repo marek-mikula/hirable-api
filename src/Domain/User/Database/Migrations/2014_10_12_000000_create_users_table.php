@@ -12,7 +12,6 @@ return new class () extends Migration {
         Schema::create('users', static function (Blueprint $table): void {
             $table->id();
             $table->string('language', 2);
-            $table->string('timezone')->nullable();
             $table->string('firstname');
             $table->string('lastname');
             $table->string('prefix', 10)->nullable();
