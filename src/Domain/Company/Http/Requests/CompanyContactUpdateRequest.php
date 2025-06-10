@@ -45,6 +45,7 @@ class CompanyContactUpdateRequest extends AuthRequest
                 'required',
                 'string',
                 'email',
+                'max:255',
                 Rule::unique(CompanyContact::class)->ignore($contact->id)->where('company_id', $user->company_id),
             ],
             'note' => [

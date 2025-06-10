@@ -42,6 +42,7 @@ class CompanyContactStoreRequest extends AuthRequest
                 'required',
                 'string',
                 'email',
+                'max:255',
                 Rule::unique(CompanyContact::class)->where('company_id', $user->company_id),
             ],
             'note' => [
