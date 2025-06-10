@@ -8,6 +8,7 @@ use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
 use Domain\Company\Http\Requests\Data\InvitationStoreData;
+use Domain\Company\Models\Company;
 use Domain\Company\Notifications\InvitationSentNotification;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -24,10 +25,10 @@ class CompanyInvitationStoreUseCase extends UseCase
     ) {
     }
 
-    public function handle(User $user, InvitationStoreData $data): Token
+    public function handle(User $user, Company $company, InvitationStoreData $data): Token
     {
         $invitationExists = Token::query()
-            ->whereCompany($user->company_id)
+            ->whereCompany($company->id)
             ->whereEmail($data->email)
             ->whereType(TokenTypeEnum::INVITATION)
             ->valid()
@@ -38,7 +39,7 @@ class CompanyInvitationStoreUseCase extends UseCase
         }
 
         $userAlreadyExists = User::query()
-            ->whereCompany($user->company_id)
+            ->whereCompany($company->id)
             ->where('email', $data->email)
             ->exists();
 
@@ -48,12 +49,13 @@ class CompanyInvitationStoreUseCase extends UseCase
 
         return DB::transaction(function () use (
             $user,
+            $company,
             $data,
         ): Token {
             $token = $this->tokenRepository->store(new TokenStoreInput(
                 type: TokenTypeEnum::INVITATION,
                 data: [
-                    'companyId' => $user->company_id,
+                    'companyId' => $company->id,
                     'role' => $data->role->value,
                     'email' => $data->email,
                 ],

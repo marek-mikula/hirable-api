@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Company\UseCases;
 
 use App\UseCases\UseCase;
+use Domain\Company\Models\Company;
 use Domain\User\Models\Builders\UserBuilder;
 use Domain\User\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -12,10 +13,10 @@ use Support\Grid\Data\Query\GridRequestQuery;
 
 class CompanyUserIndexUseCase extends UseCase
 {
-    public function handle(User $user, GridRequestQuery $gridQuery): Paginator
+    public function handle(Company $company, GridRequestQuery $gridQuery): Paginator
     {
         return User::query()
-            ->whereCompany($user->company_id)
+            ->whereCompany($company->id)
             ->when($gridQuery->hasSearchQuery(), function (UserBuilder $query) use ($gridQuery): void {
                 $query->where(function (UserBuilder $query) use ($gridQuery): void {
                     $query

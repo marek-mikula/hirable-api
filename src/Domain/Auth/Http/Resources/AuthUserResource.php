@@ -27,6 +27,7 @@ class AuthUserResource extends JsonResource
 
         return [
             'id' => $this->resource->id,
+            'companyId' => $this->resource->company_id,
             'companyRole' => $this->resource->company_role->value,
             'companyName' => $this->resource->company->name,
             'language' => $this->resource->language->value,

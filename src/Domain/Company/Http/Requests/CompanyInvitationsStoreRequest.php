@@ -7,6 +7,7 @@ namespace Domain\Company\Http\Requests;
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Http\Requests\Data\InvitationStoreData;
+use Domain\Company\Policies\CompanyPolicy;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -14,7 +15,8 @@ class CompanyInvitationsStoreRequest extends AuthRequest
 {
     public function authorize(): bool
     {
-        return true;
+        /** @see CompanyPolicy::storeInvitation() */
+        return $this->user()->can('', $this->route('company'));
     }
 
     public function rules(): array

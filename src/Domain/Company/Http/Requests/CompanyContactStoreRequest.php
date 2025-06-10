@@ -14,7 +14,8 @@ class CompanyContactStoreRequest extends AuthRequest
 {
     public function authorize(): bool
     {
-        return true;
+        /** @see CompanyPolicy::storeContact() */
+        return $this->user()->can('storeContact', $this->route('company'));
     }
 
     public function rules(): array

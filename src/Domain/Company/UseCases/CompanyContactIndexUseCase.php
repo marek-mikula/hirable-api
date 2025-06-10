@@ -6,17 +6,17 @@ namespace Domain\Company\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\Company\Models\Builders\CompanyContactBuilder;
+use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
-use Domain\User\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
 class CompanyContactIndexUseCase extends UseCase
 {
-    public function handle(User $user, GridRequestQuery $gridQuery): Paginator
+    public function handle(Company $company, GridRequestQuery $gridQuery): Paginator
     {
         return CompanyContact::query()
-            ->whereCompany($user->company_id)
+            ->whereCompany($company->id)
             ->when($gridQuery->hasSearchQuery(), function (CompanyContactBuilder $query) use ($gridQuery): void {
                 $query->where(function (CompanyContactBuilder $query) use ($gridQuery): void {
                     $query

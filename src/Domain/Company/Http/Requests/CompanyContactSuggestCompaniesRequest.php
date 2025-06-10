@@ -10,7 +10,8 @@ class CompanyContactSuggestCompaniesRequest extends AuthRequest
 {
     public function authorize(): bool
     {
-        return true;
+        /** @see CompanyPolicy::showContacts() */
+        return $this->user()->can('showContacts', $this->route('company'));
     }
 
     public function rules(): array

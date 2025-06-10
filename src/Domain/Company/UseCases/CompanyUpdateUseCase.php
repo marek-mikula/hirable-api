@@ -8,7 +8,6 @@ use App\UseCases\UseCase;
 use Domain\Company\Models\Company;
 use Domain\Company\Repositories\CompanyRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyUpdateInput;
-use Domain\User\Models\User;
 
 class CompanyUpdateUseCase extends UseCase
 {
@@ -17,10 +16,8 @@ class CompanyUpdateUseCase extends UseCase
     ) {
     }
 
-    public function handle(User $user, array $values): Company
+    public function handle(Company $company, array $values): Company
     {
-        $company = $user->loadMissing('company')->company;
-
         if (empty($values)) {
             return $company;
         }

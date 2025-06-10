@@ -12,7 +12,8 @@ class CompanyUpdateRequest extends AuthRequest
 {
     public function authorize(): bool
     {
-        return true;
+        /** @see CompanyPolicy::update() */
+        return $this->user()->can('update', $this->route('company'));
     }
 
     public function rules(): array

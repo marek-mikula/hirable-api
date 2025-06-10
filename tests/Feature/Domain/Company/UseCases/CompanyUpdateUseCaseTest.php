@@ -35,7 +35,7 @@ it('correctly updates company - all attributes', function (): void {
         'benefits' => $benefits
     ];
 
-    $company = CompanyUpdateUseCase::make()->handle($user, $values);
+    $company = CompanyUpdateUseCase::make()->handle($company, $values);
 
     assertSame($values['name'], $company->name);
     assertSame($values['email'], $company->email);

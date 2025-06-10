@@ -10,6 +10,7 @@ use Domain\Company\Http\Requests\CompanyContactIndexRequest;
 use Domain\Company\Http\Requests\CompanyContactStoreRequest;
 use Domain\Company\Http\Resources\Collection\CompanyContactPaginatedCollection;
 use Domain\Company\Http\Resources\CompanyContactResource;
+use Domain\Company\Models\Company;
 use Domain\Company\UseCases\CompanyContactIndexUseCase;
 use Domain\Company\UseCases\CompanyContactStoreUseCase;
 use Illuminate\Http\JsonResponse;
@@ -20,13 +21,13 @@ use function Illuminate\Support\defer;
 
 class CompanyContactController extends ApiController
 {
-    public function index(CompanyContactIndexRequest $request): JsonResponse
+    public function index(CompanyContactIndexRequest $request, Company $company): JsonResponse
     {
         $user = $request->user();
 
         $gridQuery = $request->getGridQuery();
 
-        $contacts = CompanyContactIndexUseCase::make()->handle($user, $gridQuery);
+        $contacts = CompanyContactIndexUseCase::make()->handle($company, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_CONTACT, $gridQuery));
 
@@ -35,9 +36,9 @@ class CompanyContactController extends ApiController
         ]);
     }
 
-    public function store(CompanyContactStoreRequest $request): JsonResponse
+    public function store(CompanyContactStoreRequest $request, Company $company): JsonResponse
     {
-        $contact = CompanyContactStoreUseCase::make()->handle($request->user(), $request->toData());
+        $contact = CompanyContactStoreUseCase::make()->handle($company, $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'contact' => new CompanyContactResource($contact),

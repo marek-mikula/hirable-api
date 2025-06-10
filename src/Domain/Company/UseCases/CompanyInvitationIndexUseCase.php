@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Company\UseCases;
 
 use App\UseCases\UseCase;
-use Domain\User\Models\User;
+use Domain\Company\Models\Company;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 use Support\Token\Models\Builders\TokenBuilder;
@@ -13,10 +13,10 @@ use Support\Token\Models\Token;
 
 class CompanyInvitationIndexUseCase extends UseCase
 {
-    public function handle(User $user, GridRequestQuery $gridQuery): Paginator
+    public function handle(Company $company, GridRequestQuery $gridQuery): Paginator
     {
         return Token::query()
-            ->whereCompany($user->company_id)
+            ->whereCompany($company->id)
             ->when($gridQuery->hasSearchQuery(), function (TokenBuilder $query) use ($gridQuery): void {
                 $query->where(function (TokenBuilder $query) use ($gridQuery): void {
                     $query

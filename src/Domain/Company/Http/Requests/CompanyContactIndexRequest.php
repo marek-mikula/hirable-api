@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Company\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
+use Domain\Company\Policies\CompanyPolicy;
 use Support\Grid\Traits\AsGridRequest;
 
 class CompanyContactIndexRequest extends AuthRequest
@@ -13,7 +14,8 @@ class CompanyContactIndexRequest extends AuthRequest
 
     public function authorize(): bool
     {
-        return true;
+        /** @see CompanyPolicy::showContacts() */
+        return $this->user()->can('showContacts', $this->route('company'));
     }
 
     public function rules(): array

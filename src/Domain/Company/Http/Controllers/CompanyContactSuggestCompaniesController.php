@@ -7,22 +7,19 @@ namespace Domain\Company\Http\Controllers;
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Company\Http\Requests\CompanyContactSuggestCompaniesRequest;
+use Domain\Company\Models\Company;
 use Domain\Company\Repositories\CompanyContactSuggestRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
-class CompanyContactSuggestController extends ApiController
+class CompanyContactSuggestCompaniesController extends ApiController
 {
     public function __construct(
         private readonly CompanyContactSuggestRepositoryInterface $companyContactSuggestRepository,
     ) {
     }
 
-    public function companies(CompanyContactSuggestCompaniesRequest $request): JsonResponse
+    public function __invoke(CompanyContactSuggestCompaniesRequest $request, Company $company): JsonResponse
     {
-        $user = $request->user();
-
-        $company = $user->loadMissing('company')->company;
-
         $values = $this->companyContactSuggestRepository->suggestCompanies($company, $request->getQuery());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
