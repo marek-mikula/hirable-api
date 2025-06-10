@@ -11,7 +11,7 @@ return new class () extends Migration {
     {
         Schema::table('users', static function (Blueprint $table): void {
             $table->foreignId('company_id')->after('id');
-            $table->string('company_role')->after('company_id');
+            $table->string('company_role', 20)->after('company_id');
 
             $table->foreign('company_id', 'users_company_foreign')
                 ->references('id')

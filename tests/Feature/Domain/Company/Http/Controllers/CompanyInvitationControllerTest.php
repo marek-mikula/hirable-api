@@ -9,3 +9,6 @@ it('CompanyInvitationController@index', function (): void {})->todo();
 
 /** @covers \Domain\Company\Http\Controllers\CompanyInvitationController::store */
 it('CompanyInvitationController@store', function (): void {})->todo();
+
+/** @covers \Domain\Company\Http\Controllers\CompanyInvitationController::delete */
+it('CompanyInvitationController@delete', function (): void {})->todo();

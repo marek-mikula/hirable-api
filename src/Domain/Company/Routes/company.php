@@ -21,6 +21,10 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::prefix('/invitations')->as('invitations.')->group(static function (): void {
             Route::get('/', [CompanyInvitationController::class, 'index'])->name('index');
             Route::post('/', [CompanyInvitationController::class, 'store'])->name('store');
+
+            Route::prefix('/{invitation}')->whereNumber('invitation')->group(static function (): void {
+                Route::delete('/', [CompanyInvitationController::class, 'delete'])->name('delete');
+            });
         });
 
         Route::prefix('/contacts')->as('contacts.')->group(static function (): void {

@@ -8,6 +8,8 @@ use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Domain\User\Models\User;
+use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Models\Token;
 
 class CompanyPolicy
 {
@@ -36,9 +38,12 @@ class CompanyPolicy
         return $this->show($user, $company) && $user->company_role === RoleEnum::ADMIN;
     }
 
-    public function updateInvitation(User $user, Company $company): bool
+    public function deleteInvitation(User $user, Company $company, Token $token): bool
     {
-        return $this->show($user, $company) && $user->company_role === RoleEnum::ADMIN;
+        return $this->show($user, $company) &&
+            $user->company_role === RoleEnum::ADMIN &&
+            $company->id === ((int) $token->getDataValue('companyId')) &&
+            $token->type === TokenTypeEnum::INVITATION;
     }
 
     public function showContacts(User $user, Company $company): bool

@@ -144,10 +144,10 @@ it('tests getByIdsAndCompany method', function (): void {
     $company1 = Company::factory()->create();
     $company2 = Company::factory()->create();
 
-    $users = User::factory()->ofCompany($company1, RoleEnum::USER)->count(2)->create();
+    $users = User::factory()->ofCompany($company1, RoleEnum::RECRUITER)->count(2)->create();
 
     // create dummy users in different company
-    User::factory()->ofCompany($company2, RoleEnum::USER)->count(2)->create();
+    User::factory()->ofCompany($company2, RoleEnum::RECRUITER)->count(2)->create();
 
     $result1 = $repository->getByIdsAndCompany($company1, $users->pluck('id')->all());
 

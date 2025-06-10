@@ -40,7 +40,7 @@ it('tests invitation process', function (): void {
 
     assertDatabaseEmpty(Token::class);
 
-    $role = RoleEnum::USER;
+    $role = RoleEnum::RECRUITER;
     $email = fake()->safeEmail;
 
     actingAs($companyUser, 'api');

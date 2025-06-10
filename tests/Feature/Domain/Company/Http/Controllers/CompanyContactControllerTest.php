@@ -9,3 +9,9 @@ it('CompanyContactController@index', function (): void {})->todo();
 
 /** @covers \Domain\Company\Http\Controllers\CompanyContactController::store */
 it('CompanyContactController@store', function (): void {})->todo();
+
+/** @covers \Domain\Company\Http\Controllers\CompanyContactController::update */
+it('CompanyContactController@update', function (): void {})->todo();
+
+/** @covers \Domain\Company\Http\Controllers\CompanyContactController::delete */
+it('CompanyContactController@delete', function (): void {})->todo();

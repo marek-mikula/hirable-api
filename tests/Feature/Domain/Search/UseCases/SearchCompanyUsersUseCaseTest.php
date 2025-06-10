@@ -18,10 +18,10 @@ it('correctly searches company users - all', function (): void {
 
     $otherCompany = Company::factory()->create();
 
-    $users = User::factory()->ofCompany($user->company, RoleEnum::USER)->count(2)->create();
+    $users = User::factory()->ofCompany($user->company, RoleEnum::RECRUITER)->count(2)->create();
 
     // create another user with different company
-    User::factory()->ofCompany($otherCompany, RoleEnum::USER)->create();
+    User::factory()->ofCompany($otherCompany, RoleEnum::RECRUITER)->create();
 
     $searchData = SearchData::from([
         'query' => null,
@@ -49,18 +49,18 @@ it('correctly searches company users - with query', function (): void {
 
     $otherCompany = Company::factory()->create();
 
-    $user1 = User::factory()->ofCompany($user->company, RoleEnum::USER)->create([
+    $user1 = User::factory()->ofCompany($user->company, RoleEnum::RECRUITER)->create([
         'firstname' => sprintf('%s.%s', fake()->firstName(), $word),
     ]);
-    $user2 = User::factory()->ofCompany($user->company, RoleEnum::USER)->create([
+    $user2 = User::factory()->ofCompany($user->company, RoleEnum::RECRUITER)->create([
         'lastname' => sprintf('%s.%s', $word, fake()->lastName()),
     ]);
-    $user3 = User::factory()->ofCompany($user->company, RoleEnum::USER)->create([
+    $user3 = User::factory()->ofCompany($user->company, RoleEnum::RECRUITER)->create([
         'email' => sprintf('%s.%s.%s', $word, fake()->safeEmail(), $word),
     ]);
 
     // create another user with different company
-    User::factory()->ofCompany($otherCompany, RoleEnum::USER)->create([
+    User::factory()->ofCompany($otherCompany, RoleEnum::RECRUITER)->create([
         'firstname' => sprintf('%s.%s', $word, fake()->firstName())
     ]);
 

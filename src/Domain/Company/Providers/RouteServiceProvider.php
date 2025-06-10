@@ -9,6 +9,7 @@ use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Support\Token\Models\Token;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -30,5 +31,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::model('company', Company::class);
         Route::model('contact', CompanyContact::class);
+        Route::model('invitation', Token::class);
     }
 }
