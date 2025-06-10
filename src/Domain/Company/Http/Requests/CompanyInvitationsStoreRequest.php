@@ -16,7 +16,7 @@ class CompanyInvitationsStoreRequest extends AuthRequest
     public function authorize(): bool
     {
         /** @see CompanyPolicy::storeInvitation() */
-        return $this->user()->can('', $this->route('company'));
+        return $this->user()->can('storeInvitation', $this->route('company'));
     }
 
     public function rules(): array

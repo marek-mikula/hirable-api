@@ -9,10 +9,9 @@ use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
 use Domain\Company\Enums\RoleEnum;
-use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Repositories\CompanyRepositoryInterface;
+use Domain\Register\Events\UserRegisteredInvitation;
 use Domain\Register\Http\Requests\Data\RegisterData;
-use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\User\Models\User;
 use Domain\User\Repositories\Input\UserStoreInput;
 use Domain\User\Repositories\UserRepositoryInterface;
@@ -44,14 +43,12 @@ class RegisterInvitationUseCase extends UseCase
             exception: new HttpException(responseCode: ResponseCodeEnum::TOKEN_INVALID)
         );
 
-        $creator = $token->loadMissing('user')->user;
         $email = (string) $token->getDataValue('email');
         $role = RoleEnum::from((string) $token->getDataValue('role'));
 
         return DB::transaction(function () use (
             $token,
             $data,
-            $creator,
             $email,
             $company,
             $role,
@@ -75,9 +72,7 @@ class RegisterInvitationUseCase extends UseCase
 
             $this->tokenRepository->markUsed($token);
 
-            $user->notify(new RegisterRegisteredNotification());
-
-            $creator->notify(new InvitationAcceptedNotification($user));
+            UserRegisteredInvitation::dispatch($user, $token);
 
             return $user;
         }, attempts: 5);

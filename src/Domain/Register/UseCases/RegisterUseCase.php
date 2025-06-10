@@ -11,8 +11,8 @@ use App\UseCases\UseCase;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Repositories\CompanyRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyStoreInput;
+use Domain\Register\Events\UserRegistered;
 use Domain\Register\Http\Requests\Data\RegisterData;
-use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\User\Models\User;
 use Domain\User\Repositories\Input\UserStoreInput;
 use Domain\User\Repositories\UserRepositoryInterface;
@@ -75,7 +75,7 @@ class RegisterUseCase extends UseCase
 
             $this->tokenRepository->markUsed($token);
 
-            $user->notify(new RegisterRegisteredNotification());
+            UserRegistered::dispatch($user);
 
             return $user;
         }, attempts: 5);
