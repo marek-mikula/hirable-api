@@ -23,6 +23,11 @@ class CompanyContactGrid implements Grid
                     allowToggle: false,
                 ),
                 new GridColumnDefinition(
+                    key: 'actions',
+                    label: 'common.table.actions',
+                    allowToggle: false,
+                ),
+                new GridColumnDefinition(
                     key: 'firstname',
                     label: 'model.common.firstname',
                 ),
@@ -31,12 +36,12 @@ class CompanyContactGrid implements Grid
                     label: 'model.common.lastname',
                 ),
                 new GridColumnDefinition(
-                    key: 'companyName',
-                    label: 'model.company.name',
-                ),
-                new GridColumnDefinition(
                     key: 'email',
                     label: 'model.common.email',
+                ),
+                new GridColumnDefinition(
+                    key: 'companyName',
+                    label: 'model.company.name',
                 ),
                 new GridColumnDefinition(
                     key: 'note',

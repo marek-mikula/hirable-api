@@ -23,6 +23,11 @@ class CompanyInvitationGrid implements Grid
                     allowToggle: false,
                 ),
                 new GridColumnDefinition(
+                    key: 'actions',
+                    label: 'common.table.actions',
+                    allowToggle: false,
+                ),
+                new GridColumnDefinition(
                     key: 'state',
                     label: 'model.common.state',
                     allowToggle: false,
