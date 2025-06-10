@@ -6,6 +6,7 @@ namespace Domain\Company\Policies;
 
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
+use Domain\Company\Models\CompanyContact;
 use Domain\User\Models\User;
 
 class CompanyPolicy
@@ -50,8 +51,8 @@ class CompanyPolicy
         return $this->show($user, $company);
     }
 
-    public function updateContact(User $user, Company $company): bool
+    public function updateContact(User $user, Company $company, CompanyContact $contact): bool
     {
-        return $this->show($user, $company);
+        return $this->show($user, $company) && $company->id === $contact->company_id;
     }
 }

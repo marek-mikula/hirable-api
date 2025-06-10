@@ -7,7 +7,7 @@ namespace Domain\Company\Http\Requests\Data;
 use App\Enums\LanguageEnum;
 use Spatie\LaravelData\Data;
 
-class ContactStoreData extends Data
+class ContactData extends Data
 {
     public LanguageEnum $language;
 

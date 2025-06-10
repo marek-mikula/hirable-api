@@ -9,6 +9,7 @@ use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyContactStoreInput;
+use Domain\Company\Repositories\Input\CompanyContactUpdateInput;
 
 use function PHPUnit\Framework\assertEmpty;
 use function PHPUnit\Framework\assertSame;
@@ -42,6 +43,32 @@ it('tests store method', function (): void {
     assertSame($input->note, $contact->note);
     assertSame($input->companyName, $contact->company_name);
     assertTrue($contact->relationLoaded('company'));
+});
+
+/** @covers \Domain\Company\Repositories\CompanyContactRepository::update */
+it('tests update method', function (): void {
+    /** @var CompanyContactRepositoryInterface $repository */
+    $repository = app(CompanyContactRepositoryInterface::class);
+
+    $contact = CompanyContact::factory()->create();
+
+    $input = new CompanyContactUpdateInput(
+        language: fake()->randomElement(LanguageEnum::cases()),
+        firstname: fake()->firstName,
+        lastname: fake()->lastName,
+        email: fake()->safeEmail,
+        note: fake()->text(300),
+        companyName: fake()->company,
+    );
+
+    $contact = $repository->update($contact, $input);
+
+    assertSame($input->language, $contact->language);
+    assertSame($input->firstname, $contact->firstname);
+    assertSame($input->lastname, $contact->lastname);
+    assertSame($input->email, $contact->email);
+    assertSame($input->note, $contact->note);
+    assertSame($input->companyName, $contact->company_name);
 });
 
 /** @covers \Domain\Company\Repositories\CompanyContactRepository::getByIdsAndCompany */

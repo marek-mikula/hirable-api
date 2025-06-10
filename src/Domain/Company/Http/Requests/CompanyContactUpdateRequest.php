@@ -10,17 +10,20 @@ use Domain\Company\Http\Requests\Data\ContactData;
 use Domain\Company\Models\CompanyContact;
 use Illuminate\Validation\Rule;
 
-class CompanyContactStoreRequest extends AuthRequest
+class CompanyContactUpdateRequest extends AuthRequest
 {
     public function authorize(): bool
     {
-        /** @see CompanyPolicy::storeContact() */
-        return $this->user()->can('storeContact', $this->route('company'));
+        /** @see CompanyPolicy::updateContact() */
+        return $this->user()->can('updateContact', [$this->route('company'), $this->route('contact')]);
     }
 
     public function rules(): array
     {
         $user = $this->user();
+
+        /** @var CompanyContact $contact */
+        $contact = $this->route('contact');
 
         return [
             'language' => [
@@ -42,7 +45,7 @@ class CompanyContactStoreRequest extends AuthRequest
                 'required',
                 'string',
                 'email',
-                Rule::unique(CompanyContact::class)->where('company_id', $user->company_id),
+                Rule::unique(CompanyContact::class)->ignore($contact->id)->where('company_id', $user->company_id),
             ],
             'note' => [
                 'nullable',

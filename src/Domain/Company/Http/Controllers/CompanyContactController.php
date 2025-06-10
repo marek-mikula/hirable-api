@@ -8,11 +8,14 @@ use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Company\Http\Requests\CompanyContactIndexRequest;
 use Domain\Company\Http\Requests\CompanyContactStoreRequest;
+use Domain\Company\Http\Requests\CompanyContactUpdateRequest;
 use Domain\Company\Http\Resources\Collection\CompanyContactPaginatedCollection;
 use Domain\Company\Http\Resources\CompanyContactResource;
 use Domain\Company\Models\Company;
+use Domain\Company\Models\CompanyContact;
 use Domain\Company\UseCases\CompanyContactIndexUseCase;
 use Domain\Company\UseCases\CompanyContactStoreUseCase;
+use Domain\Company\UseCases\CompanyContactUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
@@ -39,6 +42,15 @@ class CompanyContactController extends ApiController
     public function store(CompanyContactStoreRequest $request, Company $company): JsonResponse
     {
         $contact = CompanyContactStoreUseCase::make()->handle($company, $request->toData());
+
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'contact' => new CompanyContactResource($contact),
+        ]);
+    }
+
+    public function update(CompanyContactUpdateRequest $request, Company $company, CompanyContact $contact): JsonResponse
+    {
+        $contact = CompanyContactUpdateUseCase::make()->handle($contact, $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'contact' => new CompanyContactResource($contact),

@@ -6,6 +6,7 @@ namespace Domain\Company\Providers;
 
 use Domain\Company\Http\Middleware\CompanyRoleMiddleware;
 use Domain\Company\Models\Company;
+use Domain\Company\Models\CompanyContact;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +29,6 @@ class RouteServiceProvider extends ServiceProvider
     private function bootModelBinding(): void
     {
         Route::model('company', Company::class);
+        Route::model('contact', CompanyContact::class);
     }
 }
