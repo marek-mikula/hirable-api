@@ -26,14 +26,17 @@ return [
         'documents' => 'Documents',
         'document' => 'Document',
         'type' => 'Type',
+        'language' => 'Language',
+        'note' => 'Note',
+        'role' => 'Role',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
         'deleted_at' => 'Deleted at',
     ],
 
     'user' => [
-        'language' => 'Language',
         'password' => 'Password',
+        'old_password' => 'Old password',
         'current_password' => 'Current password',
         'password_confirm' => 'Password confirmation',
         'new_password' => 'New password',

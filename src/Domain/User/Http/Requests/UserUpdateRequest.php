@@ -116,6 +116,22 @@ class UserUpdateRequest extends AuthRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'firstname' => __('model.common.firstname'),
+            'lastname' => __('model.common.lastname'),
+            'email' => __('model.common.email'),
+            'password' => __('model.user.current_password'),
+            'oldPassword' => __('model.user.old_password'),
+            'passwordConfirm' => __('model.user.password_confirm'),
+            'language' => __('model.common.language'),
+            'prefix' => __('model.user.prefix'),
+            'postfix' => __('model.user.postfix'),
+            'phone' => __('model.common.phone'),
+        ];
+    }
+
     public function getValues(): array
     {
         $data = [];

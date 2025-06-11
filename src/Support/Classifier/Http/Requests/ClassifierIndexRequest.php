@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Support\Classifier\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
+use App\Http\Requests\Traits\ValidationFailsWithStatus;
 use Illuminate\Validation\Rule;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
 class ClassifierIndexRequest extends AuthRequest
 {
+    use ValidationFailsWithStatus;
+
     public function authorize(): bool
     {
         return true;

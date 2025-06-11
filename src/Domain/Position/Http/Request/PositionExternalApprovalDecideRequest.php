@@ -35,6 +35,13 @@ class PositionExternalApprovalDecideRequest extends TokenRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'note' => __('model.common.note'),
+        ];
+    }
+
     public function toData(): PositionApprovalDecideData
     {
         $state = PositionApprovalStateEnum::from((string) $this->input('state'));

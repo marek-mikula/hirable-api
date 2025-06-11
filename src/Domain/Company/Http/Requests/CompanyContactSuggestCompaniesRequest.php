@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Domain\Company\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
+use App\Http\Requests\Traits\ValidationFailsWithStatus;
 
 class CompanyContactSuggestCompaniesRequest extends AuthRequest
 {
+    use ValidationFailsWithStatus;
+
     public function authorize(): bool
     {
         /** @see CompanyPolicy::showContacts() */

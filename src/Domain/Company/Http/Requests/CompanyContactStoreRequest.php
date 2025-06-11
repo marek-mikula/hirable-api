@@ -58,6 +58,18 @@ class CompanyContactStoreRequest extends AuthRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'language' => __('model.common.language'),
+            'firstname' => __('model.common.firstname'),
+            'lastname' => __('model.common.lastname'),
+            'email' => __('model.common.email'),
+            'note' => __('model.common.note'),
+            'companyName' => __('model.company.name'),
+        ];
+    }
+
     public function toData(): ContactData
     {
         return ContactData::from([

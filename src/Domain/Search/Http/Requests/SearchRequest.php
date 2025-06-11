@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Domain\Search\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
+use App\Http\Requests\Traits\ValidationFailsWithStatus;
 use Domain\Search\Data\SearchData;
 
 abstract class SearchRequest extends AuthRequest
 {
+    use ValidationFailsWithStatus;
+
     public function rules(): array
     {
         return [

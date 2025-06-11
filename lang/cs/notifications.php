@@ -14,6 +14,90 @@ return [
         'rights' => 'Všechna práva vyhrazena.',
     ],
 
+    NotificationTypeEnum::REGISTER_REQUEST->value => [
+        'mail' => [
+            'subject' => 'Dokončete registraci a začněte používat :application 🚀',
+            'body' => [
+                'line1' => 'Jsme nadšeni, že jste se k nám rozhodli připojit! K dokončení registrace použijte tlačítko níže!',
+                'line2' => 'Odkaz je platný do **:validity**.',
+                'action' => 'Dokončit registraci',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::REGISTER_REGISTERED->value => [
+        'mail' => [
+            'subject' => 'Hurá! 🎉 Vítejte v :application!',
+            'body' => [
+                'line1' => 'Děkujeme, že jste se připojili k :application! Jsme rádi, že Vás máme mezi sebou, a těšíme se, že Vám nabídneme skvělý zážitek.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::VERIFICATION_VERIFY_EMAIL->value => [
+        'mail' => [
+            'subject' => '📧 Ověřte svou e-mailovou adresu',
+            'body' => [
+                'line1' => 'Potřebujeme ověřit Vaši e-mailovou adresu. Pro dokončení procesu ověření použijte tlačítko níže.',
+                'line2' => 'Odkaz je platný do **:validity**.',
+                'action' => 'Ověřit e-mailovou adresu',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::VERIFICATION_EMAIL_VERIFIED->value => [
+        'mail' => [
+            'subject' => '🎉 Vaše e-mailová adresa byla ověřena',
+            'body' => [
+                'line1' => 'Vaše e-mailová adresa byla úspěšně ověřena! Můžete se plně ponořit do naší platformy a prozkoumat vše, co nabízí.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::PASSWORD_CHANGED->value => [
+        'mail' => [
+            'subject' => 'Heslo bylo změněno',
+            'body' => [
+                'line1' => 'Tímto Vám oznamujeme, že Vaše heslo bylo úspěšně změněno.',
+                'line2' => 'Pokud jste heslo měnili Vy, tuto zprávu můžete ignorovat.',
+                'line3' => 'Pokud jste tuto změnu neprovedli Vy nebo se domníváte, že k Vašemu účtu mohl získat přístup někdo jiný, neprodleně nás kontaktujte.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::PASSWORD_RESET_REQUEST->value => [
+        'mail' => [
+            'subject' => 'Žádost o obnovení hesla',
+            'body' => [
+                'line1' => 'Obdrželi jsme žádost o obnovení hesla k Vašemu účtu. Pro resetování hesla použijte tlačítko níže.',
+                'line2' => 'Odkaz je platný do **:validity**.',
+                'line3' => 'Pokud jste o obnovení hesla nežádali, tuto zprávu ignorujte.',
+                'action' => 'Obnovit heslo',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::INVITATION_SENT->value => [
+        'mail' => [
+            'subject' => 'Byli jste pozváni do :application!',
+            'body' => [
+                'line1' => 'Byli jste pozváni k připojení do :application. K dokončení registrace použijte tlačítko níže.',
+                'line2' => 'Odkaz je platný do **:validity**.',
+                'line3' => 'Pokud nevíte, o co se jedná, tuto zprávu můžete bezpečně ignorovat.',
+                'action' => 'Dokončit registraci',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::INVITATION_ACCEPTED->value => [
+        'mail' => [
+            'subject' => '✅ Pozvánka přijata',
+            'body' => [
+                'line1' => 'Uživatel :name přijal Vaši pozvánku.',
+            ],
+        ],
+    ],
+
     NotificationTypeEnum::POSITION_APPROVAL->value => [
         'mail' => [
             'subject' => '👍 Pozice ke schválení - :position',

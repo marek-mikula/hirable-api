@@ -70,6 +70,16 @@ class CompanyUpdateRequest extends AuthRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'name' => __('model.company.name'),
+            'email' => __('model.company.email'),
+            'idNumber' => __('model.company.id_number'),
+            'website' => __('model.company.website'),
+        ];
+    }
+
     public function getValues(): array
     {
         $data = [];

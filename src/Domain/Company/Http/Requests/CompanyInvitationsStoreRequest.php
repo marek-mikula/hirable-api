@@ -34,6 +34,14 @@ class CompanyInvitationsStoreRequest extends AuthRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'role' => __('model.common.role'),
+            'email' => __('model.common.email'),
+        ];
+    }
+
     public function toData(): InvitationStoreData
     {
         return InvitationStoreData::from([
