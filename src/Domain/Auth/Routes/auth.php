@@ -20,7 +20,4 @@ Route::middleware('auth:sanctum')->group(static function (): void {
 
     Route::get('/me', [AuthController::class, 'me'])
         ->name('me');
-
-    Route::patch('/', [AuthController::class, 'update'])
-        ->name('update');
 });

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Auth\UseCases;
+namespace Domain\User\UseCases;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
@@ -13,7 +13,7 @@ use Domain\User\Repositories\Input\UserUpdateInput;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
-class AuthUpdateUseCase extends UseCase
+class UserUpdateUseCase extends UseCase
 {
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,
@@ -35,7 +35,7 @@ class AuthUpdateUseCase extends UseCase
 
             $user = $this->userRepository->changePassword($user, $values['password']);
 
-            $user->notify(new ChangedNotification());
+            $user->notify(new ChangedNotification()); // todo make into event
 
             unset($values['password']);
         }

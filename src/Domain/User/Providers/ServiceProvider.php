@@ -10,6 +10,8 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function register(): void
     {
+        $this->app->register(AuthServiceProvider::class);
+        $this->app->register(RouteServiceProvider::class);
         $this->app->register(DeferrableServiceProvider::class);
     }
 

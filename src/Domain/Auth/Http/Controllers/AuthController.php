@@ -9,10 +9,8 @@ use App\Http\Controllers\ApiController;
 use Domain\Auth\Http\Requests\AuthLoginRequest;
 use Domain\Auth\Http\Requests\AuthLogoutRequest;
 use Domain\Auth\Http\Requests\AuthMeRequest;
-use Domain\Auth\Http\Requests\AuthUpdateRequest;
 use Domain\Auth\Http\Resources\AuthUserResource;
 use Domain\Auth\Services\AuthService;
-use Domain\Auth\UseCases\AuthUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
 class AuthController extends ApiController
@@ -45,18 +43,6 @@ class AuthController extends ApiController
     public function me(AuthMeRequest $request): JsonResponse
     {
         $user = $request->user();
-
-        // load needed relationships
-        $user->loadMissing('company');
-
-        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'user' => new AuthUserResource($user),
-        ]);
-    }
-
-    public function update(AuthUpdateRequest $request): JsonResponse
-    {
-        $user = AuthUpdateUseCase::make()->handle($request->user(), $request->getValues());
 
         // load needed relationships
         $user->loadMissing('company');

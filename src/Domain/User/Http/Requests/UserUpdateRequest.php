@@ -2,24 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Domain\Auth\Http\Requests;
+namespace Domain\User\Http\Requests;
 
 use App\Enums\LanguageEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\User\Models\User;
+use Domain\User\Policies\UserPolicy;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class AuthUpdateRequest extends AuthRequest
+class UserUpdateRequest extends AuthRequest
 {
     public function authorize(): bool
     {
-        return true;
+        /** @see UserPolicy::update() */
+        return $this->user()->can('update', $this->route('user'));
     }
 
     public function rules(): array
     {
-        $user = $this->user();
+        /** @var User $user */
+        $user = $this->route('user');
 
         $keys = is_array($keys = $this->input('keys', [])) ? $keys : [];
 
@@ -38,15 +41,6 @@ class AuthUpdateRequest extends AuthRequest
                     'lastname',
                     'email',
                     'password',
-                    'notificationTechnicalMail',
-                    'notificationTechnicalApp',
-                    'notificationTechnicalPush',
-                    'notificationMarketingMail',
-                    'notificationMarketingApp',
-                    'notificationMarketingPush',
-                    'notificationApplicationMail',
-                    'notificationApplicationApp',
-                    'notificationApplicationPush',
                     'language',
                     'prefix',
                     'postfix',
@@ -95,36 +89,6 @@ class AuthUpdateRequest extends AuthRequest
                 'string',
                 'same:password',
             ],
-            'notificationTechnicalMail' => [
-                Rule::excludeIf(!in_array('notificationTechnicalMail', $keys)),
-                'required',
-                'boolean',
-            ],
-            'notificationTechnicalApp' => [
-                Rule::excludeIf(!in_array('notificationTechnicalApp', $keys)),
-                'required',
-                'boolean',
-            ],
-            'notificationMarketingMail' => [
-                Rule::excludeIf(!in_array('notificationMarketingMail', $keys)),
-                'required',
-                'boolean',
-            ],
-            'notificationMarketingApp' => [
-                Rule::excludeIf(!in_array('notificationMarketingApp', $keys)),
-                'required',
-                'boolean',
-            ],
-            'notificationApplicationMail' => [
-                Rule::excludeIf(!in_array('notificationApplicationMail', $keys)),
-                'required',
-                'boolean',
-            ],
-            'notificationApplicationApp' => [
-                Rule::excludeIf(!in_array('notificationApplicationApp', $keys)),
-                'required',
-                'boolean',
-            ],
             'language' => [
                 Rule::excludeIf(!in_array('language', $keys)),
                 'required',
@@ -159,12 +123,6 @@ class AuthUpdateRequest extends AuthRequest
         foreach ($this->array('keys') as $key) {
             $data[$key] = match ($key) {
                 'firstname', 'lastname', 'email', 'password' => (string) $this->input($key),
-                'notificationTechnicalMail',
-                'notificationTechnicalApp',
-                'notificationMarketingMail',
-                'notificationMarketingApp',
-                'notificationApplicationMail',
-                'notificationApplicationApp' => $this->boolean($key),
                 'language' => $this->enum($key, LanguageEnum::class),
                 'phone',
                 'prefix',
