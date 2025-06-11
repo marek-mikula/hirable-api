@@ -12,11 +12,6 @@ use Domain\Position\Repositories\Inputs\PositionUpdateInput;
 
 class PositionRepository implements PositionRepositoryInterface
 {
-    public function find(int $positionId, array $with = []): ?Position
-    {
-        return Position::query()->with($with)->find($positionId);
-    }
-
     public function store(PositionStoreInput $input): Position
     {
         $position = new Position();

@@ -91,6 +91,13 @@ class PositionFactory extends Factory
         ];
     }
 
+    public function ofCompany(Company|int $company): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'company_id' => is_int($company) ? $company : $company->id,
+        ]);
+    }
+
     public function ofState(PositionStateEnum $state): static
     {
         return $this->state(fn (array $attributes) => [
