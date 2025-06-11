@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Domain\Position\Notifications;
 
 use App\Notifications\QueueNotification;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\Position\Mail\PositionOpenedMail;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 class PositionOpenedNotification extends QueueNotification
 {

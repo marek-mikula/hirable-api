@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Support\Notification\Database\Factories;
+namespace Domain\Notification\Database\Factories;
 
 use Database\Factories\Factory;
+use Domain\Notification\Enums\NotificationTypeEnum;
+use Domain\Notification\Models\Notification;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
-use Support\Notification\Enums\NotificationTypeEnum;
-use Support\Notification\Models\Notification;
 
 /**
  * @extends BaseFactory<Notification>

@@ -10,6 +10,7 @@ use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
+use Domain\Notification\Traits\Notifiable;
 use Domain\User\Database\Factories\UserFactory;
 use Domain\User\Models\Builders\UserBuilder;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -21,7 +22,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Support\ActivityLog\Traits\CausesActivity;
-use Support\Notification\Traits\Notifiable;
 use Support\Token\Models\Token;
 
 /**

@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use App\Enums\EnvEnum;
+use Domain\Notification\Enums\NotificationTypeEnum;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Str;
 use Support\Format\Services\Formatter;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 if (!function_exists('isEnv')) {
     function isEnv(EnvEnum ...$environments): bool

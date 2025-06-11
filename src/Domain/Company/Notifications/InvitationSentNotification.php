@@ -6,9 +6,9 @@ namespace Domain\Company\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Company\Mail\InvitationSentMail;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Queue\Attributes\WithoutRelations;
-use Support\Notification\Enums\NotificationTypeEnum;
 use Support\Token\Models\Token;
 
 class InvitationSentNotification extends QueueNotification

@@ -21,8 +21,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(static function (): void {
             Route::middleware('api')
-                ->prefix('api/company')
-                ->name('api.company.')
+                ->prefix('api/companies')
+                ->name('api.companies.')
                 ->group(__DIR__.'/../Routes/company.php');
         });
     }

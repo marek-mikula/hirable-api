@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Domain\Register\Notifications;
 
 use App\Notifications\QueueNotification;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\Register\Mail\RegisterRegisteredMail;
 use Domain\User\Models\User;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 class RegisterRegisteredNotification extends QueueNotification
 {

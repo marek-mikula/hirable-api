@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Illuminate\Notifications\Notification as BaseNotification;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 abstract class Notification extends BaseNotification
 {

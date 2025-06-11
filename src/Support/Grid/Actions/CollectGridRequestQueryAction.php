@@ -20,7 +20,7 @@ class CollectGridRequestQueryAction extends Action
         $perPage = $request->integer('perPage', PerPageEnum::default()->value);
 
         return GridRequestQuery::from([
-            'page' => $page < 0 ? 1 : $page,
+            'page' => max($page, 1),
             'perPage' => $this->validatePerPage($perPage),
             'searchQuery' => empty($searchQuery) ? null : (string) $searchQuery,
             'sort' => is_array($sort) ? array_filter(array_map([$this, 'mapSort'], $sort)) : [],

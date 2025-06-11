@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Support\NotificationPreview\Data;
 
 use App\Notifications\Notification;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Spatie\LaravelData\Data;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 class NotificationData extends Data
 {

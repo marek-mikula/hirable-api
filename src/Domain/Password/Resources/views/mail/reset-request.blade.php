@@ -1,28 +1,28 @@
 @php
 
-/**
-* @var \Domain\User\Models\User $notifiable
-* @var \Support\Token\Models\Token $token
-*/
+    /**
+    * @var \Domain\User\Models\User $notifiable
+    * @var \Support\Token\Models\Token $token
+    */
 
-$type = \Support\Notification\Enums\NotificationTypeEnum::PASSWORD_RESET_REQUEST;
+    $type = \Domain\Notification\Enums\NotificationTypeEnum::PASSWORD_RESET_REQUEST;
 
 @endphp
 
 <x-mail::message>
-{{ __('notifications.common.salutation') }},
+    {{ __('notifications.common.salutation') }},
 
-{{ __n($type, 'mail', 'body.line1') }}
+    {{ __n($type, 'mail', 'body.line1') }}
 
-<x-mail::button :url="$token->link">
-{{ __n($type, 'mail', 'body.action') }}
-</x-mail::button>
+    <x-mail::button :url="$token->link">
+        {{ __n($type, 'mail', 'body.action') }}
+    </x-mail::button>
 
-{{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->formatDatetime($token->valid_until, withSeconds: true)]) }}
+    {{ __n($type, 'mail', 'body.line2', ['validity' => formatter()->formatDatetime($token->valid_until, withSeconds: true)]) }}
 
-{{ __n($type, 'mail', 'body.line3') }}
+    {{ __n($type, 'mail', 'body.line3') }}
 
-{{ __('notifications.common.regards') }},
-<br>
-{{ __('notifications.common.signature', ['application' => (string) config('app.name')]) }}
+    {{ __('notifications.common.regards') }},
+    <br>
+    {{ __('notifications.common.signature', ['application' => (string) config('app.name')]) }}
 </x-mail::message>

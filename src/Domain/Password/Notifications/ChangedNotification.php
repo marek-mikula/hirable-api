@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Domain\Password\Notifications;
 
 use App\Notifications\QueueNotification;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\Password\Mail\ChangedMail;
 use Domain\User\Models\User;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 class ChangedNotification extends QueueNotification
 {

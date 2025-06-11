@@ -6,6 +6,7 @@ namespace Domain\Position\Mail;
 
 use App\Mail\QueueMailable;
 use Domain\Company\Models\CompanyContact;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\User\Models\User;
@@ -14,7 +15,6 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 class PositionApprovalRejectedMail extends QueueMailable
 {

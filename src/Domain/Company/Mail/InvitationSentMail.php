@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Domain\Company\Mail;
 
 use App\Mail\Mailable;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Queue\Attributes\WithoutRelations;
-use Support\Notification\Enums\NotificationTypeEnum;
 use Support\Token\Models\Token;
 
 class InvitationSentMail extends Mailable

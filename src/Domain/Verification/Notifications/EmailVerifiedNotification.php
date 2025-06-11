@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Domain\Verification\Notifications;
 
 use App\Notifications\QueueNotification;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\User\Models\User;
 use Domain\Verification\Mail\EmailVerifiedMail;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 class EmailVerifiedNotification extends QueueNotification
 {

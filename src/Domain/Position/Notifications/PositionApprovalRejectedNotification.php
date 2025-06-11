@@ -6,12 +6,12 @@ namespace Domain\Position\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Company\Models\CompanyContact;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\Position\Mail\PositionApprovalRejectedMail;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 class PositionApprovalRejectedNotification extends QueueNotification
 {

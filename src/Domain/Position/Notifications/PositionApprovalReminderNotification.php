@@ -6,11 +6,11 @@ namespace Domain\Position\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Company\Models\CompanyContact;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\Position\Mail\PositionApprovalReminderMail;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
-use Support\Notification\Enums\NotificationTypeEnum;
 use Support\Token\Models\Token;
 
 class PositionApprovalReminderNotification extends QueueNotification

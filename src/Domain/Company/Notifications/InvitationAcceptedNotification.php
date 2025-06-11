@@ -6,9 +6,9 @@ namespace Domain\Company\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Company\Mail\InvitationAcceptedMail;
+use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
-use Support\Notification\Enums\NotificationTypeEnum;
 
 class InvitationAcceptedNotification extends QueueNotification
 {
@@ -25,11 +25,20 @@ class InvitationAcceptedNotification extends QueueNotification
     {
         return [
             'mail',
+            'database',
         ];
     }
 
     public function toMail(User $notifiable): InvitationAcceptedMail
     {
         return new InvitationAcceptedMail(notifiable: $notifiable, user: $this->user);
+    }
+
+    public function toDatabase(User $notifiable): array
+    {
+        return [
+            'userId' => $this->user->id,
+            'userName' => $this->user->full_name,
+        ];
     }
 }

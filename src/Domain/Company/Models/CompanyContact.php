@@ -8,13 +8,13 @@ use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Company\Database\Factories\CompanyContactFactory;
 use Domain\Company\Models\Builders\CompanyContactBuilder;
+use Domain\Notification\Traits\Notifiable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
-use Support\Notification\Traits\Notifiable;
 
 /**
  * @property-read int $id
