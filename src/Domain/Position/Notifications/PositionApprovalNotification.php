@@ -54,6 +54,9 @@ class PositionApprovalNotification extends QueueNotification
 
     public function toDatabase(User $notifiable): array
     {
-        return []; // todo
+        return [
+            'positionId' => $this->position->id,
+            'positionName' => $this->position->name,
+        ];
     }
 }

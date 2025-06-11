@@ -1,20 +1,20 @@
 @php
 
-    /**
-    * @var \Domain\User\Models\User $notifiable
-    * @var \Domain\Position\Models\Position $position
-    */
+/**
+* @var \Domain\User\Models\User $notifiable
+* @var \Domain\Position\Models\Position $position
+*/
 
-    $type = \Domain\Notification\Enums\NotificationTypeEnum::POSITION_APPROVAL_APPROVED;
+$type = \Domain\Notification\Enums\NotificationTypeEnum::POSITION_APPROVAL_APPROVED;
 
 @endphp
 
 <x-mail::message>
-    {{ __('notifications.common.salutation') }},
+{{ __('notifications.common.salutation') }},
 
-    {!! __n($type, 'mail', 'body.line1', ['position' => $position->name]) !!}
+{!! __n($type, 'mail', 'body.line1', ['position' => $position->name]) !!}
 
-    {{ __('notifications.common.regards') }},
-    <br>
-    {{ __('notifications.common.signature', ['application' => (string) config('app.name')]) }}
+{{ __('notifications.common.regards') }},
+<br>
+{{ __('notifications.common.signature', ['application' => (string) config('app.name')]) }}
 </x-mail::message>

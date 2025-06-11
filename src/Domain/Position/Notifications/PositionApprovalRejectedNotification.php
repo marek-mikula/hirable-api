@@ -54,6 +54,10 @@ class PositionApprovalRejectedNotification extends QueueNotification
 
     public function toDatabase(User $notifiable): array
     {
-        return []; // todo
+        return [
+            'rejectedByName' => $this->rejectedBy->full_name,
+            'positionId' => $this->position->id,
+            'positionName' => $this->position->name,
+        ];
     }
 }
