@@ -15,13 +15,11 @@ use Support\File\Exceptions\UnableToSaveFileException;
 use Support\File\Models\File;
 use Support\File\Repositories\FileRepositoryInterface;
 use Support\File\Repositories\Input\FileStoreInput;
-use Support\File\Repositories\ModelHasFilesRepositoryInterface;
 
 class FileSaver
 {
     public function __construct(
         private readonly FileRepositoryInterface $fileRepository,
-        private readonly ModelHasFilesRepositoryInterface $modelHasFilesRepository,
     ) {
     }
 
@@ -84,6 +82,7 @@ class FileSaver
 
                     try {
                         $model = $this->fileRepository->store(new FileStoreInput(
+                            model: $fileable,
                             type: $type,
                             path: $path,
                             extension: $file->getExtension(),
@@ -98,9 +97,6 @@ class FileSaver
 
                     $models->push($model);
                 }
-
-                // make a relationship between fileable and files
-                $this->modelHasFilesRepository->storeMany($fileable, $models);
 
                 return $models;
             }, attempts: 5);

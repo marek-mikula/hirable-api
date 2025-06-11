@@ -74,8 +74,6 @@ class ModelHasPosition extends Model
     {
         return $this->morphTo(
             name: 'model',
-            type: 'model_type',
-            id: 'model_id',
             ownerKey: 'id',
         );
     }

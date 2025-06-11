@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Support\File\Schedule;
 
+use Domain\User\Models\User;
 use Illuminate\Support\Facades\Queue;
 use Support\File\Jobs\DeleteHangingFilesJob;
 use Support\File\Models\File;
@@ -15,7 +16,10 @@ it('dispatches job to delete hanging files', function (): void {
         DeleteHangingFilesJob::class,
     ]);
 
-    File::factory()->create();
+    File::factory()->create([
+        'fileable_type' => User::class,
+        'fileable_id' => fake()->randomNumber()
+    ]);
 
     DeleteHangingFilesSchedule::call();
 

@@ -7,15 +7,33 @@ namespace Domain\Position\Http\Request;
 use App\Http\Requests\AuthRequest;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Http\Request\Data\PositionApprovalDecideData;
+use Domain\Position\Models\Position;
+use Domain\Position\Models\PositionApproval;
 use Domain\Position\Policies\PositionApprovalPolicy;
+use Domain\Position\Policies\PositionPolicy;
 use Illuminate\Validation\Rule;
 
 class PositionApprovalDecideRequest extends AuthRequest
 {
     public function authorize(): bool
     {
+        /** @var Position $position */
+        $position = $this->route('position');
+
+        /** @see PositionPolicy::show() */
+        if (!$this->user()->can('show', $position)) {
+            return false;
+        }
+
+        /** @var PositionApproval $approval */
+        $approval = $this->route('approval');
+
+        if ($position->id !== $approval->position_id) {
+            return false;
+        }
+
         /** @see PositionApprovalPolicy::decide() */
-        return $this->user()->can('decide', $this->route('approval'));
+        return $this->user()->can('decide', $approval);
     }
 
     public function rules(): array

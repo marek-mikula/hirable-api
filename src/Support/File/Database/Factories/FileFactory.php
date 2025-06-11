@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Support\File\Database\Factories;
 
 use Database\Factories\Factory;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Testing\File as FakeFile;
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
-use Support\File\Models\ModelHasFile;
 
 /**
  * @extends BaseFactory<File>
@@ -32,6 +32,8 @@ class FileFactory extends Factory
         $path = Storage::disk($type->getDomain()->getDisk())->putFile('/', $file);
 
         return [
+            'fileable_type' => User::class,
+            'fileable_id' => $this->isMaking ? null : User::factory(),
             'type' => FileTypeEnum::TEMP,
             'name' => $filename,
             'mime' => 'image/jpeg',
@@ -51,11 +53,9 @@ class FileFactory extends Factory
 
     public function withFileable(Model $fileable): static
     {
-        return $this->afterCreating(function (File $file) use ($fileable): void {
-            ModelHasFile::factory()
-                ->ofFileable($fileable)
-                ->ofFile($file)
-                ->create();
-        });
+        return $this->state(fn (array $attributes) => [
+            'fileable_type' => $fileable::class,
+            'fileable_id' => $fileable->getKey(),
+        ]);
     }
 }

@@ -61,8 +61,6 @@ class ActivityLog extends Model
     {
         return $this->morphTo(
             name: 'subject',
-            type: 'subject_type',
-            id: 'subject_id',
             ownerKey: 'id',
         );
     }
@@ -71,8 +69,6 @@ class ActivityLog extends Model
     {
         return $this->morphTo(
             name: 'causer',
-            type: 'causer_type',
-            id: 'causer_id',
             ownerKey: 'id',
         );
     }

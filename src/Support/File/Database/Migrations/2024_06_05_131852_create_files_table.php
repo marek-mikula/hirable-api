@@ -11,6 +11,7 @@ return new class () extends Migration {
     {
         Schema::create('files', static function (Blueprint $table): void {
             $table->id();
+            $table->morphs('fileable');
             $table->string('type');
             $table->string('name');
             $table->string('mime');

@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
-use Domain\Position\Enums\PositionApprovalStateEnum;
-use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Models\Builders\PositionBuilder;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
-use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\Pagination\Paginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
@@ -20,36 +17,7 @@ class PositionIndexUseCase extends UseCase
     {
         return Position::query()
             ->whereCompany($user->company_id)
-            ->where(function (PositionBuilder $query) use ($user) {
-                $query
-                    // my own positions
-                    ->where('user_id', $user->id)
-
-                    // positions where I am hiring manager
-                    ->orWhereExists(function (Builder $query) use ($user): void {
-                        $query
-                            ->selectRaw(1)
-                            ->from('model_has_positions')
-                            ->whereColumn('model_has_positions.position_id', 'positions.id')
-                            ->where('model_has_positions.model_type', User::class)
-                            ->where('model_has_positions.model_id', $user->id)
-                            ->where('model_has_positions.role', PositionRoleEnum::HIRING_MANAGER->value);
-                    })
-
-                    // positions where I am approver and I have
-                    // not decided yet
-                    ->orWhereExists(function (Builder $query) use ($user): void {
-                        $query
-                            ->selectRaw(1)
-                            ->from('model_has_positions')
-                            ->join('position_approvals', 'position_approvals.model_has_position_id', '=', 'model_has_positions.id')
-                            ->whereColumn('model_has_positions.position_id', 'positions.id')
-                            ->where('model_has_positions.model_type', User::class)
-                            ->where('model_has_positions.model_id', $user->id)
-                            ->where('model_has_positions.role', PositionRoleEnum::APPROVER->value)
-                            ->where('position_approvals.state', PositionApprovalStateEnum::PENDING->value);
-                    });
-            })
+            ->userCanSee($user)
             ->when($gridQuery->hasSearchQuery(), function (PositionBuilder $query) use ($gridQuery): void {
                 $query->where(function (PositionBuilder $query) use ($gridQuery): void {
                     $query

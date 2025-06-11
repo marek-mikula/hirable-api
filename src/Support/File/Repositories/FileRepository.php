@@ -14,6 +14,8 @@ final class FileRepository implements FileRepositoryInterface
     {
         $file = new File();
 
+        $file->fileable_type = $input->model::class;
+        $file->fileable_id = $input->model->getKey();
         $file->type = $input->type;
         $file->path = $input->path;
         $file->extension = $input->extension;
