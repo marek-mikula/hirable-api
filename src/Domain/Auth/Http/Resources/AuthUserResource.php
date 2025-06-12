@@ -29,6 +29,7 @@ class AuthUserResource extends JsonResource
             'id' => $this->resource->id,
             'companyId' => $this->resource->company_id,
             'companyRole' => $this->resource->company_role->value,
+            'companyOwner' => $this->resource->company_owner,
             'companyName' => $this->resource->company->name,
             'language' => $this->resource->language->value,
             'firstname' => $this->resource->firstname,
