@@ -161,13 +161,13 @@ return [
     'uuid' => 'Pole :attribute musí být platné UUID.',
 
     'many' => [
-        'required' => ':Attribute #:position je povinné.',
-        'integer' => ':Attribute #:position musí být celé číslo.',
-        'file' => ':Attribute #:position musí být soubor.',
-        'mimes' => ':Attribute #:position musí být soubor typu: :values.',
-        'extensions' => ':Attribute #:position musí mít jednu z následujících přípon: :values.',
+        'required' => 'Položka č. :position v :attribute je povinná.',
+        'integer' => 'Položka č. :position v :attribute musí být celé číslo.',
+        'file' => 'Položka č. :position v :attribute musí být soubor.',
+        'mimes' => 'Položka č. :position v :attribute musí být soubor typu: :values.',
+        'extensions' => 'Položka č. :position v :attribute musí mít jednu z následujících přípon: :values.',
         'max' => [
-            'file' => ':Attribute #:position nesmí být větší než :max kilobajtů.',
+            'file' => 'Položka č. :position v :attribute nesmí být větší než :max kilobajtů.',
         ],
     ],
 

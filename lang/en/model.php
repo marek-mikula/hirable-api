@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use Domain\Position\Enums\PositionRoleEnum;
+use Domain\Position\Enums\PositionStateEnum;
+
 return [
 
     /*
@@ -23,12 +26,13 @@ return [
         'lastname' => 'Lastname',
         'title' => 'Name',
         'description' => 'Description',
-        'documents' => 'Documents',
-        'document' => 'Document',
         'type' => 'Type',
         'language' => 'Language',
         'note' => 'Note',
         'role' => 'Role',
+        'state' => 'State',
+        'files' => 'Files',
+        'operation' => 'Operation',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
         'deleted_at' => 'Deleted at',
@@ -49,6 +53,62 @@ return [
         'id_number' => 'Company ID number',
         'email' => 'Company contact e-mail address',
         'website' => 'Company website',
+    ],
+
+    'position' => [
+        'name' => 'Position name',
+        'approveUntil' => 'Approve until',
+        'department' => 'Department',
+        'field' => 'Field',
+        'workload' => 'Work load',
+        'employmentRelationship' => 'Employment relationship',
+        'employmentForm' => 'Form of cooperation',
+        'jobSeatsNum' => 'Number of job seats',
+        'description' => 'Description',
+        'isTechnical' => 'Technical position',
+        'address' => 'Workplace address',
+        'salarySpan' => 'Salary range from - to',
+        'salaryFrom' => 'Salary from',
+        'salaryTo' => 'Salary to',
+        'salary' => 'Salary',
+        'salaryType' => 'Salary type',
+        'salaryFrequency' => 'Salary frequency',
+        'salaryCurrency' => 'Currency',
+        'salaryVar' => 'Variable component',
+        'benefits' => 'Benefits',
+        'minEducationLevel' => 'Minimum education level',
+        'seniority' => 'Seniority',
+        'experience' => 'Min. number of years worked',
+        'hardSkills' => 'Other hard skills',
+        'organisationSkills' => 'Organisational skills',
+        'teamSkills' => 'Teamwork',
+        'timeManagement' => 'Time management',
+        'communicationSkills' => 'Communication skills',
+        'leadership' => 'Leading people',
+        'languageSkills' => 'Language skills',
+        'hiringManagers' => 'Hiring managers',
+        'approvers' => 'Approvers',
+        'externalApprovers' => 'External approvers',
+        'hardSkillsWeight' => 'Hard skills weight',
+        'softSkillsWeight' => 'Soft skills weight',
+        'languageSkillsWeight' => 'Language skills weight',
+        'roles' => [
+            PositionRoleEnum::HIRING_MANAGER->value => 'Hiring manager',
+            PositionRoleEnum::APPROVER->value => 'Approver',
+            PositionRoleEnum::EXTERNAL_APPROVER->value => 'External approver',
+        ],
+        'states' => [
+            PositionStateEnum::DRAFT->value => 'Draft',
+            PositionStateEnum::APPROVAL_PENDING->value => 'Pending approval',
+            PositionStateEnum::APPROVAL_APPROVED->value => 'Approved',
+            PositionStateEnum::APPROVAL_REJECTED->value => 'Approval rejected',
+            PositionStateEnum::APPROVAL_CANCELED->value => 'Approval canceled',
+            PositionStateEnum::APPROVAL_EXPIRED->value => 'Approval expired',
+            PositionStateEnum::OPENED->value => 'Opened',
+            PositionStateEnum::CLOSED->value => 'Closed',
+            PositionStateEnum::CANCELED->value => 'Canceled',
+        ],
+
     ],
 
 ];

@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use Domain\Position\Enums\PositionRoleEnum;
+use Domain\Position\Enums\PositionStateEnum;
+
 return [
 
     /*
@@ -23,12 +26,13 @@ return [
         'lastname' => 'Příjmení',
         'title' => 'Název',
         'description' => 'Popis',
-        'documents' => 'Dokumenty',
-        'document' => 'Dokument',
         'type' => 'Typ',
         'language' => 'Jazyk',
         'note' => 'Poznámka',
         'role' => 'Role',
+        'state' => 'Stav',
+        'files' => 'Soubory',
+        'operation' => 'Operace',
         'created_at' => 'Vytvořeno',
         'updated_at' => 'Aktualizováno',
         'deleted_at' => 'Smazáno',
@@ -49,6 +53,61 @@ return [
         'id_number' => 'IČO',
         'email' => 'Kontaktní e-mail společnosti',
         'website' => 'Webová stránka společnosti',
+    ],
+
+    'position' => [
+        'name' => 'Název pozice',
+        'approveUntil' => 'Schválit do',
+        'department' => 'Oddělení',
+        'field' => 'Obor',
+        'workload' => 'Typ úvazku',
+        'employmentRelationship' => 'Pracovní poměr',
+        'employmentForm' => 'Forma spolupráce',
+        'jobSeatsNum' => 'Počet pracovních míst',
+        'description' => 'Popis',
+        'isTechnical' => 'Technická pozice',
+        'address' => 'Adresa pracoviště',
+        'salarySpan' => 'Rozpětí mzdy od - do',
+        'salaryFrom' => 'Mzda od',
+        'salaryTo' => 'Mzda do',
+        'salary' => 'Mzda',
+        'salaryType' => 'Typ mzdy',
+        'salaryFrequency' => 'Frekvence mzdy',
+        'salaryCurrency' => 'Měna',
+        'salaryVar' => 'Variabilní složka',
+        'benefits' => 'Benefity',
+        'minEducationLevel' => 'Minimální dosažené vzdělání',
+        'seniority' => 'Seniorita',
+        'experience' => 'Min. počet odpracovaných roků',
+        'hardSkills' => 'Ostatní tvrdé dovednosti',
+        'organisationSkills' => 'Organizační dovednosti',
+        'teamSkills' => 'Týmová spolupráce',
+        'timeManagement' => 'Time management',
+        'communicationSkills' => 'Komunikační schopnosti',
+        'leadership' => 'Vedení lidí',
+        'languageSkills' => 'Jazykové dovednosti',
+        'hiringManagers' => 'Hiring manažeři',
+        'approvers' => 'Schvalovatelé',
+        'externalApprovers' => 'Externí schvalovatelé',
+        'hardSkillsWeight' => 'Váha tvrdých dovedností',
+        'softSkillsWeight' => 'Váha měkkých dovedností',
+        'languageSkillsWeight' => 'Váha jazykových dovedností',
+        'roles' => [
+            PositionRoleEnum::HIRING_MANAGER->value => 'Hiring manažer',
+            PositionRoleEnum::APPROVER->value => 'Schvalovatel',
+            PositionRoleEnum::EXTERNAL_APPROVER->value => 'Externí schvalovatel',
+        ],
+        'states' => [
+            PositionStateEnum::DRAFT->value => 'Rozpracovaná',
+            PositionStateEnum::APPROVAL_PENDING->value => 'Čeká na schválení',
+            PositionStateEnum::APPROVAL_APPROVED->value => 'Schválená',
+            PositionStateEnum::APPROVAL_REJECTED->value => 'Schválení zamítnuto',
+            PositionStateEnum::APPROVAL_CANCELED->value => 'Schválení zrušeno',
+            PositionStateEnum::APPROVAL_EXPIRED->value => 'Schválení vypršelo',
+            PositionStateEnum::OPENED->value => 'Otevřená',
+            PositionStateEnum::CLOSED->value => 'Uzavřená',
+            PositionStateEnum::CANCELED->value => 'Zrušená',
+        ],
     ],
 
 ];

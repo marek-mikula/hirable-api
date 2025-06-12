@@ -59,6 +59,7 @@ class PositionApprovalDecideRequest extends AuthRequest
     {
         return [
             'note' => __('model.common.note'),
+            'state' => __('model.common.state'),
         ];
     }
 

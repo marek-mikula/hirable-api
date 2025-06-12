@@ -161,15 +161,16 @@ return [
     'uuid' => 'The :attribute field must be a valid UUID.',
 
     'many' => [
-        'required' => ':Attribute #:position is required.',
-        'integer' => ':Attribute #:position must be an integer.',
-        'file' => ':Attribute #:position must be a file.',
-        'mimes' => ':Attribute #:position must be a file of type: :values.',
-        'extensions' => ':Attribute #:position must have one of the following extensions: :values.',
+        'required' => 'The item  #:position in :attribute is required.',
+        'integer' => 'The item  #:position in :attribute must be an integer.',
+        'file' => 'The item  #:position in :attribute must be a file.',
+        'mimes' => 'The item  #:position in :attribute must be a file of type: :values.',
+        'extensions' => 'The item  #:position in :attribute must have one of the following extensions: :values.',
         'max' => [
-            'file' => ':Attribute #:position must not be greater than :max kilobytes.',
+            'file' => 'The item  #:position in :attribute may not be greater than :max kilobytes.',
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

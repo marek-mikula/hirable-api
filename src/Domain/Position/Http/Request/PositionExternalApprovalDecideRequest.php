@@ -39,6 +39,7 @@ class PositionExternalApprovalDecideRequest extends TokenRequest
     {
         return [
             'note' => __('model.common.note'),
+            'state' => __('model.common.state'),
         ];
     }
 

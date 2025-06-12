@@ -273,6 +273,71 @@ class PositionStoreRequest extends AuthRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'operation' => __('model.common.operation'),
+            'name' => __('model.position.name'),
+            'department' => __('model.position.department'),
+            'field' => __('model.position.field'),
+            'jobSeatsNum' => __('model.position.jobSeatsNum'),
+            'description' => __('model.position.description'),
+            'isTechnical' => __('model.position.isTechnical'),
+            'address' => __('model.position.address'),
+            'salaryFrom' => __('model.position.salaryFrom'),
+            'salaryTo' => __('model.position.salaryTo'),
+            'salary' => __('model.position.salary'),
+            'salaryType' => __('model.position.salaryType'),
+            'salaryFrequency' => __('model.position.salaryFrequency'),
+            'salaryCurrency' => __('model.position.salaryCurrency'),
+            'salaryVar' => __('model.position.salaryVar'),
+            'minEducationLevel' => __('model.position.minEducationLevel'),
+            'seniority' => __('model.position.seniority'),
+            'experience' => __('model.position.experience'),
+            'hardSkills' => __('model.position.hardSkills'),
+            'organisationSkills' => __('model.position.organisationSkills'),
+            'teamSkills' => __('model.position.teamSkills'),
+            'timeManagement' => __('model.position.timeManagement'),
+            'communicationSkills' => __('model.position.communicationSkills'),
+            'leadership' => __('model.position.leadership'),
+            'note' => __('model.common.note'),
+            'workloads' => __('model.position.workload'),
+            'workloads.*' => __('model.position.workload'),
+            'employmentRelationships' => __('model.position.employmentRelationship'),
+            'employmentRelationships-*' => __('model.position.employmentRelationship'),
+            'employmentForms' => __('model.position.employmentForm'),
+            'employmentForms.*' => __('model.position.employmentForm'),
+            'benefits' => __('model.position.benefits'),
+            'benefits.*' => __('model.position.benefits'),
+            'files' => __('model.common.files'),
+            'files.*' => __('model.common.files'),
+            'languageRequirements' => __('model.position.languageRequirements'),
+            'languageRequirements.*' => __('model.position.languageRequirements'),
+            'languageRequirements.*.language' => __('model.position.languageRequirements'),
+            'languageRequirements.*.level' => __('model.position.languageRequirements'),
+            'hiringManagers' => __('model.position.hiringManagers'),
+            'hiringManagers.*' => __('model.position.hiringManagers'),
+            'approvers' => __('model.position.approvers'),
+            'approvers.*' => __('model.position.approvers'),
+            'externalApprovers' => __('model.position.externalApprovers'),
+            'externalApprovers.*' => __('model.position.externalApprovers'),
+            'approveUntil' => __('model.position.approveUntil'),
+            'hardSkillsWeight' => __('model.position.hardSkillsWeight'),
+            'softSkillsWeight' => __('model.position.softSkillsWeight'),
+            'languageSkillsWeight' => __('model.position.languageSkillsWeight'),
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'files.*.required' => __('validation.many.required'),
+            'files.*.file' => __('validation.many.file'),
+            'files.*.max' => __('validation.many.max.file'),
+            'files.*.extensions' => __('validation.many.extensions'),
+        ];
+    }
+
     public function toData(): PositionData
     {
         return PositionData::from([
