@@ -6,9 +6,11 @@ namespace Tests\Feature\Domain\User\UseCases;
 
 use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
-use Domain\Password\Notifications\ChangedNotification;
+use Domain\Password\Events\PasswordChanged;
+use Domain\Password\Notifications\PasswordChangedNotification;
 use Domain\User\Models\User;
 use Domain\User\UseCases\UserUpdateUseCase;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 
 use function PHPUnit\Framework\assertNotSame;
@@ -44,6 +46,10 @@ it('tests update user use case - all attributes', function (): void {
 
 /** @covers \Domain\User\UseCases\UserUpdateUseCase::handle */
 it('tests update user use case - only password', function (): void {
+    Event::fake([
+        PasswordChanged::class,
+    ]);
+
     $user = User::factory()->ofPassword('Password.1234')->create();
 
     $data = [
@@ -56,7 +62,7 @@ it('tests update user use case - only password', function (): void {
 
     assertNotSame($passwordPrevious, $user->password);
 
-    Notification::assertSentTo($user, ChangedNotification::class);
+    Event::assertDispatched(PasswordChanged::class);
 });
 
 /** @covers \Domain\User\UseCases\UserUpdateUseCase::handle */
@@ -71,5 +77,5 @@ it('tests update user use case - same password must throw an error', function ()
         UserUpdateUseCase::make()->handle($user, $data);
     }, ResponseCodeEnum::CLIENT_ERROR);
 
-    Notification::assertNotSentTo($user, ChangedNotification::class);
+    Notification::assertNotSentTo($user, PasswordChangedNotification::class);
 });

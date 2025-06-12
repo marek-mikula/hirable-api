@@ -11,6 +11,7 @@ class ServiceProvider extends BaseServiceProvider
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
     }
 
     public function boot(): void

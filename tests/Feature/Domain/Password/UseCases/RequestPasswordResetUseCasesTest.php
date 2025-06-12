@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Domain\Password\UseCases;
 
 use App\Enums\ResponseCodeEnum;
-use Domain\Password\Notifications\ResetRequestNotification;
+use Domain\Password\Notifications\PasswordResetRequestNotification;
 use Domain\Password\UseCases\RequestPasswordResetUseCase;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\Notification;
@@ -28,7 +28,7 @@ it('tests requestReset method - correct email', function (): void {
 
     RequestPasswordResetUseCase::make()->handle($user->email);
 
-    Notification::assertSentTo($user, ResetRequestNotification::class);
+    Notification::assertSentTo($user, PasswordResetRequestNotification::class);
 
     assertDatabaseHas(Token::class, [
         'user_id' => $user->id,
@@ -54,7 +54,7 @@ it('tests requestReset method - existing token still active', function (): void 
         RequestPasswordResetUseCase::make()->handle($user->email);
     }, ResponseCodeEnum::RESET_ALREADY_REQUESTED);
 
-    Notification::assertNotSentTo($user, ResetRequestNotification::class);
+    Notification::assertNotSentTo($user, PasswordResetRequestNotification::class);
 });
 
 /** @covers \Domain\Password\UseCases\RequestPasswordResetUseCase::handle */
@@ -73,7 +73,7 @@ it('tests requestReset method - existing token invalid', function (): void {
 
     RequestPasswordResetUseCase::make()->handle($user->email);
 
-    Notification::assertSentTo($user, ResetRequestNotification::class);
+    Notification::assertSentTo($user, PasswordResetRequestNotification::class);
 
     assertDatabaseHas(Token::class, [
         'user_id' => $user->id,

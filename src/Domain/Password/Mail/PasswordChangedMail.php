@@ -13,7 +13,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
 
-class ChangedMail extends QueueMailable
+class PasswordChangedMail extends QueueMailable
 {
     public function __construct(
         #[WithoutRelations]
@@ -35,7 +35,7 @@ class ChangedMail extends QueueMailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'password::mail.changed',
+            markdown: 'password::mail.password-changed',
             with: [
                 'notifiable' => $this->notifiable,
             ],

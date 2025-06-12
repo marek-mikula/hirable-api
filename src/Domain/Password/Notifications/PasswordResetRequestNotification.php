@@ -6,12 +6,12 @@ namespace Domain\Password\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Notification\Enums\NotificationTypeEnum;
-use Domain\Password\Mail\ResetRequestMail;
+use Domain\Password\Mail\PasswordResetRequestMail;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Support\Token\Models\Token;
 
-class ResetRequestNotification extends QueueNotification
+class PasswordResetRequestNotification extends QueueNotification
 {
     public NotificationTypeEnum $type = NotificationTypeEnum::PASSWORD_RESET_REQUEST;
 
@@ -29,8 +29,8 @@ class ResetRequestNotification extends QueueNotification
         ];
     }
 
-    public function toMail(User $notifiable): ResetRequestMail
+    public function toMail(User $notifiable): PasswordResetRequestMail
     {
-        return new ResetRequestMail(notifiable: $notifiable, token: $this->token);
+        return new PasswordResetRequestMail(notifiable: $notifiable, token: $this->token);
     }
 }

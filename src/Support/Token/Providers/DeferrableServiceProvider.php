@@ -8,7 +8,7 @@ use Illuminate\Contracts\Support\DeferrableProvider as BaseDeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use Support\Token\Repositories\TokenRepository;
 use Support\Token\Repositories\TokenRepositoryInterface;
-use Tests\Process\TokenResolver;
+use Support\Token\Services\TokenResolver;
 
 class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrableProvider
 {

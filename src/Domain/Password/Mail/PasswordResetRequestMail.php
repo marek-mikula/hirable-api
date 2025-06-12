@@ -16,7 +16,7 @@ use Illuminate\Queue\Attributes\WithoutRelations;
 use Illuminate\Queue\SerializesModels;
 use Support\Token\Models\Token;
 
-class ResetRequestMail extends QueueMailable
+class PasswordResetRequestMail extends QueueMailable
 {
     use Queueable;
     use SerializesModels;

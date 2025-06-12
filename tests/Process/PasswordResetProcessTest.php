@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Process;
 
 use App\Enums\ResponseCodeEnum;
-use Domain\Password\Notifications\ChangedNotification;
-use Domain\Password\Notifications\ResetRequestNotification;
+use Domain\Password\Notifications\PasswordChangedNotification;
+use Domain\Password\Notifications\PasswordResetRequestNotification;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
@@ -44,7 +44,7 @@ it('tests password reset process', function (): void {
         'user_id' => $user->id,
     ]);
 
-    Notification::assertSentTo($user, ResetRequestNotification::class);
+    Notification::assertSentTo($user, PasswordResetRequestNotification::class);
 
     /** @var Token $token */
     $token = Token::query()
@@ -70,5 +70,5 @@ it('tests password reset process', function (): void {
     // token should be marked as used
     assertNotNull($token->used_at);
 
-    Notification::assertSentTo($user, ChangedNotification::class);
+    Notification::assertSentTo($user, PasswordChangedNotification::class);
 });

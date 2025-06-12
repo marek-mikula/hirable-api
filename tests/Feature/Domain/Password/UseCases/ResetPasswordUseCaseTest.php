@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Domain\Password\UseCases;
 
-use Domain\Password\Notifications\ChangedNotification;
+use Domain\Password\Notifications\PasswordChangedNotification;
 use Domain\Password\UseCases\ResetPasswordUseCase;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -38,5 +38,5 @@ it('tests password reset', function (): void {
 
     assertTrue(Hash::check($password, $user->password));
 
-    Notification::assertSentTo($user, ChangedNotification::class);
+    Notification::assertSentTo($user, PasswordChangedNotification::class);
 });

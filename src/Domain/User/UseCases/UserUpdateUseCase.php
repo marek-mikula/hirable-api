@@ -7,7 +7,7 @@ namespace Domain\User\UseCases;
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
-use Domain\Password\Notifications\ChangedNotification;
+use Domain\Password\Events\PasswordChanged;
 use Domain\User\Models\User;
 use Domain\User\Repositories\Input\UserUpdateInput;
 use Domain\User\Repositories\UserRepositoryInterface;
@@ -35,7 +35,7 @@ class UserUpdateUseCase extends UseCase
 
             $user = $this->userRepository->changePassword($user, $values['password']);
 
-            $user->notify(new ChangedNotification()); // todo make into event
+            PasswordChanged::dispatch($user);
 
             unset($values['password']);
         }

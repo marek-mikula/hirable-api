@@ -7,8 +7,8 @@ namespace Support\NotificationPreview\Services;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Notifications\InvitationSentNotification;
-use Domain\Password\Notifications\ChangedNotification;
-use Domain\Password\Notifications\ResetRequestNotification;
+use Domain\Password\Notifications\PasswordChangedNotification;
+use Domain\Password\Notifications\PasswordResetRequestNotification;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Notifications\PositionApprovalCanceledNotification;
@@ -91,14 +91,14 @@ class NotificationRegistrar
                         notification: function (User $notifiable) {
                             $token = Token::factory()->ofType(TokenTypeEnum::RESET_PASSWORD)->make();
 
-                            return new ResetRequestNotification(token: $token);
+                            return new PasswordResetRequestNotification(token: $token);
                         },
                         notifiable: fn () => User::factory()->make(),
                     ),
                     NotificationData::create(
                         label: 'Reset',
                         description: 'Notification notifies user that his password was successfully reset.',
-                        notification: fn (User $notifiable) => new ChangedNotification(),
+                        notification: fn (User $notifiable) => new PasswordChangedNotification(),
                         notifiable: fn () => User::factory()->make(),
                     ),
                 ]

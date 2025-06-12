@@ -6,7 +6,7 @@ namespace Support\Token\Http\Requests;
 
 use App\Http\Requests\Request;
 use Support\Token\Models\Token;
-use Tests\Process\TokenResolver;
+use Support\Token\Services\TokenResolver;
 
 class TokenRequest extends Request
 {

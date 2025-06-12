@@ -6,10 +6,10 @@ namespace Domain\Password\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Notification\Enums\NotificationTypeEnum;
-use Domain\Password\Mail\ChangedMail;
+use Domain\Password\Mail\PasswordChangedMail;
 use Domain\User\Models\User;
 
-class ChangedNotification extends QueueNotification
+class PasswordChangedNotification extends QueueNotification
 {
     public NotificationTypeEnum $type = NotificationTypeEnum::PASSWORD_CHANGED;
 
@@ -20,8 +20,8 @@ class ChangedNotification extends QueueNotification
         ];
     }
 
-    public function toMail(User $notifiable): ChangedMail
+    public function toMail(User $notifiable): PasswordChangedMail
     {
-        return new ChangedMail(notifiable: $notifiable);
+        return new PasswordChangedMail(notifiable: $notifiable);
     }
 }

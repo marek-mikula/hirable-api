@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Password\UseCases;
 
 use App\UseCases\UseCase;
-use Domain\Password\Notifications\ChangedNotification;
+use Domain\Password\Notifications\PasswordChangedNotification;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Support\Token\Models\Token;
@@ -32,7 +32,7 @@ class ResetPasswordUseCase extends UseCase
 
             $this->tokenRepository->markUsed($token);
 
-            $user->notify(new ChangedNotification());
+            $user->notify(new PasswordChangedNotification());
         }, attempts: 5);
     }
 }
