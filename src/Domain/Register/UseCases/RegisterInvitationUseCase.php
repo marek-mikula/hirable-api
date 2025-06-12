@@ -67,6 +67,7 @@ class RegisterInvitationUseCase extends UseCase
                 // the email is verified
                 company: $company,
                 companyRole: $role,
+                companyOwner: false,
                 emailVerifiedAt: now(),
             ));
 

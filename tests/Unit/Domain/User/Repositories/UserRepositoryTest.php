@@ -38,6 +38,7 @@ it('tests store method', function (): void {
         agreementAcceptedAt: now(),
         company: $company,
         companyRole: RoleEnum::ADMIN,
+        companyOwner: fake()->boolean,
         phone: '+420776758768',
         prefix: 'Ing.',
         postfix: 'MBA',
@@ -49,6 +50,7 @@ it('tests store method', function (): void {
     assertModelExists($user);
     assertSame($input->company->id, $user->company_id);
     assertSame($input->companyRole, $user->company_role);
+    assertSame($input->companyOwner, $user->company_owner);
     assertSame($input->language, $user->language);
     assertSame($input->firstname, $user->firstname);
     assertSame($input->lastname, $user->lastname);

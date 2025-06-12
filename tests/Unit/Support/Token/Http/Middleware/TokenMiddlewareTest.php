@@ -12,7 +12,7 @@ use Support\Token\Http\Middleware\TokenMiddleware;
 use Support\Token\Http\Requests\TokenRequest;
 use Support\Token\Models\Token;
 use Support\Token\Repositories\TokenRepositoryInterface;
-use Tests\Process\TokenResolver;
+use Support\Token\Services\TokenResolver;
 
 use function Pest\Laravel\mock;
 use function PHPUnit\Framework\assertSame;

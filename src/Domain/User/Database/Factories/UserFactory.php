@@ -37,6 +37,7 @@ class UserFactory extends Factory
         return [
             'company_id' => $this->isMaking ? null : Company::factory(),
             'company_role' => RoleEnum::ADMIN,
+            'company_owner' => false,
             'language' => LanguageEnum::EN,
             'firstname' => $firstname,
             'lastname' => $lastname,
@@ -98,6 +99,13 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'company_role' => $role,
+        ]);
+    }
+
+    public function companyOwner(bool $state = true): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'company_owner' => $state,
         ]);
     }
 }

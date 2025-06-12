@@ -70,6 +70,7 @@ class RegisterUseCase extends UseCase
                 // the email is verified
                 company: $company,
                 companyRole: RoleEnum::ADMIN,
+                companyOwner: true,
                 emailVerifiedAt: now(),
             ));
 

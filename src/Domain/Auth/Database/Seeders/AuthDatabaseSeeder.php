@@ -26,6 +26,7 @@ class AuthDatabaseSeeder extends Seeder
         $admin = new User();
         $admin->company_id = $company->id;
         $admin->company_role = RoleEnum::ADMIN;
+        $admin->company_owner = true;
         $admin->language = LanguageEnum::CS;
         $admin->firstname = 'Hirable';
         $admin->lastname = 'Admin';

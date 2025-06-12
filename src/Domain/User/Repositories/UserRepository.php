@@ -21,6 +21,7 @@ final class UserRepository implements UserRepositoryInterface
 
         $user->company_id = $input->company->id;
         $user->company_role = $input->companyRole;
+        $user->company_owner = $input->companyOwner;
         $user->language = $input->language ?? LanguageEnum::EN;
         $user->firstname = $input->firstname;
         $user->lastname = $input->lastname;

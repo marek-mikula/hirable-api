@@ -28,6 +28,7 @@ use Support\Token\Models\Token;
  * @property-read int $id
  * @property int $company_id
  * @property RoleEnum $company_role
+ * @property bool $company_owner
  * @property LanguageEnum $language
  * @property string $firstname
  * @property string $lastname
@@ -65,6 +66,7 @@ class User extends Authenticatable implements HasLocalePreference
     protected $fillable = [
         'company_id',
         'company_role',
+        'company_owner',
         'language',
         'firstname',
         'lastname',
@@ -90,6 +92,7 @@ class User extends Authenticatable implements HasLocalePreference
 
     protected $casts = [
         'company_role' => RoleEnum::class,
+        'company_owner' => 'boolean',
         'language' => LanguageEnum::class,
         'firstname' => Capitalize::class,
         'lastname' => Capitalize::class,

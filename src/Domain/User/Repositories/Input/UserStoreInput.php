@@ -21,6 +21,7 @@ readonly class UserStoreInput
         public Carbon $agreementAcceptedAt,
         public Company $company,
         public RoleEnum $companyRole,
+        public bool $companyOwner,
         public ?string $phone = null,
         public ?string $prefix = null,
         public ?string $postfix = null,
