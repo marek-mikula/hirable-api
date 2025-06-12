@@ -8,10 +8,9 @@ use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
-use Domain\Register\Events\UserRegistered;
+use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\Register\Notifications\RegisterRequestNotification;
 use Domain\User\Models\User;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Models\Token;
@@ -34,10 +33,6 @@ it('tests auth process - registration, login, logout', function (): void {
     // 3. call of /auth/me endpoint
     // 4. logout
     // 5. login
-
-    Event::fake([
-        UserRegistered::class,
-    ]);
 
     $email = 'example@example.com';
     $password = 'Test.123';
@@ -124,7 +119,7 @@ it('tests auth process - registration, login, logout', function (): void {
     assertSame('999000111', $company->id_number);
     assertSame('https://www.example.com', $company->website);
 
-    Event::assertDispatched(UserRegistered::class);
+    Notification::assertSentTo($user, RegisterRegisteredNotification::class);
 
     // token for registration should be marked as used
     assertNotNull($token->used_at);

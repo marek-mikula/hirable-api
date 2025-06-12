@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Support\ActivityLog\Facades\ActivityLog;
@@ -49,6 +50,15 @@ uses(TestCase::class)
         withoutDefer();
     })
     ->in('Feature', 'Process', 'Unit');
+
+uses()
+    ->beforeEach(function (): void {
+        // fake all events, because unit tests
+        // should check only if the event was
+        // triggered
+        Event::fakeExcept([]);
+    })
+    ->in('Unit');
 
 /*
 |--------------------------------------------------------------------------

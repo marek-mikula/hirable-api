@@ -8,10 +8,10 @@ use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
+use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Notifications\InvitationSentNotification;
-use Domain\Register\Events\UserRegisteredInvitation;
+use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\User\Models\User;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Models\Token;
@@ -34,10 +34,6 @@ it('tests invitation process', function (): void {
     // 3. call of /auth/me endpoint
     // 4. logout
     // 5. login
-
-    Event::fake([
-        UserRegisteredInvitation::class,
-    ]);
 
     $company = Company::factory()->create();
     $companyUser = User::factory()->ofCompany($company, RoleEnum::ADMIN)->create();
@@ -108,7 +104,14 @@ it('tests invitation process', function (): void {
     // token for invitation should be marked as used
     assertNotNull($token->used_at);
 
-    Event::assertDispatched(UserRegisteredInvitation::class);
+    /** @var User $user */
+    $user = User::query()->whereEmail($email)->first();
+
+    // assert registered notification has been sent
+    Notification::assertSentTo($user, RegisterRegisteredNotification::class);
+
+    // assert the creator of invitation has been notified
+    Notification::assertSentTo($companyUser, InvitationAcceptedNotification::class);
 
     // try to get user resource from secured endpoint
     $response = getJson(route('api.auth.me'));

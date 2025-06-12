@@ -7,10 +7,15 @@ namespace Domain\Position\Database\Factories;
 use Carbon\Carbon;
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
+use Domain\Position\Enums\PositionApprovalStateEnum;
+use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
+use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
+use Domain\Position\Models\PositionApproval;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @extends BaseFactory<Position>
@@ -117,5 +122,32 @@ class PositionFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'approve_until' => $timestamp,
         ]);
+    }
+
+    public function withModel(Model $model, PositionRoleEnum $role): static
+    {
+        return $this->afterCreating(function (Position $position) use ($model, $role): void {
+            ModelHasPosition::factory()
+                ->ofPosition($position)
+                ->ofModel($model)
+                ->ofRole($role)
+                ->create();
+        });
+    }
+
+    public function withApproval(Model $model, PositionApprovalStateEnum $state): static
+    {
+        return $this->afterCreating(function (Position $position) use ($model, $state): void {
+            $modelHasPosition = ModelHasPosition::factory()
+                ->ofPosition($position)
+                ->ofModel($model)
+                ->ofRole(PositionRoleEnum::APPROVER)
+                ->create();
+
+            PositionApproval::factory()
+                ->ofModelHasPosition($modelHasPosition)
+                ->ofState($state)
+                ->create();
+        });
     }
 }
