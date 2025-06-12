@@ -56,6 +56,7 @@ class PositionResource extends JsonResource
             'employmentRelationships' => new ClassifierCollection($toClassifier->handle($this->resource->employment_relationships, ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP)),
             'employmentForms' => new ClassifierCollection($toClassifier->handle($this->resource->employment_forms, ClassifierTypeEnum::EMPLOYMENT_FORM)),
             'jobSeatsNum' => $this->resource->job_seats_num,
+            'startDate' => $this->resource->start_date?->toIso8601String(),
             'description' => $this->resource->description,
             'isTechnical' => $this->resource->is_technical,
             'address' => $this->resource->address,

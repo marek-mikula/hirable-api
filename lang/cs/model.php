@@ -64,6 +64,7 @@ return [
         'employmentRelationship' => 'Pracovní poměr',
         'employmentForm' => 'Forma spolupráce',
         'jobSeatsNum' => 'Počet pracovních míst',
+        'start_date' => 'Start date',
         'description' => 'Popis',
         'isTechnical' => 'Technická pozice',
         'address' => 'Adresa pracoviště',

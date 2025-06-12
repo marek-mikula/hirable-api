@@ -25,6 +25,7 @@ class PositionRepository implements PositionRepositoryInterface
         $position->department = $input->department;
         $position->field = $input->field;
         $position->job_seats_num = $input->jobSeatsNum;
+        $position->start_date = $input->startDate;
         $position->description = $input->description;
         $position->is_technical = $input->isTechnical;
         $position->address = $input->address;
@@ -69,6 +70,7 @@ class PositionRepository implements PositionRepositoryInterface
         $position->department = $input->department;
         $position->field = $input->field;
         $position->job_seats_num = $input->jobSeatsNum;
+        $position->start_date = $input->startDate;
         $position->description = $input->description;
         $position->is_technical = $input->isTechnical;
         $position->address = $input->address;

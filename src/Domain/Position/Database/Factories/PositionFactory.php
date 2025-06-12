@@ -69,6 +69,7 @@ class PositionFactory extends Factory
                 str(fake()->word)->transliterate()->lower()->toString()
             ],
             'job_seats_num' => fake()->numberBetween(1, 100),
+            'start_date' => fake()->boolean ? Carbon::make(fake()->date()) : null,
             'description' => fake()->text(2000),
             'is_technical' => $isTechnical,
             'address' => fake()->address,

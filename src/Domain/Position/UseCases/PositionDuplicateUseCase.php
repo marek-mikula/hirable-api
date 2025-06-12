@@ -38,6 +38,7 @@ class PositionDuplicateUseCase extends UseCase
             department: $position->department,
             field: $position->field,
             jobSeatsNum: $position->job_seats_num,
+            startDate: $position->start_date,
             description: $position->description,
             isTechnical: $position->is_technical,
             address: $position->address,

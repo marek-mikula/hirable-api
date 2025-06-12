@@ -57,6 +57,7 @@ class PositionStoreUseCase extends UseCase
             department: $data->department,
             field: $data->field,
             jobSeatsNum: $data->jobSeatsNum,
+            startDate: $data->startDate,
             description: $data->description,
             isTechnical: $data->isTechnical,
             address: $data->address,

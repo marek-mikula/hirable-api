@@ -64,6 +64,7 @@ return [
         'employmentRelationship' => 'Employment relationship',
         'employmentForm' => 'Form of cooperation',
         'jobSeatsNum' => 'Number of job seats',
+        'start_date' => 'Start date',
         'description' => 'Description',
         'isTechnical' => 'Technical position',
         'address' => 'Workplace address',

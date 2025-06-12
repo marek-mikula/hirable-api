@@ -23,6 +23,7 @@ return new class () extends Migration {
             $table->json('employment_relationships');
             $table->json('employment_forms');
             $table->unsignedSmallInteger('job_seats_num');
+            $table->date('start_date')->nullable();
             $table->string('description', 2000);
             $table->boolean('is_technical');
             $table->string('address')->nullable();

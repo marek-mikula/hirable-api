@@ -35,6 +35,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property string[] $employment_relationships classifier values
  * @property string[] $employment_forms classifier values
  * @property int $job_seats_num
+ * @property Carbon|null $start_date
  * @property string $description
  * @property boolean $is_technical
  * @property string|null $address
@@ -98,6 +99,7 @@ class Position extends Model
         'employment_relationships',
         'employment_forms',
         'job_seats_num',
+        'start_date',
         'description',
         'is_technical',
         'address',
@@ -138,6 +140,7 @@ class Position extends Model
         'workloads' => 'array',
         'employment_relationships' => 'array',
         'employment_forms' => 'array',
+        'start_date' => 'date',
         'is_technical' => 'boolean',
         'benefits' => 'array',
         'language_requirements' => 'array',

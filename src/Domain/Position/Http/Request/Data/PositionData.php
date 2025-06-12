@@ -22,6 +22,8 @@ class PositionData extends Data
 
     public int $jobSeatsNum;
 
+    public ?Carbon $startDate;
+
     public string $description;
 
     public bool $isTechnical;

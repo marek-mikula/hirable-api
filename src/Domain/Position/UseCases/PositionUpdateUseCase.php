@@ -66,6 +66,7 @@ class PositionUpdateUseCase extends UseCase
             department: $data->hasKey('department') ? $data->department : $position->department,
             field: $data->hasKey('field') ? $data->field : $position->field,
             jobSeatsNum: $data->hasKey('jobSeatsNum') ? $data->jobSeatsNum : $position->job_seats_num,
+            startDate: $data->hasKey('startDate') ? $data->startDate : $position->start_date,
             description: $data->hasKey('description') ? $data->description : $position->description,
             isTechnical: $data->hasKey('isTechnical') ? $data->isTechnical : $position->is_technical,
             address: $data->hasKey('address') ? $data->address : $position->address,

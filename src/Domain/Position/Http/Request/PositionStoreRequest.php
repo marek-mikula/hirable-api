@@ -54,6 +54,11 @@ class PositionStoreRequest extends AuthRequest
                 'min:1',
                 'max:1000',
             ],
+            'startDate' => [
+                'nullable',
+                'string',
+                Rule::date()->format('Y-m-d')->todayOrAfter(),
+            ],
             'description' => [
                 'required',
                 'string',
@@ -281,6 +286,7 @@ class PositionStoreRequest extends AuthRequest
             'department' => __('model.position.department'),
             'field' => __('model.position.field'),
             'jobSeatsNum' => __('model.position.jobSeatsNum'),
+            'startDate' => __('model.position.start_date'),
             'description' => __('model.position.description'),
             'isTechnical' => __('model.position.isTechnical'),
             'address' => __('model.position.address'),
@@ -346,6 +352,7 @@ class PositionStoreRequest extends AuthRequest
             'department' => $this->filled('department') ? (string) $this->input('department') : null,
             'field' => $this->filled('field') ? (string) $this->input('field') : null,
             'jobSeatsNum' => (int) $this->input('jobSeatsNum'),
+            'startDate' => $this->filled('startDate') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('startDate')) : null,
             'description' => (string) $this->input('description'),
             'isTechnical' => $this->boolean('isTechnical'),
             'address' => $this->filled('address') ? (string) $this->input('address') : null,

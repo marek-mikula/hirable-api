@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Position\Repositories;
 
+use Carbon\Carbon;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\Position\Enums\PositionStateEnum;
@@ -16,6 +17,7 @@ use Domain\User\Models\User;
 use function Pest\Laravel\assertModelMissing;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
+use function Tests\Common\Helpers\assertDate;
 
 /** @covers \Domain\Position\Repositories\PositionRepository::store */
 it('tests store method', function (): void {
@@ -34,6 +36,7 @@ it('tests store method', function (): void {
         department: fake()->word,
         field: fake()->word,
         jobSeatsNum: fake()->numberBetween(0, 10),
+        startDate: Carbon::make(fake()->date),
         description: fake()->text(2000),
         isTechnical: fake()->boolean,
         address: fake()->words(asText: true),
@@ -73,6 +76,7 @@ it('tests store method', function (): void {
     assertSame($input->department, $position->department);
     assertSame($input->field, $position->field);
     assertSame($input->jobSeatsNum, $position->job_seats_num);
+    assertDate($input->startDate, $position->start_date);
     assertSame($input->description, $position->description);
     assertSame($input->isTechnical, $position->is_technical);
     assertSame($input->address, $position->address);
@@ -110,9 +114,7 @@ it('tests update method', function (): void {
     /** @var PositionRepositoryInterface $repository */
     $repository = app(PositionRepositoryInterface::class);
 
-    $company = Company::factory()->create();
-    $position = Position::factory()->ofCompany($company)->create();
-    $user = User::factory()->ofCompany($company, RoleEnum::RECRUITER)->create();
+    $position = Position::factory()->create();
 
     $input = new PositionUpdateInput(
         approvalRound: null,
@@ -121,6 +123,7 @@ it('tests update method', function (): void {
         department: fake()->word,
         field: fake()->word,
         jobSeatsNum: fake()->numberBetween(0, 10),
+        startDate: Carbon::make(fake()->date),
         description: fake()->text(2000),
         isTechnical: fake()->boolean,
         address: fake()->words(asText: true),
@@ -158,6 +161,7 @@ it('tests update method', function (): void {
     assertSame($input->department, $position->department);
     assertSame($input->field, $position->field);
     assertSame($input->jobSeatsNum, $position->job_seats_num);
+    assertDate($input->startDate, $position->start_date);
     assertSame($input->description, $position->description);
     assertSame($input->isTechnical, $position->is_technical);
     assertSame($input->address, $position->address);

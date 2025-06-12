@@ -22,6 +22,7 @@ readonly class PositionUpdateInput
         public ?string $department,
         public ?string $field,
         public int $jobSeatsNum,
+        public ?Carbon $startDate,
         public string $description,
         public bool $isTechnical,
         public ?string $address,
