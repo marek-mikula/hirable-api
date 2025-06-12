@@ -62,6 +62,9 @@ class PositionDuplicateUseCase extends UseCase
             employmentForms: $position->employment_forms,
             benefits: $position->benefits,
             languageRequirements: $position->language_requirements,
+            hardSkillsWeight: $position->hard_skills_weight,
+            softSkillsWeight: $position->soft_skills_weight,
+            languageSkillsWeight: $position->language_skills_weight,
         );
 
         $hiringManagers = $position->hiringManagers;

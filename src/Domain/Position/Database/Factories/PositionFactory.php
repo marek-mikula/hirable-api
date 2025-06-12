@@ -98,6 +98,13 @@ class PositionFactory extends Factory
         ]);
     }
 
+    public function ofUser(User|int $user): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'user_id' => is_int($user) ? $user : $user->id,
+        ]);
+    }
+
     public function ofState(PositionStateEnum $state): static
     {
         return $this->state(fn (array $attributes) => [

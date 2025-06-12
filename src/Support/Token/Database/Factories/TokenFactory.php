@@ -41,6 +41,13 @@ class TokenFactory extends Factory
         ]);
     }
 
+    public function unused(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'used_at' => null,
+        ]);
+    }
+
     public function expired(?Carbon $datetime = null): static
     {
         return $this->state(fn (array $attributes) => [

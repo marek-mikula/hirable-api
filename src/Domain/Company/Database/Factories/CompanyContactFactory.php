@@ -51,10 +51,10 @@ class CompanyContactFactory extends Factory
         ]);
     }
 
-    public function ofCompany(Company $company): static
+    public function ofCompany(Company|int $company): static
     {
         return $this->state(fn (array $attributes) => [
-            'company_id' => $company->id,
+            'company_id' => is_int($company) ? $company : $company->id,
         ]);
     }
 }
