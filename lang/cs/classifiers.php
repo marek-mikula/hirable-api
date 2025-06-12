@@ -248,4 +248,12 @@ return [
         'net' => 'Čistá',
     ],
 
+    ClassifierTypeEnum::PUBLICATION_PLACE->value => [
+        'teamio' => 'Teamio (Jobs.cz, Práce.cz, Práce Za Rohem)',
+        'startup_jobs' => 'StatupJobs',
+        'linkedin' => 'LinkedIn',
+        'atmoskop' => 'Atmoskop',
+        'career_page' => 'Kariérní stránky',
+    ],
+
 ];

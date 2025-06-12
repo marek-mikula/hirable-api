@@ -13,6 +13,7 @@ use Support\Classifier\Database\Seeders\ClassifierInterviewTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierLanguageDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierLanguageLevelDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierPhonePrefixDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierPublicationPlaceDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierRefusalTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierRejectionTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSalaryFrequencyDatabaseSeeder;
@@ -149,6 +150,10 @@ return [
         ClassifierTypeEnum::SALARY_TYPE->value => [
             'translate' => true,
             'seeder' => ClassifierSalaryTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::PUBLICATION_PLACE->value => [
+            'translate' => true,
+            'seeder' => ClassifierPublicationPlaceDatabaseSeeder::class,
         ],
     ],
 
