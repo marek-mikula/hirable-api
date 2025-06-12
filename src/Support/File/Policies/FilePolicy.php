@@ -12,6 +12,11 @@ use Support\File\Models\File;
 
 class FilePolicy
 {
+    public function download(User $user, File $file): bool
+    {
+        return $this->show($user, $file);
+    }
+
     public function show(User $user, File $file): bool
     {
         return match ($file->type) {

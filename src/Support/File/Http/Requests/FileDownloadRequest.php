@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Http\Request;
+namespace Support\File\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
 use Support\File\Policies\FilePolicy;
 
-class PositionFileDestroyRequest extends AuthRequest
+class FileDownloadRequest extends AuthRequest
 {
     public function authorize(): bool
     {
-        /** @see FilePolicy::delete() */
-        return $this->user()->can('delete', $this->route('file'));
+        /** @see FilePolicy::download() */
+        return $this->user()->can('download', $this->route('file'));
     }
 
     public function rules(): array

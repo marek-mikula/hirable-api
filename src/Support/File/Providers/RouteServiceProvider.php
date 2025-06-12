@@ -13,6 +13,13 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->bootModelBinding();
+
+        $this->routes(static function (): void {
+            Route::middleware('api')
+                ->prefix('api/files')
+                ->name('api.files.')
+                ->group(__DIR__.'/../Routes/file.php');
+        });
     }
 
     private function bootModelBinding(): void

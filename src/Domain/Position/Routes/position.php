@@ -7,7 +7,6 @@ use Domain\Position\Http\Controllers\PositionApprovalCancelController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
-use Domain\Position\Http\Controllers\PositionFileController;
 use Domain\Position\Http\Controllers\PositionSuggestController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;
@@ -26,10 +25,6 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::patch('/', [PositionController::class, 'update'])->name('update');
         Route::delete('/', [PositionController::class, 'delete'])->name('delete');
         Route::post('/duplicate', PositionDuplicateController::class)->name('duplicate');
-
-        Route::prefix('/files')->as('files.')->group(function (): void {
-            Route::delete('/{file}', [PositionFileController::class, 'destroy'])->whereNumber('file')->name('destroy');
-        });
 
         Route::prefix('/approvals')->as('approvals.')->group(function (): void {
             Route::post('/cancel', PositionApprovalCancelController::class)->name('cancel');
