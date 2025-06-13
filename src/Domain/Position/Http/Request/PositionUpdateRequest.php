@@ -472,7 +472,7 @@ class PositionUpdateRequest extends AuthRequest
             'department' => in_array('department', $keys) ? ($this->filled('department') ? (string) $this->input('department') : null) : null,
             'field' => in_array('field', $keys) ? ($this->filled('field') ? (string) $this->input('field') : null) : null,
             'jobSeatsNum' => in_array('jobSeatsNum', $keys) ? ((int) $this->input('jobSeatsNum')) : null,
-            'startDate' => in_array('startDate', $keys) ? ($this->filled('field') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('startDate')) : null) : null,
+            'startDate' => in_array('startDate', $keys) ? ($this->filled('startDate') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('startDate')) : null) : null,
             'description' => in_array('description', $keys) ? ((string) $this->input('description')) : null,
             'isTechnical' => in_array('description', $keys) ? $this->boolean('isTechnical') : null,
             'address' => in_array('address', $keys) ? ($this->filled('address') ? (string) $this->input('address') : null) : null,
