@@ -57,7 +57,6 @@ class PositionStoreRequest extends AuthRequest
             'startDate' => [
                 'nullable',
                 'string',
-                Rule::date()->format('Y-m-d')->todayOrAfter(),
             ],
             'description' => [
                 'required',

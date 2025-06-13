@@ -124,7 +124,6 @@ class PositionUpdateRequest extends AuthRequest
                 Rule::excludeIf(!in_array('startDate', $keys)),
                 'nullable',
                 'string',
-                Rule::date()->format('Y-m-d')->todayOrAfter(),
             ],
             'description' => [
                 Rule::excludeIf(!in_array('description', $keys)),
