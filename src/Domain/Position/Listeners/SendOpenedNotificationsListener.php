@@ -13,10 +13,13 @@ class SendOpenedNotificationsListener extends QueuedListener
 {
     public function handle(PositionOpenedEvent $event): void
     {
-        // send notifications to all hiring managers
-        $event->position
-            ->hiringManagers()
-            ->get()
+        $users = modelCollection(User::class);
+
+        $users->push(...$event->position->hiringManagers()->get());
+        $users->push(...$event->position->recruiters()->get());
+
+        // send notifications to all hiring managers & recruiters
+        $users
             ->each(function (User $model) use ($event): void {
                 $model->notify(
                     new PositionOpenedNotification(

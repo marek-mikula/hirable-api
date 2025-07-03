@@ -160,7 +160,7 @@ return [
         'mail' => [
             'subject' => '✅ Pozice otevřena pro nábor - :position',
             'body' => [
-                'line1' => 'Pozice, kde jste přiřazen jako hiring manažer, **:position** byla otevřena pro nábor. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line1' => 'Pozice, kde jste přiřazen jako hiring manažer nebo náborář, **:position** byla otevřena pro nábor. Na pozici se můžete podívat <a href=":link">zde</a>',
             ],
         ],
     ],

@@ -160,7 +160,7 @@ return [
         'mail' => [
             'subject' => '✅ Position open for hiring - :position',
             'body' => [
-                'line1' => 'The position, where you are assigned as hiring manager, **:position** has been opened for hiring. You can view the position <a href=":link">here</a>',
+                'line1' => 'The position, where you are assigned as hiring manager or recruiter, **:position** has been opened for hiring. You can view the position <a href=":link">here</a>',
             ],
         ],
     ],

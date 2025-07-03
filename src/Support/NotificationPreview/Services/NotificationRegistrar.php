@@ -135,7 +135,7 @@ class NotificationRegistrar
                 notifications: [
                     NotificationData::create(
                         label: 'Opened',
-                        description: 'Notification informs hiring managers on position that the position has been opened for hiring.',
+                        description: 'Notification informs hiring managers and recruiters on position that the position has been opened for hiring.',
                         notification: function (User $notifiable) {
                             $position = Position::factory()->make();
                             return new PositionOpenedNotification(position: $position);

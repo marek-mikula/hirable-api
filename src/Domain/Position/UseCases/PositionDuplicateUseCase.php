@@ -25,6 +25,7 @@ class PositionDuplicateUseCase extends UseCase
     {
         $position->loadMissing([
             'hiringManagers',
+            'recruiters',
             'approvers',
             'externalApprovers',
         ]);
@@ -67,25 +68,19 @@ class PositionDuplicateUseCase extends UseCase
             languageSkillsWeight: $position->language_skills_weight,
         );
 
-        $hiringManagers = $position->hiringManagers;
-        $approvers = $position->approvers;
-        $externalApprovers = $position->externalApprovers;
-
         return DB::transaction(function () use (
             $user,
             $position,
             $input,
-            $hiringManagers,
-            $approvers,
-            $externalApprovers,
         ): Position {
-            $position = $this->positionRepository->store($input);
+            $newPosition = $this->positionRepository->store($input);
 
-            $this->modelHasPositionRepository->storeMany($position, $hiringManagers, PositionRoleEnum::HIRING_MANAGER);
-            $this->modelHasPositionRepository->storeMany($position, $approvers, PositionRoleEnum::APPROVER);
-            $this->modelHasPositionRepository->storeMany($position, $externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER);
+            $this->modelHasPositionRepository->storeMany($newPosition, $position->hiringManagers, PositionRoleEnum::HIRING_MANAGER);
+            $this->modelHasPositionRepository->storeMany($newPosition, $position->recruiters, PositionRoleEnum::RECRUITER);
+            $this->modelHasPositionRepository->storeMany($newPosition, $position->approvers, PositionRoleEnum::APPROVER);
+            $this->modelHasPositionRepository->storeMany($newPosition, $position->externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER);
 
-            return $position;
+            return $newPosition;
         }, attempts: 5);
     }
 }
