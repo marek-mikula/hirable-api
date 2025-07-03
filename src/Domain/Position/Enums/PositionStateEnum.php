@@ -16,6 +16,9 @@ enum PositionStateEnum: string
     case CLOSED = 'closed';
     case CANCELED = 'canceled';
 
+    /**
+     * @return PositionStateEnum[]
+     */
     public function getNextStates(): array
     {
         return match ($this) {
@@ -43,5 +46,17 @@ enum PositionStateEnum: string
             ],
             self::CLOSED, self::CANCELED => [],
         };
+    }
+
+    /**
+     * @return PositionStateEnum[]
+     */
+    public static function getAfterOpenedStates(): array
+    {
+        return [
+            self::OPENED,
+            self::CLOSED,
+            self::CANCELED,
+        ];
     }
 }

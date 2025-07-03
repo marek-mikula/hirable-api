@@ -42,11 +42,16 @@ class PositionPolicy
         ];
 
         // user is hiring manager or recruiter on position
-        if ($this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, ...$rolesOnPosition)) {
+        // and position has been opened
+        if (
+            in_array($position->state, PositionStateEnum::getAfterOpenedStates()) &&
+            $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, ...$rolesOnPosition)
+        ) {
             return true;
         }
 
         // user is approver in pending state
+        // and position is in approval pending state
         if (
             $position->state === PositionStateEnum::APPROVAL_PENDING &&
             $this->positionApprovalRepository->hasModelAsApproverOnPositionInState(
