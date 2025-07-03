@@ -12,6 +12,7 @@ use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionData;
+use Domain\Position\Models\Position;
 use Domain\Position\Services\PositionConfigService;
 use Domain\Position\Validation\ValidateApprovalRequiredFields;
 use Domain\Position\Validation\ValidateApprovalSelf;
@@ -22,7 +23,7 @@ class PositionStoreRequest extends AuthRequest
     public function authorize(): bool
     {
         /** @see PositionPolicy::store() */
-        return $this->user()->can('store');
+        return $this->user()->can('store', Position::class);
     }
 
     public function rules(PositionConfigService $positionConfigService): array

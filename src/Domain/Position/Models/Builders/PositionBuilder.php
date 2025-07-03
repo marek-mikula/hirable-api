@@ -30,10 +30,10 @@ class PositionBuilder extends Builder
     {
         return $this->where(function (PositionBuilder $query) use ($user) {
             $query
-                // my own positions
+                // positions where I am the owner
                 ->where('user_id', $user->id)
 
-                // positions where I am hiring manager
+                // positions where I am hiring manager or recruiter
                 ->orWhereExists(function (\Illuminate\Contracts\Database\Query\Builder $query) use ($user): void {
                     $query
                         ->selectRaw(1)
@@ -41,7 +41,10 @@ class PositionBuilder extends Builder
                         ->whereColumn('model_has_positions.position_id', 'positions.id')
                         ->where('model_has_positions.model_type', User::class)
                         ->where('model_has_positions.model_id', $user->id)
-                        ->where('model_has_positions.role', PositionRoleEnum::HIRING_MANAGER->value);
+                        ->whereIn('model_has_positions.role', [
+                            PositionRoleEnum::RECRUITER,
+                            PositionRoleEnum::HIRING_MANAGER,
+                        ]);
                 })
 
                 // positions where I am approver and I have
@@ -54,8 +57,8 @@ class PositionBuilder extends Builder
                         ->whereColumn('model_has_positions.position_id', 'positions.id')
                         ->where('model_has_positions.model_type', User::class)
                         ->where('model_has_positions.model_id', $user->id)
-                        ->where('model_has_positions.role', PositionRoleEnum::APPROVER->value)
-                        ->where('position_approvals.state', PositionApprovalStateEnum::PENDING->value);
+                        ->where('model_has_positions.role', PositionRoleEnum::APPROVER)
+                        ->where('position_approvals.state', PositionApprovalStateEnum::PENDING);
                 });
         });
     }

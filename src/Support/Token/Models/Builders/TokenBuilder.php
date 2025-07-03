@@ -24,7 +24,7 @@ class TokenBuilder extends Builder
 
     public function whereType(TokenTypeEnum $type): static
     {
-        return $this->where('type', '=', $type->value);
+        return $this->where('type', '=', $type);
     }
 
     public function expired(): static

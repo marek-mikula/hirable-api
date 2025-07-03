@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\Position\Policies;
 
-use Domain\Company\Enums\RoleEnum;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
@@ -37,11 +36,13 @@ class PositionPolicy
             return true;
         }
 
-        // user is hiring manager on position
-        if (
-            $user->company_role === RoleEnum::HIRING_MANAGER &&
-            $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::HIRING_MANAGER)
-        ) {
+        $rolesOnPosition = [
+            PositionRoleEnum::HIRING_MANAGER,
+            PositionRoleEnum::RECRUITER,
+        ];
+
+        // user is hiring manager or recruiter on position
+        if ($this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, ...$rolesOnPosition)) {
             return true;
         }
 

@@ -14,6 +14,6 @@ class SettingBuilder extends Builder
 
     public function whereSettingKey(SettingKeyEnum $key): static
     {
-        return $this->where('key', '=', $key->value);
+        return $this->where('key', '=', $key);
     }
 }
