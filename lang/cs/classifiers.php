@@ -249,11 +249,15 @@ return [
     ],
 
     ClassifierTypeEnum::PUBLICATION_PLACE->value => [
-        'teamio' => 'Teamio (Jobs.cz, Práce.cz, Práce Za Rohem)',
-        'startup_jobs' => 'StatupJobs',
+        'facebook' => 'Facebook',
         'linkedin' => 'LinkedIn',
+        'reddit' => 'Reddit',
+        'teamio' => 'Teamio (Jobs.cz, Práce.cz, Práce Za Rohem)',
+        'profesia' => 'Profesia',
         'atmoskop' => 'Atmoskop',
+        'nelisa' => 'Nelisa',
         'career_page' => 'Kariérní stránky',
+        'startup_jobs' => 'StatupJobs',
     ],
 
 ];

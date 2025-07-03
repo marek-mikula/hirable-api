@@ -11,11 +11,15 @@ class ClassifierPublicationPlaceDatabaseSeeder extends AbstractClassifierDatabas
     protected function getValues(): array
     {
         return [
-            'teamio',
-            'startup_jobs',
+            'facebook',
             'linkedin',
+            'reddit',
+            'teamio',
+            'profesia',
             'atmoskop',
+            'nelisa',
             'career_page',
+            'startup_jobs',
         ];
     }
 
