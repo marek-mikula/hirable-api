@@ -21,9 +21,9 @@ class PositionPolicy
     ) {
     }
 
-    public function cancelApproval(User $user, Position $position): bool
+    public function store(User $user): bool
     {
-        return $user->company_id === $position->company_id && $user->id === $position->user_id;
+        return true;
     }
 
     public function show(User $user, Position $position): bool
@@ -85,5 +85,10 @@ class PositionPolicy
     public function duplicate(User $user, Position $position): bool
     {
         return $this->show($user, $position);
+    }
+
+    public function cancelApproval(User $user, Position $position): bool
+    {
+        return $user->company_id === $position->company_id && $user->id === $position->user_id;
     }
 }

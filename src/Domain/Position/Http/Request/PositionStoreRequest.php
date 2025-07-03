@@ -5,26 +5,27 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
+use App\Rules\Rule;
 use Carbon\Carbon;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Enums\PositionOperationEnum;
+use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionData;
-use Domain\Position\Validation\ValidateApprovalDuplicates;
+use Domain\Position\Services\PositionConfigService;
 use Domain\Position\Validation\ValidateApprovalRequiredFields;
 use Domain\Position\Validation\ValidateApprovalSelf;
 use Domain\Position\Validation\ValidateApprovalOpen;
-use Domain\User\Models\User;
-use Illuminate\Validation\Rule;
 
 class PositionStoreRequest extends AuthRequest
 {
     public function authorize(): bool
     {
-        return true;
+        /** @see PositionPolicy::store() */
+        return $this->user()->can('store');
     }
 
-    public function rules(): array
+    public function rules(PositionConfigService $positionConfigService): array
     {
         $user = $this->user();
 
@@ -219,7 +220,15 @@ class PositionStoreRequest extends AuthRequest
             'hiringManagers.*' => [
                 'required',
                 'integer',
-                Rule::exists(User::class, 'id')->where('company_id', $user->company_id),
+                Rule::user($user->company, $positionConfigService->getRolesForPositionRole(PositionRoleEnum::HIRING_MANAGER)),
+            ],
+            'recruiters' => [
+                'array',
+            ],
+            'recruiters.*' => [
+                'required',
+                'integer',
+                Rule::user($user->company, $positionConfigService->getRolesForPositionRole(PositionRoleEnum::RECRUITER)),
             ],
             'approvers' => [
                 'array',
@@ -227,7 +236,7 @@ class PositionStoreRequest extends AuthRequest
             'approvers.*' => [
                 'required',
                 'integer',
-                Rule::exists(User::class, 'id')->where('company_id', $user->company_id),
+                Rule::user($user->company, $positionConfigService->getRolesForPositionRole(PositionRoleEnum::APPROVER)),
             ],
             'externalApprovers' => [
                 'array',
@@ -238,7 +247,7 @@ class PositionStoreRequest extends AuthRequest
                 Rule::exists(CompanyContact::class, 'id')->where('company_id', $user->company_id),
             ],
             'approveUntil' => [
-                'required_with:hiringManagers,approvers,externalApprovers',
+                'required_with:approvers,externalApprovers',
                 'nullable',
                 Rule::date()->format('Y-m-d')->afterToday(),
             ],
@@ -267,7 +276,6 @@ class PositionStoreRequest extends AuthRequest
     {
         return [
             new ValidateApprovalRequiredFields(),
-            new ValidateApprovalDuplicates(),
             new ValidateApprovalSelf($this->user()),
             new ValidateApprovalOpen(),
         ];
@@ -317,6 +325,8 @@ class PositionStoreRequest extends AuthRequest
             'languageRequirements.*.level' => __('model.position.languageRequirements'),
             'hiringManagers' => __('model.position.hiringManagers'),
             'hiringManagers.*' => __('model.position.hiringManagers'),
+            'recruiters' => __('model.position.recruiters'),
+            'recruiters.*' => __('model.position.recruiters'),
             'approvers' => __('model.position.approvers'),
             'approvers.*' => __('model.position.approvers'),
             'externalApprovers' => __('model.position.externalApprovers'),
@@ -378,6 +388,7 @@ class PositionStoreRequest extends AuthRequest
                 ]);
             }),
             'hiringManagers' => $this->collect('hiringManagers')->map(fn (mixed $value) => (int) $value)->all(),
+            'recruiters' => $this->collect('recruiters')->map(fn (mixed $value) => (int) $value)->all(),
             'approvers' => $this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all(),
             'externalApprovers' => $this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all(),
             'approveUntil' => $this->filled('approveUntil') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('approveUntil')) : null,

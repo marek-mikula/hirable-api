@@ -24,18 +24,10 @@ class ValidateApprovalSelf
             return;
         }
 
-        $hiringManagers = collect($data['hiringManagers'] ?? []);
-        $approvers = collect($data['approvers'] ?? []);
+        $hasSelf = collect($data['approvers'] ?? [])->some(fn (mixed $value) => $value === $this->user->id);
 
-        $asHm = $hiringManagers->some(fn (mixed $value) => $value === $this->user->id);
-        $asApprover = $approvers->some(fn (mixed $value) => $value === $this->user->id);
-
-        if ($asHm) {
-            $validator->errors()->add('hiringManagers', __('validation.after_rules.position.approval_self.hiring_manager'));
-        }
-
-        if ($asApprover) {
-            $validator->errors()->add('approvers', __('validation.after_rules.position.approval_self.approver'));
+        if ($hasSelf) {
+            $validator->errors()->add('approvers', __('validation.after_rules.position.approval_self'));
         }
     }
 }

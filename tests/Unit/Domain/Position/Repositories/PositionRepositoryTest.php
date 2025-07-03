@@ -199,20 +199,6 @@ it('tests updateState method', function (): void {
     assertSame(PositionStateEnum::OPENED, $position->state);
 });
 
-/** @covers \Domain\Position\Repositories\PositionRepository::updateApprovalRound */
-it('tests updateApprovalRound method', function (): void {
-    /** @var PositionRepositoryInterface $repository */
-    $repository = app(PositionRepositoryInterface::class);
-
-    $position = Position::factory()->create(['approval_round' => null]);
-
-    $newRound = fake()->numberBetween(1, 9);
-
-    $position = $repository->updateApprovalRound($position, $newRound);
-
-    assertSame($newRound, $position->approval_round);
-});
-
 /** @covers \Domain\Position\Repositories\PositionRepository::delete */
 it('tests delete method', function (): void {
     /** @var PositionRepositoryInterface $repository */

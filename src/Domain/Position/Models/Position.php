@@ -69,6 +69,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property-read Collection<User> $users
  * @property-read Collection<User> $approvers
  * @property-read Collection<User> $hiringManagers
+ * @property-read Collection<User> $recruiters
  * @property-read Collection<PositionApproval> $approvals
  *
  * @method static PositionFactory factory($count = null, $state = [])
@@ -209,6 +210,11 @@ class Position extends Model
     public function hiringManagers(): MorphToMany
     {
         return $this->users()->wherePivot('role', PositionRoleEnum::HIRING_MANAGER->value);
+    }
+
+    public function recruiters(): MorphToMany
+    {
+        return $this->users()->wherePivot('role', PositionRoleEnum::RECRUITER->value);
     }
 
     public function approvals(): HasMany

@@ -7,7 +7,7 @@ namespace Domain\Register\Http\Requests;
 use Domain\Company\Models\Company;
 use Domain\Register\Http\Requests\Data\CompanyData;
 use Domain\Register\Http\Requests\Data\RegisterData;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 use Illuminate\Validation\Rules\Password;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Http\Requests\TokenRequest;

@@ -8,7 +8,7 @@ use App\Enums\LanguageEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Http\Requests\Data\ContactData;
 use Domain\Company\Models\CompanyContact;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 
 class CompanyContactUpdateRequest extends AuthRequest
 {

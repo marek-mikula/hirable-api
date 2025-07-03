@@ -11,7 +11,7 @@ use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Policies\PositionApprovalPolicy;
 use Domain\Position\Policies\PositionPolicy;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 
 class PositionApprovalDecideRequest extends AuthRequest
 {

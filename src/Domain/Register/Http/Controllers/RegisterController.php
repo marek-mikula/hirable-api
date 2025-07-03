@@ -35,10 +35,7 @@ class RegisterController extends ApiController
             $user = RegisterUseCase::make()->handle($token, $request->toData());
         }
 
-        /** @var AuthService $authService */
-        $authService = app(AuthService::class);
-
-        $authService->loginWithModel($user); // immediately login user
+        AuthService::resolve()->loginWithModel($user); // immediately login user
 
         // load needed relationships
         $user->loadMissing('company');

@@ -7,12 +7,13 @@ namespace Domain\Auth\Services;
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\Http\Requests\AuthRequest;
+use App\Services\Service;
 use Domain\Auth\Http\Requests\Data\LoginData;
 use Domain\User\Models\User;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
-class AuthService
+class AuthService extends Service
 {
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,

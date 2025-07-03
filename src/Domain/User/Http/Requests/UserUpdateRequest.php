@@ -8,7 +8,7 @@ use App\Enums\LanguageEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\User\Models\User;
 use Domain\User\Policies\UserPolicy;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class UserUpdateRequest extends AuthRequest

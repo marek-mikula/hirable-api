@@ -48,6 +48,7 @@ class PositionController extends ApiController
         $position->loadMissing([
             'files',
             'hiringManagers',
+            'recruiters',
             'approvers',
             'externalApprovers',
             'approvals',
@@ -67,6 +68,7 @@ class PositionController extends ApiController
         $position->loadMissing([
             'files',
             'hiringManagers',
+            'recruiters',
             'approvers',
             'externalApprovers',
             'approvals',
@@ -84,6 +86,7 @@ class PositionController extends ApiController
         $position->loadMissing([
             'files',
             'hiringManagers',
+            'recruiters',
             'approvers',
             'externalApprovers',
             'approvals',

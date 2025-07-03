@@ -6,30 +6,17 @@ namespace Domain\Position\Listeners;
 
 use App\Listeners\QueuedListener;
 use Domain\Company\Models\CompanyContact;
+use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Events\PositionApprovalRejectedEvent;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Notifications\PositionApprovalRejectedNotification;
-use Domain\Position\Services\PositionApprovalRoundService;
 use Domain\User\Models\User;
-use Illuminate\Support\Arr;
 
 class SendRejectedNotificationsListener extends QueuedListener
 {
-    public function __construct(
-        private readonly PositionApprovalRoundService $positionApprovalRoundService,
-    ) {
-    }
-
     public function handle(PositionApprovalRejectedEvent $event): void
     {
         throw_if($event->position->approval_round === null, new \Exception('Cannot send notifications when approval round is NULL.'));
-
-        $roles = [];
-
-        // collect all roles that needs to be notified
-        for ($round = (int) $event->position->approval_round; $round > 0; $round--) {
-            $roles = array_merge($roles, $this->positionApprovalRoundService->getRolesByRound($round));
-        }
 
         $owner = $event->position->load('user')->user;
 
@@ -40,7 +27,7 @@ class SendRejectedNotificationsListener extends QueuedListener
         $event->position
             ->models()
             ->with('model')
-            ->whereIn('role', Arr::pluck($roles, 'value'))
+            ->whereIn('role', [PositionRoleEnum::APPROVER, PositionRoleEnum::EXTERNAL_APPROVER])
             ->get()
             ->map(fn (ModelHasPosition $modelHasPosition) => $modelHasPosition->model)
             ->add($owner)

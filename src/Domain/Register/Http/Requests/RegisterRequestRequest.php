@@ -6,7 +6,7 @@ namespace Domain\Register\Http\Requests;
 
 use App\Http\Requests\Request;
 use Domain\User\Models\User;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 
 class RegisterRequestRequest extends Request
 {

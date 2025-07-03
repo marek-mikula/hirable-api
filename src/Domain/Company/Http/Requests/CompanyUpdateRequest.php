@@ -6,7 +6,7 @@ namespace Domain\Company\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Models\Company;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 
 class CompanyUpdateRequest extends AuthRequest
 {

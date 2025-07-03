@@ -7,7 +7,7 @@ namespace Support\Grid\Http\Requests;
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\Traits\ValidationFailsWithStatus;
 use Illuminate\Support\Arr;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 use Support\Grid\Enums\PerPageEnum;
 use Support\Grid\Http\Requests\Data\GridColumnSettingData;
 use Support\Grid\Http\Requests\Data\GridSettingData;

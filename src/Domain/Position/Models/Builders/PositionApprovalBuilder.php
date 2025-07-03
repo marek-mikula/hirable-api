@@ -6,12 +6,13 @@ namespace Domain\Position\Models\Builders;
 
 use App\Models\Builders\Builder;
 use Domain\Position\Enums\PositionApprovalStateEnum;
+use Domain\Position\Services\PositionConfigService;
 
 class PositionApprovalBuilder extends Builder
 {
     public function needsReminder(): static
     {
-        $remindDays = (int) config('position.approval.remind_days');
+        $remindDays = PositionConfigService::resolve()->getApprovalRemindDays();
 
         return $this->where(function (PositionApprovalBuilder $query) use ($remindDays): void {
             $query

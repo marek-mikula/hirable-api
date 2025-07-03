@@ -9,7 +9,7 @@ use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Http\Requests\Data\InvitationStoreData;
 use Domain\Company\Policies\CompanyPolicy;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 
 class CompanyInvitationsStoreRequest extends AuthRequest
 {

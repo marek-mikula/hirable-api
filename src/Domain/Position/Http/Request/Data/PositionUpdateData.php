@@ -87,6 +87,9 @@ class PositionUpdateData extends Data
     public array $hiringManagers;
 
     /** @var int[] */
+    public array $recruiters;
+
+    /** @var int[] */
     public array $approvers;
 
     /** @var int[] */
@@ -110,6 +113,11 @@ class PositionUpdateData extends Data
         return !empty($this->hiringManagers);
     }
 
+    public function hasRecruiters(): bool
+    {
+        return !empty($this->recruiters);
+    }
+
     public function hasApprovers(): bool
     {
         return !empty($this->approvers);
@@ -122,7 +130,7 @@ class PositionUpdateData extends Data
 
     public function hasAnyApprovers(): bool
     {
-        return $this->hasHiringManagers() || $this->hasApprovers() || $this->hasExternalApprovers();
+        return $this->hasApprovers() || $this->hasExternalApprovers();
     }
 
     /**

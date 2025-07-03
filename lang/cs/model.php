@@ -87,6 +87,7 @@ return [
         'leadership' => 'Vedení lidí',
         'languageSkills' => 'Jazykové dovednosti',
         'hiringManagers' => 'Hiring manažeři',
+        'recruiters' => 'Náboráři',
         'approvers' => 'Schvalovatelé',
         'externalApprovers' => 'Externí schvalovatelé',
         'hardSkillsWeight' => 'Váha tvrdých dovedností',

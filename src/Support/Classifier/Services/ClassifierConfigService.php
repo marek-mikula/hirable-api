@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Support\Classifier\Services;
 
+use App\Services\Service;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
-class ClassifierConfigService
+class ClassifierConfigService extends Service
 {
     public function isCacheEnabled(): bool
     {

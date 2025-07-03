@@ -92,6 +92,7 @@ class PositionResource extends JsonResource
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
             'files' => new FileCollection($this->resource->files),
             'hiringManagers' => new UserCollection($this->resource->hiringManagers),
+            'recruiters' => new UserCollection($this->resource->recruiters),
             'approvers' => new UserCollection($this->resource->approvers),
             'externalApprovers' => new CompanyContactCollection($this->resource->externalApprovers),
             'approvals' => new PositionApprovalCollection($this->resource->approvals),

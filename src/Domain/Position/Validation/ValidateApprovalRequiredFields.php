@@ -19,15 +19,13 @@ class ValidateApprovalRequiredFields
             return;
         }
 
-        $hiringManagers = $data['hiringManagers'] ?? [];
         $approvers = $data['approvers'] ?? [];
         $externalApprovers = $data['externalApprovers'] ?? [];
 
-        if (!empty($hiringManagers) || !empty($approvers) || !empty($externalApprovers)) {
+        if (!empty($approvers) || !empty($externalApprovers)) {
             return;
         }
 
-        $validator->errors()->add('hiringManagers', __('validation.required'));
         $validator->errors()->add('approvers', __('validation.required'));
         $validator->errors()->add('externalApprovers', __('validation.required'));
     }

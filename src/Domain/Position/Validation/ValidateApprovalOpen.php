@@ -19,20 +19,15 @@ class ValidateApprovalOpen
             return;
         }
 
-        $hiringManagers = $data['hiringManagers'] ?? [];
         $approvers = $data['approvers'] ?? [];
         $externalApprovers = $data['externalApprovers'] ?? [];
 
-        if (!empty($hiringManagers)) {
-            $validator->errors()->add('hiringManagers', __('validation.after_rules.position.approval_open.hiring_manager'));
-        }
-
         if (!empty($approvers)) {
-            $validator->errors()->add('approvers', __('validation.after_rules.position.approval_open.approver'));
+            $validator->errors()->add('approvers', __('validation.after_rules.position.approval_open'));
         }
 
         if (!empty($externalApprovers)) {
-            $validator->errors()->add('externalApprovers', __('validation.after_rules.position.approval_open.external_approver'));
+            $validator->errors()->add('externalApprovers', __('validation.after_rules.position.approval_open'));
         }
     }
 }

@@ -17,10 +17,7 @@ class AuthController extends ApiController
 {
     public function login(AuthLoginRequest $request): JsonResponse
     {
-        /** @var AuthService $service */
-        $service = app(AuthService::class);
-
-        $user = $service->login($request->toData());
+        $user = AuthService::resolve()->login($request->toData());
 
         // load needed relationships
         $user->loadMissing('company');
@@ -32,10 +29,7 @@ class AuthController extends ApiController
 
     public function logout(AuthLogoutRequest $request): JsonResponse
     {
-        /** @var AuthService $service */
-        $service = app(AuthService::class);
-
-        $service->logout($request);
+        AuthService::resolve()->logout($request);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS);
     }

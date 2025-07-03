@@ -6,7 +6,7 @@ namespace Domain\Position\Http\Request;
 
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Http\Request\Data\PositionApprovalDecideData;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 use Support\Token\Http\Requests\TokenRequest;
 
 class PositionExternalApprovalDecideRequest extends TokenRequest

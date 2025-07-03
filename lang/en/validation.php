@@ -222,19 +222,8 @@ return [
 
     'after_rules' => [
         'position' => [
-            'approval_duplicates' => [
-                'hiring_manager' => 'Hiring manager cannot be also an approver.',
-                'approver' => 'Approver cannot be also a hiring manager.',
-            ],
-            'approval_self' => [
-                'hiring_manager' => 'You cannot assign yourself as a hiring manager.',
-                'approver' => 'You cannot assign yourself as an approver.',
-            ],
-            'approval_open' => [
-                'hiring_manager' => 'Position cannot be opened if it has hiring managers assigned.',
-                'approver' => 'Position cannot be opened if it has approvers assigned.',
-                'external_approver' => 'Position cannot be opened if it has external approvers assigned.',
-            ],
+            'approval_self' => 'You cannot assign yourself as an approver.',
+            'approval_open' => 'Position cannot be opened if it has approvers assigned.'
         ],
     ],
 

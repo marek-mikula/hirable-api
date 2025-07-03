@@ -49,6 +49,7 @@ class PositionUpdateUseCase extends UseCase
             'approvals.modelHasPosition',
             'approvals.modelHasPosition.model',
             'hiringManagers',
+            'recruiters',
             'approvers',
             'externalApprovers',
         ]);
@@ -99,6 +100,10 @@ class PositionUpdateUseCase extends UseCase
             ? $this->userRepository->getByIdsAndCompany($company, $data->hiringManagers)
             : modelCollection(User::class);
 
+        $recruiters = $data->hasKey('recruiters') && $data->hasRecruiters()
+            ? $this->userRepository->getByIdsAndCompany($company, $data->recruiters)
+            : modelCollection(User::class);
+
         $approvers = $data->hasKey('approvers') && $data->hasApprovers()
             ? $this->userRepository->getByIdsAndCompany($company, $data->approvers)
             : modelCollection(User::class);
@@ -114,20 +119,25 @@ class PositionUpdateUseCase extends UseCase
             $state,
             $input,
             $hiringManagers,
+            $recruiters,
             $approvers,
             $externalApprovers,
         ): Position {
             $position = $this->positionRepository->update($position, $input);
 
+            // process state
             if ($state !== $position->state) {
                 $position = $this->positionRepository->updateState($position, $state);
             }
 
-            $this->processHiringManagers($position, $data, $hiringManagers);
-            $this->processApprovers($position, $data, $approvers);
-            $this->processExternalApprovers($position, $data, $externalApprovers);
+            // process models and files
+            $this->processModels($position, $data, $hiringManagers, PositionRoleEnum::HIRING_MANAGER, 'hiringManagers', 'hiringManagers');
+            $this->processModels($position, $data, $recruiters, PositionRoleEnum::RECRUITER, 'recruiters', 'recruiters');
+            $this->processModels($position, $data, $approvers, PositionRoleEnum::APPROVER, 'approvers', 'approvers');
+            $this->processModels($position, $data, $externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER, 'externalApprovers', 'externalApprovers');
             $this->processFiles($position, $data);
 
+            // process approval & opening
             if ($position->wasChanged('state') && $position->state === PositionStateEnum::APPROVAL_PENDING) {
                 $approvals = $this->positionApprovalService->sendForApproval($user, $position);
                 $position->setRelation('approvals', $position->approvals->push(...$approvals));
@@ -139,79 +149,30 @@ class PositionUpdateUseCase extends UseCase
         }, attempts: 5);
     }
 
-    private function processHiringManagers(Position $position, PositionUpdateData $data, Collection $hiringManagers): void
+    /**
+     * @param Collection<Model> $models
+     */
+    private function processModels(Position $position, PositionUpdateData $data, Collection $models, PositionRoleEnum $role, string $key, string $relation): void
     {
-        if (!$data->hasKey('hiringManagers')) {
+        if (!$data->hasKey($key)) {
             return;
         }
 
-        $hmsSync = $this->modelHasPositionRepository->sync(
+        $sync = $this->modelHasPositionRepository->sync(
             position: $position,
-            existingModels: $position->hiringManagers,
-            models: $hiringManagers,
-            role: PositionRoleEnum::HIRING_MANAGER
+            existingModels: $position->{$relation},
+            models: $models,
+            role: $role
         );
 
-        $position->setRelation('hiringManagers', $hiringManagers);
+        $position->setRelation($relation, $models);
 
-        if ($hmsSync->deleted->isEmpty()) {
+        if ($sync->deleted->isEmpty() || !in_array($role, [PositionRoleEnum::APPROVER, PositionRoleEnum::EXTERNAL_APPROVER])) {
             return;
         }
 
-        $newApprovals = $position->approvals->filter(function (PositionApproval $approval) use ($hmsSync) {
-            return $approval->modelHasPosition && !$hmsSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
-        });
-
-        $position->setRelation('approvals', $newApprovals);
-    }
-
-    private function processApprovers(Position $position, PositionUpdateData $data, Collection $approvers): void
-    {
-        if (!$data->hasKey('approvers')) {
-            return;
-        }
-
-        $approversSync = $this->modelHasPositionRepository->sync(
-            position: $position,
-            existingModels: $position->approvers,
-            models: $approvers,
-            role: PositionRoleEnum::APPROVER
-        );
-
-        $position->setRelation('approvers', $approvers);
-
-        if ($approversSync->deleted->isEmpty()) {
-            return;
-        }
-
-        $newApprovals = $position->approvals->filter(function (PositionApproval $approval) use ($approversSync) {
-            return $approval->modelHasPosition && !$approversSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
-        });
-
-        $position->setRelation('approvals', $newApprovals);
-    }
-
-    private function processExternalApprovers(Position $position, PositionUpdateData $data, Collection $externalApprovers): void
-    {
-        if (!$data->hasKey('externalApprovers')) {
-            return;
-        }
-
-        $externalApproversSync = $this->modelHasPositionRepository->sync(
-            position: $position,
-            existingModels: $position->externalApprovers,
-            models: $externalApprovers,
-            role: PositionRoleEnum::EXTERNAL_APPROVER
-        );
-
-        $position->setRelation('externalApprovers', $externalApprovers);
-
-        if ($externalApproversSync->deleted->isEmpty()) {
-            return;
-        }
-
-        $newApprovals = $position->approvals->filter(function (PositionApproval $approval) use ($externalApproversSync) {
-            return $approval->modelHasPosition && !$externalApproversSync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
+        $newApprovals = $position->approvals->filter(function (PositionApproval $approval) use ($sync) {
+            return $approval->modelHasPosition && !$sync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
         });
 
         $position->setRelation('approvals', $newApprovals);

@@ -87,6 +87,7 @@ return [
         'leadership' => 'Leading people',
         'languageSkills' => 'Language skills',
         'hiringManagers' => 'Hiring managers',
+        'recruiters' => 'Recruiters',
         'approvers' => 'Approvers',
         'externalApprovers' => 'External approvers',
         'hardSkillsWeight' => 'Hard skills weight',

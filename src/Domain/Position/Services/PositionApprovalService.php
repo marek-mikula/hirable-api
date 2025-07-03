@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Domain\Position\Services;
 
+use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Notifications\PositionApprovalNotification;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
-use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Arr;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Repositories\Input\TokenStoreInput;
 use Support\Token\Repositories\TokenRepositoryInterface;
@@ -22,8 +21,6 @@ class PositionApprovalService
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,
-        private readonly PositionApprovalRoundService $positionApprovalRoundService,
-        private readonly PositionRepositoryInterface $positionRepository,
         private readonly TokenRepositoryInterface $tokenRepository,
     ) {
     }
@@ -31,32 +28,21 @@ class PositionApprovalService
     /**
      * @return Collection<PositionApproval>
      */
-    public function sendForApproval(User $user, Position $position, ?int $round = null): Collection
+    public function sendForApproval(User $user, Position $position): Collection
     {
         if ($position->state !== PositionStateEnum::APPROVAL_PENDING) {
             throw new \Exception('Cannot send position for approval in case it is not in state pending.');
         }
 
-        $nextRound = $this->positionApprovalRoundService->getNextRound($round);
-
-        // there is no next round
-        if ($nextRound === $round) {
-            return modelCollection(PositionApproval::class);
-        }
-
-        $roles = $this->positionApprovalRoundService->getRolesByRound($nextRound);
-
         $models = ModelHasPosition::query()
             ->with('model')
             ->where('position_id', $position->id)
-            ->whereIn('role', Arr::pluck($roles, 'value'))
+            ->whereIn('role', [PositionRoleEnum::APPROVER, PositionRoleEnum::EXTERNAL_APPROVER])
             ->get();
 
         if ($models->isEmpty()) {
-            return $this->sendForApproval($user, $position, $nextRound);
+            return modelCollection(PositionApproval::class);
         }
-
-        $this->positionRepository->updateApprovalRound($position, $nextRound);
 
         return $models->map(fn (ModelHasPosition $model) => $this->sendApproval($user, $position, $model));
     }

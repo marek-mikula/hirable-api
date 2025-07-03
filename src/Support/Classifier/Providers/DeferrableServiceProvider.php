@@ -25,10 +25,7 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
         $this->app->singleton(ClassifierTranslateService::class);
 
         $this->app->bind(ClassifierRepositoryInterface::class, function () {
-            /** @var ClassifierConfigService $config */
-            $config = app(ClassifierConfigService::class);
-
-            if ($config->isCacheEnabled()) {
+            if (ClassifierConfigService::resolve()->isCacheEnabled()) {
                 return app(CachedClassifierRepositoryProxy::class);
             }
 

@@ -117,15 +117,6 @@ class PositionRepository implements PositionRepositoryInterface
         return $position;
     }
 
-    public function updateApprovalRound(Position $position, ?int $round): Position
-    {
-        $position->approval_round = $round;
-
-        throw_if(!$position->save(), RepositoryException::updated(Position::class));
-
-        return $position;
-    }
-
     public function delete(Position $position): void
     {
         throw_if(!$position->delete(), RepositoryException::deleted(Position::class));

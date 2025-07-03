@@ -8,18 +8,18 @@ use App\Http\Requests\AuthRequest;
 use Carbon\Carbon;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Enums\PositionOperationEnum;
+use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionUpdateData;
 use Domain\Position\Models\Position;
 use Domain\Position\Policies\PositionPolicy;
-use Domain\Position\Validation\ValidateApprovalDuplicates;
+use Domain\Position\Services\PositionConfigService;
 use Domain\Position\Validation\ValidateApprovalOpen;
 use Domain\Position\Validation\ValidateApprovalRequiredFields;
 use Domain\Position\Validation\ValidateApprovalSelf;
-use Domain\User\Models\User;
 use Illuminate\Support\Arr;
-use Illuminate\Validation\Rule;
+use App\Rules\Rule;
 
 class PositionUpdateRequest extends AuthRequest
 {
@@ -29,7 +29,7 @@ class PositionUpdateRequest extends AuthRequest
         return $this->user()->can('update', $this->route('position'));
     }
 
-    public function rules(): array
+    public function rules(PositionConfigService $positionConfigService): array
     {
         $user = $this->user();
 
@@ -82,6 +82,7 @@ class PositionUpdateRequest extends AuthRequest
                     'files',
                     'languageRequirements',
                     'hiringManagers',
+                    'recruiters',
                     'approvers',
                     'externalApprovers',
                     'approveUntil',
@@ -319,7 +320,17 @@ class PositionUpdateRequest extends AuthRequest
                 Rule::excludeIf(!in_array('hiringManagers', $keys)),
                 'required',
                 'integer',
-                Rule::exists(User::class, 'id')->where('company_id', $user->company_id),
+                Rule::user($user->company, $positionConfigService->getRolesForPositionRole(PositionRoleEnum::HIRING_MANAGER)),
+            ],
+            'recruiters' => [
+                Rule::excludeIf(!in_array('recruiters', $keys)),
+                'array',
+            ],
+            'recruiters.*' => [
+                Rule::excludeIf(!in_array('recruiters', $keys)),
+                'required',
+                'integer',
+                Rule::user($user->company, $positionConfigService->getRolesForPositionRole(PositionRoleEnum::RECRUITER)),
             ],
             'approvers' => [
                 Rule::excludeIf(!in_array('approvers', $keys)),
@@ -329,7 +340,7 @@ class PositionUpdateRequest extends AuthRequest
                 Rule::excludeIf(!in_array('approvers', $keys)),
                 'required',
                 'integer',
-                Rule::exists(User::class, 'id')->where('company_id', $user->company_id),
+                Rule::user($user->company, $positionConfigService->getRolesForPositionRole(PositionRoleEnum::APPROVER)),
             ],
             'externalApprovers' => [
                 Rule::excludeIf(!in_array('externalApprovers', $keys)),
@@ -343,7 +354,7 @@ class PositionUpdateRequest extends AuthRequest
             ],
             'approveUntil' => [
                 Rule::excludeIf(!in_array('approveUntil', $keys)),
-                'required_with:hiringManagers,approvers,externalApprovers',
+                'required_with:approvers,externalApprovers',
                 'nullable',
                 Rule::date()->format('Y-m-d')->afterToday(),
             ],
@@ -382,7 +393,6 @@ class PositionUpdateRequest extends AuthRequest
 
         return array_filter([
             new ValidateApprovalRequiredFields(),
-            new ValidateApprovalDuplicates(),
             new ValidateApprovalSelf($this->user()),
             new ValidateApprovalOpen(),
         ]);
@@ -432,6 +442,8 @@ class PositionUpdateRequest extends AuthRequest
             'languageRequirements.*.level' => __('model.position.languageRequirements'),
             'hiringManagers' => __('model.position.hiringManagers'),
             'hiringManagers.*' => __('model.position.hiringManagers'),
+            'recruiters' => __('model.position.recruiters'),
+            'recruiters.*' => __('model.position.recruiters'),
             'approvers' => __('model.position.approvers'),
             'approvers.*' => __('model.position.approvers'),
             'externalApprovers' => __('model.position.externalApprovers'),
@@ -496,6 +508,7 @@ class PositionUpdateRequest extends AuthRequest
                 ]);
             }) : [],
             'hiringManagers' => in_array('hiringManagers', $keys) ? ($this->collect('hiringManagers')->map(fn (mixed $value) => (int) $value)->all()) : [],
+            'recruiters' => in_array('recruiters', $keys) ? ($this->collect('recruiters')->map(fn (mixed $value) => (int) $value)->all()) : [],
             'approvers' => in_array('approvers', $keys) ? ($this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all()) : [],
             'externalApprovers' => in_array('externalApprovers', $keys) ? ($this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all()) : [],
             'approveUntil' => in_array('approveUntil', $keys) ? ($this->filled('approveUntil') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('approveUntil')) : null) : null,
