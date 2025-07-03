@@ -17,7 +17,7 @@ class SearchController extends ApiController
 {
     public function companyUsers(SearchCompanyUsersRequest $request): JsonResponse
     {
-        $results = SearchCompanyUsersUseCase::make()->handle($request->user(), $request->toData(), $request->ignoreAuth());
+        $results = SearchCompanyUsersUseCase::make()->handle($request->user(), $request->toData(), $request->ignoreAuth(), $request->roles());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'results' => new SearchResultCollection($results),

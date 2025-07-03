@@ -16,11 +16,14 @@ class SearchCompanyUsersUseCase extends UseCase
     /**
      * @return Collection<ResultData>
      */
-    public function handle(User $user, SearchData $data, bool $ignoreAuth): Collection
+    public function handle(User $user, SearchData $data, bool $ignoreAuth, Collection $roles): Collection
     {
         return User::query()
             ->select(['id', 'firstname', 'lastname'])
             ->whereCompany($user->company_id)
+            ->when($roles->isNotEmpty(), function (Builder $query) use ($roles): void {
+                $query->whereIn('company_role', $roles);
+            })
             ->when($data->hasQuery(), function (Builder $query) use ($data): void {
                 $query->where(function (Builder $query) use ($data): void {
                     $words = $data->getQueryWords();
