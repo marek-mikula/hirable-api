@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Resources;
 
+use Domain\Position\Http\Resources\Collections\PositionApprovalCollection;
 use Domain\Position\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -22,11 +23,13 @@ class PositionListResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'userId' => $this->resource->user_id,
             'state' => $this->resource->state->value,
             'name' => $this->resource->name,
             'department' => $this->resource->department,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
+            'approvals' => new PositionApprovalCollection($this->resource->approvals),
         ];
     }
 }

@@ -41,7 +41,7 @@ class PositionApprovalDecideRequest extends AuthRequest
         return [
             'note' => [
                 'nullable',
-                Rule::requiredIf($this->input('state') === PositionApprovalStateEnum::REJECTED),
+                Rule::requiredIf($this->input('state') === PositionApprovalStateEnum::REJECTED->value),
                 'string',
                 'max:500',
             ],

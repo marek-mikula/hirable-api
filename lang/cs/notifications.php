@@ -104,7 +104,7 @@ return [
             'body' => [
                 'line1_internal' => 'V aplikaci je nová pozice **:position** od uživatele :user, která potřebuje Váš souhlas. Na pozici se můžete podívat <a href=":link">zde</a>',
                 'line1_external' => 'Uživatel :user Váš přiřadil k pozici **:position** jako schvalovatele v aplikaci :application. Na pozici se můžete podívat <a href=":link">zde</a>',
-                'line2' => 'O schválení, prosím, rozhodněte do **:date**.'
+                'line2' => 'O schválení rozhodněte do **:date**.'
             ],
         ],
     ],
@@ -151,7 +151,7 @@ return [
             'subject' => '👍 Pozice čeká na schválení - :position',
             'body' => [
                 'line1' => 'Pozice **:position** stále čeká na Vaše rozhodnotí. Na pozici se můžete podívat <a href=":link">zde</a>',
-                'line2' => 'O schválení, prosím, rozhodněte do **:date**.'
+                'line2' => 'O schválení rozhodněte do **:date**.'
             ],
         ],
     ],

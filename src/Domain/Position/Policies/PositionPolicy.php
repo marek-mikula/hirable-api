@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Policies;
 
+use Domain\Company\Enums\RoleEnum;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
@@ -22,7 +23,10 @@ class PositionPolicy
 
     public function store(User $user): bool
     {
-        return true;
+        return in_array($user->company_role, [
+            RoleEnum::ADMIN,
+            RoleEnum::RECRUITER,
+        ]);
     }
 
     public function show(User $user, Position $position): bool
@@ -90,7 +94,7 @@ class PositionPolicy
 
     public function duplicate(User $user, Position $position): bool
     {
-        return $this->show($user, $position);
+        return $this->store($user) && $this->show($user, $position);
     }
 
     public function cancelApproval(User $user, Position $position): bool

@@ -16,6 +16,11 @@ class PositionIndexUseCase extends UseCase
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {
         return Position::query()
+            ->with([
+                'approvals',
+                'approvals.modelHasPosition',
+                'approvals.modelHasPosition.model',
+            ])
             ->whereCompany($user->company_id)
             ->userCanSee($user)
             ->when($gridQuery->hasSearchQuery(), function (PositionBuilder $query) use ($gridQuery): void {

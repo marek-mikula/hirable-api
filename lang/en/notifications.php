@@ -104,7 +104,7 @@ return [
             'body' => [
                 'line1_internal' => 'There is a new position **:position** in application from user :user that needs your approval. You can check the position <a href=":link">here</a>',
                 'line1_external' => 'User :user has assigned you to position **:position** as an approver in :application app. You can check the position <a href=":link">here</a>',
-                'line2' => 'Please decide on approval by: **:date**.',
+                'line2' => 'Decide on approval by: **:date**.',
             ],
         ],
     ],
@@ -151,7 +151,7 @@ return [
             'subject' => '👍 Position pending approval - :position',
             'body' => [
                 'line1' => 'Position **:position** is still awaiting your approval. You can view the position <a href=":link">here</a>',
-                'line2' => 'Please decide on approval by: **:date**.',
+                'line2' => 'Decide on approval by: **:date**.',
             ],
         ],
     ],

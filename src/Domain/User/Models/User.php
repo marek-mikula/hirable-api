@@ -44,6 +44,7 @@ use Support\Token\Models\Token;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read string $full_name
+ * @property-read string $label
  * @property-read bool $is_email_verified
  * @property-read Collection<Token> $tokens
  * @property-read Company $company
@@ -105,6 +106,11 @@ class User extends Authenticatable implements HasLocalePreference
     protected function isEmailVerified(): Attribute
     {
         return Attribute::get(fn (): bool => !empty($this->email_verified_at));
+    }
+
+    protected function label(): Attribute
+    {
+        return Attribute::get(fn (): string => $this->is(auth()->user()) ? sprintf('%s (%s)', $this->full_name, __('common.you')) : $this->full_name);
     }
 
     protected function fullName(): Attribute
