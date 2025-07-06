@@ -152,7 +152,7 @@ class NotificationRegistrar
                         label: 'To approve (internal user)',
                         description: 'Notification sends user position to approve.',
                         notification: function (User $notifiable) {
-                            $position = Position::factory()->ofApproveUntil(now()->subDays(3))->make();
+                            $position = Position::factory()->ofApproveUntil(now()->subDays(3))->ofApproveMessage(fake()->text(500))->make();
                             $user = User::factory()->make();
 
                             return new PositionApprovalNotification(user: $user, position: $position);
@@ -164,7 +164,7 @@ class NotificationRegistrar
                         label: 'To approve (external approver)',
                         description: 'Notification sends external user position to approve.',
                         notification: function (CompanyContact $notifiable) {
-                            $position = Position::factory()->ofApproveUntil(now()->subDays(3))->make();
+                            $position = Position::factory()->ofApproveUntil(now()->subDays(3))->ofApproveMessage(fake()->text(500))->make();
                             $user = User::factory()->make();
                             $token = Token::factory()->ofType(TokenTypeEnum::EXTERNAL_APPROVAL)->make();
 

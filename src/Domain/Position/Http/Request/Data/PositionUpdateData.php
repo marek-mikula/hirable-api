@@ -97,6 +97,8 @@ class PositionUpdateData extends Data
 
     public ?Carbon $approveUntil;
 
+    public ?string $approveMessage;
+
     public ?int $hardSkillsWeight;
 
     public ?int $softSkillsWeight;

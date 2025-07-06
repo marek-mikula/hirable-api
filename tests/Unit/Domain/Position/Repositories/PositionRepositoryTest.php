@@ -29,7 +29,7 @@ it('tests store method', function (): void {
         company: $company,
         user: $user,
         approveUntil: null,
-        approvalRound: null,
+        approveMessage: fake()->text(500),
         name: fake()->jobTitle,
         department: fake()->word,
         field: fake()->word,
@@ -68,7 +68,7 @@ it('tests store method', function (): void {
     assertSame($input->company->id, $position->company_id);
     assertSame($input->user->id, $position->user_id);
     assertSame($input->approveUntil, $position->approve_until);
-    assertSame($input->approvalRound, $position->approval_round);
+    assertSame($input->approveMessage, $position->approve_message);
     assertSame($input->name, $position->name);
     assertSame($input->department, $position->department);
     assertSame($input->field, $position->field);
@@ -112,11 +112,10 @@ it('tests update method', function (): void {
 
     $company = Company::factory()->create();
     $position = Position::factory()->ofCompany($company)->create();
-    $user = User::factory()->ofCompany($company, RoleEnum::RECRUITER)->create();
 
     $input = new PositionUpdateInput(
-        approvalRound: null,
         approveUntil: null,
+        approveMessage: fake()->text(500),
         name: fake()->jobTitle,
         department: fake()->word,
         field: fake()->word,
@@ -153,7 +152,7 @@ it('tests update method', function (): void {
     $position = $repository->update($position, $input);
 
     assertSame($input->approveUntil, $position->approve_until);
-    assertSame($input->approvalRound, $position->approval_round);
+    assertSame($input->approveMessage, $position->approve_message);
     assertSame($input->name, $position->name);
     assertSame($input->department, $position->department);
     assertSame($input->field, $position->field);

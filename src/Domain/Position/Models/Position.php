@@ -26,8 +26,8 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $company_id
  * @property int $user_id
  * @property PositionStateEnum $state
- * @property int|null $approval_round
  * @property Carbon|null $approve_until
+ * @property string|null $approve_message
  * @property string $name
  * @property string|null $department
  * @property string|null $field classifier value
@@ -90,8 +90,8 @@ class Position extends Model
         'company_id',
         'user_id',
         'state',
-        'approval_round',
         'approve_until',
+        'approve_message',
         'name',
         'department',
         'field',

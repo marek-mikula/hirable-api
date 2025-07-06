@@ -46,8 +46,8 @@ class PositionResource extends JsonResource
             'userId' => $this->resource->user_id,
             'companyId' => $this->resource->company_id,
             'state' => $this->resource->state->value,
-            'approvalRound' => $this->resource->approval_round,
             'approveUntil' => $this->resource->approve_until?->toIso8601String(),
+            'approveMessage' => $this->resource->approve_message,
             'name' => $this->resource->name,
             'department' => $this->resource->department,
             'field' => $this->resource->field

@@ -29,12 +29,12 @@ it('correctly searches company users - all', function (): void {
     ]);
 
     // ignore auth user
-    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $searchData, ignoreAuth: true);
+    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $searchData, ignoreAuth: true, roles: collect());
 
     assertCollectionsAreSame($users, $result->pluck('value'));
 
     // do not ignore auth user
-    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $searchData, ignoreAuth: false);
+    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $searchData, ignoreAuth: false, roles: collect());
 
     assertCollectionsAreSame($users->add($user), $result->pluck('value'));
 });
@@ -69,7 +69,7 @@ it('correctly searches company users - with query', function (): void {
         'limit' => 100
     ]);
 
-    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $data, ignoreAuth: true);
+    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $data, ignoreAuth: true, roles: collect());
 
     assertCollectionsAreSame(
         collect([
@@ -80,13 +80,50 @@ it('correctly searches company users - with query', function (): void {
         $result->pluck('value')
     );
 
-    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $data, ignoreAuth: false);
+    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $data, ignoreAuth: false, roles: collect());
 
     assertCollectionsAreSame(
         collect([
             $user->id,
             $user1->id,
             $user2->id,
+            $user3->id,
+        ]),
+        $result->pluck('value')
+    );
+});
+
+/** @covers \Domain\Search\UseCases\SearchCompanyUsersUseCase::handle */
+it('correctly searches company users - by roles', function (): void {
+    $user = User::factory()->create();
+
+    $user1 = User::factory()->ofCompany($user->company, RoleEnum::RECRUITER)->create();
+    $user2 = User::factory()->ofCompany($user->company, RoleEnum::RECRUITER)->create();
+    $user3 = User::factory()->ofCompany($user->company, RoleEnum::HIRING_MANAGER)->create();
+
+    $data = SearchData::from([
+        'query' => null,
+        'limit' => 100
+    ]);
+
+    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $data, ignoreAuth: true, roles: collect([
+        RoleEnum::RECRUITER
+    ]));
+
+    assertCollectionsAreSame(
+        collect([
+            $user1->id,
+            $user2->id,
+        ]),
+        $result->pluck('value')
+    );
+
+    $result = SearchCompanyUsersUseCase::make()->handle(user: $user, data: $data, ignoreAuth: true, roles: collect([
+        RoleEnum::HIRING_MANAGER
+    ]));
+
+    assertCollectionsAreSame(
+        collect([
             $user3->id,
         ]),
         $result->pluck('value')

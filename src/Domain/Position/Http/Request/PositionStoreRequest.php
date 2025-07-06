@@ -252,6 +252,11 @@ class PositionStoreRequest extends AuthRequest
                 'nullable',
                 Rule::date()->format('Y-m-d')->afterToday(),
             ],
+            'approveMessage' => [
+                'nullable',
+                'string',
+                'max:500',
+            ],
             'hardSkillsWeight' => [
                 'required',
                 'integer',
@@ -333,6 +338,7 @@ class PositionStoreRequest extends AuthRequest
             'externalApprovers' => __('model.position.externalApprovers'),
             'externalApprovers.*' => __('model.position.externalApprovers'),
             'approveUntil' => __('model.position.approveUntil'),
+            'approveMessage' => __('model.position.approveMessage'),
             'hardSkillsWeight' => __('model.position.hardSkillsWeight'),
             'softSkillsWeight' => __('model.position.softSkillsWeight'),
             'languageSkillsWeight' => __('model.position.languageSkillsWeight'),
@@ -393,6 +399,7 @@ class PositionStoreRequest extends AuthRequest
             'approvers' => $this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all(),
             'externalApprovers' => $this->collect('externalApprovers')->map(fn (mixed $value) => (int) $value)->all(),
             'approveUntil' => $this->filled('approveUntil') ? Carbon::createFromFormat('Y-m-d', (string) $this->input('approveUntil')) : null,
+            'approveMessage' => $this->filled('approveMessage') ? (string) $this->input('approveMessage') : null,
             'hardSkillsWeight' => (int) $this->input('hardSkillsWeight'),
             'softSkillsWeight' => (int) $this->input('softSkillsWeight'),
             'languageSkillsWeight' => (int) $this->input('languageSkillsWeight'),

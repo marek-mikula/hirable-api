@@ -19,8 +19,8 @@ class PositionRepository implements PositionRepositoryInterface
         $position->company_id = $input->company->id;
         $position->user_id = $input->user->id;
         $position->state = PositionStateEnum::DRAFT;
-        $position->approval_round = $input->approvalRound;
         $position->approve_until = $input->approveUntil;
+        $position->approve_message = $input->approveMessage;
         $position->name = $input->name;
         $position->department = $input->department;
         $position->field = $input->field;
@@ -63,8 +63,8 @@ class PositionRepository implements PositionRepositoryInterface
 
     public function update(Position $position, PositionUpdateInput $input): Position
     {
-        $position->approval_round = $input->approvalRound;
         $position->approve_until = $input->approveUntil;
+        $position->approve_message = $input->approveMessage;
         $position->name = $input->name;
         $position->department = $input->department;
         $position->field = $input->field;

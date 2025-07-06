@@ -54,8 +54,8 @@ class PositionFactory extends Factory
             'company_id' => $this->isMaking ? null : Company::factory(),
             'user_id' => $this->isMaking ? null : User::factory(),
             'state' => PositionStateEnum::OPENED,
-            'approval_round' => null,
             'approve_until' => null,
+            'approve_message' => null,
             'name' => fake()->jobTitle,
             'department' => str(fake()->word)->transliterate()->lower()->toString(),
             'field' => str(fake()->word)->transliterate()->lower()->toString(),
@@ -121,6 +121,13 @@ class PositionFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'approve_until' => $timestamp,
+        ]);
+    }
+
+    public function ofApproveMessage(string $approveMessage): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'approve_message' => $approveMessage,
         ]);
     }
 

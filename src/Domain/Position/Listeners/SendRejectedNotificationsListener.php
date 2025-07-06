@@ -16,8 +16,6 @@ class SendRejectedNotificationsListener extends QueuedListener
 {
     public function handle(PositionApprovalRejectedEvent $event): void
     {
-        throw_if($event->position->approval_round === null, new \Exception('Cannot send notifications when approval round is NULL.'));
-
         $owner = $event->position->load('user')->user;
 
         // send notifications to all previous and current approvers

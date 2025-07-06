@@ -58,6 +58,7 @@ return [
     'position' => [
         'name' => 'Position name',
         'approveUntil' => 'Approve until',
+        'approveMessage' => 'Message for approvers',
         'department' => 'Department',
         'field' => 'Field',
         'workload' => 'Work load',

@@ -58,6 +58,7 @@ return [
     'position' => [
         'name' => 'Název pozice',
         'approveUntil' => 'Schválit do',
+        'approveMessage' => 'Zpráva pro schvalovatele',
         'department' => 'Oddělení',
         'field' => 'Obor',
         'workload' => 'Typ úvazku',

@@ -16,8 +16,6 @@ class SendCanceledNotificationsListener extends QueuedListener
 {
     public function handle(PositionApprovalCanceledEvent $event): void
     {
-        throw_if($event->position->approval_round === null, new \Exception('Cannot send notifications when approval round is NULL.'));
-
         // send notifications to all previous and current approvers
         $event->position
             ->models()

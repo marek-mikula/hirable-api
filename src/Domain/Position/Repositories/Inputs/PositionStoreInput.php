@@ -21,7 +21,7 @@ readonly class PositionStoreInput
         public Company $company,
         public User $user,
         public ?Carbon $approveUntil,
-        public ?int $approvalRound,
+        public ?string $approveMessage,
         public string $name,
         public ?string $department,
         public ?string $field,

@@ -25,6 +25,12 @@ $translation = $notifiable instanceof \Domain\Company\Models\CompanyContact ? 'e
 
 {!! __n($type, 'mail', 'body.line2', ['date' => formatter()->formatDate($position->approve_until)]) !!}
 
+@isset($position->approve_message)
+<x-mail::panel>
+{{ (string) $position->approve_message }}
+</x-mail::panel>
+@endisset
+
 {{ __('notifications.common.regards') }},
 <br>
 {{ __('notifications.common.signature', ['application' => (string) config('app.name')]) }}

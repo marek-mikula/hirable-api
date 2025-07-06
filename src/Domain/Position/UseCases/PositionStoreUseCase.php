@@ -54,7 +54,7 @@ class PositionStoreUseCase extends UseCase
             company: $company,
             user: $user,
             approveUntil: $data->approveUntil,
-            approvalRound: null,
+            approveMessage: $data->approveMessage,
             name: $data->name,
             department: $data->department,
             field: $data->field,
