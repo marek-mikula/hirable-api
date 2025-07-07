@@ -10,6 +10,16 @@ use Domain\Position\Enums\PositionRoleEnum;
 
 class PositionConfigService extends Service
 {
+    public function getAllowedFileExtensions(): array
+    {
+        return (array) config('position.files.extensions', []);
+    }
+
+    public function getMaxFileSize(): string
+    {
+        return (string) config('position.files.max_size');
+    }
+
     public function getApprovalRemindDays(): int
     {
         return (int) config('position.approval.remind_days');

@@ -291,8 +291,8 @@ class PositionUpdateRequest extends AuthRequest
             'files.*' => [
                 'required',
                 Rule::file()
-                    ->max('10MB')
-                    ->extensions(['pdf', 'docx', 'xlsx'])
+                    ->max($positionConfigService->getMaxFileSize())
+                    ->extensions($positionConfigService->getAllowedFileExtensions())
             ],
             'languageRequirements' => [
                 Rule::excludeIf(!in_array('languageRequirements', $keys)),
