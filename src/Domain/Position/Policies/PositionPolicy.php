@@ -72,13 +72,27 @@ class PositionPolicy
 
     public function update(User $user, Position $position): bool
     {
+        if ($user->company_id !== $position->company_id) {
+            return false;
+        }
+
         $notInStates = [
             PositionStateEnum::APPROVAL_PENDING,
             PositionStateEnum::CLOSED,
             PositionStateEnum::CANCELED,
         ];
 
-        return $user->company_id === $position->company_id && $user->id === $position->user_id && !in_array($position->state, $notInStates);
+        if (in_array($position->state, $notInStates)) {
+            return false;
+        }
+
+        // when opened, used needs to be the owner
+        // or recruiter on position
+        if ($position->state === PositionStateEnum::OPENED) {
+            return $user->id === $position->user_id || $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::RECRUITER);
+        }
+
+        return $user->id === $position->user_id;
     }
 
     public function delete(User $user, Position $position): bool
