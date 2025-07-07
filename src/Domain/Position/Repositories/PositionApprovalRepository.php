@@ -95,15 +95,13 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
             ->get();
     }
 
-    public function setRemindedAt(Collection $approvals, ?Carbon $timestamp = null): void
+    public function setRemindedAt(PositionApproval $approval, ?Carbon $timestamp = null): PositionApproval
     {
-        $result = PositionApproval::query()
-            ->whereIn('id', $approvals->pluck('id'))
-            ->update([
-                'reminded_at' => $timestamp ?? now(),
-            ]);
+        $approval->reminded_at = $timestamp ?? now();
 
-        throw_if($result !== $approvals->count(), RepositoryException::updated(PositionApproval::class));
+        throw_if(!$approval->save(), RepositoryException::updated(PositionApproval::class));
+
+        return $approval;
     }
 
     public function findByToken(Token $token, array $with = []): ?PositionApproval

@@ -27,6 +27,7 @@ class ModelHasPositionRepository implements ModelHasPositionRepositoryInterface
         throw_if(!$modelHasPosition->save(), RepositoryException::stored(ModelHasPosition::class));
 
         $modelHasPosition->setRelation('position', $position);
+        $modelHasPosition->setRelation('model', $model);
 
         return $modelHasPosition;
     }

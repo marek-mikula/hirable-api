@@ -17,7 +17,11 @@ use Domain\Position\Notifications\PositionApprovalNotification;
 use Domain\Position\Notifications\PositionApprovalApprovedNotification;
 use Domain\Position\Notifications\PositionApprovalRejectedNotification;
 use Domain\Position\Notifications\PositionApprovalReminderNotification;
+use Domain\Position\Notifications\PositionAssignedAsHmNotification;
+use Domain\Position\Notifications\PositionAssignedAsRecruiterNotification;
 use Domain\Position\Notifications\PositionOpenedNotification;
+use Domain\Position\Notifications\PositionRemovedAsHmNotification;
+use Domain\Position\Notifications\PositionRemovedAsRecruiterNotification;
 use Domain\Register\Notifications\RegisterRegisteredNotification;
 use Domain\Register\Notifications\RegisterRequestNotification;
 use Domain\User\Models\User;
@@ -141,8 +145,43 @@ class NotificationRegistrar
                             return new PositionOpenedNotification(position: $position);
                         },
                         notifiable: fn () => User::factory()->make(),
-                        key: 'external'
-                    )
+                    ),
+                    NotificationData::create(
+                        label: 'Assigned as recruiter',
+                        description: 'Notification informs user that he has been assigned to position as recruiter.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionAssignedAsRecruiterNotification(position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                    ),
+                    NotificationData::create(
+                        label: 'Removed as recruiter',
+                        description: 'Notification informs user that he has been removed from position as recruiter.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionRemovedAsRecruiterNotification(position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                    ),
+                    NotificationData::create(
+                        label: 'Assigned as hiring manager',
+                        description: 'Notification informs user that he has been assigned to position as hiring manager.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionAssignedAsHmNotification(position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                    ),
+                    NotificationData::create(
+                        label: 'Removed as hiring manager',
+                        description: 'Notification informs user that he has been removed from position as hiring manager.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            return new PositionRemovedAsHmNotification(position: $position);
+                        },
+                        notifiable: fn () => User::factory()->make(),
+                    ),
                 ],
             ),
             NotificationDomain::create(

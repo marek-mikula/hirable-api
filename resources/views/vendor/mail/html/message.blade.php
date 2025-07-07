@@ -2,7 +2,7 @@
 {{-- Header --}}
 <x-slot:header>
 <x-mail::header :url="frontendLink('/')">
-{{ config('app.name') }}
+🪑 {{ config('app.name') }}
 </x-mail::header>
 </x-slot:header>
 
@@ -21,7 +21,7 @@
 {{-- Footer --}}
 <x-slot:footer>
 <x-mail::footer>
-© {{ now()->format('Y') }} {{ config('app.name') }}, <a href="mailto:{{ config('app.contact_email') }}">{{ config('app.contact_email') }}</a>. {{ __('notifications.common.rights') }}
+© {{ now()->format('Y') }} {{ config('app.name') }} 💙, <a href="mailto:{{ config('app.contact_email') }}">{{ config('app.contact_email') }}</a>. {{ __('notifications.common.rights') }}
 </x-mail::footer>
 </x-slot:footer>
 </x-mail::layout>

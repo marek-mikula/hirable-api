@@ -6,9 +6,6 @@ namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\Company\Models\CompanyContact;
-use Domain\Position\Enums\PositionApprovalStateEnum;
-use Domain\Position\Events\PositionApprovalApprovedEvent;
-use Domain\Position\Events\PositionApprovalRejectedEvent;
 use Domain\Position\Http\Request\Data\PositionApprovalDecideData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
@@ -47,12 +44,6 @@ class PositionApprovalDecideUseCase extends UseCase
             // disable the token which was used for approval
             if ($approval->token) {
                 $this->tokenRepository->markUsed($approval->token);
-            }
-
-            if ($approval->state === PositionApprovalStateEnum::APPROVED) {
-                PositionApprovalApprovedEvent::dispatch($position, $approval, $decidedBy);
-            } elseif ($approval->state === PositionApprovalStateEnum::REJECTED) {
-                PositionApprovalRejectedEvent::dispatch($position, $approval, $decidedBy);
             }
 
             return $approval;

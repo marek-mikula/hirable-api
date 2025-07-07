@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Domain\Position\Events;
 
 use App\Events\Event;
-use Domain\Position\Models\PositionApproval;
+use Domain\Position\Models\Position;
 
-class PositionApprovalApprovedEvent extends Event
+class PositionApprovedEvent extends Event
 {
     public function __construct(
-        public PositionApproval $approval,
+        public Position $position,
     ) {
     }
 }

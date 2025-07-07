@@ -32,9 +32,9 @@ class PositionApprovalRemindUseCase extends UseCase
                     position: $approval->position,
                     token: $approval->token,
                 ));
-            }
 
-            $this->positionApprovalRepository->setRemindedAt($approvals);
+                $this->positionApprovalRepository->setRemindedAt($approval);
+            }
         }, attempts: 5);
     }
 }

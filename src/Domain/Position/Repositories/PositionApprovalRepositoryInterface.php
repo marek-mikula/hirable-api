@@ -36,10 +36,7 @@ interface PositionApprovalRepositoryInterface
      */
     public function getApprovalsByModelInstate(Model $model, PositionApprovalStateEnum $state, array $with = []): Collection;
 
-    /**
-     * @param Collection<PositionApproval> $approvals
-     */
-    public function setRemindedAt(Collection $approvals, ?Carbon $timestamp = null): void;
+    public function setRemindedAt(PositionApproval $approval, ?Carbon $timestamp = null): PositionApproval;
 
     /**
      * @param string[] $with

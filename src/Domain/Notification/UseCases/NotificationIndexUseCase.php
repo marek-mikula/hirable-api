@@ -15,7 +15,7 @@ class NotificationIndexUseCase extends UseCase
     {
         return Notification::query()
             ->whereMorphedTo('notifiable', $model)
-            ->orderBy('id')
+            ->orderBy('created_at', 'desc')
             ->paginate(
                 perPage: 20,
                 page: $page,

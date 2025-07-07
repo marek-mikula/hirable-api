@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Services;
 
+use App\Services\Service;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\ModelHasPosition;
@@ -18,7 +19,7 @@ use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Repositories\Input\TokenStoreInput;
 use Support\Token\Repositories\TokenRepositoryInterface;
 
-class PositionApprovalService
+class PositionApprovalService extends Service
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,

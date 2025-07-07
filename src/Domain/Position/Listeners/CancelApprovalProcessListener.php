@@ -21,9 +21,7 @@ class CancelApprovalProcessListener extends Listener
 
     public function handle(PositionApprovalCanceledEvent $event): void
     {
-        $position = $event->position;
-
-        $pendingApprovals = $this->positionApprovalRepository->getApprovalsOnPositionInstate($position, PositionApprovalStateEnum::PENDING, ['token']);
+        $pendingApprovals = $this->positionApprovalRepository->getApprovalsOnPositionInstate($event->position, PositionApprovalStateEnum::PENDING, ['token']);
 
         // cancel all pending approvals
         foreach ($pendingApprovals as $approval) {

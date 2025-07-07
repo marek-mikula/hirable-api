@@ -10,14 +10,12 @@ use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
-use Domain\Position\Events\PositionOpenedEvent;
 use Domain\Position\Http\Request\Data\PositionUpdateData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Repositories\Inputs\PositionUpdateInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
-use Domain\Position\Services\PositionApprovalService;
 use Domain\User\Models\User;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -32,7 +30,6 @@ class PositionUpdateUseCase extends UseCase
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
         private readonly CompanyContactRepositoryInterface $companyContactRepository,
-        private readonly PositionApprovalService $positionApprovalService,
         private readonly PositionRepositoryInterface $positionRepository,
         private readonly UserRepositoryInterface $userRepository,
         private readonly FileSaver $fileSaver,
@@ -45,9 +42,6 @@ class PositionUpdateUseCase extends UseCase
 
         $position->loadMissing([
             'files',
-            'approvals',
-            'approvals.modelHasPosition',
-            'approvals.modelHasPosition.model',
             'hiringManagers',
             'recruiters',
             'approvers',
@@ -125,11 +119,6 @@ class PositionUpdateUseCase extends UseCase
         ): Position {
             $position = $this->positionRepository->update($position, $input);
 
-            // process state
-            if ($state !== $position->state) {
-                $position = $this->positionRepository->updateState($position, $state);
-            }
-
             // process models and files
             $this->processModels($position, $data, $hiringManagers, PositionRoleEnum::HIRING_MANAGER, 'hiringManagers', 'hiringManagers');
             $this->processModels($position, $data, $recruiters, PositionRoleEnum::RECRUITER, 'recruiters', 'recruiters');
@@ -137,12 +126,9 @@ class PositionUpdateUseCase extends UseCase
             $this->processModels($position, $data, $externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER, 'externalApprovers', 'externalApprovers');
             $this->processFiles($position, $data);
 
-            // process approval & opening
-            if ($position->wasChanged('state') && $position->state === PositionStateEnum::APPROVAL_PENDING) {
-                $approvals = $this->positionApprovalService->sendForApproval($user, $position);
-                $position->setRelation('approvals', $position->approvals->push(...$approvals));
-            } elseif ($position->wasChanged('state') && $position->state === PositionStateEnum::OPENED) {
-                PositionOpenedEvent::dispatch($position);
+            // process state
+            if ($state !== $position->state) {
+                $position = $this->positionRepository->updateState($position, $state);
             }
 
             return $position;

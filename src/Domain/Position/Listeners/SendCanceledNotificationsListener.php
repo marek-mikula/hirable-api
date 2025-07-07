@@ -27,7 +27,7 @@ class SendCanceledNotificationsListener extends QueuedListener
                 $model->notify(
                     new PositionApprovalCanceledNotification(
                         position: $event->position,
-                        canceledBy: $event->canceledBy,
+                        canceledBy: $event->position->user,
                     )
                 );
             });

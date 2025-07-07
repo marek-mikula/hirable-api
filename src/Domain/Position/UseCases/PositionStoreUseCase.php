@@ -10,14 +10,11 @@ use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
-use Domain\Position\Events\PositionOpenedEvent;
 use Domain\Position\Http\Request\Data\PositionData;
 use Domain\Position\Models\Position;
-use Domain\Position\Models\PositionApproval;
 use Domain\Position\Repositories\Inputs\PositionStoreInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
-use Domain\Position\Services\PositionApprovalService;
 use Domain\User\Models\User;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,7 +30,6 @@ class PositionStoreUseCase extends UseCase
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
         private readonly CompanyContactRepositoryInterface $companyContactRepository,
-        private readonly PositionApprovalService $positionApprovalService,
         private readonly PositionRepositoryInterface $positionRepository,
         private readonly UserRepositoryInterface $userRepository,
         private readonly FileSaver $fileSaver,
@@ -116,11 +112,6 @@ class PositionStoreUseCase extends UseCase
         ): Position {
             $position = $this->positionRepository->store($input);
 
-            // process state
-            if ($position->state !== $state) {
-                $position = $this->positionRepository->updateState($position, $state);
-            }
-
             // process models and files
             $this->processModels($position, $hiringManagers, PositionRoleEnum::HIRING_MANAGER, 'hiringManagers');
             $this->processModels($position, $recruiters, PositionRoleEnum::RECRUITER, 'recruiters');
@@ -128,17 +119,9 @@ class PositionStoreUseCase extends UseCase
             $this->processModels($position, $externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER, 'externalApprovers');
             $this->processFiles($position, $data);
 
-            // process approval
-            if ($position->state === PositionStateEnum::APPROVAL_PENDING) {
-                $approvals = $this->positionApprovalService->sendForApproval($user, $position);
-                $position->setRelation('approvals', $approvals);
-            } else {
-                $position->setRelation('approvals', modelCollection(PositionApproval::class));
-            }
-
-            // process opening
-            if ($position->state === PositionStateEnum::OPENED) {
-                PositionOpenedEvent::dispatch($position);
+            // process state
+            if ($position->state !== $state) {
+                $position = $this->positionRepository->updateState($position, $state);
             }
 
             return $position;

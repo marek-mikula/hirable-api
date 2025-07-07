@@ -24,9 +24,7 @@ class RejectApprovalProcessListener extends Listener
 
     public function handle(PositionApprovalRejectedEvent $event): void
     {
-        $position = $event->position;
-
-        $pendingApprovals = $this->positionApprovalRepository->getApprovalsOnPositionInstate($position, PositionApprovalStateEnum::PENDING, ['token']);
+        $pendingApprovals = $this->positionApprovalRepository->getApprovalsOnPositionInstate($event->approval->position, PositionApprovalStateEnum::PENDING, ['token']);
 
         // cancel all pending approvals
         foreach ($pendingApprovals as $approval) {
@@ -44,6 +42,6 @@ class RejectApprovalProcessListener extends Listener
         // update position approval process state,
         // do not update round, because we need it
         // in another listener to send notifications
-        $this->positionRepository->updateState($position, PositionStateEnum::APPROVAL_REJECTED);
+        $this->positionRepository->updateState($event->approval->position, PositionStateEnum::APPROVAL_REJECTED);
     }
 }

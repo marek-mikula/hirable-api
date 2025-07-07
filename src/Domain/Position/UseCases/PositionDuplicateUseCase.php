@@ -34,6 +34,7 @@ class PositionDuplicateUseCase extends UseCase
             company: $user->loadMissing('company')->company,
             user: $user,
             approveUntil: $position->approve_until,
+            approveMessage: $position->approve_message,
             name: sprintf('%s: %s', __('common.copy'), $position->name),
             department: $position->department,
             field: $position->field,

@@ -29,6 +29,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read Company $company
  * @property-read User $user
  * @property-read User|CompanyContact $model
+ * @property-read Position $position
  *
  * @method static ModelHasPositionFactory factory($count = null, $state = [])
  * @method static ModelHasPositionBuilder query()
