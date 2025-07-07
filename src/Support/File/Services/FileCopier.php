@@ -8,15 +8,14 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Support\File\Data\FileData;
 use Support\File\Enums\FileTypeEnum;
-use Support\File\Exceptions\UnableToSaveFileException;
+use Support\File\Exceptions\UnableToCopyFileException;
 use Support\File\Models\File;
 use Support\File\Repositories\FileRepositoryInterface;
 use Support\File\Repositories\Input\FileStoreInput;
 use Support\File\Traits\EnsuresFolders;
 
-class FileSaver
+class FileCopier
 {
     use EnsuresFolders;
 
@@ -26,15 +25,15 @@ class FileSaver
     }
 
     /**
-     * Saves given files to the local storage with given type and sub-folder
+     * Copies given files with given type and sub-folder
      *
-     * @param  FileData[]  $files
+     * @param  File[]  $files
      * @param  string[]  $folders
      * @return EloquentCollection<File>
      *
      * @throws \Exception
      */
-    public function saveFiles(
+    public function copyFiles(
         Model $fileable,
         FileTypeEnum $type,
         array $files,
@@ -75,9 +74,9 @@ class FileSaver
                 $models = modelCollection(File::class);
 
                 foreach ($files as $file) {
-                    $path = $storage->putFile($subFolder, $file->file);
+                    $path = $storage->putFile($subFolder, new \Illuminate\Http\File($file->real_path));
 
-                    throw_if($path === false, new UnableToSaveFileException($file, $type, $subFolder));
+                    throw_if($path === false, new UnableToCopyFileException($file, $type, $subFolder));
 
                     // save new file path in case the process fails
                     $paths[] = $path;
@@ -87,14 +86,14 @@ class FileSaver
                             model: $fileable,
                             type: $type,
                             path: $path,
-                            extension: $file->getExtension(),
-                            name: $file->getName(),
-                            mime: $file->getMime(),
-                            size: $file->getSize(),
+                            extension: $file->extension,
+                            name: $file->name,
+                            mime: $file->mime,
+                            size: $file->size,
                             data: $file->data,
                         ));
                     } catch (\Exception $e) {
-                        throw new UnableToSaveFileException($file, $type, $subFolder, previous: $e);
+                        throw new UnableToCopyFileException($file, $type, $subFolder, previous: $e);
                     }
 
                     $models->push($model);

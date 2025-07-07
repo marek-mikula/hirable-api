@@ -12,12 +12,16 @@ use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
+use Support\File\Actions\GetModelSubFoldersAction;
+use Support\File\Enums\FileTypeEnum;
+use Support\File\Services\FileCopier;
 
 class PositionDuplicateUseCase extends UseCase
 {
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
         private readonly PositionRepositoryInterface $positionRepository,
+        private readonly FileCopier $fileCopier,
     ) {
     }
 
@@ -28,6 +32,7 @@ class PositionDuplicateUseCase extends UseCase
             'recruiters',
             'approvers',
             'externalApprovers',
+            'files',
         ]);
 
         $input = new PositionStoreInput(
@@ -75,10 +80,30 @@ class PositionDuplicateUseCase extends UseCase
         ): Position {
             $newPosition = $this->positionRepository->store($input);
 
-            $this->modelHasPositionRepository->storeMany($newPosition, $position->hiringManagers, PositionRoleEnum::HIRING_MANAGER);
-            $this->modelHasPositionRepository->storeMany($newPosition, $position->recruiters, PositionRoleEnum::RECRUITER);
-            $this->modelHasPositionRepository->storeMany($newPosition, $position->approvers, PositionRoleEnum::APPROVER);
-            $this->modelHasPositionRepository->storeMany($newPosition, $position->externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER);
+            if ($position->hiringManagers->isNotEmpty()) {
+                $this->modelHasPositionRepository->storeMany($newPosition, $position->hiringManagers, PositionRoleEnum::HIRING_MANAGER);
+            }
+
+            if ($position->recruiters->isNotEmpty()) {
+                $this->modelHasPositionRepository->storeMany($newPosition, $position->recruiters, PositionRoleEnum::RECRUITER);
+            }
+
+            if ($position->approvers->isNotEmpty()) {
+                $this->modelHasPositionRepository->storeMany($newPosition, $position->approvers, PositionRoleEnum::APPROVER);
+            }
+
+            if ($position->externalApprovers->isNotEmpty()) {
+                $this->modelHasPositionRepository->storeMany($newPosition, $position->externalApprovers, PositionRoleEnum::EXTERNAL_APPROVER);
+            }
+
+            if ($position->files->isNotEmpty()) {
+                $this->fileCopier->copyFiles(
+                    fileable: $newPosition,
+                    type: FileTypeEnum::POSITION_FILE,
+                    files: $position->files->all(),
+                    folders: GetModelSubFoldersAction::make()->handle($newPosition),
+                );
+            }
 
             return $newPosition;
         }, attempts: 5);
