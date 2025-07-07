@@ -11,6 +11,7 @@ use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Notifications\PositionApprovalNotification;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
+use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Support\Token\Enums\TokenTypeEnum;
@@ -21,6 +22,7 @@ class PositionApprovalService
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,
+        private readonly PositionRepositoryInterface $positionRepository,
         private readonly TokenRepositoryInterface $tokenRepository,
     ) {
     }
@@ -41,8 +43,10 @@ class PositionApprovalService
             ->get();
 
         if ($models->isEmpty()) {
-            return modelCollection(PositionApproval::class);
+            throw new \Exception('Missing approvers when sending for approval.');
         }
+
+        $position = $this->positionRepository->updateApproveRound($position, round: ($position->approve_round ?? 0) + 1);
 
         return $models->map(fn (ModelHasPosition $model) => $this->sendApproval($user, $position, $model));
     }

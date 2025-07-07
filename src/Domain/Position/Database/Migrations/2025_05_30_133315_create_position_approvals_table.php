@@ -13,6 +13,7 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('model_has_position_id')->nullable();
             $table->foreignId('position_id');
+            $table->unsignedTinyInteger('round');
             $table->foreignId('token_id')->nullable();
             $table->string('state', 20);
             $table->string('note', 500)->nullable();

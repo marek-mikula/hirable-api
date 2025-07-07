@@ -56,6 +56,7 @@ class PositionFactory extends Factory
             'state' => PositionStateEnum::OPENED,
             'approve_until' => null,
             'approve_message' => null,
+            'approve_round' => null,
             'name' => fake()->jobTitle,
             'department' => str(fake()->word)->transliterate()->lower()->toString(),
             'field' => str(fake()->word)->transliterate()->lower()->toString(),

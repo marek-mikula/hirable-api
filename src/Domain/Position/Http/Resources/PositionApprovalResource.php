@@ -44,6 +44,7 @@ class PositionApprovalResource extends JsonResource
             'positionId' => $this->resource->position_id,
             'role' => $this->resource->modelHasPosition?->role->value,
             'state' => $this->resource->state->value,
+            'round' => $this->resource->round,
             'note' => $this->resource->note,
             'decidedAt' => $this->resource->decided_at?->toIso8601String(),
             'remindedAt' => $this->resource->reminded_at?->toIso8601String(),

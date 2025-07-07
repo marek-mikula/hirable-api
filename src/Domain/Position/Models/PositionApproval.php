@@ -18,6 +18,7 @@ use Support\Token\Models\Token;
  * @property-read int $id
  * @property int|null $model_has_position_id
  * @property int $position_id
+ * @property int $round
  * @property int|null $token_id
  * @property PositionApprovalStateEnum $state
  * @property string|null $note
@@ -45,6 +46,7 @@ class PositionApproval extends Model
     protected $fillable = [
         'model_has_position_id',
         'position_id',
+        'round',
         'token_id',
         'state',
         'note',

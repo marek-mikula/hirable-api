@@ -121,4 +121,13 @@ class PositionRepository implements PositionRepositoryInterface
     {
         throw_if(!$position->delete(), RepositoryException::deleted(Position::class));
     }
+
+    public function updateApproveRound(Position $position, int $round): Position
+    {
+        $position->approve_round = $round;
+
+        throw_if(!$position->save(), RepositoryException::updated(Position::class));
+
+        return $position;
+    }
 }

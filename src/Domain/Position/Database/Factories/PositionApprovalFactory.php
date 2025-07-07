@@ -25,6 +25,7 @@ class PositionApprovalFactory extends Factory
         return [
             'model_has_position_id' => $this->isMaking ? null : ModelHasPosition::factory(),
             'position_id' => $this->isMaking ? null : Position::factory(),
+            'round' => 1,
             'token_id' => null,
             'state' => PositionApprovalStateEnum::PENDING,
             'note' => null,

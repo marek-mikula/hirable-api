@@ -24,6 +24,7 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
 
         $approval->model_has_position_id = $modelHasPosition->id;
         $approval->position_id = $position->id;
+        $approval->round = (int) $position->approve_round;
         $approval->token_id = $token?->id;
 
         $approval->state = PositionApprovalStateEnum::PENDING;

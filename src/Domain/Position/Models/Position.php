@@ -28,6 +28,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property PositionStateEnum $state
  * @property Carbon|null $approve_until
  * @property string|null $approve_message
+ * @property int|null $approve_round
  * @property string $name
  * @property string|null $department
  * @property string|null $field classifier value
@@ -92,6 +93,7 @@ class Position extends Model
         'state',
         'approve_until',
         'approve_message',
+        'approve_round',
         'name',
         'department',
         'field',

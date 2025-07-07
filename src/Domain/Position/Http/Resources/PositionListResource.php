@@ -24,6 +24,7 @@ class PositionListResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'userId' => $this->resource->user_id,
+            'approveRound' => $this->resource->approve_round,
             'state' => $this->resource->state->value,
             'name' => $this->resource->name,
             'department' => $this->resource->department,

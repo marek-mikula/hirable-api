@@ -209,3 +209,17 @@ it('tests delete method', function (): void {
 
     assertModelMissing($position);
 });
+
+/** @covers \Domain\Position\Repositories\PositionRepository::updateApproveRound */
+it('tests updateApproveRound method', function (): void {
+    /** @var PositionRepositoryInterface $repository */
+    $repository = app(PositionRepositoryInterface::class);
+
+    $position = Position::factory()->create();
+
+    $round = fake()->numberBetween(1, 10);
+
+    $position = $repository->updateApproveRound($position, $round);
+
+    assertSame($round, $position->approve_round);
+});
