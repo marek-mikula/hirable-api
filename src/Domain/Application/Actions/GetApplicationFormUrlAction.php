@@ -7,7 +7,7 @@ namespace Domain\Application\Actions;
 use App\Actions\Action;
 use Domain\Candidate\Enums\SourceEnum;
 
-class GetApplicationUrlAction extends Action
+class GetApplicationFormUrlAction extends Action
 {
     public function handle(SourceEnum $source, string $token): string
     {
