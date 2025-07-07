@@ -130,4 +130,19 @@ class PositionRepository implements PositionRepositoryInterface
 
         return $position;
     }
+
+    public function setTokens(
+        Position $position,
+        string $commonToken,
+        string $internToken,
+        string $referralToken
+    ): Position {
+        $position->common_token = $commonToken;
+        $position->intern_token = $internToken;
+        $position->referral_token = $referralToken;
+
+        throw_if(!$position->save(), RepositoryException::updated(Position::class));
+
+        return $position;
+    }
 }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Domain\Position\Models;
 
 use Carbon\Carbon;
+use Domain\Application\Actions\GetApplicationUrlAction;
+use Domain\Candidate\Enums\SourceEnum;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Database\Factories\PositionFactory;
@@ -12,6 +14,7 @@ use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Builders\PositionBuilder;
 use Domain\User\Models\User;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -60,6 +63,12 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $hard_skills_weight scale 0 - 10
  * @property int $soft_skills_weight scale 0 - 10
  * @property int $language_skills_weight scale 0 - 10
+ * @property string|null $common_token
+ * @property-read string|null $common_link
+ * @property string|null $intern_token
+ * @property-read string|null $intern_link
+ * @property string|null $referral_token
+ * @property-read string|null $referral_link
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Company $company
@@ -125,6 +134,9 @@ class Position extends Model
         'hard_skills_weight',
         'soft_skills_weight',
         'language_skills_weight',
+        'common_token',
+        'intern_token',
+        'referral_token',
     ];
 
     protected $attributes = [
@@ -145,6 +157,21 @@ class Position extends Model
         'benefits' => 'array',
         'language_requirements' => 'array',
     ];
+
+    protected function commonLink(): Attribute
+    {
+        return Attribute::get(fn (): string => empty($this->common_token) ? null : GetApplicationUrlAction::make()->handle(SourceEnum::POSITION, $this->common_token));
+    }
+
+    protected function internLink(): Attribute
+    {
+        return Attribute::get(fn (): string => empty($this->intern_token) ? null : GetApplicationUrlAction::make()->handle(SourceEnum::INTERN, $this->intern_token));
+    }
+
+    protected function referralLink(): Attribute
+    {
+        return Attribute::get(fn (): string => empty($this->referral_token) ? null : GetApplicationUrlAction::make()->handle(SourceEnum::REFERRAL, $this->referral_token));
+    }
 
     public function company(): BelongsTo
     {

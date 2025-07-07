@@ -223,3 +223,26 @@ it('tests updateApproveRound method', function (): void {
 
     assertSame($round, $position->approve_round);
 });
+
+/** @covers \Domain\Position\Repositories\PositionRepository::setTokens */
+it('tests setTokens method', function (): void {
+    /** @var PositionRepositoryInterface $repository */
+    $repository = app(PositionRepositoryInterface::class);
+
+    $position = Position::factory()->create();
+
+    $commonToken = fake()->word;
+    $internToken = fake()->word;
+    $referralToken = fake()->word;
+
+    $position = $repository->setTokens(
+        position: $position,
+        commonToken: $commonToken,
+        internToken: $internToken,
+        referralToken: $referralToken,
+    );
+
+    assertSame($commonToken, $position->common_token);
+    assertSame($internToken, $position->intern_token);
+    assertSame($referralToken, $position->referral_token);
+});

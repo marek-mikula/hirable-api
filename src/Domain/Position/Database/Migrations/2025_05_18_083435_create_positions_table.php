@@ -48,6 +48,9 @@ return new class () extends Migration {
             $table->unsignedTinyInteger('hard_skills_weight');
             $table->unsignedTinyInteger('soft_skills_weight');
             $table->unsignedTinyInteger('language_skills_weight');
+            $table->string('common_token')->nullable();
+            $table->string('intern_token')->nullable();
+            $table->string('referral_token')->nullable();
             $table->timestamps();
 
             $table->foreign('company_id', 'position_company_foreign')

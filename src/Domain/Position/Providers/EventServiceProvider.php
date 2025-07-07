@@ -22,6 +22,7 @@ use Domain\Position\Listeners\SendExpiredNotificationsListener;
 use Domain\Position\Listeners\SendOpenedNotificationsListener;
 use Domain\Position\Listeners\SendRejectedNotificationsListener;
 use Domain\Position\Listeners\SendToApprovalListener;
+use Domain\Position\Listeners\SetTokensListener;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
@@ -54,6 +55,7 @@ class EventServiceProvider extends ServiceProvider
             SendRejectedNotificationsListener::class,
         ],
         PositionOpenedEvent::class => [
+            SetTokensListener::class,
             SendOpenedNotificationsListener::class,
         ],
         PositionApprovalEvent::class => [
