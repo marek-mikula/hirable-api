@@ -9,6 +9,7 @@ use Domain\Company\Http\Resources\Collection\CompanyContactCollection;
 use Domain\Position\Http\Resources\Collections\PositionApprovalCollection;
 use Domain\Position\Models\Position;
 use Domain\User\Http\Resources\Collections\UserCollection;
+use Domain\User\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Support\Classifier\Actions\ToClassifierAction;
@@ -32,6 +33,7 @@ class PositionResource extends JsonResource
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations([
+            'user',
             'files',
             'hiringManagers',
             'approvers',
@@ -43,7 +45,7 @@ class PositionResource extends JsonResource
 
         return [
             'id' => $this->resource->id,
-            'userId' => $this->resource->user_id,
+            'user' => new UserResource($this->resource->user),
             'companyId' => $this->resource->company_id,
             'state' => $this->resource->state->value,
             'approveUntil' => $this->resource->approve_until?->toIso8601String(),

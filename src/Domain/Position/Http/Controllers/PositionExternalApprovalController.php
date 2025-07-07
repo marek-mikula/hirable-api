@@ -26,7 +26,10 @@ class PositionExternalApprovalController extends ApiController
 
     public function show(PositionExternalApprovalShowRequest $request): JsonResponse
     {
-        $approval = $this->positionApprovalRepository->findByToken($request->getToken(), with: ['position']);
+        $approval = $this->positionApprovalRepository->findByToken($request->getToken(), with: [
+            'position',
+            'position.user',
+        ]);
 
         abort_if(!$approval, code: 404);
 

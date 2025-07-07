@@ -46,6 +46,7 @@ class PositionController extends ApiController
         $position = PositionStoreUseCase::make()->handle($request->user(), $request->toData());
 
         $position->loadMissing([
+            'user',
             'files',
             'hiringManagers',
             'recruiters',
@@ -66,6 +67,7 @@ class PositionController extends ApiController
         $position = PositionUpdateUseCase::make()->handle($request->user(), $position, $request->toData());
 
         $position->loadMissing([
+            'user',
             'files',
             'hiringManagers',
             'recruiters',
@@ -84,6 +86,7 @@ class PositionController extends ApiController
     public function show(PositionShowRequest $request, Position $position): JsonResponse
     {
         $position->loadMissing([
+            'user',
             'files',
             'hiringManagers',
             'recruiters',
