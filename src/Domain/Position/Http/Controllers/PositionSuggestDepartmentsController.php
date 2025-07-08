@@ -10,14 +10,14 @@ use Domain\Position\Http\Request\PositionSuggestRequest;
 use Domain\Position\Repositories\PositionSuggestRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
-class PositionSuggestController extends ApiController
+class PositionSuggestDepartmentsController extends ApiController
 {
     public function __construct(
         private readonly PositionSuggestRepositoryInterface $positionSuggestRepository,
     ) {
     }
 
-    public function suggestDepartments(PositionSuggestRequest $request): JsonResponse
+    public function __invoke(PositionSuggestRequest $request): JsonResponse
     {
         $values = $this->positionSuggestRepository->suggestDepartments($request->user(), $request->getQuery());
 
