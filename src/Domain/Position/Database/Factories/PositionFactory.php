@@ -100,6 +100,13 @@ class PositionFactory extends Factory
         ];
     }
 
+    public function ofName(string $name): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'name' => $name,
+        ]);
+    }
+
     public function ofCompany(Company|int $company): static
     {
         return $this->state(fn (array $attributes) => [

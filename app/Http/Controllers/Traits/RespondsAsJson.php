@@ -6,12 +6,13 @@ namespace App\Http\Controllers\Traits;
 
 use App\Enums\ResponseCodeEnum;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 trait RespondsAsJson
 {
     protected function jsonResponse(
         ResponseCodeEnum $code,
-        array $data = [],
+        array|JsonResource $data = [],
         array $headers = [],
         string $message = ''
     ): JsonResponse {

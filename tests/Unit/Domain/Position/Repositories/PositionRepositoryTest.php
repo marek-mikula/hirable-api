@@ -17,6 +17,21 @@ use function Pest\Laravel\assertModelMissing;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
+/** @covers \Domain\Position\Repositories\PositionRepository::findBy */
+it('tests findBy method', function (): void {
+    /** @var PositionRepositoryInterface $repository */
+    $repository = app(PositionRepositoryInterface::class);
+
+    $name1 = fake()->unique()->word;
+    $name2 = fake()->unique()->word;
+
+    $position1 = Position::factory()->ofName($name1)->create();
+    $position2 = Position::factory()->ofName($name2)->create();
+
+    assertTrue($position1->is($repository->findBy(['name' => $name1])));
+    assertTrue($position2->is($repository->findBy(['name' => $name2])));
+});
+
 /** @covers \Domain\Position\Repositories\PositionRepository::store */
 it('tests store method', function (): void {
     /** @var PositionRepositoryInterface $repository */

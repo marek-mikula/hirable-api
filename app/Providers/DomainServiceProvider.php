@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 class DomainServiceProvider extends ServiceProvider
 {
     private array $providers = [
+        \Domain\Application\Providers\ServiceProvider::class,
         \Domain\Auth\Providers\ServiceProvider::class,
         \Domain\Register\Providers\ServiceProvider::class,
         \Domain\Password\Providers\ServiceProvider::class,

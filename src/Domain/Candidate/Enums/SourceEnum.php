@@ -18,4 +18,15 @@ enum SourceEnum: string
             self::REFERRAL => 'ref',
         };
     }
+
+    public static function fromTokenPrefix(string $prefix): ?SourceEnum
+    {
+        foreach (self::cases() as $enum) {
+            if ($enum->getTokenPrefix() === $prefix) {
+                return $enum;
+            }
+        }
+
+        return null;
+    }
 }

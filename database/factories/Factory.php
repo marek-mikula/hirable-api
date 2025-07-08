@@ -37,15 +37,15 @@ abstract class Factory extends BaseFactory
 
     public function create($attributes = [], ?Model $parent = null)
     {
-        return $this->model::withoutEvents(function () use ($attributes, $parent) {
-            $this->isCreating = true;
+        $this->isCreating = true;
 
-            $result = parent::create($attributes, $parent);
-
-            $this->isCreating = false;
-
-            return $result;
+        $result = $this->model::withoutEvents(function () use ($attributes, $parent) {
+            return parent::create($attributes, $parent);
         });
+
+        $this->isCreating = false;
+
+        return $result;
     }
 
     public function make($attributes = [], ?Model $parent = null)
