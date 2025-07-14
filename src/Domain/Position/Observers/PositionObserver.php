@@ -17,11 +17,7 @@ class PositionObserver
 {
     public function created(Position $position): void
     {
-        if ($position->state === PositionStateEnum::OPENED) {
-            PositionOpenedEvent::dispatch($position);
-        } elseif ($position->state === PositionStateEnum::APPROVAL_PENDING) {
-            PositionApprovalEvent::dispatch($position);
-        }
+        //
     }
 
     public function updated(Position $position): void
