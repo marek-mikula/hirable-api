@@ -39,8 +39,9 @@ class PositionApplyResource extends JsonResource
             'employmentRelationships' => new ClassifierCollection($toClassifier->handle($this->resource->employment_relationships, ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP)),
             'employmentForms' => new ClassifierCollection($toClassifier->handle($this->resource->employment_forms, ClassifierTypeEnum::EMPLOYMENT_FORM)),
             'address' => $this->resource->address,
-            'salary' => $this->resource->share_salary ? new PositionSalaryResource($this->resource) : null,
+            'salary' => $this->resource->share_salary ? new PositionSalaryResource($this->resource): null,
             'contact' => $this->resource->share_contact ? new UserContactResource($this->resource->user) : null,
+            'benefits' => new ClassifierCollection($toClassifier->handle($this->resource->benefits, ClassifierTypeEnum::BENEFIT)),
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];
