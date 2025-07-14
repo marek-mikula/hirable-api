@@ -241,6 +241,7 @@ return [
         'hourly' => 'Za hodinu',
         'daily' => 'Za den',
         'quarterly' => 'Za kvartál',
+        'md' => 'Za MD',
     ],
 
     ClassifierTypeEnum::SALARY_TYPE->value => [

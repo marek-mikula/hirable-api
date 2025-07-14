@@ -41,6 +41,7 @@ class PositionFactory extends Factory
             'monthly',
             'quarterly',
             'yearly',
+            'md',
         ];
 
         $salaryTypes = [

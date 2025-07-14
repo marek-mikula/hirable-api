@@ -15,7 +15,8 @@ class ClassifierSalaryFrequencyDatabaseSeeder extends AbstractClassifierDatabase
             'yearly',
             'hourly',
             'daily',
-            'quarterly'
+            'quarterly',
+            'md',
         ];
     }
 

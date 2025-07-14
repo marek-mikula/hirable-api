@@ -241,6 +241,7 @@ return [
         'hourly' => 'Per hour',
         'daily' => 'Per day',
         'quarterly' => 'Per quarter',
+        'md' => 'Per MD',
     ],
 
     ClassifierTypeEnum::SALARY_TYPE->value => [

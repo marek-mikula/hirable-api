@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Resources;
 
+use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Position\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -17,6 +18,8 @@ use Support\Classifier\Http\Resources\Collections\ClassifierCollection;
  */
 class PositionApplyResource extends JsonResource
 {
+    use ChecksRelations;
+
     public function __construct(Position $resource)
     {
         parent::__construct($resource);
@@ -24,9 +27,13 @@ class PositionApplyResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+        $this->checkLoadedRelations(['company']);
+
         $toClassifier = ToClassifierAction::make();
 
         return [
+            'companyName' => $this->resource->company->name,
+            'companyWebsite' => $this->resource->company->website,
             'name' => $this->resource->name,
             'workloads' => new ClassifierCollection($toClassifier->handle($this->resource->workloads, ClassifierTypeEnum::WORKLOAD)),
             'employmentRelationships' => new ClassifierCollection($toClassifier->handle($this->resource->employment_relationships, ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP)),

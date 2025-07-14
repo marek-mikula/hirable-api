@@ -140,6 +140,7 @@ return [
             'seeder' => ClassifierSalaryFrequencyDatabaseSeeder::class,
             'order' => [
                 'hourly',
+                'md',
                 'daily',
                 'monthly',
                 'quarterly',

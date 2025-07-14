@@ -39,6 +39,8 @@ class ApplicationTokenInfoController extends ApiController
 
         $this->applicationValidatorService->validate($tokenData);
 
+        $tokenData->position->loadMissing('company');
+
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, new TokenDataResource($tokenData));
     }
 }
