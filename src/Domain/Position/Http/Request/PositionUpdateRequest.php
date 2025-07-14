@@ -90,6 +90,8 @@ class PositionUpdateRequest extends AuthRequest
                     'hardSkillsWeight',
                     'softSkillsWeight',
                     'languageSkillsWeight',
+                    'shareSalary',
+                    'shareContact',
                 ])
             ],
             'operation' => [
@@ -386,6 +388,14 @@ class PositionUpdateRequest extends AuthRequest
                 'min:0',
                 'max:10',
             ],
+            'shareSalary' => [
+                Rule::excludeIf(!in_array('shareSalary', $keys)),
+                'boolean',
+            ],
+            'shareContact' => [
+                Rule::excludeIf(!in_array('shareContact', $keys)),
+                'boolean',
+            ],
         ];
     }
 
@@ -460,6 +470,8 @@ class PositionUpdateRequest extends AuthRequest
             'hardSkillsWeight' => __('model.position.hardSkillsWeight'),
             'softSkillsWeight' => __('model.position.softSkillsWeight'),
             'languageSkillsWeight' => __('model.position.languageSkillsWeight'),
+            'shareSalary' => __('model.position.shareSalary'),
+            'shareContact' => __('model.position.shareContact'),
         ];
     }
 
@@ -524,6 +536,8 @@ class PositionUpdateRequest extends AuthRequest
             'hardSkillsWeight' => in_array('hardSkillsWeight', $keys) ? ((int) $this->input('hardSkillsWeight')) : null,
             'softSkillsWeight' => in_array('softSkillsWeight', $keys) ? ((int) $this->input('softSkillsWeight')) : null,
             'languageSkillsWeight' => in_array('languageSkillsWeight', $keys) ? ((int) $this->input('languageSkillsWeight')) : null,
+            'shareSalary' => in_array('shareSalary', $keys) ? (bool) $this->input('shareSalary') : null,
+            'shareContact' => in_array('shareContact', $keys) ? (bool) $this->input('shareContact') : null,
         ]);
     }
 }

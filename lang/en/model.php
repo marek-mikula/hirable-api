@@ -94,6 +94,8 @@ return [
         'hardSkillsWeight' => 'Hard skills weight',
         'softSkillsWeight' => 'Soft skills weight',
         'languageSkillsWeight' => 'Language skills weight',
+        'shareSalary' => 'Share salary',
+        'shareContact' => 'Share contact',
         'roles' => [
             PositionRoleEnum::HIRING_MANAGER->value => 'Hiring manager',
             PositionRoleEnum::APPROVER->value => 'Approver',

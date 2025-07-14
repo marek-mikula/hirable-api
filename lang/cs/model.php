@@ -94,6 +94,8 @@ return [
         'hardSkillsWeight' => 'Váha tvrdých dovedností',
         'softSkillsWeight' => 'Váha měkkých dovedností',
         'languageSkillsWeight' => 'Váha jazykových dovedností',
+        'shareSalary' => 'Sdílet mzdu',
+        'shareContact' => 'Sdílet kontakt',
         'roles' => [
             PositionRoleEnum::HIRING_MANAGER->value => 'Hiring manažer',
             PositionRoleEnum::APPROVER->value => 'Schvalovatel',

@@ -71,6 +71,8 @@ class PositionDuplicateUseCase extends UseCase
             hardSkillsWeight: $position->hard_skills_weight,
             softSkillsWeight: $position->soft_skills_weight,
             languageSkillsWeight: $position->language_skills_weight,
+            shareSalary: $position->share_salary,
+            shareContact: $position->share_contact,
         );
 
         return DB::transaction(function () use (

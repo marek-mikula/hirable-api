@@ -102,6 +102,10 @@ class PositionData extends Data
 
     public int $languageSkillsWeight;
 
+    public bool $shareSalary;
+
+    public bool $shareContact;
+
     public function hasFiles(): bool
     {
         return !empty($this->files);

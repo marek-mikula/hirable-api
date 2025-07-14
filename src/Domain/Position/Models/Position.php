@@ -63,6 +63,8 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $hard_skills_weight scale 0 - 10
  * @property int $soft_skills_weight scale 0 - 10
  * @property int $language_skills_weight scale 0 - 10
+ * @property boolean $share_salary
+ * @property boolean $share_contact
  * @property string|null $common_token
  * @property-read string|null $common_link
  * @property string|null $intern_token
@@ -134,6 +136,8 @@ class Position extends Model
         'hard_skills_weight',
         'soft_skills_weight',
         'language_skills_weight',
+        'share_salary',
+        'share_contact',
         'common_token',
         'intern_token',
         'referral_token',
@@ -156,6 +160,8 @@ class Position extends Model
         'is_technical' => 'boolean',
         'benefits' => 'array',
         'language_requirements' => 'array',
+        'share_salary' => 'boolean',
+        'share_contact' => 'boolean',
     ];
 
     protected function commonLink(): Attribute

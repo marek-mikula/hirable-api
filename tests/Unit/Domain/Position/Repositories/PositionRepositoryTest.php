@@ -76,6 +76,8 @@ it('tests store method', function (): void {
         hardSkillsWeight: fake()->numberBetween(0, 10),
         softSkillsWeight: fake()->numberBetween(0, 10),
         languageSkillsWeight: fake()->numberBetween(0, 10),
+        shareSalary: fake()->boolean,
+        shareContact: fake()->boolean,
     );
 
     $position = $repository->store($input);
@@ -115,6 +117,8 @@ it('tests store method', function (): void {
     assertSame($input->hardSkillsWeight, $position->hard_skills_weight);
     assertSame($input->softSkillsWeight, $position->soft_skills_weight);
     assertSame($input->languageSkillsWeight, $position->language_skills_weight);
+    assertSame($input->shareSalary, $position->share_salary);
+    assertSame($input->shareContact, $position->share_contact);
 
     assertTrue($position->relationLoaded('company'));
     assertTrue($position->relationLoaded('user'));
@@ -162,6 +166,8 @@ it('tests update method', function (): void {
         hardSkillsWeight: fake()->numberBetween(0, 10),
         softSkillsWeight: fake()->numberBetween(0, 10),
         languageSkillsWeight: fake()->numberBetween(0, 10),
+        shareSalary: fake()->boolean,
+        shareContact: fake()->boolean,
     );
 
     $position = $repository->update($position, $input);
@@ -199,6 +205,8 @@ it('tests update method', function (): void {
     assertSame($input->hardSkillsWeight, $position->hard_skills_weight);
     assertSame($input->softSkillsWeight, $position->soft_skills_weight);
     assertSame($input->languageSkillsWeight, $position->language_skills_weight);
+    assertSame($input->shareSalary, $position->share_salary);
+    assertSame($input->shareContact, $position->share_contact);
 });
 
 /** @covers \Domain\Position\Repositories\PositionRepository::updateState */

@@ -49,6 +49,8 @@ readonly class PositionUpdateInput
         public int $hardSkillsWeight,
         public int $softSkillsWeight,
         public int $languageSkillsWeight,
+        public bool $shareSalary,
+        public bool $shareContact,
     ) {
     }
 }

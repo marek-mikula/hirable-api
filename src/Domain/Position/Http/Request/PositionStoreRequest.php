@@ -275,6 +275,12 @@ class PositionStoreRequest extends AuthRequest
                 'min:0',
                 'max:10',
             ],
+            'shareSalary' => [
+                'boolean',
+            ],
+            'shareContact' => [
+                'boolean',
+            ],
         ];
     }
 
@@ -342,6 +348,8 @@ class PositionStoreRequest extends AuthRequest
             'hardSkillsWeight' => __('model.position.hardSkillsWeight'),
             'softSkillsWeight' => __('model.position.softSkillsWeight'),
             'languageSkillsWeight' => __('model.position.languageSkillsWeight'),
+            'shareSalary' => __('model.position.shareSalary'),
+            'shareContact' => __('model.position.shareContact'),
         ];
     }
 
@@ -403,6 +411,8 @@ class PositionStoreRequest extends AuthRequest
             'hardSkillsWeight' => (int) $this->input('hardSkillsWeight'),
             'softSkillsWeight' => (int) $this->input('softSkillsWeight'),
             'languageSkillsWeight' => (int) $this->input('languageSkillsWeight'),
+            'shareSalary' => (bool) $this->input('shareSalary'),
+            'shareContact' => (bool) $this->input('shareContact'),
         ]);
     }
 }
