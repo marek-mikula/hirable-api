@@ -74,7 +74,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Company $company
- * @property-read User $user
+ * @property-read User $user // todo rename to owner, so its more clear
  * @property-read Collection<ModelHasPosition> $models
  * @property-read Collection<CompanyContact> $companyContacts
  * @property-read Collection<CompanyContact> $externalApprovers

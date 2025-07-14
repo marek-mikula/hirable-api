@@ -236,12 +236,12 @@ return [
     ],
 
     ClassifierTypeEnum::SALARY_FREQUENCY->value => [
-        'monthly' => 'Per month',
-        'yearly' => 'Per year',
-        'hourly' => 'Per hour',
-        'daily' => 'Per day',
-        'quarterly' => 'Per quarter',
-        'md' => 'Per MD',
+        'monthly' => 'Month',
+        'yearly' => 'Year',
+        'hourly' => 'Hour',
+        'daily' => 'Day',
+        'quarterly' => 'Quarter',
+        'md' => 'MD',
     ],
 
     ClassifierTypeEnum::SALARY_TYPE->value => [

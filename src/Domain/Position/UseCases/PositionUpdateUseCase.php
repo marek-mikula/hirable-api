@@ -84,7 +84,7 @@ class PositionUpdateUseCase extends UseCase
             employmentRelationships: $data->hasKey('employmentRelationships') ? $data->employmentRelationships : $position->employment_relationships,
             employmentForms: $data->hasKey('employmentForms') ? $data->employmentForms : $position->employment_forms,
             benefits: $data->hasKey('benefits') ? $data->benefits : $position->benefits,
-            languageRequirements: array_map(fn ($requirement) => $requirement->toArray(), $data->languageRequirements),
+            languageRequirements: $data->hasKey('languageRequirements') ? array_map(fn ($requirement) => $requirement->toArray(), $data->languageRequirements) : $position->language_requirements,
             hardSkillsWeight: $data->hasKey('hardSkillsWeight') ? $data->hardSkillsWeight : $position->hard_skills_weight,
             softSkillsWeight: $data->hasKey('softSkillsWeight') ? $data->softSkillsWeight : $position->soft_skills_weight,
             languageSkillsWeight: $data->hasKey('languageSkillsWeight') ? $data->languageSkillsWeight : $position->language_skills_weight,

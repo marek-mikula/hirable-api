@@ -63,12 +63,7 @@ class PositionResource extends JsonResource
             'description' => $this->resource->description,
             'isTechnical' => $this->resource->is_technical,
             'address' => $this->resource->address,
-            'salaryFrom' => $this->resource->salary_from,
-            'salaryTo' => $this->resource->salary_to,
-            'salaryType' => new ClassifierResource($toClassifier->handle($this->resource->salary_type, ClassifierTypeEnum::SALARY_TYPE)),
-            'salaryFrequency' => new ClassifierResource($toClassifier->handle($this->resource->salary_frequency, ClassifierTypeEnum::SALARY_FREQUENCY)),
-            'salaryCurrency' => new ClassifierResource($toClassifier->handle($this->resource->salary_currency, ClassifierTypeEnum::CURRENCY)),
-            'salaryVar' => $this->resource->salary_var,
+            'salary' => new PositionSalaryResource($this->resource),
             'benefits' => new ClassifierCollection($toClassifier->handle($this->resource->benefits, ClassifierTypeEnum::BENEFIT)),
             'minEducationLevel' => $this->resource->min_education_level
                 ? new ClassifierResource($toClassifier->handle($this->resource->min_education_level, ClassifierTypeEnum::EDUCATION_LEVEL))
