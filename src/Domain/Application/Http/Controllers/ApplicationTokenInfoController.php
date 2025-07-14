@@ -39,7 +39,12 @@ class ApplicationTokenInfoController extends ApiController
 
         $this->applicationValidatorService->validate($tokenData);
 
-        $tokenData->position->loadMissing(['company', 'user']);
+        $relationsToLoad = array_filter([
+            'company',
+            $tokenData->position->share_contact ? 'user' : null,
+        ]);
+
+        $tokenData->position->loadMissing($relationsToLoad);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, new TokenDataResource($tokenData));
     }

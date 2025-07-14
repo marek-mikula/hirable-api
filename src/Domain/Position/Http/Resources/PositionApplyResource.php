@@ -27,7 +27,12 @@ class PositionApplyResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['company', 'user']);
+        $relationsToCheck = array_filter([
+            'company',
+            $this->resource->share_contact ? 'user' : null,
+        ]);
+
+        $this->checkLoadedRelations($relationsToCheck);
 
         $toClassifier = ToClassifierAction::make();
 
