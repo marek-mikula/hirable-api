@@ -8,6 +8,7 @@ use App\UseCases\UseCase;
 use Domain\Company\Models\Company;
 use Domain\Company\Repositories\CompanyRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyUpdateInput;
+use Illuminate\Support\Facades\DB;
 
 class CompanyUpdateUseCase extends UseCase
 {
@@ -33,6 +34,8 @@ class CompanyUpdateUseCase extends UseCase
             $input[$key] = $value;
         }
 
-        return $this->companyRepository->update($company, new CompanyUpdateInput(...$input));
+        return DB::transaction(function () use ($company, $input): Company {
+            return $this->companyRepository->update($company, new CompanyUpdateInput(...$input));
+        }, attempts: 5);
     }
 }

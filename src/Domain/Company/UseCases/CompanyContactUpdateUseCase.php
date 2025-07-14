@@ -9,6 +9,7 @@ use Domain\Company\Http\Requests\Data\ContactData;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyContactUpdateInput;
+use Illuminate\Support\Facades\DB;
 
 class CompanyContactUpdateUseCase extends UseCase
 {
@@ -28,6 +29,8 @@ class CompanyContactUpdateUseCase extends UseCase
             companyName: $data->companyName,
         );
 
-        return $this->companyContactRepository->update($contact, $input);
+        return DB::transaction(function () use ($contact, $input): CompanyContact {
+            return $this->companyContactRepository->update($contact, $input);
+        }, attempts: 5);
     }
 }

@@ -9,6 +9,7 @@ use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
 use Domain\Password\Notifications\PasswordResetRequestNotification;
 use Domain\User\Repositories\UserRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Repositories\Input\TokenStoreInput;
 use Support\Token\Repositories\TokenRepositoryInterface;
@@ -46,11 +47,13 @@ class RequestPasswordResetUseCase extends UseCase
             }
         }
 
-        $token = $this->tokenRepository->store(new TokenStoreInput(
-            type: TokenTypeEnum::RESET_PASSWORD,
-            user: $user,
-        ));
+        DB::transaction(function () use ($user): void {
+            $token = $this->tokenRepository->store(new TokenStoreInput(
+                type: TokenTypeEnum::RESET_PASSWORD,
+                user: $user,
+            ));
 
-        $user->notify(new PasswordResetRequestNotification(token: $token));
+            $user->notify(new PasswordResetRequestNotification(token: $token));
+        }, attempts: 5);
     }
 }
