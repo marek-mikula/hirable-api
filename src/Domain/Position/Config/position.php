@@ -12,20 +12,18 @@ return [
     | Files
     |--------------------------------------------------------------------------
     |
-    | List of available extensions and max. size of one single file.
+    | List of available extensions, max. size of one single file and max. number of files.
     |
     */
 
     'files' => [
-
         'extensions' => [
             'pdf',
             'docx',
             'xlsx',
         ],
-
-        'max_size' => '10MB'
-
+        'max_size' => '5MB',
+        'max_files' => 5,
     ],
 
     /*

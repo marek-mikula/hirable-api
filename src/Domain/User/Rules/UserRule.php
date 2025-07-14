@@ -17,8 +17,8 @@ class UserRule implements ValidationRule
      * @param RoleEnum[] $roles
      */
     public function __construct(
-        private readonly ?Company $company = null,
-        private readonly array $roles = [],
+        private readonly ?Company $company,
+        private readonly array $roles,
     ) {
     }
 

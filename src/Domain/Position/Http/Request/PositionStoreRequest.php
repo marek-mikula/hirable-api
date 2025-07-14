@@ -193,6 +193,7 @@ class PositionStoreRequest extends AuthRequest
             ],
             'files' => [
                 'array',
+                sprintf('max:%d', $positionConfigService->getMaxFiles()),
             ],
             'files.*' => [
                 'required',

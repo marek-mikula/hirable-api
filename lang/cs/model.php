@@ -20,7 +20,9 @@ return [
     'common' => [
         'id' => 'ID',
         'email' => 'Emailová adresa',
-        'phone' => 'Telefonní číslo',
+        'phone' => 'Telefon',
+        'phonePrefix' => 'Předvolba',
+        'phoneNumber' => 'Telefonní číslo',
         'name' => 'Jméno',
         'firstname' => 'Křestní jméno',
         'lastname' => 'Příjmení',
@@ -112,6 +114,11 @@ return [
             PositionStateEnum::CLOSED->value => 'Uzavřená',
             PositionStateEnum::CANCELED->value => 'Zrušená',
         ],
+    ],
+
+    'candidate' => [
+        'cv' => 'Životopis',
+        'linkedin' => 'LinkedIn',
     ],
 
 ];

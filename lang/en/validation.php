@@ -159,6 +159,8 @@ return [
     'url' => 'The :attribute field must be a valid URL.',
     'ulid' => 'The :attribute field must be a valid ULID.',
     'uuid' => 'The :attribute field must be a valid UUID.',
+    'linkedin' => 'The :attribute field must be a valid link to LinkedIn profile.',
+    'phone' => 'The :attribute field must be a valid phone number.',
 
     'many' => [
         'required' => 'The item  #:position in :attribute is required.',

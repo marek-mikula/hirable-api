@@ -24,8 +24,8 @@ class CandidateFactory extends Factory
             'firstname' => fake()->firstName,
             'lastname' => fake()->lastName,
             'email' => fake()->unique()->email(),
-            'phone_prefix' => null,
-            'phone' => null,
+            'phone_prefix' => '+420',
+            'phone_number' => fake()->phoneNumber,
             'linkedin' => sprintf('https://www.linkedin.com/in/%s/', $linkedinUsername),
         ];
     }

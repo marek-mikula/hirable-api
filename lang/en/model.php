@@ -20,7 +20,9 @@ return [
     'common' => [
         'id' => 'ID',
         'email' => 'Email address',
-        'phone' => 'Phone number',
+        'phone' => 'Phone',
+        'phonePrefix' => 'Phone prefix',
+        'phoneNumber' => 'Phone number',
         'name' => 'Name',
         'firstname' => 'Firstname',
         'lastname' => 'Lastname',
@@ -113,6 +115,11 @@ return [
             PositionStateEnum::CANCELED->value => 'Canceled',
         ],
 
+    ],
+
+    'candidate' => [
+        'cv' => 'Resume',
+        'linkedin' => 'LinkedIn',
     ],
 
 ];

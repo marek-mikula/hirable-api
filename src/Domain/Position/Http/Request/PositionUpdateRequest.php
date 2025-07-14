@@ -44,6 +44,8 @@ class PositionUpdateRequest extends AuthRequest
             default => PositionOperationEnum::cases()
         };
 
+        $fileCount = $position->loadCount('files')->files_count;
+
         return [
             'keys' => [
                 'required',
@@ -289,6 +291,7 @@ class PositionUpdateRequest extends AuthRequest
             'files' => [
                 Rule::excludeIf(!in_array('files', $keys)),
                 'array',
+                sprintf('max:%d', $positionConfigService->getMaxFiles() - $fileCount),
             ],
             'files.*' => [
                 'required',
