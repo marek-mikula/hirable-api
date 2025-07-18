@@ -9,7 +9,9 @@ use Domain\Application\Database\Factories\ApplicationFactory;
 use Domain\Application\Models\Builders\ApplicationBuilder;
 use Domain\Candidate\Enums\SourceEnum;
 use Domain\Candidate\Models\Candidate;
+use Domain\Notification\Traits\Notifiable;
 use Domain\Position\Models\Position;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,6 +27,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property boolean $processed
  * @property string $firstname
  * @property string $lastname
+ * @property-read string $full_name
  * @property string $email
  * @property string $phone_prefix
  * @property string $phone_number
@@ -41,6 +44,7 @@ class Application extends Model
 {
     use HasFactory;
     use HasFiles;
+    use Notifiable;
 
     protected $primaryKey = 'id';
 
@@ -66,6 +70,11 @@ class Application extends Model
         'source' => SourceEnum::class,
         'processed' => 'boolean',
     ];
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::get(fn (): string => sprintf('%s %s', $this->firstname, $this->lastname));
+    }
 
     public function position(): BelongsTo
     {

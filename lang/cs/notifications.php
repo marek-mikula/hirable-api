@@ -165,4 +165,13 @@ return [
         ],
     ],
 
+    NotificationTypeEnum::APPLICATION_ACCEPTED->value => [
+        'mail' => [
+            'subject' => '✅ Přihláška přijata!',
+            'body' => [
+                'line1' => 'Vaše přihláška na pozici :position byla úspěšně přijata. Děkujeme za zájem a přejem hodně štěstí ve výběrovém řízení.',
+            ],
+        ],
+    ],
+
 ];

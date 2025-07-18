@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Services;
 
+use Domain\Application\Models\Application;
+use Domain\Application\Notifications\ApplicationAcceptedNotification;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Notifications\InvitationSentNotification;
@@ -318,6 +320,24 @@ class NotificationRegistrar
                         },
                         notifiable: fn () => CompanyContact::factory()->make(),
                         key: 'external'
+                    ),
+                ]
+            ),
+            NotificationDomain::create(
+                key: 'application',
+                notifications: [
+                    NotificationData::create(
+                        label: 'Accepted',
+                        description: 'Notification informs candidate that his application has been accepted.',
+                        notification: function (Application $notifiable) {
+                            return new ApplicationAcceptedNotification();
+                        },
+                        notifiable: function () {
+                            $notifiable = Application::factory()->make();
+                            $notifiable->setRelation('position', Position::factory()->make());
+
+                            return $notifiable;
+                        },
                     ),
                 ]
             ),
