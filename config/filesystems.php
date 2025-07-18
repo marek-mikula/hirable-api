@@ -44,6 +44,12 @@ return [
             'throw' => false,
         ],
 
+        'candidates' => [
+            'driver' => 'local',
+            'root' => storage_path('app/candidates'),
+            'throw' => false,
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

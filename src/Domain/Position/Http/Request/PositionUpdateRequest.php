@@ -44,6 +44,8 @@ class PositionUpdateRequest extends AuthRequest
             default => PositionOperationEnum::cases()
         };
 
+        $fileCount = $position->loadCount('files')->files_count;
+
         return [
             'keys' => [
                 'required',
@@ -54,11 +56,11 @@ class PositionUpdateRequest extends AuthRequest
                 'string',
                 Rule::in([
                     'name',
+                    'externName',
                     'department',
                     'field',
                     'jobSeatsNum',
                     'description',
-                    'isTechnical',
                     'address',
                     'salary',
                     'salaryType',
@@ -90,6 +92,8 @@ class PositionUpdateRequest extends AuthRequest
                     'hardSkillsWeight',
                     'softSkillsWeight',
                     'languageSkillsWeight',
+                    'shareSalary',
+                    'shareContact',
                 ])
             ],
             'operation' => [
@@ -99,6 +103,12 @@ class PositionUpdateRequest extends AuthRequest
             ],
             'name' => [
                 Rule::excludeIf(!in_array('name', $keys)),
+                'required',
+                'string',
+                'max:255'
+            ],
+            'externName' => [
+                Rule::excludeIf(!in_array('externName', $keys)),
                 'required',
                 'string',
                 'max:255'
@@ -126,10 +136,6 @@ class PositionUpdateRequest extends AuthRequest
                 'required',
                 'string',
                 'max:2000',
-            ],
-            'isTechnical' => [
-                Rule::excludeIf(!in_array('isTechnical', $keys)),
-                'boolean',
             ],
             'address' => [
                 Rule::excludeIf(!in_array('address', $keys)),
@@ -186,7 +192,11 @@ class PositionUpdateRequest extends AuthRequest
             ],
             'seniority' => [
                 Rule::excludeIf(!in_array('seniority', $keys)),
-                'nullable',
+                'array',
+            ],
+            'seniority.*' => [
+                Rule::excludeIf(!in_array('seniority', $keys)),
+                'required',
                 'string',
             ],
             'experience' => [
@@ -287,6 +297,7 @@ class PositionUpdateRequest extends AuthRequest
             'files' => [
                 Rule::excludeIf(!in_array('files', $keys)),
                 'array',
+                sprintf('max:%d', $positionConfigService->getMaxFiles() - $fileCount),
             ],
             'files.*' => [
                 'required',
@@ -386,6 +397,14 @@ class PositionUpdateRequest extends AuthRequest
                 'min:0',
                 'max:10',
             ],
+            'shareSalary' => [
+                Rule::excludeIf(!in_array('shareSalary', $keys)),
+                'boolean',
+            ],
+            'shareContact' => [
+                Rule::excludeIf(!in_array('shareContact', $keys)),
+                'boolean',
+            ],
         ];
     }
 
@@ -410,11 +429,11 @@ class PositionUpdateRequest extends AuthRequest
         return [
             'operation' => __('model.common.operation'),
             'name' => __('model.position.name'),
+            'externName' => __('model.position.externName'),
             'department' => __('model.position.department'),
             'field' => __('model.position.field'),
             'jobSeatsNum' => __('model.position.jobSeatsNum'),
             'description' => __('model.position.description'),
-            'isTechnical' => __('model.position.isTechnical'),
             'address' => __('model.position.address'),
             'salaryFrom' => __('model.position.salaryFrom'),
             'salaryTo' => __('model.position.salaryTo'),
@@ -425,6 +444,7 @@ class PositionUpdateRequest extends AuthRequest
             'salaryVar' => __('model.position.salaryVar'),
             'minEducationLevel' => __('model.position.minEducationLevel'),
             'seniority' => __('model.position.seniority'),
+            'seniority.*' => __('model.position.seniority'),
             'experience' => __('model.position.experience'),
             'hardSkills' => __('model.position.hardSkills'),
             'organisationSkills' => __('model.position.organisationSkills'),
@@ -460,6 +480,8 @@ class PositionUpdateRequest extends AuthRequest
             'hardSkillsWeight' => __('model.position.hardSkillsWeight'),
             'softSkillsWeight' => __('model.position.softSkillsWeight'),
             'languageSkillsWeight' => __('model.position.languageSkillsWeight'),
+            'shareSalary' => __('model.position.shareSalary'),
+            'shareContact' => __('model.position.shareContact'),
         ];
     }
 
@@ -481,11 +503,11 @@ class PositionUpdateRequest extends AuthRequest
             'operation' => PositionOperationEnum::from((string) $this->input('operation')),
             'keys' => $keys,
             'name' => in_array('name', $keys) ? (string) $this->input('name') : null,
+            'externName' => in_array('externName', $keys) ? (string) $this->input('externName') : null,
             'department' => in_array('department', $keys) ? ($this->filled('department') ? (string) $this->input('department') : null) : null,
             'field' => in_array('field', $keys) ? ($this->filled('field') ? (string) $this->input('field') : null) : null,
             'jobSeatsNum' => in_array('jobSeatsNum', $keys) ? ((int) $this->input('jobSeatsNum')) : null,
             'description' => in_array('description', $keys) ? ((string) $this->input('description')) : null,
-            'isTechnical' => in_array('description', $keys) ? $this->boolean('isTechnical') : null,
             'address' => in_array('address', $keys) ? ($this->filled('address') ? (string) $this->input('address') : null) : null,
             'salaryFrom' => in_array('salary', $keys) ? ($this->filled('salaryFrom') ? (int) $this->input('salaryFrom') : null) : null,
             'salaryTo' => in_array('salary', $keys) ? ($this->filled('salaryTo') ? (int) $this->input('salaryTo') : null) : null,
@@ -495,7 +517,7 @@ class PositionUpdateRequest extends AuthRequest
             'salaryCurrency' => in_array('salaryCurrency', $keys) ? ((string) $this->input('salaryCurrency')) : null,
             'salaryVar' => in_array('salaryVar', $keys) ? ($this->filled('salaryVar') ? (string) $this->input('salaryVar') : null) : null,
             'minEducationLevel' => in_array('minEducationLevel', $keys) ? ($this->filled('minEducationLevel') ? (string) $this->input('minEducationLevel') : null) : null,
-            'seniority' => in_array('seniority', $keys) ? ($this->filled('seniority') ? (string) $this->input('seniority') : null) : null,
+            'seniority' => in_array('seniority', $keys) ? ($this->collect('seniority')->map(fn (mixed $val) => (string) $val)->all()) : [],
             'experience' => in_array('experience', $keys) ? ($this->filled('experience') ? (int) $this->input('experience') : null) : null,
             'hardSkills' => in_array('hardSkills', $keys) ? ($this->filled('hardSkills') ? (string) $this->input('hardSkills') : null) : null,
             'organisationSkills' => in_array('organisationSkills', $keys) ? ((int) $this->input('organisationSkills')) : null,
@@ -524,6 +546,8 @@ class PositionUpdateRequest extends AuthRequest
             'hardSkillsWeight' => in_array('hardSkillsWeight', $keys) ? ((int) $this->input('hardSkillsWeight')) : null,
             'softSkillsWeight' => in_array('softSkillsWeight', $keys) ? ((int) $this->input('softSkillsWeight')) : null,
             'languageSkillsWeight' => in_array('languageSkillsWeight', $keys) ? ((int) $this->input('languageSkillsWeight')) : null,
+            'shareSalary' => in_array('shareSalary', $keys) ? (bool) $this->input('shareSalary') : null,
+            'shareContact' => in_array('shareContact', $keys) ? (bool) $this->input('shareContact') : null,
         ]);
     }
 }

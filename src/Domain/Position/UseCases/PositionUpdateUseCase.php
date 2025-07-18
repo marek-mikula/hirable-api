@@ -55,14 +55,14 @@ class PositionUpdateUseCase extends UseCase
         };
 
         $input = new PositionUpdateInput(
-            approveUntil:  $data->hasKey('approveUntil') ? $data->approveUntil : $position->approve_until,
-            approveMessage:  $data->hasKey('approveMessage') ? $data->approveMessage : $position->approve_message,
             name: $data->hasKey('name') ? $data->name : $position->name,
+            externName: $data->hasKey('externName') ? $data->externName : $position->extern_name,
+            approveUntil: $data->hasKey('approveUntil') ? $data->approveUntil : $position->approve_until,
+            approveMessage: $data->hasKey('approveMessage') ? $data->approveMessage : $position->approve_message,
             department: $data->hasKey('department') ? $data->department : $position->department,
             field: $data->hasKey('field') ? $data->field : $position->field,
             jobSeatsNum: $data->hasKey('jobSeatsNum') ? $data->jobSeatsNum : $position->job_seats_num,
             description: $data->hasKey('description') ? $data->description : $position->description,
-            isTechnical: $data->hasKey('isTechnical') ? $data->isTechnical : $position->is_technical,
             address: $data->hasKey('address') ? $data->address : $position->address,
             salaryFrom: $data->hasKey('salary') ? (int) ($data->salary ?? $data->salaryFrom) : $position->salary_from,
             salaryTo: $data->hasKey('salary') ? ($data->salary ? null : $data->salaryTo) : $position->salary_to,
@@ -84,10 +84,12 @@ class PositionUpdateUseCase extends UseCase
             employmentRelationships: $data->hasKey('employmentRelationships') ? $data->employmentRelationships : $position->employment_relationships,
             employmentForms: $data->hasKey('employmentForms') ? $data->employmentForms : $position->employment_forms,
             benefits: $data->hasKey('benefits') ? $data->benefits : $position->benefits,
-            languageRequirements: array_map(fn ($requirement) => $requirement->toArray(), $data->languageRequirements),
+            languageRequirements: $data->hasKey('languageRequirements') ? array_map(fn ($requirement) => $requirement->toArray(), $data->languageRequirements) : $position->language_requirements,
             hardSkillsWeight: $data->hasKey('hardSkillsWeight') ? $data->hardSkillsWeight : $position->hard_skills_weight,
             softSkillsWeight: $data->hasKey('softSkillsWeight') ? $data->softSkillsWeight : $position->soft_skills_weight,
             languageSkillsWeight: $data->hasKey('languageSkillsWeight') ? $data->languageSkillsWeight : $position->language_skills_weight,
+            shareSalary: $data->hasKey('shareSalary') ? $data->shareSalary : $position->share_salary,
+            shareContact: $data->hasKey('shareContact') ? $data->shareContact : $position->share_contact,
         );
 
         $hiringManagers = $data->hasKey('hiringManagers') && $data->hasHiringManagers()

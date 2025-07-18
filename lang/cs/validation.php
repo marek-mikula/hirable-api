@@ -159,6 +159,8 @@ return [
     'url' => 'Pole :attribute musí být platná URL adresa.',
     'ulid' => 'Pole :attribute musí být platné ULID.',
     'uuid' => 'Pole :attribute musí být platné UUID.',
+    'linkedin' => 'Pole :attribute musí být platný odkaz na LinkedIn profil.',
+    'phone' => 'Pole :attribute musí být platné telefonní číslo.',
 
     'many' => [
         'required' => 'Položka č. :position v :attribute je povinná.',

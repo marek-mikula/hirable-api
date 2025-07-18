@@ -16,6 +16,8 @@ class PositionData extends Data
 
     public string $name;
 
+    public string $externName;
+
     public ?string $department;
 
     public ?string $field;
@@ -23,8 +25,6 @@ class PositionData extends Data
     public int $jobSeatsNum;
 
     public string $description;
-
-    public bool $isTechnical;
 
     public ?string $address;
 
@@ -44,8 +44,6 @@ class PositionData extends Data
 
     public ?string $minEducationLevel;
 
-    public ?string $seniority;
-
     public ?int $experience;
 
     public ?string $hardSkills;
@@ -61,6 +59,9 @@ class PositionData extends Data
     public int $leadership;
 
     public ?string $note;
+
+    /** @var string[] */
+    public array $seniority;
 
     /** @var string[] */
     public array $workloads;
@@ -101,6 +102,10 @@ class PositionData extends Data
     public int $softSkillsWeight;
 
     public int $languageSkillsWeight;
+
+    public bool $shareSalary;
+
+    public bool $shareContact;
 
     public function hasFiles(): bool
     {

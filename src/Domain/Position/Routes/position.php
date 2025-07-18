@@ -7,7 +7,7 @@ use Domain\Position\Http\Controllers\PositionApprovalCancelController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
-use Domain\Position\Http\Controllers\PositionSuggestController;
+use Domain\Position\Http\Controllers\PositionSuggestDepartmentsController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Http\Middleware\TokenMiddleware;
@@ -16,9 +16,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
     Route::get('/', [PositionController::class, 'index'])->name('index');
     Route::post('/', [PositionController::class, 'store'])->name('store');
 
-    Route::prefix('/suggest')->as('suggest.')->group(function (): void {
-        Route::get('/departments', [PositionSuggestController::class, 'suggestDepartments'])->name('departments');
-    });
+    Route::get('/suggest-departments', PositionSuggestDepartmentsController::class)->name('suggest_departments');
 
     Route::prefix('/{position}')->whereNumber('position')->group(function (): void {
         Route::get('/', [PositionController::class, 'show'])->name('show');

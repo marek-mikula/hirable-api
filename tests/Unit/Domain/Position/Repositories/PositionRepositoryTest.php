@@ -17,6 +17,21 @@ use function Pest\Laravel\assertModelMissing;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
+/** @covers \Domain\Position\Repositories\PositionRepository::findBy */
+it('tests findBy method', function (): void {
+    /** @var PositionRepositoryInterface $repository */
+    $repository = app(PositionRepositoryInterface::class);
+
+    $name1 = fake()->unique()->word;
+    $name2 = fake()->unique()->word;
+
+    $position1 = Position::factory()->ofName($name1)->create();
+    $position2 = Position::factory()->ofName($name2)->create();
+
+    assertTrue($position1->is($repository->findBy(['name' => $name1])));
+    assertTrue($position2->is($repository->findBy(['name' => $name2])));
+});
+
 /** @covers \Domain\Position\Repositories\PositionRepository::store */
 it('tests store method', function (): void {
     /** @var PositionRepositoryInterface $repository */
@@ -28,14 +43,14 @@ it('tests store method', function (): void {
     $input = new PositionStoreInput(
         company: $company,
         user: $user,
+        name: fake()->jobTitle,
+        externName: fake()->jobTitle,
         approveUntil: null,
         approveMessage: fake()->text(500),
-        name: fake()->jobTitle,
         department: fake()->word,
         field: fake()->word,
         jobSeatsNum: fake()->numberBetween(0, 10),
         description: fake()->text(2000),
-        isTechnical: fake()->boolean,
         address: fake()->words(asText: true),
         salaryFrom: fake()->numberBetween(1, 50000),
         salaryTo: fake()->numberBetween(50000, 100000),
@@ -44,7 +59,7 @@ it('tests store method', function (): void {
         salaryCurrency: fake()->word,
         salaryVar: fake()->word,
         minEducationLevel: fake()->word,
-        seniority: fake()->word,
+        seniority: fake()->words(fake()->numberBetween(0, 5)),
         experience: fake()->numberBetween(1, 5),
         hardSkills: fake()->text(2000),
         organisationSkills: fake()->numberBetween(0, 10),
@@ -61,20 +76,22 @@ it('tests store method', function (): void {
         hardSkillsWeight: fake()->numberBetween(0, 10),
         softSkillsWeight: fake()->numberBetween(0, 10),
         languageSkillsWeight: fake()->numberBetween(0, 10),
+        shareSalary: fake()->boolean,
+        shareContact: fake()->boolean,
     );
 
     $position = $repository->store($input);
 
     assertSame($input->company->id, $position->company_id);
     assertSame($input->user->id, $position->user_id);
+    assertSame($input->name, $position->name);
+    assertSame($input->externName, $position->extern_name);
     assertSame($input->approveUntil, $position->approve_until);
     assertSame($input->approveMessage, $position->approve_message);
-    assertSame($input->name, $position->name);
     assertSame($input->department, $position->department);
     assertSame($input->field, $position->field);
     assertSame($input->jobSeatsNum, $position->job_seats_num);
     assertSame($input->description, $position->description);
-    assertSame($input->isTechnical, $position->is_technical);
     assertSame($input->address, $position->address);
     assertSame($input->salaryFrom, $position->salary_from);
     assertSame($input->salaryTo, $position->salary_to);
@@ -100,6 +117,8 @@ it('tests store method', function (): void {
     assertSame($input->hardSkillsWeight, $position->hard_skills_weight);
     assertSame($input->softSkillsWeight, $position->soft_skills_weight);
     assertSame($input->languageSkillsWeight, $position->language_skills_weight);
+    assertSame($input->shareSalary, $position->share_salary);
+    assertSame($input->shareContact, $position->share_contact);
 
     assertTrue($position->relationLoaded('company'));
     assertTrue($position->relationLoaded('user'));
@@ -114,14 +133,14 @@ it('tests update method', function (): void {
     $position = Position::factory()->ofCompany($company)->create();
 
     $input = new PositionUpdateInput(
+        name: fake()->jobTitle,
+        externName: fake()->jobTitle,
         approveUntil: null,
         approveMessage: fake()->text(500),
-        name: fake()->jobTitle,
         department: fake()->word,
         field: fake()->word,
         jobSeatsNum: fake()->numberBetween(0, 10),
         description: fake()->text(2000),
-        isTechnical: fake()->boolean,
         address: fake()->words(asText: true),
         salaryFrom: fake()->numberBetween(1, 50000),
         salaryTo: fake()->numberBetween(50000, 100000),
@@ -130,7 +149,7 @@ it('tests update method', function (): void {
         salaryCurrency: fake()->word,
         salaryVar: fake()->word,
         minEducationLevel: fake()->word,
-        seniority: fake()->word,
+        seniority: fake()->words(fake()->numberBetween(0, 5)),
         experience: fake()->numberBetween(1, 5),
         hardSkills: fake()->text(2000),
         organisationSkills: fake()->numberBetween(0, 10),
@@ -147,18 +166,20 @@ it('tests update method', function (): void {
         hardSkillsWeight: fake()->numberBetween(0, 10),
         softSkillsWeight: fake()->numberBetween(0, 10),
         languageSkillsWeight: fake()->numberBetween(0, 10),
+        shareSalary: fake()->boolean,
+        shareContact: fake()->boolean,
     );
 
     $position = $repository->update($position, $input);
 
+    assertSame($input->name, $position->name);
+    assertSame($input->externName, $position->extern_name);
     assertSame($input->approveUntil, $position->approve_until);
     assertSame($input->approveMessage, $position->approve_message);
-    assertSame($input->name, $position->name);
     assertSame($input->department, $position->department);
     assertSame($input->field, $position->field);
     assertSame($input->jobSeatsNum, $position->job_seats_num);
     assertSame($input->description, $position->description);
-    assertSame($input->isTechnical, $position->is_technical);
     assertSame($input->address, $position->address);
     assertSame($input->salaryFrom, $position->salary_from);
     assertSame($input->salaryTo, $position->salary_to);
@@ -184,6 +205,8 @@ it('tests update method', function (): void {
     assertSame($input->hardSkillsWeight, $position->hard_skills_weight);
     assertSame($input->softSkillsWeight, $position->soft_skills_weight);
     assertSame($input->languageSkillsWeight, $position->language_skills_weight);
+    assertSame($input->shareSalary, $position->share_salary);
+    assertSame($input->shareContact, $position->share_contact);
 });
 
 /** @covers \Domain\Position\Repositories\PositionRepository::updateState */
@@ -222,4 +245,27 @@ it('tests updateApproveRound method', function (): void {
     $position = $repository->updateApproveRound($position, $round);
 
     assertSame($round, $position->approve_round);
+});
+
+/** @covers \Domain\Position\Repositories\PositionRepository::setTokens */
+it('tests setTokens method', function (): void {
+    /** @var PositionRepositoryInterface $repository */
+    $repository = app(PositionRepositoryInterface::class);
+
+    $position = Position::factory()->create();
+
+    $commonToken = fake()->word;
+    $internToken = fake()->word;
+    $referralToken = fake()->word;
+
+    $position = $repository->setTokens(
+        position: $position,
+        commonToken: $commonToken,
+        internToken: $internToken,
+        referralToken: $referralToken,
+    );
+
+    assertSame($commonToken, $position->common_token);
+    assertSame($internToken, $position->intern_token);
+    assertSame($referralToken, $position->referral_token);
 });

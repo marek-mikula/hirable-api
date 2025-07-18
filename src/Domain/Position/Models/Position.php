@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Domain\Position\Models;
 
 use Carbon\Carbon;
+use Domain\Application\Services\ApplicationTokenUrlService;
+use Domain\Candidate\Enums\SourceEnum;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Database\Factories\PositionFactory;
@@ -12,6 +14,7 @@ use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Builders\PositionBuilder;
 use Domain\User\Models\User;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,11 +28,12 @@ use Support\File\Models\Traits\HasFiles;
  * @property-read int $id
  * @property int $company_id
  * @property int $user_id
+ * @property string $name
+ * @property string $extern_name
  * @property PositionStateEnum $state
  * @property Carbon|null $approve_until
  * @property string|null $approve_message
  * @property int|null $approve_round
- * @property string $name
  * @property string|null $department
  * @property string|null $field classifier value
  * @property string[] $workloads classifier values
@@ -37,7 +41,6 @@ use Support\File\Models\Traits\HasFiles;
  * @property string[] $employment_forms classifier values
  * @property int $job_seats_num
  * @property string $description
- * @property boolean $is_technical
  * @property string|null $address
  * @property int $salary_from
  * @property int|null $salary_to
@@ -47,7 +50,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property string|null $salary_var
  * @property string[] $benefits classifier values
  * @property string|null $min_education_level classifier value
- * @property string|null $seniority classifier value
+ * @property string[] $seniority classifier values
  * @property int|null $experience
  * @property string|null $hard_skills
  * @property int $organisation_skills scale 0 - 10
@@ -60,10 +63,18 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $hard_skills_weight scale 0 - 10
  * @property int $soft_skills_weight scale 0 - 10
  * @property int $language_skills_weight scale 0 - 10
+ * @property boolean $share_salary
+ * @property boolean $share_contact
+ * @property string|null $common_token
+ * @property-read string|null $common_link
+ * @property string|null $intern_token
+ * @property-read string|null $intern_link
+ * @property string|null $referral_token
+ * @property-read string|null $referral_link
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Company $company
- * @property-read User $user
+ * @property-read User $user // todo rename to owner, so its more clear
  * @property-read Collection<ModelHasPosition> $models
  * @property-read Collection<CompanyContact> $companyContacts
  * @property-read Collection<CompanyContact> $externalApprovers
@@ -90,11 +101,12 @@ class Position extends Model
     protected $fillable = [
         'company_id',
         'user_id',
+        'name',
+        'extern_name',
         'state',
         'approve_until',
         'approve_message',
         'approve_round',
-        'name',
         'department',
         'field',
         'workloads',
@@ -102,7 +114,6 @@ class Position extends Model
         'employment_forms',
         'job_seats_num',
         'description',
-        'is_technical',
         'address',
         'salary_from',
         'salary_to',
@@ -125,6 +136,11 @@ class Position extends Model
         'hard_skills_weight',
         'soft_skills_weight',
         'language_skills_weight',
+        'share_salary',
+        'share_contact',
+        'common_token',
+        'intern_token',
+        'referral_token',
     ];
 
     protected $attributes = [
@@ -132,6 +148,7 @@ class Position extends Model
         'employment_relationships' => '[]',
         'employment_forms' => '[]',
         'benefits' => '[]',
+        'seniority' => '[]',
         'language_requirements' => '[]',
     ];
 
@@ -141,10 +158,27 @@ class Position extends Model
         'workloads' => 'array',
         'employment_relationships' => 'array',
         'employment_forms' => 'array',
-        'is_technical' => 'boolean',
         'benefits' => 'array',
+        'seniority' => 'array',
         'language_requirements' => 'array',
+        'share_salary' => 'boolean',
+        'share_contact' => 'boolean',
     ];
+
+    protected function commonLink(): Attribute
+    {
+        return Attribute::get(fn (): ?string => empty($this->common_token) ? null : ApplicationTokenUrlService::resolve()->getApplyUrl(SourceEnum::POSITION, $this->common_token));
+    }
+
+    protected function internLink(): Attribute
+    {
+        return Attribute::get(fn (): ?string => empty($this->intern_token) ? null : ApplicationTokenUrlService::resolve()->getApplyUrl(SourceEnum::INTERN, $this->intern_token));
+    }
+
+    protected function referralLink(): Attribute
+    {
+        return Attribute::get(fn (): ?string => empty($this->referral_token) ? null : ApplicationTokenUrlService::resolve()->getReferralUrl($this->referral_token));
+    }
 
     public function company(): BelongsTo
     {

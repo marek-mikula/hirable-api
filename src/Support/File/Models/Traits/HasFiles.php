@@ -13,6 +13,7 @@ use Support\File\Models\File;
  * @mixin Model
  *
  * @property-read Collection<File> $files
+ * @property-read int|null $files_count
  */
 trait HasFiles
 {

@@ -11,13 +11,22 @@ return new class () extends Migration {
     {
         Schema::create('candidates', static function (Blueprint $table): void {
             $table->id();
+            $table->foreignId('company_id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('email')->unique('candidates_email_unique');
-            $table->string('phone_prefix')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('email');
+            $table->string('phone_prefix', 10);
+            $table->string('phone_number', 20);
             $table->string('linkedin')->nullable();
             $table->timestamps();
+
+            $table->unique(['company_id', 'email'], 'candidates_company_email_unique');
+
+            $table->foreign('company_id')
+                ->references('id')
+                ->on('companies')
+                ->restrictOnDelete()
+                ->restrictOnUpdate();
         });
     }
 

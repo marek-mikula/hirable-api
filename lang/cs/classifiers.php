@@ -236,11 +236,12 @@ return [
     ],
 
     ClassifierTypeEnum::SALARY_FREQUENCY->value => [
-        'monthly' => 'Za měsíc',
-        'yearly' => 'Za rok',
-        'hourly' => 'Za hodinu',
-        'daily' => 'Za den',
-        'quarterly' => 'Za kvartál',
+        'monthly' => 'Měsíc',
+        'yearly' => 'Rok',
+        'hourly' => 'Hodina',
+        'daily' => 'Den',
+        'quarterly' => 'Kvartál',
+        'md' => 'MD',
     ],
 
     ClassifierTypeEnum::SALARY_TYPE->value => [

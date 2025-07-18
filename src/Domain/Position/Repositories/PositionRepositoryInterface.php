@@ -11,6 +11,8 @@ use Domain\Position\Repositories\Inputs\PositionUpdateInput;
 
 interface PositionRepositoryInterface
 {
+    public function findBy(array $wheres, array $with = []): ?Position;
+
     public function store(PositionStoreInput $input): Position;
 
     public function update(Position $position, PositionUpdateInput $input): Position;
@@ -20,4 +22,6 @@ interface PositionRepositoryInterface
     public function delete(Position $position): void;
 
     public function updateApproveRound(Position $position, int $round): Position;
+
+    public function setTokens(Position $position, string $commonToken, string $internToken, string $referralToken): Position;
 }

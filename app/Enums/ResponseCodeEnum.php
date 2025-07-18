@@ -20,6 +20,7 @@ enum ResponseCodeEnum
     case TOKEN_CORRUPTED;
     case TOKEN_INVALID;
     case GUEST_ONLY;
+    case APPLICATION_ENDED;
     case UNAUTHENTICATED;
     case NOT_FOUND;
     case METHOD_NOT_ALLOWED;
@@ -57,6 +58,7 @@ enum ResponseCodeEnum
             self::TOKEN_MISSING,
             self::TOKEN_CORRUPTED,
             self::TOKEN_INVALID,
+            self::APPLICATION_ENDED,
             self::UNAUTHORIZED => 403,
 
             // 404

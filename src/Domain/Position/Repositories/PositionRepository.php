@@ -12,21 +12,32 @@ use Domain\Position\Repositories\Inputs\PositionUpdateInput;
 
 class PositionRepository implements PositionRepositoryInterface
 {
+    public function findBy(array $wheres, array $with = []): ?Position
+    {
+        /** @var Position|null $position */
+        $position = Position::query()
+            ->with($with)
+            ->where($wheres)
+            ->first();
+
+        return $position;
+    }
+
     public function store(PositionStoreInput $input): Position
     {
         $position = new Position();
 
         $position->company_id = $input->company->id;
         $position->user_id = $input->user->id;
+        $position->name = $input->name;
+        $position->extern_name = $input->externName;
         $position->state = PositionStateEnum::DRAFT;
         $position->approve_until = $input->approveUntil;
         $position->approve_message = $input->approveMessage;
-        $position->name = $input->name;
         $position->department = $input->department;
         $position->field = $input->field;
         $position->job_seats_num = $input->jobSeatsNum;
         $position->description = $input->description;
-        $position->is_technical = $input->isTechnical;
         $position->address = $input->address;
         $position->salary_from = $input->salaryFrom;
         $position->salary_to = $input->salaryTo;
@@ -52,6 +63,8 @@ class PositionRepository implements PositionRepositoryInterface
         $position->hard_skills_weight = $input->hardSkillsWeight;
         $position->soft_skills_weight = $input->softSkillsWeight;
         $position->language_skills_weight = $input->languageSkillsWeight;
+        $position->share_salary = $input->shareSalary;
+        $position->share_contact = $input->shareContact;
 
         throw_if(!$position->save(), RepositoryException::stored(Position::class));
 
@@ -63,14 +76,14 @@ class PositionRepository implements PositionRepositoryInterface
 
     public function update(Position $position, PositionUpdateInput $input): Position
     {
+        $position->name = $input->name;
+        $position->extern_name = $input->externName;
         $position->approve_until = $input->approveUntil;
         $position->approve_message = $input->approveMessage;
-        $position->name = $input->name;
         $position->department = $input->department;
         $position->field = $input->field;
         $position->job_seats_num = $input->jobSeatsNum;
         $position->description = $input->description;
-        $position->is_technical = $input->isTechnical;
         $position->address = $input->address;
         $position->salary_from = $input->salaryFrom;
         $position->salary_to = $input->salaryTo;
@@ -96,6 +109,8 @@ class PositionRepository implements PositionRepositoryInterface
         $position->hard_skills_weight = $input->hardSkillsWeight;
         $position->soft_skills_weight = $input->softSkillsWeight;
         $position->language_skills_weight = $input->languageSkillsWeight;
+        $position->share_salary = $input->shareSalary;
+        $position->share_contact = $input->shareContact;
 
         throw_if(!$position->save(), RepositoryException::updated(Position::class));
 
@@ -125,6 +140,21 @@ class PositionRepository implements PositionRepositoryInterface
     public function updateApproveRound(Position $position, int $round): Position
     {
         $position->approve_round = $round;
+
+        throw_if(!$position->save(), RepositoryException::updated(Position::class));
+
+        return $position;
+    }
+
+    public function setTokens(
+        Position $position,
+        string $commonToken,
+        string $internToken,
+        string $referralToken
+    ): Position {
+        $position->common_token = $commonToken;
+        $position->intern_token = $internToken;
+        $position->referral_token = $referralToken;
 
         throw_if(!$position->save(), RepositoryException::updated(Position::class));
 

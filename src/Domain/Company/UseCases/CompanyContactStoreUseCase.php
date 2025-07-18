@@ -10,6 +10,7 @@ use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyContactStoreInput;
+use Illuminate\Support\Facades\DB;
 
 class CompanyContactStoreUseCase extends UseCase
 {
@@ -30,6 +31,8 @@ class CompanyContactStoreUseCase extends UseCase
             companyName: $data->companyName,
         );
 
-        return $this->companyContactRepository->store($input);
+        return DB::transaction(function () use ($input): CompanyContact {
+            return $this->companyContactRepository->store($input);
+        }, attempts: 5);
     }
 }

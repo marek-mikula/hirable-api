@@ -18,4 +18,14 @@ class Rule extends BaseRule
     {
         return new UserRule($company, $roles);
     }
+
+    public static function linkedin(): LinkedinRule
+    {
+        return new LinkedinRule();
+    }
+
+    public static function phone(string $prefixField = 'phonePrefix'): PhoneRule
+    {
+        return new PhoneRule($prefixField);
+    }
 }

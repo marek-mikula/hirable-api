@@ -22,10 +22,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $gender = fake()->randomElement(['male', 'female']);
-
         $firstname = fake()->firstName($gender);
         $lastname = fake()->lastName($gender);
-
         $email = sprintf(
             '%s.%s%d@%s',
             Str::lower($firstname),

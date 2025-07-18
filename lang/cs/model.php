@@ -20,7 +20,9 @@ return [
     'common' => [
         'id' => 'ID',
         'email' => 'Emailová adresa',
-        'phone' => 'Telefonní číslo',
+        'phone' => 'Telefon',
+        'phonePrefix' => 'Předvolba',
+        'phoneNumber' => 'Telefonní číslo',
         'name' => 'Jméno',
         'firstname' => 'Křestní jméno',
         'lastname' => 'Příjmení',
@@ -57,6 +59,7 @@ return [
 
     'position' => [
         'name' => 'Název pozice',
+        'externName' => 'Externí název pozice',
         'approveUntil' => 'Schválit do',
         'approveMessage' => 'Zpráva pro schvalovatele',
         'department' => 'Oddělení',
@@ -66,7 +69,6 @@ return [
         'employmentForm' => 'Forma spolupráce',
         'jobSeatsNum' => 'Počet pracovních míst',
         'description' => 'Popis',
-        'isTechnical' => 'Technická pozice',
         'address' => 'Adresa pracoviště',
         'salarySpan' => 'Rozpětí mzdy od - do',
         'salaryFrom' => 'Mzda od',
@@ -94,6 +96,8 @@ return [
         'hardSkillsWeight' => 'Váha tvrdých dovedností',
         'softSkillsWeight' => 'Váha měkkých dovedností',
         'languageSkillsWeight' => 'Váha jazykových dovedností',
+        'shareSalary' => 'Sdílet mzdu',
+        'shareContact' => 'Sdílet kontakt',
         'roles' => [
             PositionRoleEnum::HIRING_MANAGER->value => 'Hiring manažer',
             PositionRoleEnum::APPROVER->value => 'Schvalovatel',
@@ -110,6 +114,11 @@ return [
             PositionStateEnum::CLOSED->value => 'Uzavřená',
             PositionStateEnum::CANCELED->value => 'Zrušená',
         ],
+    ],
+
+    'candidate' => [
+        'cv' => 'Životopis',
+        'linkedin' => 'LinkedIn',
     ],
 
 ];

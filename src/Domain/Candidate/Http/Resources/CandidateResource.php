@@ -26,8 +26,10 @@ class CandidateResource extends JsonResource
             'lastname' => $this->resource->lastname,
             'fullName' => $this->resource->full_name,
             'email' => $this->resource->email,
-            'phonePrefix' => $this->resource->phone_prefix,
-            'phone' => $this->resource->phone,
+            'phone' => [
+                'prefix' => $this->resource->phone_prefix,
+                'number' => $this->resource->phone_number,
+            ],
             'linkedin' => $this->resource->linkedin,
             'createdAt' => $this->resource->created_at->toIso8601String(),
         ];

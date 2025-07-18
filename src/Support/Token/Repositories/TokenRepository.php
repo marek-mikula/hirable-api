@@ -6,7 +6,7 @@ namespace Support\Token\Repositories;
 
 use App\Exceptions\RepositoryException;
 use Domain\User\Models\User;
-use Illuminate\Support\Str;
+use Support\Token\Actions\GenerateTokenAction;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Models\Token;
 use Support\Token\Repositories\Input\TokenStoreInput;
@@ -29,7 +29,7 @@ final class TokenRepository implements TokenRepositoryInterface
             $validUntil = now()->addMinutes($validMinutes);
         }
 
-        $value = hash_hmac('sha256', Str::random(40), (string) config('app.key'));
+        $value = GenerateTokenAction::make()->handle();
 
         $token->user_id = $input->user?->id;
         $token->type = $input->type;

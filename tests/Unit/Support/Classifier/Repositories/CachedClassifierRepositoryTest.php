@@ -16,14 +16,10 @@ uses()->beforeEach(function (): void {
 it('tests getValuesForType method', function (): void {
     /** @var ClassifierRepositoryInterface $repository */
     $repository = app(ClassifierRepositoryInterface::class);
-
-    // todo
 })->todo();
 
 /** @covers \Support\Classifier\Repositories\ClassifierRepository::getValuesForTypes */
 it('tests getValuesForTypes method', function (): void {
     /** @var ClassifierRepositoryInterface $repository */
     $repository = app(ClassifierRepositoryInterface::class);
-
-    // todo
 })->todo();

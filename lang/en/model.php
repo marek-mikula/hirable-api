@@ -20,7 +20,9 @@ return [
     'common' => [
         'id' => 'ID',
         'email' => 'Email address',
-        'phone' => 'Phone number',
+        'phone' => 'Phone',
+        'phonePrefix' => 'Phone prefix',
+        'phoneNumber' => 'Phone number',
         'name' => 'Name',
         'firstname' => 'Firstname',
         'lastname' => 'Lastname',
@@ -57,6 +59,7 @@ return [
 
     'position' => [
         'name' => 'Position name',
+        'externName' => 'Extern position name',
         'approveUntil' => 'Approve until',
         'approveMessage' => 'Message for approvers',
         'department' => 'Department',
@@ -66,7 +69,6 @@ return [
         'employmentForm' => 'Form of cooperation',
         'jobSeatsNum' => 'Number of job seats',
         'description' => 'Description',
-        'isTechnical' => 'Technical position',
         'address' => 'Workplace address',
         'salarySpan' => 'Salary range from - to',
         'salaryFrom' => 'Salary from',
@@ -94,6 +96,8 @@ return [
         'hardSkillsWeight' => 'Hard skills weight',
         'softSkillsWeight' => 'Soft skills weight',
         'languageSkillsWeight' => 'Language skills weight',
+        'shareSalary' => 'Share salary',
+        'shareContact' => 'Share contact',
         'roles' => [
             PositionRoleEnum::HIRING_MANAGER->value => 'Hiring manager',
             PositionRoleEnum::APPROVER->value => 'Approver',
@@ -111,6 +115,11 @@ return [
             PositionStateEnum::CANCELED->value => 'Canceled',
         ],
 
+    ],
+
+    'candidate' => [
+        'cv' => 'Resume',
+        'linkedin' => 'LinkedIn',
     ],
 
 ];

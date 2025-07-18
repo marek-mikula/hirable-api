@@ -45,7 +45,6 @@ class PositionDuplicateUseCase extends UseCase
             field: $position->field,
             jobSeatsNum: $position->job_seats_num,
             description: $position->description,
-            isTechnical: $position->is_technical,
             address: $position->address,
             salaryFrom: $position->salary_from,
             salaryTo: $position->salary_to,
@@ -71,6 +70,8 @@ class PositionDuplicateUseCase extends UseCase
             hardSkillsWeight: $position->hard_skills_weight,
             softSkillsWeight: $position->soft_skills_weight,
             languageSkillsWeight: $position->language_skills_weight,
+            shareSalary: $position->share_salary,
+            shareContact: $position->share_contact,
         );
 
         return DB::transaction(function () use (

@@ -27,7 +27,6 @@ class PositionFactory extends Factory
     public function definition(): array
     {
         $salarySpan = fake()->boolean;
-        $isTechnical = fake()->boolean;
 
         $currencies = [
             'CZK',
@@ -41,6 +40,7 @@ class PositionFactory extends Factory
             'monthly',
             'quarterly',
             'yearly',
+            'md',
         ];
 
         $salaryTypes = [
@@ -49,15 +49,17 @@ class PositionFactory extends Factory
         ];
 
         $salary = fake()->numberBetween(5000, 150000);
+        $name = fake()->jobTitle;
 
         return [
             'company_id' => $this->isMaking ? null : Company::factory(),
             'user_id' => $this->isMaking ? null : User::factory(),
+            'name' => $name,
+            'extern_name' => $name,
             'state' => PositionStateEnum::OPENED,
             'approve_until' => null,
             'approve_message' => null,
             'approve_round' => null,
-            'name' => fake()->jobTitle,
             'department' => str(fake()->word)->transliterate()->lower()->toString(),
             'field' => str(fake()->word)->transliterate()->lower()->toString(),
             'workloads' => [
@@ -71,7 +73,6 @@ class PositionFactory extends Factory
             ],
             'job_seats_num' => fake()->numberBetween(1, 100),
             'description' => fake()->text(2000),
-            'is_technical' => $isTechnical,
             'address' => fake()->address,
             'salary_from' => $salary,
             'salary_to' => $salarySpan ? ($salary + fake()->numberBetween(10000, 50000)) : null,
@@ -81,7 +82,7 @@ class PositionFactory extends Factory
             'salary_var' => fake()->words(asText: true),
             'benefits' => [],
             'min_education_level' => str(fake()->word)->transliterate()->lower()->toString(),
-            'seniority' => $isTechnical ? str(fake()->word)->transliterate()->lower()->toString() : null,
+            'seniority' => fake()->boolean ? [str(fake()->word)->transliterate()->lower()->toString()] : [],
             'experience' => fake()->numberBetween(0, 10),
             'hard_skills' => null,
             'organisation_skills' => fake()->numberBetween(0, 10),
@@ -94,7 +95,19 @@ class PositionFactory extends Factory
             'hard_skills_weight' => fake()->numberBetween(0, 10),
             'soft_skills_weight' => fake()->numberBetween(0, 10),
             'language_skills_weight' => fake()->numberBetween(0, 10),
+            'share_salary' => fake()->boolean,
+            'share_contact' => fake()->boolean,
+            'common_token' => null,
+            'intern_token' => null,
+            'referral_token' => null,
         ];
+    }
+
+    public function ofName(string $name): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'name' => $name,
+        ]);
     }
 
     public function ofCompany(Company|int $company): static

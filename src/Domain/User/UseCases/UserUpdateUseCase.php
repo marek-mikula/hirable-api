@@ -11,6 +11,7 @@ use Domain\Password\Events\PasswordChanged;
 use Domain\User\Models\User;
 use Domain\User\Repositories\Input\UserUpdateInput;
 use Domain\User\Repositories\UserRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserUpdateUseCase extends UseCase
@@ -54,6 +55,8 @@ class UserUpdateUseCase extends UseCase
             $input[$key] = $value;
         }
 
-        return $this->userRepository->update($user, new UserUpdateInput(...$input));
+        return DB::transaction(function () use ($user, $input): User {
+            return $this->userRepository->update($user, new UserUpdateInput(...$input));
+        }, attempts: 5);
     }
 }

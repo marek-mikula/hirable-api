@@ -7,6 +7,7 @@ namespace Domain\Notification\UseCases;
 use App\UseCases\UseCase;
 use Domain\Notification\Models\Notification;
 use Domain\Notification\Repositories\NotificationRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class NotificationMarkReadUseCase extends UseCase
 {
@@ -21,6 +22,8 @@ class NotificationMarkReadUseCase extends UseCase
             return $notification;
         }
 
-        return $this->notificationRepository->markRead($notification);
+        return DB::transaction(function () use ($notification): Notification {
+            return $this->notificationRepository->markRead($notification);
+        }, attempts: 5);
     }
 }

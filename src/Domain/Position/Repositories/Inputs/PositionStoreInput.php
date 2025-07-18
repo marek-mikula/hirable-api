@@ -14,20 +14,21 @@ readonly class PositionStoreInput
      * @param string[] $workloads
      * @param string[] $employmentRelationships
      * @param string[] $employmentForms
+     * @param string[] $seniority
      * @param string[] $benefits
      * @param array[] $languageRequirements
      */
     public function __construct(
         public Company $company,
         public User $user,
+        public string $name,
+        public string $externName,
         public ?Carbon $approveUntil,
         public ?string $approveMessage,
-        public string $name,
         public ?string $department,
         public ?string $field,
         public int $jobSeatsNum,
         public string $description,
-        public bool $isTechnical,
         public ?string $address,
         public int $salaryFrom,
         public ?int $salaryTo,
@@ -36,7 +37,7 @@ readonly class PositionStoreInput
         public string $salaryCurrency,
         public ?string $salaryVar,
         public ?string $minEducationLevel,
-        public ?string $seniority,
+        public array $seniority,
         public ?int $experience,
         public ?string $hardSkills,
         public int $organisationSkills,
@@ -53,6 +54,8 @@ readonly class PositionStoreInput
         public int $hardSkillsWeight,
         public int $softSkillsWeight,
         public int $languageSkillsWeight,
+        public bool $shareSalary,
+        public bool $shareContact,
     ) {
     }
 }
