@@ -7,6 +7,7 @@ namespace Domain\Application\Providers;
 use Domain\Application\Events\ApplicationCreatedEvent;
 use Domain\Application\Events\ApplicationProcessedEvent;
 use Domain\Application\Listeners\SendApplicationAcceptedNotificationListener;
+use Domain\Application\Listeners\StartApplicationProcessListener;
 use Domain\Application\Models\Application;
 use Domain\Application\Observers\ApplicationObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -15,7 +16,8 @@ class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
         ApplicationCreatedEvent::class => [
-            SendApplicationAcceptedNotificationListener::class
+            StartApplicationProcessListener::class,
+            SendApplicationAcceptedNotificationListener::class,
         ],
         ApplicationProcessedEvent::class => [],
     ];

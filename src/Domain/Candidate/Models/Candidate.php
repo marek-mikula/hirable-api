@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace Domain\Candidate\Models;
 
+use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Candidate\Database\Factories\CandidateFactory;
+use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Models\Builders\CandidateBuilder;
+use Domain\Notification\Traits\Notifiable;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +19,8 @@ use Illuminate\Database\Query\Builder;
 /**
  * @property-read int $id
  * @property int $company_id
+ * @property LanguageEnum $language
+ * @property GenderEnum|null $gender
  * @property string $firstname
  * @property string $lastname
  * @property-read string $full_name
@@ -22,15 +28,21 @@ use Illuminate\Database\Query\Builder;
  * @property string $phone_prefix
  * @property string $phone_number
  * @property string|null $linkedin
+ * @property string|null $instagram
+ * @property string|null $github
+ * @property string|null $portfolio
+ * @property Carbon|null $birth_date
+ * @property array $working_skills
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
  * @method static CandidateFactory factory($count = null, $state = [])
  * @method static CandidateBuilder query()
  */
-class Candidate extends Model
+class Candidate extends Model implements HasLocalePreference
 {
     use HasFactory;
+    use Notifiable;
 
     protected $primaryKey = 'id';
 
@@ -40,15 +52,30 @@ class Candidate extends Model
 
     protected $fillable = [
         'company_id',
+        'language',
+        'gender',
         'firstname',
         'lastname',
         'email',
         'phone_prefix',
         'phone_number',
         'linkedin',
+        'instagram',
+        'github',
+        'portfolio',
+        'birth_date',
+        'working_skills',
     ];
 
-    protected $casts = [];
+    protected $attributes = [
+        'working_skills' => '[]',
+    ];
+
+    protected $casts = [
+        'language' => LanguageEnum::class,
+        'gender' => GenderEnum::class,
+        'working_skills' => 'array',
+    ];
 
     protected function fullName(): Attribute
     {
@@ -66,5 +93,10 @@ class Candidate extends Model
     protected static function newFactory(): CandidateFactory
     {
         return CandidateFactory::new();
+    }
+
+    public function preferredLocale(): string
+    {
+        return $this->language->value;
     }
 }
