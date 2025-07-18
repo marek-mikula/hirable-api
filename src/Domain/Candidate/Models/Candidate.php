@@ -14,6 +14,7 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @property-read int $id
+ * @property int $company_id
  * @property string $firstname
  * @property string $lastname
  * @property-read string $full_name
@@ -38,6 +39,7 @@ class Candidate extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'company_id',
         'firstname',
         'lastname',
         'email',

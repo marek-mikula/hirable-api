@@ -8,4 +8,8 @@ use App\Models\Builders\Builder;
 
 class CandidateBuilder extends Builder
 {
+    public function whereCompany(int $id): static
+    {
+        return $this->where('company_id', '=', $id);
+    }
 }

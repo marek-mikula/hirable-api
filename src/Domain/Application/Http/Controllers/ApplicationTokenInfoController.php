@@ -12,14 +12,14 @@ use Domain\Application\Http\Resources\TokenDataResource;
 use Domain\Application\Services\ApplicationValidatorService;
 use Domain\Application\TokenProcessing\Exceptions\UnableExtractTokenDataException;
 use Domain\Application\TokenProcessing\Exceptions\UnableExtractTokenInfoException;
-use Domain\Application\TokenProcessing\TokenDataExtractorService;
+use Domain\Application\TokenProcessing\TokenPackageExtractorService;
 use Illuminate\Http\JsonResponse;
 
 class ApplicationTokenInfoController extends ApiController
 {
     public function __construct(
+        private readonly TokenPackageExtractorService $tokenPackageExtractorService,
         private readonly ApplicationValidatorService $applicationValidatorService,
-        private readonly TokenDataExtractorService $tokenDataExtractorService,
     ) {
     }
 
@@ -32,20 +32,20 @@ class ApplicationTokenInfoController extends ApiController
         }
 
         try {
-            $tokenData = $this->tokenDataExtractorService->extract($token);
+            $tokenPackage = $this->tokenPackageExtractorService->extract($token);
         } catch (UnableExtractTokenDataException|UnableExtractTokenInfoException $e) {
             throw new HttpException(responseCode: ResponseCodeEnum::TOKEN_INVALID);
         }
 
-        $this->applicationValidatorService->validate($tokenData);
+        $this->applicationValidatorService->validate($tokenPackage->tokenData);
 
         $relationsToLoad = array_filter([
             'company',
-            $tokenData->position->share_contact ? 'user' : null,
+            $tokenPackage->tokenData->position->share_contact ? 'user' : null,
         ]);
 
-        $tokenData->position->loadMissing($relationsToLoad);
+        $tokenPackage->tokenData->position->loadMissing($relationsToLoad);
 
-        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, new TokenDataResource($tokenData));
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, new TokenDataResource($tokenPackage->tokenData));
     }
 }

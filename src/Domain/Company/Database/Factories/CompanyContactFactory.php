@@ -21,7 +21,6 @@ class CompanyContactFactory extends Factory
     public function definition(): array
     {
         $gender = fake()->randomElement(['male', 'female']);
-
         $firstname = fake()->firstName($gender);
         $lastname = fake()->lastName($gender);
 

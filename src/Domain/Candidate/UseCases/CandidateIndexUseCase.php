@@ -16,6 +16,7 @@ class CandidateIndexUseCase extends UseCase
     public function handle(User $user, GridRequestQuery $gridQuery): Paginator
     {
         return Candidate::query()
+            ->whereCompany($user->company_id)
             ->when($gridQuery->hasSearchQuery(), function (CandidateBuilder $query) use ($gridQuery): void {
                 $query->where(function (CandidateBuilder $query) use ($gridQuery): void {
                     $query

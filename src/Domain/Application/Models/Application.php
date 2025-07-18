@@ -8,9 +8,13 @@ use Carbon\Carbon;
 use Domain\Application\Database\Factories\ApplicationFactory;
 use Domain\Application\Models\Builders\ApplicationBuilder;
 use Domain\Candidate\Enums\SourceEnum;
+use Domain\Candidate\Models\Candidate;
+use Domain\Position\Models\Position;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
+use Support\File\Models\Traits\HasFiles;
 
 /**
  * @property-read int $id
@@ -26,6 +30,8 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $linkedin
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read Position $position
+ * @property-read Candidate|null $candidate
  *
  * @method static ApplicationFactory factory($count = null, $state = [])
  * @method static ApplicationBuilder query()
@@ -33,6 +39,7 @@ use Illuminate\Database\Query\Builder;
 class Application extends Model
 {
     use HasFactory;
+    use HasFiles;
 
     protected $primaryKey = 'id';
 
@@ -57,6 +64,24 @@ class Application extends Model
         'source' => SourceEnum::class,
         'processed' => 'boolean',
     ];
+
+    public function position(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: Position::class,
+            foreignKey: 'position_id',
+            ownerKey: 'id',
+        );
+    }
+
+    public function candidate(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: Candidate::class,
+            foreignKey: 'candidate_id',
+            ownerKey: 'id',
+        );
+    }
 
     /**
      * @param  Builder  $query
