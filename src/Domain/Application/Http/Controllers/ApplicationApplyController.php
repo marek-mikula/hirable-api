@@ -8,6 +8,7 @@ use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\Http\Controllers\ApiController;
 use Domain\Application\Http\Requests\ApplicationApplyRequest;
+use Domain\Application\Http\Resources\ApplicationResource;
 use Domain\Application\Services\ApplicationValidatorService;
 use Domain\Application\TokenProcessing\Exceptions\UnableExtractTokenDataException;
 use Domain\Application\TokenProcessing\Exceptions\UnableExtractTokenInfoException;
@@ -42,7 +43,7 @@ class ApplicationApplyController extends ApiController
         $application = ApplicationApplyUseCase::make()->handle($tokenPackage, $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-           'application' => $application // todo resource
+           'application' => new ApplicationResource($application),
         ]);
     }
 }

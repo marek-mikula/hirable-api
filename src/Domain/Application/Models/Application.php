@@ -18,6 +18,7 @@ use Support\File\Models\Traits\HasFiles;
 
 /**
  * @property-read int $id
+ * @property string $uuid
  * @property int $position_id
  * @property int|null $candidate_id
  * @property SourceEnum $source
@@ -48,6 +49,7 @@ class Application extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'uuid',
         'position_id',
         'candidate_id',
         'source',

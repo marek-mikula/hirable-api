@@ -7,6 +7,7 @@ namespace Domain\Application\Repositories;
 use App\Exceptions\RepositoryException;
 use Domain\Application\Models\Application;
 use Domain\Application\Repositories\Input\ApplicationStoreInput;
+use Illuminate\Support\Str;
 
 class ApplicationRepository implements ApplicationRepositoryInterface
 {
@@ -14,6 +15,7 @@ class ApplicationRepository implements ApplicationRepositoryInterface
     {
         $application = new Application();
 
+        $application->uuid = Str::uuid()->toString();
         $application->position_id = $input->position->id;
         $application->candidate_id = null;
         $application->source = $input->source;

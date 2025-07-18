@@ -23,6 +23,7 @@ class ApplicationFactory extends Factory
         $gender = fake()->randomElement(['male', 'female']);
 
         return [
+            'uuid' => fake()->uuid,
             'position_id' => $this->isMaking ? null : Position::factory()->ofState(PositionStateEnum::OPENED),
             'candidate_id' => null,
             'source' => SourceEnum::POSITION,
