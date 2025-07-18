@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Application\Models;
 
+use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Application\Database\Factories\ApplicationFactory;
 use Domain\Application\Models\Builders\ApplicationBuilder;
@@ -11,6 +12,7 @@ use Domain\Candidate\Enums\SourceEnum;
 use Domain\Candidate\Models\Candidate;
 use Domain\Notification\Traits\Notifiable;
 use Domain\Position\Models\Position;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +23,7 @@ use Support\File\Models\Traits\HasFiles;
 /**
  * @property-read int $id
  * @property string $uuid
+ * @property LanguageEnum $language
  * @property int $position_id
  * @property int|null $candidate_id
  * @property SourceEnum $source
@@ -40,7 +43,7 @@ use Support\File\Models\Traits\HasFiles;
  * @method static ApplicationFactory factory($count = null, $state = [])
  * @method static ApplicationBuilder query()
  */
-class Application extends Model
+class Application extends Model implements HasLocalePreference
 {
     use HasFactory;
     use HasFiles;
@@ -54,6 +57,7 @@ class Application extends Model
 
     protected $fillable = [
         'uuid',
+        'language',
         'position_id',
         'candidate_id',
         'source',
@@ -67,6 +71,7 @@ class Application extends Model
     ];
 
     protected $casts = [
+        'language' => LanguageEnum::class,
         'source' => SourceEnum::class,
         'processed' => 'boolean',
     ];
@@ -105,5 +110,10 @@ class Application extends Model
     protected static function newFactory(): ApplicationFactory
     {
         return ApplicationFactory::new();
+    }
+
+    public function preferredLocale(): string
+    {
+        return $this->language->value;
     }
 }

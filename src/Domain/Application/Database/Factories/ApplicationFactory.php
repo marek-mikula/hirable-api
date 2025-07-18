@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Application\Database\Factories;
 
+use App\Enums\LanguageEnum;
 use Database\Factories\Factory;
 use Domain\Application\Models\Application;
 use Domain\Candidate\Enums\SourceEnum;
@@ -24,6 +25,7 @@ class ApplicationFactory extends Factory
 
         return [
             'uuid' => fake()->uuid,
+            'language' => LanguageEnum::EN,
             'position_id' => $this->isMaking ? null : Position::factory()->ofState(PositionStateEnum::OPENED),
             'candidate_id' => null,
             'source' => SourceEnum::POSITION,

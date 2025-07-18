@@ -29,7 +29,7 @@ it('tests store method', function (): void {
     $company = Company::factory()->create();
 
     $input = new UserStoreInput(
-        language: LanguageEnum::CS,
+        language: fake()->randomElement(LanguageEnum::cases()),
         firstname: fake()->firstName,
         lastname: fake()->lastName,
         email: fake()->email,

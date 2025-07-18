@@ -12,7 +12,7 @@ use Domain\Company\Models\Company;
 readonly class UserStoreInput
 {
     public function __construct(
-        public ?LanguageEnum $language,
+        public LanguageEnum $language,
         public string $firstname,
         public string $lastname,
         public string $email,

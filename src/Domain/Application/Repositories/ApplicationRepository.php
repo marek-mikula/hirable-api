@@ -16,6 +16,7 @@ class ApplicationRepository implements ApplicationRepositoryInterface
         $application = new Application();
 
         $application->uuid = Str::uuid()->toString();
+        $application->language = $input->language;
         $application->position_id = $input->position->id;
         $application->candidate_id = null;
         $application->source = $input->source;

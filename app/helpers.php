@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\EnvEnum;
+use App\Enums\LanguageEnum;
 use Domain\Notification\Enums\NotificationTypeEnum;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Support\Format\Services\Formatter;
+
+if (!function_exists('isEnv')) {
+    function appLocale(): LanguageEnum
+    {
+        return LanguageEnum::from(app()->getLocale());
+    }
+}
 
 if (!function_exists('isEnv')) {
     function isEnv(EnvEnum ...$environments): bool

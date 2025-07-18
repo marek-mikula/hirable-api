@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\User\Repositories;
 
-use App\Enums\LanguageEnum;
 use App\Exceptions\RepositoryException;
 use Carbon\Carbon;
 use Domain\Company\Models\Company;
@@ -22,7 +21,7 @@ final class UserRepository implements UserRepositoryInterface
         $user->company_id = $input->company->id;
         $user->company_role = $input->companyRole;
         $user->company_owner = $input->companyOwner;
-        $user->language = $input->language ?? LanguageEnum::EN;
+        $user->language = $input->language;
         $user->firstname = $input->firstname;
         $user->lastname = $input->lastname;
         $user->prefix = $input->prefix;

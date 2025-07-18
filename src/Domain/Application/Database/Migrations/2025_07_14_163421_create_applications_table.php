@@ -12,6 +12,7 @@ return new class () extends Migration {
         Schema::create('applications', static function (Blueprint $table): void {
             $table->id();
             $table->uuid();
+            $table->string('language', 2);
             $table->foreignId('position_id');
             $table->foreignId('candidate_id')->nullable();
             $table->string('source', 20);

@@ -26,6 +26,7 @@ class ApplicationApplyUseCase extends UseCase
     {
         $input = new ApplicationStoreInput(
             position: $tokenPackage->tokenData->position,
+            language: appLocale(),
             source: $tokenPackage->tokenInfo->source,
             firstname: $data->firstname,
             lastname: $data->lastname,

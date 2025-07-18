@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\Register\UseCases;
 
-use App\Enums\LanguageEnum;
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
@@ -57,7 +56,7 @@ class RegisterUseCase extends UseCase
             ));
 
             $user = $this->userRepository->store(new UserStoreInput(
-                language: LanguageEnum::tryFrom(app()->getLocale()),
+                language: appLocale(),
                 firstname: $data->firstname,
                 lastname: $data->lastname,
                 email: $email,
