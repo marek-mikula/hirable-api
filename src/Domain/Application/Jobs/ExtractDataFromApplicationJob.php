@@ -16,6 +16,6 @@ class ExtractDataFromApplicationJob extends CommonJob
 
     public function handle(): void
     {
-
+        // todo
     }
 }
