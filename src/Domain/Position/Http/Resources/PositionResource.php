@@ -45,13 +45,13 @@ class PositionResource extends JsonResource
 
         return [
             'id' => $this->resource->id,
-            'user' => new UserResource($this->resource->user),
             'companyId' => $this->resource->company_id,
+            'name' => $this->resource->name,
+            'externName' => $this->resource->extern_name,
             'state' => $this->resource->state->value,
             'approveUntil' => $this->resource->approve_until?->toIso8601String(),
             'approveMessage' => $this->resource->approve_message,
             'approveRound' => $this->resource->approve_round,
-            'name' => $this->resource->name,
             'department' => $this->resource->department,
             'field' => $this->resource->field
                 ? new ClassifierResource($toClassifier->handle($this->resource->field, ClassifierTypeEnum::FIELD))
@@ -100,6 +100,7 @@ class PositionResource extends JsonResource
             'approvers' => new UserCollection($this->resource->approvers),
             'externalApprovers' => new CompanyContactCollection($this->resource->externalApprovers),
             'approvals' => new PositionApprovalCollection($this->resource->approvals),
+            'user' => new UserResource($this->resource->user),
         ];
     }
 }

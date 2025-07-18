@@ -40,16 +40,11 @@ class PositionPolicy
             return true;
         }
 
-        $rolesOnPosition = [
-            PositionRoleEnum::HIRING_MANAGER,
-            PositionRoleEnum::RECRUITER,
-        ];
-
         // user is hiring manager or recruiter on position
         // and position has been opened
         if (
             in_array($position->state, PositionStateEnum::getAfterOpenedStates()) &&
-            $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, ...$rolesOnPosition)
+            $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::HIRING_MANAGER, PositionRoleEnum::RECRUITER, )
         ) {
             return true;
         }
@@ -86,7 +81,7 @@ class PositionPolicy
             return false;
         }
 
-        // when opened, used needs to be the owner
+        // when opened, user needs to be the owner
         // or recruiter on position
         if ($position->state === PositionStateEnum::OPENED) {
             return $user->id === $position->user_id || $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::RECRUITER);

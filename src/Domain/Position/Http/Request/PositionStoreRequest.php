@@ -41,6 +41,11 @@ class PositionStoreRequest extends AuthRequest
                 'string',
                 'max:255'
             ],
+            'externName' => [
+                'required',
+                'string',
+                'max:255'
+            ],
             'department' => [
                 'nullable',
                 'string',
@@ -299,6 +304,7 @@ class PositionStoreRequest extends AuthRequest
         return [
             'operation' => __('model.common.operation'),
             'name' => __('model.position.name'),
+            'externName' => __('model.position.externName'),
             'department' => __('model.position.department'),
             'field' => __('model.position.field'),
             'jobSeatsNum' => __('model.position.jobSeatsNum'),
@@ -369,6 +375,7 @@ class PositionStoreRequest extends AuthRequest
         return PositionData::from([
             'operation' => PositionOperationEnum::from((string) $this->input('operation')),
             'name' => (string) $this->input('name'),
+            'externName' => (string) $this->input('externName'),
             'department' => $this->filled('department') ? (string) $this->input('department') : null,
             'field' => $this->filled('field') ? (string) $this->input('field') : null,
             'jobSeatsNum' => (int) $this->input('jobSeatsNum'),

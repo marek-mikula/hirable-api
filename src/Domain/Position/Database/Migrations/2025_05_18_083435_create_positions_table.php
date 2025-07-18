@@ -13,11 +13,12 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('company_id');
             $table->foreignId('user_id');
+            $table->string('name');
+            $table->string('extern_name');
             $table->string('state', 20);
             $table->date('approve_until')->nullable();
             $table->string('approve_message', 500)->nullable();
             $table->unsignedTinyInteger('approve_round')->nullable();
-            $table->string('name');
             $table->string('department')->nullable();
             $table->string('field')->nullable();
             $table->json('workloads');

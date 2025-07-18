@@ -28,11 +28,12 @@ use Support\File\Models\Traits\HasFiles;
  * @property-read int $id
  * @property int $company_id
  * @property int $user_id
+ * @property string $name
+ * @property string $extern_name
  * @property PositionStateEnum $state
  * @property Carbon|null $approve_until
  * @property string|null $approve_message
  * @property int|null $approve_round
- * @property string $name
  * @property string|null $department
  * @property string|null $field classifier value
  * @property string[] $workloads classifier values
@@ -101,11 +102,12 @@ class Position extends Model
     protected $fillable = [
         'company_id',
         'user_id',
+        'name',
+        'extern_name',
         'state',
         'approve_until',
         'approve_message',
         'approve_round',
-        'name',
         'department',
         'field',
         'workloads',

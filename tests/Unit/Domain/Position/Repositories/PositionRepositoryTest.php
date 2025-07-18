@@ -43,9 +43,10 @@ it('tests store method', function (): void {
     $input = new PositionStoreInput(
         company: $company,
         user: $user,
+        name: fake()->jobTitle,
+        externName: fake()->jobTitle,
         approveUntil: null,
         approveMessage: fake()->text(500),
-        name: fake()->jobTitle,
         department: fake()->word,
         field: fake()->word,
         jobSeatsNum: fake()->numberBetween(0, 10),
@@ -84,9 +85,10 @@ it('tests store method', function (): void {
 
     assertSame($input->company->id, $position->company_id);
     assertSame($input->user->id, $position->user_id);
+    assertSame($input->name, $position->name);
+    assertSame($input->externName, $position->extern_name);
     assertSame($input->approveUntil, $position->approve_until);
     assertSame($input->approveMessage, $position->approve_message);
-    assertSame($input->name, $position->name);
     assertSame($input->department, $position->department);
     assertSame($input->field, $position->field);
     assertSame($input->jobSeatsNum, $position->job_seats_num);
@@ -133,9 +135,10 @@ it('tests update method', function (): void {
     $position = Position::factory()->ofCompany($company)->create();
 
     $input = new PositionUpdateInput(
+        name: fake()->jobTitle,
+        externName: fake()->jobTitle,
         approveUntil: null,
         approveMessage: fake()->text(500),
-        name: fake()->jobTitle,
         department: fake()->word,
         field: fake()->word,
         jobSeatsNum: fake()->numberBetween(0, 10),
@@ -172,9 +175,10 @@ it('tests update method', function (): void {
 
     $position = $repository->update($position, $input);
 
+    assertSame($input->name, $position->name);
+    assertSame($input->externName, $position->extern_name);
     assertSame($input->approveUntil, $position->approve_until);
     assertSame($input->approveMessage, $position->approve_message);
-    assertSame($input->name, $position->name);
     assertSame($input->department, $position->department);
     assertSame($input->field, $position->field);
     assertSame($input->jobSeatsNum, $position->job_seats_num);

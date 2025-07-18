@@ -49,9 +49,10 @@ class PositionStoreUseCase extends UseCase
         $input = new PositionStoreInput(
             company: $company,
             user: $user,
+            name: $data->name,
+            externName: $data->externName,
             approveUntil: $data->approveUntil,
             approveMessage: $data->approveMessage,
-            name: $data->name,
             department: $data->department,
             field: $data->field,
             jobSeatsNum: $data->jobSeatsNum,

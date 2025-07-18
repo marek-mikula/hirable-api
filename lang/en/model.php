@@ -59,6 +59,7 @@ return [
 
     'position' => [
         'name' => 'Position name',
+        'externName' => 'Extern position name',
         'approveUntil' => 'Approve until',
         'approveMessage' => 'Message for approvers',
         'department' => 'Department',

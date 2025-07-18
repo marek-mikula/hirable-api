@@ -16,9 +16,10 @@ readonly class PositionUpdateInput
      * @param array[] $languageRequirements
      */
     public function __construct(
+        public string $name,
+        public string $externName,
         public ?Carbon $approveUntil,
         public ?string $approveMessage,
-        public string $name,
         public ?string $department,
         public ?string $field,
         public int $jobSeatsNum,

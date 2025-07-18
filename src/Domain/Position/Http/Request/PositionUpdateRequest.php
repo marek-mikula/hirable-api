@@ -56,6 +56,7 @@ class PositionUpdateRequest extends AuthRequest
                 'string',
                 Rule::in([
                     'name',
+                    'externName',
                     'department',
                     'field',
                     'jobSeatsNum',
@@ -103,6 +104,12 @@ class PositionUpdateRequest extends AuthRequest
             ],
             'name' => [
                 Rule::excludeIf(!in_array('name', $keys)),
+                'required',
+                'string',
+                'max:255'
+            ],
+            'externName' => [
+                Rule::excludeIf(!in_array('externName', $keys)),
                 'required',
                 'string',
                 'max:255'
@@ -423,6 +430,7 @@ class PositionUpdateRequest extends AuthRequest
         return [
             'operation' => __('model.common.operation'),
             'name' => __('model.position.name'),
+            'externName' => __('model.position.externName'),
             'department' => __('model.position.department'),
             'field' => __('model.position.field'),
             'jobSeatsNum' => __('model.position.jobSeatsNum'),
@@ -496,6 +504,7 @@ class PositionUpdateRequest extends AuthRequest
             'operation' => PositionOperationEnum::from((string) $this->input('operation')),
             'keys' => $keys,
             'name' => in_array('name', $keys) ? (string) $this->input('name') : null,
+            'externName' => in_array('externName', $keys) ? (string) $this->input('externName') : null,
             'department' => in_array('department', $keys) ? ($this->filled('department') ? (string) $this->input('department') : null) : null,
             'field' => in_array('field', $keys) ? ($this->filled('field') ? (string) $this->input('field') : null) : null,
             'jobSeatsNum' => in_array('jobSeatsNum', $keys) ? ((int) $this->input('jobSeatsNum')) : null,

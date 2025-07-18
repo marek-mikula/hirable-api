@@ -16,6 +16,8 @@ class PositionData extends Data
 
     public string $name;
 
+    public string $externName;
+
     public ?string $department;
 
     public ?string $field;

@@ -55,9 +55,10 @@ class PositionUpdateUseCase extends UseCase
         };
 
         $input = new PositionUpdateInput(
-            approveUntil:  $data->hasKey('approveUntil') ? $data->approveUntil : $position->approve_until,
-            approveMessage:  $data->hasKey('approveMessage') ? $data->approveMessage : $position->approve_message,
             name: $data->hasKey('name') ? $data->name : $position->name,
+            externName: $data->hasKey('externName') ? $data->externName : $position->extern_name,
+            approveUntil: $data->hasKey('approveUntil') ? $data->approveUntil : $position->approve_until,
+            approveMessage: $data->hasKey('approveMessage') ? $data->approveMessage : $position->approve_message,
             department: $data->hasKey('department') ? $data->department : $position->department,
             field: $data->hasKey('field') ? $data->field : $position->field,
             jobSeatsNum: $data->hasKey('jobSeatsNum') ? $data->jobSeatsNum : $position->job_seats_num,

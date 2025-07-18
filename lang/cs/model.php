@@ -59,6 +59,7 @@ return [
 
     'position' => [
         'name' => 'Název pozice',
+        'externName' => 'Externí název pozice',
         'approveUntil' => 'Schválit do',
         'approveMessage' => 'Zpráva pro schvalovatele',
         'department' => 'Oddělení',
