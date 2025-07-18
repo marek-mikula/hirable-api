@@ -169,7 +169,7 @@ return [
         'mail' => [
             'subject' => '✅ Přihláška přijata!',
             'body' => [
-                'line1' => 'Vaše přihláška na pozici :position byla úspěšně přijata. Děkujeme za zájem a přejem hodně štěstí ve výběrovém řízení.',
+                'line1' => 'Vaše přihláška na pozici :position byla úspěšně přijata. Brzy Vás budeme kontaktovat. Děkujeme za Váš zájem a přejem hodně štěstí ve výběrovém řízení.',
             ],
         ],
     ],

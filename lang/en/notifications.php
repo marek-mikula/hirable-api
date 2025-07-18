@@ -169,7 +169,7 @@ return [
         'mail' => [
             'subject' => '✅ Application accepted!',
             'body' => [
-                'line1' => 'Your application for the position :position has been successfully accepted. Thank you for your interest and good luck in the selection process.',
+                'line1' => 'Your application for the position :position has been successfully accepted. We will contact you soon. Thank you for your interest and good luck in the selection process.',
             ],
         ],
     ],

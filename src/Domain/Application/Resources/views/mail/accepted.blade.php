@@ -11,7 +11,7 @@ $type = \Domain\Notification\Enums\NotificationTypeEnum::APPLICATION_ACCEPTED;
 <x-mail::message>
 {{ __('notifications.common.salutation') }},
 
-{{ __n($type, 'mail', 'body.line1', ['position' => $notifiable->position->name]) }}
+{{ __n($type, 'mail', 'body.line1', ['position' => $notifiable->position->extern_name]) }}
 
 {{ __('notifications.common.regards') }},
 <br>

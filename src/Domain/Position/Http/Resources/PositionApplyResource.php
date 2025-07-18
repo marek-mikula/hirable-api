@@ -39,7 +39,7 @@ class PositionApplyResource extends JsonResource
         return [
             'companyName' => $this->resource->company->name,
             'companyWebsite' => $this->resource->company->website,
-            'name' => $this->resource->name,
+            'name' => $this->resource->extern_name,
             'workloads' => new ClassifierCollection($toClassifier->handle($this->resource->workloads, ClassifierTypeEnum::WORKLOAD)),
             'employmentRelationships' => new ClassifierCollection($toClassifier->handle($this->resource->employment_relationships, ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP)),
             'employmentForms' => new ClassifierCollection($toClassifier->handle($this->resource->employment_forms, ClassifierTypeEnum::EMPLOYMENT_FORM)),

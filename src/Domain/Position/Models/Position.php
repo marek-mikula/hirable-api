@@ -168,17 +168,17 @@ class Position extends Model
 
     protected function commonLink(): Attribute
     {
-        return Attribute::get(fn (): string => empty($this->common_token) ? null : ApplicationTokenUrlService::resolve()->getApplyUrl(SourceEnum::POSITION, $this->common_token));
+        return Attribute::get(fn (): ?string => empty($this->common_token) ? null : ApplicationTokenUrlService::resolve()->getApplyUrl(SourceEnum::POSITION, $this->common_token));
     }
 
     protected function internLink(): Attribute
     {
-        return Attribute::get(fn (): string => empty($this->intern_token) ? null : ApplicationTokenUrlService::resolve()->getApplyUrl(SourceEnum::INTERN, $this->intern_token));
+        return Attribute::get(fn (): ?string => empty($this->intern_token) ? null : ApplicationTokenUrlService::resolve()->getApplyUrl(SourceEnum::INTERN, $this->intern_token));
     }
 
     protected function referralLink(): Attribute
     {
-        return Attribute::get(fn (): string => empty($this->referral_token) ? null : ApplicationTokenUrlService::resolve()->getReferralUrl($this->referral_token));
+        return Attribute::get(fn (): ?string => empty($this->referral_token) ? null : ApplicationTokenUrlService::resolve()->getReferralUrl($this->referral_token));
     }
 
     public function company(): BelongsTo
