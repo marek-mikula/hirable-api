@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Application\Providers;
 
 use Domain\Application\Events\ApplicationCreatedEvent;
+use Domain\Application\Events\ApplicationProcessedEvent;
 use Domain\Application\Listeners\SendApplicationAcceptedNotificationListener;
 use Domain\Application\Models\Application;
 use Domain\Application\Observers\ApplicationObserver;
@@ -16,6 +17,7 @@ class EventServiceProvider extends ServiceProvider
         ApplicationCreatedEvent::class => [
             SendApplicationAcceptedNotificationListener::class
         ],
+        ApplicationProcessedEvent::class => [],
     ];
 
     protected $observers = [
