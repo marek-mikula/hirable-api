@@ -51,7 +51,6 @@ it('tests store method', function (): void {
         field: fake()->word,
         jobSeatsNum: fake()->numberBetween(0, 10),
         description: fake()->text(2000),
-        isTechnical: fake()->boolean,
         address: fake()->words(asText: true),
         salaryFrom: fake()->numberBetween(1, 50000),
         salaryTo: fake()->numberBetween(50000, 100000),
@@ -60,7 +59,7 @@ it('tests store method', function (): void {
         salaryCurrency: fake()->word,
         salaryVar: fake()->word,
         minEducationLevel: fake()->word,
-        seniority: fake()->word,
+        seniority: fake()->words(fake()->numberBetween(0, 5)),
         experience: fake()->numberBetween(1, 5),
         hardSkills: fake()->text(2000),
         organisationSkills: fake()->numberBetween(0, 10),
@@ -93,7 +92,6 @@ it('tests store method', function (): void {
     assertSame($input->field, $position->field);
     assertSame($input->jobSeatsNum, $position->job_seats_num);
     assertSame($input->description, $position->description);
-    assertSame($input->isTechnical, $position->is_technical);
     assertSame($input->address, $position->address);
     assertSame($input->salaryFrom, $position->salary_from);
     assertSame($input->salaryTo, $position->salary_to);
@@ -143,7 +141,6 @@ it('tests update method', function (): void {
         field: fake()->word,
         jobSeatsNum: fake()->numberBetween(0, 10),
         description: fake()->text(2000),
-        isTechnical: fake()->boolean,
         address: fake()->words(asText: true),
         salaryFrom: fake()->numberBetween(1, 50000),
         salaryTo: fake()->numberBetween(50000, 100000),
@@ -152,7 +149,7 @@ it('tests update method', function (): void {
         salaryCurrency: fake()->word,
         salaryVar: fake()->word,
         minEducationLevel: fake()->word,
-        seniority: fake()->word,
+        seniority: fake()->words(fake()->numberBetween(0, 5)),
         experience: fake()->numberBetween(1, 5),
         hardSkills: fake()->text(2000),
         organisationSkills: fake()->numberBetween(0, 10),
@@ -183,7 +180,6 @@ it('tests update method', function (): void {
     assertSame($input->field, $position->field);
     assertSame($input->jobSeatsNum, $position->job_seats_num);
     assertSame($input->description, $position->description);
-    assertSame($input->isTechnical, $position->is_technical);
     assertSame($input->address, $position->address);
     assertSame($input->salaryFrom, $position->salary_from);
     assertSame($input->salaryTo, $position->salary_to);

@@ -27,7 +27,6 @@ class PositionFactory extends Factory
     public function definition(): array
     {
         $salarySpan = fake()->boolean;
-        $isTechnical = fake()->boolean;
 
         $currencies = [
             'CZK',
@@ -74,7 +73,6 @@ class PositionFactory extends Factory
             ],
             'job_seats_num' => fake()->numberBetween(1, 100),
             'description' => fake()->text(2000),
-            'is_technical' => $isTechnical,
             'address' => fake()->address,
             'salary_from' => $salary,
             'salary_to' => $salarySpan ? ($salary + fake()->numberBetween(10000, 50000)) : null,
@@ -84,7 +82,7 @@ class PositionFactory extends Factory
             'salary_var' => fake()->words(asText: true),
             'benefits' => [],
             'min_education_level' => str(fake()->word)->transliterate()->lower()->toString(),
-            'seniority' => $isTechnical ? str(fake()->word)->transliterate()->lower()->toString() : null,
+            'seniority' => fake()->boolean ? [str(fake()->word)->transliterate()->lower()->toString()] : [],
             'experience' => fake()->numberBetween(0, 10),
             'hard_skills' => null,
             'organisation_skills' => fake()->numberBetween(0, 10),

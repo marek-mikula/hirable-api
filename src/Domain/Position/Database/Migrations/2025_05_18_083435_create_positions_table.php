@@ -26,7 +26,6 @@ return new class () extends Migration {
             $table->json('employment_forms');
             $table->unsignedSmallInteger('job_seats_num');
             $table->string('description', 2000);
-            $table->boolean('is_technical');
             $table->string('address')->nullable();
             $table->unsignedInteger('salary_from');
             $table->unsignedInteger('salary_to')->nullable();
@@ -36,7 +35,7 @@ return new class () extends Migration {
             $table->string('salary_var')->nullable();
             $table->json('benefits');
             $table->string('min_education_level')->nullable();
-            $table->string('seniority')->nullable();
+            $table->json('seniority');
             $table->unsignedTinyInteger('experience')->nullable();
             $table->string('hard_skills', 2000)->nullable();
             $table->unsignedTinyInteger('organisation_skills');

@@ -69,7 +69,6 @@ return [
         'employmentForm' => 'Form of cooperation',
         'jobSeatsNum' => 'Number of job seats',
         'description' => 'Description',
-        'isTechnical' => 'Technical position',
         'address' => 'Workplace address',
         'salarySpan' => 'Salary range from - to',
         'salaryFrom' => 'Salary from',

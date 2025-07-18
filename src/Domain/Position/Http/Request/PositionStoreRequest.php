@@ -66,9 +66,6 @@ class PositionStoreRequest extends AuthRequest
                 'string',
                 'max:2000',
             ],
-            'isTechnical' => [
-                'boolean',
-            ],
             'address' => [
                 'nullable',
                 'string',
@@ -114,7 +111,10 @@ class PositionStoreRequest extends AuthRequest
                 'string',
             ],
             'seniority' => [
-                'nullable',
+                'array',
+            ],
+            'seniority.*' => [
+                'required',
                 'string',
             ],
             'experience' => [
@@ -309,7 +309,6 @@ class PositionStoreRequest extends AuthRequest
             'field' => __('model.position.field'),
             'jobSeatsNum' => __('model.position.jobSeatsNum'),
             'description' => __('model.position.description'),
-            'isTechnical' => __('model.position.isTechnical'),
             'address' => __('model.position.address'),
             'salaryFrom' => __('model.position.salaryFrom'),
             'salaryTo' => __('model.position.salaryTo'),
@@ -320,6 +319,7 @@ class PositionStoreRequest extends AuthRequest
             'salaryVar' => __('model.position.salaryVar'),
             'minEducationLevel' => __('model.position.minEducationLevel'),
             'seniority' => __('model.position.seniority'),
+            'seniority.*' => __('model.position.seniority'),
             'experience' => __('model.position.experience'),
             'hardSkills' => __('model.position.hardSkills'),
             'organisationSkills' => __('model.position.organisationSkills'),
@@ -380,7 +380,6 @@ class PositionStoreRequest extends AuthRequest
             'field' => $this->filled('field') ? (string) $this->input('field') : null,
             'jobSeatsNum' => (int) $this->input('jobSeatsNum'),
             'description' => (string) $this->input('description'),
-            'isTechnical' => $this->boolean('isTechnical'),
             'address' => $this->filled('address') ? (string) $this->input('address') : null,
             'salaryFrom' => $this->filled('salaryFrom') ? (int) $this->input('salaryFrom') : null,
             'salaryTo' => $this->filled('salaryTo') ? (int) $this->input('salaryTo') : null,
@@ -390,7 +389,7 @@ class PositionStoreRequest extends AuthRequest
             'salaryCurrency' => (string) $this->input('salaryCurrency'),
             'salaryVar' => $this->filled('salaryVar') ? (string) $this->input('salaryVar') : null,
             'minEducationLevel' => $this->filled('minEducationLevel') ? (string) $this->input('minEducationLevel') : null,
-            'seniority' => $this->filled('seniority') ? (string) $this->input('seniority') : null,
+            'seniority' => $this->collect('seniority')->map(fn (mixed $val) => (string) $val)->all(),
             'experience' => $this->filled('experience') ? (int) $this->input('experience') : null,
             'hardSkills' => $this->filled('hardSkills') ? (string) $this->input('hardSkills') : null,
             'organisationSkills' => (int) $this->input('organisationSkills'),

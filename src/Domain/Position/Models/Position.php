@@ -41,7 +41,6 @@ use Support\File\Models\Traits\HasFiles;
  * @property string[] $employment_forms classifier values
  * @property int $job_seats_num
  * @property string $description
- * @property boolean $is_technical
  * @property string|null $address
  * @property int $salary_from
  * @property int|null $salary_to
@@ -51,7 +50,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property string|null $salary_var
  * @property string[] $benefits classifier values
  * @property string|null $min_education_level classifier value
- * @property string|null $seniority classifier value
+ * @property string[] $seniority classifier values
  * @property int|null $experience
  * @property string|null $hard_skills
  * @property int $organisation_skills scale 0 - 10
@@ -115,7 +114,6 @@ class Position extends Model
         'employment_forms',
         'job_seats_num',
         'description',
-        'is_technical',
         'address',
         'salary_from',
         'salary_to',
@@ -150,6 +148,7 @@ class Position extends Model
         'employment_relationships' => '[]',
         'employment_forms' => '[]',
         'benefits' => '[]',
+        'seniority' => '[]',
         'language_requirements' => '[]',
     ];
 
@@ -159,8 +158,8 @@ class Position extends Model
         'workloads' => 'array',
         'employment_relationships' => 'array',
         'employment_forms' => 'array',
-        'is_technical' => 'boolean',
         'benefits' => 'array',
+        'seniority' => 'array',
         'language_requirements' => 'array',
         'share_salary' => 'boolean',
         'share_contact' => 'boolean',

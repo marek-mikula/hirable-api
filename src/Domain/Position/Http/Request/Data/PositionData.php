@@ -26,8 +26,6 @@ class PositionData extends Data
 
     public string $description;
 
-    public bool $isTechnical;
-
     public ?string $address;
 
     public ?int $salaryFrom;
@@ -46,8 +44,6 @@ class PositionData extends Data
 
     public ?string $minEducationLevel;
 
-    public ?string $seniority;
-
     public ?int $experience;
 
     public ?string $hardSkills;
@@ -63,6 +59,9 @@ class PositionData extends Data
     public int $leadership;
 
     public ?string $note;
+
+    /** @var string[] */
+    public array $seniority;
 
     /** @var string[] */
     public array $workloads;

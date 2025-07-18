@@ -45,7 +45,6 @@ class PositionDuplicateUseCase extends UseCase
             field: $position->field,
             jobSeatsNum: $position->job_seats_num,
             description: $position->description,
-            isTechnical: $position->is_technical,
             address: $position->address,
             salaryFrom: $position->salary_from,
             salaryTo: $position->salary_to,

@@ -61,16 +61,13 @@ class PositionResource extends JsonResource
             'employmentForms' => new ClassifierCollection($toClassifier->handle($this->resource->employment_forms, ClassifierTypeEnum::EMPLOYMENT_FORM)),
             'jobSeatsNum' => $this->resource->job_seats_num,
             'description' => $this->resource->description,
-            'isTechnical' => $this->resource->is_technical,
             'address' => $this->resource->address,
             'salary' => new PositionSalaryResource($this->resource),
             'benefits' => new ClassifierCollection($toClassifier->handle($this->resource->benefits, ClassifierTypeEnum::BENEFIT)),
             'minEducationLevel' => $this->resource->min_education_level
                 ? new ClassifierResource($toClassifier->handle($this->resource->min_education_level, ClassifierTypeEnum::EDUCATION_LEVEL))
                 : null,
-            'seniority' => $this->resource->seniority
-                ? new ClassifierResource($toClassifier->handle($this->resource->seniority, ClassifierTypeEnum::SENIORITY))
-                : null,
+            'seniority' => new ClassifierCollection($toClassifier->handle($this->resource->seniority, ClassifierTypeEnum::SENIORITY)),
             'experience' => $this->resource->experience,
             'hardSkills' => $this->resource->hard_skills,
             'organisationSkills' => $this->resource->organisation_skills,

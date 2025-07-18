@@ -12,6 +12,7 @@ readonly class PositionUpdateInput
      * @param string[] $workloads
      * @param string[] $employmentRelationships
      * @param string[] $employmentForms
+     * @param string[] $seniority
      * @param string[] $benefits
      * @param array[] $languageRequirements
      */
@@ -24,7 +25,6 @@ readonly class PositionUpdateInput
         public ?string $field,
         public int $jobSeatsNum,
         public string $description,
-        public bool $isTechnical,
         public ?string $address,
         public int $salaryFrom,
         public ?int $salaryTo,
@@ -33,7 +33,7 @@ readonly class PositionUpdateInput
         public string $salaryCurrency,
         public ?string $salaryVar,
         public ?string $minEducationLevel,
-        public ?string $seniority,
+        public array $seniority,
         public ?int $experience,
         public ?string $hardSkills,
         public int $organisationSkills,

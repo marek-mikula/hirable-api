@@ -63,7 +63,6 @@ class PositionUpdateUseCase extends UseCase
             field: $data->hasKey('field') ? $data->field : $position->field,
             jobSeatsNum: $data->hasKey('jobSeatsNum') ? $data->jobSeatsNum : $position->job_seats_num,
             description: $data->hasKey('description') ? $data->description : $position->description,
-            isTechnical: $data->hasKey('isTechnical') ? $data->isTechnical : $position->is_technical,
             address: $data->hasKey('address') ? $data->address : $position->address,
             salaryFrom: $data->hasKey('salary') ? (int) ($data->salary ?? $data->salaryFrom) : $position->salary_from,
             salaryTo: $data->hasKey('salary') ? ($data->salary ? null : $data->salaryTo) : $position->salary_to,

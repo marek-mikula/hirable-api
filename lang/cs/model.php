@@ -69,7 +69,6 @@ return [
         'employmentForm' => 'Forma spolupráce',
         'jobSeatsNum' => 'Počet pracovních míst',
         'description' => 'Popis',
-        'isTechnical' => 'Technická pozice',
         'address' => 'Adresa pracoviště',
         'salarySpan' => 'Rozpětí mzdy od - do',
         'salaryFrom' => 'Mzda od',

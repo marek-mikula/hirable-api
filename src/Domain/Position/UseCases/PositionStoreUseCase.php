@@ -57,7 +57,6 @@ class PositionStoreUseCase extends UseCase
             field: $data->field,
             jobSeatsNum: $data->jobSeatsNum,
             description: $data->description,
-            isTechnical: $data->isTechnical,
             address: $data->address,
             salaryFrom: (int) ($data->salary ?? $data->salaryFrom),
             salaryTo: $data->salary ? null : $data->salaryTo,

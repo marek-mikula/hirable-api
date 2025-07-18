@@ -29,8 +29,6 @@ class PositionUpdateData extends Data
 
     public ?string $description;
 
-    public ?bool $isTechnical;
-
     public ?string $address;
 
     public ?int $salaryFrom;
@@ -48,8 +46,6 @@ class PositionUpdateData extends Data
     public ?string $salaryVar;
 
     public ?string $minEducationLevel;
-
-    public ?string $seniority;
 
     public ?int $experience;
 
@@ -75,6 +71,9 @@ class PositionUpdateData extends Data
 
     /** @var string[] */
     public array $employmentForms;
+
+    /** @var string[] */
+    public array $seniority;
 
     /** @var string[] */
     public array $benefits;
