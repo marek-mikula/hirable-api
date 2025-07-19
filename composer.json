@@ -17,6 +17,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/telescope": "^5.0",
         "lorisleiva/laravel-actions": "^2.7",
+        "openai-php/laravel": "^0.14.0",
         "spatie/laravel-data": "^4.0"
     },
     "require-dev": {
@@ -39,7 +40,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Domain\\": "src/Domain/",
-            "Support\\": "src/Support/"
+            "Support\\": "src/Support/",
+            "Services\\": "src/Services/"
         },
         "files": [
             "app/helpers.php"

@@ -22,6 +22,8 @@ class CandidateResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'language' => $this->resource->language->value,
+            'gender' => $this->resource->gender->value,
             'firstname' => $this->resource->firstname,
             'lastname' => $this->resource->lastname,
             'fullName' => $this->resource->full_name,
@@ -31,6 +33,11 @@ class CandidateResource extends JsonResource
                 'number' => $this->resource->phone_number,
             ],
             'linkedin' => $this->resource->linkedin,
+            'instagram' => $this->resource->instagram,
+            'github' => $this->resource->github,
+            'portfolio' => $this->resource->portfolio,
+            'birthDate' => $this->resource->birth_date?->toIso8601String(),
+            'experience' => $this->resource->experience,
             'createdAt' => $this->resource->created_at->toIso8601String(),
         ];
     }

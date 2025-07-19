@@ -3,6 +3,14 @@
 declare(strict_types=1);
 
 use App\Exceptions\ExceptionJsonHandler;
+use App\Http\Middleware\AddSecurityHeaders;
+use App\Http\Middleware\ProhibitIfAuthenticated;
+use App\Http\Middleware\SetLocale;
+use App\Http\Middleware\SetupActivityLogCauser;
+use App\Providers\AppServiceProvider;
+use App\Providers\DomainServiceProvider;
+use App\Providers\ServicesServiceProvider;
+use App\Providers\SupportServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,9 +19,10 @@ use Illuminate\Http\Request;
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders(
         providers: [
-            App\Providers\AppServiceProvider::class,
-            App\Providers\SupportServiceProvider::class,
-            App\Providers\DomainServiceProvider::class,
+            AppServiceProvider::class,
+            SupportServiceProvider::class,
+            DomainServiceProvider::class,
+            ServicesServiceProvider::class,
         ],
 
         // do not autoload providers from /bootstrap/providers.php path
@@ -33,13 +42,13 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // alias middlewares
         $middleware->alias([
-            'guest' => App\Http\Middleware\ProhibitIfAuthenticated::class,
+            'guest' => ProhibitIfAuthenticated::class,
         ]);
 
         // append middlewares to the global middleware stack
-        $middleware->append(App\Http\Middleware\AddSecurityHeaders::class);
-        $middleware->append(App\Http\Middleware\SetupActivityLogCauser::class);
-        $middleware->append(App\Http\Middleware\SetLocale::class);
+        $middleware->append(AddSecurityHeaders::class);
+        $middleware->append(SetupActivityLogCauser::class);
+        $middleware->append(SetLocale::class);
 
         // configure trim strings middleware to ignore some inputs
         $middleware->trimStrings([
