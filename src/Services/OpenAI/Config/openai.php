@@ -72,7 +72,7 @@ return [
     'prompts' => [
         PromptEnum::EXTRACT_CV_DATA->value => [
             'id' => 'pmpt_687bc65410a481909fbf6bcd4c18bdac09a3e37f2101523e',
-            'version' => '5',
+            'version' => '6',
         ]
     ],
 ];

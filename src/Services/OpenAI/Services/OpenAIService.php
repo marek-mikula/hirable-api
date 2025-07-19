@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use Domain\AI\Contracts\AIServiceInterface;
 use Domain\AI\Data\CVData;
+use Domain\AI\Data\CVDataExperience;
 use Domain\Candidate\Enums\GenderEnum;
 use Illuminate\Support\Arr;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -48,6 +49,7 @@ class OpenAIService implements AIServiceInterface
         $instagram = Arr::get($json, 'instagram');
         $github = Arr::get($json, 'github');
         $portfolio = Arr::get($json, 'portfolio');
+        $experience = Arr::get($json, 'experience', []);
 
         if (!empty($birthDate)) {
             try {
@@ -64,12 +66,45 @@ class OpenAIService implements AIServiceInterface
             };
         }
 
+        if (!empty($experience) && is_array($experience)) {
+            $experience = array_map(function (array $item): CVDataExperience {
+                $from = Arr::get($item, 'from');
+                $to = Arr::get($item, 'to');
+                $type = Arr::get($item, 'type');
+
+                if (!empty($from)) {
+                    try {
+                        $from = Carbon::createFromFormat('Y-m-d', $from);
+                    } catch (InvalidFormatException) {
+                        $from = null;
+                    }
+                }
+
+                if (!empty($to)) {
+                    try {
+                        $to = Carbon::createFromFormat('Y-m-d', $to);
+                    } catch (InvalidFormatException) {
+                        $to = null;
+                    }
+                }
+
+                return CVDataExperience::from([
+                    'position' => (string) Arr::get($item, 'position'),
+                    'organisation' => (string) Arr::get($item, 'organisation'),
+                    'from' => $from,
+                    'to' => $to,
+                    'type' => empty($type) ? null : (string) $type,
+                ]);
+            }, $experience);
+        }
+
         return CVData::from([
             'gender' => empty($gender) ? null : $gender,
             'birthDate' => empty($birthDate) ? null : $birthDate,
             'instagram' => empty($instagram) ? null : (string) $instagram,
             'github' => empty($github) ? null : (string) $github,
             'portfolio' => empty($portfolio) ? null : (string) $portfolio,
+            'experience' => $experience,
         ]);
     }
 }

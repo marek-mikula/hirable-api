@@ -19,4 +19,7 @@ class CVData extends Data
     public ?string $github;
 
     public ?string $portfolio;
+
+    /** @var CVDataExperience[] */
+    public array $experience;
 }
