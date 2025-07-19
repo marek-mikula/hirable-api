@@ -32,7 +32,7 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $github
  * @property string|null $portfolio
  * @property Carbon|null $birth_date
- * @property array $working_skills
+ * @property array $experience
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
@@ -64,17 +64,17 @@ class Candidate extends Model implements HasLocalePreference
         'github',
         'portfolio',
         'birth_date',
-        'working_skills',
+        'experience',
     ];
 
     protected $attributes = [
-        'working_skills' => '[]',
+        'experience' => '[]',
     ];
 
     protected $casts = [
         'language' => LanguageEnum::class,
         'gender' => GenderEnum::class,
-        'working_skills' => 'array',
+        'experience' => 'array',
     ];
 
     protected function fullName(): Attribute

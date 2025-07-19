@@ -37,7 +37,7 @@ class CandidateResource extends JsonResource
             'github' => $this->resource->github,
             'portfolio' => $this->resource->portfolio,
             'birthDate' => $this->resource->birth_date?->toIso8601String(),
-            'workingSkills' => $this->resource->working_skills,
+            'experience' => $this->resource->experience,
             'createdAt' => $this->resource->created_at->toIso8601String(),
         ];
     }

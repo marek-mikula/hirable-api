@@ -12,17 +12,23 @@ return new class () extends Migration {
         Schema::create('applications', static function (Blueprint $table): void {
             $table->id();
             $table->uuid();
-            $table->string('language', 2);
             $table->foreignId('position_id');
             $table->foreignId('candidate_id')->nullable();
-            $table->string('source', 20);
             $table->boolean('processed')->default(false);
+            $table->string('language', 2);
+            $table->string('gender', 1)->nullable();
+            $table->string('source', 20);
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');
             $table->string('phone_prefix', 10);
             $table->string('phone_number', 20);
             $table->string('linkedin')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('github')->nullable();
+            $table->string('portfolio')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->json('experience');
             $table->timestamps();
 
             $table->foreign('position_id')

@@ -8,12 +8,12 @@ use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Enums\SourceEnum;
-use Domain\Position\Models\Position;
+use Domain\Candidate\Models\Candidate;
 
-readonly class ApplicationStoreInput
+readonly class ApplicationUpdateInput
 {
     public function __construct(
-        public Position $position,
+        public ?Candidate $candidate,
         public LanguageEnum $language,
         public ?GenderEnum $gender,
         public SourceEnum $source,

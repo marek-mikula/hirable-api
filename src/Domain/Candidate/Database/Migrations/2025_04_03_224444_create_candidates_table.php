@@ -24,7 +24,7 @@ return new class () extends Migration {
             $table->string('github')->nullable();
             $table->string('portfolio')->nullable();
             $table->date('birth_date')->nullable();
-            $table->json('working_skills');
+            $table->json('experience');
             $table->timestamps();
 
             $table->unique(['company_id', 'email'], 'candidates_company_email_unique');

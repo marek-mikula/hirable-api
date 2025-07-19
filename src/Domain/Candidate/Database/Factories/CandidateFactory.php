@@ -41,7 +41,7 @@ class CandidateFactory extends Factory
             'github' => null,
             'portfolio' => null,
             'birth_date' => fake()->date,
-            'working_skills' => [],
+            'experience' => [],
         ];
     }
 }
