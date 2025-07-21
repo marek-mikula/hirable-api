@@ -47,6 +47,8 @@ use Support\File\Models\Traits\HasFiles;
  * @property string|null $portfolio
  * @property Carbon|null $birth_date
  * @property array $experience
+ * @property array $score
+ * @property int|null $total_score
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Position $position
@@ -88,6 +90,13 @@ class Application extends Model implements HasLocalePreference
         'portfolio',
         'birth_date',
         'experience',
+        'score',
+        'total_score',
+    ];
+
+    protected $attributes = [
+        'experience' => '[]',
+        'score' => '{}',
     ];
 
     protected $casts = [
@@ -95,7 +104,8 @@ class Application extends Model implements HasLocalePreference
         'gender' => GenderEnum::class,
         'source' => SourceEnum::class,
         'processed' => 'boolean',
-        'experience' => 'array'
+        'experience' => 'array',
+        'score' => 'array',
     ];
 
     protected function fullName(): Attribute

@@ -27,7 +27,6 @@ class ApplicationApplyUseCase extends UseCase
         $input = new ApplicationStoreInput(
             position: $tokenPackage->tokenData->position,
             language: appLocale(),
-            gender: null,
             source: $tokenPackage->tokenInfo->source,
             firstname: $data->firstname,
             lastname: $data->lastname,
@@ -35,11 +34,6 @@ class ApplicationApplyUseCase extends UseCase
             phonePrefix: $data->phonePrefix,
             phoneNumber: $data->phoneNumber,
             linkedin: $data->linkedin,
-            instagram: null,
-            github: null,
-            portfolio: null,
-            birthDate: null,
-            experience: [],
         );
 
         return DB::transaction(function () use ($data, $input): Application {

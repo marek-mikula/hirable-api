@@ -43,6 +43,8 @@ class ApplicationFactory extends Factory
             'portfolio' => null,
             'birth_date' => fake()->date,
             'experience' => [],
+            'score' => [],
+            'total_score' => null,
         ];
     }
 }

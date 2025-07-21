@@ -21,7 +21,6 @@ class ApplicationRepository implements ApplicationRepositoryInterface
         $application->candidate_id = null;
         $application->processed = false;
         $application->language = $input->language;
-        $application->gender = $input->gender;
         $application->source = $input->source;
         $application->firstname = $input->firstname;
         $application->lastname = $input->lastname;
@@ -29,11 +28,6 @@ class ApplicationRepository implements ApplicationRepositoryInterface
         $application->phone_prefix = $input->phonePrefix;
         $application->phone_number = $input->phoneNumber;
         $application->linkedin = $input->linkedin;
-        $application->instagram = $input->instagram;
-        $application->github = $input->github;
-        $application->portfolio = $input->portfolio;
-        $application->birth_date = $input->birthDate;
-        $application->experience = $input->experience;
 
         throw_if(!$application->save(), RepositoryException::stored(Application::class));
 

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Domain\Application\Repositories\Input;
 
 use App\Enums\LanguageEnum;
-use Carbon\Carbon;
-use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Enums\SourceEnum;
 use Domain\Position\Models\Position;
 
@@ -15,7 +13,6 @@ readonly class ApplicationStoreInput
     public function __construct(
         public Position $position,
         public LanguageEnum $language,
-        public ?GenderEnum $gender,
         public SourceEnum $source,
         public string $firstname,
         public string $lastname,
@@ -23,11 +20,6 @@ readonly class ApplicationStoreInput
         public string $phonePrefix,
         public string $phoneNumber,
         public ?string $linkedin,
-        public ?string $instagram,
-        public ?string $github,
-        public ?string $portfolio,
-        public ?Carbon $birthDate,
-        public array $experience,
     ) {
     }
 }
