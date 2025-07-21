@@ -103,6 +103,10 @@ class PositionData extends Data
 
     public int $languageSkillsWeight;
 
+    public int $experienceWeight;
+
+    public int $educationWeight;
+
     public bool $shareSalary;
 
     public bool $shareContact;

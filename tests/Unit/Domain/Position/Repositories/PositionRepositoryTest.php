@@ -76,6 +76,8 @@ it('tests store method', function (): void {
         hardSkillsWeight: fake()->numberBetween(0, 100),
         softSkillsWeight: fake()->numberBetween(0, 100),
         languageSkillsWeight: fake()->numberBetween(0, 100),
+        experienceWeight: fake()->numberBetween(0, 100),
+        educationWeight: fake()->numberBetween(0, 100),
         shareSalary: fake()->boolean,
         shareContact: fake()->boolean,
     );
@@ -117,6 +119,8 @@ it('tests store method', function (): void {
     assertSame($input->hardSkillsWeight, $position->hard_skills_weight);
     assertSame($input->softSkillsWeight, $position->soft_skills_weight);
     assertSame($input->languageSkillsWeight, $position->language_skills_weight);
+    assertSame($input->experienceWeight, $position->experience_weight);
+    assertSame($input->educationWeight, $position->education_weight);
     assertSame($input->shareSalary, $position->share_salary);
     assertSame($input->shareContact, $position->share_contact);
 
@@ -166,6 +170,8 @@ it('tests update method', function (): void {
         hardSkillsWeight: fake()->numberBetween(0, 100),
         softSkillsWeight: fake()->numberBetween(0, 100),
         languageSkillsWeight: fake()->numberBetween(0, 100),
+        experienceWeight: fake()->numberBetween(0, 100),
+        educationWeight: fake()->numberBetween(0, 100),
         shareSalary: fake()->boolean,
         shareContact: fake()->boolean,
     );
@@ -205,6 +211,8 @@ it('tests update method', function (): void {
     assertSame($input->hardSkillsWeight, $position->hard_skills_weight);
     assertSame($input->softSkillsWeight, $position->soft_skills_weight);
     assertSame($input->languageSkillsWeight, $position->language_skills_weight);
+    assertSame($input->experienceWeight, $position->experience_weight);
+    assertSame($input->educationWeight, $position->education_weight);
     assertSame($input->shareSalary, $position->share_salary);
     assertSame($input->shareContact, $position->share_contact);
 });

@@ -71,6 +71,8 @@ class PositionDuplicateUseCase extends UseCase
             hardSkillsWeight: $position->hard_skills_weight,
             softSkillsWeight: $position->soft_skills_weight,
             languageSkillsWeight: $position->language_skills_weight,
+            experienceWeight: $position->experience_weight,
+            educationWeight: $position->education_weight,
             shareSalary: $position->share_salary,
             shareContact: $position->share_contact,
         );

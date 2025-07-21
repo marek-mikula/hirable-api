@@ -54,6 +54,8 @@ readonly class PositionStoreInput
         public int $hardSkillsWeight,
         public int $softSkillsWeight,
         public int $languageSkillsWeight,
+        public int $experienceWeight,
+        public int $educationWeight,
         public bool $shareSalary,
         public bool $shareContact,
     ) {

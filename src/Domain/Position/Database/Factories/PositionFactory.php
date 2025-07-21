@@ -95,6 +95,8 @@ class PositionFactory extends Factory
             'hard_skills_weight' => fake()->numberBetween(0, 100),
             'soft_skills_weight' => fake()->numberBetween(0, 100),
             'language_skills_weight' => fake()->numberBetween(0, 100),
+            'experience_weight' => fake()->numberBetween(0, 100),
+            'education_weight' => fake()->numberBetween(0, 100),
             'share_salary' => fake()->boolean,
             'share_contact' => fake()->boolean,
             'common_token' => null,

@@ -82,6 +82,8 @@ class PositionStoreUseCase extends UseCase
             hardSkillsWeight: $data->hardSkillsWeight,
             softSkillsWeight: $data->softSkillsWeight,
             languageSkillsWeight: $data->languageSkillsWeight,
+            experienceWeight: $data->experienceWeight,
+            educationWeight: $data->educationWeight,
             shareSalary: $data->shareSalary,
             shareContact: $data->shareContact,
         );

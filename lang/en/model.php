@@ -96,6 +96,8 @@ return [
         'hardSkillsWeight' => 'Hard skills weight',
         'softSkillsWeight' => 'Soft skills weight',
         'languageSkillsWeight' => 'Language skills weight',
+        'experienceWeight' => 'Work experience weight',
+        'educationWeight' => 'Education weight',
         'shareSalary' => 'Share salary',
         'shareContact' => 'Share contact',
         'roles' => [

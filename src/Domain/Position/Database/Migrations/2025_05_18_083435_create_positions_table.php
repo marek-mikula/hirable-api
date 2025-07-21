@@ -48,6 +48,8 @@ return new class () extends Migration {
             $table->unsignedTinyInteger('hard_skills_weight');
             $table->unsignedTinyInteger('soft_skills_weight');
             $table->unsignedTinyInteger('language_skills_weight');
+            $table->unsignedTinyInteger('experience_weight');
+            $table->unsignedTinyInteger('education_weight');
             $table->boolean('share_salary');
             $table->boolean('share_contact');
             $table->string('common_token')->nullable();
