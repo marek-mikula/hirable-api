@@ -47,4 +47,11 @@ class ApplicationFactory extends Factory
             'total_score' => null,
         ];
     }
+
+    public function ofProcessed(bool $processed): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'processed' => $processed,
+        ]);
+    }
 }
