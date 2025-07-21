@@ -38,9 +38,10 @@ class PositionDuplicateUseCase extends UseCase
         $input = new PositionStoreInput(
             company: $user->loadMissing('company')->company,
             user: $user,
+            name: sprintf('%s: %s', __('common.copy'), $position->name),
+            externName: $position->extern_name,
             approveUntil: $position->approve_until,
             approveMessage: $position->approve_message,
-            name: sprintf('%s: %s', __('common.copy'), $position->name),
             department: $position->department,
             field: $position->field,
             jobSeatsNum: $position->job_seats_num,

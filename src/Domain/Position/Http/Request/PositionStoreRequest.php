@@ -130,32 +130,32 @@ class PositionStoreRequest extends AuthRequest
             'organisationSkills' => [
                 'required',
                 'integer',
-                'min:0',
+                'min:00',
                 'max:10',
             ],
             'teamSkills' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:10',
+                'max:100',
             ],
             'timeManagement' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:10',
+                'max:100',
             ],
             'communicationSkills' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:10',
+                'max:100',
             ],
             'leadership' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:10',
+                'max:100',
             ],
             'note' => [
                 'nullable',
