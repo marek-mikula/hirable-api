@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Company\Http\Requests;
 
+use App\Enums\LanguageEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Models\Company;
 use App\Rules\Rule;
@@ -33,11 +34,18 @@ class CompanyUpdateRequest extends AuthRequest
                 'required',
                 'string',
                 Rule::in([
+                    'language',
                     'name',
                     'email',
                     'idNumber',
                     'website',
                 ])
+            ],
+            'language' => [
+                Rule::excludeIf(!in_array('language', $keys)).
+                'required',
+                'string',
+                Rule::enum(LanguageEnum::class),
             ],
             'name' => [
                 Rule::excludeIf(!in_array('name', $keys)).
@@ -73,6 +81,7 @@ class CompanyUpdateRequest extends AuthRequest
     public function attributes(): array
     {
         return [
+            'language' => __('model.common.language'),
             'name' => __('model.company.name'),
             'email' => __('model.company.email'),
             'idNumber' => __('model.company.id_number'),
@@ -86,6 +95,7 @@ class CompanyUpdateRequest extends AuthRequest
 
         foreach ($this->array('keys') as $key) {
             $data[$key] = match ($key) {
+                'language' => $this->enum('language', LanguageEnum::class),
                 'name', 'email', 'idNumber' => (string) $this->input($key),
                 'website' => $this->filled($key) ? (string) $this->input($key) : null,
             };

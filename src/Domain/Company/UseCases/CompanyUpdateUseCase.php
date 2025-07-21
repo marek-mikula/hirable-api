@@ -24,6 +24,7 @@ class CompanyUpdateUseCase extends UseCase
         }
 
         $input = [
+            'language' => $company->language,
             'name' => $company->name,
             'email' => $company->email,
             'idNumber' => $company->id_number,

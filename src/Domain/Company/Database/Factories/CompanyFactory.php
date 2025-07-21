@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Company\Database\Factories;
 
+use App\Enums\LanguageEnum;
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
@@ -18,6 +19,7 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
+            'language' => fake()->randomElement(LanguageEnum::cases()),
             'name' => fake()->company,
             'email' => fake()->unique()->companyEmail,
             'id_number' => fake()->numerify('#########'),

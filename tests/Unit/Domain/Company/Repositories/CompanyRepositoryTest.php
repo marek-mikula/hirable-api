@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Company\Repositories;
 
+use App\Enums\LanguageEnum;
 use Domain\Company\Models\Company;
 use Domain\Company\Repositories\CompanyRepositoryInterface;
 use Domain\Company\Repositories\Input\CompanyStoreInput;
@@ -32,6 +33,7 @@ it('tests store method', function (): void {
     $repository = app(CompanyRepositoryInterface::class);
 
     $input = new CompanyStoreInput(
+        language: fake()->randomElement(LanguageEnum::cases()),
         name: fake()->company,
         email: fake()->companyEmail,
         idNumber: fake()->numerify('#########'),
@@ -41,6 +43,7 @@ it('tests store method', function (): void {
     $company = $repository->store($input);
 
     assertModelExists($company);
+    assertSame($input->language, $company->language);
     assertSame($input->name, $company->name);
     assertSame($input->email, $company->email);
     assertSame($input->idNumber, $company->id_number);
@@ -53,6 +56,7 @@ it('tests update method', function (): void {
     $repository = app(CompanyRepositoryInterface::class);
 
     $input = new CompanyUpdateInput(
+        language: fake()->randomElement(LanguageEnum::cases()),
         name: fake()->company,
         email: fake()->companyEmail,
         idNumber: fake()->numerify('#########'),
@@ -61,6 +65,7 @@ it('tests update method', function (): void {
 
     $company = $repository->update(Company::factory()->create(), $input);
 
+    assertSame($input->language, $company->language);
     assertSame($input->name, $company->name);
     assertSame($input->email, $company->email);
     assertSame($input->idNumber, $company->id_number);
