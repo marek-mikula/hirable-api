@@ -60,9 +60,9 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $leadership scale 0 - 100
  * @property array[] $language_requirements array of classifier values
  * @property string|null $note
- * @property int $hard_skills_weight scale 0 - 10
- * @property int $soft_skills_weight scale 0 - 10
- * @property int $language_skills_weight scale 0 - 10
+ * @property int $hard_skills_weight scale 0 - 100
+ * @property int $soft_skills_weight scale 0 - 100
+ * @property int $language_skills_weight scale 0 - 100
  * @property boolean $share_salary
  * @property boolean $share_contact
  * @property string|null $common_token

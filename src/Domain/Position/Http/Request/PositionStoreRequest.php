@@ -267,19 +267,19 @@ class PositionStoreRequest extends AuthRequest
                 'required',
                 'integer',
                 'min:0',
-                'max:10',
+                'max:100',
             ],
             'softSkillsWeight' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:10',
+                'max:100',
             ],
             'languageSkillsWeight' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:10',
+                'max:100',
             ],
             'shareSalary' => [
                 'boolean',
