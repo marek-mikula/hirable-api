@@ -14,18 +14,18 @@ class ClassifierTranslateService
     ) {
     }
 
-    public function translateValue(ClassifierTypeEnum $type, string $value): string
+    public function translateValue(ClassifierTypeEnum $type, string $value, ?string $locale = null): string
     {
         if (!$this->classifierConfigService->supportsTranslation($type)) {
             return $value;
         }
 
-        return __($this->getTranslationKey($type, $value));
+        return __($this->getTranslationKey($type, $value), [], $locale);
     }
 
-    public function translate(Classifier $classifier): string
+    public function translate(Classifier $classifier, ?string $locale = null): string
     {
-        return $this->translateValue($classifier->type, $classifier->value);
+        return $this->translateValue($classifier->type, $classifier->value, $locale);
     }
 
     public function getTranslationKey(ClassifierTypeEnum $type, string $value): string

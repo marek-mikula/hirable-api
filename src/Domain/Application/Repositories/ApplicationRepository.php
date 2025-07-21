@@ -69,4 +69,14 @@ class ApplicationRepository implements ApplicationRepositoryInterface
 
         return $application;
     }
+
+    public function setScore(Application $application, array $score, int $totalScore): Application
+    {
+        $application->score = $score;
+        $application->total_score = $totalScore;
+
+        throw_if(!$application->save(), RepositoryException::updated(Application::class));
+
+        return $application;
+    }
 }

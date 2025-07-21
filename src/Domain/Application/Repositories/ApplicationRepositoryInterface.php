@@ -15,4 +15,6 @@ interface ApplicationRepositoryInterface
     public function update(Application $application, ApplicationUpdateInput $input): Application;
 
     public function setProcessed(Application $application): Application;
+
+    public function setScore(Application $application, array $score, int $totalScore): Application;
 }
