@@ -6,8 +6,9 @@ namespace Domain\Application\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\AI\Contracts\AIServiceInterface;
-use Domain\AI\Scoring\Data\CategoryScoreData;
+use Domain\AI\Scoring\Data\ScoreCategoryData;
 use Domain\AI\Scoring\ScoreCalculator;
+use Domain\AI\Services\AIConfigService;
 use Domain\Application\Models\Application;
 use Domain\Application\Repositories\ApplicationRepositoryInterface;
 use Domain\Position\Models\Position;
@@ -18,6 +19,7 @@ class ScoreApplicationUseCase extends UseCase
 {
     public function __construct(
         private readonly ApplicationRepositoryInterface $applicationRepository,
+        private readonly AIConfigService $AIConfigService,
         private readonly AIServiceInterface $AIService,
         private readonly ScoreCalculator $scoreCounter,
     ) {
@@ -31,7 +33,8 @@ class ScoreApplicationUseCase extends UseCase
             'position.company',
         ]);
 
-        $allowedFiles = (array) config('ai.score.files');
+        $allowedFiles = $this->AIConfigService->getScoreFiles();
+
         $files = $application->files->filter(fn (File $file) => in_array($file->extension, $allowedFiles));
 
         $score = $this->AIService->scoreApplication($application, $files);
@@ -50,7 +53,7 @@ class ScoreApplicationUseCase extends UseCase
 
     private function mapScore(Position $position, array $score): array
     {
-        return array_map(function (CategoryScoreData $data) use ($position) {
+        return array_map(function (ScoreCategoryData $data) use ($position) {
             return [
                 'category' => $data->category->value,
                 'score' => $data->score,

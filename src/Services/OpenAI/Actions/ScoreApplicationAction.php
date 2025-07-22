@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Services\OpenAI\Actions;
 
 use App\Actions\Action;
-use Domain\AI\Scoring\CategorySerializer;
-use Domain\AI\Scoring\Data\CategoryScoreData;
+use Domain\AI\Context\ModelSerializer;
+use Domain\AI\Scoring\Data\ScoreCategoryData;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
-use Domain\AI\Serialization\ModelSerializer;
+use Domain\AI\Scoring\ScoreCategorySerializer;
 use Domain\Application\Models\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -21,7 +21,7 @@ use Support\File\Models\File;
 class ScoreApplicationAction extends Action
 {
     public function __construct(
-        private readonly CategorySerializer $categorySerializer,
+        private readonly ScoreCategorySerializer $categorySerializer,
         private readonly OpenAIConfigService $configService,
         private readonly ModelSerializer $modelSerializer,
         private readonly OpenAIFileManager $fileManager,
@@ -30,7 +30,7 @@ class ScoreApplicationAction extends Action
 
     /**
      * @param Collection<File> $files
-     * @return CategoryScoreData[]
+     * @return ScoreCategoryData[]
      */
     public function handle(Application $application, Collection $files): array
     {
@@ -58,7 +58,7 @@ class ScoreApplicationAction extends Action
         $score = (array) Arr::get($json, 'score', []);
 
         return array_map(function (array $item) {
-            return CategoryScoreData::from([
+            return ScoreCategoryData::from([
                 'category' => ScoreCategoryEnum::from((string) Arr::get($item, 'category')),
                 'score' => (int) Arr::get($item, 'score'),
                 'comment' => (string) Arr::get($item, 'comment'),

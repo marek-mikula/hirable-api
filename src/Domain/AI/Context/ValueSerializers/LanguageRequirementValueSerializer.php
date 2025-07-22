@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\AI\Serialization\ValueSerializers;
+namespace Domain\AI\Context\ValueSerializers;
 
 use App\Enums\LanguageEnum;
 use Illuminate\Support\Arr;

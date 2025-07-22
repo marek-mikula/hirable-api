@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
+use Domain\AI\Context\Enums\FieldTypeEnum;
+use Domain\AI\Context\ValueSerializers\ClassifierSerializer;
+use Domain\AI\Context\ValueSerializers\CustomSerializer;
+use Domain\AI\Context\ValueSerializers\IntegerSerializer;
+use Domain\AI\Context\ValueSerializers\LanguageRequirementValueSerializer;
+use Domain\AI\Context\ValueSerializers\StringSerializer;
 use Domain\AI\Enums\AIServiceEnum;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
-use Domain\AI\Serialization\Enums\FieldTypeEnum;
-use Domain\AI\Serialization\ValueSerializers\ClassifierSerializer;
-use Domain\AI\Serialization\ValueSerializers\CustomSerializer;
-use Domain\AI\Serialization\ValueSerializers\IntegerSerializer;
-use Domain\AI\Serialization\ValueSerializers\LanguageRequirementValueSerializer;
-use Domain\AI\Serialization\ValueSerializers\StringSerializer;
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Models\Position;
 use Services\OpenAI\Services\OpenAIService;

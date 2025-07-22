@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\AI\Serialization\Enums;
+namespace Domain\AI\Context\Enums;
 
 enum FieldTypeEnum: string
 {

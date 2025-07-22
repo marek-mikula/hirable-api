@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\AI\Serialization\ValueSerializers;
+namespace Domain\AI\Context\ValueSerializers;
 
 class StringSerializer implements ValueSerializer
 {

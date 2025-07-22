@@ -2,23 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Domain\AI\Serialization;
+namespace Domain\AI\Context;
 
-use Domain\AI\Serialization\ValueSerializers\ValueSerializer;
+use Domain\AI\Context\Enums\FieldTypeEnum;
+use Domain\AI\Context\ValueSerializers\ValueSerializer;
+use Domain\AI\Services\AIConfigService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
 class ModelSerializer
 {
+    public function __construct(
+        private readonly AIConfigService $AIConfigService,
+    ) {
+    }
+
     public function serialize(Model $model): string
     {
-        $config = config(sprintf('ai.context.models.%s', $model::class));
-
-        throw_if(empty($config), new \Exception(sprintf('Undefined context definition for class %s.', $model::class)));
-
         $result = [];
 
-        foreach ($config as $fieldConfig) {
+        foreach ($this->AIConfigService->getModelContextConfig($model) as $fieldConfig) {
             $result[] = $this->serializeField($model, $fieldConfig);
         }
 
@@ -51,11 +54,10 @@ class ModelSerializer
 
     private function resolveSerializer(array $config): ValueSerializer
     {
-        /** @var class-string<ValueSerializer> $serializer */
-        $serializer = config(sprintf('ai.context.serializers.%s', Arr::get($config, 'type')));
+        $type = FieldTypeEnum::from((string) Arr::get($config, 'type'));
 
         /** @var ValueSerializer $serializer */
-        $serializer = app($serializer);
+        $serializer = app($this->AIConfigService->getModelContextSerializer($type));
 
         return $serializer;
     }

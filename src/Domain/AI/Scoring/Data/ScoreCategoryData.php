@@ -7,7 +7,7 @@ namespace Domain\AI\Scoring\Data;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
 use Spatie\LaravelData\Data;
 
-class CategoryScoreData extends Data
+class ScoreCategoryData extends Data
 {
     public ScoreCategoryEnum $category;
 

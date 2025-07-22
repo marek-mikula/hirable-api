@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Domain\AI\Scoring;
 
-use Domain\AI\Scoring\Data\CategoryScoreData;
+use Domain\AI\Scoring\Data\ScoreCategoryData;
 use Domain\Position\Models\Position;
 
 class ScoreCalculator
 {
     /**
-     * @param CategoryScoreData[] $score
+     * @param ScoreCategoryData[] $score
      */
     public function calculateTotalScore(Position $position, array $score): int
     {
