@@ -21,6 +21,7 @@ enum ResponseCodeEnum
     case TOKEN_INVALID;
     case GUEST_ONLY;
     case APPLICATION_ENDED;
+    case APPLICATION_DUPLICATE;
     case UNAUTHENTICATED;
     case NOT_FOUND;
     case METHOD_NOT_ALLOWED;
@@ -48,6 +49,7 @@ enum ResponseCodeEnum
             self::TOKEN_MISMATCH,
             self::EMAIL_VERIFICATION_NEEDED,
             self::CONTACT_PENDING_APPROVALS,
+            self::APPLICATION_DUPLICATE,
             self::CLIENT_ERROR => 400,
 
             // 401
