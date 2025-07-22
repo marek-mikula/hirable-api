@@ -6,6 +6,8 @@ namespace Support\NotificationPreview\Services;
 
 use Domain\Application\Models\Application;
 use Domain\Application\Notifications\ApplicationAcceptedNotification;
+use Domain\Application\Notifications\ApplicationNewCandidateNotification;
+use Domain\Candidate\Models\Candidate;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Notifications\InvitationSentNotification;
@@ -337,6 +339,18 @@ class NotificationRegistrar
                             $notifiable->setRelation('position', Position::factory()->make());
 
                             return $notifiable;
+                        },
+                    ),
+                    NotificationData::create(
+                        label: 'New candidate',
+                        description: 'Notification informs users that new candidate has applied for a position.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            $candidate = Candidate::factory()->make();
+                            return new ApplicationNewCandidateNotification(position: $position, candidate: $candidate);
+                        },
+                        notifiable: function () {
+                            return User::factory()->make();
                         },
                     ),
                 ]
