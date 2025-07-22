@@ -7,7 +7,7 @@ namespace Domain\Application\Repositories;
 use App\Exceptions\RepositoryException;
 use Domain\Application\Models\Application;
 use Domain\Application\Repositories\Input\ApplicationStoreInput;
-use Domain\Application\Repositories\Input\ApplicationUpdateInput;
+use Domain\Candidate\Models\Candidate;
 use Illuminate\Support\Str;
 
 class ApplicationRepository implements ApplicationRepositoryInterface
@@ -36,31 +36,6 @@ class ApplicationRepository implements ApplicationRepositoryInterface
         return $application;
     }
 
-    public function update(Application $application, ApplicationUpdateInput $input): Application
-    {
-        $application->candidate_id = $input->candidate?->id;
-        $application->language = $input->language;
-        $application->gender = $input->gender;
-        $application->source = $input->source;
-        $application->firstname = $input->firstname;
-        $application->lastname = $input->lastname;
-        $application->email = $input->email;
-        $application->phone_prefix = $input->phonePrefix;
-        $application->phone_number = $input->phoneNumber;
-        $application->linkedin = $input->linkedin;
-        $application->instagram = $input->instagram;
-        $application->github = $input->github;
-        $application->portfolio = $input->portfolio;
-        $application->birth_date = $input->birthDate;
-        $application->experience = $input->experience;
-
-        throw_if(!$application->save(), RepositoryException::updated(Application::class));
-
-        $application->setRelation('candidate', $input->candidate);
-
-        return $application;
-    }
-
     public function setProcessed(Application $application): Application
     {
         $application->processed = true;
@@ -76,6 +51,17 @@ class ApplicationRepository implements ApplicationRepositoryInterface
         $application->total_score = $totalScore;
 
         throw_if(!$application->save(), RepositoryException::updated(Application::class));
+
+        return $application;
+    }
+
+    public function setCandidate(Application $application, Candidate $candidate): Application
+    {
+        $application->candidate_id = $candidate->id;
+
+        throw_if(!$application->save(), RepositoryException::updated(Application::class));
+
+        $application->setRelation('candidate', $candidate);
 
         return $application;
     }

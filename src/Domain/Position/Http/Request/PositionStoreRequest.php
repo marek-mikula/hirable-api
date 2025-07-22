@@ -131,7 +131,7 @@ class PositionStoreRequest extends AuthRequest
                 'required',
                 'integer',
                 'min:00',
-                'max:10',
+                'max:100',
             ],
             'teamSkills' => [
                 'required',

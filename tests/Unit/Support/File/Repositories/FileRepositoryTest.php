@@ -10,6 +10,7 @@ use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
 use Support\File\Repositories\FileRepositoryInterface;
 use Support\File\Repositories\Input\FileStoreInput;
+use Support\File\Repositories\Input\FileUpdateInput;
 
 use function Pest\Laravel\assertModelExists;
 use function Pest\Laravel\assertModelMissing;
@@ -62,6 +63,28 @@ it('tests store method', function (): void {
     assertSame($input->size, $file->size);
     assertTrue($file->hasDataValue('key'));
     assertSame($input->data['key'], $file->getDataValue('key'));
+});
+
+/** @covers \Support\File\Repositories\FileRepository::update */
+it('tests update method', function (): void {
+    /** @var FileRepositoryInterface $repository */
+    $repository = app(FileRepositoryInterface::class);
+
+    $user = User::factory()->create();
+    $file = File::factory()->create();
+
+    $input = new FileUpdateInput(
+        model: $user,
+        type: FileTypeEnum::TEMP,
+        path: Str::uuid()->toString().'.jpg',
+    );
+
+    $file = $repository->update($file, $input);
+
+    assertSame($input->model::class, $file->fileable_type);
+    assertSame($input->model->getKey(), $file->fileable_id);
+    assertSame($input->type, $file->type);
+    assertSame($input->path, $file->path);
 });
 
 /** @covers \Support\File\Repositories\FileRepository::delete */

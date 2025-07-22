@@ -8,7 +8,6 @@ use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Application\Database\Factories\ApplicationFactory;
 use Domain\Application\Models\Builders\ApplicationBuilder;
-use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Enums\SourceEnum;
 use Domain\Candidate\Models\Candidate;
 use Domain\Notification\Traits\Notifiable;
@@ -33,7 +32,6 @@ use Support\File\Models\Traits\HasFiles;
  * @property int|null $candidate_id
  * @property boolean $processed
  * @property LanguageEnum $language
- * @property GenderEnum|null $gender
  * @property SourceEnum $source
  * @property string $firstname
  * @property string $lastname
@@ -42,11 +40,6 @@ use Support\File\Models\Traits\HasFiles;
  * @property string $phone_prefix
  * @property string $phone_number
  * @property string|null $linkedin
- * @property string|null $instagram
- * @property string|null $github
- * @property string|null $portfolio
- * @property Carbon|null $birth_date
- * @property array $experience
  * @property array $score
  * @property int|null $total_score
  * @property Carbon $created_at
@@ -77,7 +70,6 @@ class Application extends Model implements HasLocalePreference
         'candidate_id',
         'processed',
         'language',
-        'gender',
         'source',
         'firstname',
         'lastname',
@@ -85,26 +77,18 @@ class Application extends Model implements HasLocalePreference
         'phone_prefix',
         'phone_number',
         'linkedin',
-        'instagram',
-        'github',
-        'portfolio',
-        'birth_date',
-        'experience',
         'score',
         'total_score',
     ];
 
     protected $attributes = [
-        'experience' => '[]',
         'score' => '{}',
     ];
 
     protected $casts = [
         'language' => LanguageEnum::class,
-        'gender' => GenderEnum::class,
         'source' => SourceEnum::class,
         'processed' => 'boolean',
-        'experience' => 'array',
         'score' => 'array',
     ];
 

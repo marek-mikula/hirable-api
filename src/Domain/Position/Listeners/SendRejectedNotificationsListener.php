@@ -35,7 +35,7 @@ class SendRejectedNotificationsListener extends QueuedListener
 
         $rejectedBy = $approval->modelHasPosition->model;
 
-        // send notifications to all previous and current approvers
+        // send notifications to all approvers
         // and also to the owner of the position
         // filter out model who rejected the positions, because he
         // already knows the position is rejected

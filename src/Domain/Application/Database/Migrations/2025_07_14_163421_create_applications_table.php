@@ -16,7 +16,6 @@ return new class () extends Migration {
             $table->foreignId('candidate_id')->nullable();
             $table->boolean('processed')->default(false);
             $table->string('language', 2);
-            $table->string('gender', 1)->nullable();
             $table->string('source', 20);
             $table->string('firstname');
             $table->string('lastname');
@@ -24,11 +23,6 @@ return new class () extends Migration {
             $table->string('phone_prefix', 10);
             $table->string('phone_number', 20);
             $table->string('linkedin')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('github')->nullable();
-            $table->string('portfolio')->nullable();
-            $table->date('birth_date')->nullable();
-            $table->json('experience');
             $table->json('score');
             $table->unsignedTinyInteger('total_score')->nullable();
             $table->timestamps();

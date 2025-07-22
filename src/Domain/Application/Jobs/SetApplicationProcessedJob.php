@@ -6,9 +6,9 @@ namespace Domain\Application\Jobs;
 
 use App\Jobs\CommonJob;
 use Domain\Application\Models\Application;
-use Domain\Application\UseCases\ScoreApplicationUseCase;
+use Domain\Application\UseCases\SetApplicationProcessedUseCase;
 
-class ScoreApplicationJob extends CommonJob
+class SetApplicationProcessedJob extends CommonJob
 {
     public function __construct(
         private readonly Application $application,
@@ -16,7 +16,7 @@ class ScoreApplicationJob extends CommonJob
         parent::__construct();
     }
 
-    public function handle(ScoreApplicationUseCase $useCase): void
+    public function handle(SetApplicationProcessedUseCase $useCase): void
     {
         $useCase->handle($this->application);
     }

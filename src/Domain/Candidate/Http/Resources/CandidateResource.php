@@ -23,7 +23,7 @@ class CandidateResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'language' => $this->resource->language->value,
-            'gender' => $this->resource->gender->value,
+            'gender' => $this->resource->gender?->value,
             'firstname' => $this->resource->firstname,
             'lastname' => $this->resource->lastname,
             'fullName' => $this->resource->full_name,

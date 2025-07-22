@@ -41,15 +41,18 @@ class ModelSerializer
         $serializer = $this->resolveSerializer($config);
 
         if (!$isArray) {
-            return $serializer->serialize($model->{$attribute}, $config);
+            $value = $serializer->serialize($model->{$attribute}, $config);
+
+            return empty($value) ? '-' : $value;
         }
 
         throw_if(!is_array($model->{$attribute}), new \Exception('Non-array value passed as array field.'));
 
-        return collect($model->{$attribute})
+        $value = collect($model->{$attribute})
             ->map(fn (mixed $value) => $serializer->serialize($value, $config))
-            ->filter()
-            ->join(',');
+            ->filter();
+
+        return $value->isEmpty() ? '-' : $value->join(',');
     }
 
     private function resolveSerializer(array $config): ValueSerializer

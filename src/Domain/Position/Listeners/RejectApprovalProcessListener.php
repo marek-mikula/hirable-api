@@ -40,8 +40,6 @@ class RejectApprovalProcessListener extends Listener
         }
 
         // update position approval process state,
-        // do not update round, because we need it
-        // in another listener to send notifications
         $this->positionRepository->updateState($event->approval->position, PositionStateEnum::APPROVAL_REJECTED);
     }
 }

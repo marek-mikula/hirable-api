@@ -35,11 +35,6 @@ class CandidateGrid implements Grid
                     label: 'model.common.email',
                 ),
                 new GridColumnDefinition(
-                    key: 'linkedin',
-                    label: 'model.common.linkedin',
-                    allowSort: false,
-                ),
-                new GridColumnDefinition(
                     key: 'createdAt',
                     label: 'model.common.createdAt',
                 ),
