@@ -28,7 +28,6 @@ return new class () extends Migration {
             $table->timestamps();
 
             $table->unique(['company_id', 'email'], 'candidates_company_email_unique');
-            $table->unique(['company_id', 'phone_prefix', 'phone_number'], 'candidates_company_phone_unique');
 
             $table->foreign('company_id')
                 ->references('id')
