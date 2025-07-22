@@ -12,7 +12,7 @@ use Domain\Candidate\Repositories\CandidateRepositoryInterface;
 use Domain\Candidate\Repositories\Input\CandidateUpdateInput;
 use Illuminate\Support\Facades\DB;
 
-class ExtractDataFromCVUseCase extends UseCase
+class ExtractCVDataUseCase extends UseCase
 {
     public function __construct(
         private readonly CandidateRepositoryInterface $candidateRepository,
