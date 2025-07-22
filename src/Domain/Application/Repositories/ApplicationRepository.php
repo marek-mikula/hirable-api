@@ -6,8 +6,10 @@ namespace Domain\Application\Repositories;
 
 use App\Exceptions\RepositoryException;
 use Domain\Application\Models\Application;
+use Domain\Application\Models\Builders\ApplicationBuilder;
 use Domain\Application\Repositories\Input\ApplicationStoreInput;
 use Domain\Candidate\Models\Candidate;
+use Domain\Position\Models\Position;
 use Illuminate\Support\Str;
 
 class ApplicationRepository implements ApplicationRepositoryInterface
@@ -64,5 +66,21 @@ class ApplicationRepository implements ApplicationRepositoryInterface
         $application->setRelation('candidate', $candidate);
 
         return $application;
+    }
+
+    public function existsDuplicateOnPosition(Position $position, string $email, string $phonePrefix, string $phoneNumber): bool
+    {
+        return Application::query()
+            ->wherePosition($position->id)
+            ->where(function (ApplicationBuilder $query) use ($email, $phonePrefix, $phoneNumber): void {
+                $query
+                    ->where('email', $email)
+                    ->orWhere(function (ApplicationBuilder $query) use ($phonePrefix, $phoneNumber): void {
+                        $query
+                            ->where('phone_prefix', $phonePrefix)
+                            ->where('phone_number', $phoneNumber);
+                    });
+            })
+            ->exists();
     }
 }

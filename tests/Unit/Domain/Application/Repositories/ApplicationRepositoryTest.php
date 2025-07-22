@@ -93,3 +93,21 @@ it('tests setCandidate method', function (): void {
     assertSame($candidate->id, $application->candidate_id);
     assertTrue($application->relationLoaded('candidate'));
 });
+
+/** @covers \Domain\Application\Repositories\ApplicationRepository::existsDuplicateOnPosition */
+it('tests existsDuplicateOnPosition method', function (): void {
+    /** @var ApplicationRepositoryInterface $repository */
+    $repository = app(ApplicationRepositoryInterface::class);
+
+    $email = fake()->safeEmail;
+    $phonePrefix = '+420';
+    $phoneNumber = fake()->phoneNumber;
+
+    $position = Position::factory()->create();
+
+    Application::factory()->ofPosition($position)->create(['email' => $email]);
+    Application::factory()->ofPosition($position)->create(['phone_prefix' => $phonePrefix, 'phone_number' => $phoneNumber]);
+
+    assertTrue($repository->existsDuplicateOnPosition($position, $email, '+420', fake()->phoneNumber));
+    assertTrue($repository->existsDuplicateOnPosition($position, fake()->safeEmail, $phonePrefix, $phoneNumber));
+});
