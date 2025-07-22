@@ -33,6 +33,15 @@ class CreateCandidateFromApplicationUseCase extends UseCase
             'files',
         ]);
 
+        // try to find duplicate candidate model
+        // in company by email or phone number
+        $existingCandidate = $this->candidateRepository->findDuplicateInCompany(
+            company: $application->position->company,
+            email: $application->email,
+            phonePrefix: $application->phone_prefix,
+            phoneNumber: $application->phone_number,
+        );
+
         $input = new CandidateStoreInput(
             company: $application->position->company,
             language: $application->language,
@@ -49,11 +58,12 @@ class CreateCandidateFromApplicationUseCase extends UseCase
 
         return DB::transaction(function () use (
             $application,
+            $existingCandidate,
             $input,
             $otherFiles,
             $cv,
         ): Candidate {
-            $candidate = $this->candidateRepository->store($input);
+            $candidate = $existingCandidate ?? $this->candidateRepository->store($input);
 
             $this->applicationRepository->setCandidate($application, $candidate);
 

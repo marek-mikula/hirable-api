@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Domain\Candidate\Repositories;
 
 use App\Exceptions\RepositoryException;
+use Domain\Candidate\Models\Builders\CandidateBuilder;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Repositories\Input\CandidateStoreInput;
 use Domain\Candidate\Repositories\Input\CandidateUpdateInput;
+use Domain\Company\Models\Company;
 
 class CandidateRepository implements CandidateRepositoryInterface
 {
@@ -48,6 +50,29 @@ class CandidateRepository implements CandidateRepositoryInterface
         $candidate->experience = $input->experience;
 
         throw_if(!$candidate->save(), RepositoryException::updated(Candidate::class));
+
+        return $candidate;
+    }
+
+    public function findDuplicateInCompany(
+        Company $company,
+        string $email,
+        string $phonePrefix,
+        string $phoneNumber
+    ): ?Candidate {
+        /** @var Candidate|null $candidate */
+        $candidate = Candidate::query()
+            ->whereCompany($company->id)
+            ->where(function (CandidateBuilder $query) use ($email, $phonePrefix, $phoneNumber): void {
+                $query
+                    ->where('email', $email)
+                    ->orWhere(function (CandidateBuilder $query) use ($phonePrefix, $phoneNumber): void {
+                        $query
+                            ->where('phone_prefix', $phonePrefix)
+                            ->where('phone_number', $phoneNumber);
+                    });
+            })
+            ->first();
 
         return $candidate;
     }
