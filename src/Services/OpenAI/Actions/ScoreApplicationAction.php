@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Services\OpenAI\Actions;
 
 use App\Actions\Action;
+use Domain\AI\Context\CommonContexter;
 use Domain\AI\Context\ModelSerializer;
 use Domain\AI\Scoring\Data\ScoreCategoryData;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
@@ -24,6 +25,7 @@ class ScoreApplicationAction extends Action
         private readonly ScoreCategorySerializer $categorySerializer,
         private readonly OpenAIConfigService $configService,
         private readonly ModelSerializer $modelSerializer,
+        private readonly CommonContexter $commonContexter,
         private readonly OpenAIFileManager $fileManager,
     ) {
     }
@@ -37,6 +39,7 @@ class ScoreApplicationAction extends Action
         $result = OpenAI::responses()->create([
             'model' => $this->configService->getModel(PromptEnum::SCORE_APPLICATION),
             'prompt' => $this->configService->getPrompt(PromptEnum::SCORE_APPLICATION, [
+                'context' => $this->commonContexter->getCommonContext(),
                 'language' => $application->position->company->language->value,
                 'categories' => $this->categorySerializer->serialize(),
                 'position' => $this->modelSerializer->serialize($application->position),

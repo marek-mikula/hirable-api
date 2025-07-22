@@ -8,8 +8,6 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 
-use function PHPUnit\Framework\assertSame;
-
 /**
  * Creates Laravel request class
  *
