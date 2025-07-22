@@ -7,7 +7,6 @@ namespace Domain\Application\Database\Factories;
 use App\Enums\LanguageEnum;
 use Database\Factories\Factory;
 use Domain\Application\Models\Application;
-use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Enums\SourceEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Position;
@@ -30,7 +29,6 @@ class ApplicationFactory extends Factory
             'candidate_id' => null,
             'processed' => false,
             'language' => LanguageEnum::EN,
-            'gender' => GenderEnum::MALE,
             'source' => SourceEnum::POSITION,
             'firstname' => fake()->firstName($gender),
             'lastname' => fake()->lastName($gender),
@@ -38,14 +36,16 @@ class ApplicationFactory extends Factory
             'phone_prefix' => '+420',
             'phone_number' => fake()->phoneNumber,
             'linkedin' => null,
-            'instagram' => null,
-            'github' => null,
-            'portfolio' => null,
-            'birth_date' => fake()->date,
-            'experience' => [],
             'score' => [],
             'total_score' => null,
         ];
+    }
+
+    public function ofPosition(Position $position): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'position_id' => $position->id,
+        ]);
     }
 
     public function ofProcessed(bool $processed): static

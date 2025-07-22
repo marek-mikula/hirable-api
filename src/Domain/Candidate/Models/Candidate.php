@@ -12,9 +12,15 @@ use Domain\Candidate\Models\Builders\CandidateBuilder;
 use Domain\Notification\Traits\Notifiable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Query\Builder;
+use Support\File\Enums\FileTypeEnum;
+use Support\File\Models\File;
+use Support\File\Models\Traits\HasFiles;
 
 /**
  * @property-read int $id
@@ -35,6 +41,8 @@ use Illuminate\Database\Query\Builder;
  * @property array $experience
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read File $cv
+ * @property-read Collection<File> $otherFiles
  *
  * @method static CandidateFactory factory($count = null, $state = [])
  * @method static CandidateBuilder query()
@@ -43,6 +51,7 @@ class Candidate extends Model implements HasLocalePreference
 {
     use HasFactory;
     use Notifiable;
+    use HasFiles;
 
     protected $primaryKey = 'id';
 
@@ -80,6 +89,16 @@ class Candidate extends Model implements HasLocalePreference
     protected function fullName(): Attribute
     {
         return Attribute::get(fn (): string => sprintf('%s %s', $this->firstname, $this->lastname));
+    }
+
+    public function cv(): MorphOne
+    {
+        return $this->files()->where('type', FileTypeEnum::CANDIDATE_CV->value)->one();
+    }
+
+    public function otherFiles(): MorphMany
+    {
+        return $this->files()->where('type', FileTypeEnum::CANDIDATE_OTHER->value);
     }
 
     /**

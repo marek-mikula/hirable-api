@@ -22,6 +22,7 @@ use Support\File\Enums\FileTypeEnum;
  * @property int $fileable_id
  * @property FileTypeEnum $type
  * @property string $name
+ * @property string $filename
  * @property string $mime
  * @property string $path
  * @property-read string $real_path
@@ -72,6 +73,11 @@ class File extends Model
     protected function realPath(): Attribute
     {
         return Attribute::get(fn (): string => Storage::disk($this->type->getDomain()->getDisk())->path($this->path));
+    }
+
+    protected function filename(): Attribute
+    {
+        return Attribute::get(fn (): string => basename($this->path));
     }
 
     public function fileable(): MorphTo
