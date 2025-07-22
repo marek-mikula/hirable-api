@@ -29,7 +29,7 @@ class ContinueApprovalProcessListener extends Listener
             return;
         }
 
-        // update position approval process state and round
+        // update position approval process state
         $this->positionRepository->updateState($event->approval->position, PositionStateEnum::APPROVAL_APPROVED);
     }
 }

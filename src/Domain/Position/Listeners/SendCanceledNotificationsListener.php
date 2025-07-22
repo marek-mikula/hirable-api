@@ -16,7 +16,7 @@ class SendCanceledNotificationsListener extends QueuedListener
 {
     public function handle(PositionApprovalCanceledEvent $event): void
     {
-        // send notifications to all previous and current approvers
+        // send notifications to all approvers
         $event->position
             ->models()
             ->with('model')
