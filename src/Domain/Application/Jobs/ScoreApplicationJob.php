@@ -6,6 +6,7 @@ namespace Domain\Application\Jobs;
 
 use App\Jobs\CommonJob;
 use Domain\Application\Models\Application;
+use Domain\Application\UseCases\ScoreApplicationUseCase;
 
 class ScoreApplicationJob extends CommonJob
 {
@@ -17,6 +18,7 @@ class ScoreApplicationJob extends CommonJob
 
     public function handle(): void
     {
-        // todo
+        $application = ScoreApplicationUseCase::make()->handle($this->application);
+        // todo dispatch another job
     }
 }

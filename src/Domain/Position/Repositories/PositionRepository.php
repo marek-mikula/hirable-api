@@ -63,6 +63,8 @@ class PositionRepository implements PositionRepositoryInterface
         $position->hard_skills_weight = $input->hardSkillsWeight;
         $position->soft_skills_weight = $input->softSkillsWeight;
         $position->language_skills_weight = $input->languageSkillsWeight;
+        $position->experience_weight = $input->experienceWeight;
+        $position->education_weight = $input->educationWeight;
         $position->share_salary = $input->shareSalary;
         $position->share_contact = $input->shareContact;
 
@@ -109,6 +111,8 @@ class PositionRepository implements PositionRepositoryInterface
         $position->hard_skills_weight = $input->hardSkillsWeight;
         $position->soft_skills_weight = $input->softSkillsWeight;
         $position->language_skills_weight = $input->languageSkillsWeight;
+        $position->experience_weight = $input->experienceWeight;
+        $position->education_weight = $input->educationWeight;
         $position->share_salary = $input->shareSalary;
         $position->share_contact = $input->shareContact;
 

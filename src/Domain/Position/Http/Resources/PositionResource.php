@@ -84,6 +84,8 @@ class PositionResource extends JsonResource
             'hardSkillsWeight' => $this->resource->hard_skills_weight,
             'softSkillsWeight' => $this->resource->soft_skills_weight,
             'languageSkillsWeight' => $this->resource->language_skills_weight,
+            'experienceWeight' => $this->resource->experience_weight,
+            'educationWeight' => $this->resource->education_weight,
             'shareSalary' => $this->resource->share_salary,
             'shareContact' => $this->resource->share_contact,
             'commonLink' => $this->resource->common_link,

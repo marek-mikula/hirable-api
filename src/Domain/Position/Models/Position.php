@@ -53,16 +53,18 @@ use Support\File\Models\Traits\HasFiles;
  * @property string[] $seniority classifier values
  * @property int|null $experience
  * @property string|null $hard_skills
- * @property int $organisation_skills scale 0 - 10
- * @property int $team_skills scale 0 - 10
- * @property int $time_management scale 0 - 10
- * @property int $communication_skills scale 0 - 10
- * @property int $leadership scale 0 - 10
+ * @property int $organisation_skills scale 0 - 100
+ * @property int $team_skills scale 0 - 100
+ * @property int $time_management scale 0 - 100
+ * @property int $communication_skills scale 0 - 100
+ * @property int $leadership scale 0 - 100
  * @property array[] $language_requirements array of classifier values
  * @property string|null $note
- * @property int $hard_skills_weight scale 0 - 10
- * @property int $soft_skills_weight scale 0 - 10
- * @property int $language_skills_weight scale 0 - 10
+ * @property int $hard_skills_weight scale 0 - 100
+ * @property int $soft_skills_weight scale 0 - 100
+ * @property int $language_skills_weight scale 0 - 100
+ * @property int $experience_weight scale 0 - 100
+ * @property int $education_weight scale 0 - 100
  * @property boolean $share_salary
  * @property boolean $share_contact
  * @property string|null $common_token
@@ -136,6 +138,8 @@ class Position extends Model
         'hard_skills_weight',
         'soft_skills_weight',
         'language_skills_weight',
+        'experience_weight',
+        'education_weight',
         'share_salary',
         'share_contact',
         'common_token',

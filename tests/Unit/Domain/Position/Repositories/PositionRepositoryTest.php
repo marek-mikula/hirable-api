@@ -62,20 +62,22 @@ it('tests store method', function (): void {
         seniority: fake()->words(fake()->numberBetween(0, 5)),
         experience: fake()->numberBetween(1, 5),
         hardSkills: fake()->text(2000),
-        organisationSkills: fake()->numberBetween(0, 10),
-        teamSkills: fake()->numberBetween(0, 10),
-        timeManagement: fake()->numberBetween(0, 10),
-        communicationSkills: fake()->numberBetween(0, 10),
-        leadership: fake()->numberBetween(0, 10),
+        organisationSkills: fake()->numberBetween(0, 100),
+        teamSkills: fake()->numberBetween(0, 100),
+        timeManagement: fake()->numberBetween(0, 100),
+        communicationSkills: fake()->numberBetween(0, 100),
+        leadership: fake()->numberBetween(0, 100),
         note: fake()->text(2000),
         workloads: fake()->words(fake()->numberBetween(0, 5)),
         employmentRelationships: fake()->words(fake()->numberBetween(0, 5)),
         employmentForms: fake()->words(fake()->numberBetween(0, 5)),
         benefits: fake()->words(fake()->numberBetween(0, 5)),
         languageRequirements: fake()->words(fake()->numberBetween(0, 5)),
-        hardSkillsWeight: fake()->numberBetween(0, 10),
-        softSkillsWeight: fake()->numberBetween(0, 10),
-        languageSkillsWeight: fake()->numberBetween(0, 10),
+        hardSkillsWeight: fake()->numberBetween(0, 100),
+        softSkillsWeight: fake()->numberBetween(0, 100),
+        languageSkillsWeight: fake()->numberBetween(0, 100),
+        experienceWeight: fake()->numberBetween(0, 100),
+        educationWeight: fake()->numberBetween(0, 100),
         shareSalary: fake()->boolean,
         shareContact: fake()->boolean,
     );
@@ -117,6 +119,8 @@ it('tests store method', function (): void {
     assertSame($input->hardSkillsWeight, $position->hard_skills_weight);
     assertSame($input->softSkillsWeight, $position->soft_skills_weight);
     assertSame($input->languageSkillsWeight, $position->language_skills_weight);
+    assertSame($input->experienceWeight, $position->experience_weight);
+    assertSame($input->educationWeight, $position->education_weight);
     assertSame($input->shareSalary, $position->share_salary);
     assertSame($input->shareContact, $position->share_contact);
 
@@ -152,20 +156,22 @@ it('tests update method', function (): void {
         seniority: fake()->words(fake()->numberBetween(0, 5)),
         experience: fake()->numberBetween(1, 5),
         hardSkills: fake()->text(2000),
-        organisationSkills: fake()->numberBetween(0, 10),
-        teamSkills: fake()->numberBetween(0, 10),
-        timeManagement: fake()->numberBetween(0, 10),
-        communicationSkills: fake()->numberBetween(0, 10),
-        leadership: fake()->numberBetween(0, 10),
+        organisationSkills: fake()->numberBetween(0, 100),
+        teamSkills: fake()->numberBetween(0, 100),
+        timeManagement: fake()->numberBetween(0, 100),
+        communicationSkills: fake()->numberBetween(0, 100),
+        leadership: fake()->numberBetween(0, 100),
         note: fake()->text(2000),
         workloads: fake()->words(fake()->numberBetween(0, 5)),
         employmentRelationships: fake()->words(fake()->numberBetween(0, 5)),
         employmentForms: fake()->words(fake()->numberBetween(0, 5)),
         benefits: fake()->words(fake()->numberBetween(0, 5)),
         languageRequirements: fake()->words(fake()->numberBetween(0, 5)),
-        hardSkillsWeight: fake()->numberBetween(0, 10),
-        softSkillsWeight: fake()->numberBetween(0, 10),
-        languageSkillsWeight: fake()->numberBetween(0, 10),
+        hardSkillsWeight: fake()->numberBetween(0, 100),
+        softSkillsWeight: fake()->numberBetween(0, 100),
+        languageSkillsWeight: fake()->numberBetween(0, 100),
+        experienceWeight: fake()->numberBetween(0, 100),
+        educationWeight: fake()->numberBetween(0, 100),
         shareSalary: fake()->boolean,
         shareContact: fake()->boolean,
     );
@@ -205,6 +211,8 @@ it('tests update method', function (): void {
     assertSame($input->hardSkillsWeight, $position->hard_skills_weight);
     assertSame($input->softSkillsWeight, $position->soft_skills_weight);
     assertSame($input->languageSkillsWeight, $position->language_skills_weight);
+    assertSame($input->experienceWeight, $position->experience_weight);
+    assertSame($input->educationWeight, $position->education_weight);
     assertSame($input->shareSalary, $position->share_salary);
     assertSame($input->shareContact, $position->share_contact);
 });

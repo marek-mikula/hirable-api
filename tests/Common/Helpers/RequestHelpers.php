@@ -7,42 +7,6 @@ namespace Tests\Common\Helpers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Tests\Common\Data\ValidationData;
-
-use function PHPUnit\Framework\assertSame;
-
-function assertRequestValid(string $class, ValidationData $data): void
-{
-    // call before hook if any
-    if ($data->before) {
-        call_user_func($data->before);
-    }
-
-    $requestData = $data->data instanceof \Closure ? call_user_func($data->data) : $data->data;
-
-    $keys = array_keys($requestData);
-
-    // create request instance with given data
-    $request = createRequest($class, data: $requestData, method: 'POST');
-
-    // obtain rules from request class and filter only those
-    // rules that we want to test with given validation data
-    $rules = Arr::where($request->rules(), fn (mixed $value, string $key): bool => in_array(Str::before($key, '.'), $keys));
-
-    // create validator instance
-    $validator = Validator::make(data: $requestData, rules: $rules);
-
-    // assert invalid inputs
-    assertSame($validator->getMessageBag()->keys(), $data->invalidInputs);
-
-    // call after hook if any
-    if ($data->after) {
-        call_user_func($data->after);
-    }
-}
 
 /**
  * Creates Laravel request class

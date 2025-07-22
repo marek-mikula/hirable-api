@@ -88,6 +88,8 @@ class PositionUpdateUseCase extends UseCase
             hardSkillsWeight: $data->hasKey('hardSkillsWeight') ? $data->hardSkillsWeight : $position->hard_skills_weight,
             softSkillsWeight: $data->hasKey('softSkillsWeight') ? $data->softSkillsWeight : $position->soft_skills_weight,
             languageSkillsWeight: $data->hasKey('languageSkillsWeight') ? $data->languageSkillsWeight : $position->language_skills_weight,
+            experienceWeight: $data->hasKey('experienceWeight') ? $data->experienceWeight : $position->experience_weight,
+            educationWeight: $data->hasKey('educationWeight') ? $data->educationWeight : $position->education_weight,
             shareSalary: $data->hasKey('shareSalary') ? $data->shareSalary : $position->share_salary,
             shareContact: $data->hasKey('shareContact') ? $data->shareContact : $position->share_contact,
         );

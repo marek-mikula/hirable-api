@@ -24,6 +24,7 @@ final class CompanyRepository implements CompanyRepositoryInterface
     {
         $company = new Company();
 
+        $company->language = $input->language;
         $company->name = $input->name;
         $company->email = $input->email;
         $company->id_number = $input->idNumber;
@@ -36,6 +37,7 @@ final class CompanyRepository implements CompanyRepositoryInterface
 
     public function update(Company $company, CompanyUpdateInput $input): Company
     {
+        $company->language = $input->language;
         $company->name = $input->name;
         $company->email = $input->email;
         $company->id_number = $input->idNumber;

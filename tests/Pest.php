@@ -90,3 +90,4 @@ require_once __DIR__.'/Common/Helpers/ExceptionHelpers.php';
 require_once __DIR__.'/Common/Helpers/ResponseHelpers.php';
 require_once __DIR__.'/Common/Helpers/RequestHelpers.php';
 require_once __DIR__.'/Common/Helpers/TestHelpers.php';
+require_once __DIR__.'/Common/Helpers/FakeHelpers.php';

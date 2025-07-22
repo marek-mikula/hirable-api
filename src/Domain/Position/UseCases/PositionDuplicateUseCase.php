@@ -38,9 +38,10 @@ class PositionDuplicateUseCase extends UseCase
         $input = new PositionStoreInput(
             company: $user->loadMissing('company')->company,
             user: $user,
+            name: sprintf('%s: %s', __('common.copy'), $position->name),
+            externName: $position->extern_name,
             approveUntil: $position->approve_until,
             approveMessage: $position->approve_message,
-            name: sprintf('%s: %s', __('common.copy'), $position->name),
             department: $position->department,
             field: $position->field,
             jobSeatsNum: $position->job_seats_num,
@@ -70,6 +71,8 @@ class PositionDuplicateUseCase extends UseCase
             hardSkillsWeight: $position->hard_skills_weight,
             softSkillsWeight: $position->soft_skills_weight,
             languageSkillsWeight: $position->language_skills_weight,
+            experienceWeight: $position->experience_weight,
+            educationWeight: $position->education_weight,
             shareSalary: $position->share_salary,
             shareContact: $position->share_contact,
         );

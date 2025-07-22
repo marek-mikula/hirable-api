@@ -18,6 +18,8 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
 
     public function provides(): array
     {
-        return [];
+        return [
+            ApplicationRepositoryInterface::class,
+        ];
     }
 }

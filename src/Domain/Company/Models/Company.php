@@ -6,6 +6,7 @@ namespace Domain\Company\Models;
 
 use App\Casts\Capitalize;
 use App\Casts\Lowercase;
+use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Company\Database\Factories\CompanyFactory;
 use Domain\Company\Models\Builders\CompanyBuilder;
@@ -19,6 +20,7 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @property-read int $id
+ * @property LanguageEnum $language
  * @property string $name
  * @property string $email
  * @property string $id_number
@@ -43,6 +45,7 @@ class Company extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'language',
         'name',
         'email',
         'id_number',
@@ -52,6 +55,7 @@ class Company extends Model
     protected $attributes = [];
 
     protected $casts = [
+        'language' => LanguageEnum::class,
         'name' => Capitalize::class,
         'email' => Lowercase::class,
     ];

@@ -43,6 +43,15 @@ class ApplicationFactory extends Factory
             'portfolio' => null,
             'birth_date' => fake()->date,
             'experience' => [],
+            'score' => [],
+            'total_score' => null,
         ];
+    }
+
+    public function ofProcessed(bool $processed): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'processed' => $processed,
+        ]);
     }
 }

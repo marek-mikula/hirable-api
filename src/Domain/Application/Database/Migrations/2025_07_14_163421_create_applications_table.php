@@ -29,6 +29,8 @@ return new class () extends Migration {
             $table->string('portfolio')->nullable();
             $table->date('birth_date')->nullable();
             $table->json('experience');
+            $table->json('score');
+            $table->unsignedTinyInteger('total_score')->nullable();
             $table->timestamps();
 
             $table->foreign('position_id')

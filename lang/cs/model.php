@@ -96,6 +96,8 @@ return [
         'hardSkillsWeight' => 'Váha tvrdých dovedností',
         'softSkillsWeight' => 'Váha měkkých dovedností',
         'languageSkillsWeight' => 'Váha jazykových dovedností',
+        'experienceWeight' => 'Váha pracovních zkušeností',
+        'educationWeight' => 'Váha vzdělání',
         'shareSalary' => 'Sdílet mzdu',
         'shareContact' => 'Sdílet kontakt',
         'roles' => [
