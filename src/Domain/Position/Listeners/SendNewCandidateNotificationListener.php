@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Domain\Application\Listeners;
+namespace Domain\Position\Listeners;
 
 use App\Listeners\QueuedListener;
-use Domain\Application\Events\ApplicationProcessedEvent;
-use Domain\Application\Notifications\ApplicationNewCandidateNotification;
 use Domain\Position\Enums\PositionRoleEnum;
+use Domain\Position\Events\PositionCandidateCreatedEvent;
 use Domain\Position\Models\ModelHasPosition;
+use Domain\Position\Notifications\PositionNewCandidateNotification;
 use Domain\User\Models\User;
 
 class SendNewCandidateNotificationListener extends QueuedListener
 {
-    public function handle(ApplicationProcessedEvent $event): void
+    public function handle(PositionCandidateCreatedEvent $event): void
     {
-        $owner = $event->application->position->user;
+        $owner = $event->positionCandidate->position->user;
 
-        $event->application->position
+        $event->positionCandidate->position
             ->models()
             ->with('model')
             ->whereIn('role', [PositionRoleEnum::RECRUITER])
@@ -25,9 +25,9 @@ class SendNewCandidateNotificationListener extends QueuedListener
             ->map(fn (ModelHasPosition $modelHasPosition) => $modelHasPosition->model)
             ->add($owner)
             ->each(function (User $user) use ($event): void {
-                $user->notify(new ApplicationNewCandidateNotification(
-                    position: $event->application->position,
-                    candidate: $event->application->candidate,
+                $user->notify(new PositionNewCandidateNotification(
+                    position: $event->positionCandidate->position,
+                    candidate: $event->positionCandidate->candidate,
                 ));
             });
     }

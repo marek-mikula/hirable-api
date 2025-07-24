@@ -6,7 +6,6 @@ namespace Support\NotificationPreview\Services;
 
 use Domain\Application\Models\Application;
 use Domain\Application\Notifications\ApplicationAcceptedNotification;
-use Domain\Application\Notifications\ApplicationNewCandidateNotification;
 use Domain\Candidate\Models\Candidate;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Notifications\InvitationAcceptedNotification;
@@ -15,10 +14,11 @@ use Domain\Password\Notifications\PasswordChangedNotification;
 use Domain\Password\Notifications\PasswordResetRequestNotification;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
+use Domain\Position\Notifications\PositionNewCandidateNotification;
+use Domain\Position\Notifications\PositionApprovalApprovedNotification;
 use Domain\Position\Notifications\PositionApprovalCanceledNotification;
 use Domain\Position\Notifications\PositionApprovalExpiredNotification;
 use Domain\Position\Notifications\PositionApprovalNotification;
-use Domain\Position\Notifications\PositionApprovalApprovedNotification;
 use Domain\Position\Notifications\PositionApprovalRejectedNotification;
 use Domain\Position\Notifications\PositionApprovalReminderNotification;
 use Domain\Position\Notifications\PositionAssignedAsHmNotification;
@@ -186,6 +186,18 @@ class NotificationRegistrar
                         },
                         notifiable: fn () => User::factory()->make(),
                     ),
+                    NotificationData::create(
+                        label: 'New candidate',
+                        description: 'Notification informs users that new candidate has applied for a position.',
+                        notification: function (User $notifiable) {
+                            $position = Position::factory()->make();
+                            $candidate = Candidate::factory()->make();
+                            return new PositionNewCandidateNotification(position: $position, candidate: $candidate);
+                        },
+                        notifiable: function () {
+                            return User::factory()->make();
+                        },
+                    ),
                 ],
             ),
             NotificationDomain::create(
@@ -340,19 +352,7 @@ class NotificationRegistrar
 
                             return $notifiable;
                         },
-                    ),
-                    NotificationData::create(
-                        label: 'New candidate',
-                        description: 'Notification informs users that new candidate has applied for a position.',
-                        notification: function (User $notifiable) {
-                            $position = Position::factory()->make();
-                            $candidate = Candidate::factory()->make();
-                            return new ApplicationNewCandidateNotification(position: $position, candidate: $candidate);
-                        },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
-                    ),
+                    )
                 ]
             ),
         ]));

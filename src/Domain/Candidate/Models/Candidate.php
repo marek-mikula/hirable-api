@@ -42,6 +42,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read File $cv
+ * @property-read File $cvs
  * @property-read Collection<File> $otherFiles
  *
  * @method static CandidateFactory factory($count = null, $state = [])
@@ -93,12 +94,17 @@ class Candidate extends Model implements HasLocalePreference
 
     public function cv(): MorphOne
     {
-        return $this->files()->where('type', FileTypeEnum::CANDIDATE_CV->value)->one();
+        return $this->files()->where('type', FileTypeEnum::CANDIDATE_CV)->latest()->one();
+    }
+
+    public function cvs(): MorphMany
+    {
+        return $this->files()->where('type', FileTypeEnum::CANDIDATE_CV);
     }
 
     public function otherFiles(): MorphMany
     {
-        return $this->files()->where('type', FileTypeEnum::CANDIDATE_OTHER->value);
+        return $this->files()->where('type', FileTypeEnum::CANDIDATE_OTHER);
     }
 
     /**

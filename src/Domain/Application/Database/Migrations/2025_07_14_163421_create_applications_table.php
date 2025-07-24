@@ -13,8 +13,6 @@ return new class () extends Migration {
             $table->id();
             $table->uuid();
             $table->foreignId('position_id');
-            $table->foreignId('candidate_id')->nullable();
-            $table->boolean('processed')->default(false);
             $table->string('language', 2);
             $table->string('source', 20);
             $table->string('firstname');
@@ -23,8 +21,6 @@ return new class () extends Migration {
             $table->string('phone_prefix', 10);
             $table->string('phone_number', 20);
             $table->string('linkedin')->nullable();
-            $table->json('score');
-            $table->unsignedTinyInteger('total_score')->nullable();
             $table->timestamps();
 
             $table->foreign('position_id')

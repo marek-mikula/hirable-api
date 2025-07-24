@@ -6,20 +6,20 @@ namespace Domain\Application\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\Application\Models\Application;
-use Domain\Application\Repositories\ApplicationRepositoryInterface;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Repositories\CandidateRepositoryInterface;
 use Domain\Candidate\Repositories\Input\CandidateStoreInput;
+use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Support\File\Actions\GetModelSubFoldersAction;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
 use Support\File\Services\FileMover;
 
-class CreateCandidateFromApplicationUseCase extends UseCase
+class ProcessApplicationUseCase extends UseCase
 {
     public function __construct(
-        private readonly ApplicationRepositoryInterface $applicationRepository,
+        private readonly PositionCandidateRepositoryInterface $positionCandidateRepository,
         private readonly CandidateRepositoryInterface $candidateRepository,
         private readonly FileMover $fileMover,
     ) {
@@ -63,10 +63,19 @@ class CreateCandidateFromApplicationUseCase extends UseCase
             $otherFiles,
             $cv,
         ): Candidate {
+            // store candidate if no existing
+            // candidate was found
             $candidate = $existingCandidate ?? $this->candidateRepository->store($input);
 
-            $this->applicationRepository->setCandidate($application, $candidate);
+            // create connection between candidate
+            // and position
+            $this->positionCandidateRepository->store(
+                $application->position,
+                $candidate,
+                $application,
+            );
 
+            // transfer other files from application to candidate
             if ($otherFiles->isNotEmpty()) {
                 $this->fileMover->moveFiles(
                     fileable: $candidate,
@@ -76,6 +85,7 @@ class CreateCandidateFromApplicationUseCase extends UseCase
                 );
             }
 
+            // transfer CV from application to candidate
             if ($cv) {
                 $this->fileMover->moveFiles(
                     fileable: $candidate,

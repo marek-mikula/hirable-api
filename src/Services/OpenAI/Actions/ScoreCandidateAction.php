@@ -11,7 +11,8 @@ use Domain\AI\Context\ModelSerializer;
 use Domain\AI\Scoring\Data\ScoreCategoryData;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
 use Domain\AI\Scoring\ScoreCategorySerializer;
-use Domain\Application\Models\Application;
+use Domain\Candidate\Models\Candidate;
+use Domain\Position\Models\Position;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -20,7 +21,7 @@ use Services\OpenAI\Services\OpenAIConfigService;
 use Services\OpenAI\Services\OpenAIFileManager;
 use Support\File\Models\File;
 
-class ScoreApplicationAction extends Action
+class ScoreCandidateAction extends Action
 {
     public function __construct(
         private readonly ScoreCategorySerializer $categorySerializer,
@@ -35,15 +36,15 @@ class ScoreApplicationAction extends Action
      * @param Collection<File> $files
      * @return ScoreCategoryData[]
      */
-    public function handle(Application $application, Collection $files): array
+    public function handle(Position $position, Candidate $candidate, Collection $files): array
     {
         $result = OpenAI::responses()->create([
             'model' => $this->configService->getModel(PromptEnum::SCORE_APPLICATION),
             'prompt' => $this->configService->getPrompt(PromptEnum::SCORE_APPLICATION, [
                 'context' => $this->commonContexter->getCommonContext(),
-                'language' => __(sprintf('common.languages.%s', $application->position->company->language->value), locale: LanguageEnum::EN->value),
+                'language' => __(sprintf('common.languages.%s', $position->company->language->value), locale: LanguageEnum::EN->value),
                 'categories' => $this->categorySerializer->serialize(),
-                'position' => $this->modelSerializer->serialize($application->position),
+                'position' => $this->modelSerializer->serialize($position),
             ]),
             'input' => [
                 [

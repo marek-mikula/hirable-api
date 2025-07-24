@@ -22,6 +22,8 @@ use Illuminate\Database\Query\Builder;
  * @property int $candidate_id
  * @property int $application_id
  * @property int $state
+ * @property array $score
+ * @property int|null $total_score
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Position $position
@@ -46,10 +48,17 @@ class PositionCandidate extends Model
         'candidate_id',
         'application_id',
         'state',
+        'score',
+        'total_score',
+    ];
+
+    protected $attributes = [
+        'score' => '{}'
     ];
 
     protected $casts = [
         'state' => EnumOrValue::class . ':' . PositionCandidateStateEnum::class,
+        'score' => 'array',
     ];
 
     public function position(): BelongsTo

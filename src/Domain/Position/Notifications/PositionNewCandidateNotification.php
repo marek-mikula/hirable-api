@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Application\Notifications;
+namespace Domain\Position\Notifications;
 
 use App\Notifications\QueueNotification;
 use Domain\Candidate\Models\Candidate;
@@ -11,9 +11,9 @@ use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Queue\Attributes\WithoutRelations;
 
-class ApplicationNewCandidateNotification extends QueueNotification
+class PositionNewCandidateNotification extends QueueNotification
 {
-    public NotificationTypeEnum $type = NotificationTypeEnum::APPLICATION_NEW_CANDIDATE;
+    public NotificationTypeEnum $type = NotificationTypeEnum::POSITION_NEW_CANDIDATE;
 
     public function __construct(
         #[WithoutRelations]

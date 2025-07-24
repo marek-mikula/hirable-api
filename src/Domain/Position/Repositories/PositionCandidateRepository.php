@@ -30,4 +30,14 @@ class PositionCandidateRepository implements PositionCandidateRepositoryInterfac
 
         return $positionCandidate;
     }
+
+    public function setScore(PositionCandidate $positionCandidate, array $score, int $totalScore): PositionCandidate
+    {
+        $positionCandidate->score = $score;
+        $positionCandidate->total_score = $totalScore;
+
+        throw_if(!$positionCandidate->save(), RepositoryException::updated(PositionCandidate::class));
+
+        return $positionCandidate;
+    }
 }

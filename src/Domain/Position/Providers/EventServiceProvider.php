@@ -10,6 +10,7 @@ use Domain\Position\Events\PositionApprovalEvent;
 use Domain\Position\Events\PositionApprovalExpiredEvent;
 use Domain\Position\Events\PositionApprovalRejectedEvent;
 use Domain\Position\Events\PositionApprovedEvent;
+use Domain\Position\Events\PositionCandidateCreatedEvent;
 use Domain\Position\Events\PositionOpenedEvent;
 use Domain\Position\Events\PositionRejectedEvent;
 use Domain\Position\Listeners\CancelApprovalProcessListener;
@@ -19,15 +20,19 @@ use Domain\Position\Listeners\RejectApprovalProcessListener;
 use Domain\Position\Listeners\SendApprovedNotificationsListener;
 use Domain\Position\Listeners\SendCanceledNotificationsListener;
 use Domain\Position\Listeners\SendExpiredNotificationsListener;
+use Domain\Position\Listeners\SendNewCandidateNotificationListener;
 use Domain\Position\Listeners\SendOpenedNotificationsListener;
 use Domain\Position\Listeners\SendRejectedNotificationsListener;
 use Domain\Position\Listeners\SendToApprovalListener;
 use Domain\Position\Listeners\SetTokensListener;
+use Domain\Position\Listeners\ScorePositionCandidateListener;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
+use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Observers\ModelHasPositionObserver;
 use Domain\Position\Observers\PositionApprovalObserver;
+use Domain\Position\Observers\PositionCandidateObserver;
 use Domain\Position\Observers\PositionObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -60,6 +65,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         PositionApprovalEvent::class => [
             SendToApprovalListener::class,
+        ],
+        PositionCandidateCreatedEvent::class => [
+            ScorePositionCandidateListener::class,
+            SendNewCandidateNotificationListener::class,
         ]
     ];
 
@@ -67,5 +76,6 @@ class EventServiceProvider extends ServiceProvider
         Position::class => PositionObserver::class,
         PositionApproval::class => PositionApprovalObserver::class,
         ModelHasPosition::class => ModelHasPositionObserver::class,
+        PositionCandidate::class => PositionCandidateObserver::class,
     ];
 }

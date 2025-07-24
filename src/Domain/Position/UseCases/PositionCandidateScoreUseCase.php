@@ -2,52 +2,58 @@
 
 declare(strict_types=1);
 
-namespace Domain\Application\UseCases;
+namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\AI\Contracts\AIServiceInterface;
 use Domain\AI\Scoring\Data\ScoreCategoryData;
 use Domain\AI\Scoring\ScoreCalculator;
 use Domain\AI\Services\AIConfigService;
-use Domain\Application\Models\Application;
-use Domain\Application\Repositories\ApplicationRepositoryInterface;
 use Domain\Position\Models\Position;
+use Domain\Position\Models\PositionCandidate;
+use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Support\File\Models\File;
 
-class ScoreApplicationUseCase extends UseCase
+class PositionCandidateScoreUseCase extends UseCase
 {
     public function __construct(
-        private readonly ApplicationRepositoryInterface $applicationRepository,
+        private readonly PositionCandidateRepositoryInterface $positionCandidateRepository,
         private readonly AIConfigService $AIConfigService,
         private readonly AIServiceInterface $AIService,
         private readonly ScoreCalculator $scoreCounter,
     ) {
     }
 
-    public function handle(Application $application): Application
+    public function handle(PositionCandidate $positionCandidate): PositionCandidate
     {
-        $application->loadMissing([
-            'files',
+        $positionCandidate->loadMissing([
+            'candidate',
+            'candidate.files',
             'position',
             'position.company',
         ]);
 
         $allowedFiles = $this->AIConfigService->getScoreFiles();
 
-        $files = $application->files->filter(fn (File $file) => in_array($file->extension, $allowedFiles));
+        // get only those files, that can be
+        // serialized into AI request
+        $files = $positionCandidate
+            ->candidate
+            ->files
+            ->filter(fn (File $file) => in_array($file->extension, $allowedFiles));
 
-        $score = $this->AIService->scoreApplication($application, $files);
+        $score = $this->AIService->scoreCandidateFitOnPosition($positionCandidate->position, $positionCandidate->candidate, $files);
 
-        $totalScore = $this->scoreCounter->calculateTotalScore($application->position, $score);
-        $mappedScore = $this->mapScore($application->position, $score);
+        $totalScore = $this->scoreCounter->calculateTotalScore($positionCandidate->position, $score);
+        $mappedScore = $this->mapScore($positionCandidate->position, $score);
 
         return DB::transaction(function () use (
-            $application,
+            $positionCandidate,
             $mappedScore,
             $totalScore,
-        ): Application {
-            return $this->applicationRepository->setScore($application, $mappedScore, $totalScore);
+        ): PositionCandidate {
+            return $this->positionCandidateRepository->setScore($positionCandidate, $mappedScore, $totalScore);
         }, attempts: 5);
     }
 
