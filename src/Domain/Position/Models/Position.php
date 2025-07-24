@@ -50,6 +50,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property string|null $salary_var
  * @property string[] $benefits classifier values
  * @property string|null $min_education_level classifier value
+ * @property string|null $education_field
  * @property string[] $seniority classifier values
  * @property int|null $experience
  * @property string|null $hard_skills
@@ -125,6 +126,7 @@ class Position extends Model
         'salary_var',
         'benefits',
         'min_education_level',
+        'education_field',
         'seniority',
         'experience',
         'hard_skills',

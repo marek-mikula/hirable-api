@@ -65,6 +65,7 @@ class PositionStoreUseCase extends UseCase
             salaryCurrency: $data->salaryCurrency,
             salaryVar: $data->salaryVar,
             minEducationLevel: $data->minEducationLevel,
+            educationField: $data->educationField,
             seniority: $data->seniority,
             experience: $data->experience,
             hardSkills: $data->hardSkills,

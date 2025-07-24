@@ -77,6 +77,11 @@ return [
                     'classifier' => ClassifierTypeEnum::EDUCATION_LEVEL->value,
                     'label' => 'Required education level',
                 ],
+                PositionFieldEnum::EDUCATION_FIELD->value => [
+                    'type' => FieldTypeEnum::STRING->value,
+                    'attribute' => 'education_field', /** @see Position::$education_field */
+                    'label' => 'Required education field',
+                ],
                 PositionFieldEnum::SENIORITY->value => [
                     'type' => FieldTypeEnum::CLASSIFIER->value,
                     'attribute' => 'seniority', /** @see Position::$seniority */

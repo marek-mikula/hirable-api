@@ -67,6 +67,7 @@ class PositionResource extends JsonResource
             'minEducationLevel' => $this->resource->min_education_level
                 ? new ClassifierResource($toClassifier->handle($this->resource->min_education_level, ClassifierTypeEnum::EDUCATION_LEVEL))
                 : null,
+            'educationField' => $this->resource->education_field,
             'seniority' => new ClassifierCollection($toClassifier->handle($this->resource->seniority, ClassifierTypeEnum::SENIORITY)),
             'experience' => $this->resource->experience,
             'hardSkills' => $this->resource->hard_skills,

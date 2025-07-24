@@ -46,6 +46,7 @@ class PositionRepository implements PositionRepositoryInterface
         $position->salary_currency = $input->salaryCurrency;
         $position->salary_var = $input->salaryVar;
         $position->min_education_level = $input->minEducationLevel;
+        $position->education_field = $input->educationField;
         $position->seniority = $input->seniority;
         $position->experience = $input->experience;
         $position->hard_skills = $input->hardSkills;
@@ -94,6 +95,7 @@ class PositionRepository implements PositionRepositoryInterface
         $position->salary_currency = $input->salaryCurrency;
         $position->salary_var = $input->salaryVar;
         $position->min_education_level = $input->minEducationLevel;
+        $position->education_field = $input->educationField;
         $position->seniority = $input->seniority;
         $position->experience = $input->experience;
         $position->hard_skills = $input->hardSkills;

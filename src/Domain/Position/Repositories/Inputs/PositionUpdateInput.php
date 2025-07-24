@@ -33,6 +33,7 @@ readonly class PositionUpdateInput
         public string $salaryCurrency,
         public ?string $salaryVar,
         public ?string $minEducationLevel,
+        public ?string $educationField,
         public array $seniority,
         public ?int $experience,
         public ?string $hardSkills,

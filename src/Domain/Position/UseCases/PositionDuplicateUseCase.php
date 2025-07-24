@@ -54,6 +54,7 @@ class PositionDuplicateUseCase extends UseCase
             salaryCurrency: $position->salary_currency,
             salaryVar: $position->salary_var,
             minEducationLevel: $position->min_education_level,
+            educationField: $position->education_field,
             seniority: $position->seniority,
             experience: $position->experience,
             hardSkills: $position->hard_skills,

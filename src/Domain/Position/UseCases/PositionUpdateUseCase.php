@@ -71,6 +71,7 @@ class PositionUpdateUseCase extends UseCase
             salaryCurrency: $data->hasKey('salaryCurrency') ? $data->salaryCurrency : $position->salary_currency,
             salaryVar: $data->hasKey('salaryVar') ? $data->salaryVar : $position->salary_var,
             minEducationLevel: $data->hasKey('minEducationLevel') ? $data->minEducationLevel : $position->min_education_level,
+            educationField: $data->hasKey('educationField') ? $data->educationField : $position->education_field,
             seniority: $data->hasKey('seniority') ? $data->seniority : $position->seniority,
             experience: $data->hasKey('experience') ? $data->experience : $position->experience,
             hardSkills: $data->hasKey('hardSkills') ? $data->hardSkills : $position->hard_skills,

@@ -44,6 +44,8 @@ class PositionData extends Data
 
     public ?string $minEducationLevel;
 
+    public ?string $educationField;
+
     public ?int $experience;
 
     public ?string $hardSkills;

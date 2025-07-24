@@ -19,6 +19,7 @@ enum PositionFieldEnum: string
     case SALARY_CURRENCY = 'salaryCurrency';
     case SALARY_VAR = 'salaryVar';
     case MIN_EDUCATION_LEVEL = 'minEducationLevel';
+    case EDUCATION_FIELD = 'educationField';
     case SENIORITY = 'seniority';
     case EXPERIENCE = 'experience';
     case HARD_SKILLS = 'hardSkills';

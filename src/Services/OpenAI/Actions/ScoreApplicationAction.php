@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Services\OpenAI\Actions;
 
 use App\Actions\Action;
+use App\Enums\LanguageEnum;
 use Domain\AI\Context\CommonContexter;
 use Domain\AI\Context\ModelSerializer;
 use Domain\AI\Scoring\Data\ScoreCategoryData;
@@ -40,7 +41,7 @@ class ScoreApplicationAction extends Action
             'model' => $this->configService->getModel(PromptEnum::SCORE_APPLICATION),
             'prompt' => $this->configService->getPrompt(PromptEnum::SCORE_APPLICATION, [
                 'context' => $this->commonContexter->getCommonContext(),
-                'language' => $application->position->company->language->value,
+                'language' => __(sprintf('common.languages.%s', $application->position->company->language->value), locale: LanguageEnum::EN->value),
                 'categories' => $this->categorySerializer->serialize(),
                 'position' => $this->modelSerializer->serialize($application->position),
             ]),

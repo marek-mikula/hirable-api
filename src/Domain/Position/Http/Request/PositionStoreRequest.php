@@ -110,6 +110,11 @@ class PositionStoreRequest extends AuthRequest
                 'nullable',
                 'string',
             ],
+            'educationField' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
             'seniority' => [
                 'array',
             ],
@@ -330,6 +335,7 @@ class PositionStoreRequest extends AuthRequest
             'salaryCurrency' => __('model.position.salaryCurrency'),
             'salaryVar' => __('model.position.salaryVar'),
             'minEducationLevel' => __('model.position.minEducationLevel'),
+            'educationField' => __('model.position.educationField'),
             'seniority' => __('model.position.seniority'),
             'seniority.*' => __('model.position.seniority'),
             'experience' => __('model.position.experience'),
@@ -403,6 +409,7 @@ class PositionStoreRequest extends AuthRequest
             'salaryCurrency' => (string) $this->input('salaryCurrency'),
             'salaryVar' => $this->filled('salaryVar') ? (string) $this->input('salaryVar') : null,
             'minEducationLevel' => $this->filled('minEducationLevel') ? (string) $this->input('minEducationLevel') : null,
+            'educationField' => $this->filled('educationField') ? (string) $this->input('educationField') : null,
             'seniority' => $this->collect('seniority')->map(fn (mixed $val) => (string) $val)->all(),
             'experience' => $this->filled('experience') ? (int) $this->input('experience') : null,
             'hardSkills' => $this->filled('hardSkills') ? (string) $this->input('hardSkills') : null,

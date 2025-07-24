@@ -87,7 +87,7 @@ return [
         ],
         PromptEnum::SCORE_APPLICATION->value => [
             'id' => 'pmpt_687e176904f8819687d39433423fed140a31159dc4e9c7d9',
-            'version' => '11',
+            'version' => '12',
         ],
     ],
 ];

@@ -35,6 +35,7 @@ return new class () extends Migration {
             $table->string('salary_var')->nullable();
             $table->json('benefits');
             $table->string('min_education_level')->nullable();
+            $table->string('education_field')->nullable();
             $table->json('seniority');
             $table->unsignedTinyInteger('experience')->nullable();
             $table->string('hard_skills', 2000)->nullable();

@@ -59,6 +59,7 @@ it('tests store method', function (): void {
         salaryCurrency: fake()->word,
         salaryVar: fake()->word,
         minEducationLevel: fake()->word,
+        educationField: fake()->word,
         seniority: fake()->words(fake()->numberBetween(0, 5)),
         experience: fake()->numberBetween(1, 5),
         hardSkills: fake()->text(2000),
@@ -102,6 +103,7 @@ it('tests store method', function (): void {
     assertSame($input->salaryCurrency, $position->salary_currency);
     assertSame($input->salaryVar, $position->salary_var);
     assertSame($input->minEducationLevel, $position->min_education_level);
+    assertSame($input->educationField, $position->education_field);
     assertSame($input->seniority, $position->seniority);
     assertSame($input->experience, $position->experience);
     assertSame($input->hardSkills, $position->hard_skills);
@@ -153,6 +155,7 @@ it('tests update method', function (): void {
         salaryCurrency: fake()->word,
         salaryVar: fake()->word,
         minEducationLevel: fake()->word,
+        educationField: fake()->word,
         seniority: fake()->words(fake()->numberBetween(0, 5)),
         experience: fake()->numberBetween(1, 5),
         hardSkills: fake()->text(2000),
@@ -194,6 +197,7 @@ it('tests update method', function (): void {
     assertSame($input->salaryCurrency, $position->salary_currency);
     assertSame($input->salaryVar, $position->salary_var);
     assertSame($input->minEducationLevel, $position->min_education_level);
+    assertSame($input->educationField, $position->education_field);
     assertSame($input->seniority, $position->seniority);
     assertSame($input->experience, $position->experience);
     assertSame($input->hardSkills, $position->hard_skills);

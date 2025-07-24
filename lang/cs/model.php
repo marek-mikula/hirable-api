@@ -80,6 +80,7 @@ return [
         'salaryVar' => 'Variabilní složka',
         'benefits' => 'Benefity',
         'minEducationLevel' => 'Minimální dosažené vzdělání',
+        'educationField' => 'Obor vzdělání',
         'seniority' => 'Seniorita',
         'experience' => 'Min. počet odpracovaných roků',
         'hardSkills' => 'Ostatní tvrdé dovednosti',

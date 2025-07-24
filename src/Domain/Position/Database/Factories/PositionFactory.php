@@ -82,6 +82,7 @@ class PositionFactory extends Factory
             'salary_var' => fake()->words(asText: true),
             'benefits' => [],
             'min_education_level' => str(fake()->word)->transliterate()->lower()->toString(),
+            'education_field' => fake()->word,
             'seniority' => fake()->boolean ? [str(fake()->word)->transliterate()->lower()->toString()] : [],
             'experience' => fake()->numberBetween(0, 10),
             'hard_skills' => null,
