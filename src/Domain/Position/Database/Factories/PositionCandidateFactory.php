@@ -25,7 +25,7 @@ class PositionCandidateFactory extends Factory
             'position_id' => $this->isMaking ? null : Position::factory(),
             'candidate_id' => $this->isMaking ? null : Candidate::factory(),
             'application_id' => $this->isMaking ? null : Application::factory(),
-            'state' => 'new',
+            'state' => PositionCandidateStateEnum::NEW,
         ];
     }
 
