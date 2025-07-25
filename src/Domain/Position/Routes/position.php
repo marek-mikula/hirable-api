@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-use Domain\Position\Http\Controllers\PositionApprovalDecideController;
 use Domain\Position\Http\Controllers\PositionApprovalCancelController;
-use Domain\Position\Http\Controllers\PositionKanbanController;
+use Domain\Position\Http\Controllers\PositionApprovalDecideController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
-use Domain\Position\Http\Controllers\PositionProcessStepController;
+use Domain\Position\Http\Controllers\PositionKanbanController;
 use Domain\Position\Http\Controllers\PositionSuggestDepartmentsController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;
@@ -32,10 +31,6 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         });
 
         Route::get('/kanban', PositionKanbanController::class)->name('kanban');
-    });
-
-    Route::prefix('/process-steps')->as('position_process_steps')->group(function (): void {
-        Route::post('/', [PositionProcessStepController::class, 'store'])->name('store');
     });
 });
 

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Http\Resources;
+namespace Domain\ProcessStep\Https\Resources;
 
-use Domain\Position\Models\PositionProcessStep;
+use Domain\ProcessStep\Models\ProcessStep;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property PositionProcessStep $resource
+ * @property ProcessStep $resource
  */
-class PositionProcessStepResource extends JsonResource
+class ProcessStepResource extends JsonResource
 {
-    public function __construct(PositionProcessStep $resource)
+    public function __construct(ProcessStep $resource)
     {
         parent::__construct($resource);
     }

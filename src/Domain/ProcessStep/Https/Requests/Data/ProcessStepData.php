@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Http\Request\Data;
+namespace Domain\ProcessStep\Https\Requests\Data;
 
 use Spatie\LaravelData\Data;
 
-class PositionProcessStepData extends Data
+class ProcessStepData extends Data
 {
     public string $step;
 }

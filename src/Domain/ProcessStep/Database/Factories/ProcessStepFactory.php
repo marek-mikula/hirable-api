@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Database\Factories;
+namespace Domain\ProcessStep\Database\Factories;
 
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
-use Domain\Position\Enums\PositionProcessStepEnum;
-use Domain\Position\Models\PositionProcessStep;
+use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Models\ProcessStep;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
- * @extends BaseFactory<PositionProcessStep>
+ * @extends BaseFactory<ProcessStep>
  */
-class PositionProcessStepFactory extends Factory
+class ProcessStepFactory extends Factory
 {
-    protected $model = PositionProcessStep::class;
+    protected $model = ProcessStep::class;
 
     public function definition(): array
     {
         return [
             'company_id' => null,
-            'step' => fake()->unique()->randomElement(PositionProcessStepEnum::cases()),
+            'step' => fake()->unique()->randomElement(ProcessStepEnum::cases()),
         ];
     }
 
@@ -32,7 +32,7 @@ class PositionProcessStepFactory extends Factory
         ]);
     }
 
-    public function ofStep(PositionProcessStepEnum|string $step): static
+    public function ofStep(ProcessStepEnum|string $step): static
     {
         return $this->state(fn (array $attributes) => [
             'step' => is_string($step) ? $step : $step->value,

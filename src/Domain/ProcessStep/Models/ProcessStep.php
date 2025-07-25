@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Models;
+namespace Domain\ProcessStep\Models;
 
 use App\Casts\EnumOrValue;
 use Domain\Company\Models\Company;
-use Domain\Position\Database\Factories\PositionApprovalFactory;
-use Domain\Position\Database\Factories\PositionProcessStepFactory;
-use Domain\Position\Enums\PositionProcessStepEnum;
-use Domain\Position\Models\Builders\PositionApprovalBuilder;
-use Domain\Position\Models\Builders\PositionProcessStepBuilder;
+use Domain\ProcessStep\Database\Factories\ProcessStepFactory;
+use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Models\Builders\ProcessStepBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,20 +18,20 @@ use Illuminate\Database\Query\Builder;
 /**
  * @property-read int $id
  * @property int|null $company_id
- * @property PositionProcessStepEnum|string $step
+ * @property ProcessStepEnum|string $step
  * @property-read bool $is_custom
  * @property-read Company|null $company
  *
- * @method static PositionApprovalFactory factory($count = null, $state = [])
- * @method static PositionApprovalBuilder query()
+ * @method static ProcessStepFactory factory($count = null, $state = [])
+ * @method static ProcessStepBuilder query()
  */
-class PositionProcessStep extends Model
+class ProcessStep extends Model
 {
     use HasFactory;
 
     protected $primaryKey = 'id';
 
-    protected $table = 'position_process_steps';
+    protected $table = 'process_steps';
 
     public $timestamps = false;
 
@@ -43,7 +41,7 @@ class PositionProcessStep extends Model
     ];
 
     protected $casts = [
-        'step' => EnumOrValue::class . ':' . PositionProcessStepEnum::class,
+        'step' => EnumOrValue::class . ':' . ProcessStepEnum::class,
     ];
 
     public function isCustom(): Attribute
@@ -63,13 +61,13 @@ class PositionProcessStep extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): PositionProcessStepBuilder
+    public function newEloquentBuilder($query): ProcessStepBuilder
     {
-        return new PositionProcessStepBuilder($query);
+        return new ProcessStepBuilder($query);
     }
 
-    protected static function newFactory(): PositionProcessStepFactory
+    protected static function newFactory(): ProcessStepFactory
     {
-        return PositionProcessStepFactory::new();
+        return ProcessStepFactory::new();
     }
 }

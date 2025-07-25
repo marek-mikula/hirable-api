@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Repositories\Inputs;
+namespace Domain\ProcessStep\Repositories\Inputs;
 
 use Domain\Company\Models\Company;
 
-readonly class PositionProcessStepStoreInput
+readonly class ProcessStepStoreInput
 {
     public function __construct(
         public Company $company,

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Enums;
+namespace Domain\ProcessStep\Enums;
 
-enum PositionProcessStepEnum: string
+enum ProcessStepEnum: string
 {
     // fixed states
     case NEW = 'new';

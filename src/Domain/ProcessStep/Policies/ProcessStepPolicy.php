@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Policies;
+namespace Domain\ProcessStep\Policies;
 
 use Domain\Company\Enums\RoleEnum;
 use Domain\User\Models\User;
 
-class PositionProcessStepPolicy
+class ProcessStepPolicy
 {
     public function store(User $user): bool
     {

@@ -7,9 +7,9 @@ namespace Domain\Position\Repositories;
 use App\Exceptions\RepositoryException;
 use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
-use Domain\Position\Enums\PositionProcessStepEnum;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
+use Domain\ProcessStep\Enums\ProcessStepEnum;
 
 class PositionCandidateRepository implements PositionCandidateRepositoryInterface
 {
@@ -20,7 +20,7 @@ class PositionCandidateRepository implements PositionCandidateRepositoryInterfac
         $positionCandidate->position_id = $position->id;
         $positionCandidate->candidate_id = $candidate->id;
         $positionCandidate->application_id = $application->id;
-        $positionCandidate->step = PositionProcessStepEnum::NEW;
+        $positionCandidate->step = ProcessStepEnum::NEW;
 
         throw_if(!$positionCandidate->save(), RepositoryException::stored(PositionCandidate::class));
 
