@@ -60,14 +60,16 @@ it('tests update method', function (): void {
         email: fake()->companyEmail,
         idNumber: fake()->numerify('#########'),
         website: fake()->url,
+        positionProcessSteps: fake()->words(5),
         aiOutputLanguage: fake()->randomElement(LanguageEnum::cases()),
     );
 
     $company = $repository->update(Company::factory()->create(), $input);
 
-    assertSame($input->aiOutputLanguage, $company->ai_output_language);
     assertSame($input->name, $company->name);
     assertSame($input->email, $company->email);
     assertSame($input->idNumber, $company->id_number);
     assertSame($input->website, $company->website);
+    assertSame($input->positionProcessSteps, $company->position_process_steps);
+    assertSame($input->aiOutputLanguage, $company->ai_output_language);
 });

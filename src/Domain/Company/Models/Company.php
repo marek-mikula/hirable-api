@@ -24,6 +24,7 @@ use Illuminate\Database\Query\Builder;
  * @property string $email
  * @property string $id_number
  * @property string|null $website
+ * @property string[] $position_process_steps
  * @property LanguageEnum $ai_output_language
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -49,14 +50,18 @@ class Company extends Model
         'email',
         'id_number',
         'website',
+        'position_process_steps',
         'ai_output_language',
     ];
 
-    protected $attributes = [];
+    protected $attributes = [
+        'position_process_steps' => '[]'
+    ];
 
     protected $casts = [
         'name' => Capitalize::class,
         'email' => Lowercase::class,
+        'position_process_steps' => 'array',
         'ai_output_language' => LanguageEnum::class,
     ];
 

@@ -13,6 +13,7 @@ readonly class CompanyUpdateInput
         public string $email,
         public string $idNumber,
         public ?string $website,
+        public array $positionProcessSteps,
         public LanguageEnum $aiOutputLanguage,
     ) {
     }

@@ -15,6 +15,7 @@ return new class () extends Migration {
             $table->string('email')->unique('companies_email_unique');
             $table->string('id_number')->unique('companies_id_number_unique');
             $table->string('website')->nullable();
+            $table->json('position_process_steps');
             $table->string('ai_output_language', 2);
             $table->timestamps();
         });
