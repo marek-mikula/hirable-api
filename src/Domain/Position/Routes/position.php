@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Domain\Position\Http\Controllers\PositionApprovalDecideController;
 use Domain\Position\Http\Controllers\PositionApprovalCancelController;
+use Domain\Position\Http\Controllers\PositionKanbanController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
@@ -28,6 +29,8 @@ Route::middleware('auth:sanctum')->group(static function (): void {
             Route::post('/cancel', PositionApprovalCancelController::class)->name('cancel');
             Route::patch('/{approval}/decide', PositionApprovalDecideController::class)->whereNumber('approval')->name('decide');
         });
+
+        Route::get('/kanban', PositionKanbanController::class)->name('kanban');
     });
 });
 

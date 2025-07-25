@@ -65,6 +65,11 @@ class PositionPolicy
         return false;
     }
 
+    public function showKanban(User $user, Position $position): bool
+    {
+        return $this->show($user, $position) && in_array($position->state, PositionStateEnum::getAfterOpenedStates());
+    }
+
     public function update(User $user, Position $position): bool
     {
         if ($user->company_id !== $position->company_id) {

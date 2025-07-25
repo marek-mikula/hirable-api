@@ -21,7 +21,7 @@ use Illuminate\Database\Query\Builder;
  * @property int $position_id
  * @property int $candidate_id
  * @property int $application_id
- * @property int $state
+ * @property PositionCandidateStateEnum|string $state enum value or custom value defined by user
  * @property array $score
  * @property int|null $total_score
  * @property Carbon $created_at
