@@ -11,6 +11,7 @@ use Domain\Position\Database\Factories\PositionProcessStepFactory;
 use Domain\Position\Enums\PositionProcessStepEnum;
 use Domain\Position\Models\Builders\PositionApprovalBuilder;
 use Domain\Position\Models\Builders\PositionProcessStepBuilder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +21,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read int $id
  * @property int|null $company_id
  * @property PositionProcessStepEnum|string $step
+ * @property-read bool $is_custom
  * @property-read Company|null $company
  *
  * @method static PositionApprovalFactory factory($count = null, $state = [])
@@ -43,6 +45,11 @@ class PositionProcessStep extends Model
     protected $casts = [
         'step' => EnumOrValue::class . ':' . PositionProcessStepEnum::class,
     ];
+
+    public function isCustom(): Attribute
+    {
+        return Attribute::get(fn () => is_string($this->step));
+    }
 
     public function company(): BelongsTo
     {
