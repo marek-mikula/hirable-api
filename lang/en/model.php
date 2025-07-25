@@ -55,7 +55,6 @@ return [
         'id_number' => 'Company ID number',
         'email' => 'Company contact e-mail address',
         'website' => 'Company website',
-        'positionProcessSteps' => 'Position process steps',
         'aiOutputLanguage' => 'AI output language',
     ],
 
@@ -125,6 +124,10 @@ return [
     'candidate' => [
         'cv' => 'Resume',
         'linkedin' => 'LinkedIn',
+    ],
+
+    'processStep' => [
+        'step' => 'Step',
     ],
 
 ];

@@ -28,6 +28,6 @@ class ProcessStepStoreUseCase extends UseCase
 
         return DB::transaction(function () use ($input): ProcessStep {
             return $this->processStepRepository->store($input);
-        });
+        }, attempts: 5);
     }
 }

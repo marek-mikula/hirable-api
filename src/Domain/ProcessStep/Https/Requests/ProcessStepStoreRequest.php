@@ -26,8 +26,16 @@ class ProcessStepStoreRequest extends AuthRequest
                 'required',
                 'string',
                 'max:50',
-                Rule::notIn(collect(ProcessStepEnum::cases())->pluck('value')->all())
+                Rule::notIn(collect(ProcessStepEnum::cases())->pluck('value')->all()),
+                Rule::unique(ProcessStep::class, 'step')->where('company_id', $this->user()->company_id),
             ],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'step' => __('model.processStep.step'),
         ];
     }
 
