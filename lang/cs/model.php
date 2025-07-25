@@ -55,6 +55,7 @@ return [
         'id_number' => 'IČO',
         'email' => 'Kontaktní e-mail společnosti',
         'website' => 'Webová stránka společnosti',
+        'positionProcessSteps' => 'Procesní kroky pozice',
         'aiOutputLanguage' => 'Jazyk výstupů AI',
     ],
 

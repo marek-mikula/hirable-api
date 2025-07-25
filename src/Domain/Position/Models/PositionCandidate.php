@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Database\Factories\PositionCandidateFactory;
-use Domain\Position\Enums\PositionCandidateStateEnum;
+use Domain\Position\Enums\PositionCandidateStepEnum;
 use Domain\Position\Models\Builders\PositionCandidateBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +21,7 @@ use Illuminate\Database\Query\Builder;
  * @property int $position_id
  * @property int $candidate_id
  * @property int $application_id
- * @property PositionCandidateStateEnum|string $state enum value or custom value defined by user
+ * @property PositionCandidateStepEnum|string $state enum value or custom value defined by user
  * @property array $score
  * @property int|null $total_score
  * @property Carbon $created_at
@@ -57,7 +57,7 @@ class PositionCandidate extends Model
     ];
 
     protected $casts = [
-        'state' => EnumOrValue::class . ':' . PositionCandidateStateEnum::class,
+        'state' => EnumOrValue::class . ':' . PositionCandidateStepEnum::class,
         'score' => 'array',
     ];
 

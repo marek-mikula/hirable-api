@@ -8,6 +8,7 @@ use App\Enums\LanguageEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Models\Company;
 use App\Rules\Rule;
+use Domain\Position\Enums\PositionCandidateStepEnum;
 
 class CompanyUpdateRequest extends AuthRequest
 {
@@ -80,6 +81,7 @@ class CompanyUpdateRequest extends AuthRequest
                 'required',
                 'string',
                 'max:50',
+                Rule::notIn(collect(PositionCandidateStepEnum::cases())->pluck('value')->all())
             ],
             'aiOutputLanguage' => [
                 Rule::excludeIf(!in_array('aiOutputLanguage', $keys)).
