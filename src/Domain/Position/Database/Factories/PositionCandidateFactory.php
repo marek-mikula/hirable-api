@@ -7,7 +7,7 @@ namespace Domain\Position\Database\Factories;
 use Database\Factories\Factory;
 use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
-use Domain\Position\Enums\PositionCandidateStepEnum;
+use Domain\Position\Enums\PositionProcessStepEnum;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
@@ -25,7 +25,7 @@ class PositionCandidateFactory extends Factory
             'position_id' => $this->isMaking ? null : Position::factory(),
             'candidate_id' => $this->isMaking ? null : Candidate::factory(),
             'application_id' => $this->isMaking ? null : Application::factory(),
-            'state' => PositionCandidateStepEnum::NEW,
+            'step' => PositionProcessStepEnum::NEW,
             'score' => [],
             'total_score' => null,
         ];
@@ -52,10 +52,10 @@ class PositionCandidateFactory extends Factory
         ]);
     }
 
-    public function ofState(PositionCandidateStepEnum|string $state): static
+    public function ofStep(PositionProcessStepEnum|string $step): static
     {
         return $this->state(fn (array $attributes) => [
-            'state' => is_string($state) ? $state : $state->value,
+            'step' => is_string($step) ? $step : $step->value,
         ]);
     }
 }

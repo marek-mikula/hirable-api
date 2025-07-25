@@ -41,7 +41,6 @@ final class CompanyRepository implements CompanyRepositoryInterface
         $company->email = $input->email;
         $company->id_number = $input->idNumber;
         $company->website = $input->website;
-        $company->position_process_steps = $input->positionProcessSteps;
         $company->ai_output_language = $input->aiOutputLanguage;
 
         throw_if(!$company->save(), RepositoryException::updated(Company::class));

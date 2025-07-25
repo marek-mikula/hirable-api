@@ -28,7 +28,6 @@ class CompanyUpdateUseCase extends UseCase
             'email' => $company->email,
             'idNumber' => $company->id_number,
             'website' => $company->website,
-            'positionProcessSteps' => $company->position_process_steps,
             'aiOutputLanguage' => $company->ai_output_language,
         ];
 

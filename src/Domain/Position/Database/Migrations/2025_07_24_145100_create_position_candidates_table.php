@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->foreignId('position_id');
             $table->foreignId('candidate_id');
             $table->foreignId('application_id');
-            $table->string('state');
+            $table->string('step');
             $table->json('score');
             $table->unsignedTinyInteger('total_score')->nullable();
             $table->timestamps();

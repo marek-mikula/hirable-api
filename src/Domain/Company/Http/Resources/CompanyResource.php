@@ -26,7 +26,6 @@ class CompanyResource extends JsonResource
             'idNumber' => $this->resource->id_number,
             'email' => $this->resource->email,
             'website' => $this->resource->website,
-            'positionProcessSteps' => $this->resource->position_process_steps,
             'aiOutputLanguage' => $this->resource->ai_output_language->value,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),

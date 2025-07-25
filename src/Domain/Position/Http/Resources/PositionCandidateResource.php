@@ -28,9 +28,9 @@ class PositionCandidateResource extends JsonResource
 
         return [
             'id' => $this->resource->id,
-            'state' => is_string($this->resource->state)
-                ? $this->resource->state
-                : $this->resource->state->value,
+            'step' => is_string($this->resource->step)
+                ? $this->resource->step
+                : $this->resource->step->value,
             'score' => $this->resource->score,
             'totalScore' => $this->resource->total_score,
             'positionId' => $this->resource->position->id,

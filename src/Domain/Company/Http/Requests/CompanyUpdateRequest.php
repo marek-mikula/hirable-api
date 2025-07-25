@@ -8,7 +8,6 @@ use App\Enums\LanguageEnum;
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Models\Company;
 use App\Rules\Rule;
-use Domain\Position\Enums\PositionCandidateStepEnum;
 
 class CompanyUpdateRequest extends AuthRequest
 {
@@ -39,7 +38,6 @@ class CompanyUpdateRequest extends AuthRequest
                     'email',
                     'idNumber',
                     'website',
-                    'positionProcessSteps',
                     'aiOutputLanguage',
                 ])
             ],
@@ -71,18 +69,6 @@ class CompanyUpdateRequest extends AuthRequest
                 'url',
                 'max:255',
             ],
-            'positionProcessSteps' => [
-                Rule::excludeIf(!in_array('positionProcessSteps', $keys)),
-                'array',
-                'max:10',
-            ],
-            'positionProcessSteps.*' => [
-                Rule::excludeIf(!in_array('positionProcessSteps', $keys)),
-                'required',
-                'string',
-                'max:50',
-                Rule::notIn(collect(PositionCandidateStepEnum::cases())->pluck('value')->all())
-            ],
             'aiOutputLanguage' => [
                 Rule::excludeIf(!in_array('aiOutputLanguage', $keys)).
                 'required',
@@ -100,8 +86,6 @@ class CompanyUpdateRequest extends AuthRequest
             'idNumber' => __('model.company.id_number'),
             'website' => __('model.company.website'),
             'aiOutputLanguage' => __('model.company.aiOutputLanguage'),
-            'positionProcessSteps' => __('model.company.positionProcessSteps'),
-            'positionProcessSteps.*' => __('model.company.positionProcessSteps'),
         ];
     }
 
@@ -113,7 +97,6 @@ class CompanyUpdateRequest extends AuthRequest
             $data[$key] = match ($key) {
                 'name', 'email', 'idNumber' => (string) $this->input($key),
                 'website' => $this->filled($key) ? (string) $this->input($key) : null,
-                'positionProcessSteps' => $this->collect('positionProcessSteps')->map(fn (mixed $value) => (string) $value)->all(),
                 'aiOutputLanguage' => $this->enum('aiOutputLanguage', LanguageEnum::class),
             };
         }
