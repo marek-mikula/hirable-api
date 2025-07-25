@@ -31,7 +31,7 @@ class FileFactory extends Factory
         $path = Storage::disk(FileDiskEnum::LOCAL->value)->putFile('/', $file);
 
         return [
-            'type' => FileTypeEnum::TEMP,
+            'type' => FileTypeEnum::CANDIDATE_CV,
             'disk' => FileDiskEnum::LOCAL,
             'name' => $filename,
             'mime' => 'image/jpeg',
