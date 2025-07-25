@@ -19,10 +19,10 @@ it('correctly casts value', function (): void {
     $model = new TestModel();
 
     // test that value gets cast when setting the value
-    assertSame(TestEnum::VALUE1->value, $cast->set($model, 'value', TestEnum::VALUE1, []));
+    assertSame(TestEnum::VALUE->value, $cast->set($model, 'value', TestEnum::VALUE, []));
     assertSame('randomValue', $cast->set($model, 'value', 'randomValue', []));
 
     // test that value gets cast when accessing the value
-    assertSame(TestEnum::VALUE1, $cast->get($model, 'value', TestEnum::VALUE1->value, []));
+    assertSame(TestEnum::VALUE, $cast->get($model, 'value', TestEnum::VALUE->value, []));
     assertSame('randomValue', $cast->get($model, 'value', 'randomValue', []));
 })->only();
