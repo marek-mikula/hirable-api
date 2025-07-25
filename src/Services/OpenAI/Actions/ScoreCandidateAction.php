@@ -41,8 +41,8 @@ class ScoreCandidateAction extends Action
         $result = OpenAI::responses()->create([
             'model' => $this->configService->getModel(PromptEnum::SCORE_APPLICATION),
             'prompt' => $this->configService->getPrompt(PromptEnum::SCORE_APPLICATION, [
+                'language' => __(sprintf('common.languages.%s', $position->company->ai_output_language->value), locale: LanguageEnum::EN->value),
                 'context' => $this->commonContexter->getCommonContext(),
-                'language' => __(sprintf('common.languages.%s', $position->company->language->value), locale: LanguageEnum::EN->value),
                 'categories' => $this->categorySerializer->serialize(),
                 'position' => $this->modelSerializer->serialize($position),
             ]),

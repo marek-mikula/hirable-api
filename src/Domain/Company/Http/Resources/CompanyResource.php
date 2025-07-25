@@ -22,12 +22,13 @@ class CompanyResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'language' => $this->resource->language->value,
             'name' => $this->resource->name,
             'idNumber' => $this->resource->id_number,
             'email' => $this->resource->email,
             'website' => $this->resource->website,
+            'aiOutputLanguage' => $this->resource->ai_output_language->value,
             'createdAt' => $this->resource->created_at->toIso8601String(),
+            'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];
     }
 }

@@ -17,7 +17,7 @@ class AuthDatabaseSeeder extends Seeder
         // seed default company and user
 
         $company = new Company();
-        $company->language = LanguageEnum::CS;
+        $company->ai_output_language = LanguageEnum::CS;
         $company->name = 'Hirable';
         $company->email = (string) config('app.contact_email');
         $company->id_number = '123456789';

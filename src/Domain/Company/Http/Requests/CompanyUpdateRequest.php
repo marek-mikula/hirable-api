@@ -34,18 +34,12 @@ class CompanyUpdateRequest extends AuthRequest
                 'required',
                 'string',
                 Rule::in([
-                    'language',
                     'name',
                     'email',
                     'idNumber',
                     'website',
+                    'aiOutputLanguage',
                 ])
-            ],
-            'language' => [
-                Rule::excludeIf(!in_array('language', $keys)).
-                'required',
-                'string',
-                Rule::enum(LanguageEnum::class),
             ],
             'name' => [
                 Rule::excludeIf(!in_array('name', $keys)).
@@ -75,17 +69,23 @@ class CompanyUpdateRequest extends AuthRequest
                 'url',
                 'max:255',
             ],
+            'aiOutputLanguage' => [
+                Rule::excludeIf(!in_array('aiOutputLanguage', $keys)).
+                'required',
+                'string',
+                Rule::enum(LanguageEnum::class),
+            ],
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'language' => __('model.common.language'),
             'name' => __('model.company.name'),
             'email' => __('model.company.email'),
             'idNumber' => __('model.company.id_number'),
             'website' => __('model.company.website'),
+            'aiOutputLanguage' => __('model.company.aiOutputLanguage'),
         ];
     }
 
@@ -95,9 +95,9 @@ class CompanyUpdateRequest extends AuthRequest
 
         foreach ($this->array('keys') as $key) {
             $data[$key] = match ($key) {
-                'language' => $this->enum('language', LanguageEnum::class),
                 'name', 'email', 'idNumber' => (string) $this->input($key),
                 'website' => $this->filled($key) ? (string) $this->input($key) : null,
+                'aiOutputLanguage' => $this->enum('aiOutputLanguage', LanguageEnum::class),
             };
         }
 

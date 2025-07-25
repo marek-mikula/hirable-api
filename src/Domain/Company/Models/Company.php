@@ -20,11 +20,11 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @property-read int $id
- * @property LanguageEnum $language
  * @property string $name
  * @property string $email
  * @property string $id_number
  * @property string|null $website
+ * @property LanguageEnum $ai_output_language
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Collection<User> $users
@@ -45,19 +45,19 @@ class Company extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'language',
         'name',
         'email',
         'id_number',
         'website',
+        'ai_output_language',
     ];
 
     protected $attributes = [];
 
     protected $casts = [
-        'language' => LanguageEnum::class,
         'name' => Capitalize::class,
         'email' => Lowercase::class,
+        'ai_output_language' => LanguageEnum::class,
     ];
 
     public function users(): HasMany

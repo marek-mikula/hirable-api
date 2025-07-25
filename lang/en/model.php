@@ -55,6 +55,7 @@ return [
         'id_number' => 'Company ID number',
         'email' => 'Company contact e-mail address',
         'website' => 'Company website',
+        'aiOutputLanguage' => 'AI output language',
     ],
 
     'position' => [
