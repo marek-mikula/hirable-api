@@ -28,12 +28,6 @@ return new class () extends Migration {
                 ->on('positions')
                 ->restrictOnDelete()
                 ->restrictOnUpdate();
-
-            $table->foreign('candidate_id')
-                ->references('id')
-                ->on('candidates')
-                ->restrictOnDelete()
-                ->restrictOnUpdate();
         });
     }
 

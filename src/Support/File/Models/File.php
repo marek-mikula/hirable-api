@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Support\File\Models;
 
 use App\Casts\Lowercase;
-use App\Models\Traits\HasArrayData;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Support\File\Database\Factories\FileFactory;
+use Support\File\Enums\FileDiskEnum;
 use Support\File\Enums\FileTypeEnum;
 
 /**
  * @property-read int $id
- * @property class-string<Model> $fileable_type
- * @property int $fileable_id
  * @property FileTypeEnum $type
+ * @property FileDiskEnum $disk
  * @property string $name
  * @property string $filename
  * @property string $mime
@@ -28,17 +28,15 @@ use Support\File\Enums\FileTypeEnum;
  * @property-read string $real_path
  * @property string $extension
  * @property int $size file size in bytes
- * @property array $data
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Model $fileable
+ * @property Collection<ModelHasFile> $modelHasFiles
  *
  * @method static FileFactory factory($count = null, $state = [])
  */
 class File extends Model
 {
-    use HasArrayData;
     use HasFactory;
     use SoftDeletes;
 
@@ -49,30 +47,24 @@ class File extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'fileable_type',
-        'fileable_id',
         'type',
+        'disk',
         'name',
         'mime',
         'path',
         'extension',
         'size',
-        'data',
-    ];
-
-    protected $attributes = [
-        'data' => '{}'
     ];
 
     protected $casts = [
         'type' => FileTypeEnum::class,
+        'disk' => FileDiskEnum::class,
         'extension' => Lowercase::class,
-        'data' => 'array',
     ];
 
     protected function realPath(): Attribute
     {
-        return Attribute::get(fn (): string => Storage::disk($this->type->getDomain()->getDisk())->path($this->path));
+        return Attribute::get(fn (): string => Storage::disk($this->disk->value)->path($this->path));
     }
 
     protected function filename(): Attribute
@@ -80,11 +72,12 @@ class File extends Model
         return Attribute::get(fn (): string => basename($this->path));
     }
 
-    public function fileable(): MorphTo
+    public function modelHasFiles(): HasMany
     {
-        return $this->morphTo(
-            name: 'fileable',
-            ownerKey: 'id',
+        return $this->hasMany(
+            related: ModelHasFile::class,
+            foreignKey: 'file_id',
+            localKey: 'id',
         );
     }
 

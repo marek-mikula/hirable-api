@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Support\File\Jobs;
 
 use Illuminate\Support\Facades\Storage;
+use Support\File\Enums\FileDiskEnum;
 use Support\File\Jobs\DeleteDeletedFilesJob;
 use Support\File\Models\File;
 
@@ -13,10 +14,12 @@ use function Pest\Laravel\assertModelMissing;
 
 /** @covers \Support\File\Jobs\DeleteDeletedFilesJob::handle */
 it('correctly deletes deleted files', function (): void {
-    $file = File::factory()->create();
-    $deletedFile = File::factory()->ofDeletedAt(now())->create();
+    $disk = FileDiskEnum::LOCAL;
 
-    $storage = Storage::disk($deletedFile->type->getDomain()->getDisk());
+    $file = File::factory()->ofDisk($disk)->create();
+    $deletedFile = File::factory()->ofDisk($disk)->ofDeletedAt(now())->create();
+
+    $storage = Storage::disk($disk->value);
 
     $storage->assertExists($deletedFile->path);
 

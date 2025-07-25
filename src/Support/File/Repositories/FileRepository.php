@@ -7,7 +7,6 @@ namespace Support\File\Repositories;
 use App\Exceptions\RepositoryException;
 use Support\File\Models\File;
 use Support\File\Repositories\Input\FileStoreInput;
-use Support\File\Repositories\Input\FileUpdateInput;
 
 final class FileRepository implements FileRepositoryInterface
 {
@@ -15,36 +14,24 @@ final class FileRepository implements FileRepositoryInterface
     {
         $file = new File();
 
-        $file->fileable_type = $input->model::class;
-        $file->fileable_id = $input->model->getKey();
         $file->type = $input->type;
+        $file->disk = $input->disk;
         $file->path = $input->path;
         $file->extension = $input->extension;
         $file->name = $input->name;
         $file->mime = $input->mime;
         $file->size = $input->size;
-        $file->data = $input->data;
 
         throw_if(!$file->save(), RepositoryException::stored(File::class));
 
         return $file;
     }
 
-    public function update(File $file, FileUpdateInput $input): File
+    public function updatePath(File $file, string $path): File
     {
-        $file->fileable_type = $input->model::class;
-        $file->fileable_id = $input->model->getKey();
-        $file->type = $input->type;
-        $file->path = $input->path;
+        $file->path = $path;
 
         throw_if(!$file->save(), RepositoryException::updated(File::class));
-
-        return $file;
-    }
-
-    public function save(File $file): File
-    {
-        throw_if(!$file->save(), RepositoryException::saved(File::class));
 
         return $file;
     }

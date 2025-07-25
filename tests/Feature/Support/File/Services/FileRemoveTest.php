@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\File\Services;
 
 use Illuminate\Support\Facades\Storage;
+use Support\File\Enums\FileDiskEnum;
 use Support\File\Models\File;
 use Support\File\Services\FileRemover;
 
@@ -15,10 +16,12 @@ it('it correctly deletes given files from disk and db', function (): void {
     /** @var FileRemover $remover */
     $remover = app(FileRemover::class);
 
-    $file1 = File::factory()->ofDeletedAt(now())->create();
-    $file2 = File::factory()->ofDeletedAt(now())->create();
+    $disk = FileDiskEnum::LOCAL;
 
-    $storage = Storage::disk($file1->type->getDomain()->getDisk());
+    $file1 = File::factory()->ofDisk($disk)->ofDeletedAt(now())->create();
+    $file2 = File::factory()->ofDisk($disk)->ofDeletedAt(now())->create();
+
+    $storage = Storage::disk($disk->value);
 
     $storage->assertExists($file1->path);
     $storage->assertExists($file2->path);

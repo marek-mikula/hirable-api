@@ -11,11 +11,9 @@ class FileData extends Data
 {
     public UploadedFile $file;
 
-    public array $data = [];
-
-    public static function make(UploadedFile $file, array $data = []): static
+    public static function make(UploadedFile $file): static
     {
-        return static::from(['file' => $file, 'data' => $data]);
+        return static::from(['file' => $file]);
     }
 
     public function getName(): string

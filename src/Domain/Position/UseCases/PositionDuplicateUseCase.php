@@ -12,15 +12,18 @@ use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
-use Support\File\Actions\GetModelSubFoldersAction;
 use Support\File\Enums\FileTypeEnum;
+use Support\File\Repositories\ModelHasFileRepositoryInterface;
 use Support\File\Services\FileCopier;
+use Support\File\Services\FilePathService;
 
 class PositionDuplicateUseCase extends UseCase
 {
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
+        private readonly ModelHasFileRepositoryInterface $modelHasFileRepository,
         private readonly PositionRepositoryInterface $positionRepository,
+        private readonly FilePathService $filePathService,
         private readonly FileCopier $fileCopier,
     ) {
     }
@@ -102,12 +105,15 @@ class PositionDuplicateUseCase extends UseCase
             }
 
             if ($position->files->isNotEmpty()) {
-                $this->fileCopier->copyFiles(
-                    fileable: $newPosition,
-                    type: FileTypeEnum::POSITION_FILE,
-                    files: $position->files->all(),
-                    folders: GetModelSubFoldersAction::make()->handle($newPosition),
-                );
+                foreach ($position->files as $file) {
+                    $file = $this->fileCopier->copyFile(
+                        file: $file,
+                        path: $this->filePathService->getPathForModel($newPosition),
+                        type: FileTypeEnum::POSITION_FILE,
+                    );
+
+                    $this->modelHasFileRepository->store($newPosition, $file);
+                }
             }
 
             return $newPosition;

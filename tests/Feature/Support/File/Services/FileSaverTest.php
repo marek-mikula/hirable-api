@@ -4,128 +4,75 @@ declare(strict_types=1);
 
 namespace Tests\Feature\File\Services;
 
-use Domain\User\Models\User;
 use Illuminate\Http\Testing\File as TestingFile;
 use Illuminate\Support\Facades\Storage;
 use Support\File\Data\FileData;
+use Support\File\Enums\FileDiskEnum;
 use Support\File\Enums\FileTypeEnum;
-use Support\File\Exceptions\UnableToSaveFileException;
 use Support\File\Models\File;
-use Support\File\Repositories\FileRepositoryInterface;
 use Support\File\Services\FileSaver;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseEmpty;
-use function Pest\Laravel\mock;
-use function PHPUnit\Framework\assertInstanceOf;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertStringStartsWith;
-use function PHPUnit\Framework\assertTrue;
-use function Tests\Common\Helpers\assertException;
 
-/** @covers \Support\File\Services\FileSaver::saveFiles */
-it('correctly saves collection of files', function (): void {
-    $fileable = User::factory()->create();
-
-    $type = FileTypeEnum::TEMP;
-
-    $storage = Storage::disk($type->getDomain()->getDisk());
+/** @covers \Support\File\Services\FileSaver::saveFile */
+it('correctly saves file', function (): void {
+    $type = FileTypeEnum::CANDIDATE_CV;
+    $disk = FileDiskEnum::LOCAL;
 
     /** @var FileSaver $saver */
     $saver = app(FileSaver::class);
 
     assertDatabaseEmpty(File::class);
 
-    $files = $saver->saveFiles(
-        fileable: $fileable,
+    $fileData = FileData::make(TestingFile::fake()->create(
+        name: 'cv.pdf',
+        kilobytes: 1,
+        mimeType: 'application/pdf'
+    ));
+
+    $file = $saver->saveFile(
+        file: $fileData,
+        path: 'candidates',
         type: $type,
-        files: [
-            FileData::make(TestingFile::fake()->image('test1.jpg')->size(1), ['key0' => 'value0']),
-            FileData::make(TestingFile::fake()->image('test2.png')->size(2), ['key1' => 'value1']),
-            FileData::make(TestingFile::fake()->image('test3.gif')->size(3), ['key2' => 'value2']),
-        ],
-        folders: [
-            'images',
-            'thumbnails',
-        ],
+        disk: $disk,
     );
 
-    assertDatabaseCount(File::class, 3);
+    assertDatabaseCount(File::class, 1);
 
-    $mimes = [
-        'test1.jpg' => 'image/jpeg',
-        'test2.png' => 'image/png',
-        'test3.gif' => 'image/gif',
-    ];
-
-    $sizes = [
-        'test1.jpg' => 1024,
-        'test2.png' => 2 * 1024,
-        'test3.gif' => 3 * 1024,
-    ];
-
-    foreach ($files as $i => $file) {
-        // assert that file exists on a disk
-        $storage->assertExists($file->path);
-
-        // assert correct path folders
-        assertStringStartsWith('images/thumbnails', $file->path);
-
-        // assert correct mime type
-        assertSame($mimes[$file->name], $file->mime);
-
-        // assert correct size
-        assertSame($sizes[$file->name], $file->size);
-
-        // assert meta data
-        assertTrue($file->hasDataValue("key{$i}"));
-        assertSame("value{$i}", $file->getDataValue("key{$i}"));
-
-        // assert relationship between fileable and files
-        assertSame($fileable->id, $file->fileable_id);
-        assertSame($fileable::class, $file->fileable_type);
-    }
+    Storage::disk($disk->value)->assertExists($file->path);
+    assertSame($type, $file->type);
+    assertSame($disk, $file->disk);
+    assertStringStartsWith('candidates', $file->path);
+    assertSame($fileData->getMime(), $file->mime);
+    assertSame($fileData->getSize(), $file->size);
 });
 
-/** @covers \Support\File\Services\FileSaver::saveFiles */
-it('correctly removes files and folders when saving fails', function (): void {
-    $user = User::factory()->create();
+/** @covers \Support\File\Services\FileSaver::saveFile */
+it('correctly saves file to a default disk', function (): void {
+    $disk = FileDiskEnum::S3;
 
-    $type = FileTypeEnum::TEMP;
-
-    $storage = Storage::disk($type->getDomain()->getDisk());
-
-    mock(FileRepositoryInterface::class)
-        ->shouldReceive('store')
-        ->andThrow(new \Exception());
+    // set default disk
+    config()->set('filesystems.default', $disk->value);
 
     /** @var FileSaver $saver */
     $saver = app(FileSaver::class);
 
-    assertException(function () use (
-        $user,
-        $type,
-        $saver,
-    ): void {
-        $saver->saveFiles(
-            fileable: $user,
-            type: $type,
-            files: [
-                FileData::make(TestingFile::fake()->image('test.jpg')),
-            ],
-            folders: [
-                'images',
-                'users',
-            ]
-        );
-    }, function (\Exception $e): void {
-        assertInstanceOf(UnableToSaveFileException::class, $e);
-    });
+    $fileData = FileData::make(TestingFile::fake()->create(
+        name: 'cv.pdf',
+        kilobytes: 1,
+        mimeType: 'application/pdf'
+    ));
 
-    assertDatabaseEmpty(File::class);
+    $file = $saver->saveFile(
+        file: $fileData,
+        path: 'candidates',
+        type: FileTypeEnum::CANDIDATE_CV,
+    );
 
-    // assert that folders were removed when exception was thrown
-    $storage->assertMissing('/images/users');
-    $storage->assertMissing('/images');
-    $storage->assertDirectoryEmpty('/');
+
+    Storage::disk($disk->value)->assertExists($file->path);
+    assertSame($disk, $file->disk);
 });

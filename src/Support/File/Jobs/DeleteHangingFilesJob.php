@@ -14,7 +14,7 @@ class DeleteHangingFilesJob extends ScheduleJob
     public function handle(FileRepositoryInterface $fileRepository): void
     {
         File::query()
-            ->doesntHave('fileable')
+            ->doesntHave('modelHasFiles')
             ->chunkById(100, function (Collection $files) use ($fileRepository): void {
                 $fileRepository->deleteMany($files->all());
             }, 'files.id', 'id');

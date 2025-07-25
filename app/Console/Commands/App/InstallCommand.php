@@ -7,7 +7,8 @@ namespace App\Console\Commands\App;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-use Support\File\Enums\FileDomainEnum;
+use Illuminate\Support\Str;
+use Support\File\Enums\FileDiskEnum;
 
 class InstallCommand extends Command
 {
@@ -26,8 +27,11 @@ class InstallCommand extends Command
         // seed default data
         $this->call('db:seed', ['--class' => DatabaseSeeder::class]);
 
-        // clear all files in storage
-        $this->clearStorage();
+        // clear all files in local storage
+        $this->clearLocalStorage();
+
+        // clear all laravel log files
+        $this->clearLogs();
 
         // link storage folder
         if (!$this->isStorageLinked()) {
@@ -44,22 +48,52 @@ class InstallCommand extends Command
         return file_exists(public_path('/storage'));
     }
 
-    private function clearStorage(): void
+    private function clearLocalStorage(): void
     {
-        $this->components->info('Clearing files on storage disks.');
+        $this->components->info('Clearing local storage.');
 
-        // clean all previous files in storage
-        foreach (FileDomainEnum::cases() as $domain) {
-            $this->components->task(sprintf('Clearing %s disk', $domain->getDisk()), function () use ($domain): void {
-                $storage = Storage::disk($domain->getDisk());
+        $storage = Storage::disk(FileDiskEnum::LOCAL->value);
 
-                foreach ($storage->directories('/') as $directory) {
-                    $storage->deleteDirectory($directory);
-                }
+        foreach ($storage->allFiles() as $file) {
+            if (Str::contains($file, '.gitignore')) {
+                continue;
+            }
 
-                foreach ($storage->files('/') as $file) {
-                    $storage->delete($file);
-                }
+            $this->components->task(sprintf('Deleting file %s', $file), function () use (
+                $storage,
+                $file,
+            ): void {
+                $storage->delete($file);
+            });
+        }
+
+        foreach (array_reverse($storage->allDirectories()) as $directory) {
+            if ($directory === 'public') {
+                continue;
+            }
+
+            $storage->deleteDirectory($directory);
+
+            $this->components->task(sprintf('Deleting directory %s', $directory), function () use (
+                $storage,
+                $directory,
+            ): void {
+                $storage->deleteDirectory($directory);
+            });
+        }
+
+        $this->newLine();
+    }
+
+    private function clearLogs(): void
+    {
+        $this->components->info('Clearing logs.');
+
+        $logs = glob(storage_path('/logs/*.log'));
+
+        foreach ($logs as $log) {
+            $this->components->task(sprintf('Clearing log %s', basename($log)), function () use ($log): void {
+                unlink($log);
             });
         }
 

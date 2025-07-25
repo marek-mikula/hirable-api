@@ -11,14 +11,13 @@ return new class () extends Migration {
     {
         Schema::create('files', static function (Blueprint $table): void {
             $table->id();
-            $table->morphs('fileable');
             $table->string('type');
+            $table->string('disk');
             $table->string('name');
             $table->string('mime');
             $table->string('path');
             $table->string('extension');
             $table->unsignedBigInteger('size');
-            $table->json('data');
             $table->timestamps();
             $table->softDeletes();
         });

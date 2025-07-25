@@ -6,15 +6,12 @@ namespace Support\File\Repositories;
 
 use Support\File\Models\File;
 use Support\File\Repositories\Input\FileStoreInput;
-use Support\File\Repositories\Input\FileUpdateInput;
 
 interface FileRepositoryInterface
 {
     public function store(FileStoreInput $input): File;
 
-    public function update(File $file, FileUpdateInput $input): File;
-
-    public function save(File $file): File;
+    public function updatePath(File $file, string $path): File;
 
     public function delete(File $file, bool $force = false): File;
 

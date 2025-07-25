@@ -13,15 +13,10 @@ use Domain\Notification\Traits\Notifiable;
 use Domain\Position\Models\Position;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Query\Builder;
-use Support\File\Enums\FileTypeEnum;
-use Support\File\Models\File;
 use Support\File\Models\Traits\HasFiles;
 
 /**
@@ -40,8 +35,6 @@ use Support\File\Models\Traits\HasFiles;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Position $position
- * @property-read File $cv
- * @property-read Collection<File> $otherFiles
  *
  * @method static ApplicationFactory factory($count = null, $state = [])
  * @method static ApplicationBuilder query()
@@ -88,16 +81,6 @@ class Application extends Model implements HasLocalePreference
             foreignKey: 'position_id',
             ownerKey: 'id',
         );
-    }
-
-    public function cv(): MorphOne
-    {
-        return $this->files()->where('type', FileTypeEnum::APPLICATION_CV->value)->one();
-    }
-
-    public function otherFiles(): MorphMany
-    {
-        return $this->files()->where('type', FileTypeEnum::APPLICATION_OTHER->value);
     }
 
     /**

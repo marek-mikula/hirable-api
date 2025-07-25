@@ -22,7 +22,7 @@ class FileRemover
         $deletedFiles = collect();
 
         foreach ($files as $file) {
-            $storage = Storage::disk($file->type->getDomain()->getDisk());
+            $storage = Storage::disk($file->disk->value);
 
             if (!$storage->exists($file->path)) {
                 $deletedFiles->push($file);

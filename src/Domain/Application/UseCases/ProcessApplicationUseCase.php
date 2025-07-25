@@ -11,16 +11,19 @@ use Domain\Candidate\Repositories\CandidateRepositoryInterface;
 use Domain\Candidate\Repositories\Input\CandidateStoreInput;
 use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
 use Illuminate\Support\Facades\DB;
-use Support\File\Actions\GetModelSubFoldersAction;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
+use Support\File\Repositories\ModelHasFileRepositoryInterface;
 use Support\File\Services\FileMover;
+use Support\File\Services\FilePathService;
 
 class ProcessApplicationUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionCandidateRepositoryInterface $positionCandidateRepository,
+        private readonly ModelHasFileRepositoryInterface $modelHasFileRepository,
         private readonly CandidateRepositoryInterface $candidateRepository,
+        private readonly FilePathService $filePathService,
         private readonly FileMover $fileMover,
     ) {
     }
@@ -53,8 +56,8 @@ class ProcessApplicationUseCase extends UseCase
             linkedin: $application->linkedin,
         );
 
-        $otherFiles = $application->files->filter(fn (File $file) => $file->type === FileTypeEnum::APPLICATION_OTHER);
-        $cv = $application->files->first(fn (File $file) => $file->type === FileTypeEnum::APPLICATION_CV);
+        $otherFiles = $application->files->filter(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_OTHER);
+        $cv = $application->files->first(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_CV);
 
         return DB::transaction(function () use (
             $application,
@@ -75,24 +78,32 @@ class ProcessApplicationUseCase extends UseCase
                 $application,
             );
 
-            // transfer other files from application to candidate
-            if ($otherFiles->isNotEmpty()) {
-                $this->fileMover->moveFiles(
-                    fileable: $candidate,
-                    type: FileTypeEnum::CANDIDATE_OTHER,
-                    files: $otherFiles->all(),
-                    folders: GetModelSubFoldersAction::make()->handle($candidate),
-                );
-            }
+            $files = modelCollection(File::class);
 
             // transfer CV from application to candidate
             if ($cv) {
-                $this->fileMover->moveFiles(
-                    fileable: $candidate,
-                    type: FileTypeEnum::CANDIDATE_CV,
-                    files: [$cv],
-                    folders: GetModelSubFoldersAction::make()->handle($candidate),
+                $cv = $this->fileMover->moveFile(
+                    file: $cv,
+                    path: $this->filePathService->getPathForModel($candidate),
                 );
+
+                $this->modelHasFileRepository->store($candidate, $cv);
+
+                $files->push($cv);
+            }
+
+            // transfer other files from application to candidate
+            if ($otherFiles->isNotEmpty()) {
+                foreach ($otherFiles as $otherFile) {
+                    $otherFile = $this->fileMover->moveFile(
+                        file: $otherFile,
+                        path: $this->filePathService->getPathForModel($candidate),
+                    );
+
+                    $this->modelHasFileRepository->store($candidate, $otherFile);
+
+                    $files->push($otherFile);
+                }
             }
 
             return $candidate;

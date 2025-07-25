@@ -11,6 +11,7 @@ use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Repositories\CandidateRepositoryInterface;
 use Domain\Candidate\Repositories\Input\CandidateUpdateInput;
 use Illuminate\Support\Facades\DB;
+use Support\File\Models\File;
 
 class ExtractCVDataUseCase extends UseCase
 {
@@ -22,7 +23,12 @@ class ExtractCVDataUseCase extends UseCase
 
     public function handle(Candidate $candidate): Candidate
     {
-        $data = $this->AIService->extractCVData($candidate->cv);
+        /** @var File|null $cv */
+        $cv = $candidate->cvs()->first();
+
+        throw_if(empty($cv), new \InvalidArgumentException(sprintf('Missing CV of candidate %d.', $candidate->id)));
+
+        $data = $this->AIService->extractCVData($cv);
 
         $input = new CandidateUpdateInput(
             language: $candidate->language,

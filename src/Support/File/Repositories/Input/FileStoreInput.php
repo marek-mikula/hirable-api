@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace Support\File\Repositories\Input;
 
-use Illuminate\Database\Eloquent\Model;
+use Support\File\Enums\FileDiskEnum;
 use Support\File\Enums\FileTypeEnum;
 
 readonly class FileStoreInput
 {
     public function __construct(
-        public Model $model,
         public FileTypeEnum $type,
+        public FileDiskEnum $disk,
         public string $path,
         public string $extension,
         public string $name,
         public string $mime,
         public int $size,
-        public array $data,
     ) {
     }
 }

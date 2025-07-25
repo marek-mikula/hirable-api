@@ -9,9 +9,15 @@ use Domain\Position\Policies\PositionPolicy;
 use Domain\User\Models\User;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
+use Support\File\Repositories\ModelHasFileRepositoryInterface;
 
 class FilePolicy
 {
+    public function __construct(
+        private readonly ModelHasFileRepositoryInterface $modelHasFileRepository,
+    ) {
+    }
+
     public function download(User $user, File $file): bool
     {
         return $this->show($user, $file);
@@ -35,8 +41,12 @@ class FilePolicy
 
     private function showPositionFile(User $user, File $file): bool
     {
-        /** @var Position $position */
-        $position = $file->loadMissing('fileable')->fileable;
+        /** @var Position|null $position */
+        $position = $this->modelHasFileRepository->getFileableOf($file, Position::class);
+
+        if (empty($position)) {
+            return false;
+        }
 
         /** @see PositionPolicy::show() */
         return $user->can('show', $position);
@@ -44,8 +54,12 @@ class FilePolicy
 
     private function deletePositionFile(User $user, File $file): bool
     {
-        /** @var Position $position */
-        $position = $file->loadMissing('fileable')->fileable;
+        /** @var Position|null $position */
+        $position = $this->modelHasFileRepository->getFileableOf($file, Position::class);
+
+        if (empty($position)) {
+            return false;
+        }
 
         /** @see PositionPolicy::update() */
         return $user->can('update', $position);
