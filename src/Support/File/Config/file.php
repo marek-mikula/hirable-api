@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Domain\Candidate\Models\Candidate;
 use Domain\Position\Models\Position;
 
 return [
@@ -16,6 +17,7 @@ return [
     */
 
     'model_folders' => [
+        Candidate::class => 'candidates',
         Position::class => 'positions'
     ],
 

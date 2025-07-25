@@ -78,8 +78,6 @@ class ProcessApplicationUseCase extends UseCase
                 $application,
             );
 
-            $files = modelCollection(File::class);
-
             // transfer CV from application to candidate
             if ($cv) {
                 $cv = $this->fileMover->moveFile(
@@ -88,8 +86,6 @@ class ProcessApplicationUseCase extends UseCase
                 );
 
                 $this->modelHasFileRepository->store($candidate, $cv);
-
-                $files->push($cv);
             }
 
             // transfer other files from application to candidate
@@ -101,8 +97,6 @@ class ProcessApplicationUseCase extends UseCase
                     );
 
                     $this->modelHasFileRepository->store($candidate, $otherFile);
-
-                    $files->push($otherFile);
                 }
             }
 
