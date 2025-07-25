@@ -14,7 +14,7 @@ class CollectGridRequestQueryAction extends Action
 {
     public function handle(Request $request): GridRequestQuery
     {
-        $searchQuery = $request->string('searchQuery');
+        $searchQuery = $request->input('searchQuery');
         $sort = $request->get('sort', []);
         $page = $request->integer('page', 1);
         $perPage = $request->integer('perPage', PerPageEnum::default()->value);

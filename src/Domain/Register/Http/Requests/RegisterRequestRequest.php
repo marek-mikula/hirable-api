@@ -36,6 +36,6 @@ class RegisterRequestRequest extends Request
 
     public function getEmail(): string
     {
-        return (string) $this->string('email')->lower();
+        return $this->string('email')->lower()->toString();
     }
 }
