@@ -13,7 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @property PositionProcessStep $resource
  */
-class PositionProcessStepKanbanResource extends JsonResource
+class KanbanStepResource extends JsonResource
 {
     use ChecksRelations;
 
@@ -28,7 +28,7 @@ class PositionProcessStepKanbanResource extends JsonResource
 
         return [
             'step' => new PositionProcessStepResource($this->resource),
-            'candidates' => new PositionCandidateCollection($this->resource->positionCandidates),
+            'positionCandidates' => new PositionCandidateCollection($this->resource->positionCandidates),
         ];
     }
 }
