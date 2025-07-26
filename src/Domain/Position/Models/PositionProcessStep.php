@@ -9,9 +9,11 @@ use Domain\Position\Database\Factories\PositionProcessStepFactory;
 use Domain\Position\Models\Builders\PositionProcessStepBuilder;
 use Domain\ProcessStep\Enums\ProcessStepEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 
 /**
@@ -22,6 +24,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read bool $is_custom
  * @property int|null $round interview round
  * @property-read Position $position
+ * @property-read Collection<PositionCandidate> $positionCandidates
  *
  * @method static PositionProcessStepFactory factory($count = null, $state = [])
  * @method static PositionProcessStepBuilder query()
@@ -58,6 +61,15 @@ class PositionProcessStep extends Model
             related: Position::class,
             foreignKey: 'position_id',
             ownerKey: 'id',
+        );
+    }
+
+    public function positionCandidates(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionCandidate::class,
+            foreignKey: 'step_id',
+            localKey: 'id',
         );
     }
 

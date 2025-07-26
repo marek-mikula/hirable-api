@@ -9,6 +9,7 @@ use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
 use Domain\Position\Repositories\Inputs\PositionProcessStepStoreInput;
 use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Illuminate\Database\Eloquent\Collection;
 
 class PositionProcessStepRepository implements PositionProcessStepRepositoryInterface
 {
@@ -37,5 +38,16 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
             ->first();
 
         return $positionProcessStep;
+    }
+
+    public function getStepsForKanban(Position $position): Collection
+    {
+        return PositionProcessStep::query()
+            ->with([
+                'positionCandidates',
+                'positionCandidates.candidate',
+            ])
+            ->orderBy('order')
+            ->get();
     }
 }

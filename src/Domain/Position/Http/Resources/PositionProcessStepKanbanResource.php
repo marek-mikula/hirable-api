@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\Position\Http\Resources;
+
+use App\Http\Resources\Traits\ChecksRelations;
+use Domain\Position\Http\Resources\Collections\PositionCandidateCollection;
+use Domain\Position\Models\PositionProcessStep;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+/**
+ * @property PositionProcessStep $resource
+ */
+class PositionProcessStepKanbanResource extends JsonResource
+{
+    use ChecksRelations;
+
+    public function __construct(PositionProcessStep $resource)
+    {
+        parent::__construct($resource);
+    }
+
+    public function toArray(Request $request): array
+    {
+        $this->checkLoadedRelations('positionCandidates');
+
+        return [
+            'step' => new PositionProcessStepResource($this->resource),
+            'candidates' => new PositionCandidateCollection($this->resource->positionCandidates),
+        ];
+    }
+}
