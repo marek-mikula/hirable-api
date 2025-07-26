@@ -5,28 +5,26 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories;
 
 use App\Exceptions\RepositoryException;
-use Domain\Application\Models\Application;
-use Domain\Candidate\Models\Candidate;
-use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\Position\Repositories\Inputs\PositionCandidateStoreInput;
 
 class PositionCandidateRepository implements PositionCandidateRepositoryInterface
 {
-    public function store(Position $position, Candidate $candidate, Application $application): PositionCandidate
+    public function store(PositionCandidateStoreInput $input): PositionCandidate
     {
         $positionCandidate = new PositionCandidate();
 
-        $positionCandidate->position_id = $position->id;
-        $positionCandidate->candidate_id = $candidate->id;
-        $positionCandidate->application_id = $application->id;
-        $positionCandidate->step = ProcessStepEnum::NEW;
+        $positionCandidate->position_id = $input->position->id;
+        $positionCandidate->candidate_id = $input->candidate->id;
+        $positionCandidate->application_id = $input->application->id;
+        $positionCandidate->step_id = $input->step->id;
 
         throw_if(!$positionCandidate->save(), RepositoryException::stored(PositionCandidate::class));
 
-        $positionCandidate->setRelation('position', $position);
-        $positionCandidate->setRelation('candidate', $candidate);
-        $positionCandidate->setRelation('application', $application);
+        $positionCandidate->setRelation('position', $input->position);
+        $positionCandidate->setRelation('candidate', $input->candidate);
+        $positionCandidate->setRelation('application', $input->application);
+        $positionCandidate->setRelation('step', $input->step);
 
         return $positionCandidate;
     }

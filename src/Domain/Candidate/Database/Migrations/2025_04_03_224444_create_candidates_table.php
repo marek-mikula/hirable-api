@@ -29,7 +29,7 @@ return new class () extends Migration {
 
             $table->unique(['company_id', 'email'], 'candidates_company_email_unique');
 
-            $table->foreign('company_id')
+            $table->foreign('company_id', 'candidates_company_foreign')
                 ->references('id')
                 ->on('companies')
                 ->restrictOnDelete()

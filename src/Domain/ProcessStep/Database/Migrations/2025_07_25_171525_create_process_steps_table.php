@@ -16,7 +16,7 @@ return new class () extends Migration {
 
             $table->unique(['company_id', 'step'], 'process_steps_company_step_unique');
 
-            $table->foreign('company_id')
+            $table->foreign('company_id', 'process_steps_company_foreign')
                 ->references('id')
                 ->on('companies')
                 ->cascadeOnDelete()

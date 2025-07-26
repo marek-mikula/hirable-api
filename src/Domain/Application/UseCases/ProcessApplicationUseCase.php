@@ -9,7 +9,10 @@ use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Repositories\CandidateRepositoryInterface;
 use Domain\Candidate\Repositories\Input\CandidateStoreInput;
+use Domain\Position\Repositories\Inputs\PositionCandidateStoreInput;
 use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
+use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
+use Domain\ProcessStep\Enums\ProcessStepEnum;
 use Illuminate\Support\Facades\DB;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
@@ -20,6 +23,7 @@ use Support\File\Services\FilePathService;
 class ProcessApplicationUseCase extends UseCase
 {
     public function __construct(
+        private readonly PositionProcessStepRepositoryInterface $positionProcessStepRepository,
         private readonly PositionCandidateRepositoryInterface $positionCandidateRepository,
         private readonly ModelHasFileRepositoryInterface $modelHasFileRepository,
         private readonly CandidateRepositoryInterface $candidateRepository,
@@ -35,6 +39,13 @@ class ProcessApplicationUseCase extends UseCase
             'position.company',
             'files',
         ]);
+
+        $positionProcessStep = $this->positionProcessStepRepository->findByPosition(
+            $application->position,
+            ProcessStepEnum::NEW,
+        );
+
+        throw_if(empty($positionProcessStep), new \Exception('Missing default position process step.'));
 
         // try to find duplicate candidate model
         // in company by email or phone number
@@ -61,6 +72,7 @@ class ProcessApplicationUseCase extends UseCase
 
         return DB::transaction(function () use (
             $application,
+            $positionProcessStep,
             $existingCandidate,
             $input,
             $otherFiles,
@@ -73,9 +85,12 @@ class ProcessApplicationUseCase extends UseCase
             // create connection between candidate
             // and position
             $this->positionCandidateRepository->store(
-                $application->position,
-                $candidate,
-                $application,
+                new PositionCandidateStoreInput(
+                    position: $application->position,
+                    candidate: $candidate,
+                    application: $application,
+                    step: $positionProcessStep,
+                )
             );
 
             // transfer CV from application to candidate

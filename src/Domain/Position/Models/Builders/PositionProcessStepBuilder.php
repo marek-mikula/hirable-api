@@ -8,4 +8,8 @@ use App\Models\Builders\Builder;
 
 class PositionProcessStepBuilder extends Builder
 {
+    public function wherePosition(int $id): static
+    {
+        return $this->where('position_id', $id);
+    }
 }

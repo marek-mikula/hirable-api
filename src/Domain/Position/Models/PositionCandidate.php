@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Position\Models;
 
-use App\Casts\EnumOrValue;
 use Carbon\Carbon;
 use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Database\Factories\PositionCandidateFactory;
 use Domain\Position\Models\Builders\PositionCandidateBuilder;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,7 +19,7 @@ use Illuminate\Database\Query\Builder;
  * @property int $position_id
  * @property int $candidate_id
  * @property int $application_id
- * @property ProcessStepEnum|string $step enum value or custom value defined by user
+ * @property int $step_id
  * @property array $score
  * @property int|null $total_score
  * @property Carbon $created_at
@@ -29,6 +27,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read Position $position
  * @property-read Candidate $candidate
  * @property-read Application $application
+ * @property-read PositionProcessStep $step
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
  * @method static PositionCandidateBuilder query()
@@ -47,7 +46,7 @@ class PositionCandidate extends Model
         'position_id',
         'candidate_id',
         'application_id',
-        'step',
+        'step_id',
         'score',
         'total_score',
     ];
@@ -57,7 +56,6 @@ class PositionCandidate extends Model
     ];
 
     protected $casts = [
-        'step' => EnumOrValue::class . ':' . ProcessStepEnum::class,
         'score' => 'array',
     ];
 
@@ -84,6 +82,15 @@ class PositionCandidate extends Model
         return $this->belongsTo(
             related: Application::class,
             foreignKey: 'application_id',
+            ownerKey: 'id',
+        );
+    }
+
+    public function step(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: PositionProcessStep::class,
+            foreignKey: 'step_id',
             ownerKey: 'id',
         );
     }

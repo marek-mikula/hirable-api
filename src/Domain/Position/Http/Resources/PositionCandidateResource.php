@@ -24,18 +24,16 @@ class PositionCandidateResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['position', 'candidate']);
+        $this->checkLoadedRelations(['position', 'candidate', 'step']);
 
         return [
             'id' => $this->resource->id,
-            'step' => is_string($this->resource->step)
-                ? $this->resource->step
-                : $this->resource->step->value,
             'score' => $this->resource->score,
             'totalScore' => $this->resource->total_score,
             'positionId' => $this->resource->position->id,
             'positionName' => $this->resource->position->name,
             'candidate' => new CandidateResource($this->resource->candidate),
+            'step' => new PositionProcessStepResource($this->resource->step),
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];

@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->foreignId('file_id');
             $table->morphs('fileable');
 
-            $table->foreign('file_id')
+            $table->foreign('file_id', 'model_has_files_file_foreign')
                 ->references('id')
                 ->on('files')
                 ->cascadeOnDelete()

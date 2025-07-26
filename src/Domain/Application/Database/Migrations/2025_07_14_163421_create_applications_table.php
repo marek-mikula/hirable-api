@@ -23,7 +23,7 @@ return new class () extends Migration {
             $table->string('linkedin')->nullable();
             $table->timestamps();
 
-            $table->foreign('position_id')
+            $table->foreign('position_id', 'applications_position_foreign')
                 ->references('id')
                 ->on('positions')
                 ->restrictOnDelete()
