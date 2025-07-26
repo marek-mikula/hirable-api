@@ -30,6 +30,7 @@ class PositionCandidateResource extends JsonResource
             'id' => $this->resource->id,
             'score' => $this->resource->score,
             'totalScore' => $this->resource->total_score,
+            'isScoreCalculated' => $this->resource->is_score_calculated,
             'candidate' => new CandidateResource($this->resource->candidate),
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),

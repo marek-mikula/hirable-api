@@ -9,6 +9,7 @@ use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Database\Factories\PositionCandidateFactory;
 use Domain\Position\Models\Builders\PositionCandidateBuilder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +23,7 @@ use Illuminate\Database\Query\Builder;
  * @property int $step_id
  * @property array $score
  * @property int|null $total_score
+ * @property-read bool $is_score_calculated
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read Position $position
@@ -58,6 +60,11 @@ class PositionCandidate extends Model
     protected $casts = [
         'score' => 'array',
     ];
+
+    protected function isScoreCalculated(): Attribute
+    {
+        return Attribute::get(fn () => $this->total_score !== null);
+    }
 
     public function position(): BelongsTo
     {
