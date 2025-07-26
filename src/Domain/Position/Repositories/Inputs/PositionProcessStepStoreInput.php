@@ -11,6 +11,7 @@ readonly class PositionProcessStepStoreInput
 {
     public function __construct(
         public Position $position,
+        public int $order,
         public ProcessStepEnum|string $step,
         public ?int $round,
     ) {

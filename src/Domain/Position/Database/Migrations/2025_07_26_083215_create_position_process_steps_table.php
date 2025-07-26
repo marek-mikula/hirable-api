@@ -12,6 +12,7 @@ return new class () extends Migration {
         Schema::create('position_process_steps', static function (Blueprint $table): void {
             $table->id();
             $table->foreignId('position_id');
+            $table->unsignedTinyInteger('order');
             $table->string('step');
             $table->unsignedTinyInteger('round')->nullable();
 

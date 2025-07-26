@@ -8,6 +8,7 @@ use App\Casts\EnumOrValue;
 use Domain\Position\Database\Factories\PositionProcessStepFactory;
 use Domain\Position\Models\Builders\PositionProcessStepBuilder;
 use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,8 +17,10 @@ use Illuminate\Database\Query\Builder;
 /**
  * @property-read int $id
  * @property int $position_id
+ * @property int $order zero-based order index
  * @property ProcessStepEnum|string $step
- * @property int|null $round
+ * @property-read bool $is_custom
+ * @property int|null $round interview round
  * @property-read Position $position
  *
  * @method static PositionProcessStepFactory factory($count = null, $state = [])
@@ -35,6 +38,7 @@ class PositionProcessStep extends Model
 
     protected $fillable = [
         'position_id',
+        'order',
         'step',
         'round',
     ];
@@ -42,6 +46,11 @@ class PositionProcessStep extends Model
     protected $casts = [
         'step' => EnumOrValue::class . ':' . ProcessStepEnum::class,
     ];
+
+    public function isCustom(): Attribute
+    {
+        return Attribute::get(fn () => is_string($this->step));
+    }
 
     public function position(): BelongsTo
     {

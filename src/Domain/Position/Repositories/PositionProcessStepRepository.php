@@ -15,6 +15,7 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         $positionProcessStep = new PositionProcessStep();
 
         $positionProcessStep->position_id = $input->position->id;
+        $positionProcessStep->order = $input->order;
         $positionProcessStep->step = $input->step;
         $positionProcessStep->round = $input->round;
 

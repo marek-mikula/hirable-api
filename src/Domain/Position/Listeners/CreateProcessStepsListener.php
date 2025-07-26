@@ -24,10 +24,11 @@ class CreateProcessStepsListener extends Listener
         // do not trigger events, because otherwise
         // it would trigger observer infinite times
         Position::withoutEvents(function () use ($event): void {
-            foreach ($this->processStepConfigService->getDefaultSteps() as $step) {
+            foreach ($this->processStepConfigService->getDefaultSteps() as $index => $step) {
                 $this->positionProcessStepRepository->store(
                     new PositionProcessStepStoreInput(
                         position: $event->position,
+                        order: $index,
                         step: $step->step,
                         round: $step->round,
                     )
