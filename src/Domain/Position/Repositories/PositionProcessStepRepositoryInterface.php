@@ -16,6 +16,8 @@ interface PositionProcessStepRepositoryInterface
 
     public function findByPosition(Position $position, ProcessStepEnum|string $step): ?PositionProcessStep;
 
+    public function updateOrder(PositionProcessStep $positionProcessStep, int $order): PositionProcessStep;
+
     /**
      * @return Collection<PositionProcessStep>
      */

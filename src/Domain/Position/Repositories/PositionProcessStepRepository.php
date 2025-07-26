@@ -40,6 +40,15 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         return $positionProcessStep;
     }
 
+    public function updateOrder(PositionProcessStep $positionProcessStep, int $order): PositionProcessStep
+    {
+        $positionProcessStep->order = $order;
+
+        throw_if(!$positionProcessStep->save(), RepositoryException::updated(PositionProcessStep::class));
+
+        return $positionProcessStep;
+    }
+
     public function getStepsForKanban(Position $position): Collection
     {
         return PositionProcessStep::query()

@@ -70,6 +70,14 @@ class PositionPolicy
         return $this->show($user, $position) && in_array($position->state, PositionStateEnum::getAfterOpenedStates());
     }
 
+    public function updateKanbanSettings(User $user, Position $position): bool
+    {
+        return $this->showKanban($user, $position) && in_array($user->company_role, [
+                RoleEnum::ADMIN,
+                RoleEnum::RECRUITER,
+            ]);
+    }
+
     public function update(User $user, Position $position): bool
     {
         if ($user->company_id !== $position->company_id) {
