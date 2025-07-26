@@ -39,6 +39,7 @@ class CandidateResource extends JsonResource
             'birthDate' => $this->resource->birth_date?->toIso8601String(),
             'experience' => $this->resource->experience,
             'createdAt' => $this->resource->created_at->toIso8601String(),
+            'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];
     }
 }

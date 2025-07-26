@@ -82,6 +82,7 @@ class Candidate extends Model implements HasLocalePreference
     protected $casts = [
         'language' => LanguageEnum::class,
         'gender' => GenderEnum::class,
+        'birth_date' => 'date',
         'experience' => 'array',
     ];
 
