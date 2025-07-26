@@ -15,6 +15,7 @@ use Domain\Position\Events\PositionOpenedEvent;
 use Domain\Position\Events\PositionRejectedEvent;
 use Domain\Position\Listeners\CancelApprovalProcessListener;
 use Domain\Position\Listeners\ContinueApprovalProcessListener;
+use Domain\Position\Listeners\CreateProcessStepsListener;
 use Domain\Position\Listeners\ExpireApprovalProcessListener;
 use Domain\Position\Listeners\RejectApprovalProcessListener;
 use Domain\Position\Listeners\SendApprovedNotificationsListener;
@@ -61,6 +62,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         PositionOpenedEvent::class => [
             SetTokensListener::class,
+            CreateProcessStepsListener::class,
             SendOpenedNotificationsListener::class,
         ],
         PositionApprovalEvent::class => [

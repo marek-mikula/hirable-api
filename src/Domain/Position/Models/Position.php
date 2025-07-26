@@ -86,6 +86,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property-read Collection<User> $hiringManagers
  * @property-read Collection<User> $recruiters
  * @property-read Collection<PositionApproval> $approvals
+ * @property-read Collection<PositionProcessStep> $steps
  *
  * @method static PositionFactory factory($count = null, $state = [])
  * @method static PositionBuilder query()
@@ -237,6 +238,15 @@ class Position extends Model
             parentKey: 'id',
             relatedKey: 'id',
         )->withPivot(['role']);
+    }
+
+    public function steps(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionProcessStep::class,
+            foreignKey: 'position_id',
+            localKey: 'id',
+        );
     }
 
     public function externalApprovers(): MorphToMany

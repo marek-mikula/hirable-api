@@ -17,6 +17,8 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot(): void
     {
+        $this->mergeConfigFrom(__DIR__ . '/../Config/processStep.php', 'process_step');
+
         $this->loadMigrationsFrom([
             __DIR__.'/../Database/Migrations'
         ]);
