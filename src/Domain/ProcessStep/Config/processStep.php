@@ -8,30 +8,43 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default process steps for position
+    | Fixed steps
     |--------------------------------------------------------------------------
     |
-    | Here we may configure the default process steps
-    | for position. These process steps are created when
-    | position is moved to opened state.
+    | Here we may configure the default fixed steps,
+    | which are created for every position in specified
+    | order.
     |
-    | Each key can have an array value which represents
-    | attributes which are then stored in the database.
+    | Steps are generated in this order when position is
+    | opened along with configurable steps.
     |
     */
 
-    'default_steps' => [
+    'fixed_steps' => [
         ProcessStepEnum::NEW->value,
         ProcessStepEnum::SCREENING->value,
         ProcessStepEnum::SHORTLIST->value,
-        ProcessStepEnum::INTERVIEW->value => [
-            'round' => 1,
-        ],
         ProcessStepEnum::OFFER_SENT->value,
         ProcessStepEnum::OFFER_ACCEPTED->value,
         ProcessStepEnum::PLACEMENT->value,
         ProcessStepEnum::REJECTED->value,
         ProcessStepEnum::WITHDRAWN->value,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Configurable steps placement
+    |--------------------------------------------------------------------------
+    |
+    | Configurable steps are placed after specified fixed step when
+    | position is opened.
+    |
+    | If `steps_placement` is SHORTLIST, then all configurable steps
+    | (interview, test, custom steps defined by user, ...) are placed
+    | after SHORTLIST step.
+    |
+    */
+
+    'steps_placement' => ProcessStepEnum::SHORTLIST->value,
 
 ];

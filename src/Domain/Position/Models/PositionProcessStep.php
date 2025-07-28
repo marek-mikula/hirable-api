@@ -21,7 +21,8 @@ use Illuminate\Database\Query\Builder;
  * @property int $position_id
  * @property ProcessStepEnum|string $step
  * @property int $order zero-based order index
- * @property int|null $round interview round
+ * @property boolean $is_fixed
+ * @property boolean $is_repeatable
  * @property-read bool $is_custom
  * @property-read Position $position
  * @property-read Collection<PositionCandidate> $positionCandidates
@@ -43,11 +44,14 @@ class PositionProcessStep extends Model
         'position_id',
         'step',
         'order',
-        'round',
+        'is_fixed',
+        'is_repeatable',
     ];
 
     protected $casts = [
         'step' => EnumOrValue::class . ':' . ProcessStepEnum::class,
+        'is_fixed' => 'boolean',
+        'is_repeatable' => 'boolean',
     ];
 
     public function isCustom(): Attribute

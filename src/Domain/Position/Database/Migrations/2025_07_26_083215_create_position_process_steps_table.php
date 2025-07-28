@@ -14,7 +14,8 @@ return new class () extends Migration {
             $table->foreignId('position_id');
             $table->string('step', 50);
             $table->unsignedTinyInteger('order');
-            $table->unsignedTinyInteger('round')->nullable();
+            $table->boolean('is_fixed');
+            $table->boolean('is_repeatable');
 
             $table->foreign('position_id', 'position_process_steps_position_foreign')
                 ->references('id')

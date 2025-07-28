@@ -18,5 +18,5 @@ interface ProcessStepRepositoryInterface
     /**
      * @return Collection<ProcessStep>
      */
-    public function getByCompany(Company $company): Collection;
+    public function getByCompany(Company $company, bool $includeCommon): Collection;
 }

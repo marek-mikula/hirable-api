@@ -13,7 +13,6 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('company_id')->nullable();
             $table->string('step', 50);
-            $table->boolean('is_fixed');
             $table->boolean('is_repeatable');
 
             $table->unique(['company_id', 'step'], 'process_steps_company_step_unique');

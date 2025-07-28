@@ -2,17 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Repositories\Inputs;
+namespace Domain\Position\Data;
 
-use Domain\Position\Models\Position;
 use Domain\ProcessStep\Enums\ProcessStepEnum;
 
-readonly class PositionProcessStepStoreInput
+readonly class ProcessStepData
 {
     public function __construct(
-        public Position $position,
         public ProcessStepEnum|string $step,
-        public int $order,
         public bool $isFixed,
         public bool $isRepeatable,
     ) {

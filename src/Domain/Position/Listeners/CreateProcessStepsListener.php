@@ -9,13 +9,13 @@ use Domain\Position\Events\PositionOpenedEvent;
 use Domain\Position\Models\Position;
 use Domain\Position\Repositories\Inputs\PositionProcessStepStoreInput;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
-use Domain\ProcessStep\Services\ProcessStepConfigService;
+use Domain\Position\Services\PositionProcessStepService;
 
 class CreateProcessStepsListener extends Listener
 {
     public function __construct(
         private readonly PositionProcessStepRepositoryInterface $positionProcessStepRepository,
-        private readonly ProcessStepConfigService $processStepConfigService,
+        private readonly PositionProcessStepService $positionProcessStepService,
     ) {
     }
 
@@ -24,13 +24,14 @@ class CreateProcessStepsListener extends Listener
         // do not trigger events, because otherwise
         // it would trigger observer infinite times
         Position::withoutEvents(function () use ($event): void {
-            foreach ($this->processStepConfigService->getDefaultSteps() as $index => $step) {
+            foreach ($this->positionProcessStepService->getDefaultProcessSteps($event->position) as $index => $step) {
                 $this->positionProcessStepRepository->store(
                     new PositionProcessStepStoreInput(
                         position: $event->position,
-                        order: $index,
                         step: $step->step,
-                        round: $step->round,
+                        order: $index,
+                        isFixed: $step->isFixed,
+                        isRepeatable: $step->isRepeatable,
                     )
                 );
             }

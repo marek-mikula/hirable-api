@@ -5,39 +5,29 @@ declare(strict_types=1);
 namespace Domain\ProcessStep\Services;
 
 use App\Services\Service;
-use Domain\ProcessStep\Data\DefaultStepData;
 use Domain\ProcessStep\Enums\ProcessStepEnum;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class ProcessStepConfigService extends Service
 {
     /**
-     * @return DefaultStepData[]
+     * @return Collection<ProcessStepEnum>
      */
-    public function getDefaultSteps(): array
+    public function getFixedSteps(): Collection
     {
-        $steps = (array) config('process_step.default_steps');
+        return collect((array) config('process_step.fixed_steps'))
+            ->map(fn (string $step) => ProcessStepEnum::from($step));
+    }
 
-        $result = [];
+    public function getStepsPlacement(): ProcessStepEnum
+    {
+        $stepsPlacement = ProcessStepEnum::from((string) config('process_step.steps_placement'));
 
-        foreach ($steps as $key => $value) {
-            // step has no additional attributes
-            if (is_numeric($key)) {
-                $result[] = new DefaultStepData(step: ProcessStepEnum::from((string) $value));
+        throw_if(
+            $this->getFixedSteps()->contains($stepsPlacement->value),
+            new \InvalidArgumentException('Steps placement must be included in fixed states.')
+        );
 
-                continue;
-            }
-
-            throw_if(!is_array($value), new \InvalidArgumentException(sprintf('Invalid step value encountered for step %s.', $key)));
-
-            $round = Arr::get($value, 'round');
-
-            $result[] = new DefaultStepData(
-                step: ProcessStepEnum::from((string) $key),
-                round: empty($round) ? null : (int) $round,
-            );
-        }
-
-        return $result;
+        return $stepsPlacement;
     }
 }

@@ -6,6 +6,7 @@ namespace Domain\ProcessStep\Repositories;
 
 use App\Exceptions\RepositoryException;
 use Domain\Company\Models\Company;
+use Domain\ProcessStep\Models\Builders\ProcessStepBuilder;
 use Domain\ProcessStep\Models\ProcessStep;
 use Domain\ProcessStep\Repositories\Inputs\ProcessStepStoreInput;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,7 +19,6 @@ class ProcessStepRepository implements ProcessStepRepositoryInterface
 
         $processStep->company_id = $input->company->id;
         $processStep->step = $input->step;
-        $processStep->is_fixed = false;
         $processStep->is_repeatable = $input->isRepeatable;
 
         throw_if(!$processStep->save(), RepositoryException::stored(ProcessStep::class));
@@ -33,10 +33,16 @@ class ProcessStepRepository implements ProcessStepRepositoryInterface
         throw_if(!$processStep->delete(), RepositoryException::deleted(ProcessStep::class));
     }
 
-    public function getByCompany(Company $company): Collection
+    public function getByCompany(Company $company, bool $includeCommon = false): Collection
     {
         return ProcessStep::query()
-            ->where('company_id', $company->id)
+            ->where(function (ProcessStepBuilder $query) use ($company, $includeCommon): void {
+                $query->whereCompany($company->id);
+
+                if ($includeCommon) {
+                    $query->orWhereNull('company_id');
+                }
+            })
             ->get();
     }
 }

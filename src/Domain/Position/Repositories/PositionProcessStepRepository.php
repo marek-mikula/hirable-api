@@ -18,9 +18,10 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         $positionProcessStep = new PositionProcessStep();
 
         $positionProcessStep->position_id = $input->position->id;
-        $positionProcessStep->order = $input->order;
         $positionProcessStep->step = $input->step;
-        $positionProcessStep->round = $input->round;
+        $positionProcessStep->order = $input->order;
+        $positionProcessStep->is_fixed = $input->isFixed;
+        $positionProcessStep->is_repeatable = $input->isRepeatable;
 
         throw_if(!$positionProcessStep->save(), RepositoryException::stored(PositionProcessStep::class));
 

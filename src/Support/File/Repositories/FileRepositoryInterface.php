@@ -13,10 +13,10 @@ interface FileRepositoryInterface
 
     public function updatePath(File $file, string $path): File;
 
-    public function delete(File $file, bool $force = false): File;
+    public function delete(File $file, bool $force): File;
 
     /**
      * @param  File[]  $files
      */
-    public function deleteMany(array $files, bool $force = false): void;
+    public function deleteMany(array $files, bool $force): void;
 }
