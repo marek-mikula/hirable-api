@@ -7,14 +7,14 @@ namespace Tests\Feature\Domain\Position\UseCases;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Events\PositionApprovalCanceledEvent;
 use Domain\Position\Models\Position;
-use Domain\Position\UseCases\PositionApprovalCancelUseCase;
+use Domain\Position\UseCases\PositionCancelApprovalUseCase;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\Event;
 
 use function PHPUnit\Framework\assertNotSame;
 use function PHPUnit\Framework\assertSame;
 
-/** @covers \Domain\Position\UseCases\PositionApprovalCancelUseCase::handle */
+/** @covers \Domain\Position\UseCases\PositionCancelApprovalUseCase::handle */
 it('correctly cancels position approvals', function (): void {
     Event::fake([
         PositionApprovalCanceledEvent::class,
@@ -29,7 +29,7 @@ it('correctly cancels position approvals', function (): void {
 
     assertNotSame(PositionStateEnum::APPROVAL_CANCELED, $position->state);
 
-    $position = PositionApprovalCancelUseCase::make()->handle($user, $position);
+    $position = PositionCancelApprovalUseCase::make()->handle($user, $position);
 
     Event::assertDispatched(PositionApprovalCanceledEvent::class);
 

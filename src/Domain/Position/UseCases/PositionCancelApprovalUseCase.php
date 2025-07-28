@@ -11,7 +11,7 @@ use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class PositionApprovalCancelUseCase extends UseCase
+class PositionCancelApprovalUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionRepositoryInterface $positionRepository,

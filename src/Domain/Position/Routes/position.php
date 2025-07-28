@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Domain\Position\Http\Controllers\PositionApprovalCancelController;
+use Domain\Position\Http\Controllers\PositionCancelApprovalController;
 use Domain\Position\Http\Controllers\PositionApprovalDecideController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
@@ -26,8 +26,9 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::delete('/', [PositionController::class, 'delete'])->name('delete');
         Route::post('/duplicate', PositionDuplicateController::class)->name('duplicate');
 
+        Route::post('/cancel-approval', PositionCancelApprovalController::class)->name('cancel');
+
         Route::prefix('/approvals')->as('approvals.')->group(function (): void {
-            Route::post('/cancel', PositionApprovalCancelController::class)->name('cancel');
             Route::patch('/{approval}/decide', PositionApprovalDecideController::class)->whereNumber('approval')->name('decide');
         });
 
