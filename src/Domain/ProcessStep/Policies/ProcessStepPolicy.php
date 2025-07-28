@@ -22,6 +22,6 @@ class ProcessStepPolicy
 
     public function delete(User $user, ProcessStep $processStep): bool
     {
-        return $user->company_role == RoleEnum::ADMIN && $user->company_id === $processStep->company_id;
+        return $user->company_id === $processStep->company_id && $user->company_role == RoleEnum::ADMIN;
     }
 }

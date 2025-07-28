@@ -69,13 +69,13 @@ use Support\File\Models\Traits\HasFiles;
  * @property boolean $share_salary
  * @property boolean $share_contact
  * @property string|null $common_token
- * @property-read string|null $common_link
  * @property string|null $intern_token
- * @property-read string|null $intern_link
  * @property string|null $referral_token
- * @property-read string|null $referral_link
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read string|null $common_link
+ * @property-read string|null $intern_link
+ * @property-read string|null $referral_link
  * @property-read Company $company
  * @property-read User $user // todo rename to owner, so its more clear
  * @property-read Collection<ModelHasPosition> $models

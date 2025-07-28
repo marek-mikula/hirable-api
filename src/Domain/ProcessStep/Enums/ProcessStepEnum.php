@@ -24,7 +24,22 @@ enum ProcessStepEnum: string
     case BACKGROUND_CHECK = 'backgroundCheck';
     case REFERENCE_CHECK = 'referenceCheck';
 
-    public function isMultistep(): bool
+    public function isFixed(): bool
+    {
+        return match ($this) {
+            self::NEW,
+            self::SCREENING,
+            self::SHORTLIST,
+            self::OFFER_SENT,
+            self::OFFER_ACCEPTED,
+            self::PLACEMENT,
+            self::REJECTED,
+            self::WITHDRAWN => true,
+            default => false,
+        };
+    }
+
+    public function isRepeatable(): bool
     {
         return match ($this) {
             self::INTERVIEW,

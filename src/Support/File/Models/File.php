@@ -25,13 +25,13 @@ use Support\File\Enums\FileTypeEnum;
  * @property string $filename
  * @property string $mime
  * @property string $path
- * @property-read string $real_path
  * @property string $extension
  * @property int $size file size in bytes
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon|null $deleted_at
- * @property Collection<ModelHasFile> $modelHasFiles
+ * @property-read string $real_path
+ * @property-read Collection<ModelHasFile> $modelHasFiles
  *
  * @method static FileFactory factory($count = null, $state = [])
  */

@@ -11,6 +11,7 @@ readonly class ProcessStepStoreInput
     public function __construct(
         public Company $company,
         public string $step,
+        public bool $isRepeatable,
     ) {
     }
 }

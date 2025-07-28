@@ -23,9 +23,9 @@ use Illuminate\Database\Query\Builder;
  * @property int $step_id
  * @property array $score
  * @property int|null $total_score
- * @property-read bool $is_score_calculated
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read bool $is_score_calculated
  * @property-read Position $position
  * @property-read Candidate $candidate
  * @property-read Application $application

@@ -14,8 +14,10 @@ class ProcessStepSeeder extends Seeder
     {
         foreach (ProcessStepEnum::cases() as $step) {
             $processStep = new ProcessStep();
-            $processStep->step = $step;
             $processStep->company_id = null;
+            $processStep->step = $step;
+            $processStep->is_fixed = $step->isFixed();
+            $processStep->is_repeatable = $step->isRepeatable();
             $processStep->save();
         }
     }

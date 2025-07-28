@@ -9,4 +9,6 @@ use Spatie\LaravelData\Data;
 class ProcessStepData extends Data
 {
     public string $step;
+
+    public bool $isRepeatable;
 }

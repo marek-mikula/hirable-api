@@ -29,6 +29,9 @@ class ProcessStepStoreRequest extends AuthRequest
                 Rule::notIn(collect(ProcessStepEnum::cases())->pluck('value')->all()),
                 Rule::unique(ProcessStep::class, 'step')->where('company_id', $this->user()->company_id),
             ],
+            'isRepeatable' => [
+                'boolean',
+            ],
         ];
     }
 
@@ -36,6 +39,7 @@ class ProcessStepStoreRequest extends AuthRequest
     {
         return [
             'step' => __('model.processStep.step'),
+            'isRepeatable' => __('model.processStep.isRepeatable'),
         ];
     }
 
@@ -43,6 +47,7 @@ class ProcessStepStoreRequest extends AuthRequest
     {
         return ProcessStepData::from([
             'step' => (string) $this->input('step'),
+            'isRepeatable' => $this->boolean('isRepeatable'),
         ]);
     }
 }

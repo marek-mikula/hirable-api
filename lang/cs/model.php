@@ -127,6 +127,7 @@ return [
 
     'processStep' => [
         'step' => 'Krok',
+        'isRepeatable' => 'Opakovatelný'
     ],
 
 ];

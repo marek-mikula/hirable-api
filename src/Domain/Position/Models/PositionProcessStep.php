@@ -20,9 +20,9 @@ use Illuminate\Database\Query\Builder;
  * @property-read int $id
  * @property int $position_id
  * @property ProcessStepEnum|string $step
- * @property-read bool $is_custom
  * @property int $order zero-based order index
  * @property int|null $round interview round
+ * @property-read bool $is_custom
  * @property-read Position $position
  * @property-read Collection<PositionCandidate> $positionCandidates
  *

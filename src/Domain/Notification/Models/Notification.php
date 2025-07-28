@@ -22,9 +22,9 @@ use Illuminate\Database\Query\Builder;
  * @property int $notifiable_id
  * @property array $data
  * @property Carbon|null $read_at
- * @property-read bool $is_read
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read bool $is_read
  * @property-read User $notifiable
  *
  * @method static NotificationFactory factory($count = null, $state = [])

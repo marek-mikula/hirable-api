@@ -128,6 +128,7 @@ return [
 
     'processStep' => [
         'step' => 'Step',
+        'isRepeatable' => 'Repeatable'
     ],
 
 ];

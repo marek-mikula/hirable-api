@@ -19,6 +19,8 @@ use Illuminate\Database\Query\Builder;
  * @property-read int $id
  * @property int|null $company_id
  * @property ProcessStepEnum|string $step
+ * @property boolean $is_fixed
+ * @property boolean $is_repeatable
  * @property-read bool $is_custom
  * @property-read Company|null $company
  *
@@ -38,10 +40,14 @@ class ProcessStep extends Model
     protected $fillable = [
         'company_id',
         'step',
+        'is_fixed',
+        'is_repeatable',
     ];
 
     protected $casts = [
         'step' => EnumOrValue::class . ':' . ProcessStepEnum::class,
+        'is_fixed' => 'boolean',
+        'is_repeatable' => 'boolean',
     ];
 
     public function isCustom(): Attribute

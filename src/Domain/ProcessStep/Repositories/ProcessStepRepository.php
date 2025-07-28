@@ -18,6 +18,8 @@ class ProcessStepRepository implements ProcessStepRepositoryInterface
 
         $processStep->company_id = $input->company->id;
         $processStep->step = $input->step;
+        $processStep->is_fixed = false;
+        $processStep->is_repeatable = $input->isRepeatable;
 
         throw_if(!$processStep->save(), RepositoryException::stored(ProcessStep::class));
 

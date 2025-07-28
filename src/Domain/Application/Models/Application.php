@@ -27,13 +27,13 @@ use Support\File\Models\Traits\HasFiles;
  * @property SourceEnum $source
  * @property string $firstname
  * @property string $lastname
- * @property-read string $full_name
  * @property string $email
  * @property string $phone_prefix
  * @property string $phone_number
  * @property string|null $linkedin
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read string $full_name
  * @property-read Position $position
  *
  * @method static ApplicationFactory factory($count = null, $state = [])
