@@ -28,7 +28,6 @@ class PositionCandidateResource extends JsonResource
 
         return [
             'id' => $this->resource->id,
-            'positionId' => $this->resource->position_id,
             'score' => $this->resource->score,
             'totalScore' => $this->resource->total_score,
             'isScoreCalculated' => $this->resource->is_score_calculated,
