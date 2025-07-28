@@ -10,6 +10,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
     Route::post('/', [ProcessStepController::class, 'store'])->name('store');
 
     Route::prefix('/{processStep}')->whereNumber('processStep')->group(function (): void {
+        Route::patch('/', [ProcessStepController::class, 'update'])->name('update');
         Route::delete('/', [ProcessStepController::class, 'delete'])->name('delete');
     });
 });

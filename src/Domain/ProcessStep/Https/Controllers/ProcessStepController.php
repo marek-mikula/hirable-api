@@ -9,12 +9,14 @@ use App\Http\Controllers\ApiController;
 use Domain\ProcessStep\Https\Requests\ProcessStepDeleteRequest;
 use Domain\ProcessStep\Https\Requests\ProcessStepIndexRequest;
 use Domain\ProcessStep\Https\Requests\ProcessStepStoreRequest;
+use Domain\ProcessStep\Https\Requests\ProcessStepUpdateRequest;
 use Domain\ProcessStep\Https\Resources\Collections\ProcessStepCollection;
 use Domain\ProcessStep\Https\Resources\ProcessStepResource;
 use Domain\ProcessStep\Models\ProcessStep;
 use Domain\ProcessStep\Repositories\ProcessStepRepositoryInterface;
 use Domain\ProcessStep\UseCases\ProcessStepDeleteUseCase;
 use Domain\ProcessStep\UseCases\ProcessStepStoreUseCase;
+use Domain\ProcessStep\UseCases\ProcessStepUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
 class ProcessStepController extends ApiController
@@ -22,6 +24,15 @@ class ProcessStepController extends ApiController
     public function __construct(
         private readonly ProcessStepRepositoryInterface $processStepRepository,
     ) {
+    }
+
+    public function index(ProcessStepIndexRequest $request): JsonResponse
+    {
+        $steps = $this->processStepRepository->getByCompany($request->user()->company);
+
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'steps' => new ProcessStepCollection($steps),
+        ]);
     }
 
     public function store(ProcessStepStoreRequest $request): JsonResponse
@@ -33,12 +44,12 @@ class ProcessStepController extends ApiController
         ]);
     }
 
-    public function index(ProcessStepIndexRequest $request): JsonResponse
+    public function update(ProcessStepUpdateRequest $request, ProcessStep $processStep): JsonResponse
     {
-        $steps = $this->processStepRepository->getByCompany($request->user()->company);
+        ProcessStepUpdateUseCase::make()->handle($processStep, $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'steps' => new ProcessStepCollection($steps),
+            'step' => new ProcessStepResource($processStep),
         ]);
     }
 
