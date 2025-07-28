@@ -19,9 +19,9 @@ use Illuminate\Database\Query\Builder;
 /**
  * @property-read int $id
  * @property int $position_id
- * @property int $order zero-based order index
  * @property ProcessStepEnum|string $step
  * @property-read bool $is_custom
+ * @property int $order zero-based order index
  * @property int|null $round interview round
  * @property-read Position $position
  * @property-read Collection<PositionCandidate> $positionCandidates
@@ -41,8 +41,8 @@ class PositionProcessStep extends Model
 
     protected $fillable = [
         'position_id',
-        'order',
         'step',
+        'order',
         'round',
     ];
 
