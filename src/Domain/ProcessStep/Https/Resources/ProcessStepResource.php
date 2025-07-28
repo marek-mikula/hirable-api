@@ -25,6 +25,9 @@ class ProcessStepResource extends JsonResource
             'step' => is_string($this->resource->step)
                 ? $this->resource->step
                 : $this->resource->step->value,
+            'isFixed' => $this->resource->is_fixed,
+            'isRepeatable' => $this->resource->is_repeatable,
+            'isCustom' => $this->resource->is_custom,
         ];
     }
 }
