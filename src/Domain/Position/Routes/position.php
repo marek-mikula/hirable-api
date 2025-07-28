@@ -31,8 +31,10 @@ Route::middleware('auth:sanctum')->group(static function (): void {
             Route::patch('/{approval}/decide', PositionApprovalDecideController::class)->whereNumber('approval')->name('decide');
         });
 
-        Route::get('/kanban', PositionKanbanController::class)->name('kanban');
-        Route::patch('/kanban-settings', PositionKanbanSettingsController::class)->name('kanban_settings');
+        Route::prefix('/kanban')->as('kanban.')->group(function (): void {
+            Route::get('/', PositionKanbanController::class)->name('index');
+            Route::patch('/settings', PositionKanbanSettingsController::class)->name('settings');
+        });
     });
 });
 
