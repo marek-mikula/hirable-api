@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::delete('/', [PositionController::class, 'delete'])->name('delete');
         Route::post('/duplicate', PositionDuplicateController::class)->name('duplicate');
 
-        Route::post('/cancel-approval', PositionCancelApprovalController::class)->name('cancel');
+        Route::patch('/cancel-approval', PositionCancelApprovalController::class)->name('cancel');
 
         Route::prefix('/approvals')->as('approvals.')->group(function (): void {
             Route::patch('/{approval}/decide', PositionApprovalDecideController::class)->whereNumber('approval')->name('decide');
