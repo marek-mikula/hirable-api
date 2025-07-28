@@ -31,7 +31,7 @@ class ProcessStepController extends ApiController
         $steps = $this->processStepRepository->getByCompany($request->user()->company);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'steps' => new ProcessStepCollection($steps),
+            'processSteps' => new ProcessStepCollection($steps),
         ]);
     }
 
@@ -40,7 +40,7 @@ class ProcessStepController extends ApiController
         $step = ProcessStepStoreUseCase::make()->handle($request->user(), $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'step' => new ProcessStepResource($step),
+            'processStep' => new ProcessStepResource($step),
         ]);
     }
 
@@ -49,7 +49,7 @@ class ProcessStepController extends ApiController
         ProcessStepUpdateUseCase::make()->handle($processStep, $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'step' => new ProcessStepResource($processStep),
+            'processStep' => new ProcessStepResource($processStep),
         ]);
     }
 
