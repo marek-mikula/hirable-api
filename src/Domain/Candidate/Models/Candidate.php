@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Candidate\Models;
 
+use App\Casts\Capitalize;
 use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Candidate\Database\Factories\CandidateFactory;
@@ -80,6 +81,8 @@ class Candidate extends Model implements HasLocalePreference
     ];
 
     protected $casts = [
+        'firstname' => Capitalize::class,
+        'lastname' => Capitalize::class,
         'language' => LanguageEnum::class,
         'gender' => GenderEnum::class,
         'birth_date' => 'date',

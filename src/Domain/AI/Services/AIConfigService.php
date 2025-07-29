@@ -43,9 +43,14 @@ class AIConfigService extends Service
         return (array) config('ai.score.files');
     }
 
+    public function getScoreBaseWeight(): int
+    {
+        return (int) config('ai.score.base_weight');
+    }
+
     public function getScoreCategoryDescription(ScoreCategoryEnum $category): string
     {
-        $description = config(sprintf('ai.score.categories.%s', $category->value));
+        $description = config(sprintf('ai.score.category_descriptions.%s', $category->value));
 
         throw_if(empty($description), new \Exception(sprintf('Undefined category description for category %s.', $category->value)));
 
