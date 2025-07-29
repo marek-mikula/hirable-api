@@ -7,7 +7,7 @@ namespace Domain\Position\Database\Factories;
 use Database\Factories\Factory;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
@@ -35,7 +35,7 @@ class PositionProcessStepFactory extends Factory
         ]);
     }
 
-    public function ofStep(ProcessStepEnum|string $step): static
+    public function ofStep(StepEnum|string $step): static
     {
         return $this->state(fn (array $attributes) => [
             'step' => is_string($step) ? $step : $step->value,

@@ -7,7 +7,7 @@ namespace Domain\Position\Models;
 use App\Casts\EnumOrValue;
 use Domain\Position\Database\Factories\PositionProcessStepFactory;
 use Domain\Position\Models\Builders\PositionProcessStepBuilder;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +19,7 @@ use Illuminate\Database\Query\Builder;
 /**
  * @property-read int $id
  * @property int $position_id
- * @property ProcessStepEnum|string $step
+ * @property StepEnum|string $step
  * @property int $order zero-based order index
  * @property boolean $is_fixed
  * @property boolean $is_repeatable
@@ -49,7 +49,7 @@ class PositionProcessStep extends Model
     ];
 
     protected $casts = [
-        'step' => EnumOrValue::class . ':' . ProcessStepEnum::class,
+        'step' => EnumOrValue::class . ':' . StepEnum::class,
         'is_fixed' => 'boolean',
         'is_repeatable' => 'boolean',
     ];

@@ -7,7 +7,7 @@ namespace Domain\ProcessStep\Models;
 use App\Casts\EnumOrValue;
 use Domain\Company\Models\Company;
 use Domain\ProcessStep\Database\Factories\ProcessStepFactory;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Models\Builders\ProcessStepBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +18,7 @@ use Illuminate\Database\Query\Builder;
 /**
  * @property-read int $id
  * @property int|null $company_id
- * @property ProcessStepEnum|string $step
+ * @property StepEnum|string $step
  * @property boolean $is_repeatable
  * @property-read bool $is_custom
  * @property-read Company|null $company
@@ -43,7 +43,7 @@ class ProcessStep extends Model
     ];
 
     protected $casts = [
-        'step' => EnumOrValue::class . ':' . ProcessStepEnum::class,
+        'step' => EnumOrValue::class . ':' . StepEnum::class,
         'is_repeatable' => 'boolean',
     ];
 

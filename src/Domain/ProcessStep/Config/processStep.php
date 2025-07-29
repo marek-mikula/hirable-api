@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 
 return [
 
@@ -21,14 +21,14 @@ return [
     */
 
     'fixed_steps' => [
-        ProcessStepEnum::NEW->value,
-        ProcessStepEnum::SCREENING->value,
-        ProcessStepEnum::SHORTLIST->value,
-        ProcessStepEnum::OFFER_SENT->value,
-        ProcessStepEnum::OFFER_ACCEPTED->value,
-        ProcessStepEnum::PLACEMENT->value,
-        ProcessStepEnum::REJECTED->value,
-        ProcessStepEnum::WITHDRAWN->value,
+        StepEnum::NEW->value,
+        StepEnum::SCREENING->value,
+        StepEnum::SHORTLIST->value,
+        StepEnum::OFFER_SENT->value,
+        StepEnum::OFFER_ACCEPTED->value,
+        StepEnum::PLACEMENT->value,
+        StepEnum::REJECTED->value,
+        StepEnum::WITHDRAWN->value,
     ],
 
     /*
@@ -45,6 +45,6 @@ return [
     |
     */
 
-    'steps_placement' => ProcessStepEnum::SHORTLIST->value,
+    'steps_placement' => StepEnum::SHORTLIST->value,
 
 ];

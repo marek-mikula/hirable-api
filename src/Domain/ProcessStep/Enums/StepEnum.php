@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\ProcessStep\Enums;
 
-enum ProcessStepEnum: string
+enum StepEnum: string
 {
     case NEW = 'new';
     case SCREENING = 'screening';

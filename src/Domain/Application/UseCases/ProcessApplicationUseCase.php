@@ -12,7 +12,7 @@ use Domain\Candidate\Repositories\Input\CandidateStoreInput;
 use Domain\Position\Repositories\Inputs\PositionCandidateStoreInput;
 use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 use Illuminate\Support\Facades\DB;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
@@ -42,7 +42,7 @@ class ProcessApplicationUseCase extends UseCase
 
         $positionProcessStep = $this->positionProcessStepRepository->findByPosition(
             $application->position,
-            ProcessStepEnum::NEW,
+            StepEnum::NEW,
         );
 
         throw_if(empty($positionProcessStep), new \Exception('Missing default position process step.'));

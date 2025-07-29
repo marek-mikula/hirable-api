@@ -18,6 +18,15 @@ class ProcessStepIndexRequest extends AuthRequest
 
     public function rules(): array
     {
-        return [];
+        return [
+            'includeCommon' => [
+                'boolean',
+            ]
+        ];
+    }
+
+    public function includeCommon(): bool
+    {
+        return $this->boolean('includeCommon');
     }
 }

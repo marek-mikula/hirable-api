@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Position\Data;
 
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 
-readonly class ProcessStepData
+readonly class PositionProcessStepData
 {
     public function __construct(
-        public ProcessStepEnum|string $step,
+        public StepEnum|string $step,
         public bool $isFixed,
         public bool $isRepeatable,
     ) {

@@ -6,7 +6,7 @@ namespace Domain\ProcessStep\Https\Requests;
 
 use App\Http\Requests\AuthRequest;
 use App\Rules\Rule;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Https\Requests\Data\ProcessStepData;
 use Domain\ProcessStep\Models\ProcessStep;
 use Domain\ProcessStep\Policies\ProcessStepPolicy;
@@ -29,7 +29,7 @@ class ProcessStepUpdateRequest extends AuthRequest
                 'required',
                 'string',
                 'max:50',
-                Rule::notIn(collect(ProcessStepEnum::cases())->pluck('value')->all()),
+                Rule::notIn(collect(StepEnum::cases())->pluck('value')->all()),
                 Rule::unique(ProcessStep::class, 'step')
                     ->where('company_id', $this->user()->company_id)
                     ->ignore($processStep->id),

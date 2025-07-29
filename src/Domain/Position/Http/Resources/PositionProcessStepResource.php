@@ -27,7 +27,6 @@ class PositionProcessStepResource extends JsonResource
                 : $this->resource->step->value,
             'isCustom' => $this->resource->is_custom,
             'order' => $this->resource->order,
-            'round' => $this->resource->round,
         ];
     }
 }

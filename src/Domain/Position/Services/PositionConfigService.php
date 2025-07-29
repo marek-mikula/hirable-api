@@ -7,7 +7,7 @@ namespace Domain\Position\Services;
 use App\Services\Service;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Position\Enums\PositionRoleEnum;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 use Illuminate\Support\Collection;
 
 class PositionConfigService extends Service
@@ -43,11 +43,11 @@ class PositionConfigService extends Service
     }
 
     /**
-     * @return Collection<ProcessStepEnum>
+     * @return Collection<StepEnum>
      */
     public function getDefaultConfigurableProcessSteps(): Collection
     {
         return collect((array) config('position.default_configurable_process_steps'))
-            ->map(fn (string $step) => ProcessStepEnum::from($step));
+            ->map(fn (string $step) => StepEnum::from($step));
     }
 }

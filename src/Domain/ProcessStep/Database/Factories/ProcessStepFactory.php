@@ -6,7 +6,7 @@ namespace Domain\ProcessStep\Database\Factories;
 
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Models\ProcessStep;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
@@ -33,7 +33,7 @@ class ProcessStepFactory extends Factory
         ]);
     }
 
-    public function ofStep(ProcessStepEnum|string $step): static
+    public function ofStep(StepEnum|string $step): static
     {
         return $this->state(fn (array $attributes) => [
             'step' => is_string($step) ? $step : $step->value,

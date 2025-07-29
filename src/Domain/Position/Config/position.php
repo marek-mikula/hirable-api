@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Domain\Company\Enums\RoleEnum;
 use Domain\Position\Enums\PositionRoleEnum;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 
 return [
 
@@ -90,7 +90,7 @@ return [
     */
 
     'default_configurable_process_steps' => [
-        ProcessStepEnum::INTERVIEW->value,
+        StepEnum::INTERVIEW->value,
     ],
 
 ];

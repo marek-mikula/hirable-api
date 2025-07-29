@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Services;
 
-use Domain\Position\Data\ProcessStepData;
+use Domain\Position\Data\PositionProcessStepData;
 use Domain\Position\Models\Position;
 use Domain\ProcessStep\Models\ProcessStep;
 use Domain\ProcessStep\Repositories\ProcessStepRepositoryInterface;
@@ -20,23 +20,23 @@ class PositionProcessStepService
     }
 
     /**
-     * Gets default steps for position when position
-     * is moved to opened state.
+     * Gets default position process steps, which are
+     * created when position is moved into opened state.
      *
      * Mixes fixed and default process steps together
      * either based on default config or position template
      * schema defined by user.
      *
-     * @return ProcessStepData[]
+     * @return PositionProcessStepData[]
      */
-    public function getDefaultProcessSteps(Position $position): array
+    public function getDefaultPositionProcessSteps(Position $position): array
     {
         $result = [];
 
         $stepsPlacement = $this->processStepConfigService->getStepsPlacement();
 
         foreach ($this->processStepConfigService->getFixedSteps() as $fixedStep) {
-            $result[] = new ProcessStepData(
+            $result[] = new PositionProcessStepData(
                 step: $fixedStep,
                 isFixed: true,
                 isRepeatable: false,
@@ -46,16 +46,16 @@ class PositionProcessStepService
                 continue;
             }
 
-            $result = [...$result, ...$this->getConfigurableSteps($position)];
+            $result = [...$result, ...$this->getConfigurablePositionProcessSteps($position)];
         }
 
         return $result;
     }
 
     /**
-     * @return ProcessStepData[]
+     * @return PositionProcessStepData[]
      */
-    private function getConfigurableSteps(Position $position): array
+    private function getConfigurablePositionProcessSteps(Position $position): array
     {
         // todo allow users to configure their default process steps via position template
 
@@ -71,7 +71,7 @@ class PositionProcessStepService
                 continue;
             }
 
-            $result[] = new ProcessStepData(
+            $result[] = new PositionProcessStepData(
                 step: $configurableStep,
                 isFixed: false,
                 isRepeatable: $step->is_repeatable,

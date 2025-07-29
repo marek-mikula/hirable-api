@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Domain\ProcessStep\Services;
 
 use App\Services\Service;
-use Domain\ProcessStep\Enums\ProcessStepEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 use Illuminate\Support\Collection;
 
 class ProcessStepConfigService extends Service
 {
     /**
-     * @return Collection<ProcessStepEnum>
+     * @return Collection<StepEnum>
      */
     public function getFixedSteps(): Collection
     {
         return collect((array) config('process_step.fixed_steps'))
-            ->map(fn (string $step) => ProcessStepEnum::from($step));
+            ->map(fn (string $step) => StepEnum::from($step));
     }
 
-    public function getStepsPlacement(): ProcessStepEnum
+    public function getStepsPlacement(): StepEnum
     {
-        $stepsPlacement = ProcessStepEnum::from((string) config('process_step.steps_placement'));
+        $stepsPlacement = StepEnum::from((string) config('process_step.steps_placement'));
 
         throw_if(
             $this->getFixedSteps()->contains($stepsPlacement->value),

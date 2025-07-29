@@ -28,19 +28,19 @@ class ProcessStepController extends ApiController
 
     public function index(ProcessStepIndexRequest $request): JsonResponse
     {
-        $steps = $this->processStepRepository->getByCompany($request->user()->company);
+        $processSteps = $this->processStepRepository->getByCompany($request->user()->company, $request->includeCommon());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'processSteps' => new ProcessStepCollection($steps),
+            'processSteps' => new ProcessStepCollection($processSteps),
         ]);
     }
 
     public function store(ProcessStepStoreRequest $request): JsonResponse
     {
-        $step = ProcessStepStoreUseCase::make()->handle($request->user(), $request->toData());
+        $processStep = ProcessStepStoreUseCase::make()->handle($request->user(), $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'processStep' => new ProcessStepResource($step),
+            'processStep' => new ProcessStepResource($processStep),
         ]);
     }
 
