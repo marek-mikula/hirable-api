@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
-use Domain\Position\Http\Request\Data\KanbanSettingsData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
-class PositionUpdateKanbanSettingsUseCase extends UseCase
+class PositionSetProcessStepOrderUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionProcessStepRepositoryInterface $positionProcessStepRepository,
@@ -20,16 +19,17 @@ class PositionUpdateKanbanSettingsUseCase extends UseCase
     }
 
     /**
+     * @param string[] $order
      * @return Collection<PositionProcessStep>
      */
-    public function handle(Position $position, KanbanSettingsData $data): Collection
+    public function handle(Position $position, array $order): Collection
     {
         $positionProcessSteps = $this->positionProcessStepRepository->getStepsForKanban($position);
 
         $positionProcessSteps = $positionProcessSteps->sort(
-            function (PositionProcessStep $a, PositionProcessStep $b) use ($data): int {
-                $indexA = array_search(is_string($a->step) ? $a->step : $a->step->value, $data->order);
-                $indexB = array_search(is_string($b->step) ? $b->step : $b->step->value, $data->order);
+            function (PositionProcessStep $a, PositionProcessStep $b) use ($order): int {
+                $indexA = array_search(is_string($a->step) ? $a->step : $a->step->value, $order);
+                $indexB = array_search(is_string($b->step) ? $b->step : $b->step->value, $order);
 
                 // both values have priority order
                 if ($indexA !== false && $indexB !== false) {

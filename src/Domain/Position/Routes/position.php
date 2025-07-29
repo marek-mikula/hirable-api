@@ -8,8 +8,8 @@ use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
 use Domain\Position\Http\Controllers\PositionKanbanController;
-use Domain\Position\Http\Controllers\PositionKanbanSettingsController;
 use Domain\Position\Http\Controllers\PositionProcessStepController;
+use Domain\Position\Http\Controllers\PositionSetProcessStepOrderController;
 use Domain\Position\Http\Controllers\PositionSuggestDepartmentsController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;
@@ -28,19 +28,17 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::post('/duplicate', PositionDuplicateController::class)->name('duplicate');
 
         Route::patch('/cancel-approval', PositionCancelApprovalController::class)->name('cancel');
+        Route::patch('/set-process-step-order', PositionSetProcessStepOrderController::class)->name('set_process_step_order');
 
         Route::prefix('/approvals')->as('approvals.')->group(function (): void {
             Route::patch('/{approval}/decide', PositionApprovalDecideController::class)->whereNumber('approval')->name('decide');
         });
 
-        Route::prefix('/kanban')->as('kanban.')->group(function (): void {
-            Route::get('/', PositionKanbanController::class)->name('index');
-            Route::patch('/settings', PositionKanbanSettingsController::class)->name('settings');
-        });
-
         Route::prefix('/process-steps')->as('process_steps.')->group(function (): void {
             Route::post('/', [PositionProcessStepController::class, 'store'])->name('store');
         });
+
+        Route::get('/kanban', PositionKanbanController::class)->name('kanban');
     });
 });
 

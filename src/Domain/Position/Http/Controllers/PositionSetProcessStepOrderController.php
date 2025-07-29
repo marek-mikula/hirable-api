@@ -6,17 +6,17 @@ namespace Domain\Position\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
-use Domain\Position\Http\Request\PositionKanbanSettingsRequest;
+use Domain\Position\Http\Request\PositionSetProcessStepOrderRequest;
 use Domain\Position\Http\Resources\Collections\KanbanStepCollection;
 use Domain\Position\Models\Position;
-use Domain\Position\UseCases\PositionUpdateKanbanSettingsUseCase;
+use Domain\Position\UseCases\PositionSetProcessStepOrderUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionKanbanSettingsController extends ApiController
+class PositionSetProcessStepOrderController extends ApiController
 {
-    public function __invoke(PositionKanbanSettingsRequest $request, Position $position): JsonResponse
+    public function __invoke(PositionSetProcessStepOrderRequest $request, Position $position): JsonResponse
     {
-        $positionProcessSteps = PositionUpdateKanbanSettingsUseCase::make()->handle($position, $request->toData());
+        $positionProcessSteps = PositionSetProcessStepOrderUseCase::make()->handle($position, $request->getOrder());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'kanbanSteps' => new KanbanStepCollection($positionProcessSteps),

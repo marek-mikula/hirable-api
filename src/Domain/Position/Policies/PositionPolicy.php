@@ -116,13 +116,21 @@ class PositionPolicy
         return $user->id === $position->user_id && $position->state === PositionStateEnum::APPROVAL_PENDING;
     }
 
+    public function setProcessStepOrder(User $user, Position $position): bool
+    {
+        if ($user->company_id !== $position->company_id) {
+            return false;
+        }
+
+        if ($position->state !== PositionStateEnum::OPENED) {
+            return false;
+        }
+
+        return $user->id === $position->user_id || $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::RECRUITER);
+    }
+
     public function showKanban(User $user, Position $position): bool
     {
         return $this->show($user, $position) && in_array($position->state, PositionStateEnum::getAfterOpenedStates());
-    }
-
-    public function updateKanbanSettings(User $user, Position $position): bool
-    {
-        return $this->showKanban($user, $position) && in_array($user->company_role, [RoleEnum::ADMIN, RoleEnum::RECRUITER]);
     }
 }

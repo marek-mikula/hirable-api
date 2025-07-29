@@ -6,17 +6,16 @@ namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\Traits\ValidationFailsWithStatus;
-use Domain\Position\Http\Request\Data\KanbanSettingsData;
 use Domain\Position\Policies\PositionPolicy;
 
-class PositionKanbanSettingsRequest extends AuthRequest
+class PositionSetProcessStepOrderRequest extends AuthRequest
 {
     use ValidationFailsWithStatus;
 
     public function authorize(): bool
     {
-        /** @see PositionPolicy::updateKanbanSettings() */
-        return $this->user()->can('updateKanbanSettings', $this->route('position'));
+        /** @see PositionPolicy::setProcessStepOrder() */
+        return $this->user()->can('setProcessStepOrder', $this->route('position'));
     }
 
     public function rules(): array
@@ -33,13 +32,11 @@ class PositionKanbanSettingsRequest extends AuthRequest
         ];
     }
 
-    public function toData(): KanbanSettingsData
+    /**
+     * @return string[]
+     */
+    public function getOrder(): array
     {
-        return new KanbanSettingsData(
-            order: $this->collect('order')
-                ->map(fn (mixed $value) => (string) $value)
-                ->values()
-                ->all()
-        );
+        return $this->collect('order')->map(fn (mixed $value) => (string) $value)->values()->all();
     }
 }
