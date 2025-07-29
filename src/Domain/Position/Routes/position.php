@@ -9,6 +9,7 @@ use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
 use Domain\Position\Http\Controllers\PositionKanbanController;
 use Domain\Position\Http\Controllers\PositionKanbanSettingsController;
+use Domain\Position\Http\Controllers\PositionProcessStepController;
 use Domain\Position\Http\Controllers\PositionSuggestDepartmentsController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;
@@ -35,6 +36,10 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::prefix('/kanban')->as('kanban.')->group(function (): void {
             Route::get('/', PositionKanbanController::class)->name('index');
             Route::patch('/settings', PositionKanbanSettingsController::class)->name('settings');
+        });
+
+        Route::prefix('/process-steps')->as('process_steps.')->group(function (): void {
+            Route::post('/', [PositionProcessStepController::class, 'store'])->name('store');
         });
     });
 });

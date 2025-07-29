@@ -13,10 +13,19 @@ it('correctly handles fullName attribute', function (): void {
     $user = new User();
     $user->firstname = 'Thomas';
     $user->lastname = 'Example';
+
+    assertSame('Thomas Example', $user->full_name);
+});
+
+/** @covers \Domain\User\Models\User::fullQualifiedName */
+it('correctly handles fullQualifiedName attribute', function (): void {
+    $user = new User();
+    $user->firstname = 'Thomas';
+    $user->lastname = 'Example';
     $user->prefix = 'Ing.';
     $user->postfix = 'MBA';
 
-    assertSame('Ing. Thomas Example, MBA', $user->full_name);
+    assertSame('Ing. Thomas Example, MBA', $user->full_qualified_name);
 });
 
 /** @covers \Domain\User\Models\User::isEmailVerified */

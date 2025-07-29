@@ -14,6 +14,8 @@ interface ProcessStepRepositoryInterface
 {
     public function store(ProcessStepStoreInput $input): ProcessStep;
 
+    public function find(int $id): ?ProcessStep;
+
     public function update(ProcessStep $processStep, ProcessStepUpdateInput $input): ProcessStep;
 
     public function delete(ProcessStep $processStep): void;

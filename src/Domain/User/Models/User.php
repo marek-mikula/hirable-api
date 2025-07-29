@@ -44,6 +44,7 @@ use Support\Token\Models\Token;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read string $full_name
+ * @property-read string $full_qualified_name
  * @property-read string $label
  * @property-read bool $is_email_verified
  * @property-read Collection<Token> $tokens
@@ -115,8 +116,13 @@ class User extends Authenticatable implements HasLocalePreference
 
     protected function fullName(): Attribute
     {
+        return Attribute::get(fn (): string => sprintf('%s %s', $this->firstname, $this->lastname));
+    }
+
+    protected function fullQualifiedName(): Attribute
+    {
         return Attribute::get(function (): string {
-            $name = sprintf('%s %s', $this->firstname, $this->lastname);
+            $name = $this->full_name;
 
             if (!empty($this->prefix)) {
                 $name = sprintf('%s %s', $this->prefix, $name);

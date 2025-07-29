@@ -25,4 +25,4 @@ it('correctly casts value', function (): void {
     // test that value gets cast when accessing the value
     assertSame(TestEnum::VALUE, $cast->get($model, 'value', TestEnum::VALUE->value, []));
     assertSame('randomValue', $cast->get($model, 'value', 'randomValue', []));
-})->only();
+});

@@ -16,6 +16,10 @@ interface PositionProcessStepRepositoryInterface
 
     public function findByPosition(Position $position, StepEnum|string $step): ?PositionProcessStep;
 
+    public function getMaxOrder(Position $position): int;
+
+    public function hasStep(Position $position, StepEnum|string $step): bool;
+
     public function updateOrder(PositionProcessStep $positionProcessStep, int $order): PositionProcessStep;
 
     /**

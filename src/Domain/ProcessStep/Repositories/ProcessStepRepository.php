@@ -29,6 +29,14 @@ class ProcessStepRepository implements ProcessStepRepositoryInterface
         return $processStep;
     }
 
+    public function find(int $id): ?ProcessStep
+    {
+        /** @var ProcessStep|null $processStep */
+        $processStep = ProcessStep::query()->find($id);
+
+        return $processStep;
+    }
+
     public function update(ProcessStep $processStep, ProcessStepUpdateInput $input): ProcessStep
     {
         $processStep->step = $input->step;

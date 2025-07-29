@@ -41,6 +41,21 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         return $positionProcessStep;
     }
 
+    public function getMaxOrder(Position $position): int
+    {
+        return (int) PositionProcessStep::query()
+            ->wherePosition($position->id)
+            ->max('order');
+    }
+
+    public function hasStep(Position $position, StepEnum|string $step): bool
+    {
+        return PositionProcessStep::query()
+            ->wherePosition($position->id)
+            ->whereStep($step)
+            ->exists();
+    }
+
     public function updateOrder(PositionProcessStep $positionProcessStep, int $order): PositionProcessStep
     {
         $positionProcessStep->order = $order;

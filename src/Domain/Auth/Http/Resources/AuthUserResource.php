@@ -35,6 +35,7 @@ class AuthUserResource extends JsonResource
             'firstname' => $this->resource->firstname,
             'lastname' => $this->resource->lastname,
             'fullName' => $this->resource->full_name,
+            'fullQualifiedName' => $this->resource->full_qualified_name,
             'prefix' => $this->resource->prefix,
             'postfix' => $this->resource->postfix,
             'phone' => $this->resource->phone,
