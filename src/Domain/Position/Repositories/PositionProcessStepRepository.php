@@ -68,6 +68,7 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
     public function getStepsForKanban(Position $position): Collection
     {
         return PositionProcessStep::query()
+            ->wherePosition($position->id)
             ->with([
                 'positionCandidates',
                 'positionCandidates.candidate',
