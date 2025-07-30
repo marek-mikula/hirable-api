@@ -21,7 +21,10 @@ class PositionKanbanController extends ApiController
 
     public function __invoke(PositionKanbanRequest $request, Position $position): JsonResponse
     {
-        $positionProcessSteps = $this->positionProcessStepRepository->getStepsForKanban($position);
+        $positionProcessSteps = $this->positionProcessStepRepository->getByPosition($position, [
+            'positionCandidates',
+            'positionCandidates.candidate',
+        ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'kanbanSteps' => new KanbanStepCollection($positionProcessSteps),

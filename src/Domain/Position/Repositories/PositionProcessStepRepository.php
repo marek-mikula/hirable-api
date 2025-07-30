@@ -30,6 +30,11 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         return $positionProcessStep;
     }
 
+    public function delete(PositionProcessStep $positionProcessStep): void
+    {
+        throw_if(!$positionProcessStep->delete(), RepositoryException::deleted(PositionProcessStep::class));
+    }
+
     public function findByPosition(Position $position, StepEnum|string $step): ?PositionProcessStep
     {
         /** @var PositionProcessStep|null $positionProcessStep */
@@ -48,12 +53,17 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
             ->max('order');
     }
 
-    public function hasStep(Position $position, StepEnum|string $step): bool
+    public function positionHasStep(Position $position, StepEnum|string $step): bool
     {
         return PositionProcessStep::query()
             ->wherePosition($position->id)
             ->whereStep($step)
             ->exists();
+    }
+
+    public function stepHasCandidates(PositionProcessStep $positionProcessStep): bool
+    {
+        return $positionProcessStep->positionCandidates()->exists();
     }
 
     public function updateOrder(PositionProcessStep $positionProcessStep, int $order): PositionProcessStep
@@ -65,14 +75,11 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         return $positionProcessStep;
     }
 
-    public function getStepsForKanban(Position $position): Collection
+    public function getByPosition(Position $position, array $with = []): Collection
     {
         return PositionProcessStep::query()
             ->wherePosition($position->id)
-            ->with([
-                'positionCandidates',
-                'positionCandidates.candidate',
-            ])
+            ->with($with)
             ->orderBy('order')
             ->get();
     }

@@ -31,11 +31,12 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::patch('/set-process-step-order', PositionSetProcessStepOrderController::class)->name('set_process_step_order');
 
         Route::prefix('/approvals')->as('approvals.')->group(function (): void {
-            Route::patch('/{approval}/decide', PositionApprovalDecideController::class)->whereNumber('approval')->name('decide');
+            Route::patch('/{positionApproval}/decide', PositionApprovalDecideController::class)->whereNumber('positionApproval')->name('decide');
         });
 
         Route::prefix('/process-steps')->as('process_steps.')->group(function (): void {
             Route::post('/', [PositionProcessStepController::class, 'store'])->name('store');
+            Route::delete('/{positionProcessStep}', [PositionProcessStepController::class, 'delete'])->whereNumber('positionProcessStep')->name('store');
         });
 
         Route::get('/kanban', PositionKanbanController::class)->name('kanban');

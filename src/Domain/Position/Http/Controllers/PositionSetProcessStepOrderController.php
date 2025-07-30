@@ -7,7 +7,6 @@ namespace Domain\Position\Http\Controllers;
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Position\Http\Request\PositionSetProcessStepOrderRequest;
-use Domain\Position\Http\Resources\Collections\KanbanStepCollection;
 use Domain\Position\Models\Position;
 use Domain\Position\UseCases\PositionSetProcessStepOrderUseCase;
 use Illuminate\Http\JsonResponse;
@@ -16,10 +15,8 @@ class PositionSetProcessStepOrderController extends ApiController
 {
     public function __invoke(PositionSetProcessStepOrderRequest $request, Position $position): JsonResponse
     {
-        $positionProcessSteps = PositionSetProcessStepOrderUseCase::make()->handle($position, $request->getOrder());
+        PositionSetProcessStepOrderUseCase::make()->handle($position, $request->getOrder());
 
-        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'kanbanSteps' => new KanbanStepCollection($positionProcessSteps),
-        ]);
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS);
     }
 }

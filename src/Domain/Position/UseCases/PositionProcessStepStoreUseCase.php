@@ -30,7 +30,7 @@ class PositionProcessStepStoreUseCase extends UseCase
 
         // position already has selected
         // step and the step is not repeatable
-        if (!$processStep->is_repeatable && $this->positionProcessStepRepository->hasStep($position, $processStep->step)) {
+        if (!$processStep->is_repeatable && $this->positionProcessStepRepository->positionHasStep($position, $processStep->step)) {
             throw new HttpException(responseCode: ResponseCodeEnum::STEP_EXISTS);
         }
 

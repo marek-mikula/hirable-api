@@ -14,16 +14,21 @@ interface PositionProcessStepRepositoryInterface
 {
     public function store(PositionProcessStepStoreInput $input): PositionProcessStep;
 
+    public function delete(PositionProcessStep $positionProcessStep): void;
+
     public function findByPosition(Position $position, StepEnum|string $step): ?PositionProcessStep;
 
     public function getMaxOrder(Position $position): int;
 
-    public function hasStep(Position $position, StepEnum|string $step): bool;
+    public function positionHasStep(Position $position, StepEnum|string $step): bool;
+
+    public function stepHasCandidates(PositionProcessStep $positionProcessStep): bool;
 
     public function updateOrder(PositionProcessStep $positionProcessStep, int $order): PositionProcessStep;
 
     /**
+     * @param string[] $with
      * @return Collection<PositionProcessStep>
      */
-    public function getStepsForKanban(Position $position): Collection;
+    public function getByPosition(Position $position, array $with): Collection;
 }

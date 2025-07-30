@@ -8,7 +8,6 @@ use App\UseCases\UseCase;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class PositionSetProcessStepOrderUseCase extends UseCase
@@ -20,11 +19,10 @@ class PositionSetProcessStepOrderUseCase extends UseCase
 
     /**
      * @param string[] $order
-     * @return Collection<PositionProcessStep>
      */
-    public function handle(Position $position, array $order): Collection
+    public function handle(Position $position, array $order): void
     {
-        $positionProcessSteps = $this->positionProcessStepRepository->getStepsForKanban($position);
+        $positionProcessSteps = $this->positionProcessStepRepository->getByPosition($position);
 
         $positionProcessSteps = $positionProcessSteps->sort(
             function (PositionProcessStep $a, PositionProcessStep $b) use ($order): int {
@@ -50,7 +48,7 @@ class PositionSetProcessStepOrderUseCase extends UseCase
             }
         )->values();
 
-        return DB::transaction(function () use ($positionProcessSteps): Collection {
+        DB::transaction(function () use ($positionProcessSteps): void {
             /**
              * @var int $index
              * @var PositionProcessStep $positionProcessStep
@@ -60,8 +58,6 @@ class PositionSetProcessStepOrderUseCase extends UseCase
                     $this->positionProcessStepRepository->updateOrder($positionProcessStep, $index);
                 }
             }
-
-            return $positionProcessSteps;
         }, attempts: 5);
     }
 }
