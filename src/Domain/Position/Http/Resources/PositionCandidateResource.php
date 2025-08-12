@@ -24,7 +24,7 @@ class PositionCandidateResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['candidate']);
+        $this->checkLoadedRelations('candidate');
 
         return [
             'id' => $this->resource->id,

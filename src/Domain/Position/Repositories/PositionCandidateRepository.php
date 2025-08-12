@@ -6,6 +6,7 @@ namespace Domain\Position\Repositories;
 
 use App\Exceptions\RepositoryException;
 use Domain\Position\Models\PositionCandidate;
+use Domain\Position\Models\PositionProcessStep;
 use Domain\Position\Repositories\Inputs\PositionCandidateStoreInput;
 
 class PositionCandidateRepository implements PositionCandidateRepositoryInterface
@@ -35,6 +36,19 @@ class PositionCandidateRepository implements PositionCandidateRepositoryInterfac
         $positionCandidate->total_score = $totalScore;
 
         throw_if(!$positionCandidate->save(), RepositoryException::updated(PositionCandidate::class));
+
+        return $positionCandidate;
+    }
+
+    public function setStep(
+        PositionCandidate $positionCandidate,
+        PositionProcessStep $positionProcessStep
+    ): PositionCandidate {
+        $positionCandidate->step_id = $positionProcessStep->id;
+
+        throw_if(!$positionCandidate->save(), RepositoryException::updated(PositionCandidate::class));
+
+        $positionCandidate->setRelation('step', $positionProcessStep);
 
         return $positionCandidate;
     }

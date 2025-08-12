@@ -15,6 +15,8 @@ interface PositionProcessStepRepositoryInterface
 {
     public function store(PositionProcessStepStoreInput $input): PositionProcessStep;
 
+    public function find(int $id, array $with): PositionProcessStep;
+
     public function delete(PositionProcessStep $positionProcessStep): void;
 
     public function update(PositionProcessStep $positionProcessStep, PositionProcessStepUpdateInput $input): PositionProcessStep;

@@ -32,6 +32,16 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         return $positionProcessStep;
     }
 
+    public function find(int $id, array $with = []): PositionProcessStep
+    {
+        /** @var PositionProcessStep|null $positionProcessStep */
+        $positionProcessStep = PositionProcessStep::query()
+            ->with($with)
+            ->find($id);
+
+        return $positionProcessStep;
+    }
+
     public function delete(PositionProcessStep $positionProcessStep): void
     {
         throw_if(!$positionProcessStep->delete(), RepositoryException::deleted(PositionProcessStep::class));
