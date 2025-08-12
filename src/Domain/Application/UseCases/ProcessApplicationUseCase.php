@@ -40,10 +40,7 @@ class ProcessApplicationUseCase extends UseCase
             'files',
         ]);
 
-        $positionProcessStep = $this->positionProcessStepRepository->findByPosition(
-            $application->position,
-            StepEnum::NEW,
-        );
+        $positionProcessStep = $this->positionProcessStepRepository->findByPosition($application->position, StepEnum::NEW);
 
         throw_if(empty($positionProcessStep), new \Exception('Missing default position process step.'));
 

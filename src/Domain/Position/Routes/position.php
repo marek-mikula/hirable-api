@@ -36,7 +36,11 @@ Route::middleware('auth:sanctum')->group(static function (): void {
 
         Route::prefix('/process-steps')->as('process_steps.')->group(function (): void {
             Route::post('/', [PositionProcessStepController::class, 'store'])->name('store');
-            Route::delete('/{positionProcessStep}', [PositionProcessStepController::class, 'delete'])->whereNumber('positionProcessStep')->name('store');
+
+            Route::prefix('/{positionProcessStep}')->whereNumber('positionProcessStep')->group(function (): void {
+                Route::delete('/', [PositionProcessStepController::class, 'delete'])->name('delete');
+                Route::patch('/', [PositionProcessStepController::class, 'update'])->name('update');
+            });
         });
 
         Route::get('/kanban', PositionKanbanController::class)->name('kanban');

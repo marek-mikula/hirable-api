@@ -50,6 +50,8 @@ class PositionUpdateUseCase extends UseCase
             'recruiters',
             'approvers',
             'externalApprovers',
+            'approvals',
+            'approvals.modelHasPosition',
         ]);
 
         $state = match ($data->operation) {

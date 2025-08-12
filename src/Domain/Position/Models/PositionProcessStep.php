@@ -20,6 +20,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read int $id
  * @property int $position_id
  * @property StepEnum|string $step
+ * @property string|null $label
  * @property int $order zero-based order index
  * @property boolean $is_fixed
  * @property boolean $is_repeatable
@@ -43,6 +44,7 @@ class PositionProcessStep extends Model
     protected $fillable = [
         'position_id',
         'step',
+        'label',
         'order',
         'is_fixed',
         'is_repeatable',

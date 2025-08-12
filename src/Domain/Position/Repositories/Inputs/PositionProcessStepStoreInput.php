@@ -12,6 +12,7 @@ readonly class PositionProcessStepStoreInput
     public function __construct(
         public Position $position,
         public StepEnum|string $step,
+        public ?string $label,
         public int $order,
         public bool $isFixed,
         public bool $isRepeatable,

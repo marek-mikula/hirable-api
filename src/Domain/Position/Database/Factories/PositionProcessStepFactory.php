@@ -22,6 +22,7 @@ class PositionProcessStepFactory extends Factory
         return [
             'position_id' => $this->isMaking ? null : Position::factory(),
             'step' => fake()->word,
+            'label' => null,
             'order' => fake()->numberBetween(0, 20),
             'is_fixed' => false,
             'is_repeatable' => fake()->boolean,

@@ -21,7 +21,7 @@ class PositionProcessStepPolicy
         return $user->can('update', $position);
     }
 
-    public function delete(User $user, PositionProcessStep $positionProcessStep, Position $position): bool
+    public function update(User $user, PositionProcessStep $positionProcessStep, Position $position): bool
     {
         if ($positionProcessStep->position_id !== $position->id) {
             return false;
@@ -33,5 +33,10 @@ class PositionProcessStepPolicy
 
         /** @see PositionPolicy::update() */
         return $user->can('update', $position);
+    }
+
+    public function delete(User $user, PositionProcessStep $positionProcessStep, Position $position): bool
+    {
+        return $this->update($user, $positionProcessStep, $position);
     }
 }

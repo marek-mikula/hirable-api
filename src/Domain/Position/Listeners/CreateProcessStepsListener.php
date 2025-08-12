@@ -29,6 +29,7 @@ class CreateProcessStepsListener extends Listener
                     new PositionProcessStepStoreInput(
                         position: $event->position,
                         step: $step->step,
+                        label: null,
                         order: $index,
                         isFixed: $step->isFixed,
                         isRepeatable: $step->isRepeatable,

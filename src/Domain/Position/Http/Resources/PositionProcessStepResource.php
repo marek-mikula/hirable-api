@@ -25,6 +25,7 @@ class PositionProcessStepResource extends JsonResource
             'step' => is_string($this->resource->step)
                 ? $this->resource->step
                 : $this->resource->step->value,
+            'label' => $this->resource->label,
             'order' => $this->resource->order,
             'isCustom' => $this->resource->is_custom,
             'isFixed' => $this->resource->is_fixed,

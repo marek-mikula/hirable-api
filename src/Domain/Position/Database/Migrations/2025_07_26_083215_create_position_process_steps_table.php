@@ -13,6 +13,7 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('position_id');
             $table->string('step', 50);
+            $table->string('label', 50)->nullable();
             $table->unsignedTinyInteger('order');
             $table->boolean('is_fixed');
             $table->boolean('is_repeatable');

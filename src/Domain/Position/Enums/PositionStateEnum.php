@@ -35,7 +35,9 @@ enum PositionStateEnum: string
             self::APPROVAL_APPROVED, => [
                 self::OPENED,
             ],
-            self::APPROVAL_REJECTED, self::APPROVAL_EXPIRED, self::APPROVAL_CANCELED => [
+            self::APPROVAL_REJECTED,
+            self::APPROVAL_CANCELED,
+            self::APPROVAL_EXPIRED => [
                 self::DRAFT,
                 self::APPROVAL_PENDING,
                 self::OPENED,

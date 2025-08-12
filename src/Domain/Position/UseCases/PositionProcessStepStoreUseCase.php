@@ -45,6 +45,7 @@ class PositionProcessStepStoreUseCase extends UseCase
                 new PositionProcessStepStoreInput(
                     position: $position,
                     step: $processStep->step,
+                    label: null,
                     order: $order + 1,
                     isFixed: false,
                     isRepeatable: $processStep->is_repeatable,
