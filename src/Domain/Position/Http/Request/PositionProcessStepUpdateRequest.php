@@ -30,7 +30,7 @@ class PositionProcessStepUpdateRequest extends AuthRequest
     public function toData(): PositionProcessStepData
     {
         return PositionProcessStepData::from([
-            'label' => $this->filled('name') ? (string) $this->input('name') : null
+            'label' => $this->filled('label') ? (string) $this->input('label') : null
         ]);
     }
 }
