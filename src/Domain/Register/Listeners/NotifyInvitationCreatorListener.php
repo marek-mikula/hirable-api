@@ -12,6 +12,6 @@ class NotifyInvitationCreatorListener extends QueuedListener
 {
     public function handle(UserRegisteredInvitation $event): void
     {
-        $event->token->loadMissing('user')->user->notify(new InvitationAcceptedNotification($event->user));
+        $event->token->user->notify(new InvitationAcceptedNotification($event->user));
     }
 }

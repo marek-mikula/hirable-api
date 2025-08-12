@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Domain\Company\Enums\RoleEnum;
 use Domain\Position\Enums\PositionRoleEnum;
+use Domain\ProcessStep\Enums\StepEnum;
 
 return [
 
@@ -71,6 +72,25 @@ return [
 
         'remind_days' => 3,
 
-    ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default configurable process steps
+    |--------------------------------------------------------------------------
+    |
+    | Here we may configure the default configurable process
+    | steps for position. These process steps are created when
+    | position is moved to opened state.
+    |
+    | These steps does not include fixed steps, which
+    | are configured in different config file (processStep.php).
+    | These are only CONFIGURABLE steps!
+    |
+    */
+
+    'default_configurable_process_steps' => [
+        StepEnum::INTERVIEW->value,
+    ],
 
 ];

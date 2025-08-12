@@ -6,10 +6,11 @@ namespace Services\OpenAI\Services;
 
 use Domain\AI\Contracts\AIServiceInterface;
 use Domain\AI\Data\CVData;
-use Domain\Application\Models\Application;
+use Domain\Candidate\Models\Candidate;
+use Domain\Position\Models\Position;
 use Illuminate\Support\Collection;
 use Services\OpenAI\Actions\ExtractCVDataAction;
-use Services\OpenAI\Actions\ScoreApplicationAction;
+use Services\OpenAI\Actions\ScoreCandidateAction;
 use Support\File\Models\File;
 
 class OpenAIService implements AIServiceInterface
@@ -19,8 +20,8 @@ class OpenAIService implements AIServiceInterface
         return ExtractCVDataAction::make()->handle($cv);
     }
 
-    public function scoreApplication(Application $application, Collection $files): array
+    public function scoreCandidateFitOnPosition(Position $position, Candidate $candidate, Collection $files): array
     {
-        return ScoreApplicationAction::make()->handle($application, $files);
+        return ScoreCandidateAction::make()->handle($position, $candidate, $files);
     }
 }

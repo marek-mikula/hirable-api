@@ -4,87 +4,58 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Support\File\Repositories;
 
-use Domain\User\Models\User;
 use Illuminate\Support\Str;
+use Support\File\Enums\FileDiskEnum;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
 use Support\File\Repositories\FileRepositoryInterface;
 use Support\File\Repositories\Input\FileStoreInput;
-use Support\File\Repositories\Input\FileUpdateInput;
 
 use function Pest\Laravel\assertModelExists;
 use function Pest\Laravel\assertModelMissing;
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertSame;
-use function PHPUnit\Framework\assertTrue;
-
-/** @covers \Support\File\Repositories\FileRepository::save */
-it('tests save method', function (): void {
-    /** @var FileRepositoryInterface $repository */
-    $repository = app(FileRepositoryInterface::class);
-
-    $file = File::factory()->create();
-    $file->setDataValue('processed', -1);
-
-    $file = $repository->save($file);
-
-    assertTrue($file->wasChanged('data'));
-});
 
 /** @covers \Support\File\Repositories\FileRepository::store */
 it('tests store method', function (): void {
     /** @var FileRepositoryInterface $repository */
     $repository = app(FileRepositoryInterface::class);
 
-    $user = User::factory()->create();
-
     $input = new FileStoreInput(
-        model: $user,
-        type: FileTypeEnum::TEMP,
+        type: FileTypeEnum::CANDIDATE_CV,
+        disk: FileDiskEnum::LOCAL,
         path: Str::uuid()->toString().'.jpg',
         extension: 'jpg',
         name: 'thumbnail.jpg',
         mime: 'image/jpeg',
         size: 340,
-        data: ['key' => fake()->word],
     );
 
     $file = $repository->store($input);
 
     assertModelExists($file);
-    assertSame($input->model::class, $file->fileable_type);
-    assertSame($input->model->getKey(), $file->fileable_id);
     assertSame($input->type, $file->type);
+    assertSame($input->disk, $file->disk);
     assertSame($input->path, $file->path);
     assertSame($input->extension, $file->extension);
     assertSame($input->name, $file->name);
     assertSame($input->mime, $file->mime);
     assertSame($input->size, $file->size);
-    assertTrue($file->hasDataValue('key'));
-    assertSame($input->data['key'], $file->getDataValue('key'));
 });
 
-/** @covers \Support\File\Repositories\FileRepository::update */
-it('tests update method', function (): void {
+/** @covers \Support\File\Repositories\FileRepository::updatePath */
+it('tests updatePath method', function (): void {
     /** @var FileRepositoryInterface $repository */
     $repository = app(FileRepositoryInterface::class);
 
-    $user = User::factory()->create();
     $file = File::factory()->create();
 
-    $input = new FileUpdateInput(
-        model: $user,
-        type: FileTypeEnum::TEMP,
-        path: Str::uuid()->toString().'.jpg',
-    );
+    $newPath = sprintf('candidates/%s', Str::uuid()->toString());
 
-    $file = $repository->update($file, $input);
+    $file = $repository->updatePath($file, $newPath);
 
-    assertSame($input->model::class, $file->fileable_type);
-    assertSame($input->model->getKey(), $file->fileable_id);
-    assertSame($input->type, $file->type);
-    assertSame($input->path, $file->path);
+    assertSame($newPath, $file->path);
 });
 
 /** @covers \Support\File\Repositories\FileRepository::delete */

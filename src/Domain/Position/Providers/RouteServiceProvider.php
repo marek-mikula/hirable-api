@@ -6,6 +6,8 @@ namespace Domain\Position\Providers;
 
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
+use Domain\Position\Models\PositionCandidate;
+use Domain\Position\Models\PositionProcessStep;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,8 @@ class RouteServiceProvider extends ServiceProvider
     private function bootModelBinding(): void
     {
         Route::model('position', Position::class);
-        Route::model('approval', PositionApproval::class);
+        Route::model('positionApproval', PositionApproval::class);
+        Route::model('positionProcessStep', PositionProcessStep::class);
+        Route::model('positionCandidate', PositionCandidate::class);
     }
 }

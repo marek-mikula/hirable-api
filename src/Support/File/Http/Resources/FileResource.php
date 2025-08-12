@@ -22,12 +22,10 @@ class FileResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'type' => $this->resource->type->value,
             'extension' => $this->resource->extension,
             'name' => $this->resource->name,
             'mime' => $this->resource->mime,
             'size' => $this->resource->size,
-            'data' => $this->resource->data,
         ];
     }
 }

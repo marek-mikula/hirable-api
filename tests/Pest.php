@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Support\ActivityLog\Facades\ActivityLog;
-use Support\File\Enums\FileDomainEnum;
+use Support\File\Enums\FileDiskEnum;
 use Tests\TestCase;
 
 use function Pest\Laravel\withHeader;
@@ -28,14 +28,9 @@ uses(TestCase::class)
         // do not send any notification
         Notification::fake();
 
-        // fake local storage disk so no files
-        // are created directly on the disk
-        Storage::fake('local');
-
-        // fake other storage disks based on
-        // file domain enum
-        foreach (FileDomainEnum::cases() as $fileDomain) {
-            Storage::fake($fileDomain->getDisk());
+        // fake all storage disks
+        foreach (FileDiskEnum::cases() as $disk) {
+            Storage::fake($disk->value);
         }
 
         // disable activity logging, if it needs to be tested

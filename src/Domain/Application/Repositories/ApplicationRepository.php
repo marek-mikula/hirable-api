@@ -8,7 +8,6 @@ use App\Exceptions\RepositoryException;
 use Domain\Application\Models\Application;
 use Domain\Application\Models\Builders\ApplicationBuilder;
 use Domain\Application\Repositories\Input\ApplicationStoreInput;
-use Domain\Candidate\Models\Candidate;
 use Domain\Position\Models\Position;
 use Illuminate\Support\Str;
 
@@ -20,8 +19,6 @@ class ApplicationRepository implements ApplicationRepositoryInterface
 
         $application->uuid = Str::uuid()->toString();
         $application->position_id = $input->position->id;
-        $application->candidate_id = null;
-        $application->processed = false;
         $application->language = $input->language;
         $application->source = $input->source;
         $application->firstname = $input->firstname;
@@ -34,36 +31,6 @@ class ApplicationRepository implements ApplicationRepositoryInterface
         throw_if(!$application->save(), RepositoryException::stored(Application::class));
 
         $application->setRelation('position', $input->position);
-
-        return $application;
-    }
-
-    public function setProcessed(Application $application): Application
-    {
-        $application->processed = true;
-
-        throw_if(!$application->save(), RepositoryException::updated(Application::class));
-
-        return $application;
-    }
-
-    public function setScore(Application $application, array $score, int $totalScore): Application
-    {
-        $application->score = $score;
-        $application->total_score = $totalScore;
-
-        throw_if(!$application->save(), RepositoryException::updated(Application::class));
-
-        return $application;
-    }
-
-    public function setCandidate(Application $application, Candidate $candidate): Application
-    {
-        $application->candidate_id = $candidate->id;
-
-        throw_if(!$application->save(), RepositoryException::updated(Application::class));
-
-        $application->setRelation('candidate', $candidate);
 
         return $application;
     }

@@ -22,13 +22,13 @@ use Illuminate\Database\Query\Builder;
  * @property LanguageEnum $language
  * @property string $firstname
  * @property string $lastname
- * @property-read string $label
- * @property-read string $full_name
  * @property string $email
  * @property string|null $note
  * @property string|null $company_name
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read string $label
+ * @property-read string $full_name
  * @property-read Company $company
  *
  * @method static CompanyContactFactory factory($count = null, $state = [])

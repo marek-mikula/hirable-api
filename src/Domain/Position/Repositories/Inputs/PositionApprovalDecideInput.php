@@ -6,7 +6,7 @@ namespace Domain\Position\Repositories\Inputs;
 
 use Domain\Position\Enums\PositionApprovalStateEnum;
 
-class PositionApprovalDecideInput
+readonly class PositionApprovalDecideInput
 {
     public function __construct(
         public PositionApprovalStateEnum $state,

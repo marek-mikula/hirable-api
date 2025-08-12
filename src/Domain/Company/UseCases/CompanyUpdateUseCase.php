@@ -24,11 +24,11 @@ class CompanyUpdateUseCase extends UseCase
         }
 
         $input = [
-            'language' => $company->language,
             'name' => $company->name,
             'email' => $company->email,
             'idNumber' => $company->id_number,
             'website' => $company->website,
+            'aiOutputLanguage' => $company->ai_output_language,
         ];
 
         foreach ($values as $key => $value) {

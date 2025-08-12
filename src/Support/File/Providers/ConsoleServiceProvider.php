@@ -32,6 +32,8 @@ class ConsoleServiceProvider extends ServiceProvider
                 ->monthly()
                 ->at('00:00');
 
+            // todo add script to check local storage
+
             return $schedule;
         });
     }

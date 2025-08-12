@@ -23,10 +23,7 @@ class PositionPolicy
 
     public function store(User $user): bool
     {
-        return in_array($user->company_role, [
-            RoleEnum::ADMIN,
-            RoleEnum::RECRUITER,
-        ]);
+        return in_array($user->company_role, [RoleEnum::ADMIN, RoleEnum::RECRUITER]);
     }
 
     public function show(User $user, Position $position): bool
@@ -44,13 +41,13 @@ class PositionPolicy
         // and position has been opened
         if (
             in_array($position->state, PositionStateEnum::getAfterOpenedStates()) &&
-            $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::HIRING_MANAGER, PositionRoleEnum::RECRUITER, )
+            $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::HIRING_MANAGER, PositionRoleEnum::RECRUITER)
         ) {
             return true;
         }
 
-        // user is approver in pending state
-        // and position is in approval pending state
+        // position is in approval pending state
+        // and user is approver in pending state
         if (
             $position->state === PositionStateEnum::APPROVAL_PENDING &&
             $this->positionApprovalRepository->hasModelAsApproverOnPositionInState(
@@ -92,13 +89,17 @@ class PositionPolicy
 
     public function delete(User $user, Position $position): bool
     {
+        if ($user->company_id !== $position->company_id) {
+            return false;
+        }
+
         $notInStates = [
             PositionStateEnum::OPENED,
             PositionStateEnum::CLOSED,
             PositionStateEnum::CANCELED,
         ];
 
-        return $user->company_id === $position->company_id && $user->id === $position->user_id && !in_array($position->state, $notInStates);
+        return $user->id === $position->user_id && !in_array($position->state, $notInStates);
     }
 
     public function duplicate(User $user, Position $position): bool
@@ -108,6 +109,28 @@ class PositionPolicy
 
     public function cancelApproval(User $user, Position $position): bool
     {
-        return $user->company_id === $position->company_id && $user->id === $position->user_id;
+        if ($user->company_id !== $position->company_id) {
+            return false;
+        }
+
+        return $user->id === $position->user_id && $position->state === PositionStateEnum::APPROVAL_PENDING;
+    }
+
+    public function setProcessStepOrder(User $user, Position $position): bool
+    {
+        if ($user->company_id !== $position->company_id) {
+            return false;
+        }
+
+        if ($position->state !== PositionStateEnum::OPENED) {
+            return false;
+        }
+
+        return $user->id === $position->user_id || $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::RECRUITER);
+    }
+
+    public function showKanban(User $user, Position $position): bool
+    {
+        return $this->show($user, $position) && in_array($position->state, PositionStateEnum::getAfterOpenedStates());
     }
 }

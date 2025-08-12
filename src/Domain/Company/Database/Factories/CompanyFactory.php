@@ -19,11 +19,11 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            'language' => fake()->randomElement(LanguageEnum::cases()),
             'name' => fake()->company,
             'email' => fake()->unique()->companyEmail,
             'id_number' => fake()->numerify('#########'),
             'website' => fake()->url,
+            'ai_output_language' => fake()->randomElement(LanguageEnum::cases()),
         ];
     }
 

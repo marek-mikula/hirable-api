@@ -6,7 +6,7 @@ namespace Support\File\Models\Traits;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Support\File\Models\File;
 
 /**
@@ -17,12 +17,16 @@ use Support\File\Models\File;
  */
 trait HasFiles
 {
-    public function files(): MorphMany
+    public function files(): MorphToMany
     {
-        return $this->morphMany(
+        return $this->morphToMany(
             related: File::class,
             name: 'fileable',
-            localKey: 'id',
+            table: 'model_has_files',
+            foreignPivotKey: 'fileable_id',
+            relatedPivotKey: 'file_id',
+            parentKey: 'id',
+            relatedKey: 'id',
         );
     }
 }

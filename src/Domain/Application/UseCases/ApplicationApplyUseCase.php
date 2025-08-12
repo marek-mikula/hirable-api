@@ -14,11 +14,14 @@ use Domain\Application\Repositories\Input\ApplicationStoreInput;
 use Domain\Application\TokenProcessing\Data\TokenPackage;
 use Illuminate\Support\Facades\DB;
 use Support\File\Enums\FileTypeEnum;
+use Support\File\Models\File;
+use Support\File\Repositories\ModelHasFileRepositoryInterface;
 use Support\File\Services\FileSaver;
 
 class ApplicationApplyUseCase extends UseCase
 {
     public function __construct(
+        private readonly ModelHasFileRepositoryInterface $modelHasFileRepository,
         private readonly ApplicationRepositoryInterface $applicationRepository,
         private readonly FileSaver $fileSaver,
     ) {
@@ -50,21 +53,40 @@ class ApplicationApplyUseCase extends UseCase
         return DB::transaction(function () use ($data, $input): Application {
             $application = $this->applicationRepository->store($input);
 
-            $this->fileSaver->saveFiles(
-                fileable: $application,
-                type: FileTypeEnum::APPLICATION_CV,
-                files: [$data->getCvAsFileData()]
-            );
-
-            if ($data->hasOtherFiles()) {
-                $this->fileSaver->saveFiles(
-                    fileable: $application,
-                    type: FileTypeEnum::APPLICATION_OTHER,
-                    files: $data->getOtherFilesAsFileData()
-                );
-            }
+            $this->saveFiles($application, $data);
 
             return $application;
         }, attempts: 5);
+    }
+
+    private function saveFiles(Application $application, ApplyData $data): void
+    {
+        $files = modelCollection(File::class);
+
+        $cv = $this->fileSaver->saveFile(
+            file: $data->getCvAsFileData(),
+            path: 'applications',
+            type: FileTypeEnum::CANDIDATE_CV
+        );
+
+        $this->modelHasFileRepository->store($application, $cv);
+
+        $files->push($cv);
+
+        if ($data->hasOtherFiles()) {
+            foreach ($data->getOtherFilesAsFileData() as $fileData) {
+                $otherFile = $this->fileSaver->saveFile(
+                    file: $fileData,
+                    path: 'applications',
+                    type: FileTypeEnum::CANDIDATE_OTHER,
+                );
+
+                $this->modelHasFileRepository->store($application, $otherFile);
+
+                $files->push($otherFile);
+            }
+        }
+
+        $application->setRelation('files', $files);
     }
 }

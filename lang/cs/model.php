@@ -55,6 +55,7 @@ return [
         'id_number' => 'IČO',
         'email' => 'Kontaktní e-mail společnosti',
         'website' => 'Webová stránka společnosti',
+        'aiOutputLanguage' => 'Jazyk výstupů AI',
     ],
 
     'position' => [
@@ -122,6 +123,11 @@ return [
     'candidate' => [
         'cv' => 'Životopis',
         'linkedin' => 'LinkedIn',
+    ],
+
+    'processStep' => [
+        'step' => 'Krok',
+        'isRepeatable' => 'Opakovatelný'
     ],
 
 ];

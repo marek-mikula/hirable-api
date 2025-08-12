@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Candidate\Models;
 
+use App\Casts\Capitalize;
 use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Candidate\Database\Factories\CandidateFactory;
@@ -15,8 +16,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Query\Builder;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
@@ -29,7 +29,6 @@ use Support\File\Models\Traits\HasFiles;
  * @property GenderEnum|null $gender
  * @property string $firstname
  * @property string $lastname
- * @property-read string $full_name
  * @property string $email
  * @property string $phone_prefix
  * @property string $phone_number
@@ -41,7 +40,8 @@ use Support\File\Models\Traits\HasFiles;
  * @property array $experience
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property-read File $cv
+ * @property-read string $full_name
+ * @property-read File $cvs
  * @property-read Collection<File> $otherFiles
  *
  * @method static CandidateFactory factory($count = null, $state = [])
@@ -81,8 +81,11 @@ class Candidate extends Model implements HasLocalePreference
     ];
 
     protected $casts = [
+        'firstname' => Capitalize::class,
+        'lastname' => Capitalize::class,
         'language' => LanguageEnum::class,
         'gender' => GenderEnum::class,
+        'birth_date' => 'date',
         'experience' => 'array',
     ];
 
@@ -91,14 +94,14 @@ class Candidate extends Model implements HasLocalePreference
         return Attribute::get(fn (): string => sprintf('%s %s', $this->firstname, $this->lastname));
     }
 
-    public function cv(): MorphOne
+    public function cvs(): MorphToMany
     {
-        return $this->files()->where('type', FileTypeEnum::CANDIDATE_CV->value)->one();
+        return $this->files()->where('type', FileTypeEnum::CANDIDATE_CV)->latest('id');
     }
 
-    public function otherFiles(): MorphMany
+    public function otherFiles(): MorphToMany
     {
-        return $this->files()->where('type', FileTypeEnum::CANDIDATE_OTHER->value);
+        return $this->files()->where('type', FileTypeEnum::CANDIDATE_OTHER)->latest('id');
     }
 
     /**

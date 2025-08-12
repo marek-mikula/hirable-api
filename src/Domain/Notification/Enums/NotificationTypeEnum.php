@@ -29,7 +29,7 @@ enum NotificationTypeEnum: string
     case POSITION_ASSIGNED_AS_HM = 'position:assigned_as_hm';
     case POSITION_REMOVED_AS_RECRUITER = 'position:removed_as_recruiter';
     case POSITION_REMOVED_AS_HM = 'position:removed_as_hm';
+    case POSITION_NEW_CANDIDATE = 'position:new_candidate';
 
     case APPLICATION_ACCEPTED = 'application:accepted';
-    case APPLICATION_NEW_CANDIDATE = 'application:new_candidate';
 }

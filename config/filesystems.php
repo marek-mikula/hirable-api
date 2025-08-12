@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Support\File\Enums\FileDiskEnum;
+
 return [
 
     /*
@@ -15,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', FileDiskEnum::LOCAL->value),
 
     /*
     |--------------------------------------------------------------------------
@@ -32,31 +34,13 @@ return [
 
     'disks' => [
 
-        'temp' => [
-            'driver' => 'local',
-            'root' => storage_path('app/tmp'),
-            'throw' => false,
-        ],
-
-        'positions' => [
-            'driver' => 'local',
-            'root' => storage_path('app/positions'),
-            'throw' => false,
-        ],
-
-        'candidates' => [
-            'driver' => 'local',
-            'root' => storage_path('app/candidates'),
-            'throw' => false,
-        ],
-
-        'local' => [
+        FileDiskEnum::LOCAL->value => [
             'driver' => 'local',
             'root' => storage_path('app'),
             'throw' => false,
         ],
 
-        'public' => [
+        FileDiskEnum::PUBLIC->value => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
@@ -64,7 +48,7 @@ return [
             'throw' => false,
         ],
 
-        's3' => [
+        FileDiskEnum::S3->value => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),

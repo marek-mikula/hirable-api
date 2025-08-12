@@ -2,11 +2,15 @@
 
 declare(strict_types=1);
 
+use Domain\Position\Http\Controllers\PositionCancelApprovalController;
 use Domain\Position\Http\Controllers\PositionApprovalDecideController;
-use Domain\Position\Http\Controllers\PositionApprovalCancelController;
+use Domain\Position\Http\Controllers\PositionCandidateSetStepController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
+use Domain\Position\Http\Controllers\PositionKanbanController;
+use Domain\Position\Http\Controllers\PositionProcessStepController;
+use Domain\Position\Http\Controllers\PositionSetProcessStepOrderController;
 use Domain\Position\Http\Controllers\PositionSuggestDepartmentsController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;
@@ -24,10 +28,29 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::delete('/', [PositionController::class, 'delete'])->name('delete');
         Route::post('/duplicate', PositionDuplicateController::class)->name('duplicate');
 
+        Route::patch('/cancel-approval', PositionCancelApprovalController::class)->name('cancel');
+        Route::patch('/set-process-step-order', PositionSetProcessStepOrderController::class)->name('set_process_step_order');
+
         Route::prefix('/approvals')->as('approvals.')->group(function (): void {
-            Route::post('/cancel', PositionApprovalCancelController::class)->name('cancel');
-            Route::patch('/{approval}/decide', PositionApprovalDecideController::class)->whereNumber('approval')->name('decide');
+            Route::patch('/{positionApproval}/decide', PositionApprovalDecideController::class)->whereNumber('positionApproval')->name('decide');
         });
+
+        Route::prefix('/process-steps')->as('process_steps.')->group(function (): void {
+            Route::post('/', [PositionProcessStepController::class, 'store'])->name('store');
+
+            Route::prefix('/{positionProcessStep}')->whereNumber('positionProcessStep')->group(function (): void {
+                Route::delete('/', [PositionProcessStepController::class, 'delete'])->name('delete');
+                Route::patch('/', [PositionProcessStepController::class, 'update'])->name('update');
+            });
+        });
+
+        Route::prefix('/candidates')->as('candidates.')->group(function (): void {
+            Route::prefix('/{positionCandidate}')->whereNumber('positionCandidate')->group(function (): void {
+                Route::patch('/set-step', PositionCandidateSetStepController::class)->name('set_step');
+            });
+        });
+
+        Route::get('/kanban', PositionKanbanController::class)->name('kanban');
     });
 });
 

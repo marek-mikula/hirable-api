@@ -11,7 +11,7 @@ class OpenAIFileManager
 {
     public function attachFile(File $file): array
     {
-        $content = Storage::disk($file->type->getDomain()->getDisk())->get($file->path);
+        $content = Storage::disk($file->disk->value)->get($file->path);
 
         return [
             'type' => 'input_file',

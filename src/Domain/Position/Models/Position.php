@@ -69,13 +69,13 @@ use Support\File\Models\Traits\HasFiles;
  * @property boolean $share_salary
  * @property boolean $share_contact
  * @property string|null $common_token
- * @property-read string|null $common_link
  * @property string|null $intern_token
- * @property-read string|null $intern_link
  * @property string|null $referral_token
- * @property-read string|null $referral_link
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read string|null $common_link
+ * @property-read string|null $intern_link
+ * @property-read string|null $referral_link
  * @property-read Company $company
  * @property-read User $user // todo rename to owner, so its more clear
  * @property-read Collection<ModelHasPosition> $models
@@ -86,6 +86,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property-read Collection<User> $hiringManagers
  * @property-read Collection<User> $recruiters
  * @property-read Collection<PositionApproval> $approvals
+ * @property-read Collection<PositionProcessStep> $steps
  *
  * @method static PositionFactory factory($count = null, $state = [])
  * @method static PositionBuilder query()
@@ -237,6 +238,15 @@ class Position extends Model
             parentKey: 'id',
             relatedKey: 'id',
         )->withPivot(['role']);
+    }
+
+    public function steps(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionProcessStep::class,
+            foreignKey: 'position_id',
+            localKey: 'id',
+        );
     }
 
     public function externalApprovers(): MorphToMany

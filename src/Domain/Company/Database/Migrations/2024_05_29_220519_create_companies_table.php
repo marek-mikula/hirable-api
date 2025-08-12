@@ -11,11 +11,11 @@ return new class () extends Migration {
     {
         Schema::create('companies', static function (Blueprint $table): void {
             $table->id();
-            $table->string('language', 2);
             $table->string('name');
             $table->string('email')->unique('companies_email_unique');
             $table->string('id_number')->unique('companies_id_number_unique');
             $table->string('website')->nullable();
+            $table->string('ai_output_language', 2);
             $table->timestamps();
         });
     }

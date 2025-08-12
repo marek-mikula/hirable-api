@@ -49,11 +49,11 @@ class RegisterUseCase extends UseCase
             $email,
         ): User {
             $company = $this->companyRepository->store(new CompanyStoreInput(
-                language: appLocale(),
                 name: $data->company->name,
                 email: $data->company->email,
                 idNumber: $data->company->idNumber,
                 website: $data->company->website,
+                aiOutputLanguage: appLocale(),
             ));
 
             $user = $this->userRepository->store(new UserStoreInput(

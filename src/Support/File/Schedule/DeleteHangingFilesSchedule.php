@@ -26,7 +26,7 @@ class DeleteHangingFilesSchedule extends Schedule
     private function shouldRun(): bool
     {
         return File::query()
-            ->doesntHave('fileable')
+            ->doesntHave('modelHasFiles')
             ->exists();
     }
 }

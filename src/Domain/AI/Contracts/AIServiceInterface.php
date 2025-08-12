@@ -6,7 +6,8 @@ namespace Domain\AI\Contracts;
 
 use Domain\AI\Data\CVData;
 use Domain\AI\Scoring\Data\ScoreCategoryData;
-use Domain\Application\Models\Application;
+use Domain\Candidate\Models\Candidate;
+use Domain\Position\Models\Position;
 use Illuminate\Support\Collection;
 use Support\File\Models\File;
 
@@ -18,5 +19,5 @@ interface AIServiceInterface
      * @param Collection<File> $files
      * @return ScoreCategoryData[]
      */
-    public function scoreApplication(Application $application, Collection $files): array;
+    public function scoreCandidateFitOnPosition(Position $position, Candidate $candidate, Collection $files): array;
 }

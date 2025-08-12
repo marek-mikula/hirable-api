@@ -4,21 +4,14 @@ declare(strict_types=1);
 
 namespace Domain\Application\Listeners;
 
-use App\Listeners\Listener;
+use App\Listeners\QueuedListener;
 use Domain\Application\Events\ApplicationCreatedEvent;
-use Domain\Application\Jobs\CreateCandidateFromApplicationJob;
-use Domain\Application\Jobs\ScoreApplicationJob;
-use Domain\Application\Jobs\SetApplicationProcessedJob;
-use Illuminate\Support\Facades\Bus;
+use Domain\Application\UseCases\ProcessApplicationUseCase;
 
-class ProcessApplicationListener extends Listener
+class ProcessApplicationListener extends QueuedListener
 {
     public function handle(ApplicationCreatedEvent $event): void
     {
-        Bus::chain([
-            new ScoreApplicationJob($event->application),
-            new CreateCandidateFromApplicationJob($event->application),
-            new SetApplicationProcessedJob($event->application),
-        ])->dispatch();
+        ProcessApplicationUseCase::make()->handle($event->application);
     }
 }

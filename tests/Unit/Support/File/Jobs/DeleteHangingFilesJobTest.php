@@ -15,10 +15,7 @@ use function Pest\Laravel\assertSoftDeleted;
 it('correctly deletes hanging files', function (): void {
     $user = User::factory()->create();
 
-    $file1 = File::factory()->create([
-        'fileable_type' => User::class,
-        'fileable_id' => $user->id + 1, // add one to the IDs don't collide
-    ]);
+    $file1 = File::factory()->create();
     $file2 = File::factory()->withFileable($user)->create();
 
     app()->call([new DeleteHangingFilesJob(), 'handle']);

@@ -26,8 +26,6 @@ class ApplicationFactory extends Factory
         return [
             'uuid' => fake()->uuid,
             'position_id' => $this->isMaking ? null : Position::factory()->ofState(PositionStateEnum::OPENED),
-            'candidate_id' => null,
-            'processed' => false,
             'language' => LanguageEnum::EN,
             'source' => SourceEnum::POSITION,
             'firstname' => fake()->firstName($gender),
@@ -36,8 +34,6 @@ class ApplicationFactory extends Factory
             'phone_prefix' => '+420',
             'phone_number' => fake()->phoneNumber,
             'linkedin' => null,
-            'score' => [],
-            'total_score' => null,
         ];
     }
 
@@ -45,13 +41,6 @@ class ApplicationFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'position_id' => $position->id,
-        ]);
-    }
-
-    public function ofProcessed(bool $processed): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'processed' => $processed,
         ]);
     }
 }

@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Support\File\Exceptions;
 
-use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
 
 class UnableToCopyFileException extends \Exception
 {
-    public function __construct(File $file, FileTypeEnum $type, ?string $subFolder, ?\Exception $previous = null)
+    public function __construct(File $file, string $path, ?\Exception $previous = null)
     {
         $message = sprintf(
-            'Unable to copy file %s to disk with type %s to %s (mime: %s, size: %s).',
-            $file->name,
-            $type->value,
-            $subFolder ?? '/',
+            'Unable to copy file %d from %s to %s (type: %s, mime: %s, size: %s).',
+            $file->id,
+            $file->path,
+            $path,
+            $file->type->value,
             $file->mime,
             $file->size,
         );

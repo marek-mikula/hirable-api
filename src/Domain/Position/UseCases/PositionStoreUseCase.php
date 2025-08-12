@@ -20,9 +20,10 @@ use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Support\File\Actions\GetModelSubFoldersAction;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
+use Support\File\Repositories\ModelHasFileRepositoryInterface;
+use Support\File\Services\FilePathService;
 use Support\File\Services\FileSaver;
 
 class PositionStoreUseCase extends UseCase
@@ -30,8 +31,10 @@ class PositionStoreUseCase extends UseCase
     public function __construct(
         private readonly ModelHasPositionRepositoryInterface $modelHasPositionRepository,
         private readonly CompanyContactRepositoryInterface $companyContactRepository,
+        private readonly ModelHasFileRepositoryInterface $modelHasFileRepository,
         private readonly PositionRepositoryInterface $positionRepository,
         private readonly UserRepositoryInterface $userRepository,
+        private readonly FilePathService $filePathService,
         private readonly FileSaver $fileSaver,
     ) {
     }
@@ -155,12 +158,19 @@ class PositionStoreUseCase extends UseCase
             return;
         }
 
-        $files = $this->fileSaver->saveFiles(
-            fileable: $position,
-            type: FileTypeEnum::POSITION_FILE,
-            files: $data->getFilesData(),
-            folders: GetModelSubFoldersAction::make()->handle($position)
-        );
+        $files = modelCollection(File::class);
+
+        foreach ($data->getFilesData() as $fileData) {
+            $file = $this->fileSaver->saveFile(
+                file: $fileData,
+                path: $this->filePathService->getPathForModel($position),
+                type: FileTypeEnum::POSITION_FILE,
+            );
+
+            $this->modelHasFileRepository->store($position, $file);
+
+            $files->push($file);
+        }
 
         $position->setRelation('files', $files);
     }

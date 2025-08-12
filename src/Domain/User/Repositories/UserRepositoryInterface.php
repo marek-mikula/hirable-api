@@ -17,7 +17,7 @@ interface UserRepositoryInterface
 
     public function update(User $user, UserUpdateInput $input): User;
 
-    public function verifyEmail(User $user, ?Carbon $timestamp = null): User;
+    public function verifyEmail(User $user, ?Carbon $timestamp): User;
 
     public function changePassword(User $user, string $password): User;
 

@@ -6,5 +6,6 @@ namespace Domain\AI\Enums;
 
 enum AIServiceEnum: string
 {
+    case FAKE = 'fake';
     case OPENAI = 'openai';
 }

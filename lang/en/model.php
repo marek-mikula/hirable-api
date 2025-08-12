@@ -55,6 +55,7 @@ return [
         'id_number' => 'Company ID number',
         'email' => 'Company contact e-mail address',
         'website' => 'Company website',
+        'aiOutputLanguage' => 'AI output language',
     ],
 
     'position' => [
@@ -123,6 +124,11 @@ return [
     'candidate' => [
         'cv' => 'Resume',
         'linkedin' => 'LinkedIn',
+    ],
+
+    'processStep' => [
+        'step' => 'Step',
+        'isRepeatable' => 'Repeatable'
     ],
 
 ];

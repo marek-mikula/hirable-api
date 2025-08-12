@@ -21,6 +21,7 @@ class DomainServiceProvider extends ServiceProvider
         \Domain\User\Providers\ServiceProvider::class,
         \Domain\Position\Providers\ServiceProvider::class,
         \Domain\Notification\Providers\ServiceProvider::class,
+        \Domain\ProcessStep\Providers\ServiceProvider::class,
     ];
 
     public function register(): void

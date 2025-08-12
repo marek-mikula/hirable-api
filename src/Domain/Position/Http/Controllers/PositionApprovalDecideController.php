@@ -15,17 +15,17 @@ use Illuminate\Http\JsonResponse;
 
 class PositionApprovalDecideController extends ApiController
 {
-    public function __invoke(PositionApprovalDecideRequest $request, Position $position, PositionApproval $approval): JsonResponse
+    public function __invoke(PositionApprovalDecideRequest $request, Position $position, PositionApproval $positionApproval): JsonResponse
     {
-        $approval = PositionApprovalDecideUseCase::make()->handle($request->user(), $position, $approval, $request->toData());
+        $positionApproval = PositionApprovalDecideUseCase::make()->handle($request->user(), $position, $positionApproval, $request->toData());
 
-        $approval->loadMissing([
+        $positionApproval->loadMissing([
             'modelHasPosition',
             'modelHasPosition.model',
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'approval' => new PositionApprovalResource($approval),
+            'approval' => new PositionApprovalResource($positionApproval),
         ]);
     }
 }
