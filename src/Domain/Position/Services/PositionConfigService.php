@@ -12,21 +12,6 @@ use Illuminate\Support\Collection;
 
 class PositionConfigService extends Service
 {
-    public function getAllowedFileExtensions(): array
-    {
-        return (array) config('position.files.extensions', []);
-    }
-
-    public function getMaxFileSize(): string
-    {
-        return (string) config('position.files.max_size');
-    }
-
-    public function getMaxFiles(): int
-    {
-        return (int) config('position.files.max_files');
-    }
-
     public function getApprovalRemindDays(): int
     {
         return (int) config('position.approval.remind_days');

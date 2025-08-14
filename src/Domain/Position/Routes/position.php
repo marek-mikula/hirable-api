@@ -8,6 +8,8 @@ use Domain\Position\Http\Controllers\PositionCandidateSetStepController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
+use Domain\Position\Http\Controllers\PositionGenerateFromFileController;
+use Domain\Position\Http\Controllers\PositionGenerateFromPromptController;
 use Domain\Position\Http\Controllers\PositionKanbanController;
 use Domain\Position\Http\Controllers\PositionProcessStepController;
 use Domain\Position\Http\Controllers\PositionSetProcessStepOrderController;
@@ -21,6 +23,9 @@ Route::middleware('auth:sanctum')->group(static function (): void {
     Route::post('/', [PositionController::class, 'store'])->name('store');
 
     Route::get('/suggest-departments', PositionSuggestDepartmentsController::class)->name('suggest_departments');
+
+    Route::post('/generate-from-prompt', PositionGenerateFromPromptController::class)->name('generate_from_prompt');
+    Route::post('/generate-from-file', PositionGenerateFromFileController::class)->name('generate_from_file');
 
     Route::prefix('/{position}')->whereNumber('position')->group(function (): void {
         Route::get('/', [PositionController::class, 'show'])->name('show');
