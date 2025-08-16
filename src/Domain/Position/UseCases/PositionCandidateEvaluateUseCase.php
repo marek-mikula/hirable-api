@@ -15,7 +15,7 @@ use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Support\File\Models\File;
 
-class PositionCandidateScoreUseCase extends UseCase
+class PositionCandidateEvaluateUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionCandidateRepositoryInterface $positionCandidateRepository,
@@ -43,7 +43,7 @@ class PositionCandidateScoreUseCase extends UseCase
             ->files
             ->filter(fn (File $file) => in_array($file->extension, $allowedFiles));
 
-        $score = $this->AIService->scoreCandidateFitOnPosition($positionCandidate->position, $positionCandidate->candidate, $files);
+        $score = $this->AIService->evaluateCandidate($positionCandidate->position, $positionCandidate->candidate, $files);
 
         $totalScore = $this->scoreCounter->calculateTotalScore($positionCandidate->position, $score);
         $mappedScore = $this->mapScore($positionCandidate->position, $score);

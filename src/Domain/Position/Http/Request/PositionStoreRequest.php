@@ -17,6 +17,8 @@ use Domain\Position\Services\PositionConfigService;
 use Domain\Position\Validation\ValidateApprovalRequiredFields;
 use Domain\Position\Validation\ValidateApprovalSelf;
 use Domain\Position\Validation\ValidateApprovalOpen;
+use Support\File\Enums\FileTypeEnum;
+use Support\File\Services\FileConfigService;
 
 class PositionStoreRequest extends AuthRequest
 {
@@ -26,8 +28,10 @@ class PositionStoreRequest extends AuthRequest
         return $this->user()->can('store', Position::class);
     }
 
-    public function rules(PositionConfigService $positionConfigService): array
-    {
+    public function rules(
+        FileConfigService $fileConfigService,
+        PositionConfigService $positionConfigService,
+    ): array {
         $user = $this->user();
 
         return [
@@ -126,6 +130,7 @@ class PositionStoreRequest extends AuthRequest
                 'nullable',
                 'integer',
                 'min:0',
+                'max:100',
             ],
             'hardSkills' => [
                 'nullable',
@@ -203,13 +208,13 @@ class PositionStoreRequest extends AuthRequest
             ],
             'files' => [
                 'array',
-                sprintf('max:%d', $positionConfigService->getMaxFiles()),
+                sprintf('max:%d', $fileConfigService->getFileMaxFiles(FileTypeEnum::POSITION_FILE)),
             ],
             'files.*' => [
                 'required',
                 Rule::file()
-                    ->max($positionConfigService->getMaxFileSize())
-                    ->extensions($positionConfigService->getAllowedFileExtensions())
+                    ->max($fileConfigService->getFileMaxSize(FileTypeEnum::POSITION_FILE))
+                    ->extensions($fileConfigService->getFileExtensions(FileTypeEnum::POSITION_FILE))
             ],
             'languageRequirements' => [
                 'array',

@@ -10,8 +10,8 @@ class CommonContexter
     {
         $result = [];
 
-        $result[] = sprintf('**Datetime**: %s', now()->toIso8601String());
+        $result[] = ['label' => 'Datetime', 'value' => now()->toIso8601String()];
 
-        return implode(PHP_EOL, $result);
+        return json_encode(['context' => $result]);
     }
 }

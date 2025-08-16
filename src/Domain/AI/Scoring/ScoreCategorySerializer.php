@@ -19,13 +19,9 @@ class ScoreCategorySerializer
         $result = [];
 
         foreach (ScoreCategoryEnum::cases() as $category) {
-            $result[] = sprintf(
-                '**%s**: %s',
-                $category->value,
-                $this->AIConfigService->getScoreCategoryDescription($category)
-            );
+            $result[$category->value] = $this->AIConfigService->getScoreCategoryDescription($category);
         }
 
-        return implode(PHP_EOL, $result);
+        return json_encode(['categories' => $result]);
     }
 }

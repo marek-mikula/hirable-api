@@ -20,6 +20,8 @@ use Domain\Position\Validation\ValidateApprovalRequiredFields;
 use Domain\Position\Validation\ValidateApprovalSelf;
 use Illuminate\Support\Arr;
 use App\Rules\Rule;
+use Support\File\Enums\FileTypeEnum;
+use Support\File\Services\FileConfigService;
 
 class PositionUpdateRequest extends AuthRequest
 {
@@ -29,8 +31,10 @@ class PositionUpdateRequest extends AuthRequest
         return $this->user()->can('update', $this->route('position'));
     }
 
-    public function rules(PositionConfigService $positionConfigService): array
-    {
+    public function rules(
+        FileConfigService $fileConfigService,
+        PositionConfigService $positionConfigService
+    ): array {
         $user = $this->user();
 
         /** @var Position $position */
@@ -213,6 +217,7 @@ class PositionUpdateRequest extends AuthRequest
                 'nullable',
                 'integer',
                 'min:0',
+                'max:100',
             ],
             'hardSkills' => [
                 Rule::excludeIf(!in_array('hardSkills', $keys)),
@@ -306,13 +311,13 @@ class PositionUpdateRequest extends AuthRequest
             'files' => [
                 Rule::excludeIf(!in_array('files', $keys)),
                 'array',
-                sprintf('max:%d', $positionConfigService->getMaxFiles() - $fileCount),
+                sprintf('max:%d', $fileConfigService->getFileMaxFiles(FileTypeEnum::POSITION_FILE) - $fileCount),
             ],
             'files.*' => [
                 'required',
                 Rule::file()
-                    ->max($positionConfigService->getMaxFileSize())
-                    ->extensions($positionConfigService->getAllowedFileExtensions())
+                    ->max($fileConfigService->getFileMaxSize(FileTypeEnum::POSITION_FILE))
+                    ->extensions($fileConfigService->getFileExtensions(FileTypeEnum::POSITION_FILE))
             ],
             'languageRequirements' => [
                 Rule::excludeIf(!in_array('languageRequirements', $keys)),

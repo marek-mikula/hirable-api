@@ -7,7 +7,8 @@ namespace Domain\Application\Http\Requests;
 use App\Http\Requests\Request;
 use App\Rules\Rule;
 use Domain\Application\Data\ApplyData;
-use Domain\Candidate\Services\CandidateConfigService;
+use Support\File\Enums\FileTypeEnum;
+use Support\File\Services\FileConfigService;
 
 class ApplicationApplyRequest extends Request
 {
@@ -16,7 +17,7 @@ class ApplicationApplyRequest extends Request
         return true;
     }
 
-    public function rules(CandidateConfigService $candidateConfigService): array
+    public function rules(FileConfigService $fileConfigService): array
     {
         return [
             'firstname' => [
@@ -54,18 +55,18 @@ class ApplicationApplyRequest extends Request
             'cv' => [
                 'required',
                 Rule::file()
-                    ->max($candidateConfigService->getCvMaxFileSize())
-                    ->extensions($candidateConfigService->getCvAllowedFileExtensions())
+                    ->max($fileConfigService->getFileMaxSize(FileTypeEnum::CANDIDATE_CV))
+                    ->extensions($fileConfigService->getFileExtensions(FileTypeEnum::CANDIDATE_CV))
             ],
             'otherFiles' => [
                 'array',
-                sprintf('max:%d', $candidateConfigService->getOtherMaxFiles())
+                sprintf('max:%d', $fileConfigService->getFileMaxFiles(FileTypeEnum::CANDIDATE_OTHER))
             ],
             'otherFiles.*' => [
                 'required',
                 Rule::file()
-                    ->max($candidateConfigService->getOtherMaxFileSize())
-                    ->extensions($candidateConfigService->getOtherAllowedFileExtensions())
+                    ->max($fileConfigService->getFileMaxSize(FileTypeEnum::CANDIDATE_OTHER))
+                    ->extensions($fileConfigService->getFileExtensions(FileTypeEnum::CANDIDATE_OTHER))
             ],
         ];
     }

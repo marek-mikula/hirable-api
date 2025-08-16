@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Domain\AI\Services;
 
 use App\Services\Service;
-use Domain\AI\Context\Enums\FieldTypeEnum;
-use Domain\AI\Context\ValueSerializers\ValueSerializer;
+use Domain\AI\Context\Mappers\ModelMapper;
 use Domain\AI\Contracts\AIServiceInterface;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
 use Illuminate\Database\Eloquent\Model;
@@ -57,20 +56,28 @@ class AIConfigService extends Service
         return (string) $description;
     }
 
-    public function getModelContextConfig(Model $model): array
+    /**
+     * @return class-string<ModelMapper>
+     */
+    public function getModelMapper(Model|string $model): string
     {
-        $config = (array) config(sprintf('ai.context.models.%s', $model::class));
+        $class = is_string($model) ? $model : $model::class;
 
-        throw_if(empty($config), new \Exception(sprintf('Undefined context definition for class %s.', $model::class)));
+        $mapper = config(sprintf('ai.context.mappers.%s', $class));
 
-        return $config;
+        throw_if(empty($mapper), new \Exception(sprintf('Undefined context mapper for class %s.', $class)));
+
+        return (string) $mapper;
     }
 
-    /**
-     * @return class-string<ValueSerializer>
-     */
-    public function getModelContextSerializer(FieldTypeEnum $type): string
+    public function getModelContextConfig(Model|string $model): array
     {
-        return (string) config(sprintf('ai.context.serializers.%s', $type->value));
+        $class = is_string($model) ? $model : $model::class;
+
+        $config = config(sprintf('ai.context.models.%s', $class));
+
+        throw_if(empty($config), new \Exception(sprintf('Undefined context for class %s.', $class)));
+
+        return (array) $config;
     }
 }
