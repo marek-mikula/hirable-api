@@ -7,7 +7,6 @@ namespace Services\OpenAI\Actions;
 use App\Actions\Action;
 use App\Enums\LanguageEnum;
 use Domain\AI\Context\ClassifierContexter;
-use Domain\AI\Context\CommonContexter;
 use Domain\AI\Context\ModelContexter;
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Models\Position;
@@ -25,7 +24,6 @@ class GeneratePositionFromFileAction extends Action
     public function __construct(
         private readonly ClassifierContexter $classifierContexter,
         private readonly OpenAIConfigService $configService,
-        private readonly CommonContexter $commonContexter,
         private readonly ModelContexter $modelContexter,
         private readonly OpenAIFileManager $fileManager,
     ) {
@@ -40,7 +38,6 @@ class GeneratePositionFromFileAction extends Action
             'model' => $this->configService->getModel(PromptEnum::GENERATE_POSITION_FROM_FILE),
             'prompt' => $this->configService->getPrompt(PromptEnum::GENERATE_POSITION_FROM_FILE, [
                 'language' => __(sprintf('common.languages.%s', $user->company->ai_output_language->value), locale: LanguageEnum::EN->value),
-                'context' => $this->commonContexter->getCommonContext(),
                 'attributes' => $this->modelContexter->getModelContext(Position::class, [
                     PositionFieldEnum::NAME,
                     PositionFieldEnum::FIELD,
