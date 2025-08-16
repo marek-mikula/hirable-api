@@ -8,7 +8,6 @@ use Domain\AI\Context\Mappers\ModelMapper;
 use Domain\AI\Services\AIConfigService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 class ModelContexter
 {
@@ -47,9 +46,7 @@ class ModelContexter
             $result[$field] = $this->serializeField($model, $field, $config[$field]);
         }
 
-        $modelKey = Str::camel(Str::afterLast($class, '\\'));
-
-        return json_encode([$modelKey => $result]);
+        return json_encode($result);
     }
 
     private function serializeField(Model|string $model, string $field, array $config): array

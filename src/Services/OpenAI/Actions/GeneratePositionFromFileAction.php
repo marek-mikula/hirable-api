@@ -106,7 +106,6 @@ class GeneratePositionFromFileAction extends Action
                 $value = Arr::get($attribute, 'value');
                 return [$key => $value];
             })
-            ->filter()
             ->all();
     }
 }

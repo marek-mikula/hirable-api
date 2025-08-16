@@ -103,7 +103,6 @@ class GeneratePositionFromPromptAction extends Action
                 $value = Arr::get($attribute, 'value');
                 return [$key => $value];
             })
-            ->filter()
             ->all();
     }
 }
