@@ -8,10 +8,8 @@ class CommonContexter
 {
     public function getCommonContext(): string
     {
-        $result = [];
-
-        $result[] = ['label' => 'Datetime', 'value' => now()->toIso8601String()];
-
-        return json_encode(['context' => $result]);
+        return json_encode([
+            'Datetime' =>  now()->toIso8601String(),
+        ]);
     }
 }

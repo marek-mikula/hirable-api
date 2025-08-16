@@ -91,7 +91,11 @@ return [
         ],
         PromptEnum::GENERATE_POSITION_FROM_PROMPT->value => [
             'id' => 'pmpt_689deeac979481969b277fdcdcd1ca9000bae19d7a9634c2',
-            'version' => '8',
+            'version' => '10',
+        ],
+        PromptEnum::GENERATE_POSITION_FROM_FILE->value => [
+            'id' => 'pmpt_68a0ad66153c8197b7393ee6f26c049c0a6ccd261a1ec1f7',
+            'version' => '2',
         ],
     ],
 ];

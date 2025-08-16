@@ -15,7 +15,7 @@ return [
                 'docx',
                 'xlsx',
             ],
-            'max_size' => '5MB',
+            'max_size' => '2MB',
             'max_files' => 5,
         ],
         FileTypeEnum::POSITION_GENERATE_FROM_FILE->value => [
@@ -23,14 +23,14 @@ return [
                 'pdf',
                 'docx',
             ],
-            'max_size' => '2MB',
+            'max_size' => '1MB',
         ],
         FileTypeEnum::CANDIDATE_CV->value => [
             'extensions' => [
                 'pdf',
                 'docx',
             ],
-            'max_size' => '5MB'
+            'max_size' => '2MB'
         ],
         FileTypeEnum::CANDIDATE_OTHER->value => [
             'extensions' => [
@@ -41,7 +41,7 @@ return [
                 'jpeg',
                 'png',
             ],
-            'max_size' => '5MB',
+            'max_size' => '2MB',
             'max_files' => 5,
         ],
     ],
