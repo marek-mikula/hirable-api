@@ -92,8 +92,8 @@ return [
                 ],
                 PositionFieldEnum::DESCRIPTION->value => [
                     'label' => 'Description',
-                    'description' => 'Position responsibilities, content, team, environment, etc.',
-                    'constraint' => 'string',
+                    'description' => 'Responsibilities, job content, team, and working environment',
+                    'constraint' => 'string, max. 2000 chars, structured text - text, lists (numbered, dashed), newlines, emojis',
                 ],
                 PositionFieldEnum::SALARY_FROM->value => [
                     'label' => 'Salary from',
@@ -123,7 +123,7 @@ return [
                 ],
                 PositionFieldEnum::SALARY_VAR->value => [
                     'label' => 'Salary variable addition',
-                    'description' => 'If position offers something extra like stock-based compensation.',
+                    'description' => 'Something extra like stock-based compensation.',
                     'constraint' => 'string'
                 ],
                 PositionFieldEnum::BENEFITS->value => [
@@ -141,7 +141,7 @@ return [
                     'constraint' => 'string, max. 255 chars'
                 ],
                 PositionFieldEnum::SENIORITY->value => [
-                    'label' => 'Required seniority for position',
+                    'label' => 'Required seniority',
                     'classifier' => ClassifierTypeEnum::SENIORITY->value,
                     'constraint' => 'array, classifier keys',
                 ],
@@ -151,8 +151,8 @@ return [
                 ],
                 PositionFieldEnum::HARD_SKILLS->value => [
                     'label' => 'Required other hard skills',
-                    'description' => 'Job certifications, programming languages, courses, etc.',
-                    'constraint' => 'string',
+                    'description' => 'Job certifications, programming languages, courses, technologies',
+                    'constraint' => 'string, max. 2000 chars, structured text - text, lists (numbered, dashed), newlines, emojis',
                 ],
                 PositionFieldEnum::ORGANISATION_SKILLS->value => [
                     'label' => 'Required organisation skills',

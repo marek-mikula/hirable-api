@@ -22,7 +22,7 @@ class PositionGenerateFromPromptRequest extends AuthRequest
             'prompt' => [
                 'required',
                 'string',
-                'max:2000',
+                'max:2500',
             ],
         ];
     }
