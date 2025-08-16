@@ -217,6 +217,7 @@ class PositionUpdateRequest extends AuthRequest
                 'nullable',
                 'integer',
                 'min:0',
+                'max:100',
             ],
             'hardSkills' => [
                 Rule::excludeIf(!in_array('hardSkills', $keys)),

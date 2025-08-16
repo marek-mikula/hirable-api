@@ -26,7 +26,7 @@ use Domain\Position\Listeners\SendOpenedNotificationsListener;
 use Domain\Position\Listeners\SendRejectedNotificationsListener;
 use Domain\Position\Listeners\SendToApprovalListener;
 use Domain\Position\Listeners\SetTokensListener;
-use Domain\Position\Listeners\ScorePositionCandidateListener;
+use Domain\Position\Listeners\EvaluatePositionCandidateListener;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
@@ -69,7 +69,7 @@ class EventServiceProvider extends ServiceProvider
             SendToApprovalListener::class,
         ],
         PositionCandidateCreatedEvent::class => [
-            ScorePositionCandidateListener::class,
+            EvaluatePositionCandidateListener::class,
             SendNewCandidateNotificationListener::class,
         ]
     ];

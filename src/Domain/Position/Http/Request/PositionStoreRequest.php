@@ -130,6 +130,7 @@ class PositionStoreRequest extends AuthRequest
                 'nullable',
                 'integer',
                 'min:0',
+                'max:100',
             ],
             'hardSkills' => [
                 'nullable',

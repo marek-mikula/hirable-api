@@ -1,0 +1,115 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Services\OpenAI\Actions;
+
+use App\Actions\Action;
+use App\Enums\LanguageEnum;
+use Domain\AI\Context\ClassifierContexter;
+use Domain\AI\Context\CommonContexter;
+use Domain\AI\Context\ModelContexter;
+use Domain\Position\Enums\PositionFieldEnum;
+use Domain\Position\Models\Position;
+use Domain\User\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
+use OpenAI\Laravel\Facades\OpenAI;
+use Services\OpenAI\Enums\PromptEnum;
+use Services\OpenAI\Services\OpenAIConfigService;
+use Services\OpenAI\Services\OpenAIFileManager;
+use Support\Classifier\Enums\ClassifierTypeEnum;
+
+class GeneratePositionFromFileAction extends Action
+{
+    public function __construct(
+        private readonly ClassifierContexter $classifierContexter,
+        private readonly OpenAIConfigService $configService,
+        private readonly CommonContexter $commonContexter,
+        private readonly ModelContexter $modelContexter,
+        private readonly OpenAIFileManager $fileManager,
+    ) {
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function handle(User $user, UploadedFile $file): array
+    {
+        $result = OpenAI::responses()->create([
+            'model' => $this->configService->getModel(PromptEnum::GENERATE_POSITION_FROM_FILE),
+            'prompt' => $this->configService->getPrompt(PromptEnum::GENERATE_POSITION_FROM_FILE, [
+                'language' => __(sprintf('common.languages.%s', $user->company->ai_output_language->value), locale: LanguageEnum::EN->value),
+                'context' => $this->commonContexter->getCommonContext(),
+                'attributes' => $this->modelContexter->getModelContext(Position::class, [
+                    PositionFieldEnum::NAME,
+                    PositionFieldEnum::FIELD,
+                    PositionFieldEnum::DEPARTMENT,
+                    PositionFieldEnum::WORKLOADS,
+                    PositionFieldEnum::EMPLOYMENT_RELATIONSHIPS,
+                    PositionFieldEnum::EMPLOYMENT_FORMS,
+                    PositionFieldEnum::JOB_SEATS_NUM,
+                    PositionFieldEnum::DESCRIPTION,
+                    PositionFieldEnum::SALARY_FROM,
+                    PositionFieldEnum::SALARY_TO,
+                    PositionFieldEnum::SALARY_FREQUENCY,
+                    PositionFieldEnum::SALARY_CURRENCY,
+                    PositionFieldEnum::SALARY_VAR,
+                    PositionFieldEnum::BENEFITS,
+                    PositionFieldEnum::MIN_EDUCATION_LEVEL,
+                    PositionFieldEnum::EDUCATION_FIELD,
+                    PositionFieldEnum::SENIORITY,
+                    PositionFieldEnum::EXPERIENCE,
+                    PositionFieldEnum::HARD_SKILLS,
+                    PositionFieldEnum::ORGANISATION_SKILLS,
+                    PositionFieldEnum::TEAM_SKILLS,
+                    PositionFieldEnum::TIME_MANAGEMENT,
+                    PositionFieldEnum::COMMUNICATION_SKILLS,
+                    PositionFieldEnum::LEADERSHIP,
+                    PositionFieldEnum::LANGUAGE_REQUIREMENTS,
+                ]),
+                'classifiers' => $this->classifierContexter->getClassifierContext([
+                    ClassifierTypeEnum::CURRENCY,
+                    ClassifierTypeEnum::LANGUAGE,
+                    ClassifierTypeEnum::LANGUAGE_LEVEL,
+                    ClassifierTypeEnum::BENEFIT,
+                    ClassifierTypeEnum::WORKLOAD,
+                    ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP,
+                    ClassifierTypeEnum::EMPLOYMENT_FORM,
+                    ClassifierTypeEnum::SENIORITY,
+                    ClassifierTypeEnum::EDUCATION_LEVEL,
+                    ClassifierTypeEnum::FIELD,
+                    ClassifierTypeEnum::SALARY_FREQUENCY,
+                    ClassifierTypeEnum::SALARY_TYPE,
+                ]),
+            ]),
+            'input' => [
+                [
+                    'role' => 'user',
+                    'content' => [
+                        $this->fileManager->attachUploadedFile($file),
+                    ],
+                ]
+            ]
+        ]);
+
+        try {
+            $json = json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
+        } catch (\Exception) {
+            throw new \Exception('Could not parse JSON output.');
+        }
+
+        $attributes = Arr::get($json, 'attributes', []);
+
+        // todo check if attributes match
+
+        return collect($attributes)
+            ->mapWithKeys(function (array $attribute): array {
+                $key = Arr::get($attribute, 'key');
+                $value = Arr::get($attribute, 'value');
+                return [$key => $value];
+            })
+            ->filter()
+            ->all();
+    }
+}

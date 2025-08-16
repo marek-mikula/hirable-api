@@ -7,5 +7,7 @@ namespace Services\OpenAI\Enums;
 enum PromptEnum: string
 {
     case EXTRACT_CV_DATA = 'extract_cv_data';
-    case SCORE_APPLICATION = 'score_application';
+    case EVALUATE_CANDIDATE = 'evaluate_candidate';
+    case GENERATE_POSITION_FROM_PROMPT = 'generate_position_from_prompt';
+    case GENERATE_POSITION_FROM_FILE = 'generate_position_from_file';
 }

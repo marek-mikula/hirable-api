@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Services\OpenAI\Services;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Support\File\Models\File;
 
@@ -17,6 +18,15 @@ class OpenAIFileManager
             'type' => 'input_file',
             'filename' => $file->name,
             'file_data' => sprintf('%s,%s', 'data:application/pdf;base64', base64_encode($content))
+        ];
+    }
+
+    public function attachUploadedFile(UploadedFile $file): array
+    {
+        return [
+            'type' => 'input_file',
+            'filename' => $file->getClientOriginalName(),
+            'file_data' => sprintf('%s,%s', 'data:application/pdf;base64', base64_encode($file->getContent()))
         ];
     }
 }

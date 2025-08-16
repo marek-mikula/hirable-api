@@ -32,7 +32,7 @@ class PositionGenerateFromFileRequest extends AuthRequest
         ];
     }
 
-    public function getUploadedFile(): UploadedFile
+    public function getFile(): UploadedFile
     {
         return $this->file('file');
     }
