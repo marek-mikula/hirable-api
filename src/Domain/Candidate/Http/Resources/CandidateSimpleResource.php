@@ -22,6 +22,7 @@ class CandidateSimpleResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'companyId' => $this->resource->company_id,
             'language' => $this->resource->language->value,
             'firstname' => $this->resource->firstname,
             'lastname' => $this->resource->lastname,

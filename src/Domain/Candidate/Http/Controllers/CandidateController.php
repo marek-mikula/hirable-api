@@ -37,6 +37,8 @@ class CandidateController extends ApiController
 
     public function show(CandidateShowRequest $request, Candidate $candidate): JsonResponse
     {
+        $candidate->loadMissing('files');
+
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'candidate' => new CandidateResource($candidate),
         ]);
