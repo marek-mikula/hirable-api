@@ -37,7 +37,6 @@ class GeneratePositionFromPromptAction extends Action
                 'language' => __(sprintf('common.languages.%s', $user->company->ai_output_language->value), locale: LanguageEnum::EN->value),
                 'attributes' => $this->modelContexter->getModelContext(Position::class, [
                     PositionFieldEnum::NAME,
-                    PositionFieldEnum::DEPARTMENT,
                     PositionFieldEnum::FIELD,
                     PositionFieldEnum::WORKLOADS,
                     PositionFieldEnum::EMPLOYMENT_RELATIONSHIPS,

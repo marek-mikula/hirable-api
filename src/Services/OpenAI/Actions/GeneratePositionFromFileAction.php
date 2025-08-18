@@ -41,7 +41,6 @@ class GeneratePositionFromFileAction extends Action
                 'attributes' => $this->modelContexter->getModelContext(Position::class, [
                     PositionFieldEnum::NAME,
                     PositionFieldEnum::FIELD,
-                    PositionFieldEnum::DEPARTMENT,
                     PositionFieldEnum::WORKLOADS,
                     PositionFieldEnum::EMPLOYMENT_RELATIONSHIPS,
                     PositionFieldEnum::EMPLOYMENT_FORMS,
