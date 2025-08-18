@@ -24,6 +24,7 @@ readonly class CandidateUpdateInput
         public ?string $portfolio,
         public ?Carbon $birthDate,
         public array $experience,
+        public array $tags,
     ) {
     }
 }
