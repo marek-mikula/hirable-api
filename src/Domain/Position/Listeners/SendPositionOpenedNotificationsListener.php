@@ -11,7 +11,7 @@ use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Notifications\PositionOpenedNotification;
 use Domain\User\Models\User;
 
-class SendOpenedNotificationsListener extends QueuedListener
+class SendPositionOpenedNotificationsListener extends QueuedListener
 {
     public function handle(PositionOpenedEvent $event): void
     {

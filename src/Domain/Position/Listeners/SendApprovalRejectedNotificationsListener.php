@@ -14,7 +14,7 @@ use Domain\Position\Models\PositionApproval;
 use Domain\Position\Notifications\PositionApprovalRejectedNotification;
 use Domain\User\Models\User;
 
-class SendRejectedNotificationsListener extends QueuedListener
+class SendApprovalRejectedNotificationsListener extends QueuedListener
 {
     public function handle(PositionRejectedEvent $event): void
     {

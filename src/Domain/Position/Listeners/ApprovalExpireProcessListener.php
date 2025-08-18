@@ -11,7 +11,7 @@ use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Support\Token\Repositories\TokenRepositoryInterface;
 
-class ExpireApprovalProcessListener extends Listener
+class ApprovalExpireProcessListener extends Listener
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,

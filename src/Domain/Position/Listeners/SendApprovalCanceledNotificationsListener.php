@@ -12,7 +12,7 @@ use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Notifications\PositionApprovalCanceledNotification;
 use Domain\User\Models\User;
 
-class SendCanceledNotificationsListener extends QueuedListener
+class SendApprovalCanceledNotificationsListener extends QueuedListener
 {
     public function handle(PositionApprovalCanceledEvent $event): void
     {

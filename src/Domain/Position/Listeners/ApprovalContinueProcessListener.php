@@ -11,7 +11,7 @@ use Domain\Position\Events\PositionApprovalApprovedEvent;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 
-class ContinueApprovalProcessListener extends Listener
+class ApprovalContinueProcessListener extends Listener
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,

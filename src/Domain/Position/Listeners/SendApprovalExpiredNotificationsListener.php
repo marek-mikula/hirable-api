@@ -12,7 +12,7 @@ use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Notifications\PositionApprovalExpiredNotification;
 use Domain\User\Models\User;
 
-class SendExpiredNotificationsListener extends QueuedListener
+class SendApprovalExpiredNotificationsListener extends QueuedListener
 {
     public function handle(PositionApprovalExpiredEvent $event): void
     {
