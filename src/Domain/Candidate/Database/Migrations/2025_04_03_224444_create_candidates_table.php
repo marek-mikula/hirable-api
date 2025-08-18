@@ -25,6 +25,7 @@ return new class () extends Migration {
             $table->string('portfolio')->nullable();
             $table->date('birth_date')->nullable();
             $table->json('experience');
+            $table->json('tags');
             $table->timestamps();
 
             $table->unique(['company_id', 'email'], 'candidates_company_email_unique');

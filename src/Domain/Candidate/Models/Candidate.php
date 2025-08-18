@@ -38,6 +38,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property string|null $portfolio
  * @property Carbon|null $birth_date
  * @property array $experience
+ * @property array $tags
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read string $full_name
@@ -74,10 +75,12 @@ class Candidate extends Model implements HasLocalePreference
         'portfolio',
         'birth_date',
         'experience',
+        'tags',
     ];
 
     protected $attributes = [
         'experience' => '[]',
+        'tags' => '[]',
     ];
 
     protected $casts = [
@@ -87,6 +90,7 @@ class Candidate extends Model implements HasLocalePreference
         'gender' => GenderEnum::class,
         'birth_date' => 'date',
         'experience' => 'array',
+        'tags' => 'array',
     ];
 
     protected function fullName(): Attribute
