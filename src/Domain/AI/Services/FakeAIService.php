@@ -29,6 +29,7 @@ class FakeAIService implements AIServiceInterface
             'github' => null,
             'portfolio' => null,
             'experience' => [],
+            'tags' => fake()->words(fake()->numberBetween(1, 5)),
         ]);
     }
 
