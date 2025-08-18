@@ -116,6 +116,9 @@ class PositionUpdateData extends Data
 
     public ?bool $shareContact;
 
+    /** @var string[] */
+    public array $tags;
+
     public function hasFiles(): bool
     {
         return !empty($this->files);

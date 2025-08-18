@@ -68,6 +68,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property int $education_weight scale 0 - 100
  * @property boolean $share_salary
  * @property boolean $share_contact
+ * @property string[] $tags
  * @property string|null $common_token
  * @property string|null $intern_token
  * @property string|null $referral_token
@@ -95,6 +96,7 @@ class Position extends Model
 {
     use HasFactory;
     use HasFiles;
+    public const MAX_TAGS = 10;
 
     protected $primaryKey = 'id';
 
@@ -145,6 +147,7 @@ class Position extends Model
         'education_weight',
         'share_salary',
         'share_contact',
+        'tags',
         'common_token',
         'intern_token',
         'referral_token',
@@ -157,6 +160,7 @@ class Position extends Model
         'benefits' => '[]',
         'seniority' => '[]',
         'language_requirements' => '[]',
+        'tags' => '[]',
     ];
 
     protected $casts = [
@@ -170,6 +174,7 @@ class Position extends Model
         'language_requirements' => 'array',
         'share_salary' => 'boolean',
         'share_contact' => 'boolean',
+        'tags' => 'array',
     ];
 
     protected function commonLink(): Attribute

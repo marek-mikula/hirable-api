@@ -55,6 +55,7 @@ readonly class PositionUpdateInput
         public int $educationWeight,
         public bool $shareSalary,
         public bool $shareContact,
+        public array $tags,
     ) {
     }
 }

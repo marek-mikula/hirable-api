@@ -35,4 +35,9 @@ class PositionConfigService extends Service
         return collect((array) config('position.default_configurable_process_steps'))
             ->map(fn (string $step) => StepEnum::from($step));
     }
+
+    public function getMaxTags(): int
+    {
+        return (int) config('position.max_tags');
+    }
 }

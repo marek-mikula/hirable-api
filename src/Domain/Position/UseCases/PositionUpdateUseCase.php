@@ -99,6 +99,7 @@ class PositionUpdateUseCase extends UseCase
             educationWeight: $data->hasKey('educationWeight') ? $data->educationWeight : $position->education_weight,
             shareSalary: $data->hasKey('shareSalary') ? $data->shareSalary : $position->share_salary,
             shareContact: $data->hasKey('shareContact') ? $data->shareContact : $position->share_contact,
+            tags: $data->hasKey('tags') ? $data->tags : $position->tags,
         );
 
         $hiringManagers = $data->hasKey('hiringManagers') && $data->hasHiringManagers()

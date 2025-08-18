@@ -89,6 +89,7 @@ class PositionResource extends JsonResource
             'educationWeight' => $this->resource->education_weight,
             'shareSalary' => $this->resource->share_salary,
             'shareContact' => $this->resource->share_contact,
+            'tags' => $this->resource->tags,
             'commonLink' => $this->resource->common_link,
             'internLink' => $this->resource->intern_link,
             'referralLink' => $this->resource->referral_link,

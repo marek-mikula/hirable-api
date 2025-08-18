@@ -10,7 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Data;
 use Support\File\Data\FileData;
 
-class PositionData extends Data
+class PositionStoreData extends Data
 {
     public PositionOperationEnum $operation;
 
@@ -112,6 +112,9 @@ class PositionData extends Data
     public bool $shareSalary;
 
     public bool $shareContact;
+
+    /** @var string[] */
+    public array $tags;
 
     public function hasFiles(): bool
     {

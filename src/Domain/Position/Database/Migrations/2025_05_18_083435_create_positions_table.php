@@ -53,6 +53,7 @@ return new class () extends Migration {
             $table->unsignedTinyInteger('education_weight');
             $table->boolean('share_salary');
             $table->boolean('share_contact');
+            $table->json('tags');
             $table->string('common_token')->nullable();
             $table->string('intern_token')->nullable();
             $table->string('referral_token')->nullable();
