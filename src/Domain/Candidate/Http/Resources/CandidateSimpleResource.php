@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Domain\Candidate\Http\Resources;
+
+use Domain\Candidate\Models\Candidate;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+/**
+ * @property Candidate $resource
+ */
+class CandidateSimpleResource extends JsonResource
+{
+    public function __construct(Candidate $resource)
+    {
+        parent::__construct($resource);
+    }
+
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->resource->id,
+            'language' => $this->resource->language->value,
+            'firstname' => $this->resource->firstname,
+            'lastname' => $this->resource->lastname,
+            'fullName' => $this->resource->full_name,
+            'email' => $this->resource->email,
+            'phone' => [
+                'prefix' => $this->resource->phone_prefix,
+                'number' => $this->resource->phone_number,
+            ],
+            'createdAt' => $this->resource->created_at->toIso8601String(),
+            'updatedAt' => $this->resource->updated_at->toIso8601String(),
+        ];
+    }
+}

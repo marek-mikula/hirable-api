@@ -7,7 +7,10 @@ namespace Domain\Candidate\Http\Controllers;
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Candidate\Http\Request\CandidateIndexRequest;
-use Domain\Candidate\Http\Resources\Collections\CandidatePaginatedCollection;
+use Domain\Candidate\Http\Request\CandidateShowRequest;
+use Domain\Candidate\Http\Resources\CandidateResource;
+use Domain\Candidate\Http\Resources\Collections\CandidateListPaginatedCollection;
+use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\UseCases\CandidateIndexUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
@@ -28,7 +31,14 @@ class CandidateController extends ApiController
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::CANDIDATE, $gridQuery));
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'candidates' => new CandidatePaginatedCollection($candidates),
+            'candidates' => new CandidateListPaginatedCollection($candidates),
+        ]);
+    }
+
+    public function show(CandidateShowRequest $request, Candidate $candidate): JsonResponse
+    {
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'candidate' => new CandidateResource($candidate),
         ]);
     }
 }
