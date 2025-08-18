@@ -101,6 +101,7 @@ class PositionUpdateRequest extends AuthRequest
                     'educationWeight',
                     'shareSalary',
                     'shareContact',
+                    'tags',
                 ])
             ],
             'operation' => [
@@ -433,6 +434,18 @@ class PositionUpdateRequest extends AuthRequest
                 Rule::excludeIf(!in_array('shareContact', $keys)),
                 'boolean',
             ],
+            'tags' => [
+                Rule::excludeIf(!in_array('tags', $keys)),
+                'array',
+                sprintf('max:%d', $positionConfigService->getMaxTags()),
+            ],
+            'tags.*' => [
+                Rule::excludeIf(!in_array('tags', $keys)),
+                'required',
+                'string',
+                'min:2',
+                'max:40',
+            ],
         ];
     }
 
@@ -513,6 +526,8 @@ class PositionUpdateRequest extends AuthRequest
             'educationWeight' => __('model.position.educationWeight'),
             'shareSalary' => __('model.position.shareSalary'),
             'shareContact' => __('model.position.shareContact'),
+            'tags' => __('model.common.tags'),
+            'tags.*' => __('model.common.tags'),
         ];
     }
 
@@ -582,6 +597,7 @@ class PositionUpdateRequest extends AuthRequest
             'educationWeight' => in_array('educationWeight', $keys) ? ((int) $this->input('educationWeight')) : null,
             'shareSalary' => in_array('shareSalary', $keys) ? (bool) $this->input('shareSalary') : null,
             'shareContact' => in_array('shareContact', $keys) ? (bool) $this->input('shareContact') : null,
+            'tags' => in_array('tags', $keys) ? ($this->collect('tags')->map(fn (mixed $val) => (string) $val)->all()) : [],
         ]);
     }
 }

@@ -22,4 +22,7 @@ class CVData extends Data
 
     /** @var CVDataExperience[] */
     public array $experience;
+
+    /** @var string[] */
+    public array $tags;
 }

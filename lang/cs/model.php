@@ -34,6 +34,7 @@ return [
         'role' => 'Role',
         'state' => 'Stav',
         'files' => 'Soubory',
+        'tags' => 'Klíčová slova',
         'operation' => 'Operace',
         'created_at' => 'Vytvořeno',
         'updated_at' => 'Aktualizováno',

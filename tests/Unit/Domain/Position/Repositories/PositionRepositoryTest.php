@@ -81,6 +81,7 @@ it('tests store method', function (): void {
         educationWeight: fake()->numberBetween(0, 100),
         shareSalary: fake()->boolean,
         shareContact: fake()->boolean,
+        tags: fake()->words(fake()->numberBetween(1, 5)),
     );
 
     $position = $repository->store($input);
@@ -125,6 +126,7 @@ it('tests store method', function (): void {
     assertSame($input->educationWeight, $position->education_weight);
     assertSame($input->shareSalary, $position->share_salary);
     assertSame($input->shareContact, $position->share_contact);
+    assertSame($input->tags, $position->tags);
 
     assertTrue($position->relationLoaded('company'));
     assertTrue($position->relationLoaded('user'));
@@ -177,6 +179,7 @@ it('tests update method', function (): void {
         educationWeight: fake()->numberBetween(0, 100),
         shareSalary: fake()->boolean,
         shareContact: fake()->boolean,
+        tags: fake()->words(fake()->numberBetween(1, 5))
     );
 
     $position = $repository->update($position, $input);
@@ -219,6 +222,7 @@ it('tests update method', function (): void {
     assertSame($input->educationWeight, $position->education_weight);
     assertSame($input->shareSalary, $position->share_salary);
     assertSame($input->shareContact, $position->share_contact);
+    assertSame($input->tags, $position->tags);
 });
 
 /** @covers \Domain\Position\Repositories\PositionRepository::updateState */

@@ -71,6 +71,10 @@
         "refactor": "rector",
         "refactor:dry": "rector --dry-run",
         "format": "pint",
+        "format:all": [
+            "@refactor",
+            "@format"
+        ],
         "test": "pest --parallel",
         "test:lint": "pint --test",
         "test:type-coverage": "pest --parallel --type-coverage --min=100",

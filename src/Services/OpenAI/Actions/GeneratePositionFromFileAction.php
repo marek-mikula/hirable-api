@@ -41,7 +41,6 @@ class GeneratePositionFromFileAction extends Action
                 'attributes' => $this->modelContexter->getModelContext(Position::class, [
                     PositionFieldEnum::NAME,
                     PositionFieldEnum::FIELD,
-                    PositionFieldEnum::DEPARTMENT,
                     PositionFieldEnum::WORKLOADS,
                     PositionFieldEnum::EMPLOYMENT_RELATIONSHIPS,
                     PositionFieldEnum::EMPLOYMENT_FORMS,
@@ -64,6 +63,7 @@ class GeneratePositionFromFileAction extends Action
                     PositionFieldEnum::COMMUNICATION_SKILLS,
                     PositionFieldEnum::LEADERSHIP,
                     PositionFieldEnum::LANGUAGE_REQUIREMENTS,
+                    PositionFieldEnum::TAGS,
                 ]),
                 'classifiers' => $this->classifierContexter->getClassifierContext([
                     ClassifierTypeEnum::CURRENCY,
@@ -97,8 +97,6 @@ class GeneratePositionFromFileAction extends Action
         }
 
         $attributes = Arr::get($json, 'attributes', []);
-
-        // todo check if attributes match
 
         return collect($attributes)
             ->mapWithKeys(function (array $attribute): array {

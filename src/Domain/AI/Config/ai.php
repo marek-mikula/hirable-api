@@ -57,11 +57,11 @@ return [
             Position::class => [
                 PositionFieldEnum::NAME->value => [
                     'label' => 'Name',
-                    'constraint' => 'string, max. 255 chars',
+                    'constraint' => 'string, max 255 chars',
                 ],
                 PositionFieldEnum::DEPARTMENT->value => [
                     'label' => 'Department',
-                    'constraint' => 'string, max. 255 chars',
+                    'constraint' => 'string, max 255 chars',
                 ],
                 PositionFieldEnum::FIELD->value => [
                     'label' => 'Field',
@@ -71,49 +71,49 @@ return [
                 PositionFieldEnum::WORKLOADS->value => [
                     'label' => 'Workload',
                     'classifier' => ClassifierTypeEnum::WORKLOAD->value,
-                    'description' => 'If employee works full-time, part-time or else.',
+                    'description' => 'If employee works full-time, part-time or else',
                     'constraint' => 'array, classifier keys',
                 ],
                 PositionFieldEnum::EMPLOYMENT_RELATIONSHIPS->value => [
                     'label' => 'Employment relationship',
                     'classifier' => ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP->value,
-                    'description' => 'If the relationship is contract, internship or else.',
+                    'description' => 'If the relationship is contract, internship or else',
                     'constraint' => 'array, classifier keys',
                 ],
                 PositionFieldEnum::EMPLOYMENT_FORMS->value => [
                     'label' => 'Employment forms',
                     'classifier' => ClassifierTypeEnum::EMPLOYMENT_FORM->value,
-                    'description' => 'If employee works on-site, remote or else.',
+                    'description' => 'If employee works on-site, remote or else',
                     'constraint' => 'array, classifier keys',
                 ],
                 PositionFieldEnum::JOB_SEATS_NUM->value => [
                     'label' => 'Number of job seats',
-                    'constraint' => 'integer, min. 1, max. 1000',
+                    'constraint' => 'integer, min 1, max 1000',
                 ],
                 PositionFieldEnum::DESCRIPTION->value => [
                     'label' => 'Description',
                     'description' => 'Responsibilities, job content, team, and working environment',
-                    'constraint' => 'string, max. 2000 chars, structured text - text, lists (numbered, dashed), newlines, emojis',
+                    'constraint' => 'string, max 2000 chars, structured text - text, lists (numbered, dashed), newlines, emojis',
                 ],
                 PositionFieldEnum::SALARY_FROM->value => [
                     'label' => 'Salary from',
-                    'constraint' => 'integer, min. 0',
+                    'constraint' => 'integer, min 0',
                 ],
                 PositionFieldEnum::SALARY_TO->value => [
                     'label' => 'Salary to',
-                    'description' => 'Blank if the salary is not a range.',
-                    'constraint' => 'integer, min. value is salary_from',
+                    'description' => 'Blank if the salary is not a range',
+                    'constraint' => 'integer, min value is salary_from',
                 ],
                 PositionFieldEnum::SALARY_TYPE->value => [
                     'label' => 'Salary type',
                     'classifier' => ClassifierTypeEnum::SALARY_TYPE->value,
-                    'description' => 'If salary is gross, net or else.',
+                    'description' => 'If salary is gross, net or else',
                     'constraint' => 'string, classifier key',
                 ],
                 PositionFieldEnum::SALARY_FREQUENCY->value => [
                     'label' => 'Salary frequency',
                     'classifier' => ClassifierTypeEnum::SALARY_FREQUENCY->value,
-                    'description' => 'If salary is paid monthly, daily or else.',
+                    'description' => 'If salary is paid monthly, daily or else',
                     'constraint' => 'string, classifier key',
                 ],
                 PositionFieldEnum::SALARY_CURRENCY->value => [
@@ -123,7 +123,7 @@ return [
                 ],
                 PositionFieldEnum::SALARY_VAR->value => [
                     'label' => 'Salary variable addition',
-                    'description' => 'Something extra like stock-based compensation.',
+                    'description' => 'Something extra like stock-based compensation',
                     'constraint' => 'string'
                 ],
                 PositionFieldEnum::BENEFITS->value => [
@@ -138,46 +138,47 @@ return [
                 ],
                 PositionFieldEnum::EDUCATION_FIELD->value => [
                     'label' => 'Required education field',
-                    'constraint' => 'string, max. 255 chars'
+                    'constraint' => 'string, max 255 chars'
                 ],
                 PositionFieldEnum::SENIORITY->value => [
                     'label' => 'Required seniority',
+                    'description' => 'Only for IT positions',
                     'classifier' => ClassifierTypeEnum::SENIORITY->value,
                     'constraint' => 'array, classifier keys',
                 ],
                 PositionFieldEnum::EXPERIENCE->value => [
                     'label' => 'Required number of years of experience',
-                    'constraint' => 'integer, min. 0, max. ',
+                    'constraint' => 'integer, min 0, max 100',
                 ],
                 PositionFieldEnum::HARD_SKILLS->value => [
                     'label' => 'Required other hard skills',
                     'description' => 'Job certifications, programming languages, courses, technologies',
-                    'constraint' => 'string, max. 2000 chars, structured text - text, lists (numbered, dashed), newlines, emojis',
+                    'constraint' => 'string, max 2000 chars, structured text - text, lists (numbered, dashed), newlines, emojis',
                 ],
                 PositionFieldEnum::ORGANISATION_SKILLS->value => [
                     'label' => 'Required organisation skills',
                     'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min. 0, max. 100',
+                    'constraint' => 'integer, min 0, max 100',
                 ],
                 PositionFieldEnum::TEAM_SKILLS->value => [
                     'label' => 'Required team skills',
                     'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min. 0, max. 100',
+                    'constraint' => 'integer, min 0, max 100',
                 ],
                 PositionFieldEnum::TIME_MANAGEMENT->value => [
                     'label' => 'Required time management skills',
                     'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min. 0, max. 100',
+                    'constraint' => 'integer, min 0, max 100',
                 ],
                 PositionFieldEnum::COMMUNICATION_SKILLS->value => [
                     'label' => 'Required communication skills',
                     'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min. 0, max. 100',
+                    'constraint' => 'integer, min 0, max 100',
                 ],
                 PositionFieldEnum::LEADERSHIP->value => [
                     'label' => 'Required leadership skills',
                     'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min. 0, max. 100',
+                    'constraint' => 'integer, min 0, max 100',
                 ],
                 PositionFieldEnum::LANGUAGE_REQUIREMENTS->value => [
                     'label' => 'Language requirements',
@@ -187,6 +188,11 @@ return [
                     ],
                     'constraint' => 'array, classifier key pairs "{language}-{language_level}"',
                     'example' => ['english-c2', 'czech-native']
+                ],
+                PositionFieldEnum::TAGS->value => [
+                    'label' => 'Tags',
+                    'constraint' => 'array, max 10 items, each tag min 2 chars, max 40 chars',
+                    'example' => ['mysql', 'typescript']
                 ],
             ]
         ]

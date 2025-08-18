@@ -11,7 +11,7 @@ use Domain\Company\Models\CompanyContact;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
-use Domain\Position\Http\Request\Data\PositionData;
+use Domain\Position\Http\Request\Data\PositionStoreData;
 use Domain\Position\Models\Position;
 use Domain\Position\Services\PositionConfigService;
 use Domain\Position\Validation\ValidateApprovalRequiredFields;
@@ -309,6 +309,16 @@ class PositionStoreRequest extends AuthRequest
             'shareContact' => [
                 'boolean',
             ],
+            'tags' => [
+                'array',
+                sprintf('max:%d', $positionConfigService->getMaxTags()),
+            ],
+            'tags.*' => [
+                'required',
+                'string',
+                'min:2',
+                'max:40',
+            ],
         ];
     }
 
@@ -382,6 +392,8 @@ class PositionStoreRequest extends AuthRequest
             'educationWeight' => __('model.position.educationWeight'),
             'shareSalary' => __('model.position.shareSalary'),
             'shareContact' => __('model.position.shareContact'),
+            'tag' => __('common.model.tags'),
+            'tag.*' => __('common.model.tags'),
         ];
     }
 
@@ -395,9 +407,9 @@ class PositionStoreRequest extends AuthRequest
         ];
     }
 
-    public function toData(): PositionData
+    public function toData(): PositionStoreData
     {
-        return PositionData::from([
+        return PositionStoreData::from([
             'operation' => PositionOperationEnum::from((string) $this->input('operation')),
             'name' => (string) $this->input('name'),
             'externName' => (string) $this->input('externName'),
@@ -448,6 +460,7 @@ class PositionStoreRequest extends AuthRequest
             'educationWeight' => (int) $this->input('educationWeight'),
             'shareSalary' => (bool) $this->input('shareSalary'),
             'shareContact' => (bool) $this->input('shareContact'),
+            'tags' => $this->collect('tags')->map(fn (mixed $tag) => (string) $tag)->all(),
         ]);
     }
 }

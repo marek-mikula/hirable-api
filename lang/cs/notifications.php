@@ -93,7 +93,7 @@ return [
         'mail' => [
             'subject' => '✅ Pozvánka přijata',
             'body' => [
-                'line1' => 'Uživatel :name přijal Vaši pozvánku.',
+                'line1' => 'Uživatel **:user** přijal Vaši pozvánku.',
             ],
         ],
     ],
@@ -102,8 +102,8 @@ return [
         'mail' => [
             'subject' => '👍 Pozice ke schválení - :position',
             'body' => [
-                'line1_internal' => 'V aplikaci je nová pozice **:position** od uživatele :user, která potřebuje Váš souhlas. Na pozici se můžete podívat <a href=":link">zde</a>',
-                'line1_external' => 'Uživatel :user Váš přiřadil k pozici **:position** jako schvalovatele v aplikaci :application. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line1_internal' => 'V aplikaci je nová pozice **:position** od uživatele **:user**, která potřebuje Váš souhlas. Pozici můžete schválit <a href=":link">zde</a>.',
+                'line1_external' => 'Uživatel **:user** Váš přiřadil k pozici **:position** jako schvalovatele v aplikaci :application. Pozici můžete schválit <a href=":link">zde</a>.',
                 'line2' => 'O schválení rozhodněte do **:date**.'
             ],
         ],
@@ -113,8 +113,8 @@ return [
         'mail' => [
             'subject' => '🔴 Pozice zamítnuta - :position',
             'body' => [
-                'line1_internal' => 'Pozice **:position** byla zamítnuta uživatelem :user.',
-                'line1_external' => 'Pozice **:position** byla zamítnuta externím schvalovatelem :user.',
+                'line1_internal' => 'Pozice **:position** byla zamítnuta uživatelem **:user**.',
+                'line1_external' => 'Pozice **:position** byla zamítnuta externím schvalovatelem **:user**.',
             ],
         ],
     ],
@@ -132,7 +132,7 @@ return [
         'mail' => [
             'subject' => '⚪ Schvalování zrušeno - :position',
             'body' => [
-                'line1' => 'Schvalovací proces pozice **:position** by zrušen uživatelem :user.',
+                'line1' => 'Schvalovací proces pozice **:position** by zrušen uživatelem **:user**.',
             ],
         ],
     ],
@@ -160,7 +160,7 @@ return [
         'mail' => [
             'subject' => '✅ Pozice otevřena pro nábor - :position',
             'body' => [
-                'line1' => 'Pozice, kde jste přiřazen jako hiring manažer nebo náborář, **:position** byla otevřena pro nábor. Na pozici se můžete podívat <a href=":link">zde</a>',
+                'line1' => 'Pozice **:position**, kde jste přiřazen jako hiring manažer nebo náborář, byla otevřena pro nábor. Na pozici se můžete podívat <a href=":link">zde</a>',
             ],
         ],
     ],

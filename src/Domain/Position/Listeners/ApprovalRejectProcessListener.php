@@ -6,22 +6,25 @@ namespace Domain\Position\Listeners;
 
 use App\Listeners\Listener;
 use Domain\Position\Enums\PositionApprovalStateEnum;
-use Domain\Position\Events\PositionApprovalCanceledEvent;
+use Domain\Position\Enums\PositionStateEnum;
+use Domain\Position\Events\PositionApprovalRejectedEvent;
 use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
+use Domain\Position\Repositories\PositionRepositoryInterface;
 use Support\Token\Repositories\TokenRepositoryInterface;
 
-class CancelApprovalProcessListener extends Listener
+class ApprovalRejectProcessListener extends Listener
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,
+        private readonly PositionRepositoryInterface $positionRepository,
         private readonly TokenRepositoryInterface $tokenRepository,
     ) {
     }
 
-    public function handle(PositionApprovalCanceledEvent $event): void
+    public function handle(PositionApprovalRejectedEvent $event): void
     {
-        $pendingApprovals = $this->positionApprovalRepository->getApprovalsOnPositionInstate($event->position, PositionApprovalStateEnum::PENDING, ['token']);
+        $pendingApprovals = $this->positionApprovalRepository->getApprovalsOnPositionInstate($event->approval->position, PositionApprovalStateEnum::PENDING, ['token']);
 
         // cancel all pending approvals
         foreach ($pendingApprovals as $approval) {
@@ -35,5 +38,8 @@ class CancelApprovalProcessListener extends Listener
                 $this->tokenRepository->delete($approval->token);
             }
         }
+
+        // update position approval process state,
+        $this->positionRepository->updateState($event->approval->position, PositionStateEnum::APPROVAL_REJECTED);
     }
 }

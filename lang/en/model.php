@@ -34,6 +34,7 @@ return [
         'role' => 'Role',
         'state' => 'State',
         'files' => 'Files',
+        'tags' => 'Tags',
         'operation' => 'Operation',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',

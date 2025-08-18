@@ -12,7 +12,7 @@ $type = \Domain\Notification\Enums\NotificationTypeEnum::INVITATION_ACCEPTED;
 <x-mail::message>
 {{ __('notifications.common.salutation') }},
 
-{{ __n($type, 'mail', 'body.line1', ['name' => $user->full_name]) }}
+{{ __n($type, 'mail', 'body.line1', ['user' => $user->full_name]) }}
 
 {{ __('notifications.common.regards') }},
 <br>

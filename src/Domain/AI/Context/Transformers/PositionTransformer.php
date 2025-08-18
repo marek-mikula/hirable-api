@@ -5,11 +5,17 @@ declare(strict_types=1);
 namespace Domain\AI\Context\Transformers;
 
 use Domain\Position\Enums\PositionFieldEnum;
+use Domain\Position\Services\PositionConfigService;
 use Support\Classifier\Actions\ToClassifierAction;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
 class PositionTransformer implements ModelTransformer
 {
+    public function __construct(
+        private readonly PositionConfigService $positionConfigService,
+    ) {
+    }
+
     public function transformField(string $model, string $field, mixed $value): mixed
     {
         $field = PositionFieldEnum::from($field);
@@ -54,6 +60,11 @@ class PositionTransformer implements ModelTransformer
                     'level' => $toClassifier->handle($level, ClassifierTypeEnum::LANGUAGE_LEVEL),
                 ];
             }, $value),
+
+            PositionFieldEnum::TAGS => collect($value)
+                ->filter(fn (mixed $value) => !empty($value) && is_string($value))
+                ->take($this->positionConfigService->getMaxTags())
+                ->values(),
             default => throw new \Exception(sprintf('Transformation for field %s is not implemented for %s', $field->value, $model)),
         };
     }

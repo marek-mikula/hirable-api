@@ -13,17 +13,17 @@ use Domain\Position\Events\PositionApprovedEvent;
 use Domain\Position\Events\PositionCandidateCreatedEvent;
 use Domain\Position\Events\PositionOpenedEvent;
 use Domain\Position\Events\PositionRejectedEvent;
-use Domain\Position\Listeners\CancelApprovalProcessListener;
-use Domain\Position\Listeners\ContinueApprovalProcessListener;
+use Domain\Position\Listeners\ApprovalCancelProcessListener;
+use Domain\Position\Listeners\ApprovalContinueProcessListener;
 use Domain\Position\Listeners\CreateProcessStepsListener;
-use Domain\Position\Listeners\ExpireApprovalProcessListener;
-use Domain\Position\Listeners\RejectApprovalProcessListener;
-use Domain\Position\Listeners\SendApprovedNotificationsListener;
-use Domain\Position\Listeners\SendCanceledNotificationsListener;
-use Domain\Position\Listeners\SendExpiredNotificationsListener;
+use Domain\Position\Listeners\ApprovalExpireProcessListener;
+use Domain\Position\Listeners\ApprovalRejectProcessListener;
+use Domain\Position\Listeners\SendPositionApprovedNotificationsListener;
+use Domain\Position\Listeners\SendApprovalCanceledNotificationsListener;
+use Domain\Position\Listeners\SendApprovalExpiredNotificationsListener;
 use Domain\Position\Listeners\SendNewCandidateNotificationListener;
-use Domain\Position\Listeners\SendOpenedNotificationsListener;
-use Domain\Position\Listeners\SendRejectedNotificationsListener;
+use Domain\Position\Listeners\SendPositionOpenedNotificationsListener;
+use Domain\Position\Listeners\SendApprovalRejectedNotificationsListener;
 use Domain\Position\Listeners\SendToApprovalListener;
 use Domain\Position\Listeners\SetTokensListener;
 use Domain\Position\Listeners\EvaluatePositionCandidateListener;
@@ -41,29 +41,29 @@ class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
         PositionApprovalApprovedEvent::class => [
-            ContinueApprovalProcessListener::class,
+            ApprovalContinueProcessListener::class,
         ],
         PositionApprovalRejectedEvent::class => [
-            RejectApprovalProcessListener::class,
+            ApprovalRejectProcessListener::class,
         ],
         PositionApprovalCanceledEvent::class => [
-            CancelApprovalProcessListener::class,
-            SendCanceledNotificationsListener::class,
+            ApprovalCancelProcessListener::class,
+            SendApprovalCanceledNotificationsListener::class,
         ],
         PositionApprovalExpiredEvent::class => [
-            ExpireApprovalProcessListener::class,
-            SendExpiredNotificationsListener::class,
+            ApprovalExpireProcessListener::class,
+            SendApprovalExpiredNotificationsListener::class,
         ],
         PositionApprovedEvent::class => [
-            SendApprovedNotificationsListener::class,
+            SendPositionApprovedNotificationsListener::class,
         ],
         PositionRejectedEvent::class => [
-            SendRejectedNotificationsListener::class,
+            SendApprovalRejectedNotificationsListener::class,
         ],
         PositionOpenedEvent::class => [
             SetTokensListener::class,
             CreateProcessStepsListener::class,
-            SendOpenedNotificationsListener::class,
+            SendPositionOpenedNotificationsListener::class,
         ],
         PositionApprovalEvent::class => [
             SendToApprovalListener::class,
@@ -71,7 +71,7 @@ class EventServiceProvider extends ServiceProvider
         PositionCandidateCreatedEvent::class => [
             EvaluatePositionCandidateListener::class,
             SendNewCandidateNotificationListener::class,
-        ]
+        ],
     ];
 
     protected $observers = [

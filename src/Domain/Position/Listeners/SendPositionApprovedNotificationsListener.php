@@ -8,7 +8,7 @@ use App\Listeners\QueuedListener;
 use Domain\Position\Events\PositionApprovedEvent;
 use Domain\Position\Notifications\PositionApprovalApprovedNotification;
 
-class SendApprovedNotificationsListener extends QueuedListener
+class SendPositionApprovedNotificationsListener extends QueuedListener
 {
     public function handle(PositionApprovedEvent $event): void
     {

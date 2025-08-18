@@ -79,6 +79,7 @@ class PositionDuplicateUseCase extends UseCase
             educationWeight: $position->education_weight,
             shareSalary: $position->share_salary,
             shareContact: $position->share_contact,
+            tags: $position->tags,
         );
 
         return DB::transaction(function () use (

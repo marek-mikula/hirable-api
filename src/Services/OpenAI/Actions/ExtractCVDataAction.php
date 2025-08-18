@@ -52,6 +52,7 @@ class ExtractCVDataAction extends Action
         $github = Arr::get($json, 'github');
         $portfolio = Arr::get($json, 'portfolio');
         $experience = Arr::get($json, 'experience', []);
+        $tags = Arr::get($json, 'tags', []);
 
         return CVData::from([
             'gender' => $this->formatGender($gender),
@@ -60,6 +61,7 @@ class ExtractCVDataAction extends Action
             'github' => empty($github) ? null : (string) $github,
             'portfolio' => empty($portfolio) ? null : (string) $portfolio,
             'experience' => $this->formatExperience($experience),
+            'tags' => $tags,
         ]);
     }
 

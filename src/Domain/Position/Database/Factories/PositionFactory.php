@@ -100,6 +100,7 @@ class PositionFactory extends Factory
             'education_weight' => fake()->numberBetween(0, 100),
             'share_salary' => fake()->boolean,
             'share_contact' => fake()->boolean,
+            'tags' => fake()->words(fake()->numberBetween(0, 5)),
             'common_token' => null,
             'intern_token' => null,
             'referral_token' => null,

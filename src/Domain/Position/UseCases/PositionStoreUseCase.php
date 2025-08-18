@@ -10,7 +10,7 @@ use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
-use Domain\Position\Http\Request\Data\PositionData;
+use Domain\Position\Http\Request\Data\PositionStoreData;
 use Domain\Position\Models\Position;
 use Domain\Position\Repositories\Inputs\PositionStoreInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
@@ -39,7 +39,7 @@ class PositionStoreUseCase extends UseCase
     ) {
     }
 
-    public function handle(User $user, PositionData $data): Position
+    public function handle(User $user, PositionStoreData $data): Position
     {
         $company = $user->loadMissing('company')->company;
 
@@ -90,6 +90,7 @@ class PositionStoreUseCase extends UseCase
             educationWeight: $data->educationWeight,
             shareSalary: $data->shareSalary,
             shareContact: $data->shareContact,
+            tags: $data->tags,
         );
 
         $hiringManagers = $data->hasHiringManagers()
@@ -150,7 +151,7 @@ class PositionStoreUseCase extends UseCase
         $position->setRelation($relation, $models);
     }
 
-    private function processFiles(Position $position, PositionData $data): void
+    private function processFiles(Position $position, PositionStoreData $data): void
     {
         if (!$data->hasFiles()) {
             $position->setRelation('files', modelCollection(File::class));

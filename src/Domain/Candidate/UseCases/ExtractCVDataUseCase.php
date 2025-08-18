@@ -44,6 +44,7 @@ class ExtractCVDataUseCase extends UseCase
             portfolio: $data->portfolio,
             birthDate: $data->birthDate,
             experience: array_map(fn (CVDataExperience $item) => $item->toArray(), $data->experience),
+            tags: $data->tags,
         );
 
         return DB::transaction(function () use (

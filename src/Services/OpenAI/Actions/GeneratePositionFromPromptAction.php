@@ -37,7 +37,6 @@ class GeneratePositionFromPromptAction extends Action
                 'language' => __(sprintf('common.languages.%s', $user->company->ai_output_language->value), locale: LanguageEnum::EN->value),
                 'attributes' => $this->modelContexter->getModelContext(Position::class, [
                     PositionFieldEnum::NAME,
-                    PositionFieldEnum::DEPARTMENT,
                     PositionFieldEnum::FIELD,
                     PositionFieldEnum::WORKLOADS,
                     PositionFieldEnum::EMPLOYMENT_RELATIONSHIPS,
@@ -61,6 +60,7 @@ class GeneratePositionFromPromptAction extends Action
                     PositionFieldEnum::COMMUNICATION_SKILLS,
                     PositionFieldEnum::LEADERSHIP,
                     PositionFieldEnum::LANGUAGE_REQUIREMENTS,
+                    PositionFieldEnum::TAGS,
                 ]),
                 'classifiers' => $this->classifierContexter->getClassifierContext([
                     ClassifierTypeEnum::CURRENCY,
@@ -94,8 +94,6 @@ class GeneratePositionFromPromptAction extends Action
         }
 
         $attributes = Arr::get($json, 'attributes', []);
-
-        // todo check if attributes match
 
         return collect($attributes)
             ->mapWithKeys(function (array $attribute): array {

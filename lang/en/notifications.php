@@ -93,7 +93,7 @@ return [
         'mail' => [
             'subject' => '✅ Invitation accepted',
             'body' => [
-                'line1' => 'User :name has accepted your invitation.',
+                'line1' => 'User **:user** has accepted your invitation.',
             ],
         ],
     ],
@@ -102,8 +102,8 @@ return [
         'mail' => [
             'subject' => '👍 Position to approve - :position',
             'body' => [
-                'line1_internal' => 'There is a new position **:position** in application from user :user that needs your approval. You can check the position <a href=":link">here</a>',
-                'line1_external' => 'User :user has assigned you to position **:position** as an approver in :application app. You can check the position <a href=":link">here</a>',
+                'line1_internal' => 'There is a new position **:position** in application from user **:user** that needs your approval. You can approve the position <a href=":link">here</a>.',
+                'line1_external' => 'User **:user** has assigned you to position **:position** as an approver in :application app. You can approve the position <a href=":link">here</a>.',
                 'line2' => 'Decide on approval by: **:date**.',
             ],
         ],
@@ -113,8 +113,8 @@ return [
         'mail' => [
             'subject' => '🔴 Position rejected - :position',
             'body' => [
-                'line1_internal' => 'Position **:position** was rejected by user :user.',
-                'line1_external' => 'Position **:position** was rejected by external approver :user.',
+                'line1_internal' => 'Position **:position** was rejected by user **:user**.',
+                'line1_external' => 'Position **:position** was rejected by external approver **:user**.',
             ],
         ],
     ],
@@ -132,7 +132,7 @@ return [
         'mail' => [
             'subject' => '⚪ Approval Canceled - :position',
             'body' => [
-                'line1' => 'The approval process for position **:position** has been canceled by user :user.',
+                'line1' => 'The approval process for position **:position** has been canceled by user **:user**.',
             ],
         ],
     ],
@@ -160,7 +160,7 @@ return [
         'mail' => [
             'subject' => '✅ Position open for hiring - :position',
             'body' => [
-                'line1' => 'The position, where you are assigned as hiring manager or recruiter, **:position** has been opened for hiring. You can view the position <a href=":link">here</a>',
+                'line1' => 'The position **:position**, where you are assigned as hiring manager or recruiter, has been opened for hiring. You can view the position <a href=":link">here</a>',
             ],
         ],
     ],

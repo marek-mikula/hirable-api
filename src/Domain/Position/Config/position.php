@@ -74,4 +74,15 @@ return [
         StepEnum::INTERVIEW->value,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Max. number of tags
+    |--------------------------------------------------------------------------
+    |
+    | Here we may configure the max. number of tags for position entity.
+    |
+    */
+
+    'max_tags' => 10,
+
 ];

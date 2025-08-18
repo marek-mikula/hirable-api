@@ -42,6 +42,7 @@ class CandidateFactory extends Factory
             'portfolio' => null,
             'birth_date' => fake()->date,
             'experience' => [],
+            'tags' => [],
         ];
     }
 }

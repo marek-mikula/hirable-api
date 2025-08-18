@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
+use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
 use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
@@ -14,8 +16,12 @@ return RectorConfig::configure()
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
+    ->withRules([
+        StaticArrowFunctionRector::class,
+        StaticClosureRector::class,
+    ])
     ->withSkipPath(__DIR__ . '/bootstrap/cache')
-    ->withPhpSets(php83: true)
+    ->withPhpSets()
     ->withTypeCoverageLevel(0)
     ->withDeadCodeLevel(0)
     ->withCodeQualityLevel(0);

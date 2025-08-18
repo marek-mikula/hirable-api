@@ -48,6 +48,7 @@ class CandidateRepository implements CandidateRepositoryInterface
         $candidate->portfolio = $input->portfolio;
         $candidate->birth_date = $input->birthDate;
         $candidate->experience = $input->experience;
+        $candidate->tags = $input->tags;
 
         throw_if(!$candidate->save(), RepositoryException::updated(Candidate::class));
 
