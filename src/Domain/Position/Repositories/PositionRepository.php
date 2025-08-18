@@ -118,6 +118,7 @@ class PositionRepository implements PositionRepositoryInterface
         $position->education_weight = $input->educationWeight;
         $position->share_salary = $input->shareSalary;
         $position->share_contact = $input->shareContact;
+        $position->tags = $input->tags;
 
         throw_if(!$position->save(), RepositoryException::updated(Position::class));
 

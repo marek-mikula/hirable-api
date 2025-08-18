@@ -49,4 +49,5 @@ enum PositionFieldEnum: string
     case EXTERN_NAME = 'externName';
     case SHARE_SALARY = 'shareSalary';
     case SHARE_CONTACT = 'shareContact';
+    case TAGS = 'tags';
 }
