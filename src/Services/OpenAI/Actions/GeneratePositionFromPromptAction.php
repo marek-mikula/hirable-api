@@ -61,6 +61,7 @@ class GeneratePositionFromPromptAction extends Action
                     PositionFieldEnum::COMMUNICATION_SKILLS,
                     PositionFieldEnum::LEADERSHIP,
                     PositionFieldEnum::LANGUAGE_REQUIREMENTS,
+                    PositionFieldEnum::TAGS,
                 ]),
                 'classifiers' => $this->classifierContexter->getClassifierContext([
                     ClassifierTypeEnum::CURRENCY,
@@ -94,8 +95,6 @@ class GeneratePositionFromPromptAction extends Action
         }
 
         $attributes = Arr::get($json, 'attributes', []);
-
-        // todo check if attributes match
 
         return collect($attributes)
             ->mapWithKeys(function (array $attribute): array {

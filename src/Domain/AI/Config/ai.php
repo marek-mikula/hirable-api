@@ -189,6 +189,11 @@ return [
                     'constraint' => 'array, classifier key pairs "{language}-{language_level}"',
                     'example' => ['english-c2', 'czech-native']
                 ],
+                PositionFieldEnum::TAGS->value => [
+                    'label' => 'Tags',
+                    'constraint' => 'array, max 10 items, each tag min 2 chars, max 40 chars',
+                    'example' => ['mysql', 'typescript']
+                ],
             ]
         ]
     ],
