@@ -34,6 +34,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property string $phone_number
  * @property-read string $phone
  * @property string|null $linkedin
+ * @property string|null $linkedin_username
  * @property string|null $instagram
  * @property string|null $github
  * @property string|null $portfolio
@@ -102,6 +103,11 @@ class Candidate extends Model implements HasLocalePreference
     protected function phone(): Attribute
     {
         return Attribute::get(fn (): string => $this->phone_prefix . $this->phone_number);
+    }
+
+    protected function linkedinUsername(): Attribute
+    {
+        return Attribute::get(fn (): ?string => empty($this->linkedin) ? null : str($this->linkedin)->after('/in/')->replace('/', '')->toString());
     }
 
     public function cvs(): MorphToMany

@@ -23,15 +23,13 @@ class CandidateSimpleResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'companyId' => $this->resource->company_id,
-            'language' => $this->resource->language->value,
             'firstname' => $this->resource->firstname,
             'lastname' => $this->resource->lastname,
             'fullName' => $this->resource->full_name,
             'email' => $this->resource->email,
-            'phone' => [
-                'prefix' => $this->resource->phone_prefix,
-                'number' => $this->resource->phone_number,
-            ],
+            'phonePrefix' => $this->resource->phone_prefix,
+            'phoneNumber' => $this->resource->phone_number,
+            'phone' => $this->resource->phone,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];
