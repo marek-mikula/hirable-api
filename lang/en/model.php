@@ -29,13 +29,19 @@ return [
         'title' => 'Name',
         'description' => 'Description',
         'type' => 'Type',
+        'gender' => 'Gender',
         'language' => 'Language',
+        'birthDate' => 'Birth date',
         'note' => 'Note',
         'role' => 'Role',
         'state' => 'State',
         'files' => 'Files',
         'tags' => 'Tags',
         'operation' => 'Operation',
+        'linkedin' => 'LinkedIn',
+        'instagram' => 'Instagram',
+        'github' => 'GitHub',
+        'portfolio' => 'Portfolio/Personal web',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
         'deleted_at' => 'Deleted at',
@@ -124,7 +130,6 @@ return [
 
     'candidate' => [
         'cv' => 'Resume',
-        'linkedin' => 'LinkedIn',
     ],
 
     'processStep' => [

@@ -29,13 +29,19 @@ return [
         'title' => 'Název',
         'description' => 'Popis',
         'type' => 'Typ',
+        'gender' => 'Pohlaví',
         'language' => 'Jazyk',
+        'birthDate' => 'Datum narození',
         'note' => 'Poznámka',
         'role' => 'Role',
         'state' => 'Stav',
         'files' => 'Soubory',
         'tags' => 'Klíčová slova',
         'operation' => 'Operace',
+        'linkedin' => 'LinkedIn',
+        'instagram' => 'Instagram',
+        'github' => 'GitHub',
+        'portfolio' => 'Portfolio/Osobní web',
         'created_at' => 'Vytvořeno',
         'updated_at' => 'Aktualizováno',
         'deleted_at' => 'Smazáno',
@@ -123,7 +129,6 @@ return [
 
     'candidate' => [
         'cv' => 'Životopis',
-        'linkedin' => 'LinkedIn',
     ],
 
     'processStep' => [

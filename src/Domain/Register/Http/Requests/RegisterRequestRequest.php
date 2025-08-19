@@ -22,6 +22,7 @@ class RegisterRequestRequest extends Request
                 'required',
                 'string',
                 'email',
+                'max:255',
                 Rule::unique(User::class, 'email'),
             ],
         ];
