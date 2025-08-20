@@ -178,7 +178,7 @@ return [
                                     'format' => 'date',
                                 ],
                                 'description' => [
-                                    'type' => 'string',
+                                    'type' => ['string', 'null'],
                                     'description' => 'brief description of key job attributes - responsibilities, job content, technologies, etc.',
                                     'maxLength' => 200,
                                 ],

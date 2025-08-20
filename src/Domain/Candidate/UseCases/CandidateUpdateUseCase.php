@@ -34,7 +34,7 @@ class CandidateUpdateUseCase extends UseCase
             github: $data->hasKey('github') ? $data->github : $candidate->github,
             portfolio: $data->hasKey('portfolio') ? $data->portfolio : $candidate->portfolio,
             birthDate: $data->hasKey('birthDate') ? $data->birthDate : $candidate->birth_date,
-            experience: $candidate->experience, // todo
+            experience: $candidate->experience,
             tags: $data->hasKey('tags') ? $data->tags : $candidate->tags,
         );
 

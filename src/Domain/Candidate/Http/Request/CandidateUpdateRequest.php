@@ -48,7 +48,6 @@ class CandidateUpdateRequest extends AuthRequest
                     'github',
                     'portfolio',
                     'birthDate',
-//                    'experience', todo
                     'tags',
                 ])
             ],
@@ -131,9 +130,6 @@ class CandidateUpdateRequest extends AuthRequest
                 'string',
                 'date_format:Y-m-d',
             ],
-//            'experience' => [
-//                Rule::excludeIf(!in_array('experience', $keys)),
-//            ], todo
             'tags' => [
                 Rule::excludeIf(!in_array('tags', $keys)),
                 'array',
@@ -211,7 +207,6 @@ class CandidateUpdateRequest extends AuthRequest
             birthDate: in_array('birthDate', $keys) && $this->filled('birthDate')
                 ? $this->date('birthDate', 'Y-m-d')
                 : null,
-            //            experience: '', todo
             tags: in_array('tags', $keys) && $this->filled('tags')
                 ? $this->collect('tags')->map(fn (mixed $tag) => (string) $tag)->all()
                 : [],

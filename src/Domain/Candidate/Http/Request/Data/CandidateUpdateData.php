@@ -28,7 +28,6 @@ readonly class CandidateUpdateData
         public ?string $github,
         public ?string $portfolio,
         public ?Carbon $birthDate,
-        //        public $experience, todo
         public ?array $tags,
     ) {
     }
