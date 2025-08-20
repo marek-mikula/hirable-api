@@ -444,7 +444,7 @@ class PositionUpdateRequest extends AuthRequest
                 'required',
                 'string',
                 'min:2',
-                'max:40',
+                'max:30',
             ],
         ];
     }

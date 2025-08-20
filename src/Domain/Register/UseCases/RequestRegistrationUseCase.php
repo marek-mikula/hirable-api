@@ -13,20 +13,22 @@ use Illuminate\Support\Facades\Notification;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Repositories\Input\TokenStoreInput;
 use Support\Token\Repositories\TokenRepositoryInterface;
+use Support\Token\Services\TokenConfigService;
 
 class RequestRegistrationUseCase extends UseCase
 {
     public function __construct(
         private readonly TokenRepositoryInterface $tokenRepository,
+        private readonly TokenConfigService $tokenConfigService,
     ) {
     }
 
     public function handle(string $email): void
     {
-        $throttleMinutes = config(sprintf('token.throttle.%s', TokenTypeEnum::REGISTRATION->value));
+        $throttle = $this->tokenConfigService->getTokenThrottle(TokenTypeEnum::REGISTRATION);
 
-        if (!empty($throttleMinutes)) {
-            $nextPossibleAt = now()->subMinutes((int) $throttleMinutes);
+        if (!empty($throttle)) {
+            $nextPossibleAt = now()->subMinutes($throttle);
 
             $existingToken = $this->tokenRepository->findLatestByTypeAndEmail(TokenTypeEnum::REGISTRATION, $email);
 

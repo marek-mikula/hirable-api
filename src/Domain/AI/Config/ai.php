@@ -2,13 +2,18 @@
 
 declare(strict_types=1);
 
+use App\Enums\LanguageEnum;
+use Domain\AI\Context\Mappers\CandidateMapper;
 use Domain\AI\Context\Mappers\PositionMapper;
 use Domain\AI\Enums\AIServiceEnum;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
-use Domain\AI\Services\FakeAIService;
+use Domain\Candidate\Enums\CandidateFieldEnum;
+use Domain\Candidate\Enums\GenderEnum;
+use Domain\Candidate\Models\Candidate;
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Models\Position;
-use Services\OpenAI\Services\OpenAIService;
+use Services\Fake\FakeAIProvider;
+use Services\OpenAI\OpenAIProvider;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
 return [
@@ -36,8 +41,8 @@ return [
     */
 
     'services' => [
-        AIServiceEnum::OPENAI->value => OpenAIService::class,
-        AIServiceEnum::FAKE->value => FakeAIService::class,
+        AIServiceEnum::OPENAI->value => OpenAIProvider::class,
+        AIServiceEnum::FAKE->value => FakeAIProvider::class,
     ],
 
     /*
@@ -52,147 +57,409 @@ return [
     'context' => [
         'mappers' => [
             Position::class => PositionMapper::class,
+            Candidate::class => CandidateMapper::class,
         ],
         'models' => [
+            Candidate::class => [
+                CandidateFieldEnum::FIRSTNAME->value => [
+                    'label' => 'Firstname',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ],
+                ],
+                CandidateFieldEnum::LASTNAME->value => [
+                    'label' => 'Lastname',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ],
+                ],
+                CandidateFieldEnum::GENDER->value => [
+                    'label' => 'Gender',
+                    'schema' => [
+                        'type' => 'string',
+                        'enum' => collect(GenderEnum::cases())->mapWithKeys(function (GenderEnum $gender) {
+                            return [$gender->value => __(sprintf('common.gender.%s', $gender->value))];
+                        })->toArray(),
+                    ],
+                ],
+                CandidateFieldEnum::LANGUAGE->value => [
+                    'label' => 'Communication language',
+                    'schema' => [
+                        'type' => 'string',
+                        'enum' => collect(LanguageEnum::cases())->mapWithKeys(function (LanguageEnum $language) {
+                            return [$language->value => __(sprintf('common.language.%s', $language->value))];
+                        })->toArray(),
+                    ]
+                ],
+                CandidateFieldEnum::EMAIL->value => [
+                    'label' => 'Email',
+                    'schema' => [
+                        'type' => 'string',
+                        'format' => 'email',
+                        'maxLength' => 255
+                    ]
+                ],
+                CandidateFieldEnum::PHONE_PREFIX->value => [
+                    'label' => 'Phone prefix',
+                    'schema' => [
+                        'type' => 'string',
+                        'classifier' => ClassifierTypeEnum::PHONE_PREFIX->value,
+                    ],
+                ],
+                CandidateFieldEnum::PHONE_NUMBER->value => [
+                    'label' => 'Phone number',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 20,
+                    ]
+                ],
+                CandidateFieldEnum::LINKEDIN->value => [
+                    'label' => 'LinkedIn profile URL',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
+                ],
+                CandidateFieldEnum::INSTAGRAM->value => [
+                    'label' => 'Instagram profile URL',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
+                ],
+                CandidateFieldEnum::GITHUB->value => [
+                    'label' => 'Github profile URL',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
+                ],
+                CandidateFieldEnum::PORTFOLIO->value => [
+                    'label' => 'Portfolio/Personal web URL',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
+                ],
+                CandidateFieldEnum::BIRTH_DATE->value => [
+                    'label' => 'Birth date',
+                    'schema' => [
+                        'type' => 'string',
+                        'format' => 'date',
+                        'example' => '1999-01-05',
+                    ],
+                ],
+                CandidateFieldEnum::EXPERIENCE->value => [
+                    'label' => 'Working experience',
+                    'schema' => [
+                        'type' => 'array',
+                        'description' => 'Sorted chronologically',
+                        'items' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'position' => [
+                                    'type' => 'string',
+                                    'description' => 'Position name',
+                                    'maxLength' => 50,
+                                ],
+                                'employer' => [
+                                    'type' => ['string', 'null'],
+                                    'description' => 'Employer name',
+                                    'maxLength' => 50,
+                                ],
+                                'from' => [
+                                    'type' => ['string', 'null'],
+                                    'format' => 'date',
+                                ],
+                                'to' => [
+                                    'type' => ['string', 'null'],
+                                    'format' => 'date',
+                                ],
+                                'description' => [
+                                    'type' => ['string', 'null'],
+                                    'description' => 'brief description of key job attributes - responsibilities, job content, technologies, etc.',
+                                    'maxLength' => 200,
+                                ],
+                            ]
+                        ],
+                        'example' => [
+                            [
+                                'position' => 'Fullstack developer',
+                                'employer' => 'Alphabet Inc.',
+                                'from' => '1998-01-01',
+                                'to' => '2000-01-01',
+                                'description' => 'development of internal ATS systems, MySQL, PHP, Laravel, Node.js, team of 10',
+                            ]
+                        ],
+                    ],
+                ],
+                CandidateFieldEnum::TAGS->value => [
+                    'label' => 'Tags',
+                    'schema' => [
+                        'type' => 'array',
+                        'maxItems' => 10,
+                        'items' => [
+                            'type' => 'string',
+                            'minLength' => 2,
+                            'maxLength' => 30,
+                        ],
+                        'example' => ['mysql', 'typescript']
+                    ],
+                ],
+            ],
             Position::class => [
                 PositionFieldEnum::NAME->value => [
                     'label' => 'Name',
-                    'constraint' => 'string, max 255 chars',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
                 ],
                 PositionFieldEnum::DEPARTMENT->value => [
                     'label' => 'Department',
-                    'constraint' => 'string, max 255 chars',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
                 ],
                 PositionFieldEnum::FIELD->value => [
                     'label' => 'Field',
-                    'classifier' => ClassifierTypeEnum::FIELD->value,
-                    'constraint' => 'string, classifier key',
+                    'schema' => [
+                        'type' => 'string',
+                        'classifier' => ClassifierTypeEnum::FIELD->value,
+                    ]
                 ],
                 PositionFieldEnum::WORKLOADS->value => [
                     'label' => 'Workload',
-                    'classifier' => ClassifierTypeEnum::WORKLOAD->value,
                     'description' => 'If employee works full-time, part-time or else',
-                    'constraint' => 'array, classifier keys',
+                    'schema' => [
+                        'type' => 'array',
+                        'items' => [
+                            'type' => 'string',
+                            'classifier' => ClassifierTypeEnum::WORKLOAD->value,
+                        ]
+                    ]
                 ],
                 PositionFieldEnum::EMPLOYMENT_RELATIONSHIPS->value => [
                     'label' => 'Employment relationship',
-                    'classifier' => ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP->value,
                     'description' => 'If the relationship is contract, internship or else',
-                    'constraint' => 'array, classifier keys',
+                    'schema' => [
+                        'type' => 'array',
+                        'items' => [
+                            'type' => 'string',
+                            'classifier' => ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP->value,
+                        ]
+                    ]
                 ],
                 PositionFieldEnum::EMPLOYMENT_FORMS->value => [
                     'label' => 'Employment forms',
-                    'classifier' => ClassifierTypeEnum::EMPLOYMENT_FORM->value,
                     'description' => 'If employee works on-site, remote or else',
-                    'constraint' => 'array, classifier keys',
+                    'schema' => [
+                        'type' => 'array',
+                        'items' => [
+                            'type' => 'string',
+                            'classifier' => ClassifierTypeEnum::EMPLOYMENT_FORM->value,
+                        ]
+                    ]
                 ],
                 PositionFieldEnum::JOB_SEATS_NUM->value => [
                     'label' => 'Number of job seats',
-                    'constraint' => 'integer, min 1, max 1000',
+                    'schema' => [
+                        'type' => 'integer',
+                        'min' => 1,
+                        'max' => 1000,
+                    ]
                 ],
                 PositionFieldEnum::DESCRIPTION->value => [
                     'label' => 'Description',
                     'description' => 'Responsibilities, job content, team, and working environment',
-                    'constraint' => 'string, max 2000 chars, structured text - text, lists (numbered, dashed), newlines, emojis',
+                    'schema' => [
+                        'type' => 'string',
+                        'description' => 'structured text - text, lists (numbered, dashed), newlines, emojis',
+                        'maxLength' => 2000,
+                    ]
                 ],
                 PositionFieldEnum::SALARY_FROM->value => [
                     'label' => 'Salary from',
-                    'constraint' => 'integer, min 0',
+                    'schema' => [
+                        'type' => 'integer',
+                        'min' => 0,
+                    ],
                 ],
                 PositionFieldEnum::SALARY_TO->value => [
                     'label' => 'Salary to',
                     'description' => 'Blank if the salary is not a range',
-                    'constraint' => 'integer, min value is salary_from',
+                    'schema' => [
+                        'type' => 'integer',
+                        'min' => 0,
+                    ],
                 ],
                 PositionFieldEnum::SALARY_TYPE->value => [
                     'label' => 'Salary type',
-                    'classifier' => ClassifierTypeEnum::SALARY_TYPE->value,
                     'description' => 'If salary is gross, net or else',
-                    'constraint' => 'string, classifier key',
+                    'schema' => [
+                        'type' => 'string',
+                        'classifier' => ClassifierTypeEnum::SALARY_TYPE->value,
+                    ]
                 ],
                 PositionFieldEnum::SALARY_FREQUENCY->value => [
                     'label' => 'Salary frequency',
-                    'classifier' => ClassifierTypeEnum::SALARY_FREQUENCY->value,
                     'description' => 'If salary is paid monthly, daily or else',
-                    'constraint' => 'string, classifier key',
+                    'schema' => [
+                        'type' => 'string',
+                        'classifier' => ClassifierTypeEnum::SALARY_FREQUENCY->value,
+                    ]
                 ],
                 PositionFieldEnum::SALARY_CURRENCY->value => [
                     'label' => 'Salary currency',
-                    'classifier' => ClassifierTypeEnum::CURRENCY->value,
-                    'constraint' => 'string, classifier key',
+                    'schema' => [
+                        'type' => 'string',
+                        'classifier' => ClassifierTypeEnum::CURRENCY->value,
+                    ]
                 ],
                 PositionFieldEnum::SALARY_VAR->value => [
                     'label' => 'Salary variable addition',
                     'description' => 'Something extra like stock-based compensation',
-                    'constraint' => 'string'
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
                 ],
                 PositionFieldEnum::BENEFITS->value => [
                     'label' => 'Benefits',
-                    'classifier' => ClassifierTypeEnum::BENEFIT->value,
-                    'constraint' => 'array, classifier keys',
+                    'schema' => [
+                        'type' => 'array',
+                        'items' => [
+                            'type' => 'string',
+                            'classifier' => ClassifierTypeEnum::BENEFIT->value,
+                        ]
+                    ]
                 ],
                 PositionFieldEnum::MIN_EDUCATION_LEVEL->value => [
                     'label' => 'Required education level',
-                    'classifier' => ClassifierTypeEnum::EDUCATION_LEVEL->value,
                     'constraint' => 'string, classifier key',
+                    'schema' => [
+                        'type' => 'string',
+                        'classifier' => ClassifierTypeEnum::EDUCATION_LEVEL->value,
+                    ]
                 ],
                 PositionFieldEnum::EDUCATION_FIELD->value => [
                     'label' => 'Required education field',
-                    'constraint' => 'string, max 255 chars'
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
                 ],
                 PositionFieldEnum::SENIORITY->value => [
                     'label' => 'Required seniority',
                     'description' => 'Only for IT positions',
-                    'classifier' => ClassifierTypeEnum::SENIORITY->value,
-                    'constraint' => 'array, classifier keys',
+                    'schema' => [
+                        'type' => 'array',
+                        'items' => [
+                            'type' => 'string',
+                            'classifier' => ClassifierTypeEnum::SENIORITY->value,
+                        ]
+                    ]
                 ],
                 PositionFieldEnum::EXPERIENCE->value => [
                     'label' => 'Required number of years of experience',
-                    'constraint' => 'integer, min 0, max 100',
+                    'schema' => [
+                        'type' => 'integer',
+                        'min' => 0,
+                        'max' => 100,
+                    ]
                 ],
                 PositionFieldEnum::HARD_SKILLS->value => [
                     'label' => 'Required other hard skills',
                     'description' => 'Job certifications, programming languages, courses, technologies',
-                    'constraint' => 'string, max 2000 chars, structured text - text, lists (numbered, dashed), newlines, emojis',
+                    'schema' => [
+                        'type' => 'string',
+                        'description' => 'structured text - text, lists (numbered, dashed), newlines, emojis',
+                        'maxLength' => 2000,
+                    ]
                 ],
                 PositionFieldEnum::ORGANISATION_SKILLS->value => [
                     'label' => 'Required organisation skills',
-                    'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min 0, max 100',
+                    'schema' => [
+                        'type' => 'integer',
+                        'description' => 'scale 0-100, 0 = not required, 100 = important',
+                        'min' => 0,
+                        'max' => 100,
+                    ]
                 ],
                 PositionFieldEnum::TEAM_SKILLS->value => [
                     'label' => 'Required team skills',
-                    'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min 0, max 100',
+                    'schema' => [
+                        'type' => 'integer',
+                        'description' => 'scale 0-100, 0 = not required, 100 = important',
+                        'min' => 0,
+                        'max' => 100,
+                    ]
                 ],
                 PositionFieldEnum::TIME_MANAGEMENT->value => [
                     'label' => 'Required time management skills',
-                    'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min 0, max 100',
+                    'schema' => [
+                        'type' => 'integer',
+                        'description' => 'scale 0-100, 0 = not required, 100 = important',
+                        'min' => 0,
+                        'max' => 100,
+                    ]
                 ],
                 PositionFieldEnum::COMMUNICATION_SKILLS->value => [
                     'label' => 'Required communication skills',
-                    'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min 0, max 100',
+                    'schema' => [
+                        'type' => 'integer',
+                        'description' => 'scale 0-100, 0 = not required, 100 = important',
+                        'min' => 0,
+                        'max' => 100,
+                    ]
                 ],
                 PositionFieldEnum::LEADERSHIP->value => [
                     'label' => 'Required leadership skills',
-                    'description' => 'scale 0-100; 0 = not required, 100 = very important',
-                    'constraint' => 'integer, min 0, max 100',
+                    'schema' => [
+                        'type' => 'integer',
+                        'description' => 'scale 0-100, 0 = not required, 100 = important',
+                        'min' => 0,
+                        'max' => 100,
+                    ]
                 ],
                 PositionFieldEnum::LANGUAGE_REQUIREMENTS->value => [
                     'label' => 'Language requirements',
-                    'classifier' => [
-                        ClassifierTypeEnum::LANGUAGE->value,
-                        ClassifierTypeEnum::LANGUAGE_LEVEL->value,
+                    'schema' => [
+                        'type' => 'array',
+                        'items' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'language' => [
+                                    'type' => 'string',
+                                    'classifier' => ClassifierTypeEnum::LANGUAGE->value,
+                                ],
+                                'level' => [
+                                    'type' => 'string',
+                                    'classifier' => ClassifierTypeEnum::LANGUAGE_LEVEL->value,
+                                ],
+                            ],
+                        ],
+                        'example' => [
+                            ['language' => 'english', 'level' => 'c2'],
+                            ['language' => 'czech', 'level' => 'native'],
+                        ]
                     ],
-                    'constraint' => 'array, classifier key pairs "{language}-{language_level}"',
-                    'example' => ['english-c2', 'czech-native']
                 ],
                 PositionFieldEnum::TAGS->value => [
                     'label' => 'Tags',
-                    'constraint' => 'array, max 10 items, each tag min 2 chars, max 40 chars',
-                    'example' => ['mysql', 'typescript']
+                    'schema' => [
+                        'type' => 'array',
+                        'maxItems' => 10,
+                        'items' => [
+                            'type' => 'string',
+                            'minLength' => 2,
+                            'maxLength' => 30,
+                        ],
+                        'example' => ['mysql', 'typescript']
+                    ],
                 ],
             ]
         ]

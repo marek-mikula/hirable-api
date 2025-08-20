@@ -79,10 +79,10 @@ class ApplicationApplyRequest extends Request
             'email' => __('model.common.email'),
             'phonePrefix' => __('model.common.phonePrefix'),
             'phoneNumber' => __('model.common.phoneNumber'),
-            'linkedin' => __('model.candidate.linkedin'),
+            'linkedin' => __('model.common.linkedin'),
             'cv' => __('model.candidate.cv'),
-            'otherFiles' => __('model.common.files'),
-            'otherFiles.*' => __('model.common.files'),
+            'otherFiles' => __('model.candidate.otherFiles'),
+            'otherFiles.*' => __('model.candidate.otherFiles'),
         ];
     }
 

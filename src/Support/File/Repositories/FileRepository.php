@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Support\File\Repositories;
 
 use App\Exceptions\RepositoryException;
+use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
 use Support\File\Repositories\Input\FileStoreInput;
 
@@ -30,6 +31,15 @@ final class FileRepository implements FileRepositoryInterface
     public function updatePath(File $file, string $path): File
     {
         $file->path = $path;
+
+        throw_if(!$file->save(), RepositoryException::updated(File::class));
+
+        return $file;
+    }
+
+    public function updateType(File $file, FileTypeEnum $type): File
+    {
+        $file->type = $type;
 
         throw_if(!$file->save(), RepositoryException::updated(File::class));
 

@@ -5,18 +5,20 @@ declare(strict_types=1);
 namespace Domain\AI\Context\Transformers;
 
 use Domain\Position\Enums\PositionFieldEnum;
+use Domain\Position\Models\Position;
 use Domain\Position\Services\PositionConfigService;
+use Illuminate\Support\Arr;
 use Support\Classifier\Actions\ToClassifierAction;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
-class PositionTransformer implements ModelTransformer
+class PositionTransformer extends ModelTransformer
 {
     public function __construct(
         private readonly PositionConfigService $positionConfigService,
     ) {
     }
 
-    public function transformField(string $model, string $field, mixed $value): mixed
+    public function transformField(string $field, mixed $value): mixed
     {
         $field = PositionFieldEnum::from($field);
 
@@ -52,8 +54,9 @@ class PositionTransformer implements ModelTransformer
             PositionFieldEnum::COMMUNICATION_SKILLS,
             PositionFieldEnum::LEADERSHIP => (int) $value,
 
-            PositionFieldEnum::LANGUAGE_REQUIREMENTS => array_map(function (string $item) use ($toClassifier): array {
-                [$language, $level] = explode('-', $item);
+            PositionFieldEnum::LANGUAGE_REQUIREMENTS => array_map(function (array $item) use ($toClassifier): array {
+                $language = (string) Arr::get($item, 'language');
+                $level = (string) Arr::get($item, 'level');
 
                 return [
                     'language' => $toClassifier->handle($language, ClassifierTypeEnum::LANGUAGE),
@@ -65,7 +68,7 @@ class PositionTransformer implements ModelTransformer
                 ->filter(fn (mixed $value) => !empty($value) && is_string($value))
                 ->take($this->positionConfigService->getMaxTags())
                 ->values(),
-            default => throw new \Exception(sprintf('Transformation for field %s is not implemented for %s', $field->value, $model)),
+            default => throw new \Exception(sprintf('Transformation for field %s is not implemented for %s', $field->value, Position::class)),
         };
     }
 }

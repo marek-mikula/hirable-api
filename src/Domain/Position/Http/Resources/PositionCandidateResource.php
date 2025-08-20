@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Resources;
 
 use App\Http\Resources\Traits\ChecksRelations;
-use Domain\Candidate\Http\Resources\CandidateResource;
+use Domain\Candidate\Http\Resources\CandidateSimpleResource;
 use Domain\Position\Models\PositionCandidate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -31,7 +31,7 @@ class PositionCandidateResource extends JsonResource
             'score' => $this->resource->score,
             'totalScore' => $this->resource->total_score,
             'isScoreCalculated' => $this->resource->is_score_calculated,
-            'candidate' => new CandidateResource($this->resource->candidate),
+            'candidate' => new CandidateSimpleResource($this->resource->candidate),
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];

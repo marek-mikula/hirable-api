@@ -6,35 +6,28 @@ namespace Services\OpenAI\Actions;
 
 use App\Actions\Action;
 use App\Enums\LanguageEnum;
-use Domain\AI\Context\ClassifierContexter;
 use Domain\AI\Context\ModelContexter;
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
-use Illuminate\Support\Arr;
 use OpenAI\Laravel\Facades\OpenAI;
 use Services\OpenAI\Enums\PromptEnum;
 use Services\OpenAI\Services\OpenAIConfigService;
-use Support\Classifier\Enums\ClassifierTypeEnum;
 
 class GeneratePositionFromPromptAction extends Action
 {
     public function __construct(
-        private readonly ClassifierContexter $classifierContexter,
         private readonly OpenAIConfigService $configService,
         private readonly ModelContexter $modelContexter,
     ) {
     }
 
-    /**
-     * @return array<string,mixed>
-     */
     public function handle(User $user, string $prompt): array
     {
         $result = OpenAI::responses()->create([
             'model' => $this->configService->getModel(PromptEnum::GENERATE_POSITION_FROM_PROMPT),
             'prompt' => $this->configService->getPrompt(PromptEnum::GENERATE_POSITION_FROM_PROMPT, [
-                'language' => __(sprintf('common.languages.%s', $user->company->ai_output_language->value), locale: LanguageEnum::EN->value),
+                'language' => __(sprintf('common.language.%s', $user->company->ai_output_language->value), locale: LanguageEnum::EN->value),
                 'attributes' => $this->modelContexter->getModelContext(Position::class, [
                     PositionFieldEnum::NAME,
                     PositionFieldEnum::FIELD,
@@ -62,20 +55,6 @@ class GeneratePositionFromPromptAction extends Action
                     PositionFieldEnum::LANGUAGE_REQUIREMENTS,
                     PositionFieldEnum::TAGS,
                 ]),
-                'classifiers' => $this->classifierContexter->getClassifierContext([
-                    ClassifierTypeEnum::CURRENCY,
-                    ClassifierTypeEnum::LANGUAGE,
-                    ClassifierTypeEnum::LANGUAGE_LEVEL,
-                    ClassifierTypeEnum::BENEFIT,
-                    ClassifierTypeEnum::WORKLOAD,
-                    ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP,
-                    ClassifierTypeEnum::EMPLOYMENT_FORM,
-                    ClassifierTypeEnum::SENIORITY,
-                    ClassifierTypeEnum::EDUCATION_LEVEL,
-                    ClassifierTypeEnum::FIELD,
-                    ClassifierTypeEnum::SALARY_FREQUENCY,
-                    ClassifierTypeEnum::SALARY_TYPE,
-                ]),
             ]),
             'input' => [
                 [
@@ -88,19 +67,9 @@ class GeneratePositionFromPromptAction extends Action
         ]);
 
         try {
-            $json = json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
+            return json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
         } catch (\Exception) {
-            throw new \Exception('Could not parse JSON output.');
+            throw new \Exception(sprintf('Cannot parse json: %s', $result->outputText));
         }
-
-        $attributes = Arr::get($json, 'attributes', []);
-
-        return collect($attributes)
-            ->mapWithKeys(function (array $attribute): array {
-                $key = Arr::get($attribute, 'key');
-                $value = Arr::get($attribute, 'value');
-                return [$key => $value];
-            })
-            ->all();
     }
 }

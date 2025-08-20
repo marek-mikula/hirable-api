@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
-use Domain\AI\Contracts\AIServiceInterface;
 use Domain\AI\Scoring\Data\ScoreCategoryData;
 use Domain\AI\Scoring\ScoreCalculator;
 use Domain\AI\Services\AIConfigService;
+use Domain\AI\Services\AIService;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
@@ -20,7 +20,7 @@ class PositionCandidateEvaluateUseCase extends UseCase
     public function __construct(
         private readonly PositionCandidateRepositoryInterface $positionCandidateRepository,
         private readonly AIConfigService $AIConfigService,
-        private readonly AIServiceInterface $AIService,
+        private readonly AIService $AIService,
         private readonly ScoreCalculator $scoreCounter,
     ) {
     }
