@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\DB;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Repositories\Input\TokenStoreInput;
 use Support\Token\Repositories\TokenRepositoryInterface;
+use Support\Token\Services\TokenConfigService;
 
 class RequestPasswordResetUseCase extends UseCase
 {
     public function __construct(
         private readonly TokenRepositoryInterface $tokenRepository,
         private readonly UserRepositoryInterface $userRepository,
+        private readonly TokenConfigService $tokenConfigService,
     ) {
     }
 
@@ -30,10 +32,10 @@ class RequestPasswordResetUseCase extends UseCase
             return;
         }
 
-        $throttleMinutes = config(sprintf('token.throttle.%s', TokenTypeEnum::RESET_PASSWORD->value));
+        $throttle = $this->tokenConfigService->getTokenThrottle(TokenTypeEnum::RESET_PASSWORD);
 
-        if (!empty($throttleMinutes)) {
-            $nextPossibleAt = now()->subMinutes((int) $throttleMinutes);
+        if (!empty($throttle)) {
+            $nextPossibleAt = now()->subMinutes($throttle);
 
             $existingToken = $this->tokenRepository->findLatestByTypeAndUser(TokenTypeEnum::RESET_PASSWORD, $user);
 

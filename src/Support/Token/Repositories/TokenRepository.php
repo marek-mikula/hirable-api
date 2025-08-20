@@ -10,9 +10,15 @@ use Support\Token\Actions\GenerateTokenAction;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Models\Token;
 use Support\Token\Repositories\Input\TokenStoreInput;
+use Support\Token\Services\TokenConfigService;
 
 final class TokenRepository implements TokenRepositoryInterface
 {
+    public function __construct(
+        private readonly TokenConfigService $tokenConfigService,
+    ) {
+    }
+
     public function store(TokenStoreInput $input): Token
     {
         $token = new Token();
@@ -22,7 +28,7 @@ final class TokenRepository implements TokenRepositoryInterface
         if (!$validUntil) {
             // use either explicitly set valid minutes
             // or use the default value from config
-            $validMinutes = $input->validMinutes ?: (int) config(sprintf('token.validity.%s', $input->type->value));
+            $validMinutes = $input->validMinutes ?: $this->tokenConfigService->getTokenValidity($input->type);
 
             throw_if($validMinutes <= 0, new \InvalidArgumentException('Validity time for token cannot be less than or equal 0.'));
 
