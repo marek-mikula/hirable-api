@@ -128,3 +128,22 @@ if (!function_exists('modelCollection')) {
         return $model->newCollection($models);
     }
 }
+
+if (!function_exists('withLocale')) {
+    function withLocale(LanguageEnum $language, callable $closure, mixed ...$args): mixed
+    {
+        $previous = appLocale();
+
+        if ($previous !== $language) {
+            app()->setLocale($language->value);
+        }
+
+        $result = call_user_func($closure, ...$args);
+
+        if ($previous !== $language) {
+            app()->setLocale($previous->value);
+        }
+
+        return $result;
+    }
+}

@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace Domain\AI\Context;
 
+use App\Enums\LanguageEnum;
 use Domain\AI\Context\Mappers\ModelMapperInterface;
 use Domain\AI\Services\AIConfigService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Support\Classifier\Enums\ClassifierTypeEnum;
+use Support\Classifier\Repositories\ClassifierRepositoryInterface;
 
 class ModelContexter
 {
     public function __construct(
+        private readonly ClassifierRepositoryInterface $classifierRepository,
         private readonly AIConfigService $AIConfigService,
     ) {
     }
@@ -43,7 +49,14 @@ class ModelContexter
                 throw new \InvalidArgumentException(sprintf('Field %s has no configured context for model %s.', $field, $class));
             }
 
-            $result[$field] = $this->serializeField($model, $field, $config[$field]);
+            $fieldConfig = $config[$field];
+
+            $result[$field] = $this->serializeField($model, $field, $fieldConfig);
+        }
+
+        // add classifier enum definitions if needed
+        if (is_string($model)) {
+            $result = $this->transformClassifiersToEnumValues($result);
         }
 
         return json_encode($result);
@@ -68,15 +81,49 @@ class ModelContexter
         return Arr::only($config, [
             'label',
             'description',
-            'classifier',
-            'constraint',
-            'example',
-            'enum',
+            'schema',
         ]);
     }
 
     private function getModelMapper(Model $model): ModelMapperInterface
     {
         return once(fn () => app($this->AIConfigService->getModelMapper($model)));
+    }
+
+    private function transformClassifiersToEnumValues(array $attributes): array
+    {
+        $keys = collect($attributes)->dot()->keys();
+
+        /** @var Collection<string,ClassifierTypeEnum> $classifiers */
+        $classifiers = $keys
+            ->filter(fn (string $key) => Str::endsWith($key, '.classifier'))
+            ->mapWithKeys(fn (string $key) => [
+                $key => ClassifierTypeEnum::from((string) Arr::get($attributes, $key)),
+            ]);
+
+        if ($classifiers->isEmpty()) {
+            return $attributes;
+        }
+
+        $classifierValues = $this->classifierRepository->getValuesForTypes($classifiers->values()->toArray());
+
+        foreach ($classifiers as $key => $type) {
+            $parentKey = Str::beforeLast($key, '.');
+
+            // unset old classifier value
+            Arr::forget($attributes, $key);
+
+            // transform classifiers into array
+            $enums = withLocale(LanguageEnum::EN, function () use ($classifierValues, $type): array {
+                return $classifierValues[$type->value]
+                    ->pluck('label', 'value')
+                    ->toArray();
+            });
+
+            // set new enum attributes with classifier values
+            Arr::set($attributes, sprintf('%s.enum', $parentKey), $enums);
+        }
+
+        return $attributes;
     }
 }

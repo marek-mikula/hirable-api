@@ -6,7 +6,6 @@ namespace Services\OpenAI\Actions;
 
 use App\Actions\Action;
 use App\Enums\LanguageEnum;
-use Domain\AI\Context\ClassifierContexter;
 use Domain\AI\Context\ModelContexter;
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Models\Position;
@@ -17,12 +16,10 @@ use OpenAI\Laravel\Facades\OpenAI;
 use Services\OpenAI\Enums\PromptEnum;
 use Services\OpenAI\Services\OpenAIConfigService;
 use Services\OpenAI\Services\OpenAIFileManager;
-use Support\Classifier\Enums\ClassifierTypeEnum;
 
 class GeneratePositionFromFileAction extends Action
 {
     public function __construct(
-        private readonly ClassifierContexter $classifierContexter,
         private readonly OpenAIConfigService $configService,
         private readonly ModelContexter $modelContexter,
         private readonly OpenAIFileManager $fileManager,
@@ -64,21 +61,7 @@ class GeneratePositionFromFileAction extends Action
                     PositionFieldEnum::LEADERSHIP,
                     PositionFieldEnum::LANGUAGE_REQUIREMENTS,
                     PositionFieldEnum::TAGS,
-                ]),
-                'classifiers' => $this->classifierContexter->getClassifierContext([
-                    ClassifierTypeEnum::CURRENCY,
-                    ClassifierTypeEnum::LANGUAGE,
-                    ClassifierTypeEnum::LANGUAGE_LEVEL,
-                    ClassifierTypeEnum::BENEFIT,
-                    ClassifierTypeEnum::WORKLOAD,
-                    ClassifierTypeEnum::EMPLOYMENT_RELATIONSHIP,
-                    ClassifierTypeEnum::EMPLOYMENT_FORM,
-                    ClassifierTypeEnum::SENIORITY,
-                    ClassifierTypeEnum::EDUCATION_LEVEL,
-                    ClassifierTypeEnum::FIELD,
-                    ClassifierTypeEnum::SALARY_FREQUENCY,
-                    ClassifierTypeEnum::SALARY_TYPE,
-                ]),
+                ])
             ]),
             'input' => [
                 [
