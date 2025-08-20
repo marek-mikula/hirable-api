@@ -23,7 +23,6 @@ use Support\Token\Models\Builders\TokenBuilder;
  * @property int|null $user_id
  * @property TokenTypeEnum $type
  * @property string $token
- * @property string|null $code
  * @property array $data
  * @property Carbon|null $used_at
  * @property Carbon $valid_until
