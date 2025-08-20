@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\AI\Context;
 
-use Domain\AI\Context\Mappers\ModelMapper;
+use Domain\AI\Context\Mappers\ModelMapperInterface;
 use Domain\AI\Services\AIConfigService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -71,10 +71,11 @@ class ModelContexter
             'classifier',
             'constraint',
             'example',
+            'enum',
         ]);
     }
 
-    private function getModelMapper(Model $model): ModelMapper
+    private function getModelMapper(Model $model): ModelMapperInterface
     {
         return once(fn () => app($this->AIConfigService->getModelMapper($model)));
     }

@@ -34,7 +34,7 @@ class GeneratePositionFromPromptAction extends Action
         $result = OpenAI::responses()->create([
             'model' => $this->configService->getModel(PromptEnum::GENERATE_POSITION_FROM_PROMPT),
             'prompt' => $this->configService->getPrompt(PromptEnum::GENERATE_POSITION_FROM_PROMPT, [
-                'language' => __(sprintf('common.languages.%s', $user->company->ai_output_language->value), locale: LanguageEnum::EN->value),
+                'language' => __(sprintf('common.language.%s', $user->company->ai_output_language->value), locale: LanguageEnum::EN->value),
                 'attributes' => $this->modelContexter->getModelContext(Position::class, [
                     PositionFieldEnum::NAME,
                     PositionFieldEnum::FIELD,

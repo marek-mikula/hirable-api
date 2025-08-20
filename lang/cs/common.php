@@ -3,15 +3,21 @@
 declare(strict_types=1);
 
 use App\Enums\LanguageEnum;
+use Domain\Candidate\Enums\GenderEnum;
 
 return [
 
     'you' => 'Vy',
     'copy' => 'Kopie',
 
-    'languages' => [
+    'language' => [
         LanguageEnum::EN->value => 'Angličtina',
         LanguageEnum::CS->value => 'Čeština',
     ],
+
+    'gender' => [
+        GenderEnum::MALE->value => 'Muž',
+        GenderEnum::FEMALE->value => 'Žena',
+    ]
 
 ];

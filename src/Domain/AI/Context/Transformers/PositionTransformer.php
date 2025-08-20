@@ -9,7 +9,7 @@ use Domain\Position\Services\PositionConfigService;
 use Support\Classifier\Actions\ToClassifierAction;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
-class PositionTransformer implements ModelTransformer
+class PositionTransformer extends ModelTransformer
 {
     public function __construct(
         private readonly PositionConfigService $positionConfigService,

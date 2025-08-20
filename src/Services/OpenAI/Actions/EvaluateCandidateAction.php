@@ -42,7 +42,7 @@ class EvaluateCandidateAction extends Action
         $result = OpenAI::responses()->create([
             'model' => $this->configService->getModel(PromptEnum::EVALUATE_CANDIDATE),
             'prompt' => $this->configService->getPrompt(PromptEnum::EVALUATE_CANDIDATE, [
-                'language' => __(sprintf('common.languages.%s', $position->company->ai_output_language->value), locale: LanguageEnum::EN->value),
+                'language' => __(sprintf('common.language.%s', $position->company->ai_output_language->value), locale: LanguageEnum::EN->value),
                 'context' => $this->commonContexter->getCommonContext(),
                 'categories' => $this->categorySerializer->serialize(),
                 'position' => $this->modelContexter->getModelContext($position, [

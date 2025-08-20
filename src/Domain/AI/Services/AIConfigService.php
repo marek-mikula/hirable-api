@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\AI\Services;
 
 use App\Services\Service;
-use Domain\AI\Context\Mappers\ModelMapper;
+use Domain\AI\Context\Mappers\ModelMapperInterface;
 use Domain\AI\Contracts\AIServiceInterface;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
 use Illuminate\Database\Eloquent\Model;
@@ -57,7 +57,7 @@ class AIConfigService extends Service
     }
 
     /**
-     * @return class-string<ModelMapper>
+     * @return class-string<ModelMapperInterface>
      */
     public function getModelMapper(Model|string $model): string
     {

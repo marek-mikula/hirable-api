@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Services\ClassifierTranslateService;
 
-class PositionMapper implements ModelMapper
+class PositionMapper extends ModelMapper
 {
     public function __construct(
         private readonly ClassifierTranslateService $classifierTranslateService,
@@ -58,6 +58,7 @@ class PositionMapper implements ModelMapper
                     'level' => $this->classifierTranslateService->translateValue(ClassifierTypeEnum::LANGUAGE_LEVEL, Arr::get($item, 'level'), LanguageEnum::EN->value),
                 ];
             }, $model->language_requirements),
+            PositionFieldEnum::TAGS => $model->tags,
             default => throw new \Exception(sprintf('Mapping for field %s is not implemented for %s', $field->value, $model::class)),
         };
     }
