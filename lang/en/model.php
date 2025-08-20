@@ -130,6 +130,7 @@ return [
 
     'candidate' => [
         'cv' => 'Resume',
+        'otherFiles' => 'Other files',
     ],
 
     'processStep' => [

@@ -12,6 +12,8 @@ use Domain\Candidate\Http\Request\Data\CandidateUpdateData;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Policies\CandidatePolicy;
 use Domain\Candidate\Services\CandidateConfigService;
+use Support\File\Enums\FileTypeEnum;
+use Support\File\Services\FileConfigService;
 
 class CandidateUpdateRequest extends AuthRequest
 {
@@ -21,12 +23,16 @@ class CandidateUpdateRequest extends AuthRequest
         return $this->user()->can('update', $this->route('candidate'));
     }
 
-    public function rules(CandidateConfigService $candidateConfigService): array
-    {
+    public function rules(
+        CandidateConfigService $candidateConfigService,
+        FileConfigService $fileConfigService,
+    ): array {
         /** @var Candidate $candidate */
         $candidate = $this->route('candidate');
 
         $keys = is_array($keys = $this->input('keys', [])) ? $keys : [];
+
+        $otherFilesCount = (int) $candidate->loadCount('otherFiles')->other_files_count;
 
         return [
             'keys' => [
@@ -49,6 +55,8 @@ class CandidateUpdateRequest extends AuthRequest
                     'portfolio',
                     'birthDate',
                     'tags',
+                    'cv',
+                    'otherFiles'
                 ])
             ],
             'firstname' => [
@@ -142,6 +150,25 @@ class CandidateUpdateRequest extends AuthRequest
                 'min:2',
                 'max:30',
             ],
+            'cv' => [
+                Rule::excludeIf(!in_array('cv', $keys)),
+                'nullable',
+                Rule::file()
+                    ->max($fileConfigService->getFileMaxSize(FileTypeEnum::CANDIDATE_CV))
+                    ->extensions($fileConfigService->getFileExtensions(FileTypeEnum::CANDIDATE_CV))
+            ],
+            'otherFiles' => [
+                Rule::excludeIf(!in_array('otherFiles', $keys)),
+                'array',
+                sprintf('max:%d', $fileConfigService->getFileMaxFiles(FileTypeEnum::CANDIDATE_OTHER) - $otherFilesCount),
+            ],
+            'otherFiles.*' => [
+                Rule::excludeIf(!in_array('otherFiles', $keys)),
+                'required',
+                Rule::file()
+                    ->max($fileConfigService->getFileMaxSize(FileTypeEnum::CANDIDATE_OTHER))
+                    ->extensions($fileConfigService->getFileExtensions(FileTypeEnum::CANDIDATE_OTHER))
+            ],
         ];
     }
 
@@ -162,6 +189,19 @@ class CandidateUpdateRequest extends AuthRequest
             'birthDate' => __('model.common.birthDate'),
             'tags' => __('model.common.tags'),
             'tags.*' => __('model.common.tags'),
+            'cv' => __('model.candidate.cv'),
+            'otherFiles' => __('model.candidate.otherFiles'),
+            'otherFiles.*' => __('model.candidate.otherFiles'),
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'otherFiles.*.required' => __('validation.many.required'),
+            'otherFiles.*.file' => __('validation.many.file'),
+            'otherFiles.*.max' => __('validation.many.max.file'),
+            'otherFiles.*.extensions' => __('validation.many.extensions'),
         ];
     }
 
@@ -209,6 +249,12 @@ class CandidateUpdateRequest extends AuthRequest
                 : null,
             tags: in_array('tags', $keys) && $this->filled('tags')
                 ? $this->collect('tags')->map(fn (mixed $tag) => (string) $tag)->all()
+                : [],
+            cv: in_array('cv', $keys) && $this->hasFile('cv')
+                ? $this->file('cv')
+                : null,
+            otherFiles: in_array('otherFiles', $keys) && $this->hasFile('otherFiles')
+                ? $this->file('otherFiles', [])
                 : [],
         );
     }

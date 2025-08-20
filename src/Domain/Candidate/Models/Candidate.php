@@ -46,6 +46,8 @@ use Support\File\Models\Traits\HasFiles;
  * @property-read string $full_name
  * @property-read File $cvs
  * @property-read Collection<File> $otherFiles
+ * @property-read int|null $cvs_count
+ * @property-read int|null $other_files_count
  *
  * @method static CandidateFactory factory($count = null, $state = [])
  * @method static CandidateBuilder query()

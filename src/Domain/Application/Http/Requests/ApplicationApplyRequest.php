@@ -81,8 +81,8 @@ class ApplicationApplyRequest extends Request
             'phoneNumber' => __('model.common.phoneNumber'),
             'linkedin' => __('model.common.linkedin'),
             'cv' => __('model.candidate.cv'),
-            'otherFiles' => __('model.common.files'),
-            'otherFiles.*' => __('model.common.files'),
+            'otherFiles' => __('model.candidate.otherFiles'),
+            'otherFiles.*' => __('model.candidate.otherFiles'),
         ];
     }
 

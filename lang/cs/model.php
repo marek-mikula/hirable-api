@@ -129,6 +129,7 @@ return [
 
     'candidate' => [
         'cv' => 'Životopis',
+        'otherFiles' => 'Ostatní soubory',
     ],
 
     'processStep' => [

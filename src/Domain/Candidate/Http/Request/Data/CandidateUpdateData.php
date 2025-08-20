@@ -7,12 +7,14 @@ namespace Domain\Candidate\Http\Request\Data;
 use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Candidate\Enums\GenderEnum;
+use Illuminate\Http\UploadedFile;
 
 readonly class CandidateUpdateData
 {
     /**
      * @param string[] $keys
      * @param string[]|null $tags
+     * @param UploadedFile[] $otherFiles
      */
     public function __construct(
         public array $keys,
@@ -29,6 +31,8 @@ readonly class CandidateUpdateData
         public ?string $portfolio,
         public ?Carbon $birthDate,
         public ?array $tags,
+        public ?UploadedFile $cv,
+        public ?array $otherFiles
     ) {
     }
 
