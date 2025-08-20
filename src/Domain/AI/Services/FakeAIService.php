@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\AI\Services;
 
-use Carbon\Carbon;
 use Domain\AI\Contracts\AIServiceInterface;
-use Domain\AI\Data\CVData;
 use Domain\AI\Scoring\Data\ScoreCategoryData;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
-use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
@@ -20,17 +17,9 @@ use Support\File\Models\File;
 
 class FakeAIService implements AIServiceInterface
 {
-    public function extractCVData(File $cv): CVData
+    public function extractCVData(File $cv): array
     {
-        return CVData::from([
-            'gender' => fake()->randomElement(GenderEnum::cases()),
-            'birthDate' => Carbon::createFromFormat('Y-m-d', fake()->date),
-            'instagram' => null,
-            'github' => null,
-            'portfolio' => null,
-            'experience' => [],
-            'tags' => fake()->words(fake()->numberBetween(1, 5)),
-        ]);
+        return []; // todo
     }
 
     public function evaluateCandidate(Position $position, Candidate $candidate, Collection $files): array

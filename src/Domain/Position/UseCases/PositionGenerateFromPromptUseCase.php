@@ -8,7 +8,6 @@ use App\UseCases\UseCase;
 use Domain\AI\Context\Transformers\PositionTransformer;
 use Domain\AI\Contracts\AIServiceInterface;
 use Domain\Position\Enums\PositionFieldEnum;
-use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 
 class PositionGenerateFromPromptUseCase extends UseCase
@@ -28,7 +27,7 @@ class PositionGenerateFromPromptUseCase extends UseCase
                 return PositionFieldEnum::tryFrom($key) !== null;
             })
             ->map(function (mixed $value, string $key): mixed {
-                return $this->positionTransformer->transformField(Position::class, $key, $value);
+                return $this->positionTransformer->transformField($key, $value);
             })
             ->all();
     }

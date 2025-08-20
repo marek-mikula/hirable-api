@@ -15,7 +15,6 @@ use Domain\Candidate\Enums\CandidateFieldEnum;
 use Domain\Candidate\Enums\GenderEnum;
 use App\Enums\LanguageEnum;
 use Domain\AI\Context\Mappers\CandidateMapper;
-use Domain\Candidate\Enums\ExperienceTypeEnum;
 
 return [
 
@@ -156,39 +155,42 @@ return [
                     'label' => 'Working experience',
                     'schema' => [
                         'type' => 'array',
-                        'description' => 'Sorter chronologically',
+                        'description' => 'Sorted chronologically',
                         'items' => [
                             'type' => 'object',
                             'properties' => [
                                 'position' => [
                                     'type' => 'string',
-                                    'description' => 'Position name'
+                                    'description' => 'Position name',
+                                    'maxLength' => 50,
                                 ],
-                                'organisation' => [
-                                    'type' => 'string',
-                                    'description' => 'Organisation name'
+                                'employer' => [
+                                    'type' => ['string', 'null'],
+                                    'description' => 'Employer name',
+                                    'maxLength' => 50,
                                 ],
                                 'from' => [
-                                    'type' => 'string',
+                                    'type' => ['string', 'null'],
                                     'format' => 'date',
                                 ],
                                 'to' => [
-                                    'type' => 'string',
+                                    'type' => ['string', 'null'],
                                     'format' => 'date',
                                 ],
-                                'type' => [
+                                'description' => [
                                     'type' => 'string',
-                                    'enum' => collect(ExperienceTypeEnum::cases())->pluck('value')->toArray()
+                                    'description' => 'brief description of key job attributes - responsibilities, job content, technologies, etc.',
+                                    'maxLength' => 200,
                                 ],
-                            ],
+                            ]
                         ],
                         'example' => [
                             [
                                 'position' => 'Fullstack developer',
-                                'organisation' => 'Alphabet Inc.',
+                                'employer' => 'Alphabet Inc.',
                                 'from' => '1998-01-01',
                                 'to' => '2000-01-01',
-                                'type' => 'internship',
+                                'description' => 'development of internal ATS systems, MySQL, PHP, Laravel, Node.js, team of 10',
                             ]
                         ],
                     ],

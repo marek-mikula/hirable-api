@@ -7,6 +7,7 @@ namespace Domain\AI\Context\Transformers;
 use App\Enums\LanguageEnum;
 use Domain\Candidate\Enums\CandidateFieldEnum;
 use Domain\Candidate\Enums\GenderEnum;
+use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Services\CandidateConfigService;
 use Illuminate\Support\Arr;
 
@@ -17,7 +18,7 @@ class CandidateTransformer extends ModelTransformer
     ) {
     }
 
-    public function transformField(string $model, string $field, mixed $value): mixed
+    public function transformField(string $field, mixed $value): mixed
     {
         $field = CandidateFieldEnum::from($field);
 
@@ -37,10 +38,10 @@ class CandidateTransformer extends ModelTransformer
             CandidateFieldEnum::EXPERIENCE => array_map(function (array $item) {
                 return Arr::only($item, [
                     'position',
-                    'organisation',
+                    'employer',
                     'from',
                     'to',
-                    'type',
+                    'description',
                 ]);
             }, $value),
 
@@ -52,7 +53,7 @@ class CandidateTransformer extends ModelTransformer
             CandidateFieldEnum::GENDER => GenderEnum::tryFrom((string) $value),
             CandidateFieldEnum::LANGUAGE => LanguageEnum::tryFrom((string) $value),
 
-            default => throw new \Exception(sprintf('Transformation for field %s is not implemented for %s', $field->value, $model)),
+            default => throw new \Exception(sprintf('Transformation for field %s is not implemented for %s', $field->value, Candidate::class)),
         };
     }
 }

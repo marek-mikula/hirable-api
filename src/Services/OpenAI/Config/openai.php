@@ -83,7 +83,7 @@ return [
     'prompts' => [
         PromptEnum::EXTRACT_CV_DATA->value => [
             'id' => 'pmpt_687bc65410a481909fbf6bcd4c18bdac09a3e37f2101523e',
-            'version' => '11',
+            'version' => '12',
         ],
         PromptEnum::EVALUATE_CANDIDATE->value => [
             'id' => 'pmpt_687e176904f8819687d39433423fed140a31159dc4e9c7d9',

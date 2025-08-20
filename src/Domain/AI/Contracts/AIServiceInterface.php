@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\AI\Contracts;
 
-use Domain\AI\Data\CVData;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
@@ -16,8 +15,9 @@ interface AIServiceInterface
 {
     /**
      * Extracts additional candidate information from his CV
+     * @return array<string,mixed> key is name of the attribute
      */
-    public function extractCVData(File $cv): CVData;
+    public function extractCVData(File $cv): array;
 
     /**
      * Evaluates candidate based on his uploaded files

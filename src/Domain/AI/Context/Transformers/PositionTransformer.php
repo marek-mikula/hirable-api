@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\AI\Context\Transformers;
 
 use Domain\Position\Enums\PositionFieldEnum;
+use Domain\Position\Models\Position;
 use Domain\Position\Services\PositionConfigService;
 use Illuminate\Support\Arr;
 use Support\Classifier\Actions\ToClassifierAction;
@@ -17,7 +18,7 @@ class PositionTransformer extends ModelTransformer
     ) {
     }
 
-    public function transformField(string $model, string $field, mixed $value): mixed
+    public function transformField(string $field, mixed $value): mixed
     {
         $field = PositionFieldEnum::from($field);
 
@@ -67,7 +68,7 @@ class PositionTransformer extends ModelTransformer
                 ->filter(fn (mixed $value) => !empty($value) && is_string($value))
                 ->take($this->positionConfigService->getMaxTags())
                 ->values(),
-            default => throw new \Exception(sprintf('Transformation for field %s is not implemented for %s', $field->value, $model)),
+            default => throw new \Exception(sprintf('Transformation for field %s is not implemented for %s', $field->value, Position::class)),
         };
     }
 }

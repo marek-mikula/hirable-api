@@ -6,5 +6,5 @@ namespace Domain\AI\Context\Transformers;
 
 interface ModelTransformerInterface
 {
-    public function transformField(string $model, string $field, mixed $value): mixed;
+    public function transformField(string $field, mixed $value): mixed;
 }

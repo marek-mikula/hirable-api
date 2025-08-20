@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Services\OpenAI\Services;
 
 use Domain\AI\Contracts\AIServiceInterface;
-use Domain\AI\Data\CVData;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
@@ -19,7 +18,7 @@ use Support\File\Models\File;
 
 class OpenAIService implements AIServiceInterface
 {
-    public function extractCVData(File $cv): CVData
+    public function extractCVData(File $cv): array
     {
         return ExtractCVDataAction::make()->handle($cv);
     }
