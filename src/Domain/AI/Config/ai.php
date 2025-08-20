@@ -15,6 +15,7 @@ use Domain\Candidate\Enums\CandidateFieldEnum;
 use Domain\Candidate\Enums\GenderEnum;
 use App\Enums\LanguageEnum;
 use Domain\AI\Context\Mappers\CandidateMapper;
+use Domain\Candidate\Enums\ExperienceTypeEnum;
 
 return [
 
@@ -63,77 +64,148 @@ return [
             Candidate::class => [
                 CandidateFieldEnum::FIRSTNAME->value => [
                     'label' => 'Firstname',
-                    'constraint' => 'string, max 255 chars'
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ],
                 ],
                 CandidateFieldEnum::LASTNAME->value => [
                     'label' => 'Lastname',
-                    'constraint' => 'string, max 255 chars'
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ],
                 ],
                 CandidateFieldEnum::GENDER->value => [
                     'label' => 'Gender',
-                    'constraint' => 'string, enum key, max 1 char',
-                    'enum' => collect(GenderEnum::cases())->mapWithKeys(function (GenderEnum $gender) {
-                        return [$gender->value => __(sprintf('common.gender.%s', $gender->value))];
-                    })->toArray(),
+                    'schema' => [
+                        'type' => 'string',
+                        'enum' => collect(GenderEnum::cases())->mapWithKeys(function (GenderEnum $gender) {
+                            return [$gender->value => __(sprintf('common.gender.%s', $gender->value))];
+                        })->toArray(),
+                    ],
                 ],
                 CandidateFieldEnum::LANGUAGE->value => [
                     'label' => 'Communication language',
-                    'constraint' => 'string, enum key, max 2 chars',
-                    'enum' => collect(LanguageEnum::cases())->mapWithKeys(function (LanguageEnum $language) {
-                        return [$language->value => __(sprintf('common.language.%s', $language->value))];
-                    })->toArray(),
+                    'schema' => [
+                        'type' => 'string',
+                        'enum' => collect(LanguageEnum::cases())->mapWithKeys(function (LanguageEnum $language) {
+                            return [$language->value => __(sprintf('common.language.%s', $language->value))];
+                        })->toArray(),
+                    ]
                 ],
                 CandidateFieldEnum::EMAIL->value => [
                     'label' => 'Email',
-                    'constraint' => 'string, email address, max 255 chars'
+                    'schema' => [
+                        'type' => 'string',
+                        'format' => 'email',
+                        'maxLength' => 255
+                    ]
                 ],
                 CandidateFieldEnum::PHONE_PREFIX->value => [
                     'label' => 'Phone prefix',
                     'classifier' => ClassifierTypeEnum::PHONE_PREFIX->value,
-                    'constraint' => 'string, classifier key',
+                    'schema' => [
+                        'type' => 'string',
+                    ],
                 ],
                 CandidateFieldEnum::PHONE_NUMBER->value => [
                     'label' => 'Phone number',
-                    'constraint' => 'string, max 20 chars',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 20,
+                    ]
                 ],
                 CandidateFieldEnum::LINKEDIN->value => [
                     'label' => 'LinkedIn profile URL',
-                    'constraint' => 'string, URL, max 255 chars',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
                 ],
                 CandidateFieldEnum::INSTAGRAM->value => [
                     'label' => 'Instagram profile URL',
-                    'constraint' => 'string, URL, max 255 chars',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
                 ],
                 CandidateFieldEnum::GITHUB->value => [
                     'label' => 'Github profile URL',
-                    'constraint' => 'string, URL, max 255 chars',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
                 ],
                 CandidateFieldEnum::PORTFOLIO->value => [
                     'label' => 'Portfolio/Personal web URL',
-                    'constraint' => 'string, URL, max 255 chars',
+                    'schema' => [
+                        'type' => 'string',
+                        'maxLength' => 255,
+                    ]
                 ],
                 CandidateFieldEnum::BIRTH_DATE->value => [
                     'label' => 'Birth date',
-                    'constraint' => 'date string, format Y-m-d',
-                    'example' => '1999-01-05',
+                    'schema' => [
+                        'type' => 'string',
+                        'format' => 'date',
+                        'example' => '1999-01-05',
+                    ],
                 ],
                 CandidateFieldEnum::EXPERIENCE->value => [
                     'label' => 'Working experience',
-                    'constraint' => 'array of objects, sorted chronologically, props: position (position name), organisation (organisation name), from (date from, format Y-m-d), to (date to, format Y-m-d), type (full-time, part-time, internship)',
-                    'example' => [
-                        [
-                            'position' => 'Fullstack developer',
-                            'organisation' => 'Alphabet Inc.',
-                            'from' => '1998-01-01',
-                            'to' => '2000-01-01',
-                            'type' => 'internship',
-                        ]
+                    'schema' => [
+                        'type' => 'array',
+                        'description' => 'Sorter chronologically',
+                        'items' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'position' => [
+                                    'type' => 'string',
+                                    'description' => 'Position name'
+                                ],
+                                'organisation' => [
+                                    'type' => 'string',
+                                    'description' => 'Organisation name'
+                                ],
+                                'from' => [
+                                    'type' => 'string',
+                                    'format' => 'date',
+                                ],
+                                'to' => [
+                                    'type' => 'string',
+                                    'format' => 'date',
+                                ],
+                                'type' => [
+                                    'type' => 'string',
+                                    'enum' => collect(ExperienceTypeEnum::cases())->pluck('value')->toArray()
+                                ],
+                            ],
+                        ],
+                        'example' => [
+                            [
+                                'position' => 'Fullstack developer',
+                                'organisation' => 'Alphabet Inc.',
+                                'from' => '1998-01-01',
+                                'to' => '2000-01-01',
+                                'type' => 'internship',
+                            ]
+                        ],
                     ],
                 ],
                 CandidateFieldEnum::TAGS->value => [
                     'label' => 'Tags',
-                    'constraint' => 'array, max 10 items, each tag min 2 chars, max 30 chars',
-                    'example' => ['mysql', 'typescript']
+                    'schema' => [
+                        'type' => 'array',
+                        'maxItems' => 10,
+                        'items' => [
+                            'type' => 'string',
+                            'minLength' => 2,
+                            'maxLength' => 30,
+                        ],
+                        'example' => ['mysql', 'typescript']
+
+                    ],
                 ],
             ],
             Position::class => [
