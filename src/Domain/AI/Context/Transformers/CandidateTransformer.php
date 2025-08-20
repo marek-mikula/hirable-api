@@ -33,16 +33,16 @@ class CandidateTransformer extends ModelTransformer
             CandidateFieldEnum::GITHUB,
             CandidateFieldEnum::PORTFOLIO => (string) $value,
 
-            CandidateFieldEnum::BIRTH_DATE => $this->transformCarbon((string) $value, 'Y-m-d'),
+            CandidateFieldEnum::BIRTH_DATE => $this->toCarbon((string) $value, 'Y-m-d'),
 
             CandidateFieldEnum::EXPERIENCE => array_map(function (array $item) {
-                return Arr::only($item, [
-                    'position',
-                    'employer',
-                    'from',
-                    'to',
-                    'description',
-                ]);
+                return [
+                    'position' => Arr::get($item, 'position'),
+                    'employer' => Arr::get($item, 'employer'),
+                    'from' => empty($from = Arr::get($item, 'from')) ? null : $this->toCarbonFormat($from, 'Y-m-d'),
+                    'to' => empty($to = Arr::get($item, 'to')) ? null : $this->toCarbonFormat($to, 'Y-m-d'),
+                    'description' => Arr::get($item, 'description'),
+                ];
             }, $value),
 
             CandidateFieldEnum::TAGS => collect($value)
