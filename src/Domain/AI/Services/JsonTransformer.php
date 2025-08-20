@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Services\OpenAI\Services;
+namespace Domain\AI\Services;
 
 use Illuminate\Support\Str;
 
-class OpenAIJsonTransformer
+class JsonTransformer
 {
     public function transform(array $array): array
     {
-        // OpenAI cannot have objects with any params
-        // in their schema validation when using structured
-        // outputs. So we tell the model to encode every
-        // more complicated value into JSON. Here we decode
-        // that JSON into array.
+        // Some AI providers (OpenAI) cannot have objects
+        // with any params in their schema validation when
+        // using structured outputs. So we tell the model
+        // to encode every more complicated value into JSON.
+        // Here we decode that JSON into array.
 
         return collect($array)
             ->dot()

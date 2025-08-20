@@ -83,7 +83,7 @@ return [
     'prompts' => [
         PromptEnum::EXTRACT_CV_DATA->value => [
             'id' => 'pmpt_687bc65410a481909fbf6bcd4c18bdac09a3e37f2101523e',
-            'version' => '12',
+            'version' => '13',
         ],
         PromptEnum::EVALUATE_CANDIDATE->value => [
             'id' => 'pmpt_687e176904f8819687d39433423fed140a31159dc4e9c7d9',
@@ -91,11 +91,11 @@ return [
         ],
         PromptEnum::GENERATE_POSITION_FROM_PROMPT->value => [
             'id' => 'pmpt_689deeac979481969b277fdcdcd1ca9000bae19d7a9634c2',
-            'version' => '12',
+            'version' => '14',
         ],
         PromptEnum::GENERATE_POSITION_FROM_FILE->value => [
             'id' => 'pmpt_68a0ad66153c8197b7393ee6f26c049c0a6ccd261a1ec1f7',
-            'version' => '6',
+            'version' => '7',
         ],
     ],
 ];

@@ -6,7 +6,7 @@ namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\AI\Context\Transformers\PositionTransformer;
-use Domain\AI\Contracts\AIServiceInterface;
+use Domain\AI\Services\AIService;
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\User\Models\User;
 use Illuminate\Http\UploadedFile;
@@ -15,7 +15,7 @@ class PositionGenerateFromFileUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionTransformer $positionTransformer,
-        private readonly AIServiceInterface $AIService,
+        private readonly AIService $AIService,
     ) {
     }
 

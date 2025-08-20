@@ -6,7 +6,7 @@ namespace Domain\Candidate\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\AI\Context\Transformers\CandidateTransformer;
-use Domain\AI\Contracts\AIServiceInterface;
+use Domain\AI\Services\AIService;
 use Domain\Candidate\Enums\CandidateFieldEnum;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Repositories\CandidateRepositoryInterface;
@@ -19,7 +19,7 @@ class ExtractCVDataUseCase extends UseCase
     public function __construct(
         private readonly CandidateRepositoryInterface $candidateRepository,
         private readonly CandidateTransformer $candidateTransformer,
-        private readonly AIServiceInterface $AIService
+        private readonly AIService $AIService
     ) {
     }
 

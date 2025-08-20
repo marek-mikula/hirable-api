@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
+use App\Enums\LanguageEnum;
+use Domain\AI\Context\Mappers\CandidateMapper;
 use Domain\AI\Context\Mappers\PositionMapper;
 use Domain\AI\Enums\AIServiceEnum;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
-use Domain\AI\Services\FakeAIService;
-use Domain\Position\Enums\PositionFieldEnum;
-use Domain\Position\Models\Position;
-use Services\OpenAI\Services\OpenAIService;
-use Support\Classifier\Enums\ClassifierTypeEnum;
-use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Enums\CandidateFieldEnum;
 use Domain\Candidate\Enums\GenderEnum;
-use App\Enums\LanguageEnum;
-use Domain\AI\Context\Mappers\CandidateMapper;
+use Domain\Candidate\Models\Candidate;
+use Domain\Position\Enums\PositionFieldEnum;
+use Domain\Position\Models\Position;
+use Services\Fake\FakeAIProvider;
+use Services\OpenAI\OpenAIProvider;
+use Support\Classifier\Enums\ClassifierTypeEnum;
 
 return [
 
@@ -41,8 +41,8 @@ return [
     */
 
     'services' => [
-        AIServiceEnum::OPENAI->value => OpenAIService::class,
-        AIServiceEnum::FAKE->value => FakeAIService::class,
+        AIServiceEnum::OPENAI->value => OpenAIProvider::class,
+        AIServiceEnum::FAKE->value => FakeAIProvider::class,
     ],
 
     /*

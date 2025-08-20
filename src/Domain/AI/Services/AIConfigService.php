@@ -6,14 +6,14 @@ namespace Domain\AI\Services;
 
 use App\Services\Service;
 use Domain\AI\Context\Mappers\ModelMapperInterface;
-use Domain\AI\Contracts\AIServiceInterface;
+use Domain\AI\Contracts\AIProviderInterface;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class AIConfigService extends Service
 {
     /**
-     * @return array<string,class-string<AIServiceInterface>>
+     * @return array<string,class-string<AIProviderInterface>>
      */
     public function getServices(): array
     {
@@ -21,7 +21,7 @@ class AIConfigService extends Service
     }
 
     /**
-     * @return class-string<AIServiceInterface>
+     * @return class-string<AIProviderInterface>
      */
     public function getServiceClass(): string
     {
