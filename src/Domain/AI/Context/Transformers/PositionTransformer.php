@@ -6,6 +6,7 @@ namespace Domain\AI\Context\Transformers;
 
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Services\PositionConfigService;
+use Illuminate\Support\Arr;
 use Support\Classifier\Actions\ToClassifierAction;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
@@ -52,8 +53,9 @@ class PositionTransformer extends ModelTransformer
             PositionFieldEnum::COMMUNICATION_SKILLS,
             PositionFieldEnum::LEADERSHIP => (int) $value,
 
-            PositionFieldEnum::LANGUAGE_REQUIREMENTS => array_map(function (string $item) use ($toClassifier): array {
-                [$language, $level] = explode('-', $item);
+            PositionFieldEnum::LANGUAGE_REQUIREMENTS => array_map(function (array $item) use ($toClassifier): array {
+                $language = (string) Arr::get($item, 'language');
+                $level = (string) Arr::get($item, 'level');
 
                 return [
                     'language' => $toClassifier->handle($language, ClassifierTypeEnum::LANGUAGE),

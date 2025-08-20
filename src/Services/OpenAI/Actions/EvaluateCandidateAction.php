@@ -72,7 +72,7 @@ class EvaluateCandidateAction extends Action
         try {
             $json = json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
         } catch (\Exception) {
-            throw new \Exception('Could not parse JSON output.');
+            throw new \Exception(sprintf('Cannot parse json: %s', $result->outputText));
         }
 
         $score = (array) Arr::get($json, 'score', []);

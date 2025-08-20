@@ -14,10 +14,12 @@ use Illuminate\Support\Arr;
 use OpenAI\Laravel\Facades\OpenAI;
 use Services\OpenAI\Enums\PromptEnum;
 use Services\OpenAI\Services\OpenAIConfigService;
+use Services\OpenAI\Services\OpenAIJsonTransformer;
 
 class GeneratePositionFromPromptAction extends Action
 {
     public function __construct(
+        private readonly OpenAIJsonTransformer $jsonTransformer,
         private readonly OpenAIConfigService $configService,
         private readonly ModelContexter $modelContexter,
     ) {
@@ -73,10 +75,12 @@ class GeneratePositionFromPromptAction extends Action
         try {
             $json = json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
         } catch (\Exception) {
-            throw new \Exception('Could not parse JSON output.');
+            throw new \Exception(sprintf('Cannot parse json: %s', $result->outputText));
         }
 
         $attributes = Arr::get($json, 'attributes', []);
+
+        $attributes = $this->jsonTransformer->transform($attributes);
 
         return collect($attributes)
             ->mapWithKeys(function (array $attribute): array {

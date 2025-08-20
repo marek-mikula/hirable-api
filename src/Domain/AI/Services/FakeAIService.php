@@ -57,7 +57,7 @@ class FakeAIService implements AIServiceInterface
         try {
             $json = json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
         } catch (\Exception) {
-            throw new \Exception('Could not parse JSON output.');
+            throw new \Exception(sprintf('Cannot parse json: %s', $result->outputText));
         }
 
         $attributes = Arr::get($json, 'attributes', []);
@@ -81,7 +81,7 @@ class FakeAIService implements AIServiceInterface
         try {
             $json = json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
         } catch (\Exception) {
-            throw new \Exception('Could not parse JSON output.');
+            throw new \Exception(sprintf('Cannot parse json: %s', $result->outputText));
         }
 
         $attributes = Arr::get($json, 'attributes', []);
