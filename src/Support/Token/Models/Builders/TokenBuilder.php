@@ -7,6 +7,7 @@ namespace Support\Token\Models\Builders;
 use App\Models\Builders\Builder;
 use Domain\User\Models\Builders\Traits\BelongsToUser;
 use Support\Token\Enums\TokenTypeEnum;
+use Support\Token\Services\TokenConfigService;
 
 class TokenBuilder extends Builder
 {
@@ -44,7 +45,7 @@ class TokenBuilder extends Builder
 
     public function readyToDelete(): static
     {
-        $days = (int) config('token.keep_days');
+        $days = TokenConfigService::resolve()->getKeepDays();
 
         $date = now()->subDays($days);
 
