@@ -6,10 +6,11 @@ namespace Domain\Company\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\PaginatedResourceCollection;
 use Domain\Company\Http\Requests\CompanyUserIndexRequest;
 use Domain\Company\Models\Company;
 use Domain\Company\UseCases\CompanyUserIndexUseCase;
-use Domain\User\Http\Resources\Collections\UserPaginatedResourceCollection;
+use Domain\User\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
@@ -29,7 +30,7 @@ class CompanyUserController extends ApiController
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_USER, $gridQuery));
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'users' => new UserPaginatedResourceCollection($users),
+            'users' => new PaginatedResourceCollection(UserResource::class, $users),
         ]);
     }
 }

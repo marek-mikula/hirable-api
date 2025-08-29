@@ -38,7 +38,10 @@ class ToClassifierAction extends Action
         }
 
         if (is_string($raw)) {
-            return ClassifierData::from(['value' => $raw, 'label' => $this->translateService->translateValue($type, $raw)]);
+            return new ClassifierData(
+                value: $raw,
+                label: $this->translateService->translateValue($type, $raw)
+            );
         }
 
         throw new \Exception(sprintf('Cannot transform raw classifier value of type %s.', gettype($raw)));

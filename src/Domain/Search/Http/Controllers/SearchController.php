@@ -6,9 +6,10 @@ namespace Domain\Search\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Search\Http\Requests\SearchCompanyContactsRequest;
 use Domain\Search\Http\Requests\SearchCompanyUsersRequest;
-use Domain\Search\Http\Resources\Collection\SearchResultCollection;
+use Domain\Search\Http\Resources\SearchResultResource;
 use Domain\Search\UseCases\SearchCompanyContactsUseCase;
 use Domain\Search\UseCases\SearchCompanyUsersUseCase;
 use Illuminate\Http\JsonResponse;
@@ -20,7 +21,7 @@ class SearchController extends ApiController
         $results = SearchCompanyUsersUseCase::make()->handle($request->user(), $request->toData(), $request->ignoreAuth(), $request->roles());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'results' => new SearchResultCollection($results),
+            'results' => new ResourceCollection(SearchResultResource::class, $results),
         ]);
     }
 
@@ -29,7 +30,7 @@ class SearchController extends ApiController
         $results = SearchCompanyContactsUseCase::make()->handle($request->user(), $request->toData());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'results' => new SearchResultCollection($results),
+            'results' => new ResourceCollection(SearchResultResource::class, $results),
         ]);
     }
 }
