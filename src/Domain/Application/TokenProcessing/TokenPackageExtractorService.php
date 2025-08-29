@@ -25,9 +25,9 @@ class TokenPackageExtractorService
         $tokenInfo = $this->tokenParserService->fromUrlValue($token);
         $tokenData = $this->tokenDataExtractorService->extract($tokenInfo);
 
-        return TokenPackage::from([
-            'tokenInfo' => $tokenInfo,
-            'tokenData' => $tokenData,
-        ]);
+        return new TokenPackage(
+            tokenInfo: $tokenInfo,
+            tokenData: $tokenData,
+        );
     }
 }

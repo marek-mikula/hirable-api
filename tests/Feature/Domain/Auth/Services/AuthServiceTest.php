@@ -22,11 +22,11 @@ it('tests login method - not existing user', function (): void {
     /** @var AuthService $service */
     $service = app(AuthService::class);
 
-    $data = LoginData::from([
-        'email' => 'admin@example.com',
-        'password' => 'test',
-        'rememberMe' => false,
-    ]);
+    $data = new LoginData(
+        email: 'admin@example.com',
+        password: 'test',
+        rememberMe: false,
+    );
 
     assertHttpException(function () use ($service, $data): void {
         $service->login($data);
@@ -42,11 +42,11 @@ it('tests login method - invalid password', function (): void {
 
     $user = User::factory()->ofPassword($password)->create();
 
-    $data = LoginData::from([
-        'email' => $user->email,
-        'password' => 'lmao',
-        'rememberMe' => false,
-    ]);
+    $data = new LoginData(
+        email: $user->email,
+        password: 'lmao',
+        rememberMe: false,
+    );
 
     assertHttpException(function () use ($service, $data): void {
         $service->login($data);
@@ -65,11 +65,11 @@ it('tests login method - not verified email', function (): void {
         ->ofPassword($password)
         ->create();
 
-    $data = LoginData::from([
-        'email' => $user->email,
-        'password' => $password,
-        'rememberMe' => false,
-    ]);
+    $data = new LoginData(
+        email: $user->email,
+        password: $password,
+        rememberMe: false,
+    );
 
     assertHttpException(function () use ($service, $data): void {
         $service->login($data);
@@ -87,11 +87,11 @@ it('tests login method - successful login', function (): void {
 
     $user = User::factory()->ofPassword($password)->create();
 
-    $data = LoginData::from([
-        'email' => $user->email,
-        'password' => $password,
-        'rememberMe' => false,
-    ]);
+    $data = new LoginData(
+        email: $user->email,
+        password: $password,
+        rememberMe: false,
+    );
 
     assertTrue($user->is($service->login($data)));
 

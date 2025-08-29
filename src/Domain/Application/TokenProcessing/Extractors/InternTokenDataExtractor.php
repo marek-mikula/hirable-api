@@ -24,8 +24,8 @@ class InternTokenDataExtractor implements TokenDataExtractor
 
         throw_if(empty($position), new UnableExtractTokenDataException($token->token));
 
-        return TokenData::from([
-            'position' => $position,
-        ]);
+        return new TokenData(
+            position: $position
+        );
     }
 }

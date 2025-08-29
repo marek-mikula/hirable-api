@@ -44,10 +44,10 @@ class AuthLoginRequest extends Request
 
     public function toData(): LoginData
     {
-        return once(fn () => LoginData::from([
-            'email' => (string) $this->input('email'),
-            'password' => (string) $this->input('password'),
-            'rememberMe' => $this->boolean('rememberMe'),
-        ]));
+        return new LoginData(
+            email: (string) $this->input('email'),
+            password: (string) $this->input('password'),
+            rememberMe: $this->boolean('rememberMe'),
+        );
     }
 }

@@ -33,10 +33,10 @@ class TokenParserService
 
         throw_if(empty($rawToken), new UnableExtractTokenInfoException($token));
 
-        return TokenInfo::from([
-            'source' => $source,
-            'token' => $token,
-            'rawToken' => $rawToken,
-        ]);
+        return new TokenInfo(
+            source: $source,
+            token: $token,
+            rawToken: $rawToken,
+        );
     }
 }

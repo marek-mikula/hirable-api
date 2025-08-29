@@ -69,7 +69,7 @@ class PositionCandidate extends Model
 
     protected function isScoreCalculated(): Attribute
     {
-        return Attribute::get(fn(): bool => $this->total_score !== null && ! empty($this->score));
+        return Attribute::get(fn (): bool => $this->total_score !== null && !empty($this->score));
     }
 
     public function position(): BelongsTo
