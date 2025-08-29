@@ -6,6 +6,7 @@ namespace Domain\Position\Models;
 
 use App\Casts\EnumOrValue;
 use Domain\Position\Database\Factories\PositionProcessStepFactory;
+use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\Builders\PositionProcessStepBuilder;
 use Domain\ProcessStep\Enums\StepEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -24,6 +25,7 @@ use Illuminate\Database\Query\Builder;
  * @property int $order zero-based order index
  * @property boolean $is_fixed
  * @property boolean $is_repeatable
+ * @property ActionTypeEnum|null $triggers_action
  * @property-read bool $is_custom
  * @property-read Position $position
  * @property-read Collection<PositionCandidate> $positionCandidates
@@ -48,6 +50,7 @@ class PositionProcessStep extends Model
         'order',
         'is_fixed',
         'is_repeatable',
+        'triggers_action',
     ];
 
     protected function casts(): array
@@ -56,6 +59,7 @@ class PositionProcessStep extends Model
             'step' => EnumOrValue::class . ':' . StepEnum::class,
             'is_fixed' => 'boolean',
             'is_repeatable' => 'boolean',
+            'triggers_action' => ActionTypeEnum::class,
         ];
     }
 

@@ -49,6 +49,7 @@ class PositionProcessStepStoreUseCase extends UseCase
                     order: $order + 1,
                     isFixed: false,
                     isRepeatable: $processStep->is_repeatable,
+                    triggersAction: $processStep->triggers_action,
                 )
             );
         }, attempts: 5);

@@ -26,6 +26,7 @@ class PositionProcessStepFactory extends Factory
             'order' => fake()->numberBetween(0, 20),
             'is_fixed' => false,
             'is_repeatable' => fake()->boolean,
+            'triggers_action' => null,
         ];
     }
 

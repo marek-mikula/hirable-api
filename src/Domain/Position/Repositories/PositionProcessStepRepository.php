@@ -24,6 +24,7 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         $positionProcessStep->order = $input->order;
         $positionProcessStep->is_fixed = $input->isFixed;
         $positionProcessStep->is_repeatable = $input->isRepeatable;
+        $positionProcessStep->triggers_action = $input->triggersAction;
 
         throw_if(!$positionProcessStep->save(), RepositoryException::stored(PositionProcessStep::class));
 

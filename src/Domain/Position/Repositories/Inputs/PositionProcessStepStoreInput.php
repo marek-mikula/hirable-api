@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Repositories\Inputs;
 
+use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\Position;
 use Domain\ProcessStep\Enums\StepEnum;
 
@@ -16,6 +17,7 @@ readonly class PositionProcessStepStoreInput
         public int $order,
         public bool $isFixed,
         public bool $isRepeatable,
+        public ?ActionTypeEnum $triggersAction,
     ) {
     }
 }

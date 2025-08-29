@@ -15,7 +15,7 @@ return new class () extends Migration {
             $table->foreignId('user_id');
             $table->string('name');
             $table->string('extern_name');
-            $table->string('state', 20);
+            $table->string('state');
             $table->date('approve_until')->nullable();
             $table->string('approve_message', 500)->nullable();
             $table->unsignedTinyInteger('approve_round')->nullable();

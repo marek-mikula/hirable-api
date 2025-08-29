@@ -14,7 +14,7 @@ return new class () extends Migration {
             $table->uuid();
             $table->foreignId('position_id');
             $table->string('language', 2);
-            $table->string('source', 20);
+            $table->string('source');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');

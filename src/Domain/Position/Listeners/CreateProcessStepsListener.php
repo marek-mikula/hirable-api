@@ -33,6 +33,7 @@ class CreateProcessStepsListener extends Listener
                         order: $index,
                         isFixed: $step->isFixed,
                         isRepeatable: $step->isRepeatable,
+                        triggersAction: $step->triggersAction,
                     )
                 );
             }

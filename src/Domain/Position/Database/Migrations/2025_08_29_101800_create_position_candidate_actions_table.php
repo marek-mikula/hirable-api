@@ -12,8 +12,8 @@ return new class () extends Migration {
         Schema::create('position_candidate_actions', static function (Blueprint $table): void {
             $table->id();
             $table->foreignId('position_candidate_id');
-            $table->string('type', 20);
-            $table->string('state', 20);
+            $table->string('type');
+            $table->string('state');
 
             // common attributes
             $table->timestamp('datetime_start')->nullable();

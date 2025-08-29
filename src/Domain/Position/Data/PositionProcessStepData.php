@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Data;
 
+use Domain\Position\Enums\ActionTypeEnum;
 use Domain\ProcessStep\Enums\StepEnum;
 
 readonly class PositionProcessStepData
@@ -12,6 +13,7 @@ readonly class PositionProcessStepData
         public StepEnum|string $step,
         public bool $isFixed,
         public bool $isRepeatable,
+        public ?ActionTypeEnum $triggersAction,
     ) {
     }
 }

@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Domain\Position\Services;
 
 use Domain\Position\Data\PositionProcessStepData;
+use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\Position;
+use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Models\ProcessStep;
 use Domain\ProcessStep\Repositories\ProcessStepRepositoryInterface;
 use Domain\ProcessStep\Services\ProcessStepConfigService;
+use Illuminate\Support\Arr;
 
 class PositionProcessStepService
 {
@@ -35,11 +38,15 @@ class PositionProcessStepService
 
         $stepsPlacement = $this->processStepConfigService->getStepsPlacement();
 
-        foreach ($this->processStepConfigService->getFixedSteps() as $fixedStep) {
+        foreach ($this->processStepConfigService->getFixedSteps() as $fixedStep => $attributes) {
+            $fixedStep = StepEnum::from($fixedStep);
+            $triggersAction = Arr::get($attributes, 'triggers_action');
+
             $result[] = new PositionProcessStepData(
                 step: $fixedStep,
                 isFixed: true,
                 isRepeatable: false,
+                triggersAction: !empty($triggersAction) ? ActionTypeEnum::tryFrom($triggersAction) : null,
             );
 
             if ($fixedStep !== $stepsPlacement) {
@@ -65,7 +72,7 @@ class PositionProcessStepService
 
         foreach ($this->positionConfigService->getDefaultConfigurableProcessSteps() as $configurableStep) {
             /** @var ProcessStep|null $step */
-            $step = $steps->first(fn (ProcessStep $processStep) => $processStep->step === $configurableStep);
+            $step = $steps->first(fn (ProcessStep $processStep): bool => $processStep->step === $configurableStep);
 
             if (!$step) {
                 continue;
@@ -75,6 +82,7 @@ class PositionProcessStepService
                 step: $configurableStep,
                 isFixed: false,
                 isRepeatable: $step->is_repeatable,
+                triggersAction: $step->triggers_action,
             );
         }
 

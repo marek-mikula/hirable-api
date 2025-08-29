@@ -17,6 +17,7 @@ return new class () extends Migration {
             $table->unsignedTinyInteger('order');
             $table->boolean('is_fixed');
             $table->boolean('is_repeatable');
+            $table->string('triggers_action')->nullable();
 
             $table->foreign('position_id', 'position_process_steps_position_foreign')
                 ->references('id')
