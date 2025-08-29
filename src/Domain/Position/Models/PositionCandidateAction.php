@@ -9,6 +9,8 @@ use Domain\Position\Database\Factories\PositionCandidateActionFactory;
 use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\Builders\PositionCandidateActionBuilder;
+use Domain\Position\Models\Casts\OfferCast;
+use Domain\Position\Models\Data\OfferData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,11 +27,13 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $address
  * @property string|null $instructions
  * @property string|null $result
+ * @property string|null $name
  * @property string|null $interview_form
  * @property string|null $interview_type
  * @property string|null $rejection_reason
  * @property string|null $refusal_reason
  * @property string|null $test_type
+ * @property OfferData|null $offer
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read PositionCandidate $positionCandidate
@@ -55,11 +59,13 @@ class PositionCandidateAction extends Model
         'address',
         'instructions',
         'result',
+        'name',
         'interview_form',
         'interview_type',
         'rejection_reason',
         'refusal_reason',
         'test_type',
+        'offer',
     ];
 
     protected function casts(): array
@@ -67,6 +73,7 @@ class PositionCandidateAction extends Model
         return [
             'type' => ActionTypeEnum::class,
             'state' => ActionStateEnum::class,
+            'offer' => OfferCast::class,
         ];
     }
 

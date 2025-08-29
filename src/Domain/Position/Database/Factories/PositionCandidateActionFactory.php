@@ -30,11 +30,13 @@ class PositionCandidateActionFactory extends Factory
             'address' => fake()->address,
             'instructions' => null,
             'result' => null,
+            'name' => null,
             'interview_form' => 'personal',
             'interview_type' => 'technical',
             'rejection_reason' => null,
             'refusal_reason' => null,
             'test_type' => null,
+            'offer' => null,
         ];
     }
 
