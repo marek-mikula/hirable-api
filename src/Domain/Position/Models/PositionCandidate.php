@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder;
 
 /**
@@ -33,6 +34,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read Application $application
  * @property-read PositionProcessStep $step
  * @property-read Collection<PositionCandidateAction> $actions
+ * @property-read PositionCandidateAction|null $latestAction
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
  * @method static PositionCandidateBuilder query()
@@ -115,6 +117,15 @@ class PositionCandidate extends Model
             foreignKey: 'position_candidate_id',
             localKey: 'id',
         );
+    }
+
+    public function latestAction(): HasOne
+    {
+        return $this->hasMany(
+            related: PositionCandidateAction::class,
+            foreignKey: 'position_candidate_id',
+            localKey: 'id',
+        )->latest('id')->one();
     }
 
     /**
