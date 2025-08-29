@@ -6,6 +6,6 @@ namespace App\Actions;
 
 use Lorisleiva\Actions\Action as BaseAction;
 
-class Action extends BaseAction
+abstract class Action extends BaseAction
 {
 }
