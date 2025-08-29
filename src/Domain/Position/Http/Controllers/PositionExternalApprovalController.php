@@ -9,7 +9,7 @@ use App\Http\Controllers\ApiController;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Http\Request\PositionExternalApprovalDecideRequest;
 use Domain\Position\Http\Request\PositionExternalApprovalShowRequest;
-use Domain\Position\Http\Resources\PositionResource;
+use Domain\Position\Http\Resources\PositionShowResource;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\Position\UseCases\PositionApprovalDecideUseCase;
@@ -41,7 +41,7 @@ class PositionExternalApprovalController extends ApiController
         $approval->position->setRelation('approvals', modelCollection(PositionApproval::class));
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'position' => new PositionResource($approval->position),
+            'position' => new PositionShowResource($approval->position),
         ]);
     }
 

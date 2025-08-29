@@ -6,13 +6,14 @@ namespace Domain\Position\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\PaginatedResourceCollection;
 use Domain\Position\Http\Request\PositionDeleteRequest;
 use Domain\Position\Http\Request\PositionIndexRequest;
 use Domain\Position\Http\Request\PositionShowRequest;
 use Domain\Position\Http\Request\PositionStoreRequest;
 use Domain\Position\Http\Request\PositionUpdateRequest;
-use Domain\Position\Http\Resources\Collections\PositionListPaginatedCollection;
-use Domain\Position\Http\Resources\PositionResource;
+use Domain\Position\Http\Resources\PositionListResource;
+use Domain\Position\Http\Resources\PositionShowResource;
 use Domain\Position\Models\Position;
 use Domain\Position\UseCases\PositionDeleteUseCase;
 use Domain\Position\UseCases\PositionIndexUseCase;
@@ -37,7 +38,7 @@ class PositionController extends ApiController
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::POSITION, $gridQuery));
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'positions' => new PositionListPaginatedCollection($positions),
+            'positions' => new PaginatedResourceCollection(PositionListResource::class, $positions),
         ]);
     }
 
@@ -58,7 +59,7 @@ class PositionController extends ApiController
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'position' => new PositionResource($position),
+            'position' => new PositionShowResource($position),
         ]);
     }
 
@@ -79,7 +80,7 @@ class PositionController extends ApiController
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'position' => new PositionResource($position),
+            'position' => new PositionShowResource($position),
         ]);
     }
 
@@ -98,7 +99,7 @@ class PositionController extends ApiController
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'position' => new PositionResource($position),
+            'position' => new PositionShowResource($position),
         ]);
     }
 

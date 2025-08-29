@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Support\Classifier\Actions\ToClassifierAction;
 use Support\Classifier\Enums\ClassifierTypeEnum;
+use Support\Classifier\Http\Resources\ClassifierResource;
 
 /**
  * @property PositionCandidateAction $resource
@@ -36,19 +37,19 @@ class PositionCandidateActionResource extends JsonResource
             'result' => $this->resource->result,
             'name' => $this->resource->name,
             'interview_form' => $this->resource->interview_form
-                ? $toClassifier->handle($this->resource->interview_form, ClassifierTypeEnum::INTERVIEW_FORM)
+                ? new ClassifierResource($toClassifier->handle($this->resource->interview_form, ClassifierTypeEnum::INTERVIEW_FORM))
                 : null,
             'interview_type' => $this->resource->interview_type
-                ? $toClassifier->handle($this->resource->interview_type, ClassifierTypeEnum::INTERVIEW_TYPE)
+                ? new ClassifierResource($toClassifier->handle($this->resource->interview_type, ClassifierTypeEnum::INTERVIEW_TYPE))
                 : null,
             'rejection_reason' => $this->resource->rejection_reason
-                ? $toClassifier->handle($this->resource->rejection_reason, ClassifierTypeEnum::REJECTION_REASON)
+                ? new ClassifierResource($toClassifier->handle($this->resource->rejection_reason, ClassifierTypeEnum::REJECTION_REASON))
                 : null,
             'refusal_reason' => $this->resource->refusal_reason
-                ? $toClassifier->handle($this->resource->refusal_reason, ClassifierTypeEnum::REFUSAL_REASON)
+                ? new ClassifierResource($toClassifier->handle($this->resource->refusal_reason, ClassifierTypeEnum::REFUSAL_REASON))
                 : null,
             'testType' => $this->resource->test_type
-                ? $toClassifier->handle($this->resource->test_type, ClassifierTypeEnum::TEST_TYPE)
+                ? new ClassifierResource($toClassifier->handle($this->resource->test_type, ClassifierTypeEnum::TEST_TYPE))
                 : null,
             'offer' => $this->resource->offer?->toArray() ?? null,
             'createdAt' => $this->resource->created_at->toIso8601String(),

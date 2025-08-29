@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Collections;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * @property LengthAwarePaginator $resource
  */
-abstract class PaginatedCollection extends ResourceCollection
+class PaginatedResourceCollection extends ResourceCollection
 {
     public function toArray(Request $request): array
     {

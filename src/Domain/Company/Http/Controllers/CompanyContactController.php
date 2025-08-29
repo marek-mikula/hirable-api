@@ -6,11 +6,11 @@ namespace Domain\Company\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\PaginatedResourceCollection;
 use Domain\Company\Http\Requests\CompanyContactDeleteRequest;
 use Domain\Company\Http\Requests\CompanyContactIndexRequest;
 use Domain\Company\Http\Requests\CompanyContactStoreRequest;
 use Domain\Company\Http\Requests\CompanyContactUpdateRequest;
-use Domain\Company\Http\Resources\Collection\CompanyContactPaginatedCollection;
 use Domain\Company\Http\Resources\CompanyContactResource;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
@@ -37,7 +37,7 @@ class CompanyContactController extends ApiController
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_CONTACT, $gridQuery));
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'contacts' => new CompanyContactPaginatedCollection($contacts),
+            'contacts' => new PaginatedResourceCollection(CompanyContactResource::class, $contacts),
         ]);
     }
 

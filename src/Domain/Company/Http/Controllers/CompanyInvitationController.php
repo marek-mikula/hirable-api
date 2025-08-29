@@ -16,7 +16,7 @@ use Domain\Company\UseCases\CompanyInvitationStoreUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
 use Support\Grid\Enums\GridEnum;
-use Support\Token\Http\Resources\Collections\TokenInvitationPaginatedCollection;
+use Support\Token\Http\Resources\Collections\TokenInvitationPaginatedResourceCollection;
 use Support\Token\Models\Token;
 
 use function Illuminate\Support\defer;
@@ -34,7 +34,7 @@ class CompanyInvitationController extends ApiController
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_INVITATION, $gridQuery));
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'invitations' => new TokenInvitationPaginatedCollection($invitations),
+            'invitations' => new TokenInvitationPaginatedResourceCollection($invitations),
         ]);
     }
 

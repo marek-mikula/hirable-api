@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Resources;
 
+use App\Http\Resources\Collections\ResourceCollection;
 use App\Http\Resources\Traits\ChecksRelations;
-use Domain\Position\Http\Resources\Collections\PositionCandidateCollection;
 use Domain\Position\Models\PositionProcessStep;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -28,7 +28,7 @@ class KanbanStepResource extends JsonResource
 
         return [
             'step' => new PositionProcessStepResource($this->resource),
-            'positionCandidates' => new PositionCandidateCollection($this->resource->positionCandidates),
+            'positionCandidates' => new ResourceCollection(PositionCandidateResource::class, $this->resource->positionCandidates),
         ];
     }
 }
