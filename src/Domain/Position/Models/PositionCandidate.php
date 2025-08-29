@@ -10,9 +10,11 @@ use Domain\Candidate\Models\Candidate;
 use Domain\Position\Database\Factories\PositionCandidateFactory;
 use Domain\Position\Models\Builders\PositionCandidateBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 
 /**
@@ -30,6 +32,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read Candidate $candidate
  * @property-read Application $application
  * @property-read PositionProcessStep $step
+ * @property-read Collection<PositionCandidateAction> $actions
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
  * @method static PositionCandidateBuilder query()
@@ -57,9 +60,12 @@ class PositionCandidate extends Model
         'score' => '{}'
     ];
 
-    protected $casts = [
-        'score' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'score' => 'array',
+        ];
+    }
 
     protected function isScoreCalculated(): Attribute
     {
@@ -99,6 +105,15 @@ class PositionCandidate extends Model
             related: PositionProcessStep::class,
             foreignKey: 'step_id',
             ownerKey: 'id',
+        );
+    }
+
+    public function actions(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionCandidateAction::class,
+            foreignKey: 'position_candidate_id',
+            localKey: 'id',
         );
     }
 

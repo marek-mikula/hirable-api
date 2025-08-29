@@ -141,29 +141,20 @@ return [
     ],
 
     ClassifierTypeEnum::INTERVIEW_TYPE->value => [
-        'phone_interview' => 'Telefonický pohovor',
-        'live_video_interview' => 'Videopohovor (živý)',
-        'pre_recorded_video_interview' => 'Videopohovor (asynchronní / nahraný)',
-        'in_person_interview' => 'Osobní pohovor',
-        'online_interview' => 'Online pohovor',
-        'group_interview' => 'Skupinový pohovor',
-        'panel_interview' => 'Panelový pohovor (více tazatelů)',
+        'screening_interview' => 'Screeningový pohovor',
         'hr_interview' => 'Pohovor s HR',
-        'manager_interview' => 'Pohovor s manažerem',
-        'executive_interview' => 'Pohovor s vedením firmy',
+        'manager_interview' => 'Pohovor s přímým nadřízeným',
+        'competency_interview' => 'Kompetenční / behaviorální pohovor',
         'technical_interview' => 'Technický pohovor',
-        'foreign_language_interview' => 'Pohovor v cizím jazyce',
-        'client_interview' => 'Pohovor se zákazníkem / klientem',
-        'structured_interview' => 'Strukturovaný pohovor',
-        'unstructured_interview' => 'Nestrukturovaný pohovor',
-        'behavioral_interview' => 'Behaviorální pohovor',
-        'competency_interview' => 'Kompetenční pohovor',
-        'stress_interview' => 'Stresový pohovor',
-        'case_interview' => 'Case interview (řešení případové studie)',
-        'assessment_center' => 'Assessment centrum',
-        'follow_up_interview' => 'Follow-up pohovor',
-        'final_interview' => 'Finální pohovor',
-        'other_interview' => 'Jiný typ pohovoru',
+        'final_interview' => 'Finální pohovor (s vedením / CEO)'
+    ],
+
+    ClassifierTypeEnum::INTERVIEW_FORM->value => [
+        'personal' => 'Osobní pohovor',
+        'phone' => 'Telefonický pohovor',
+        'online' => 'Online pohovor',
+        'async' => 'Asynchronní pohovor',
+        'chat' => 'Chatový pohovor',
     ],
 
     ClassifierTypeEnum::TEST_TYPE->value => [
@@ -194,7 +185,7 @@ return [
         'other_test' => 'Jiný test',
     ],
 
-    ClassifierTypeEnum::REFUSAL_TYPE->value => [
+    ClassifierTypeEnum::REFUSAL_REASON->value => [
         'accepted_other_offer' => 'Přijal jinou pracovní nabídku',
         'no_longer_available' => 'Není nadále dostupný',
         'lost_interest' => 'Ztratil zájem o pozici',
@@ -212,7 +203,7 @@ return [
         'other_reason' => 'Jiný důvod',
     ],
 
-    ClassifierTypeEnum::REJECTION_TYPE->value => [
+    ClassifierTypeEnum::REJECTION_REASON->value => [
         'lack_experience' => 'Nedostatek zkušeností',
         'insufficient_education' => 'Nedostatečné vzdělání',
         'skill_mismatch' => 'Nevyhovující dovednosti',

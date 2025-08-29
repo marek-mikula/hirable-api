@@ -37,9 +37,12 @@ class Classifier extends Model
         'value',
     ];
 
-    protected $casts = [
-        'type' => ClassifierTypeEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'type' => ClassifierTypeEnum::class,
+        ];
+    }
 
     protected function label(): Attribute
     {

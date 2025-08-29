@@ -41,10 +41,13 @@ class Setting extends Model
         'data',
     ];
 
-    protected $casts = [
-        'key' => SettingKeyEnum::class,
-        'data' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'key' => SettingKeyEnum::class,
+            'data' => 'array',
+        ];
+    }
 
     /**
      * @param  Builder  $query

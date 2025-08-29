@@ -51,11 +51,12 @@ class ModelHasPosition extends Model
         'role',
     ];
 
-    protected $attributes = [];
-
-    protected $casts = [
-        'role' => PositionRoleEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'role' => PositionRoleEnum::class,
+        ];
+    }
 
     protected function isExternal(): Attribute
     {

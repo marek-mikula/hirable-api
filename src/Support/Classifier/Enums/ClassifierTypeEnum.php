@@ -19,9 +19,10 @@ enum ClassifierTypeEnum: string
     case FIELD = 'field';
     case PHONE_PREFIX = 'phone_prefix';
     case INTERVIEW_TYPE = 'interview_type';
+    case INTERVIEW_FORM = 'interview_form';
     case TEST_TYPE = 'test_type';
-    case REFUSAL_TYPE = 'refusal_type';
-    case REJECTION_TYPE = 'rejection_type';
+    case REFUSAL_REASON = 'refusal_reason';
+    case REJECTION_REASON = 'rejection_reason';
     case SALARY_FREQUENCY = 'salary_frequency';
     case SALARY_TYPE = 'salary_type';
 }

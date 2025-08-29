@@ -57,12 +57,15 @@ class Token extends Model
         'valid_until',
     ];
 
-    protected $casts = [
-        'type' => TokenTypeEnum::class,
-        'data' => 'array',
-        'used_at' => 'datetime',
-        'valid_until' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'type' => TokenTypeEnum::class,
+            'data' => 'array',
+            'used_at' => 'datetime',
+            'valid_until' => 'datetime',
+        ];
+    }
 
     protected function link(): Attribute
     {

@@ -55,9 +55,12 @@ class CompanyContact extends Model implements HasLocalePreference
         'company_name',
     ];
 
-    protected $casts = [
-        'language' => LanguageEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'language' => LanguageEnum::class,
+        ];
+    }
 
     protected function label(): Attribute
     {

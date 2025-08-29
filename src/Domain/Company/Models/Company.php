@@ -54,11 +54,14 @@ class Company extends Model
 
     protected $attributes = [];
 
-    protected $casts = [
-        'name' => Capitalize::class,
-        'email' => Lowercase::class,
-        'ai_output_language' => LanguageEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'name' => Capitalize::class,
+            'email' => Lowercase::class,
+            'ai_output_language' => LanguageEnum::class,
+        ];
+    }
 
     public function users(): HasMany
     {

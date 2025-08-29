@@ -10,6 +10,7 @@ use Support\Classifier\Database\Seeders\ClassifierEmploymentRelationshipDatabase
 use Support\Classifier\Database\Seeders\ClassifierGenderDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierFieldDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierInterviewTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierInterviewFormDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierLanguageDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierLanguageLevelDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierPhonePrefixDatabaseSeeder;
@@ -123,15 +124,19 @@ return [
             'translate' => true,
             'seeder' => ClassifierInterviewTypeDatabaseSeeder::class,
         ],
+        ClassifierTypeEnum::INTERVIEW_FORM->value => [
+            'translate' => true,
+            'seeder' => ClassifierInterviewFormDatabaseSeeder::class,
+        ],
         ClassifierTypeEnum::TEST_TYPE->value => [
             'translate' => true,
             'seeder' => ClassifierTestTypeDatabaseSeeder::class,
         ],
-        ClassifierTypeEnum::REFUSAL_TYPE->value => [
+        ClassifierTypeEnum::REFUSAL_REASON->value => [
             'translate' => true,
             'seeder' => ClassifierRefusalTypeDatabaseSeeder::class,
         ],
-        ClassifierTypeEnum::REJECTION_TYPE->value => [
+        ClassifierTypeEnum::REJECTION_REASON->value => [
             'translate' => true,
             'seeder' => ClassifierRejectionTypeDatabaseSeeder::class,
         ],

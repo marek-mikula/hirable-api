@@ -36,6 +36,6 @@ class ClassifierRejectionTypeDatabaseSeeder extends AbstractClassifierDatabaseSe
 
     protected function getType(): ClassifierTypeEnum
     {
-        return ClassifierTypeEnum::REJECTION_TYPE;
+        return ClassifierTypeEnum::REJECTION_REASON;
     }
 }

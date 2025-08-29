@@ -141,29 +141,20 @@ return [
     ],
 
     ClassifierTypeEnum::INTERVIEW_TYPE->value => [
-        'phone_interview' => 'Phone interview',
-        'live_video_interview' => 'Live video interview',
-        'pre_recorded_video_interview' => 'Pre-recorded video interview',
-        'in_person_interview' => 'In-person interview',
-        'online_interview' => 'Online interview',
-        'group_interview' => 'Group interview',
-        'panel_interview' => 'Panel interview',
-        'hr_interview' => 'HR interview',
-        'manager_interview' => 'Manager interview',
-        'executive_interview' => 'Executive interview',
-        'technical_interview' => 'Technical interview',
-        'foreign_language_interview' => 'Foreign language interview',
-        'client_interview' => 'Client interview',
-        'structured_interview' => 'Structured interview',
-        'unstructured_interview' => 'Unstructured interview',
-        'behavioral_interview' => 'Behavioral interview',
-        'competency_interview' => 'Competency-based interview',
-        'stress_interview' => 'Stress interview',
-        'case_interview' => 'Case interview',
-        'assessment_center' => 'Assessment center',
-        'follow_up_interview' => 'Follow-up interview',
-        'final_interview' => 'Final interview',
-        'other_interview' => 'Other type of interview',
+        'screening_interview' => 'Screening Interview',
+        'hr_interview' => 'HR Interview',
+        'manager_interview' => 'Hiring Manager Interview',
+        'competency_interview' => 'Competency / Behavioral Interview',
+        'technical_interview' => 'Technical Interview',
+        'final_interview' => 'Final Interview (with leadership / CEO)'
+    ],
+
+    ClassifierTypeEnum::INTERVIEW_FORM->value => [
+        'personal' => 'Personal interview',
+        'phone' => 'Phone interview',
+        'online' => 'Online interview',
+        'async' => 'Asynchronous interview',
+        'chat' => 'Chat interview',
     ],
 
     ClassifierTypeEnum::TEST_TYPE->value => [
@@ -194,7 +185,7 @@ return [
         'other_test' => 'Other test',
     ],
 
-    ClassifierTypeEnum::REFUSAL_TYPE->value => [
+    ClassifierTypeEnum::REFUSAL_REASON->value => [
         'accepted_other_offer' => 'Accepted another job offer',
         'no_longer_available' => 'No longer available',
         'lost_interest' => 'Lost interest in the position',
@@ -212,7 +203,7 @@ return [
         'other_reason' => 'Other reason',
     ],
 
-    ClassifierTypeEnum::REJECTION_TYPE->value => [
+    ClassifierTypeEnum::REJECTION_REASON->value => [
         'lack_experience' => 'Lack of experience',
         'insufficient_education' => 'Insufficient education',
         'skill_mismatch' => 'Skill mismatch',

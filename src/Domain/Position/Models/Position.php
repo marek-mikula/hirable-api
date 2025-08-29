@@ -163,19 +163,22 @@ class Position extends Model
         'tags' => '[]',
     ];
 
-    protected $casts = [
-        'state' => PositionStateEnum::class,
-        'approve_until' => 'date',
-        'workloads' => 'array',
-        'employment_relationships' => 'array',
-        'employment_forms' => 'array',
-        'benefits' => 'array',
-        'seniority' => 'array',
-        'language_requirements' => 'array',
-        'share_salary' => 'boolean',
-        'share_contact' => 'boolean',
-        'tags' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'state' => PositionStateEnum::class,
+            'approve_until' => 'date',
+            'workloads' => 'array',
+            'employment_relationships' => 'array',
+            'employment_forms' => 'array',
+            'benefits' => 'array',
+            'seniority' => 'array',
+            'language_requirements' => 'array',
+            'share_salary' => 'boolean',
+            'share_contact' => 'boolean',
+            'tags' => 'array',
+        ];
+    }
 
     protected function commonLink(): Attribute
     {

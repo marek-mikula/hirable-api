@@ -48,9 +48,12 @@ class ActivityLog extends Model
         'data',
     ];
 
-    protected $casts = [
-        'data' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'data' => 'array',
+        ];
+    }
 
     protected function isAutomatic(): Attribute
     {

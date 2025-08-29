@@ -87,15 +87,18 @@ class Candidate extends Model implements HasLocalePreference
         'tags' => '[]',
     ];
 
-    protected $casts = [
-        'firstname' => Capitalize::class,
-        'lastname' => Capitalize::class,
-        'language' => LanguageEnum::class,
-        'gender' => GenderEnum::class,
-        'birth_date' => 'date',
-        'experience' => 'array',
-        'tags' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'firstname' => Capitalize::class,
+            'lastname' => Capitalize::class,
+            'language' => LanguageEnum::class,
+            'gender' => GenderEnum::class,
+            'birth_date' => 'date',
+            'experience' => 'array',
+            'tags' => 'array',
+        ];
+    }
 
     protected function fullName(): Attribute
     {

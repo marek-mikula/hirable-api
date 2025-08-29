@@ -54,11 +54,14 @@ class PositionApproval extends Model
         'reminded_at',
     ];
 
-    protected $casts = [
-        'state' => PositionApprovalStateEnum::class,
-        'decided_at' => 'datetime',
-        'reminded_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'state' => PositionApprovalStateEnum::class,
+            'decided_at' => 'datetime',
+            'reminded_at' => 'datetime',
+        ];
+    }
 
     public function modelHasPosition(): BelongsTo
     {

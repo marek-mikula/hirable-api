@@ -56,11 +56,14 @@ class File extends Model
         'size',
     ];
 
-    protected $casts = [
-        'type' => FileTypeEnum::class,
-        'disk' => FileDiskEnum::class,
-        'extension' => Lowercase::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'type' => FileTypeEnum::class,
+            'disk' => FileDiskEnum::class,
+            'extension' => Lowercase::class,
+        ];
+    }
 
     protected function realPath(): Attribute
     {

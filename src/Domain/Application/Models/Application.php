@@ -64,10 +64,13 @@ class Application extends Model implements HasLocalePreference
         'linkedin',
     ];
 
-    protected $casts = [
-        'language' => LanguageEnum::class,
-        'source' => SourceEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'language' => LanguageEnum::class,
+            'source' => SourceEnum::class,
+        ];
+    }
 
     protected function fullName(): Attribute
     {

@@ -42,10 +42,13 @@ class ProcessStep extends Model
         'is_repeatable',
     ];
 
-    protected $casts = [
-        'step' => EnumOrValue::class . ':' . StepEnum::class,
-        'is_repeatable' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'step' => EnumOrValue::class . ':' . StepEnum::class,
+            'is_repeatable' => 'boolean',
+        ];
+    }
 
     public function isCustom(): Attribute
     {
