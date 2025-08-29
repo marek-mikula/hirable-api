@@ -11,5 +11,6 @@ enum ActionTypeEnum: string
     case TASK = 'task';
     case ASSESSMENT_CENTER = 'assessmentCenter';
     case OFFER = 'offer';
+    case COMMUNICATION = 'communication';
     case OTHER = 'other';
 }

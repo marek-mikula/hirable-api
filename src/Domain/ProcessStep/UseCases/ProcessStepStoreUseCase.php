@@ -25,6 +25,7 @@ class ProcessStepStoreUseCase extends UseCase
             company: $user->company,
             step: $data->step,
             isRepeatable: $data->isRepeatable,
+            triggersAction: $data->triggersAction,
         );
 
         return DB::transaction(function () use ($input): ProcessStep {

@@ -133,9 +133,10 @@ return [
         'otherFiles' => 'Other files',
     ],
 
-    'processStep' => [
+    'process_step' => [
         'step' => 'Step',
-        'isRepeatable' => 'Repeatable'
+        'is_repeatable' => 'Repeatable',
+        'triggers_action' => 'Triggers action',
     ],
 
 ];

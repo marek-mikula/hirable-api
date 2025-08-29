@@ -8,5 +8,6 @@ enum ActionStateEnum: string
 {
     case CREATED = 'created';
     case SENT = 'sent';
-
+    case ACCEPTED = 'accepted';
+    case REJECTED = 'rejected';
 }

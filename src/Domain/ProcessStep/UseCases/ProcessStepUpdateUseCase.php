@@ -23,6 +23,7 @@ class ProcessStepUpdateUseCase extends UseCase
         $input = new ProcessStepUpdateInput(
             step: $data->step,
             isRepeatable: $data->isRepeatable,
+            triggersAction: $data->triggersAction,
         );
 
         return DB::transaction(function () use ($processStep, $input): ProcessStep {

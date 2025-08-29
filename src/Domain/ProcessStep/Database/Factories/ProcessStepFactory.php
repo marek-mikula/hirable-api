@@ -23,6 +23,7 @@ class ProcessStepFactory extends Factory
             'company_id' => null,
             'step' => fake()->word,
             'is_repeatable' => fake()->boolean,
+            'triggers_action' => null,
         ];
     }
 

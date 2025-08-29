@@ -6,6 +6,7 @@ namespace Domain\ProcessStep\Models;
 
 use App\Casts\EnumOrValue;
 use Domain\Company\Models\Company;
+use Domain\Position\Enums\ActionTypeEnum;
 use Domain\ProcessStep\Database\Factories\ProcessStepFactory;
 use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Models\Builders\ProcessStepBuilder;
@@ -20,6 +21,7 @@ use Illuminate\Database\Query\Builder;
  * @property int|null $company_id
  * @property StepEnum|string $step
  * @property boolean $is_repeatable
+ * @property ActionTypeEnum|null $triggers_action
  * @property-read bool $is_custom
  * @property-read Company|null $company
  *
@@ -40,6 +42,7 @@ class ProcessStep extends Model
         'company_id',
         'step',
         'is_repeatable',
+        'triggers_action',
     ];
 
     protected function casts(): array
@@ -47,6 +50,7 @@ class ProcessStep extends Model
         return [
             'step' => EnumOrValue::class . ':' . StepEnum::class,
             'is_repeatable' => 'boolean',
+            'triggers_action' => ActionTypeEnum::class,
         ];
     }
 

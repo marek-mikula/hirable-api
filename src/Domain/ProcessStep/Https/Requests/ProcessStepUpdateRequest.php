@@ -6,6 +6,7 @@ namespace Domain\ProcessStep\Https\Requests;
 
 use App\Http\Requests\AuthRequest;
 use App\Rules\Rule;
+use Domain\Position\Enums\ActionTypeEnum;
 use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Https\Requests\Data\ProcessStepData;
 use Domain\ProcessStep\Models\ProcessStep;
@@ -37,22 +38,29 @@ class ProcessStepUpdateRequest extends AuthRequest
             'isRepeatable' => [
                 'boolean',
             ],
+            'triggersAction' => [
+                'nullable',
+                'string',
+                Rule::enum(ActionTypeEnum::class),
+            ],
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'step' => __('model.processStep.step'),
-            'isRepeatable' => __('model.processStep.isRepeatable'),
+            'step' => __('model.process_step.step'),
+            'isRepeatable' => __('model.process_step.is_repeatable'),
+            'triggersAction' => __('model.process_step.triggers_action'),
         ];
     }
 
     public function toData(): ProcessStepData
     {
-        return ProcessStepData::from([
-            'step' => (string) $this->input('step'),
-            'isRepeatable' => $this->boolean('isRepeatable'),
-        ]);
+        return new ProcessStepData(
+            step: (string) $this->input('step'),
+            isRepeatable: $this->boolean('isRepeatable'),
+            triggersAction: $this->filled('triggersAction') ? $this->enum('triggersAction', ActionTypeEnum::class) : null,
+        );
     }
 }

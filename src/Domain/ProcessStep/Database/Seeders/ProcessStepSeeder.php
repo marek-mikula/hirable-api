@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\ProcessStep\Database\Seeders;
 
+use Domain\Position\Enums\ActionTypeEnum;
 use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Models\ProcessStep;
 use Illuminate\Database\Seeder;
@@ -13,12 +14,22 @@ class ProcessStepSeeder extends Seeder
     public function run(): void
     {
         $steps = [
-            StepEnum::INTERVIEW->value => ['is_repeatable' => true],
-            StepEnum::TEST->value => ['is_repeatable' => true],
-            StepEnum::TASK->value => ['is_repeatable' => true],
-            StepEnum::ASSESSMENT_CENTER->value => ['is_repeatable' => true],
-            StepEnum::BACKGROUND_CHECK->value => ['is_repeatable' => true],
-            StepEnum::REFERENCE_CHECK->value => ['is_repeatable' => true],
+            StepEnum::INTERVIEW->value => [
+                'is_repeatable' => true,
+                'triggers_action' => ActionTypeEnum::INTERVIEW,
+            ],
+            StepEnum::TEST->value => [
+                'is_repeatable' => true,
+                'triggers_action' => ActionTypeEnum::TEST,
+            ],
+            StepEnum::TASK->value => [
+                'is_repeatable' => true,
+                'triggers_action' => ActionTypeEnum::TASK,
+            ],
+            StepEnum::ASSESSMENT_CENTER->value => [
+                'is_repeatable' => true,
+                'triggers_action' => ActionTypeEnum::ASSESSMENT_CENTER,
+            ],
         ];
 
         foreach ($steps as $step => $attributes) {

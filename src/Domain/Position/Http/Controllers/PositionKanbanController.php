@@ -24,6 +24,7 @@ class PositionKanbanController extends ApiController
         $positionProcessSteps = $this->positionProcessStepRepository->getByPosition($position, [
             'positionCandidates',
             'positionCandidates.candidate',
+            'positionCandidates.latestAction',
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [

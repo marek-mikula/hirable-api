@@ -51,8 +51,8 @@ class PositionCandidateActionResource extends JsonResource
                 ? $toClassifier->handle($this->resource->test_type, ClassifierTypeEnum::TEST_TYPE)
                 : null,
             'offer' => $this->resource->offer?->toArray() ?? null,
-            'createdAt' => $this->resource->created_at,
-            'updatedAt' => $this->resource->updated_at,
+            'createdAt' => $this->resource->created_at->toIso8601String(),
+            'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];
     }
 }

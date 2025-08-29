@@ -132,9 +132,10 @@ return [
         'otherFiles' => 'Ostatní soubory',
     ],
 
-    'processStep' => [
+    'process_step' => [
         'step' => 'Krok',
-        'isRepeatable' => 'Opakovatelný'
+        'is_repeatable' => 'Opakovatelný',
+        'triggers_action' => 'Spouští akci',
     ],
 
 ];

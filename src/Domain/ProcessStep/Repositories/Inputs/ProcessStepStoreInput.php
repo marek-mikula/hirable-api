@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\ProcessStep\Repositories\Inputs;
 
 use Domain\Company\Models\Company;
+use Domain\Position\Enums\ActionTypeEnum;
 
 readonly class ProcessStepStoreInput
 {
@@ -12,6 +13,7 @@ readonly class ProcessStepStoreInput
         public Company $company,
         public string $step,
         public bool $isRepeatable,
+        public ?ActionTypeEnum $triggersAction,
     ) {
     }
 }

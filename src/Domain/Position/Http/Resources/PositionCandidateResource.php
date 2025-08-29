@@ -24,7 +24,10 @@ class PositionCandidateResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations('candidate');
+        $this->checkLoadedRelations([
+            'candidate',
+            'latestAction',
+        ]);
 
         return [
             'id' => $this->resource->id,
@@ -32,6 +35,7 @@ class PositionCandidateResource extends JsonResource
             'totalScore' => $this->resource->total_score,
             'isScoreCalculated' => $this->resource->is_score_calculated,
             'candidate' => new CandidateSimpleResource($this->resource->candidate),
+            'latestAction' => $this->resource->latestAction ? new PositionCandidateActionResource($this->resource->latestAction) : null,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];

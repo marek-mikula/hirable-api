@@ -29,7 +29,7 @@ class PositionCandidateSetStepController extends ApiController
 
         $positionCandidate = PositionCandidateSetStepUseCase::make()->handle($position, $positionCandidate, $positionProcessStep);
 
-        $positionCandidate->loadMissing('candidate');
+        $positionCandidate->loadMissing(['candidate', 'latestAction']);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'positionCandidate' => new PositionCandidateResource($positionCandidate),

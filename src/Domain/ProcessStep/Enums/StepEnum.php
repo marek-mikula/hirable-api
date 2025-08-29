@@ -18,6 +18,4 @@ enum StepEnum: string
     case TEST = 'test';
     case TASK = 'task';
     case ASSESSMENT_CENTER = 'assessmentCenter';
-    case BACKGROUND_CHECK = 'backgroundCheck';
-    case REFERENCE_CHECK = 'referenceCheck';
 }
