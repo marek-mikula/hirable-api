@@ -26,8 +26,8 @@ class PositionCandidateActionResource extends JsonResource
 
         return [
             'id' => $this->resource->id,
-            'type' => $this->resource->type->value,
-            'state' => $this->resource->state->value,
+            'type' => $this->resource->type,
+            'state' => $this->resource->state,
             'datetime_start' => $this->resource->datetime_start?->toIso8601String(),
             'datetime_end' => $this->resource->datetime_end?->toIso8601String(),
             'note' => $this->resource->note,

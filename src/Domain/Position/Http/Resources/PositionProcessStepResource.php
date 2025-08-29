@@ -22,14 +22,13 @@ class PositionProcessStepResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'step' => is_string($this->resource->step)
-                ? $this->resource->step
-                : $this->resource->step->value,
+            'step' => $this->resource->step,
             'label' => $this->resource->label,
             'order' => $this->resource->order,
             'isCustom' => $this->resource->is_custom,
             'isFixed' => $this->resource->is_fixed,
             'isRepeatable' => $this->resource->is_repeatable,
+            'triggersAction' => $this->resource->triggers_action,
         ];
     }
 }

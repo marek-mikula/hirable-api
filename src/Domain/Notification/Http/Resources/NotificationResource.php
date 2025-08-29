@@ -22,7 +22,7 @@ class NotificationResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'type' => $this->resource->type->value,
+            'type' => $this->resource->type,
             'data' => $this->resource->data,
             'readAt' => $this->resource->read_at?->toIso8601String(),
             'createdAt' => $this->resource->created_at->toIso8601String(),

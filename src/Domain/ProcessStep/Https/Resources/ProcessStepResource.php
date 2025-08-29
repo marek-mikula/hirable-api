@@ -22,11 +22,9 @@ class ProcessStepResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'step' => is_string($this->resource->step)
-                ? $this->resource->step
-                : $this->resource->step->value,
+            'step' => $this->resource->step,
             'isRepeatable' => $this->resource->is_repeatable,
-            'triggersAction' => $this->resource->triggers_action?->value,
+            'triggersAction' => $this->resource->triggers_action,
             'isCustom' => $this->resource->is_custom,
         ];
     }
