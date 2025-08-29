@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Collections;
 
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Resources\Json\ResourceCollection as BaseResourceCollection;
+use Illuminate\Support\Collection;
 
 /**
- * @property LengthAwarePaginator $resource
+ * @property Collection $resource
  */
 class ResourceCollection extends BaseResourceCollection
 {
@@ -17,8 +17,8 @@ class ResourceCollection extends BaseResourceCollection
      */
     public function __construct(string $collects, $resource) // @pest-ignore-type
     {
-        parent::__construct($resource);
-
         $this->collects = $collects;
+
+        parent::__construct($resource);
     }
 }
