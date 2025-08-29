@@ -83,7 +83,7 @@ class ModelHasPosition extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): ModelHasPositionBuilder
+    public function newEloquentBuilder($query): ModelHasPositionBuilder // @pest-ignore-type
     {
         return new ModelHasPositionBuilder($query);
     }

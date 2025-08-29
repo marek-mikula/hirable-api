@@ -289,7 +289,7 @@ class Position extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): PositionBuilder
+    public function newEloquentBuilder($query): PositionBuilder // @pest-ignore-type
     {
         return new PositionBuilder($query);
     }

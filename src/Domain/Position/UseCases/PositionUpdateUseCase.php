@@ -10,6 +10,7 @@ use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
+use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionUpdateData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
@@ -91,7 +92,7 @@ class PositionUpdateUseCase extends UseCase
             employmentRelationships: $data->hasKey('employmentRelationships') ? $data->employmentRelationships : $position->employment_relationships,
             employmentForms: $data->hasKey('employmentForms') ? $data->employmentForms : $position->employment_forms,
             benefits: $data->hasKey('benefits') ? $data->benefits : $position->benefits,
-            languageRequirements: $data->hasKey('languageRequirements') ? array_map(fn ($requirement) => $requirement->toArray(), $data->languageRequirements) : $position->language_requirements,
+            languageRequirements: $data->hasKey('languageRequirements') ? array_map(fn (LanguageRequirementData $requirement) => $requirement->toArray(), $data->languageRequirements) : $position->language_requirements,
             hardSkillsWeight: $data->hasKey('hardSkillsWeight') ? $data->hardSkillsWeight : $position->hard_skills_weight,
             softSkillsWeight: $data->hasKey('softSkillsWeight') ? $data->softSkillsWeight : $position->soft_skills_weight,
             languageSkillsWeight: $data->hasKey('languageSkillsWeight') ? $data->languageSkillsWeight : $position->language_skills_weight,

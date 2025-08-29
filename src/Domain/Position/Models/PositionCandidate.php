@@ -120,7 +120,7 @@ class PositionCandidate extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): PositionCandidateBuilder
+    public function newEloquentBuilder($query): PositionCandidateBuilder // @pest-ignore-type
     {
         return new PositionCandidateBuilder($query);
     }

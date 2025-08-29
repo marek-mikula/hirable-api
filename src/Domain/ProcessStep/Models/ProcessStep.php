@@ -67,7 +67,7 @@ class ProcessStep extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): ProcessStepBuilder
+    public function newEloquentBuilder($query): ProcessStepBuilder // @pest-ignore-type
     {
         return new ProcessStepBuilder($query);
     }

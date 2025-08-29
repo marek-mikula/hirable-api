@@ -82,7 +82,7 @@ class PositionCandidateAction extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): PositionCandidateActionBuilder
+    public function newEloquentBuilder($query): PositionCandidateActionBuilder // @pest-ignore-type
     {
         return new PositionCandidateActionBuilder($query);
     }

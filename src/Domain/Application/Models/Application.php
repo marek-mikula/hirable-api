@@ -89,7 +89,7 @@ class Application extends Model implements HasLocalePreference
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): ApplicationBuilder
+    public function newEloquentBuilder($query): ApplicationBuilder // @pest-ignore-type
     {
         return new ApplicationBuilder($query);
     }

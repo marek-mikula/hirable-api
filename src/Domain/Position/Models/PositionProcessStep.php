@@ -85,7 +85,7 @@ class PositionProcessStep extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): PositionProcessStepBuilder
+    public function newEloquentBuilder($query): PositionProcessStepBuilder // @pest-ignore-type
     {
         return new PositionProcessStepBuilder($query);
     }

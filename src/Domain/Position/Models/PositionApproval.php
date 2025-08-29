@@ -93,7 +93,7 @@ class PositionApproval extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): PositionApprovalBuilder
+    public function newEloquentBuilder($query): PositionApprovalBuilder // @pest-ignore-type
     {
         return new PositionApprovalBuilder($query);
     }
