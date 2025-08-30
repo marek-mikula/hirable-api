@@ -31,7 +31,6 @@ return new class () extends Migration {
             $table->string('rejection_reason')->nullable();
             $table->string('refusal_reason')->nullable();
             $table->string('test_type')->nullable();
-            $table->json('offer');
 
             $table->foreign('position_candidate_id')
                 ->references('id')

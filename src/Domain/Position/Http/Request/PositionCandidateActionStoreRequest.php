@@ -21,9 +21,9 @@ class PositionCandidateActionStoreRequest extends AuthRequest
 
     public function rules(): array
     {
-        $action = $this->enum('action', ActionTypeEnum::class);
+        $type = $this->enum('type', ActionTypeEnum::class);
 
-        $actionFields = match ($action) {
+        $actionFields = match ($type) {
             ActionTypeEnum::INTERVIEW => [
                 'date' => [
                     'required',
@@ -148,11 +148,11 @@ class PositionCandidateActionStoreRequest extends AuthRequest
 
     public function toData(): ActionData
     {
-        $action = $this->enum('action', ActionTypeEnum::class);
+        $type = $this->enum('type', ActionTypeEnum::class);
 
-        return match ($action) {
+        return match ($type) {
             ActionTypeEnum::INTERVIEW => new ActionData(
-                action: $action,
+                type: $type,
                 date: $this->date('date', 'Y-m-d'),
                 timeStart: $this->date('timeStart', 'H:i'),
                 timeEnd: $this->date('timeEnd', 'H:i'),
@@ -162,20 +162,20 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::TEST => new ActionData(
-                action: $action,
+                type: $type,
                 testType: (string) $this->input('testType'),
                 instructions: (string) $this->input('instructions'),
                 result: $this->filled('result') ? (string) $this->input('result') : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::TASK => new ActionData(
-                action: $action,
+                type: $type,
                 instructions: (string) $this->input('instructions'),
                 result: $this->filled('result') ? (string) $this->input('result') : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::ASSESSMENT_CENTER => new ActionData(
-                action: $action,
+                type: $type,
                 date: $this->date('date', 'Y-m-d'),
                 timeStart: $this->date('timeStart', 'H:i'),
                 timeEnd: $this->date('timeEnd', 'H:i'),
@@ -186,17 +186,17 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::REJECTION => new ActionData(
-                action: $action,
+                type: $type,
                 rejectionReason: (string) $this->input('rejectionReason'),
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::REFUSAL => new ActionData(
-                action: $action,
+                type: $type,
                 refusalReason: (string) $this->input('refusalReason'),
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::CUSTOM => new ActionData(
-                action: $action,
+                type: $type,
                 name: (string) $this->input('name'),
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),

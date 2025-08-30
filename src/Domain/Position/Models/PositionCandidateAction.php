@@ -10,8 +10,6 @@ use Domain\Position\Database\Factories\PositionCandidateActionFactory;
 use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\Builders\PositionCandidateActionBuilder;
-use Domain\Position\Models\Casts\OfferCast;
-use Domain\Position\Models\Data\OfferData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,7 +33,6 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $rejection_reason
  * @property string|null $refusal_reason
  * @property string|null $test_type
- * @property OfferData|null $offer
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read PositionCandidate $positionCandidate
@@ -68,7 +65,6 @@ class PositionCandidateAction extends Model
         'rejection_reason',
         'refusal_reason',
         'test_type',
-        'offer',
     ];
 
     protected function casts(): array
@@ -79,7 +75,6 @@ class PositionCandidateAction extends Model
             'date' => 'date',
             'time_start' => TimeCast::class,
             'time_end' => TimeCast::class,
-            'offer' => OfferCast::class,
         ];
     }
 

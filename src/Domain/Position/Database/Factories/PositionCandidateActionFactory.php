@@ -37,7 +37,6 @@ class PositionCandidateActionFactory extends Factory
             'rejection_reason' => null,
             'refusal_reason' => null,
             'test_type' => null,
-            'offer' => null,
         ];
     }
 

@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Http\Request\Data;
+namespace Domain\Position\Repositories\Inputs;
 
 use Carbon\Carbon;
 use Domain\Position\Enums\ActionTypeEnum;
+use Domain\Position\Models\PositionCandidate;
 
-readonly class ActionData
+readonly class PositionCandidateActionStoreInput
 {
     public function __construct(
+        public PositionCandidate $positionCandidate,
         public ActionTypeEnum $type,
         public ?Carbon $date = null,
         public ?Carbon $timeStart = null,
