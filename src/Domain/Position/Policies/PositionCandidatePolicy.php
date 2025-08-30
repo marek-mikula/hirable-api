@@ -11,7 +11,7 @@ use Domain\User\Models\User;
 
 class PositionCandidatePolicy
 {
-    public function setStep(User $user, PositionCandidate $positionCandidate, Position $position): bool
+    public function update(User $user, PositionCandidate $positionCandidate, Position $position): bool
     {
         if ($positionCandidate->position_id !== $position->id) {
             return false;

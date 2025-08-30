@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Domain\Position\Http\Controllers\PositionCancelApprovalController;
 use Domain\Position\Http\Controllers\PositionApprovalDecideController;
+use Domain\Position\Http\Controllers\PositionCandidateActionController;
 use Domain\Position\Http\Controllers\PositionCandidateSetStepController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
@@ -52,6 +53,10 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::prefix('/candidates')->as('candidates.')->group(function (): void {
             Route::prefix('/{positionCandidate}')->whereNumber('positionCandidate')->group(function (): void {
                 Route::patch('/set-step', PositionCandidateSetStepController::class)->name('set_step');
+
+                Route::prefix('/actions')->as('action.')->group(function (): void {
+                    Route::post('/', [PositionCandidateActionController::class, 'store'])->name('store');
+                });
             });
         });
 

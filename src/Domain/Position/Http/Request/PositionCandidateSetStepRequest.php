@@ -17,8 +17,8 @@ class PositionCandidateSetStepRequest extends AuthRequest
 
     public function authorize(): bool
     {
-        /** @see PositionCandidatePolicy::setStep() */
-        return $this->user()->can('setStep', [$this->route('positionCandidate'), $this->route('position')]);
+        /** @see PositionCandidatePolicy::update() */
+        return $this->user()->can('update', [$this->route('positionCandidate'), $this->route('position')]);
     }
 
     public function rules(): array
