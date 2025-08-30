@@ -7,7 +7,7 @@ namespace App\Casts;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
-class EnumOrValue implements CastsAttributes
+class EnumOrValueCast implements CastsAttributes
 {
     /**
      * @param class-string<\BackedEnum> $enumClass

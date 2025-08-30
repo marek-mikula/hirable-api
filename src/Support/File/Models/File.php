@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\File\Models;
 
-use App\Casts\Lowercase;
+use App\Casts\LowercaseCast;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -61,7 +61,7 @@ class File extends Model
         return [
             'type' => FileTypeEnum::class,
             'disk' => FileDiskEnum::class,
-            'extension' => Lowercase::class,
+            'extension' => LowercaseCast::class,
         ];
     }
 

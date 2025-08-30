@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\ProcessStep\Models;
 
-use App\Casts\EnumOrValue;
+use App\Casts\EnumOrValueCast;
 use Domain\Company\Models\Company;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\ProcessStep\Database\Factories\ProcessStepFactory;
@@ -48,7 +48,7 @@ class ProcessStep extends Model
     protected function casts(): array
     {
         return [
-            'step' => EnumOrValue::class . ':' . StepEnum::class,
+            'step' => EnumOrValueCast::class . ':' . StepEnum::class,
             'is_repeatable' => 'boolean',
             'triggers_action' => ActionTypeEnum::class,
         ];

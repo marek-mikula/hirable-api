@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Models;
 
+use App\Casts\TimeCast;
 use Carbon\Carbon;
 use Domain\Position\Database\Factories\PositionCandidateActionFactory;
 use Domain\Position\Enums\ActionStateEnum;
@@ -21,10 +22,11 @@ use Illuminate\Database\Query\Builder;
  * @property int $position_candidate_id
  * @property ActionTypeEnum $type
  * @property ActionStateEnum $state
- * @property Carbon|null $datetime_start
- * @property Carbon|null $datetime_end
+ * @property Carbon|null $date
+ * @property Carbon|null $time_start
+ * @property Carbon|null $time_end
  * @property string|null $note
- * @property string|null $address
+ * @property string|null $place
  * @property string|null $instructions
  * @property string|null $result
  * @property string|null $name
@@ -53,10 +55,11 @@ class PositionCandidateAction extends Model
         'position_candidate_id',
         'type',
         'state',
-        'datetime_start',
-        'datetime_end',
+        'date',
+        'time_start',
+        'time_end',
         'note',
-        'address',
+        'place',
         'instructions',
         'result',
         'name',
@@ -73,6 +76,9 @@ class PositionCandidateAction extends Model
         return [
             'type' => ActionTypeEnum::class,
             'state' => ActionStateEnum::class,
+            'date' => 'date',
+            'time_start' => TimeCast::class,
+            'time_end' => TimeCast::class,
             'offer' => OfferCast::class,
         ];
     }

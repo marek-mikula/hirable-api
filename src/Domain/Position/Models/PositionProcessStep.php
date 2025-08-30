@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Models;
 
-use App\Casts\EnumOrValue;
+use App\Casts\EnumOrValueCast;
 use Domain\Position\Database\Factories\PositionProcessStepFactory;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\Builders\PositionProcessStepBuilder;
@@ -56,7 +56,7 @@ class PositionProcessStep extends Model
     protected function casts(): array
     {
         return [
-            'step' => EnumOrValue::class . ':' . StepEnum::class,
+            'step' => EnumOrValueCast::class . ':' . StepEnum::class,
             'is_fixed' => 'boolean',
             'is_repeatable' => 'boolean',
             'triggers_action' => ActionTypeEnum::class,

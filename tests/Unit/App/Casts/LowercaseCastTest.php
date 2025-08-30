@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Unit\App\Casts;
 
-use App\Casts\Lowercase;
+use App\Casts\LowercaseCast;
 use Tests\Common\Models\TestModel;
 
 use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertSame;
 
 /**
- * @covers \App\Casts\Lowercase::get
- * @covers \App\Casts\Lowercase::set
+ * @covers \App\Casts\LowercaseCast::get
+ * @covers \App\Casts\LowercaseCast::set
  */
 it('correctly casts value', function (): void {
-    $cast = new Lowercase();
+    $cast = new LowercaseCast();
     $model = new TestModel();
 
     // test that value gets cast when setting the value

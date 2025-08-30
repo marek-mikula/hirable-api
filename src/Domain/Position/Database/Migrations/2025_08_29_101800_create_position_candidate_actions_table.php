@@ -16,10 +16,11 @@ return new class () extends Migration {
             $table->string('state');
 
             // common attributes
-            $table->timestamp('datetime_start')->nullable();
-            $table->timestamp('datetime_end')->nullable();
+            $table->date('date')->nullable();
+            $table->time('time_start')->nullable();
+            $table->time('time_end')->nullable();
             $table->string('note', 500)->nullable();
-            $table->string('address')->nullable();
+            $table->string('place')->nullable();
             $table->string('instructions', 500)->nullable();
             $table->string('result')->nullable();
 
