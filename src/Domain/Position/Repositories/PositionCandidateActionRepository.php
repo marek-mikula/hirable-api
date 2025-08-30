@@ -15,6 +15,7 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
     {
         $positionCandidateAction = new PositionCandidateAction();
         $positionCandidateAction->position_candidate_id = $input->positionCandidate->id;
+        $positionCandidateAction->user_id = $input->user->id;
         $positionCandidateAction->type = $input->type;
         $positionCandidateAction->state = ActionStateEnum::CREATED;
         $positionCandidateAction->date = $input->date;
@@ -34,6 +35,7 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         throw_if(!$positionCandidateAction->save(), RepositoryException::stored(PositionCandidateAction::class));
 
         $positionCandidateAction->setRelation('positionCandidate', $input->positionCandidate);
+        $positionCandidateAction->setRelation('user', $input->user);
 
         return $positionCandidateAction;
     }

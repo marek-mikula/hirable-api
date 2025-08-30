@@ -12,6 +12,7 @@ return new class () extends Migration {
         Schema::create('position_candidate_actions', static function (Blueprint $table): void {
             $table->id();
             $table->foreignId('position_candidate_id');
+            $table->foreignId('user_id');
             $table->string('type');
             $table->string('state');
 
@@ -31,11 +32,18 @@ return new class () extends Migration {
             $table->string('rejection_reason')->nullable();
             $table->string('refusal_reason')->nullable();
             $table->string('test_type')->nullable();
+            $table->timestamps();
 
-            $table->foreign('position_candidate_id')
+            $table->foreign('position_candidate_id', 'position_candidate_foreign')
                 ->references('id')
                 ->on('position_candidates')
                 ->cascadeOnDelete()
+                ->restrictOnUpdate();
+
+            $table->foreign('user_id', 'user_foreign')
+                ->references('id')
+                ->on('users')
+                ->restrictOnDelete()
                 ->restrictOnUpdate();
         });
     }

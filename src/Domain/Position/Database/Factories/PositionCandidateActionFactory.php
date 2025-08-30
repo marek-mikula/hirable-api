@@ -9,6 +9,7 @@ use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
@@ -22,6 +23,7 @@ class PositionCandidateActionFactory extends Factory
     {
         return [
             'position_candidate_id' => PositionCandidate::factory(),
+            'user_id' => User::factory(),
             'type' => ActionTypeEnum::INTERVIEW,
             'state' => ActionStateEnum::CREATED,
             'date' => now(),

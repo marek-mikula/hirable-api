@@ -10,6 +10,7 @@ use Domain\Position\Database\Factories\PositionCandidateActionFactory;
 use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\Builders\PositionCandidateActionBuilder;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ use Illuminate\Database\Query\Builder;
 /**
  * @property-read int $id
  * @property int $position_candidate_id
+ * @property int $user_id
  * @property ActionTypeEnum $type
  * @property ActionStateEnum $state
  * @property Carbon|null $date
@@ -36,6 +38,7 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read PositionCandidate $positionCandidate
+ * @property-read User $user
  *
  * @method static PositionCandidateActionFactory factory($count = null, $state = [])
  * @method static PositionCandidateActionBuilder query()
@@ -50,6 +53,7 @@ class PositionCandidateAction extends Model
 
     protected $fillable = [
         'position_candidate_id',
+        'user_id',
         'type',
         'state',
         'date',
@@ -83,6 +87,15 @@ class PositionCandidateAction extends Model
         return $this->belongsTo(
             related: PositionCandidate::class,
             foreignKey: 'position_candidate_id',
+            ownerKey: 'id',
+        );
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: User::class,
+            foreignKey: 'user_id',
             ownerKey: 'id',
         );
     }

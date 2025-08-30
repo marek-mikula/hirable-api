@@ -7,11 +7,13 @@ namespace Domain\Position\Repositories\Inputs;
 use Carbon\Carbon;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\PositionCandidate;
+use Domain\User\Models\User;
 
 readonly class PositionCandidateActionStoreInput
 {
     public function __construct(
         public PositionCandidate $positionCandidate,
+        public User $user,
         public ActionTypeEnum $type,
         public ?Carbon $date = null,
         public ?Carbon $timeStart = null,
