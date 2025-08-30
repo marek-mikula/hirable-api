@@ -30,23 +30,23 @@ class PositionCandidateActionResource extends JsonResource
             'type' => $this->resource->type,
             'state' => $this->resource->state,
             'date' => $this->resource->date?->toIso8601String(),
-            'time_start' => $this->resource->time_start?->toIso8601String(),
-            'time_end' => $this->resource->time_end?->toIso8601String(),
+            'timeStart' => $this->resource->time_start?->toIso8601String(),
+            'timeEnd' => $this->resource->time_end?->toIso8601String(),
             'note' => $this->resource->note,
             'place' => $this->resource->place,
             'instructions' => $this->resource->instructions,
             'result' => $this->resource->result,
             'name' => $this->resource->name,
-            'interview_form' => $this->resource->interview_form
+            'interviewForm' => $this->resource->interview_form
                 ? new ClassifierResource($toClassifier->handle($this->resource->interview_form, ClassifierTypeEnum::INTERVIEW_FORM))
                 : null,
-            'interview_type' => $this->resource->interview_type
+            'interviewType' => $this->resource->interview_type
                 ? new ClassifierResource($toClassifier->handle($this->resource->interview_type, ClassifierTypeEnum::INTERVIEW_TYPE))
                 : null,
-            'rejection_reason' => $this->resource->rejection_reason
+            'rejectionReason' => $this->resource->rejection_reason
                 ? new ClassifierResource($toClassifier->handle($this->resource->rejection_reason, ClassifierTypeEnum::REJECTION_REASON))
                 : null,
-            'refusal_reason' => $this->resource->refusal_reason
+            'refusalReason' => $this->resource->refusal_reason
                 ? new ClassifierResource($toClassifier->handle($this->resource->refusal_reason, ClassifierTypeEnum::REFUSAL_REASON))
                 : null,
             'testType' => $this->resource->test_type
