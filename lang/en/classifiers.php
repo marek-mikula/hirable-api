@@ -141,20 +141,20 @@ return [
     ],
 
     ClassifierTypeEnum::INTERVIEW_TYPE->value => [
-        'screening_interview' => 'Screening Interview',
-        'hr_interview' => 'HR Interview',
-        'manager_interview' => 'Hiring Manager Interview',
-        'competency_interview' => 'Competency / Behavioral Interview',
-        'technical_interview' => 'Technical Interview',
-        'final_interview' => 'Final Interview (with leadership / CEO)'
+        'screening_interview' => 'Screening',
+        'hr_interview' => 'HR',
+        'manager_interview' => 'Hiring Manager',
+        'competency_interview' => 'Competency/Behaviour',
+        'technical_interview' => 'Technical',
+        'final_interview' => 'With leadership/CEO'
     ],
 
     ClassifierTypeEnum::INTERVIEW_FORM->value => [
-        'personal' => 'Personal interview',
-        'phone' => 'Phone interview',
-        'online' => 'Online interview',
-        'async' => 'Asynchronous interview',
-        'chat' => 'Chat interview',
+        'personal' => 'Personal',
+        'phone' => 'Phone',
+        'online' => 'Online',
+        'async' => 'Asynchronous',
+        'chat' => 'Chat',
     ],
 
     ClassifierTypeEnum::TEST_TYPE->value => [

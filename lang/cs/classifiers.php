@@ -141,20 +141,20 @@ return [
     ],
 
     ClassifierTypeEnum::INTERVIEW_TYPE->value => [
-        'screening_interview' => 'Screeningový pohovor',
-        'hr_interview' => 'Pohovor s HR',
-        'manager_interview' => 'Pohovor s přímým nadřízeným',
-        'competency_interview' => 'Kompetenční / behaviorální pohovor',
-        'technical_interview' => 'Technický pohovor',
-        'final_interview' => 'Finální pohovor (s vedením / CEO)'
+        'screening_interview' => 'Screening',
+        'hr_interview' => 'S HR',
+        'manager_interview' => 'S přímým nadřízeným',
+        'competency_interview' => 'Kompetenční/Behaviorální',
+        'technical_interview' => 'Technický',
+        'final_interview' => 'S vedením/CEO'
     ],
 
     ClassifierTypeEnum::INTERVIEW_FORM->value => [
-        'personal' => 'Osobní pohovor',
-        'phone' => 'Telefonický pohovor',
-        'online' => 'Online pohovor',
-        'async' => 'Asynchronní pohovor',
-        'chat' => 'Chatový pohovor',
+        'personal' => 'Osobní',
+        'phone' => 'Telefonický',
+        'online' => 'Online',
+        'async' => 'Asynchronní',
+        'chat' => 'Chatový',
     ],
 
     ClassifierTypeEnum::TEST_TYPE->value => [
