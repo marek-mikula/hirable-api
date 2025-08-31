@@ -14,11 +14,6 @@ use Support\Token\Models\Token;
  */
 class TokenInvitationResource extends JsonResource
 {
-    public function __construct(Token $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

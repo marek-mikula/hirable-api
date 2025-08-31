@@ -14,11 +14,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class TokenDataResource extends JsonResource
 {
-    public function __construct(TokenData $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

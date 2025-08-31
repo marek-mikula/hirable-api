@@ -13,11 +13,6 @@ use Support\File\Models\File;
  */
 class FileResource extends JsonResource
 {
-    public function __construct(File $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

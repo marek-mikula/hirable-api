@@ -17,11 +17,6 @@ class KanbanStepResource extends JsonResource
 {
     use ChecksRelations;
 
-    public function __construct(PositionProcessStep $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations('positionCandidates');

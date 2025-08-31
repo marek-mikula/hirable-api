@@ -13,11 +13,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class ApplicationResource extends JsonResource
 {
-    public function __construct(Application $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

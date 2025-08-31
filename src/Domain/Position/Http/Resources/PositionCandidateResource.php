@@ -18,11 +18,6 @@ class PositionCandidateResource extends JsonResource
 {
     use ChecksRelations;
 
-    public function __construct(PositionCandidate $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations(['candidate']);
@@ -39,7 +34,7 @@ class PositionCandidateResource extends JsonResource
             'candidate' => new CandidateResource($this->resource->candidate),
             'actions' => new ResourceCollection(PositionCandidateActionResource::class, $this->whenLoaded('actions')),
             'latestAction' => new PositionCandidateActionResource($this->whenLoaded('latestAction')),
-            'actionsCount' => $this->resource->actions_count,
+            'actionsCount' => $this->whenCounted('actions'),
         ];
     }
 }

@@ -11,7 +11,6 @@ use Domain\Candidate\Http\Request\CandidateIndexRequest;
 use Domain\Candidate\Http\Request\CandidateShowRequest;
 use Domain\Candidate\Http\Request\CandidateUpdateRequest;
 use Domain\Candidate\Http\Resources\CandidateResource;
-use Domain\Candidate\Http\Resources\CandidateShowResource;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\UseCases\CandidateIndexUseCase;
 use Domain\Candidate\UseCases\CandidateUpdateUseCase;
@@ -43,7 +42,7 @@ class CandidateController extends ApiController
         $candidate->loadMissing('files');
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'candidate' => new CandidateShowResource($candidate),
+            'candidate' => new CandidateResource($candidate),
         ]);
     }
 
@@ -54,7 +53,7 @@ class CandidateController extends ApiController
         $candidate->loadMissing('files');
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'candidate' => new CandidateShowResource($candidate),
+            'candidate' => new CandidateResource($candidate),
         ]);
     }
 }

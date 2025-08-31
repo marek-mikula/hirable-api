@@ -16,11 +16,6 @@ use Support\Classifier\Http\Resources\ClassifierResource;
  */
 class PositionSalaryResource extends JsonResource
 {
-    public function __construct(Position $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         $toClassifier = ToClassifierAction::make();

@@ -13,11 +13,6 @@ use Support\Grid\Data\Definition\GridColumnDefinition;
  */
 class GridColumnResource extends JsonResource
 {
-    public function __construct(GridColumnDefinition $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

@@ -16,11 +16,6 @@ class AuthUserResource extends JsonResource
 {
     use ChecksRelations;
 
-    public function __construct(User $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations('company');

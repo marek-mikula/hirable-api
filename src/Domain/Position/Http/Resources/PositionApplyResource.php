@@ -21,11 +21,6 @@ class PositionApplyResource extends JsonResource
 {
     use ChecksRelations;
 
-    public function __construct(Position $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         $relationsToCheck = array_filter([

@@ -13,11 +13,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class ProcessStepResource extends JsonResource
 {
-    public function __construct(ProcessStep $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

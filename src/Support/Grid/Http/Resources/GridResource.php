@@ -14,11 +14,6 @@ use Support\Grid\Data\Definition\GridDefinition;
  */
 class GridResource extends JsonResource
 {
-    public function __construct(GridDefinition $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

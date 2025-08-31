@@ -14,11 +14,6 @@ use Support\Classifier\Http\Resources\ClassifierResource;
  */
 class GeneratedPositionResource extends JsonResource
 {
-    public function __construct(array $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return array_map([$this, 'mapValue'], $this->resource);

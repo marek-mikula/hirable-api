@@ -13,11 +13,6 @@ use Support\Grid\Data\Definition\GridActionDefinition;
  */
 class GridActionResource extends JsonResource
 {
-    public function __construct(GridActionDefinition $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

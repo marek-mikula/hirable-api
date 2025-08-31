@@ -13,11 +13,6 @@ use Support\Grid\Data\Query\GridQuery;
  */
 class GridQueryResource extends JsonResource
 {
-    public function __construct(GridQuery $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

@@ -14,11 +14,6 @@ use Support\Classifier\Models\Classifier;
  */
 class ClassifierResource extends JsonResource
 {
-    public function __construct(Classifier|ClassifierData $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

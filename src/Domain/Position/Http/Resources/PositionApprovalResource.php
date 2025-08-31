@@ -18,11 +18,6 @@ class PositionApprovalResource extends JsonResource
 {
     use ChecksRelations;
 
-    public function __construct(PositionApproval $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations('modelHasPosition');

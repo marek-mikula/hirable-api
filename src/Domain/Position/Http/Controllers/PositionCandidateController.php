@@ -16,7 +16,11 @@ class PositionCandidateController extends ApiController
 {
     public function show(PositionCandidateShowRequest $request, Position $position, PositionCandidate $positionCandidate): JsonResponse
     {
-        $positionCandidate->loadMissing(['candidate', 'actions']);
+        $positionCandidate->loadMissing([
+            'candidate',
+            'candidate.files',
+            'actions',
+        ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'positionCandidate' => new PositionCandidateResource($positionCandidate),
