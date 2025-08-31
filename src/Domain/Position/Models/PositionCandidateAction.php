@@ -71,6 +71,10 @@ class PositionCandidateAction extends Model
         'test_type',
     ];
 
+    protected $touches = [
+        'positionCandidate', // update positionCandidate timestamps when action is performed on action
+    ];
+
     protected function casts(): array
     {
         return [

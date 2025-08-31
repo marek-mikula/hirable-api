@@ -53,7 +53,7 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         );
 
         throw_if(
-            condition: !in_array($state, $positionCandidateAction->state->getNextStatesByType($positionCandidateAction->type)),
+            condition: !in_array($state, $positionCandidateAction->state->getNextStates()),
             exception: RepositoryException::updated(PositionCandidateAction::class)
         );
 

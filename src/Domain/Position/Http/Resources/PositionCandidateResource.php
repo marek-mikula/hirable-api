@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Resources;
 
+use App\Http\Resources\Collections\ResourceCollection;
 use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Candidate\Http\Resources\CandidateResource;
 use Domain\Position\Models\PositionCandidate;
@@ -24,10 +25,7 @@ class PositionCandidateResource extends JsonResource
 
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations([
-            'candidate',
-            'latestAction',
-        ]);
+        $this->checkLoadedRelations(['candidate', 'activeActions']);
 
         return [
             'id' => $this->resource->id,
@@ -35,10 +33,11 @@ class PositionCandidateResource extends JsonResource
             'score' => $this->resource->score,
             'totalScore' => $this->resource->total_score,
             'isScoreCalculated' => $this->resource->is_score_calculated,
+            'idleDays' => $this->resource->idle_days,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
             'candidate' => new CandidateResource($this->resource->candidate),
-            'latestAction' => $this->resource->latestAction ? new PositionCandidateActionResource($this->resource->latestAction) : null,
+            'activeActions' => new ResourceCollection(PositionCandidateActionResource::class, $this->resource->activeActions),
         ];
     }
 }

@@ -22,25 +22,9 @@ enum ActionTypeEnum: string
     public function getAllowedStates(): array
     {
         return match ($this) {
-            self::INTERVIEW, self::ASSESSMENT_CENTER => [
+            self::INTERVIEW, self::ASSESSMENT_CENTER, self::TEST, self::TASK, self::OFFER => [
                 ActionStateEnum::CREATED,
                 ActionStateEnum::SENT,
-                ActionStateEnum::TOOK_PLACE,
-                ActionStateEnum::NOT_SHOWED,
-                ActionStateEnum::CANCELED,
-            ],
-            self::TEST, self::TASK => [
-                ActionStateEnum::CREATED,
-                ActionStateEnum::SENT,
-                ActionStateEnum::PASSED,
-                ActionStateEnum::FAILED,
-                ActionStateEnum::CANCELED,
-            ],
-            self::OFFER => [
-                ActionStateEnum::CREATED,
-                ActionStateEnum::SENT,
-                ActionStateEnum::ACCEPTED,
-                ActionStateEnum::REJECTED,
                 ActionStateEnum::CANCELED,
             ],
             self::COMMUNICATION, self::REJECTION, self::CUSTOM => [

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Database\Factories\PositionCandidateFactory;
+use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Models\Builders\PositionCandidateBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -29,11 +30,13 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read bool $is_score_calculated
+ * @property-read int $idle_days
  * @property-read Position $position
  * @property-read Candidate $candidate
  * @property-read Application $application
  * @property-read PositionProcessStep $step
  * @property-read Collection<PositionCandidateAction> $actions
+ * @property-read Collection<PositionCandidateAction> $activeActions
  * @property-read PositionCandidateAction|null $latestAction
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
@@ -72,6 +75,11 @@ class PositionCandidate extends Model
     protected function isScoreCalculated(): Attribute
     {
         return Attribute::get(fn (): bool => $this->total_score !== null && !empty($this->score));
+    }
+
+    protected function idleDays(): Attribute
+    {
+        return Attribute::get(fn (): int => (int) $this->updated_at->diffInDays(now()));
     }
 
     public function position(): BelongsTo
@@ -116,16 +124,20 @@ class PositionCandidate extends Model
             related: PositionCandidateAction::class,
             foreignKey: 'position_candidate_id',
             localKey: 'id',
-        );
+        )->latest('id');
+    }
+
+    public function activeActions(): HasMany
+    {
+        return $this->actions()->whereNotIn('state', [
+            ActionStateEnum::CANCELED,
+            ActionStateEnum::FINISHED,
+        ]);
     }
 
     public function latestAction(): HasOne
     {
-        return $this->hasMany(
-            related: PositionCandidateAction::class,
-            foreignKey: 'position_candidate_id',
-            localKey: 'id',
-        )->latest('id')->one();
+        return $this->actions()->one();
     }
 
     /**
