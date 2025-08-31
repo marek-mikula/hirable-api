@@ -158,10 +158,10 @@ return [
     ],
 
     ClassifierTypeEnum::TEST_TYPE->value => [
-        'language' => 'Jazykový test',
-        'expertise' => 'Technický / odborný test',
-        'psychometric' => 'Psychometrický test',
-        'skills' => 'Test dovedností',
+        'language' => 'Jazykový',
+        'expertise' => 'Technický/Odborný',
+        'psychometric' => 'Psychometrický',
+        'skills' => 'Dovednostní',
         'case_study' => 'Case study',
         'other' => 'Ostatní',
     ],

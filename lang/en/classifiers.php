@@ -158,10 +158,10 @@ return [
     ],
 
     ClassifierTypeEnum::TEST_TYPE->value => [
-        'language' => 'Language test',
-        'expertise' => 'Proficiency test',
-        'psychometric' => 'Psychometric test',
-        'skills' => 'Skills test',
+        'language' => 'Language',
+        'expertise' => 'Proficiency',
+        'psychometric' => 'Psychometric',
+        'skills' => 'Skills',
         'case_study' => 'Case study',
         'other' => 'Other',
     ],
