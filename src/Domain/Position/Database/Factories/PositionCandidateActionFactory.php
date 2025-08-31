@@ -25,7 +25,7 @@ class PositionCandidateActionFactory extends Factory
             'position_candidate_id' => PositionCandidate::factory(),
             'user_id' => User::factory(),
             'type' => ActionTypeEnum::INTERVIEW,
-            'state' => ActionStateEnum::CREATED,
+            'state' => ActionStateEnum::ACTIVE,
             'date' => now(),
             'time_start' => now()->setTime(10, 0),
             'time_end' => now()->setTime(14, 0),

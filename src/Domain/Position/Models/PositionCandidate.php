@@ -36,7 +36,6 @@ use Illuminate\Database\Query\Builder;
  * @property-read Application $application
  * @property-read PositionProcessStep $step
  * @property-read Collection<PositionCandidateAction> $actions
- * @property-read Collection<PositionCandidateAction> $activeActions
  * @property-read PositionCandidateAction|null $latestAction
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
@@ -129,10 +128,7 @@ class PositionCandidate extends Model
 
     public function activeActions(): HasMany
     {
-        return $this->actions()->whereNotIn('state', [
-            ActionStateEnum::CANCELED,
-            ActionStateEnum::FINISHED,
-        ]);
+        return $this->actions()->where('state', ActionStateEnum::ACTIVE);
     }
 
     public function latestAction(): HasOne

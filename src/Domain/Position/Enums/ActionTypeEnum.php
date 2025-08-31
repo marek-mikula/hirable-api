@@ -16,24 +16,11 @@ enum ActionTypeEnum: string
     case REFUSAL = 'refusal';
     case CUSTOM = 'custom';
 
-    /**
-     * @return ActionStateEnum[]
-     */
-    public function getAllowedStates(): array
+    public function getDefaultState(): ActionStateEnum
     {
         return match ($this) {
-            self::INTERVIEW, self::ASSESSMENT_CENTER, self::TEST, self::TASK, self::OFFER => [
-                ActionStateEnum::CREATED,
-                ActionStateEnum::SENT,
-                ActionStateEnum::CANCELED,
-            ],
-            self::COMMUNICATION, self::REJECTION, self::CUSTOM => [
-                ActionStateEnum::CREATED,
-                ActionStateEnum::SENT,
-            ],
-            self::REFUSAL => [
-                ActionStateEnum::CREATED,
-            ],
+            self::COMMUNICATION, self::REFUSAL, self::REJECTION => ActionStateEnum::FINISHED,
+            default => ActionStateEnum::ACTIVE,
         };
     }
 }

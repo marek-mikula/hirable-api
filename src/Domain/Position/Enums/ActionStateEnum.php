@@ -6,16 +6,8 @@ namespace Domain\Position\Enums;
 
 enum ActionStateEnum: string
 {
-    // action was created in the system
-    case CREATED = 'created';
-
-    // action was sent to the candidate
-    case SENT = 'sent';
-
-    // action is finished
+    case ACTIVE = 'active';
     case FINISHED = 'finished';
-
-    // user or candidate canceled the action
     case CANCELED = 'canceled';
 
     /**
@@ -24,16 +16,9 @@ enum ActionStateEnum: string
     public function getNextStates(): array
     {
         return match ($this) {
-            self::CREATED => [
-                self::SENT,
-                self::FINISHED,
-                self::CANCELED,
-            ],
-            self::SENT => [
-                self::FINISHED,
-                self::CANCELED,
-            ],
-            self::FINISHED, self::CANCELED => [],
+            self::ACTIVE => [self::FINISHED, self::CANCELED],
+            self::FINISHED => [self::CANCELED],
+            self::CANCELED => [self::FINISHED],
         };
     }
 }

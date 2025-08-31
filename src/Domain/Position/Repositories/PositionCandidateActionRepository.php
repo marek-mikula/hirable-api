@@ -17,7 +17,7 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         $positionCandidateAction->position_candidate_id = $input->positionCandidate->id;
         $positionCandidateAction->user_id = $input->user->id;
         $positionCandidateAction->type = $input->type;
-        $positionCandidateAction->state = ActionStateEnum::CREATED;
+        $positionCandidateAction->state = $input->type->getDefaultState();
         $positionCandidateAction->date = $input->date;
         $positionCandidateAction->time_start = $input->timeStart;
         $positionCandidateAction->time_end = $input->timeEnd;
@@ -44,11 +44,6 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
     {
         throw_if(
             condition: $positionCandidateAction->state === $state,
-            exception: RepositoryException::updated(PositionCandidateAction::class)
-        );
-
-        throw_if(
-            condition: !in_array($state, $positionCandidateAction->type->getAllowedStates()),
             exception: RepositoryException::updated(PositionCandidateAction::class)
         );
 

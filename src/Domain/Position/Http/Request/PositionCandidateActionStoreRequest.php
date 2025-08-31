@@ -134,7 +134,7 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'max:255',
                 ],
             ],
-            ActionTypeEnum::OFFER, ActionTypeEnum::COMMUNICATION => throw new \Exception('Todo'), // todo
+            ActionTypeEnum::OFFER, ActionTypeEnum::COMMUNICATION => [],
         };
 
         return array_merge($actionFields, [
@@ -200,7 +200,10 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 name: (string) $this->input('name'),
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
-            ActionTypeEnum::OFFER, ActionTypeEnum::COMMUNICATION => throw new \Exception('Todo'), // todo
+            ActionTypeEnum::OFFER, ActionTypeEnum::COMMUNICATION => new ActionData(
+                type: $type,
+                note: $this->filled('note') ? (string) $this->input('note') : null,
+            ),
         };
     }
 }
