@@ -38,6 +38,7 @@ class PositionCandidateActionResource extends JsonResource
             'interviewType' => $this->resource->interview_type
                 ? new ClassifierResource($toClassifier->handle($this->resource->interview_type, ClassifierTypeEnum::INTERVIEW_TYPE))
                 : null,
+            'rejectedByCandidate' => $this->resource->rejected_by_candidate,
             'rejectionReason' => $this->resource->rejection_reason
                 ? new ClassifierResource($toClassifier->handle($this->resource->rejection_reason, ClassifierTypeEnum::REJECTION_REASON))
                 : null,
