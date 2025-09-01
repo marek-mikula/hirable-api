@@ -116,13 +116,16 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 ],
             ],
             ActionTypeEnum::REJECTION => [
+                'rejectedByCandidate' => [
+                    'boolean',
+                ],
                 'rejectionReason' => [
+                    Rule::excludeIf($this->boolean('rejectedByCandidate') === true),
                     'required',
                     'string',
                 ],
-            ],
-            ActionTypeEnum::REFUSAL => [
                 'refusalReason' => [
+                    Rule::excludeIf($this->boolean('rejectedByCandidate') === false),
                     'required',
                     'string',
                 ],
@@ -187,12 +190,9 @@ class PositionCandidateActionStoreRequest extends AuthRequest
             ),
             ActionTypeEnum::REJECTION => new ActionData(
                 type: $type,
-                rejectionReason: (string) $this->input('rejectionReason'),
-                note: $this->filled('note') ? (string) $this->input('note') : null,
-            ),
-            ActionTypeEnum::REFUSAL => new ActionData(
-                type: $type,
-                refusalReason: (string) $this->input('refusalReason'),
+                rejectedByCandidate: $this->boolean('rejectedByCandidate'),
+                rejectionReason: $this->filled('rejectionReason') ? (string) $this->input('rejectionReason') : null,
+                refusalReason: $this->filled('refusalReason') ? (string) $this->input('refusalReason') : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::CUSTOM => new ActionData(

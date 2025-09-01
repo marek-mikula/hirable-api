@@ -40,9 +40,6 @@ return [
         StepEnum::REJECTED->value => [
             'triggers_action' => ActionTypeEnum::REJECTION->value,
         ],
-        StepEnum::REFUSED->value => [
-            'triggers_action' => ActionTypeEnum::REFUSAL->value,
-        ],
     ],
 
     /*

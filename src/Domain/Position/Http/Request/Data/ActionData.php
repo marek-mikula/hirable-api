@@ -20,6 +20,7 @@ readonly class ActionData
         public ?string $testType = null,
         public ?string $instructions = null,
         public ?string $result = null,
+        public ?bool $rejectedByCandidate = null,
         public ?string $rejectionReason = null,
         public ?string $refusalReason = null,
         public ?string $name = null,

@@ -21,19 +21,19 @@ return new class () extends Migration {
             $table->timestamp('reminded_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('model_has_position_id', 'model_foreign')
+            $table->foreign('model_has_position_id', 'position_approvals_model_foreign')
                 ->references('id')
                 ->on('model_has_positions')
                 ->restrictOnUpdate()
                 ->nullOnDelete();
 
-            $table->foreign('position_id', 'position_foreign')
+            $table->foreign('position_id', 'position_approvals_position_foreign')
                 ->references('id')
                 ->on('positions')
                 ->restrictOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreign('token_id', 'token_foreign')
+            $table->foreign('token_id', 'position_approvals_token_foreign')
                 ->references('id')
                 ->on('tokens')
                 ->restrictOnUpdate()

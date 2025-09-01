@@ -59,13 +59,13 @@ return new class () extends Migration {
             $table->string('referral_token')->nullable();
             $table->timestamps();
 
-            $table->foreign('company_id', 'company_foreign')
+            $table->foreign('company_id', 'positions_company_foreign')
                 ->references('id')
                 ->on('companies')
                 ->restrictOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreign('user_id', 'user_foreign')
+            $table->foreign('user_id', 'positions_user_foreign')
                 ->references('id')
                 ->on('users')
                 ->restrictOnUpdate()

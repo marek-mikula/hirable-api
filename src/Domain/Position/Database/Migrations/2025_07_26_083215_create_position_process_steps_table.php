@@ -19,7 +19,7 @@ return new class () extends Migration {
             $table->boolean('is_repeatable');
             $table->string('triggers_action')->nullable();
 
-            $table->foreign('position_id', 'position_foreign')
+            $table->foreign('position_id', 'position_process_steps_position_foreign')
                 ->references('id')
                 ->on('positions')
                 ->cascadeOnDelete()

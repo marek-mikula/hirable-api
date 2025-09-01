@@ -36,6 +36,7 @@ class PositionCandidateActionStoreUseCase extends UseCase
             testType: $data->testType,
             instructions: $data->instructions,
             result: $data->result,
+            rejectedByCandidate: $data->rejectedByCandidate,
             rejectionReason: $data->rejectionReason,
             refusalReason: $data->refusalReason,
             name: $data->name,

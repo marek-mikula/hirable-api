@@ -33,6 +33,9 @@ class InstallCommand extends Command
         // clear all laravel log files
         $this->clearLogs();
 
+        // clear queue log
+        $this->clearQueueLog();
+
         // link storage folder
         if (!$this->isStorageLinked()) {
             $this->call('storage:link');
@@ -96,6 +99,24 @@ class InstallCommand extends Command
                 unlink($log);
             });
         }
+
+        $this->newLine();
+    }
+
+    private function clearQueueLog(): void
+    {
+        $this->components->info('Clearing queue log.');
+
+        $path = base_path('queue.log');
+
+        if (!file_exists($path)) {
+            $this->components->info('Queue log does not exist.');
+            return;
+        }
+
+        $this->components->task('Clearing queue log.', function () use ($path): void {
+            file_put_contents($path, '');
+        });
 
         $this->newLine();
     }

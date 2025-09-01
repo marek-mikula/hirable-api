@@ -32,6 +32,7 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $name
  * @property string|null $interview_form
  * @property string|null $interview_type
+ * @property boolean|null $rejected_by_candidate
  * @property string|null $rejection_reason
  * @property string|null $refusal_reason
  * @property string|null $test_type
@@ -66,6 +67,7 @@ class PositionCandidateAction extends Model
         'name',
         'interview_form',
         'interview_type',
+        'rejected_by_candidate',
         'rejection_reason',
         'refusal_reason',
         'test_type',
@@ -83,6 +85,7 @@ class PositionCandidateAction extends Model
             'date' => 'date',
             'time_start' => TimeCast::class,
             'time_end' => TimeCast::class,
+            'rejected_by_candidate' => 'boolean',
         ];
     }
 

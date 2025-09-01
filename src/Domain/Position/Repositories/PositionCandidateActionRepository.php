@@ -27,6 +27,7 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         $positionCandidateAction->test_type = $input->testType;
         $positionCandidateAction->instructions = $input->instructions;
         $positionCandidateAction->result = $input->result;
+        $positionCandidateAction->rejected_by_candidate = $input->rejectedByCandidate;
         $positionCandidateAction->rejection_reason = $input->rejectionReason;
         $positionCandidateAction->refusal_reason = $input->refusalReason;
         $positionCandidateAction->name = $input->name;

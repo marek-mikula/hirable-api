@@ -13,13 +13,12 @@ enum ActionTypeEnum: string
     case OFFER = 'offer';
     case COMMUNICATION = 'communication';
     case REJECTION = 'rejection';
-    case REFUSAL = 'refusal';
     case CUSTOM = 'custom';
 
     public function getDefaultState(): ActionStateEnum
     {
         return match ($this) {
-            self::COMMUNICATION, self::REFUSAL, self::REJECTION => ActionStateEnum::FINISHED,
+            self::COMMUNICATION, self::REJECTION => ActionStateEnum::FINISHED,
             default => ActionStateEnum::ACTIVE,
         };
     }

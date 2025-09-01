@@ -29,18 +29,19 @@ return new class () extends Migration {
             $table->string('name')->nullable();
             $table->string('interview_form')->nullable();
             $table->string('interview_type')->nullable();
+            $table->boolean('rejected_by_candidate')->nullable();
             $table->string('rejection_reason')->nullable();
             $table->string('refusal_reason')->nullable();
             $table->string('test_type')->nullable();
             $table->timestamps();
 
-            $table->foreign('position_candidate_id', 'position_candidate_foreign')
+            $table->foreign('position_candidate_id', 'position_candidate_actions_position_candidate_foreign')
                 ->references('id')
                 ->on('position_candidates')
                 ->cascadeOnDelete()
                 ->restrictOnUpdate();
 
-            $table->foreign('user_id', 'user_foreign')
+            $table->foreign('user_id', 'position_candidate_actions_user_foreign')
                 ->references('id')
                 ->on('users')
                 ->restrictOnDelete()

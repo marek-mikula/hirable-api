@@ -16,7 +16,7 @@ return new class () extends Migration {
             $table->string('role');
             $table->timestamps();
 
-            $table->foreign('position_id', 'position_foreign')
+            $table->foreign('position_id', 'model_has_positions_position_foreign')
                 ->references('id')
                 ->on('positions')
                 ->restrictOnUpdate()

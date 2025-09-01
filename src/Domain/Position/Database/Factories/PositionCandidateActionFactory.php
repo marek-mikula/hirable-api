@@ -36,6 +36,7 @@ class PositionCandidateActionFactory extends Factory
             'name' => null,
             'interview_form' => 'personal',
             'interview_type' => 'technical',
+            'rejected_by_candidate' => null,
             'rejection_reason' => null,
             'refusal_reason' => null,
             'test_type' => null,

@@ -12,7 +12,7 @@ return new class () extends Migration {
         Schema::table('position_candidates', static function (Blueprint $table): void {
             $table->foreignId('step_id')->after('application_id');
 
-            $table->foreign('step_id', 'step_foreign')
+            $table->foreign('step_id', 'position_candidates_step_foreign')
                 ->references('id')
                 ->on('position_process_steps')
                 ->restrictOnDelete()
@@ -23,7 +23,7 @@ return new class () extends Migration {
     public function down(): void
     {
         Schema::table('position_candidates', static function (Blueprint $table): void {
-            $table->dropForeign('step_foreign');
+            $table->dropForeign('position_candidates_step_foreign');
             $table->dropColumn('step_id');
         });
     }
