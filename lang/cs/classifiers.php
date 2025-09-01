@@ -141,12 +141,12 @@ return [
     ],
 
     ClassifierTypeEnum::INTERVIEW_TYPE->value => [
-        'screening_interview' => 'Screening',
-        'hr_interview' => 'S HR',
-        'manager_interview' => 'S přímým nadřízeným',
-        'competency_interview' => 'Kompetenční/Behaviorální',
-        'technical_interview' => 'Technický',
-        'final_interview' => 'S vedením/CEO'
+        'screening' => 'Screening',
+        'hr' => 'S HR',
+        'manager' => 'S přímým nadřízeným',
+        'competency' => 'Kompetenční/Behaviorální',
+        'technical' => 'Technický',
+        'final' => 'S vedením/CEO'
     ],
 
     ClassifierTypeEnum::INTERVIEW_FORM->value => [

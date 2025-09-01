@@ -16,10 +16,7 @@ class PositionCandidateActionStoreRequest extends AuthRequest
     public function authorize(): bool
     {
         /** @see PositionCandidateActionPolicy::store() */
-        return $this->user()->can(
-            'store',
-            [PositionCandidateAction::class, $this->route('positionCandidate'), $this->route('position')]
-        );
+        return $this->user()->can('store', [PositionCandidateAction::class, $this->route('positionCandidate'), $this->route('position')]);
     }
 
     public function rules(): array
@@ -318,10 +315,8 @@ class PositionCandidateActionStoreRequest extends AuthRequest
             ActionTypeEnum::REJECTION => new ActionData(
                 type: $type,
                 rejectedByCandidate: $this->boolean('rejectedByCandidate'),
-                rejectionReason: !$this->boolean('rejectedByCandidate') ? (string) $this->input(
-                    'rejectionReason'
-                ) : null,
-                refusalReason: $this->boolean('rejectedByCandidate') ? (string) $this->input('refusalReason') : null,
+                rejectionReason: $this->boolean('rejectedByCandidate') === false ? (string) $this->input('rejectionReason') : null,
+                refusalReason: $this->boolean('rejectedByCandidate') === true ? (string) $this->input('refusalReason') : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
         };

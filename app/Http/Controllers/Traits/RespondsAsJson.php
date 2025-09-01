@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Traits;
 
 use App\Enums\ResponseCodeEnum;
+use App\Http\Resources\Resource;
 use Illuminate\Http\JsonResponse;
 
 trait RespondsAsJson
 {
     protected function jsonResponse(
         ResponseCodeEnum $code,
-        array|JsonResource $data = [],
+        array|Resource $data = [],
         array $headers = [],
         string $message = ''
     ): JsonResponse {

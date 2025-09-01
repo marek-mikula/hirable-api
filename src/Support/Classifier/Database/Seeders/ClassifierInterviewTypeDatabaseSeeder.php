@@ -11,12 +11,12 @@ class ClassifierInterviewTypeDatabaseSeeder extends AbstractClassifierDatabaseSe
     protected function getValues(): array
     {
         return [
-            'screening_interview',
-            'hr_interview',
-            'manager_interview',
-            'competency_interview',
-            'technical_interview',
-            'final_interview',
+            'screening',
+            'hr',
+            'manager',
+            'competency',
+            'technical',
+            'final',
         ];
     }
 
