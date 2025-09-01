@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\Position\Models;
 
-use App\Casts\TimeCast;
 use Carbon\Carbon;
 use Domain\Position\Database\Factories\PositionCandidateActionFactory;
 use Domain\Position\Enums\ActionStateEnum;
@@ -25,17 +24,33 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon|null $date
  * @property Carbon|null $time_start
  * @property Carbon|null $time_end
- * @property string|null $note
  * @property string|null $place
  * @property string|null $instructions
- * @property string|null $result
+ * @property string|null $evaluation
  * @property string|null $name
  * @property string|null $interview_form
  * @property string|null $interview_type
+ * @property boolean|null $unavailable
+ * @property boolean|null $no_show
  * @property boolean|null $rejected_by_candidate
  * @property string|null $rejection_reason
  * @property string|null $refusal_reason
  * @property string|null $test_type
+ * @property string|null $offer_job_title
+ * @property string|null $offer_company
+ * @property string[]|null $offer_employment_forms
+ * @property string|null $offer_place
+ * @property int|null $offer_salary
+ * @property string|null $offer_salary_currency
+ * @property string|null $offer_salary_frequency
+ * @property string|null $offer_workload
+ * @property string|null $offer_employment_relationship
+ * @property Carbon|null $offer_start_date
+ * @property string|null $offer_employment_duration
+ * @property Carbon|null $offer_certain_period_to
+ * @property int|null $offer_trial_period
+ * @property string|null $offer_candidate_note
+ * @property string|null $note
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read PositionCandidate $positionCandidate
@@ -60,17 +75,33 @@ class PositionCandidateAction extends Model
         'date',
         'time_start',
         'time_end',
-        'note',
         'place',
         'instructions',
-        'result',
+        'evaluation',
         'name',
         'interview_form',
         'interview_type',
+        'unavailable',
+        'no_show',
         'rejected_by_candidate',
         'rejection_reason',
         'refusal_reason',
         'test_type',
+        'offer_job_title',
+        'offer_company',
+        'offer_employment_forms',
+        'offer_place',
+        'offer_salary',
+        'offer_salary_currency',
+        'offer_salary_frequency',
+        'offer_workload',
+        'offer_employment_relationship',
+        'offer_start_date',
+        'offer_employment_duration',
+        'offer_certain_period_to',
+        'offer_trial_period',
+        'offer_candidate_note',
+        'note',
     ];
 
     protected $touches = [
@@ -82,10 +113,15 @@ class PositionCandidateAction extends Model
         return [
             'type' => ActionTypeEnum::class,
             'state' => ActionStateEnum::class,
-            'date' => 'date',
-            'time_start' => TimeCast::class,
-            'time_end' => TimeCast::class,
+            'date' => 'datetime:Y-m-d',
+            'time_start' => 'datetime:H:i:s',
+            'time_end' => 'datetime:H:i:s',
+            'unavailable' => 'boolean',
+            'no_show' => 'boolean',
             'rejected_by_candidate' => 'boolean',
+            'offer_employment_forms' => 'array',
+            'offer_start_date' => 'datetime:Y-m-d',
+            'offer_certain_period_to' => 'datetime:Y-m-d',
         ];
     }
 

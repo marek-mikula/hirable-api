@@ -167,7 +167,7 @@ class Position extends Model
     {
         return [
             'state' => PositionStateEnum::class,
-            'approve_until' => 'date',
+            'approve_until' => 'datetime:Y-m-d',
             'workloads' => 'array',
             'employment_relationships' => 'array',
             'employment_forms' => 'array',

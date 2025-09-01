@@ -15,24 +15,36 @@ return new class () extends Migration {
             $table->foreignId('user_id');
             $table->string('type');
             $table->string('state');
-
-            // common attributes
             $table->date('date')->nullable();
             $table->time('time_start')->nullable();
             $table->time('time_end')->nullable();
-            $table->string('note', 500)->nullable();
             $table->string('place')->nullable();
             $table->string('instructions', 500)->nullable();
-            $table->string('result')->nullable();
-
-            // action-specific attributes
+            $table->string('evaluation', 500)->nullable();
             $table->string('name')->nullable();
             $table->string('interview_form')->nullable();
             $table->string('interview_type')->nullable();
+            $table->boolean('unavailable')->nullable();
+            $table->boolean('no_show')->nullable();
             $table->boolean('rejected_by_candidate')->nullable();
             $table->string('rejection_reason')->nullable();
             $table->string('refusal_reason')->nullable();
             $table->string('test_type')->nullable();
+            $table->string('offer_job_title')->nullable();
+            $table->string('offer_company')->nullable();
+            $table->json('offer_employment_forms')->nullable();
+            $table->string('offer_place')->nullable();
+            $table->integer('offer_salary')->nullable();
+            $table->string('offer_salary_currency')->nullable();
+            $table->string('offer_salary_frequency')->nullable();
+            $table->string('offer_workload')->nullable();
+            $table->string('offer_employment_relationship')->nullable();
+            $table->date('offer_start_date')->nullable();
+            $table->string('offer_employment_duration')->nullable();
+            $table->date('offer_certain_period_to')->nullable();
+            $table->integer('offer_trial_period')->nullable();
+            $table->string('offer_candidate_note')->nullable();
+            $table->string('note', 500)->nullable();
             $table->timestamps();
 
             $table->foreign('position_candidate_id', 'position_candidate_actions_position_candidate_foreign')

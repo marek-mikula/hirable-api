@@ -94,7 +94,7 @@ class Candidate extends Model implements HasLocalePreference
             'lastname' => CapitalizeCast::class,
             'language' => LanguageEnum::class,
             'gender' => GenderEnum::class,
-            'birth_date' => 'date',
+            'birth_date' => 'datetime:Y-m-d',
             'experience' => 'array',
             'tags' => 'array',
         ];

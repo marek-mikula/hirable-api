@@ -29,18 +29,41 @@ class PositionCandidateActionFactory extends Factory
             'date' => now(),
             'time_start' => now()->setTime(10, 0),
             'time_end' => now()->setTime(14, 0),
-            'note' => fake()->text(500),
             'place' => fake()->address,
             'instructions' => null,
-            'result' => null,
+            'evaluation' => null,
             'name' => null,
             'interview_form' => 'personal',
             'interview_type' => 'technical',
+            'unavailable' => false,
+            'no_show' => false,
             'rejected_by_candidate' => null,
             'rejection_reason' => null,
             'refusal_reason' => null,
             'test_type' => null,
+            'offer_job_title' => null,
+            'offer_company' => null,
+            'offer_employment_forms' => null,
+            'offer_place' => null,
+            'offer_salary' => null,
+            'offer_salary_currency' => null,
+            'offer_salary_frequency' => null,
+            'offer_workload' => null,
+            'offer_employment_relationship' => null,
+            'offer_start_date' => null,
+            'offer_employment_duration' => null,
+            'offer_certain_period_to' => null,
+            'offer_trial_period' => null,
+            'offer_candidate_note' => null,
+            'note' => fake()->text(500),
         ];
+    }
+
+    public function ofUser(User $user): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'user_id' => $user->id,
+        ]);
     }
 
     public function ofPositionCandidate(PositionCandidate $positionCandidate): static
