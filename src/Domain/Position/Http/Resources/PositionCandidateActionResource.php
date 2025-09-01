@@ -43,7 +43,7 @@ class PositionCandidateActionResource extends Resource
             'offerState' => $this->resource->offer_state,
             'offerJobTitle' => $this->resource->offer_job_title,
             'offerCompany' => $this->resource->offer_company,
-            'offerEmploymentForms' => new ResourceCollection(ClassifierResource::class, $toClassifier->handle($this->resource->offer_employment_forms, ClassifierTypeEnum::EMPLOYMENT_FORM)),
+            'offerEmploymentForms' => $this->resource->offer_employment_forms !== null ? new ResourceCollection(ClassifierResource::class, $toClassifier->handle($this->resource->offer_employment_forms, ClassifierTypeEnum::EMPLOYMENT_FORM)) : null,
             'offerPlace' => $this->resource->offer_place,
             'offerSalary' => $this->resource->offer_salary,
             'offerSalaryCurrency' => $this->resource->offer_salary_currency ? new ClassifierResource($toClassifier->handle($this->resource->offer_salary_currency, ClassifierTypeEnum::CURRENCY)) : null,
