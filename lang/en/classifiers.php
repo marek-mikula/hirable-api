@@ -221,4 +221,9 @@ return [
         'net' => 'Net',
     ],
 
+    ClassifierTypeEnum::EMPLOYMENT_DURATION->value => [
+        'certain' => 'For a certain period of time',
+        'indefinite' => 'For an indefinite period of time',
+    ],
+
 ];

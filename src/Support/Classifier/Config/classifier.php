@@ -21,6 +21,7 @@ use Support\Classifier\Database\Seeders\ClassifierSalaryTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSeniorityDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierTestTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierWorkloadDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierEmploymentDurationDatabaseSeeder;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
 return [
@@ -155,6 +156,10 @@ return [
         ClassifierTypeEnum::SALARY_TYPE->value => [
             'translate' => true,
             'seeder' => ClassifierSalaryTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::EMPLOYMENT_DURATION->value => [
+            'translate' => true,
+            'seeder' => ClassifierEmploymentDurationDatabaseSeeder::class,
         ],
     ],
 

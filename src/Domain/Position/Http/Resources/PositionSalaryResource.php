@@ -6,7 +6,7 @@ namespace Domain\Position\Http\Resources;
 
 use Domain\Position\Models\Position;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\Classifier\Actions\ToClassifierAction;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Http\Resources\ClassifierResource;
@@ -14,7 +14,7 @@ use Support\Classifier\Http\Resources\ClassifierResource;
 /**
  * @property Position $resource
  */
-class PositionSalaryResource extends JsonResource
+class PositionSalaryResource extends Resource
 {
     public function toArray(Request $request): array
     {

@@ -6,12 +6,12 @@ namespace Domain\Company\Http\Resources;
 
 use Domain\Company\Models\CompanyContact;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property CompanyContact $resource
  */
-class CompanyContactResource extends JsonResource
+class CompanyContactResource extends Resource
 {
     public function toArray(Request $request): array
     {

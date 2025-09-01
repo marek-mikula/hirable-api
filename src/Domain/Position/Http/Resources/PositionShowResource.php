@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Resources;
 
 use App\Http\Resources\Collections\ResourceCollection;
-use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Company\Http\Resources\CompanyContactResource;
 use Domain\Position\Models\Position;
 use Domain\User\Http\Resources\UserResource;
@@ -17,8 +16,6 @@ use Support\File\Http\Resources\FileResource;
  */
 class PositionShowResource extends PositionResource
 {
-    use ChecksRelations;
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations([

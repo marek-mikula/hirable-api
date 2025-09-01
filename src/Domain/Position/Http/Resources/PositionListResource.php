@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Resources;
 
 use App\Http\Resources\Collections\ResourceCollection;
-use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Position\Models\Position;
 use Illuminate\Http\Request;
 
@@ -14,8 +13,6 @@ use Illuminate\Http\Request;
  */
 class PositionListResource extends PositionResource
 {
-    use ChecksRelations;
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations('approvals');

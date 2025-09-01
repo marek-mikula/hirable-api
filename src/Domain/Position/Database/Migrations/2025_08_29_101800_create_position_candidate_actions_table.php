@@ -30,6 +30,7 @@ return new class () extends Migration {
             $table->string('rejection_reason')->nullable();
             $table->string('refusal_reason')->nullable();
             $table->string('test_type')->nullable();
+            $table->string('offer_state')->nullable();
             $table->string('offer_job_title')->nullable();
             $table->string('offer_company')->nullable();
             $table->json('offer_employment_forms')->nullable();

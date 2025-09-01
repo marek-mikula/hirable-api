@@ -221,4 +221,9 @@ return [
         'net' => 'Čistá',
     ],
 
+    ClassifierTypeEnum::EMPLOYMENT_DURATION->value => [
+        'certain' => 'Na dobu určitou',
+        'indefinite' => 'Na dobu neurčitou',
+    ],
+
 ];

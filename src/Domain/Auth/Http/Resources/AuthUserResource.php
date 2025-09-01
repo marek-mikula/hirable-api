@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace Domain\Auth\Http\Resources;
 
-use App\Http\Resources\Traits\ChecksRelations;
 use Domain\User\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property User $resource
  */
-class AuthUserResource extends JsonResource
+class AuthUserResource extends Resource
 {
-    use ChecksRelations;
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations('company');

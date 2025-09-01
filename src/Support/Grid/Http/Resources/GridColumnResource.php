@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Support\Grid\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\Grid\Data\Definition\GridColumnDefinition;
 
 /**
  * @property GridColumnDefinition $resource
  */
-class GridColumnResource extends JsonResource
+class GridColumnResource extends Resource
 {
     public function toArray(Request $request): array
     {

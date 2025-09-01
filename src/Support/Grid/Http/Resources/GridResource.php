@@ -6,13 +6,13 @@ namespace Support\Grid\Http\Resources;
 
 use App\Http\Resources\Collections\ResourceCollection;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\Grid\Data\Definition\GridDefinition;
 
 /**
  * @property GridDefinition $resource
  */
-class GridResource extends JsonResource
+class GridResource extends Resource
 {
     public function toArray(Request $request): array
     {

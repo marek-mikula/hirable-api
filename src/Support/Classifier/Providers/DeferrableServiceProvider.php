@@ -6,8 +6,7 @@ namespace Support\Classifier\Providers;
 
 use Illuminate\Contracts\Support\DeferrableProvider as BaseDeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Support\Classifier\Cache\CachedClassifierRepositoryProxy;
-use Support\Classifier\Cache\ClassifierCacheKeys;
+use Support\Classifier\Repositories\ClassifierCachedRepository;
 use Support\Classifier\Repositories\ClassifierRepository;
 use Support\Classifier\Repositories\ClassifierRepositoryInterface;
 use Support\Classifier\Services\ClassifierConfigService;
@@ -18,15 +17,13 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
 {
     public function register(): void
     {
-        $this->app->singleton(ClassifierCacheKeys::class);
-
         $this->app->singleton(ClassifierSortService::class);
         $this->app->singleton(ClassifierConfigService::class);
         $this->app->singleton(ClassifierTranslateService::class);
 
         $this->app->bind(ClassifierRepositoryInterface::class, function () {
             if (ClassifierConfigService::resolve()->isCacheEnabled()) {
-                return app(CachedClassifierRepositoryProxy::class);
+                return app(ClassifierCachedRepository::class);
             }
 
             return app(ClassifierRepository::class);
@@ -36,7 +33,6 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
     public function provides(): array
     {
         return [
-            ClassifierCacheKeys::class,
             ClassifierSortService::class,
             ClassifierConfigService::class,
             ClassifierTranslateService::class,

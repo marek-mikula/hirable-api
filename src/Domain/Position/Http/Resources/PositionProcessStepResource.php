@@ -6,12 +6,12 @@ namespace Domain\Position\Http\Resources;
 
 use Domain\Position\Models\PositionProcessStep;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property PositionProcessStep $resource
  */
-class PositionProcessStepResource extends JsonResource
+class PositionProcessStepResource extends Resource
 {
     public function toArray(Request $request): array
     {

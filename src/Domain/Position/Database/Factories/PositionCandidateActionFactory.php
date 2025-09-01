@@ -41,6 +41,7 @@ class PositionCandidateActionFactory extends Factory
             'rejection_reason' => null,
             'refusal_reason' => null,
             'test_type' => null,
+            'offer_state' => null,
             'offer_job_title' => null,
             'offer_company' => null,
             'offer_employment_forms' => null,

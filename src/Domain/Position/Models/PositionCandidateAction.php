@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Domain\Position\Database\Factories\PositionCandidateActionFactory;
 use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Enums\ActionTypeEnum;
+use Domain\Position\Enums\OfferStateEnum;
 use Domain\Position\Models\Builders\PositionCandidateActionBuilder;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,6 +37,7 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $rejection_reason
  * @property string|null $refusal_reason
  * @property string|null $test_type
+ * @property OfferStateEnum|null $offer_state
  * @property string|null $offer_job_title
  * @property string|null $offer_company
  * @property string[]|null $offer_employment_forms
@@ -87,6 +89,7 @@ class PositionCandidateAction extends Model
         'rejection_reason',
         'refusal_reason',
         'test_type',
+        'offer_state',
         'offer_job_title',
         'offer_company',
         'offer_employment_forms',
@@ -119,6 +122,7 @@ class PositionCandidateAction extends Model
             'unavailable' => 'boolean',
             'no_show' => 'boolean',
             'rejected_by_candidate' => 'boolean',
+            'offer_state' => OfferStateEnum::class,
             'offer_employment_forms' => 'array',
             'offer_start_date' => 'datetime:Y-m-d',
             'offer_certain_period_to' => 'datetime:Y-m-d',

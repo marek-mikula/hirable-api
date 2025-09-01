@@ -6,12 +6,12 @@ namespace Domain\Application\Http\Resources;
 
 use Domain\Application\Models\Application;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property Application $resource
  */
-class ApplicationResource extends JsonResource
+class ApplicationResource extends Resource
 {
     public function toArray(Request $request): array
     {

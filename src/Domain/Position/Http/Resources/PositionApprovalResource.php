@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Resources;
 
-use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Company\Http\Resources\CompanyContactResource;
 use Domain\Position\Models\PositionApproval;
 use Domain\User\Http\Resources\UserResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property PositionApproval $resource
  */
-class PositionApprovalResource extends JsonResource
+class PositionApprovalResource extends Resource
 {
-    use ChecksRelations;
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations('modelHasPosition');

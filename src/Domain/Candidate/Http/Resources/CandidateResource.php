@@ -7,7 +7,7 @@ namespace Domain\Candidate\Http\Resources;
 use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Candidate\Models\Candidate;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Http\Resources\FileResource;
 use Support\File\Models\File;
@@ -15,7 +15,7 @@ use Support\File\Models\File;
 /**
  * @property Candidate $resource
  */
-class CandidateResource extends JsonResource
+class CandidateResource extends Resource
 {
     public function toArray(Request $request): array
     {

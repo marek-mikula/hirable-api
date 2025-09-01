@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Resources;
 
 use App\Http\Resources\Collections\ResourceCollection;
-use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Position\Models\Position;
 use Domain\User\Http\Resources\UserContactResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\Classifier\Actions\ToClassifierAction;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Http\Resources\ClassifierResource;
@@ -17,10 +16,8 @@ use Support\Classifier\Http\Resources\ClassifierResource;
 /**
  * @property Position $resource
  */
-class PositionApplyResource extends JsonResource
+class PositionApplyResource extends Resource
 {
-    use ChecksRelations;
-
     public function toArray(Request $request): array
     {
         $relationsToCheck = array_filter([

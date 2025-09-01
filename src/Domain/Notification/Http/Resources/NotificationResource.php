@@ -6,12 +6,12 @@ namespace Domain\Notification\Http\Resources;
 
 use Domain\Notification\Models\Notification;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property Notification $resource
  */
-class NotificationResource extends JsonResource
+class NotificationResource extends Resource
 {
     public function toArray(Request $request): array
     {

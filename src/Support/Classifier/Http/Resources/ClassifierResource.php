@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Support\Classifier\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\Classifier\Data\ClassifierData;
 use Support\Classifier\Models\Classifier;
 
 /**
  * @property Classifier|ClassifierData $resource
  */
-class ClassifierResource extends JsonResource
+class ClassifierResource extends Resource
 {
     public function toArray(Request $request): array
     {

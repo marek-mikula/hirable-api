@@ -16,7 +16,10 @@ class PositionCandidateActionStoreRequest extends AuthRequest
     public function authorize(): bool
     {
         /** @see PositionCandidateActionPolicy::store() */
-        return $this->user()->can('store', [PositionCandidateAction::class, $this->route('positionCandidate'), $this->route('position')]);
+        return $this->user()->can(
+            'store',
+            [PositionCandidateAction::class, $this->route('positionCandidate'), $this->route('position')]
+        );
     }
 
     public function rules(): array
@@ -40,6 +43,12 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'string',
                     'date_format:H:i',
                 ],
+                'place' => [
+                    Rule::excludeIf($this->input('interviewForm') !== 'personal'),
+                    'required',
+                    'string',
+                    'max:255',
+                ],
                 'interviewForm' => [
                     'required',
                     'string',
@@ -48,11 +57,13 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'required',
                     'string',
                 ],
-                'place' => [
-                    'nullable',
-                    Rule::requiredIf($this->input('interviewForm') === 'personal'),
-                    'string',
-                    'max:255',
+                'unavailable' => [
+                    Rule::excludeIf($this->input('interviewType') !== 'screening'),
+                    'boolean',
+                ],
+                'noShow' => [
+                    Rule::excludeIf($this->input('interviewType') === 'screening'),
+                    'boolean',
                 ],
             ],
             ActionTypeEnum::TEST => [
@@ -65,22 +76,32 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'string',
                     'max:500',
                 ],
-                'result' => [
+                'evaluation' => [
                     'nullable',
                     'string',
-                    'max:255',
+                    'max:500',
                 ],
             ],
             ActionTypeEnum::TASK => [
+                'date' => [
+                    'nullable',
+                    'string',
+                    'date_format:Y-m-d',
+                ],
+                'timeEnd' => [
+                    'nullable',
+                    'string',
+                    'date_format:H:i',
+                ],
                 'instructions' => [
                     'required',
                     'string',
                     'max:500',
                 ],
-                'result' => [
+                'evaluation' => [
                     'nullable',
                     'string',
-                    'max:255',
+                    'max:500',
                 ],
             ],
             ActionTypeEnum::ASSESSMENT_CENTER => [
@@ -109,10 +130,13 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'string',
                     'max:500',
                 ],
-                'result' => [
+                'noShow' => [
+                    'boolean',
+                ],
+                'evaluation' => [
                     'nullable',
                     'string',
-                    'max:255',
+                    'max:500',
                 ],
             ],
             ActionTypeEnum::REJECTION => [
@@ -137,7 +161,79 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'max:255',
                 ],
             ],
-            ActionTypeEnum::OFFER, ActionTypeEnum::COMMUNICATION => [],
+            ActionTypeEnum::OFFER => [
+                'offerJobTitle' => [
+                    'required',
+                    'string',
+                    'max:255',
+                ],
+                'offerCompany' => [
+                    'required',
+                    'string',
+                    'max:255',
+                ],
+                'offerEmploymentForms' => [
+                    'required',
+                    'array',
+                ],
+                'offerEmploymentForms.*' => [
+                    'required',
+                    'string',
+                ],
+                'offerPlace' => [
+                    Rule::excludeIf(!in_array('on_site', $this->input('offerEmploymentForms', []))),
+                    'required',
+                    'string',
+                    'max:255',
+                ],
+                'offerSalary' => [
+                    'required',
+                    'integer',
+                    'min:0',
+                ],
+                'offerSalaryCurrency' => [
+                    'required',
+                    'string',
+                ],
+                'offerSalaryFrequency' => [
+                    'required',
+                    'string',
+                ],
+                'offerWorkload' => [
+                    'required',
+                    'string',
+                ],
+                'offerEmploymentRelationship' => [
+                    'required',
+                    'string',
+                ],
+                'offerStartDate' => [
+                    'required',
+                    'string',
+                    'date_format:Y-m-d',
+                ],
+                'offerEmploymentDuration' => [
+                    'required',
+                    'string',
+                ],
+                'offerCertainPeriodTo' => [
+                    Rule::excludeIf($this->input('offerEmploymentDuration') !== 'certain'),
+                    'required',
+                    'string',
+                    'date_format:Y-m-d',
+                ],
+                'offerTrialPeriod' => [
+                    'required',
+                    'integer',
+                    'min:0',
+                ],
+                'offerCandidateNote' => [
+                    'nullable',
+                    'string',
+                    'max:500',
+                ],
+            ],
+            ActionTypeEnum::COMMUNICATION => [],
         };
 
         return array_merge($actionFields, [
@@ -159,22 +255,26 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 date: $this->date('date', 'Y-m-d'),
                 timeStart: $this->date('timeStart', 'H:i'),
                 timeEnd: $this->date('timeEnd', 'H:i'),
+                place: $this->input('interviewForm') === 'personal' ? (string) $this->input('place') : null,
                 interviewForm: (string) $this->input('interviewForm'),
                 interviewType: (string) $this->input('interviewType'),
-                place: $this->filled('place') ? (string) $this->input('place') : null,
+                unavailable: $this->input('interviewType') === 'screening' ? $this->boolean('unavailable') : null,
+                noShow: $this->input('interviewType') !== 'screening' ? $this->boolean('noShow') : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::TEST => new ActionData(
                 type: $type,
-                testType: (string) $this->input('testType'),
                 instructions: (string) $this->input('instructions'),
-                result: $this->filled('result') ? (string) $this->input('result') : null,
+                evaluation: $this->filled('evaluation') ? (string) $this->input('evaluation') : null,
+                testType: (string) $this->input('testType'),
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::TASK => new ActionData(
                 type: $type,
+                date: $this->filled('date') ? $this->date('date', 'Y-m-d') : null,
+                timeEnd: $this->filled('timeEnd') ? $this->date('timeEnd', 'H:i') : null,
                 instructions: (string) $this->input('instructions'),
-                result: $this->filled('result') ? (string) $this->input('result') : null,
+                evaluation: $this->filled('evaluation') ? (string) $this->input('evaluation') : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::ASSESSMENT_CENTER => new ActionData(
@@ -182,17 +282,14 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 date: $this->date('date', 'Y-m-d'),
                 timeStart: $this->date('timeStart', 'H:i'),
                 timeEnd: $this->date('timeEnd', 'H:i'),
-                interviewForm: (string) $this->input('interviewForm'),
-                interviewType: (string) $this->input('interviewType'),
                 place: (string) $this->input('place'),
                 instructions: (string) $this->input('instructions'),
+                evaluation: $this->filled('evaluation') ? (string) $this->input('evaluation') : null,
+                noShow: $this->boolean('noShow'),
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
-            ActionTypeEnum::REJECTION => new ActionData(
+            ActionTypeEnum::COMMUNICATION => new ActionData(
                 type: $type,
-                rejectedByCandidate: $this->boolean('rejectedByCandidate'),
-                rejectionReason: $this->filled('rejectionReason') ? (string) $this->input('rejectionReason') : null,
-                refusalReason: $this->filled('refusalReason') ? (string) $this->input('refusalReason') : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::CUSTOM => new ActionData(
@@ -200,8 +297,31 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 name: (string) $this->input('name'),
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
-            ActionTypeEnum::OFFER, ActionTypeEnum::COMMUNICATION => new ActionData(
+            ActionTypeEnum::OFFER => new ActionData(
                 type: $type,
+                offerJobTitle: (string) $this->input('offerJobTitle'),
+                offerCompany: (string) $this->input('offerCompany'),
+                offerEmploymentForms: (array) $this->input('offerEmploymentForms'),
+                offerPlace: in_array('on_site', (array) $this->input('offerEmploymentForms')) ? (string) $this->input('offerPlace') : null,
+                offerSalary: (int) $this->input('offerSalary'),
+                offerSalaryCurrency: (string) $this->input('offerSalaryCurrency'),
+                offerSalaryFrequency: (string) $this->input('offerSalaryFrequency'),
+                offerWorkload: (string) $this->input('offerWorkload'),
+                offerEmploymentRelationship: (string) $this->input('offerEmploymentRelationship'),
+                offerStartDate: $this->date('offerStartDate', 'Y-m-d'),
+                offerEmploymentDuration: (string) $this->input('offerEmploymentDuration'),
+                offerCertainPeriodTo: $this->input('offerEmploymentDuration') === 'certain' ? $this->date('offerCertainPeriodTo', 'Y-m-d') : null,
+                offerTrialPeriod: (int) $this->input('offerTrialPeriod'),
+                offerCandidateNote: $this->filled('offerCandidateNote') ? (string) $this->input('offerCandidateNote') : null,
+                note: $this->filled('note') ? (string) $this->input('note') : null,
+            ),
+            ActionTypeEnum::REJECTION => new ActionData(
+                type: $type,
+                rejectedByCandidate: $this->boolean('rejectedByCandidate'),
+                rejectionReason: !$this->boolean('rejectedByCandidate') ? (string) $this->input(
+                    'rejectionReason'
+                ) : null,
+                refusalReason: $this->boolean('rejectedByCandidate') ? (string) $this->input('refusalReason') : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
         };

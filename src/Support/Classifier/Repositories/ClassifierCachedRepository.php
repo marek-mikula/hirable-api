@@ -2,27 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Support\Classifier\Cache;
+namespace Support\Classifier\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 use Support\Classifier\Enums\ClassifierTypeEnum;
-use Support\Classifier\Repositories\ClassifierRepository;
-use Support\Classifier\Repositories\ClassifierRepositoryInterface;
 use Support\Classifier\Services\ClassifierConfigService;
 
-class CachedClassifierRepositoryProxy implements ClassifierRepositoryInterface
+class ClassifierCachedRepository implements ClassifierRepositoryInterface
 {
     public function __construct(
         private readonly ClassifierConfigService $classifierConfigService,
         private readonly ClassifierRepository $classifierRepository,
-        private readonly ClassifierCacheKeys $cacheKeys,
     ) {
     }
 
     public function getValuesForType(ClassifierTypeEnum $type): Collection
     {
-        $key = $this->cacheKeys->getTypeCollectionCacheKey($type);
+        $key = $this->getCacheKey($type);
 
         $cacheTime = now()->addSeconds($this->classifierConfigService->getCacheTime());
 
@@ -38,7 +35,7 @@ class CachedClassifierRepositoryProxy implements ClassifierRepositoryInterface
         // try to pull all values from
         // the cache
         foreach ($types as $type) {
-            $collection = Cache::driver('file')->get($this->cacheKeys->getTypeCollectionCacheKey($type));
+            $collection = Cache::driver('file')->get($this->getCacheKey($type));
 
             if (!$collection) {
                 $missingTypes[] = $type;
@@ -63,7 +60,7 @@ class CachedClassifierRepositoryProxy implements ClassifierRepositoryInterface
         foreach ($missingValues as $key => $collection) {
             $type = ClassifierTypeEnum::from($key);
 
-            $key = $this->cacheKeys->getTypeCollectionCacheKey($type);
+            $key = $this->getCacheKey($type);
 
             Cache::driver('file')->put($key, $collection, $cacheTime);
 
@@ -71,5 +68,10 @@ class CachedClassifierRepositoryProxy implements ClassifierRepositoryInterface
         }
 
         return $result;
+    }
+
+    private function getCacheKey(ClassifierTypeEnum $type): string
+    {
+        return sprintf('classifiers.%s', $type->value);
     }
 }

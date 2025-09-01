@@ -5,19 +5,16 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Resources;
 
 use App\Http\Resources\Collections\ResourceCollection;
-use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Candidate\Http\Resources\CandidateResource;
 use Domain\Position\Models\PositionCandidate;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property PositionCandidate $resource
  */
-class PositionCandidateResource extends JsonResource
+class PositionCandidateResource extends Resource
 {
-    use ChecksRelations;
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations(['candidate']);

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Support\File\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\File\Models\File;
 
 /**
  * @property File $resource
  */
-class FileResource extends JsonResource
+class FileResource extends Resource
 {
     public function toArray(Request $request): array
     {
