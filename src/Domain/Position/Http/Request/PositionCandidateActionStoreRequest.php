@@ -7,6 +7,7 @@ namespace Domain\Position\Http\Request;
 use App\Http\Requests\AuthRequest;
 use App\Rules\Rule;
 use Domain\Position\Enums\ActionTypeEnum;
+use Domain\Position\Enums\OfferStateEnum;
 use Domain\Position\Http\Request\Data\ActionData;
 use Domain\Position\Models\PositionCandidateAction;
 use Domain\Position\Policies\PositionCandidateActionPolicy;
@@ -302,6 +303,7 @@ class PositionCandidateActionStoreRequest extends AuthRequest
             ),
             ActionTypeEnum::OFFER => new ActionData(
                 type: $type,
+                offerState: OfferStateEnum::WAITING,
                 offerJobTitle: (string) $this->input('offerJobTitle'),
                 offerCompany: (string) $this->input('offerCompany'),
                 offerEmploymentForms: (array) $this->input('offerEmploymentForms'),
