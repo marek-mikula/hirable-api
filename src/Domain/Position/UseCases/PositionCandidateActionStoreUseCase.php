@@ -81,7 +81,7 @@ class PositionCandidateActionStoreUseCase extends UseCase
             throw new HttpException(responseCode: ResponseCodeEnum::NOT_SUFFICIENT_STEP);
         }
 
-        if (in_array($data->type, $this->processStepActionService->getSingleActions())) {
+        if (!in_array($data->type, $this->processStepActionService->getSingleActions())) {
             return;
         }
 
