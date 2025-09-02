@@ -21,6 +21,20 @@ class PositionProcessStepPolicy
         return $user->can('show', $position);
     }
 
+    public function show(User $user, PositionProcessStep $positionProcessStep, Position $position): bool
+    {
+        if ($position->state !== PositionStateEnum::OPENED) {
+            return false;
+        }
+
+        if ($positionProcessStep->position_id !== $position->id) {
+            return false;
+        }
+
+        /** @see PositionPolicy::show() */
+        return $user->can('show', $position);
+    }
+
     public function store(User $user, Position $position): bool
     {
         if ($position->state !== PositionStateEnum::OPENED) {

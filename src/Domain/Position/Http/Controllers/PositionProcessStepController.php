@@ -9,6 +9,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Position\Http\Request\PositionProcessStepDeleteRequest;
 use Domain\Position\Http\Request\PositionProcessStepIndexRequest;
+use Domain\Position\Http\Request\PositionProcessStepShowRequest;
 use Domain\Position\Http\Request\PositionProcessStepUpdateRequest;
 use Domain\Position\Http\Request\PositionProcessStepStoreRequest;
 use Domain\Position\Http\Resources\PositionProcessStepResource;
@@ -25,6 +26,13 @@ class PositionProcessStepController extends ApiController
     {
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'positionProcessSteps' => new ResourceCollection(PositionProcessStepResource::class, $position->steps),
+        ]);
+    }
+
+    public function show(PositionProcessStepShowRequest $request, Position $position, PositionProcessStep $positionProcessStep): JsonResponse
+    {
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'positionProcessStep' => new PositionProcessStepResource($positionProcessStep),
         ]);
     }
 
