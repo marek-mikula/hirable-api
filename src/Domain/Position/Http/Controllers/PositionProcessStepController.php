@@ -6,7 +6,9 @@ namespace Domain\Position\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Position\Http\Request\PositionProcessStepDeleteRequest;
+use Domain\Position\Http\Request\PositionProcessStepIndexRequest;
 use Domain\Position\Http\Request\PositionProcessStepUpdateRequest;
 use Domain\Position\Http\Request\PositionProcessStepStoreRequest;
 use Domain\Position\Http\Resources\PositionProcessStepResource;
@@ -19,6 +21,13 @@ use Illuminate\Http\JsonResponse;
 
 class PositionProcessStepController extends ApiController
 {
+    public function index(PositionProcessStepIndexRequest $request, Position $position): JsonResponse
+    {
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'positionProcessSteps' => new ResourceCollection(PositionProcessStepResource::class, $position->steps),
+        ]);
+    }
+
     public function store(PositionProcessStepStoreRequest $request, Position $position): JsonResponse
     {
         $positionProcessStep = PositionProcessStepStoreUseCase::make()->handle($position, $request->getProcessStep());

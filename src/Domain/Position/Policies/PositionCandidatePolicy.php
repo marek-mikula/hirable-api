@@ -11,6 +11,16 @@ use Domain\User\Models\User;
 
 class PositionCandidatePolicy
 {
+    public function index(User $user, Position $position): bool
+    {
+        if ($position->state !== PositionStateEnum::OPENED) {
+            return false;
+        }
+
+        /** @see PositionPolicy::show() */
+        return $user->can('show', $position);
+    }
+
     public function show(User $user, PositionCandidate $positionCandidate, Position $position): bool
     {
         if ($positionCandidate->position_id !== $position->id) {
