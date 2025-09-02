@@ -6,8 +6,11 @@ namespace Domain\Position\Repositories;
 
 use App\Exceptions\RepositoryException;
 use Domain\Position\Enums\ActionStateEnum;
+use Domain\Position\Enums\ActionTypeEnum;
+use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
 use Domain\Position\Repositories\Inputs\PositionCandidateActionStoreInput;
+use Illuminate\Support\Arr;
 
 class PositionCandidateActionRepository implements PositionCandidateActionRepositoryInterface
 {
@@ -76,5 +79,14 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         throw_if(!$positionCandidateAction->save(), RepositoryException::updated(PositionCandidateAction::class));
 
         return $positionCandidateAction;
+    }
+
+    public function existsByTypeAndState(PositionCandidate $positionCandidate, ActionTypeEnum $type, ActionStateEnum|array $state): bool
+    {
+        return PositionCandidateAction::query()
+            ->where('position_candidate_id', $positionCandidate->id)
+            ->where('type', $type)
+            ->whereIn('state', Arr::wrap($state))
+            ->exists();
     }
 }

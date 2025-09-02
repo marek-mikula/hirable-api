@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Resources\Traits;
 
 use App\Exceptions\NeedsRelationshipException;
+use App\Http\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
 /**
  * @property Model $resource
+ * @mixin Resource
  */
 trait ChecksRelations
 {

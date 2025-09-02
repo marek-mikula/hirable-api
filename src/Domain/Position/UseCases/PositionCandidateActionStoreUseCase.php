@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Domain\Position\UseCases;
 
+use App\Enums\ResponseCodeEnum;
+use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
+use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Http\Request\Data\ActionData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
 use Domain\Position\Repositories\Inputs\PositionCandidateActionStoreInput;
 use Domain\Position\Repositories\PositionCandidateActionRepositoryInterface;
+use Domain\ProcessStep\Services\ProcessStepActionService;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -18,11 +22,14 @@ class PositionCandidateActionStoreUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionCandidateActionRepositoryInterface $positionCandidateActionRepository,
+        private readonly ProcessStepActionService $processStepActionService,
     ) {
     }
 
     public function handle(User $user, Position $position, PositionCandidate $positionCandidate, ActionData $data): PositionCandidateAction
     {
+        $this->validate($positionCandidate, $data);
+
         $input = new PositionCandidateActionStoreInput(
             positionCandidate: $positionCandidate,
             user: $user,
@@ -64,5 +71,27 @@ class PositionCandidateActionStoreUseCase extends UseCase
         return DB::transaction(function () use ($input): PositionCandidateAction {
             return $this->positionCandidateActionRepository->store($input);
         }, attempts: 5);
+    }
+
+    private function validate(PositionCandidate $positionCandidate, ActionData $data): void
+    {
+        $allowedActions = $this->processStepActionService->getAllowedActions($positionCandidate->step->step);
+
+        if (!in_array($data->type, $allowedActions)) {
+            throw new HttpException(responseCode: ResponseCodeEnum::NOT_SUFFICIENT_STEP);
+        }
+
+        if (in_array($data->type, $this->processStepActionService->getSingleActions())) {
+            return;
+        }
+
+        $duplicateExists = $this->positionCandidateActionRepository->existsByTypeAndState($positionCandidate, $data->type, [
+            ActionStateEnum::ACTIVE,
+            ActionStateEnum::FINISHED,
+        ]);
+
+        if ($duplicateExists) {
+            throw new HttpException(responseCode: ResponseCodeEnum::ACTION_EXISTS);
+        }
     }
 }
