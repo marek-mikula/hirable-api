@@ -82,11 +82,13 @@ class PositionCandidateActionStoreRequest extends AuthRequest
             ActionTypeEnum::TASK => [
                 'date' => [
                     'nullable',
+                    'required_with:timeEnd',
                     'string',
                     'date_format:Y-m-d',
                 ],
                 'timeEnd' => [
                     'nullable',
+                    'required_with:date',
                     'string',
                     'date_format:H:i',
                 ],
