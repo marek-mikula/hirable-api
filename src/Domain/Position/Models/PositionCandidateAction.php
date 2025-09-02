@@ -52,6 +52,7 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon|null $offer_certain_period_to
  * @property int|null $offer_trial_period
  * @property string|null $offer_candidate_note
+ * @property Carbon|null $real_start_date
  * @property string|null $note
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -104,6 +105,7 @@ class PositionCandidateAction extends Model
         'offer_certain_period_to',
         'offer_trial_period',
         'offer_candidate_note',
+        'real_start_date',
         'note',
     ];
 
@@ -126,6 +128,7 @@ class PositionCandidateAction extends Model
             'offer_employment_forms' => 'array',
             'offer_start_date' => 'datetime:Y-m-d',
             'offer_certain_period_to' => 'datetime:Y-m-d',
+            'real_start_date' => 'datetime:Y-m-d',
         ];
     }
 

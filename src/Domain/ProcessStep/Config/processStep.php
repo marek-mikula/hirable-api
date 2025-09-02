@@ -35,7 +35,7 @@ return [
             'triggers_action' => ActionTypeEnum::OFFER->value,
         ],
         StepEnum::PLACEMENT->value => [
-            'triggers_action' => null,
+            'triggers_action' => ActionTypeEnum::START_OF_WORK->value,
         ],
         StepEnum::REJECTED->value => [
             'triggers_action' => ActionTypeEnum::REJECTION->value,

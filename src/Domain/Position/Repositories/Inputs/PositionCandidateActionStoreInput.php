@@ -46,6 +46,7 @@ readonly class PositionCandidateActionStoreInput
         public ?Carbon $offerCertainPeriodTo = null,
         public ?int $offerTrialPeriod = null,
         public ?string $offerCandidateNote = null,
+        public ?Carbon $realStartDate = null,
         public ?string $note = null,
     ) {
     }

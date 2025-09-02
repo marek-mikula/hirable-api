@@ -48,6 +48,7 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         $positionCandidateAction->offer_certain_period_to = $input->offerCertainPeriodTo;
         $positionCandidateAction->offer_trial_period = $input->offerTrialPeriod;
         $positionCandidateAction->offer_candidate_note = $input->offerCandidateNote;
+        $positionCandidateAction->real_start_date = $input->realStartDate;
         $positionCandidateAction->note = $input->note;
 
         throw_if(!$positionCandidateAction->save(), RepositoryException::stored(PositionCandidateAction::class));

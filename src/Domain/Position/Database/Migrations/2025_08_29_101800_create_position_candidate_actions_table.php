@@ -46,6 +46,7 @@ return new class () extends Migration {
             $table->integer('offer_trial_period')->nullable();
             $table->string('offer_candidate_note')->nullable();
             $table->string('note', 500)->nullable();
+            $table->date('real_start_date')->nullable();
             $table->timestamps();
 
             $table->foreign('position_candidate_id', 'position_candidate_actions_position_candidate_foreign')

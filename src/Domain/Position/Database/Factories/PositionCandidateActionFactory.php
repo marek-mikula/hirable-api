@@ -56,6 +56,7 @@ class PositionCandidateActionFactory extends Factory
             'offer_certain_period_to' => null,
             'offer_trial_period' => null,
             'offer_candidate_note' => null,
+            'real_start_date' => null,
             'note' => fake()->text(500),
         ];
     }

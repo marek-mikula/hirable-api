@@ -57,6 +57,7 @@ class PositionCandidateActionStoreUseCase extends UseCase
             offerCertainPeriodTo: $data->offerCertainPeriodTo,
             offerTrialPeriod: $data->offerTrialPeriod,
             offerCandidateNote: $data->offerCandidateNote,
+            realStartDate: $data->realStartDate,
             note: $data->note,
         );
 

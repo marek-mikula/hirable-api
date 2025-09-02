@@ -55,6 +55,7 @@ class PositionCandidateActionResource extends Resource
             'offerCertainPeriodTo' => $this->resource->offer_certain_period_to?->toIso8601String(),
             'offerTrialPeriod' => $this->resource->offer_trial_period,
             'offerCandidateNote' => $this->resource->offer_candidate_note,
+            'realStartDate' => $this->resource->real_start_date?->toIso8601String(),
             'note' => $this->resource->note,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),

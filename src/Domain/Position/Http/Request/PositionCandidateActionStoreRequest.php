@@ -237,6 +237,13 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'max:500',
                 ],
             ],
+            ActionTypeEnum::START_OF_WORK => [
+                'realStartDate' => [
+                    'required',
+                    'string',
+                    'date_format:Y-m-d',
+                ]
+            ],
             ActionTypeEnum::COMMUNICATION => [],
         };
 
@@ -325,6 +332,11 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 rejectedByCandidate: $this->boolean('rejectedByCandidate'),
                 rejectionReason: $this->boolean('rejectedByCandidate') === false ? (string) $this->input('rejectionReason') : null,
                 refusalReason: $this->boolean('rejectedByCandidate') === true ? (string) $this->input('refusalReason') : null,
+                note: $this->filled('note') ? (string) $this->input('note') : null,
+            ),
+            ActionTypeEnum::START_OF_WORK => new ActionData(
+                type: $type,
+                realStartDate: $this->date('realStartDate', 'Y-m-d'),
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
         };
