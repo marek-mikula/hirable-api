@@ -58,6 +58,10 @@ Route::middleware('auth:sanctum')->group(static function (): void {
 
                 Route::prefix('/actions')->as('action.')->group(function (): void {
                     Route::post('/', [PositionCandidateActionController::class, 'store'])->name('store');
+
+                    Route::prefix('/{positionCandidateAction}')->whereNumber('positionCandidateAction')->group(function (): void {
+                        Route::get('/', [PositionCandidateActionController::class, 'show'])->name('show');
+                    });
                 });
             });
         });

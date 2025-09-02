@@ -16,7 +16,11 @@ class PositionCandidateActionStoreRequest extends AuthRequest
     public function authorize(): bool
     {
         /** @see PositionCandidateActionPolicy::store() */
-        return $this->user()->can('store', [PositionCandidateAction::class, $this->route('positionCandidate'), $this->route('position')]);
+        return $this->user()->can('store', [
+            PositionCandidateAction::class,
+            $this->route('positionCandidate'),
+            $this->route('position')
+        ]);
     }
 
     public function rules(): array

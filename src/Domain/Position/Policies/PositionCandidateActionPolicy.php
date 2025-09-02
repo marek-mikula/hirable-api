@@ -6,6 +6,7 @@ namespace Domain\Position\Policies;
 
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
+use Domain\Position\Models\PositionCandidateAction;
 use Domain\User\Models\User;
 
 class PositionCandidateActionPolicy
@@ -14,5 +15,15 @@ class PositionCandidateActionPolicy
     {
         /** @see PositionCandidatePolicy::update() */
         return $user->can('update', [$positionCandidate, $position]);
+    }
+
+    public function show(User $user, PositionCandidateAction $positionCandidateAction, PositionCandidate $positionCandidate, Position $position): bool
+    {
+        if ($positionCandidateAction->position_candidate_id !== $positionCandidate->id) {
+            return false;
+        }
+
+        /** @see PositionCandidatePolicy::show() */
+        return $user->can('show', [$positionCandidate, $position]);
     }
 }
