@@ -34,19 +34,19 @@ class PositionProcessStepStoreUseCase extends UseCase
             throw new HttpException(responseCode: ResponseCodeEnum::STEP_EXISTS);
         }
 
-        $order = $this->positionProcessStepRepository->getMaxOrder($position);
+        $nextOrder = $this->positionProcessStepRepository->getNextOrderNum($position);
 
         return DB::transaction(function () use (
             $position,
             $processStep,
-            $order,
+            $nextOrder,
         ): PositionProcessStep {
             return $this->positionProcessStepRepository->store(
                 new PositionProcessStepStoreInput(
                     position: $position,
                     step: $processStep->step,
                     label: null,
-                    order: $order + 1,
+                    order: $nextOrder,
                     isFixed: false,
                     isRepeatable: $processStep->is_repeatable,
                     triggersAction: $processStep->triggers_action,

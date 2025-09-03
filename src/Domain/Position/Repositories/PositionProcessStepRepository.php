@@ -14,6 +14,14 @@ use Illuminate\Database\Eloquent\Collection;
 
 class PositionProcessStepRepository implements PositionProcessStepRepositoryInterface
 {
+    public function index(Position $position): Collection
+    {
+        return PositionProcessStep::query()
+            ->wherePosition($position->id)
+            ->orderBy('order')
+            ->get();
+    }
+
     public function store(PositionProcessStepStoreInput $input): PositionProcessStep
     {
         $positionProcessStep = new PositionProcessStep();
@@ -68,11 +76,11 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         return $positionProcessStep;
     }
 
-    public function getMaxOrder(Position $position): int
+    public function getNextOrderNum(Position $position): int
     {
         return (int) PositionProcessStep::query()
             ->wherePosition($position->id)
-            ->max('order');
+            ->max('order') + 1;
     }
 
     public function positionHasStep(Position $position, StepEnum|string $step): bool
@@ -95,14 +103,5 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         throw_if(!$positionProcessStep->save(), RepositoryException::updated(PositionProcessStep::class));
 
         return $positionProcessStep;
-    }
-
-    public function getByPosition(Position $position, array $with = []): Collection
-    {
-        return PositionProcessStep::query()
-            ->wherePosition($position->id)
-            ->with($with)
-            ->orderBy('order')
-            ->get();
     }
 }

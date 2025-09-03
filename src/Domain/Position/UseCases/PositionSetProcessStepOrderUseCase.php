@@ -22,7 +22,7 @@ class PositionSetProcessStepOrderUseCase extends UseCase
      */
     public function handle(Position $position, array $order): void
     {
-        $positionProcessSteps = $this->positionProcessStepRepository->getByPosition($position);
+        $positionProcessSteps = $this->positionProcessStepRepository->index($position);
 
         $positionProcessSteps = $positionProcessSteps->sort(
             function (PositionProcessStep $a, PositionProcessStep $b) use ($order): int {
@@ -47,6 +47,8 @@ class PositionSetProcessStepOrderUseCase extends UseCase
                 return 0;
             }
         )->values();
+
+        dump($positionProcessSteps->all());
 
         DB::transaction(function () use ($positionProcessSteps): void {
             /**

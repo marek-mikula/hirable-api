@@ -27,10 +27,10 @@ class PositionExternalApprovalDecideRequest extends TokenRequest
             ],
             'state' => [
                 'required',
-                Rule::in([
-                    PositionApprovalStateEnum::APPROVED->value,
-                    PositionApprovalStateEnum::REJECTED->value,
-                ]),
+                Rule::enum(PositionApprovalStateEnum::class)->only([
+                    PositionApprovalStateEnum::APPROVED,
+                    PositionApprovalStateEnum::REJECTED,
+                ])
             ],
         ];
     }

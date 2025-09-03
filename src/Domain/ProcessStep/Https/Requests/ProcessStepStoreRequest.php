@@ -36,7 +36,11 @@ class ProcessStepStoreRequest extends AuthRequest
             'triggersAction' => [
                 'nullable',
                 'string',
-                Rule::enum(ActionTypeEnum::class),
+                Rule::enum(ActionTypeEnum::class)->except([
+                    ActionTypeEnum::OFFER,
+                    ActionTypeEnum::REJECTION,
+                    ActionTypeEnum::START_OF_WORK,
+                ]),
             ],
         ];
     }

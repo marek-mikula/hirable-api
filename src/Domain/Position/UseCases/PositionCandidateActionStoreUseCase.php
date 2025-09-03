@@ -31,7 +31,7 @@ class PositionCandidateActionStoreUseCase extends UseCase
     {
         $this->validate($positionCandidate, $data);
 
-        $state = $data->operation === ActionOperationEnum::FINISH ? ActionStateEnum::FINISHED : ActionStateEnum::ACTIVE;
+        $state = $data->operation === ActionOperationEnum::FINISH ? ActionStateEnum::FINISHED : $data->type->getDefaultState();
 
         $input = new PositionCandidateActionStoreInput(
             positionProcessStep: $positionCandidate->step,

@@ -15,6 +15,7 @@ use Domain\Position\Http\Request\PositionProcessStepStoreRequest;
 use Domain\Position\Http\Resources\PositionProcessStepResource;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
+use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Domain\Position\UseCases\PositionProcessStepDeleteUseCase;
 use Domain\Position\UseCases\PositionProcessStepUpdateUseCase;
 use Domain\Position\UseCases\PositionProcessStepStoreUseCase;
@@ -24,8 +25,13 @@ class PositionProcessStepController extends ApiController
 {
     public function index(PositionProcessStepIndexRequest $request, Position $position): JsonResponse
     {
+        /** @var PositionProcessStepRepositoryInterface $repository */
+        $repository = app(PositionProcessStepRepositoryInterface::class);
+
+        $positionProcessSteps = $repository->index($position);
+
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'positionProcessSteps' => new ResourceCollection(PositionProcessStepResource::class, $position->steps),
+            'positionProcessSteps' => new ResourceCollection(PositionProcessStepResource::class, $positionProcessSteps),
         ]);
     }
 
