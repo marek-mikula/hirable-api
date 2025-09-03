@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request\Data;
 
 use Carbon\Carbon;
+use Domain\Position\Enums\ActionOperationEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Enums\OfferStateEnum;
 
@@ -12,6 +13,7 @@ readonly class ActionData
 {
     public function __construct(
         public ActionTypeEnum $type,
+        public ActionOperationEnum $operation,
         public ?Carbon $date = null,
         public ?Carbon $timeStart = null,
         public ?Carbon $timeEnd = null,

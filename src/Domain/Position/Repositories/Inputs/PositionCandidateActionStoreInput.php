@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories\Inputs;
 
 use Carbon\Carbon;
+use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Enums\OfferStateEnum;
 use Domain\Position\Models\PositionCandidate;
@@ -16,6 +17,7 @@ readonly class PositionCandidateActionStoreInput
         public PositionCandidate $positionCandidate,
         public User $user,
         public ActionTypeEnum $type,
+        public ActionStateEnum $state,
         public ?Carbon $date = null,
         public ?Carbon $timeStart = null,
         public ?Carbon $timeEnd = null,

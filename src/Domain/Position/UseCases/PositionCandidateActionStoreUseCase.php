@@ -7,6 +7,7 @@ namespace Domain\Position\UseCases;
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
+use Domain\Position\Enums\ActionOperationEnum;
 use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Http\Request\Data\ActionData;
 use Domain\Position\Models\Position;
@@ -34,6 +35,7 @@ class PositionCandidateActionStoreUseCase extends UseCase
             positionCandidate: $positionCandidate,
             user: $user,
             type: $data->type,
+            state: $data->operation === ActionOperationEnum::FINISH ? ActionStateEnum::FINISHED : ActionStateEnum::ACTIVE,
             date: $data->date,
             timeStart: $data->timeStart,
             timeEnd: $data->timeEnd,

@@ -20,7 +20,7 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         $positionCandidateAction->position_candidate_id = $input->positionCandidate->id;
         $positionCandidateAction->user_id = $input->user->id;
         $positionCandidateAction->type = $input->type;
-        $positionCandidateAction->state = $input->type->getDefaultState();
+        $positionCandidateAction->state = $input->state;
         $positionCandidateAction->date = $input->date;
         $positionCandidateAction->time_start = $input->timeStart;
         $positionCandidateAction->time_end = $input->timeEnd;
