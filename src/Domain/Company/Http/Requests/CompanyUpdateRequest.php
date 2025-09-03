@@ -85,7 +85,7 @@ class CompanyUpdateRequest extends AuthRequest
             'email' => __('model.company.email'),
             'idNumber' => __('model.company.id_number'),
             'website' => __('model.company.website'),
-            'aiOutputLanguage' => __('model.company.aiOutputLanguage'),
+            'aiOutputLanguage' => __('model.company.ai_output_language'),
         ];
     }
 

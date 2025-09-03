@@ -274,6 +274,44 @@ class PositionCandidateActionStoreRequest extends AuthRequest
         ]);
     }
 
+    public function attributes(): array
+    {
+        return [
+            'date' => __('model.position_candidate_action.date'),
+            'timeStart' => __('model.position_candidate_action.timeStart'),
+            'timeEnd' => __('model.position_candidate_action.timeEnd'),
+            'place' => __('model.position_candidate_action.place'),
+            'instructions' => __('model.position_candidate_action.instructions'),
+            'evaluation' => __('model.position_candidate_action.evaluation'),
+            'name' => __('model.position_candidate_action.name'),
+            'interviewForm' => __('model.position_candidate_action.interviewForm'),
+            'interviewType' => __('model.position_candidate_action.interviewType'),
+            'interviewResult' => __('model.position_candidate_action.interviewResult'),
+            'assessmentCenterResult' => __('model.position_candidate_action.assessmentCenterResult'),
+            'rejectedByCandidate' => __('model.position_candidate_action.rejectedByCandidate'),
+            'reason' => __('model.position_candidate_action.reason'),
+            'taskType' => __('model.position_candidate_action.taskType'),
+            'taskResult' => __('model.position_candidate_action.taskResult'),
+            'offerState' => __('model.position_candidate_action.offerState'),
+            'offerJobTitle' => __('model.position_candidate_action.offerJobTitle'),
+            'offerCompany' => __('model.position_candidate_action.offerCompany'),
+            'offerEmploymentForms' => __('model.position_candidate_action.offerEmploymentForms'),
+            'offerPlace' => __('model.position_candidate_action.offerPlace'),
+            'offerSalary' => __('model.position_candidate_action.offerSalary'),
+            'offerSalaryCurrency' => __('model.position_candidate_action.offerSalaryCurrency'),
+            'offerSalaryFrequency' => __('model.position_candidate_action.offerSalaryFrequency'),
+            'offerWorkload' => __('model.position_candidate_action.offerWorkload'),
+            'offerEmploymentRelationship' => __('model.position_candidate_action.offerEmploymentRelationship'),
+            'offerStartDate' => __('model.position_candidate_action.offerStartDate'),
+            'offerEmploymentDuration' => __('model.position_candidate_action.offerEmploymentDuration'),
+            'offerCertainPeriodTo' => __('model.position_candidate_action.offerCertainPeriodTo'),
+            'offerTrialPeriod' => __('model.position_candidate_action.offerTrialPeriod'),
+            'offerCandidateNote' => __('model.position_candidate_action.offerCandidateNote'),
+            'realStartDate' => __('model.position_candidate_action.realStartDate'),
+            'note' => __('model.position_candidate_action.note'),
+        ];
+    }
+
     public function toData(): ActionData
     {
         $type = $this->getType();
