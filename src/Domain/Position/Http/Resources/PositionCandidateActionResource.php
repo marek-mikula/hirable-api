@@ -23,6 +23,8 @@ class PositionCandidateActionResource extends Resource
 
         return [
             'id' => $this->resource->id,
+            'positionCandidateId' => $this->resource->position_candidate_id,
+            'userId' => $this->resource->user_id,
             'type' => $this->resource->type,
             'state' => $this->resource->state,
             'date' => $this->resource->date?->toIso8601String(),

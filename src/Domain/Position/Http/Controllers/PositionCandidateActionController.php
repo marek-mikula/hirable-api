@@ -8,11 +8,13 @@ use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Position\Http\Request\PositionCandidateActionShowRequest;
 use Domain\Position\Http\Request\PositionCandidateActionStoreRequest;
+use Domain\Position\Http\Request\PositionCandidateActionUpdateRequest;
 use Domain\Position\Http\Resources\PositionCandidateActionResource;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
 use Domain\Position\UseCases\PositionCandidateActionStoreUseCase;
+use Domain\Position\UseCases\PositionCandidateActionUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
 class PositionCandidateActionController extends ApiController
@@ -23,6 +25,21 @@ class PositionCandidateActionController extends ApiController
             user: $request->user(),
             position: $position,
             positionCandidate: $positionCandidate,
+            data: $request->toData()
+        );
+
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'positionCandidateAction' => new PositionCandidateActionResource($positionCandidateAction),
+        ]);
+    }
+
+    public function update(PositionCandidateActionUpdateRequest $request, Position $position, PositionCandidate $positionCandidate, PositionCandidateAction $positionCandidateAction): JsonResponse
+    {
+        $positionCandidateAction = PositionCandidateActionUpdateUseCase::make()->handle(
+            user: $request->user(),
+            position: $position,
+            positionCandidate: $positionCandidate,
+            positionCandidateAction: $positionCandidateAction,
             data: $request->toData()
         );
 

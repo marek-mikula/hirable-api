@@ -17,6 +17,20 @@ class PositionCandidateActionPolicy
         return $user->can('update', [$positionCandidate, $position]);
     }
 
+    public function update(User $user, PositionCandidateAction $positionCandidateAction, PositionCandidate $positionCandidate, Position $position): bool
+    {
+        if ($positionCandidateAction->position_candidate_id !== $positionCandidate->id) {
+            return false;
+        }
+
+        if ($positionCandidateAction->user_id !== $user->id) {
+            return false;
+        }
+
+        /** @see PositionCandidatePolicy::show() */
+        return $user->can('update', [$positionCandidate, $position]);
+    }
+
     public function show(User $user, PositionCandidateAction $positionCandidateAction, PositionCandidate $positionCandidate, Position $position): bool
     {
         if ($positionCandidateAction->position_candidate_id !== $positionCandidate->id) {
