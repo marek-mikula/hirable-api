@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 use Domain\Position\Http\Controllers\PositionCancelApprovalController;
 use Domain\Position\Http\Controllers\PositionApprovalDecideController;
+use Domain\Position\Http\Controllers\PositionCandidateActionController;
+use Domain\Position\Http\Controllers\PositionCandidateController;
 use Domain\Position\Http\Controllers\PositionCandidateSetStepController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
 use Domain\Position\Http\Controllers\PositionGenerateFromFileController;
 use Domain\Position\Http\Controllers\PositionGenerateFromPromptController;
-use Domain\Position\Http\Controllers\PositionKanbanController;
 use Domain\Position\Http\Controllers\PositionProcessStepController;
 use Domain\Position\Http\Controllers\PositionSetProcessStepOrderController;
 use Domain\Position\Http\Controllers\PositionSuggestDepartmentsController;
@@ -41,21 +42,29 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         });
 
         Route::prefix('/process-steps')->as('process_steps.')->group(function (): void {
+            Route::get('/', [PositionProcessStepController::class, 'index'])->name('index');
             Route::post('/', [PositionProcessStepController::class, 'store'])->name('store');
-
             Route::prefix('/{positionProcessStep}')->whereNumber('positionProcessStep')->group(function (): void {
+                Route::get('/', [PositionProcessStepController::class, 'show'])->name('show');
                 Route::delete('/', [PositionProcessStepController::class, 'delete'])->name('delete');
                 Route::patch('/', [PositionProcessStepController::class, 'update'])->name('update');
             });
         });
 
         Route::prefix('/candidates')->as('candidates.')->group(function (): void {
+            Route::get('/', [PositionCandidateController::class, 'index'])->name('index');
             Route::prefix('/{positionCandidate}')->whereNumber('positionCandidate')->group(function (): void {
+                Route::get('/', [PositionCandidateController::class, 'show'])->name('show');
                 Route::patch('/set-step', PositionCandidateSetStepController::class)->name('set_step');
+                Route::prefix('/actions')->as('action.')->group(function (): void {
+                    Route::post('/', [PositionCandidateActionController::class, 'store'])->name('store');
+                    Route::prefix('/{positionCandidateAction}')->whereNumber('positionCandidateAction')->group(function (): void {
+                        Route::patch('/', [PositionCandidateActionController::class, 'update'])->name('update');
+                        Route::get('/', [PositionCandidateActionController::class, 'show'])->name('show');
+                    });
+                });
             });
         });
-
-        Route::get('/kanban', PositionKanbanController::class)->name('kanban');
     });
 });
 

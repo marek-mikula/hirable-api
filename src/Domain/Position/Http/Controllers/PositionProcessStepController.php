@@ -6,12 +6,16 @@ namespace Domain\Position\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Position\Http\Request\PositionProcessStepDeleteRequest;
+use Domain\Position\Http\Request\PositionProcessStepIndexRequest;
+use Domain\Position\Http\Request\PositionProcessStepShowRequest;
 use Domain\Position\Http\Request\PositionProcessStepUpdateRequest;
 use Domain\Position\Http\Request\PositionProcessStepStoreRequest;
 use Domain\Position\Http\Resources\PositionProcessStepResource;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
+use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Domain\Position\UseCases\PositionProcessStepDeleteUseCase;
 use Domain\Position\UseCases\PositionProcessStepUpdateUseCase;
 use Domain\Position\UseCases\PositionProcessStepStoreUseCase;
@@ -19,6 +23,25 @@ use Illuminate\Http\JsonResponse;
 
 class PositionProcessStepController extends ApiController
 {
+    public function index(PositionProcessStepIndexRequest $request, Position $position): JsonResponse
+    {
+        /** @var PositionProcessStepRepositoryInterface $repository */
+        $repository = app(PositionProcessStepRepositoryInterface::class);
+
+        $positionProcessSteps = $repository->index($position);
+
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'positionProcessSteps' => new ResourceCollection(PositionProcessStepResource::class, $positionProcessSteps),
+        ]);
+    }
+
+    public function show(PositionProcessStepShowRequest $request, Position $position, PositionProcessStep $positionProcessStep): JsonResponse
+    {
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'positionProcessStep' => new PositionProcessStepResource($positionProcessStep),
+        ]);
+    }
+
     public function store(PositionProcessStepStoreRequest $request, Position $position): JsonResponse
     {
         $positionProcessStep = PositionProcessStepStoreUseCase::make()->handle($position, $request->getProcessStep());

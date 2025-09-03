@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use App\Http\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
 
 class NeedsRelationshipException extends \Exception
 {
     /**
-     * @param  class-string<JsonResource>  $resource
+     * @param  class-string<Resource>  $resource
      * @param  class-string<Model>  $model
      * @param  string|string[]  $relationships
      */

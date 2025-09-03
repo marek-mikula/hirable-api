@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Domain\Application\Data;
 
 use Illuminate\Http\UploadedFile;
-use Spatie\LaravelData\Data;
 use Support\File\Data\FileData;
 
-class ApplyData extends Data
+readonly class ApplyData
 {
     /**
      * @param UploadedFile[] $otherFiles

@@ -41,7 +41,7 @@ class PositionBuilder extends Builder
                         ->whereExists(
                             function (\Illuminate\Contracts\Database\Query\Builder $query) use ($user): void {
                                 $query
-                                    ->selectRaw(1)
+                                    ->selectRaw('1')
                                     ->from('model_has_positions')
                                     ->whereColumn('model_has_positions.position_id', 'positions.id')
                                     ->where('model_has_positions.model_type', User::class)
@@ -61,7 +61,7 @@ class PositionBuilder extends Builder
                         ->where('positions.state', PositionStateEnum::APPROVAL_PENDING)
                         ->whereExists(function (\Illuminate\Contracts\Database\Query\Builder $query) use ($user): void {
                             $query
-                                ->selectRaw(1)
+                                ->selectRaw('1')
                                 ->from('model_has_positions')
                                 ->join('position_approvals', 'position_approvals.model_has_position_id', '=', 'model_has_positions.id')
                                 ->whereColumn('model_has_positions.position_id', 'positions.id')

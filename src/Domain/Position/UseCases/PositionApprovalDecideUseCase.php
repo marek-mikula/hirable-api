@@ -9,7 +9,7 @@ use Domain\Company\Models\CompanyContact;
 use Domain\Position\Http\Request\Data\PositionApprovalDecideData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
-use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
+use Domain\Position\Repositories\Input\PositionApprovalDecideInput;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -33,8 +33,6 @@ class PositionApprovalDecideUseCase extends UseCase
         );
 
         return DB::transaction(function () use (
-            $decidedBy,
-            $position,
             $approval,
             $input,
         ): PositionApproval {

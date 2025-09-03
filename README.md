@@ -98,13 +98,19 @@ $ sail composer refactor:dry
 Refactor code
 
 ```bash
-$ sail composer refactor:dry
+$ sail composer refactor
 ```
 
 Reformat code
 
 ```bash
 $ sail composer format
+```
+
+Reformat & refactor code
+
+```bash
+$ sail composer format:all
 ```
 
 Run all tests

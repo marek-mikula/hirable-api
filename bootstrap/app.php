@@ -9,7 +9,7 @@ use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\SetupActivityLogCauser;
 use App\Providers\AppServiceProvider;
 use App\Providers\DomainServiceProvider;
-use App\Providers\ServicesServiceProvider;
+use App\Providers\AIProvidersServiceProvider;
 use App\Providers\SupportServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -22,7 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             AppServiceProvider::class,
             SupportServiceProvider::class,
             DomainServiceProvider::class,
-            ServicesServiceProvider::class,
+            AIProvidersServiceProvider::class,
         ],
 
         // do not autoload providers from /bootstrap/providers.php path

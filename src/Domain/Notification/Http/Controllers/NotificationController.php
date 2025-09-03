@@ -6,8 +6,9 @@ namespace Domain\Notification\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\PaginatedResourceCollection;
 use Domain\Notification\Http\Request\NotificationIndexRequest;
-use Domain\Notification\Http\Resources\Collections\NotificationPaginatedCollection;
+use Domain\Notification\Http\Resources\NotificationResource;
 use Domain\Notification\UseCases\NotificationIndexUseCase;
 use Illuminate\Http\JsonResponse;
 
@@ -20,7 +21,7 @@ class NotificationController extends ApiController
         $notifications = NotificationIndexUseCase::make()->handle($request->user(), $page);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'notifications' => new NotificationPaginatedCollection($notifications),
+            'notifications' => new PaginatedResourceCollection(NotificationResource::class, $notifications),
         ]);
     }
 }

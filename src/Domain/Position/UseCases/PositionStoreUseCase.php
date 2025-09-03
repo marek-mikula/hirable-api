@@ -10,9 +10,10 @@ use Domain\Company\Repositories\CompanyContactRepositoryInterface;
 use Domain\Position\Enums\PositionOperationEnum;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Enums\PositionStateEnum;
+use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionStoreData;
 use Domain\Position\Models\Position;
-use Domain\Position\Repositories\Inputs\PositionStoreInput;
+use Domain\Position\Repositories\Input\PositionStoreInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
@@ -82,7 +83,7 @@ class PositionStoreUseCase extends UseCase
             employmentRelationships: $data->employmentRelationships,
             employmentForms: $data->employmentForms,
             benefits: $data->benefits,
-            languageRequirements: array_map(fn ($requirement) => $requirement->toArray(), $data->languageRequirements),
+            languageRequirements: array_map(fn (LanguageRequirementData $requirement) => $requirement->toArray(), $data->languageRequirements),
             hardSkillsWeight: $data->hardSkillsWeight,
             softSkillsWeight: $data->softSkillsWeight,
             languageSkillsWeight: $data->languageSkillsWeight,
@@ -113,7 +114,6 @@ class PositionStoreUseCase extends UseCase
             $data,
             $input,
             $state,
-            $user,
             $hiringManagers,
             $recruiters,
             $approvers,

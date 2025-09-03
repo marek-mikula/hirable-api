@@ -62,7 +62,7 @@ return [
         'id_number' => 'IČO',
         'email' => 'Kontaktní e-mail společnosti',
         'website' => 'Webová stránka společnosti',
-        'aiOutputLanguage' => 'Jazyk výstupů AI',
+        'ai_output_language' => 'Jazyk výstupů AI',
     ],
 
     'position' => [
@@ -132,9 +132,45 @@ return [
         'otherFiles' => 'Ostatní soubory',
     ],
 
-    'processStep' => [
+    'process_step' => [
         'step' => 'Krok',
-        'isRepeatable' => 'Opakovatelný'
+        'is_repeatable' => 'Opakovatelný',
+        'triggers_action' => 'Spouští akci',
+    ],
+
+    'position_candidate_action' => [
+        'date' => 'Datum',
+        'timeStart' => 'Čas od',
+        'timeEnd' => 'Čas do',
+        'place' => 'Místo konání',
+        'instructions' => 'Pokyny',
+        'evaluation' => 'Slovní hodnocení',
+        'name' => 'Vlastní název akce',
+        'interviewForm' => 'Forma pohovoru',
+        'interviewType' => 'Typ pohovoru',
+        'interviewResult' => 'Výsledek pohovoru',
+        'assessmentCenterResult' => 'Výsledek assessment centra',
+        'rejectedByCandidate' => 'Zamítnuto ze strany kandidáta',
+        'reason' => 'Důvod',
+        'taskType' => 'Typ úkolu',
+        'taskResult' => 'Výsledek úkolu',
+        'offerState' => 'Stav nabídky',
+        'offerJobTitle' => 'Název pracovní pozice',
+        'offerCompany' => 'Společnost',
+        'offerEmploymentForms' => 'Forma spolupráce',
+        'offerPlace' => 'Místo výkonu práce',
+        'offerSalary' => 'Mzda',
+        'offerSalaryCurrency' => 'Měna mzdy',
+        'offerSalaryFrequency' => 'Frekvence mzdy',
+        'offerWorkload' => 'Typ úvazku',
+        'offerEmploymentRelationship' => 'Pracovní poměr',
+        'offerStartDate' => 'Datum nástupu',
+        'offerEmploymentDuration' => 'Trvání pracovního poměru',
+        'offerCertainPeriodTo' => 'Doba určitá do',
+        'offerTrialPeriod' => 'Zkušební doba',
+        'offerCandidateNote' => 'Poznámka pro kandidáta',
+        'realStartDate' => 'Reálný datum nástupu',
+        'note' => 'Interní poznámka',
     ],
 
 ];

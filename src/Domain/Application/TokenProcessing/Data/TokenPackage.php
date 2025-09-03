@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Application\TokenProcessing\Data;
 
-use Spatie\LaravelData\Data;
-
-class TokenPackage extends Data
+readonly class TokenPackage
 {
-    public TokenInfo $tokenInfo;
-
-    public TokenData $tokenData;
+    public function __construct(
+        public TokenInfo $tokenInfo,
+        public TokenData $tokenData,
+    ) {
+    }
 }

@@ -6,19 +6,14 @@ namespace Support\Token\Http\Resources;
 
 use Domain\Company\Enums\RoleEnum;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\Token\Models\Token;
 
 /**
  * @property Token $resource
  */
-class TokenInvitationResource extends JsonResource
+class TokenInvitationResource extends Resource
 {
-    public function __construct(Token $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Domain\Application\TokenProcessing\Data;
 
 use Domain\Candidate\Enums\SourceEnum;
-use Spatie\LaravelData\Data;
 
-class TokenInfo extends Data
+readonly class TokenInfo
 {
-    public SourceEnum $source;
-
-    public string $token;
-
-    public string $rawToken;
+    public function __construct(
+        public SourceEnum $source,
+        public string $token,
+        public string $rawToken,
+    ) {
+    }
 }

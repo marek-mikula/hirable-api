@@ -7,18 +7,13 @@ namespace Domain\Application\Http\Resources;
 use Domain\Application\TokenProcessing\Data\TokenData;
 use Domain\Position\Http\Resources\PositionApplyResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property TokenData $resource
  */
-class TokenDataResource extends JsonResource
+class TokenDataResource extends Resource
 {
-    public function __construct(TokenData $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

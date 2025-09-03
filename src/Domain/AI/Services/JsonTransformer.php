@@ -28,7 +28,7 @@ class JsonTransformer
                 }
 
                 try {
-                    return json_decode($value, associative: true);
+                    return json_decode($value, associative: true, flags: JSON_THROW_ON_ERROR);
                 } catch (\Exception) {
                     throw new \Exception(sprintf('Cannot parse json: %s', $value));
                 }

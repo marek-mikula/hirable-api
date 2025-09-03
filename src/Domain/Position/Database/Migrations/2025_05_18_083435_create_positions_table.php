@@ -15,7 +15,7 @@ return new class () extends Migration {
             $table->foreignId('user_id');
             $table->string('name');
             $table->string('extern_name');
-            $table->string('state', 20);
+            $table->string('state');
             $table->date('approve_until')->nullable();
             $table->string('approve_message', 500)->nullable();
             $table->unsignedTinyInteger('approve_round')->nullable();
@@ -59,13 +59,13 @@ return new class () extends Migration {
             $table->string('referral_token')->nullable();
             $table->timestamps();
 
-            $table->foreign('company_id', 'position_company_foreign')
+            $table->foreign('company_id', 'positions_company_foreign')
                 ->references('id')
                 ->on('companies')
                 ->restrictOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreign('user_id', 'position_user_foreign')
+            $table->foreign('user_id', 'positions_user_foreign')
                 ->references('id')
                 ->on('users')
                 ->restrictOnUpdate()

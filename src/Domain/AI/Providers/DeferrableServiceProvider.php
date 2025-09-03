@@ -14,7 +14,7 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
     public function register(): void
     {
         $this->app->singleton(AIProviderInterface::class, function () {
-            return app(AIConfigService::resolve()->getServiceClass());
+            return app(AIConfigService::resolve()->getProviderClass());
         });
     }
 

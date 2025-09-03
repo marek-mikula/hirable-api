@@ -18,7 +18,6 @@ use Domain\Position\Services\PositionConfigService;
 use Domain\Position\Validation\ValidateApprovalOpen;
 use Domain\Position\Validation\ValidateApprovalRequiredFields;
 use Domain\Position\Validation\ValidateApprovalSelf;
-use Illuminate\Support\Arr;
 use App\Rules\Rule;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Services\FileConfigService;
@@ -107,7 +106,7 @@ class PositionUpdateRequest extends AuthRequest
             'operation' => [
                 'required',
                 'string',
-                Rule::in(Arr::pluck($operations, 'value')),
+                Rule::enum(PositionOperationEnum::class)->only($operations),
             ],
             'name' => [
                 Rule::excludeIf(!in_array('name', $keys)),

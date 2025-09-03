@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Unit\App\Casts;
 
-use App\Casts\EnumOrValue;
+use App\Casts\EnumOrValueCast;
 use Tests\Common\Enums\TestEnum;
 use Tests\Common\Models\TestModel;
 
 use function PHPUnit\Framework\assertSame;
 
 /**
- * @covers \App\Casts\EnumOrValue::get
- * @covers \App\Casts\EnumOrValue::set
+ * @covers \App\Casts\EnumOrValueCast::get
+ * @covers \App\Casts\EnumOrValueCast::set
  */
 it('correctly casts value', function (): void {
-    $cast = new EnumOrValue(TestEnum::class);
+    $cast = new EnumOrValueCast(TestEnum::class);
     $model = new TestModel();
 
     // test that value gets cast when setting the value

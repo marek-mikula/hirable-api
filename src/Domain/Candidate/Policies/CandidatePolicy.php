@@ -12,7 +12,7 @@ class CandidatePolicy
 {
     public function show(User $user, Candidate $candidate): bool
     {
-        return $user->company_id === $candidate->id;
+        return $user->company_id === $candidate->company_id;
     }
 
     public function update(User $user, Candidate $candidate): bool

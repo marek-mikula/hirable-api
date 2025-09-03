@@ -23,6 +23,8 @@ enum ResponseCodeEnum
     case APPLICATION_ENDED;
     case APPLICATION_DUPLICATE;
     case STEP_EXISTS;
+    case NOT_SUFFICIENT_STEP;
+    case ACTION_EXISTS;
     case UNAUTHENTICATED;
     case NOT_FOUND;
     case METHOD_NOT_ALLOWED;
@@ -52,6 +54,8 @@ enum ResponseCodeEnum
             self::CONTACT_PENDING_APPROVALS,
             self::APPLICATION_DUPLICATE,
             self::STEP_EXISTS,
+            self::NOT_SUFFICIENT_STEP,
+            self::ACTION_EXISTS,
             self::CLIENT_ERROR => 400,
 
             // 401

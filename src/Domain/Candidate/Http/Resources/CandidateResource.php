@@ -4,38 +4,34 @@ declare(strict_types=1);
 
 namespace Domain\Candidate\Http\Resources;
 
-use App\Http\Resources\Traits\ChecksRelations;
+use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Candidate\Models\Candidate;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\File\Enums\FileTypeEnum;
-use Support\File\Http\Resources\Collections\FileCollection;
+use Support\File\Http\Resources\FileResource;
 use Support\File\Models\File;
 
 /**
  * @property Candidate $resource
  */
-class CandidateResource extends JsonResource
+class CandidateResource extends Resource
 {
-    use ChecksRelations;
-
-    public function __construct(Candidate $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['files']);
+        $cvs = null;
+        $otherFiles = null;
 
-        $cvs = $this->resource->files->filter(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_CV);
-        $otherFiles = $this->resource->files->filter(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_OTHER);
+        if ($this->resource->relationLoaded('files')) {
+            $cvs = $this->resource->files->filter(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_CV);
+            $otherFiles = $this->resource->files->filter(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_OTHER);
+        }
 
         return [
             'id' => $this->resource->id,
             'companyId' => $this->resource->company_id,
-            'language' => $this->resource->language->value,
-            'gender' => $this->resource->gender?->value,
+            'language' => $this->resource->language,
+            'gender' => $this->resource->gender,
             'firstname' => $this->resource->firstname,
             'lastname' => $this->resource->lastname,
             'fullName' => $this->resource->full_name,
@@ -53,8 +49,8 @@ class CandidateResource extends JsonResource
             'tags' => $this->resource->tags,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
-            'cvs' => new FileCollection($cvs),
-            'otherFiles' => new FileCollection($otherFiles),
+            'cvs' => $this->when($cvs !== null, fn () => new ResourceCollection(FileResource::class, $cvs)),
+            'otherFiles' => $this->when($otherFiles !== null, fn () => new ResourceCollection(FileResource::class, $otherFiles)),
         ];
     }
 }

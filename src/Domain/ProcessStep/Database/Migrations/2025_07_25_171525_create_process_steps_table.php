@@ -14,6 +14,7 @@ return new class () extends Migration {
             $table->foreignId('company_id')->nullable();
             $table->string('step', 50);
             $table->boolean('is_repeatable');
+            $table->string('triggers_action')->nullable();
 
             $table->unique(['company_id', 'step'], 'process_steps_company_step_unique');
 

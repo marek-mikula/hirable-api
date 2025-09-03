@@ -6,12 +6,12 @@ namespace Domain\Position\Repositories;
 
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Position;
-use Domain\Position\Repositories\Inputs\PositionStoreInput;
-use Domain\Position\Repositories\Inputs\PositionUpdateInput;
+use Domain\Position\Repositories\Input\PositionStoreInput;
+use Domain\Position\Repositories\Input\PositionUpdateInput;
 
 interface PositionRepositoryInterface
 {
-    public function findBy(array $wheres, array $with): ?Position;
+    public function findBy(array $wheres, array $with = []): ?Position;
 
     public function store(PositionStoreInput $input): Position;
 

@@ -5,12 +5,22 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories;
 
 use App\Exceptions\RepositoryException;
+use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionProcessStep;
-use Domain\Position\Repositories\Inputs\PositionCandidateStoreInput;
+use Domain\Position\Repositories\Input\PositionCandidateStoreInput;
+use Illuminate\Database\Eloquent\Collection;
 
 class PositionCandidateRepository implements PositionCandidateRepositoryInterface
 {
+    public function index(Position $position, array $with = []): Collection
+    {
+        return PositionCandidate::query()
+            ->with($with)
+            ->wherePosition($position->id)
+            ->get();
+    }
+
     public function store(PositionCandidateStoreInput $input): PositionCandidate
     {
         $positionCandidate = new PositionCandidate();

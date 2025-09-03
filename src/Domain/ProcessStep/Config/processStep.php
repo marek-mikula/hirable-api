@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Domain\ProcessStep\Enums\StepEnum;
+use Domain\Position\Enums\ActionTypeEnum;
 
 return [
 
@@ -21,14 +22,24 @@ return [
     */
 
     'fixed_steps' => [
-        StepEnum::NEW->value,
-        StepEnum::SCREENING->value,
-        StepEnum::SHORTLIST->value,
-        StepEnum::OFFER_SENT->value,
-        StepEnum::OFFER_ACCEPTED->value,
-        StepEnum::PLACEMENT->value,
-        StepEnum::REJECTED->value,
-        StepEnum::WITHDRAWN->value,
+        StepEnum::NEW->value => [
+            'triggers_action' => null,
+        ],
+        StepEnum::SCREENING->value => [
+            'triggers_action' => ActionTypeEnum::INTERVIEW->value,
+        ],
+        StepEnum::SHORTLIST->value => [
+            'triggers_action' => null,
+        ],
+        StepEnum::OFFER->value => [
+            'triggers_action' => ActionTypeEnum::OFFER->value,
+        ],
+        StepEnum::PLACEMENT->value => [
+            'triggers_action' => ActionTypeEnum::START_OF_WORK->value,
+        ],
+        StepEnum::REJECTED->value => [
+            'triggers_action' => ActionTypeEnum::REJECTION->value,
+        ],
     ],
 
     /*

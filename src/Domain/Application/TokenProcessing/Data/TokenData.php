@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Domain\Application\TokenProcessing\Data;
 
 use Domain\Position\Models\Position;
-use Spatie\LaravelData\Data;
 
-class TokenData extends Data
+readonly class TokenData
 {
-    public Position $position;
+    public function __construct(
+        public Position $position,
+    ) {
+    }
 }

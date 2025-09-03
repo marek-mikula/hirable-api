@@ -11,29 +11,12 @@ class ClassifierInterviewTypeDatabaseSeeder extends AbstractClassifierDatabaseSe
     protected function getValues(): array
     {
         return [
-            'phone_interview',
-            'live_video_interview',
-            'pre_recorded_video_interview',
-            'in_person_interview',
-            'online_interview',
-            'group_interview',
-            'panel_interview',
-            'hr_interview',
-            'manager_interview',
-            'executive_interview',
-            'technical_interview',
-            'foreign_language_interview',
-            'client_interview',
-            'structured_interview',
-            'unstructured_interview',
-            'behavioral_interview',
-            'competency_interview',
-            'stress_interview',
-            'case_interview',
-            'assessment_center',
-            'follow_up_interview',
-            'final_interview',
-            'other_interview',
+            'screening',
+            'hr',
+            'manager',
+            'competency',
+            'technical',
+            'final',
         ];
     }
 

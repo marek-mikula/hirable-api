@@ -128,9 +128,4 @@ class PositionPolicy
 
         return $user->id === $position->user_id || $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::RECRUITER);
     }
-
-    public function showKanban(User $user, Position $position): bool
-    {
-        return $this->show($user, $position) && in_array($position->state, PositionStateEnum::getAfterOpenedStates());
-    }
 }

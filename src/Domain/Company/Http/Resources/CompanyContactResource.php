@@ -6,23 +6,18 @@ namespace Domain\Company\Http\Resources;
 
 use Domain\Company\Models\CompanyContact;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property CompanyContact $resource
  */
-class CompanyContactResource extends JsonResource
+class CompanyContactResource extends Resource
 {
-    public function __construct(CompanyContact $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [
             'id' => $this->resource->id,
-            'language' => $this->resource->language->value,
+            'language' => $this->resource->language,
             'firstname' => $this->resource->firstname,
             'lastname' => $this->resource->lastname,
             'fullName' => $this->resource->full_name,

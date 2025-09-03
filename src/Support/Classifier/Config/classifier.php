@@ -10,6 +10,7 @@ use Support\Classifier\Database\Seeders\ClassifierEmploymentRelationshipDatabase
 use Support\Classifier\Database\Seeders\ClassifierGenderDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierFieldDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierInterviewTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierInterviewFormDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierLanguageDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierLanguageLevelDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierPhonePrefixDatabaseSeeder;
@@ -18,8 +19,9 @@ use Support\Classifier\Database\Seeders\ClassifierRejectionTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSalaryFrequencyDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSalaryTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSeniorityDatabaseSeeder;
-use Support\Classifier\Database\Seeders\ClassifierTestTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierTaskTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierWorkloadDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierEmploymentDurationDatabaseSeeder;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
 return [
@@ -123,15 +125,19 @@ return [
             'translate' => true,
             'seeder' => ClassifierInterviewTypeDatabaseSeeder::class,
         ],
-        ClassifierTypeEnum::TEST_TYPE->value => [
+        ClassifierTypeEnum::INTERVIEW_FORM->value => [
             'translate' => true,
-            'seeder' => ClassifierTestTypeDatabaseSeeder::class,
+            'seeder' => ClassifierInterviewFormDatabaseSeeder::class,
         ],
-        ClassifierTypeEnum::REFUSAL_TYPE->value => [
+        ClassifierTypeEnum::TASK_TYPE->value => [
+            'translate' => true,
+            'seeder' => ClassifierTaskTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::REFUSAL_REASON->value => [
             'translate' => true,
             'seeder' => ClassifierRefusalTypeDatabaseSeeder::class,
         ],
-        ClassifierTypeEnum::REJECTION_TYPE->value => [
+        ClassifierTypeEnum::REJECTION_REASON->value => [
             'translate' => true,
             'seeder' => ClassifierRejectionTypeDatabaseSeeder::class,
         ],
@@ -150,6 +156,10 @@ return [
         ClassifierTypeEnum::SALARY_TYPE->value => [
             'translate' => true,
             'seeder' => ClassifierSalaryTypeDatabaseSeeder::class,
+        ],
+        ClassifierTypeEnum::EMPLOYMENT_DURATION->value => [
+            'translate' => true,
+            'seeder' => ClassifierEmploymentDurationDatabaseSeeder::class,
         ],
     ],
 

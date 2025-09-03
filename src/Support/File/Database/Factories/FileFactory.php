@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Support\File\Database\Factories;
 
 use Database\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Testing\File as FakeFile;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +15,7 @@ use Support\File\Models\File;
 use Support\File\Models\ModelHasFile;
 
 /**
- * @extends BaseFactory<File>
+ * @extends Factory<File>
  */
 class FileFactory extends Factory
 {

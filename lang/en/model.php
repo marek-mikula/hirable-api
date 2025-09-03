@@ -62,7 +62,7 @@ return [
         'id_number' => 'Company ID number',
         'email' => 'Company contact e-mail address',
         'website' => 'Company website',
-        'aiOutputLanguage' => 'AI output language',
+        'ai_output_language' => 'AI output language',
     ],
 
     'position' => [
@@ -133,9 +133,45 @@ return [
         'otherFiles' => 'Other files',
     ],
 
-    'processStep' => [
+    'process_step' => [
         'step' => 'Step',
-        'isRepeatable' => 'Repeatable'
+        'is_repeatable' => 'Repeatable',
+        'triggers_action' => 'Triggers action',
+    ],
+
+    'position_candidate_action' => [
+        'date' => 'Date',
+        'timeStart' => 'Time from',
+        'timeEnd' => 'Time to',
+        'place' => 'Venue',
+        'instructions' => 'Instructions',
+        'evaluation' => 'Verbal evaluation',
+        'name' => 'Own action name',
+        'interviewForm' => 'Interview form',
+        'interviewType' => 'Interview type',
+        'interviewResult' => 'Interview result',
+        'assessmentCenterResult' => 'Assessment center result',
+        'rejectedByCandidate' => 'Rejected by the candidate',
+        'reason' => 'Reason',
+        'taskType' => 'Task type',
+        'taskResult' => 'Task result',
+        'offerState' => 'Offer status',
+        'offerJobTitle' => 'Job title',
+        'offerCompany' => 'Company',
+        'offerEmploymentForms' => 'Form of cooperation',
+        'offerPlace' => 'Place of work',
+        'offerSalary' => 'Salary',
+        'offerSalaryCurrency' => 'Salary currency',
+        'offerSalaryFrequency' => 'Salary frequency',
+        'offerWorkload' => 'Work load',
+        'offerEmploymentRelationship' => 'Employment relationship',
+        'offerStartDate' => 'Start date',
+        'offerEmploymentDuration' => 'Employment duration',
+        'offerCertainPeriodTo' => 'Certain period to',
+        'offerTrialPeriod' => 'Trial period',
+        'offerCandidateNote' => 'Note to candidate',
+        'realStartDate' => 'Real start date',
+        'note' => 'Internal note',
     ],
 
 ];

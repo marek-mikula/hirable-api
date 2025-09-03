@@ -22,7 +22,7 @@ class PositionSetProcessStepOrderUseCase extends UseCase
      */
     public function handle(Position $position, array $order): void
     {
-        $positionProcessSteps = $this->positionProcessStepRepository->getByPosition($position);
+        $positionProcessSteps = $this->positionProcessStepRepository->index($position);
 
         $positionProcessSteps = $positionProcessSteps->sort(
             function (PositionProcessStep $a, PositionProcessStep $b) use ($order): int {

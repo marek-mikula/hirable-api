@@ -35,11 +35,14 @@ class Notification extends DatabaseNotification
     use HasArrayData;
     use HasFactory;
 
-    protected $casts = [
-        'type' => NotificationTypeEnum::class,
-        'data' => 'array',
-        'read_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'type' => NotificationTypeEnum::class,
+            'data' => 'array',
+            'read_at' => 'datetime',
+        ];
+    }
 
     public function isRead(): Attribute
     {

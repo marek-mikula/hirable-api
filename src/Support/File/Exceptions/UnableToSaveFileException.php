@@ -21,6 +21,6 @@ class UnableToSaveFileException extends \Exception
             $file->getSize(),
         );
 
-        return parent::__construct(message: $message, previous: $previous);
+        parent::__construct(message: $message, previous: $previous);
     }
 }

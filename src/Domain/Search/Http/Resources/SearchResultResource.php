@@ -6,18 +6,13 @@ namespace Domain\Search\Http\Resources;
 
 use Domain\Search\Data\ResultData;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property ResultData $resource
  */
-class SearchResultResource extends JsonResource
+class SearchResultResource extends Resource
 {
-    public function __construct(ResultData $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

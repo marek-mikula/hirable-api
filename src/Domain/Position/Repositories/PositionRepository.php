@@ -7,8 +7,8 @@ namespace Domain\Position\Repositories;
 use App\Exceptions\RepositoryException;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Position;
-use Domain\Position\Repositories\Inputs\PositionStoreInput;
-use Domain\Position\Repositories\Inputs\PositionUpdateInput;
+use Domain\Position\Repositories\Input\PositionStoreInput;
+use Domain\Position\Repositories\Input\PositionUpdateInput;
 
 class PositionRepository implements PositionRepositoryInterface
 {
@@ -127,9 +127,13 @@ class PositionRepository implements PositionRepositoryInterface
 
     public function updateState(Position $position, PositionStateEnum $state): Position
     {
-        // validate state
         throw_if(
-            condition: $position->state !== $state && !in_array($state, $position->state->getNextStates()),
+            condition: $position->state === $state,
+            exception: RepositoryException::updated(Position::class)
+        );
+
+        throw_if(
+            condition: !in_array($state, $position->state->getNextStates()),
             exception: RepositoryException::updated(Position::class)
         );
 

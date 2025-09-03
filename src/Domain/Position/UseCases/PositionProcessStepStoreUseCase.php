@@ -9,7 +9,7 @@ use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
-use Domain\Position\Repositories\Inputs\PositionProcessStepStoreInput;
+use Domain\Position\Repositories\Input\PositionProcessStepStoreInput;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Domain\ProcessStep\Repositories\ProcessStepRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -34,21 +34,22 @@ class PositionProcessStepStoreUseCase extends UseCase
             throw new HttpException(responseCode: ResponseCodeEnum::STEP_EXISTS);
         }
 
-        $order = $this->positionProcessStepRepository->getMaxOrder($position);
+        $nextOrder = $this->positionProcessStepRepository->getNextOrderNum($position);
 
         return DB::transaction(function () use (
             $position,
             $processStep,
-            $order,
+            $nextOrder,
         ): PositionProcessStep {
             return $this->positionProcessStepRepository->store(
                 new PositionProcessStepStoreInput(
                     position: $position,
                     step: $processStep->step,
                     label: null,
-                    order: $order + 1,
+                    order: $nextOrder,
                     isFixed: false,
                     isRepeatable: $processStep->is_repeatable,
+                    triggersAction: $processStep->triggers_action,
                 )
             );
         }, attempts: 5);

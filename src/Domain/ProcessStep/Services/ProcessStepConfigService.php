@@ -11,12 +11,11 @@ use Illuminate\Support\Collection;
 class ProcessStepConfigService extends Service
 {
     /**
-     * @return Collection<StepEnum>
+     * @return Collection<string,array>
      */
     public function getFixedSteps(): Collection
     {
-        return collect((array) config('process_step.fixed_steps'))
-            ->map(fn (string $step) => StepEnum::from($step));
+        return collect((array) config('process_step.fixed_steps'));
     }
 
     public function getStepsPlacement(): StepEnum
@@ -24,7 +23,7 @@ class ProcessStepConfigService extends Service
         $stepsPlacement = StepEnum::from((string) config('process_step.steps_placement'));
 
         throw_if(
-            $this->getFixedSteps()->contains($stepsPlacement->value),
+            !$this->getFixedSteps()->has($stepsPlacement->value),
             new \InvalidArgumentException('Steps placement must be included in fixed states.')
         );
 

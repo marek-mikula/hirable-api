@@ -12,7 +12,7 @@ return new class () extends Migration {
         Schema::table('position_candidates', static function (Blueprint $table): void {
             $table->foreignId('step_id')->after('application_id');
 
-            $table->foreign('step_id', 'position_candidates_step_foreign', )
+            $table->foreign('step_id', 'position_candidates_step_foreign')
                 ->references('id')
                 ->on('position_process_steps')
                 ->restrictOnDelete()

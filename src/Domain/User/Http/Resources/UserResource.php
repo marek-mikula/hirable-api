@@ -6,18 +6,13 @@ namespace Domain\User\Http\Resources;
 
 use Domain\User\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property User $resource
  */
-class UserResource extends JsonResource
+class UserResource extends Resource
 {
-    public function __construct(User $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return [

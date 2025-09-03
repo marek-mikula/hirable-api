@@ -8,7 +8,7 @@ use App\Listeners\Listener;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Events\PositionApprovalRejectedEvent;
-use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
+use Domain\Position\Repositories\Input\PositionApprovalDecideInput;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Support\Token\Repositories\TokenRepositoryInterface;

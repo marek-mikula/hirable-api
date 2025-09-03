@@ -141,60 +141,32 @@ return [
     ],
 
     ClassifierTypeEnum::INTERVIEW_TYPE->value => [
-        'phone_interview' => 'Phone interview',
-        'live_video_interview' => 'Live video interview',
-        'pre_recorded_video_interview' => 'Pre-recorded video interview',
-        'in_person_interview' => 'In-person interview',
-        'online_interview' => 'Online interview',
-        'group_interview' => 'Group interview',
-        'panel_interview' => 'Panel interview',
-        'hr_interview' => 'HR interview',
-        'manager_interview' => 'Manager interview',
-        'executive_interview' => 'Executive interview',
-        'technical_interview' => 'Technical interview',
-        'foreign_language_interview' => 'Foreign language interview',
-        'client_interview' => 'Client interview',
-        'structured_interview' => 'Structured interview',
-        'unstructured_interview' => 'Unstructured interview',
-        'behavioral_interview' => 'Behavioral interview',
-        'competency_interview' => 'Competency-based interview',
-        'stress_interview' => 'Stress interview',
-        'case_interview' => 'Case interview',
-        'assessment_center' => 'Assessment center',
-        'follow_up_interview' => 'Follow-up interview',
-        'final_interview' => 'Final interview',
-        'other_interview' => 'Other type of interview',
+        'screening' => 'Screening',
+        'hr' => 'HR',
+        'manager' => 'Hiring Manager',
+        'competency' => 'Competency/Behaviour',
+        'technical' => 'Technical',
+        'final' => 'With leadership/CEO'
     ],
 
-    ClassifierTypeEnum::TEST_TYPE->value => [
-        'logical_reasoning' => 'Logical reasoning test',
-        'verbal_reasoning' => 'Verbal reasoning test',
-        'numerical_reasoning' => 'Numerical reasoning test',
-        'analytical_thinking' => 'Analytical thinking test',
-        'personality_test' => 'Personality test',
-        'psychological_test' => 'Psychological test',
-        'work_style_test' => 'Work style test',
-        'problem_solving' => 'Problem-solving test',
-        'english_language_test' => 'English language test',
-        'foreign_language_test' => 'Foreign language test',
-        'technical_knowledge_test' => 'Technical knowledge test',
-        'nontechnical_knowledge_test' => 'Non-technical knowledge test',
-        'computer_skills_test' => 'Computer skills test',
-        'ms_office_test' => 'MS Office skills test',
-        'programming_test' => 'Programming test',
-        'sales_skills_test' => 'Sales skills test',
-        'real_situation_simulation' => 'Real-life scenario simulation',
-        'assessment_center' => 'Assessment center',
-        'manual_skills_test' => 'Manual skills test',
-        'attention_test' => 'Attention test',
-        'memory_test' => 'Memory test',
-        'time_management_test' => 'Time management test',
-        'values_motivation_test' => 'Values and motivation test',
-        'stress_resistance_test' => 'Stress resistance test',
-        'other_test' => 'Other test',
+    ClassifierTypeEnum::INTERVIEW_FORM->value => [
+        'personal' => 'Personal',
+        'phone' => 'Phone',
+        'online' => 'Online',
+        'async' => 'Asynchronous',
+        'chat' => 'Chat',
     ],
 
-    ClassifierTypeEnum::REFUSAL_TYPE->value => [
+    ClassifierTypeEnum::TASK_TYPE->value => [
+        'language' => 'Language',
+        'expertise' => 'Proficiency',
+        'psychometric' => 'Psychometric',
+        'skills' => 'Skills',
+        'case_study' => 'Case study',
+        'other' => 'Other',
+    ],
+
+    ClassifierTypeEnum::REFUSAL_REASON->value => [
         'accepted_other_offer' => 'Accepted another job offer',
         'no_longer_available' => 'No longer available',
         'lost_interest' => 'Lost interest in the position',
@@ -212,7 +184,7 @@ return [
         'other_reason' => 'Other reason',
     ],
 
-    ClassifierTypeEnum::REJECTION_TYPE->value => [
+    ClassifierTypeEnum::REJECTION_REASON->value => [
         'lack_experience' => 'Lack of experience',
         'insufficient_education' => 'Insufficient education',
         'skill_mismatch' => 'Skill mismatch',
@@ -247,6 +219,11 @@ return [
     ClassifierTypeEnum::SALARY_TYPE->value => [
         'gross' => 'Gross',
         'net' => 'Net',
+    ],
+
+    ClassifierTypeEnum::EMPLOYMENT_DURATION->value => [
+        'certain' => 'For a certain period of time',
+        'indefinite' => 'For an indefinite period of time',
     ],
 
 ];

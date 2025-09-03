@@ -51,11 +51,12 @@ class ModelHasPosition extends Model
         'role',
     ];
 
-    protected $attributes = [];
-
-    protected $casts = [
-        'role' => PositionRoleEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'role' => PositionRoleEnum::class,
+        ];
+    }
 
     protected function isExternal(): Attribute
     {
@@ -82,7 +83,7 @@ class ModelHasPosition extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): ModelHasPositionBuilder
+    public function newEloquentBuilder($query): ModelHasPositionBuilder // @pest-ignore-type
     {
         return new ModelHasPositionBuilder($query);
     }

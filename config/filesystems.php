@@ -36,7 +36,7 @@ return [
 
         FileDiskEnum::LOCAL->value => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app/private'),
             'throw' => false,
         ],
 

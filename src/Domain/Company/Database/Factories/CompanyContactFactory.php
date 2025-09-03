@@ -8,11 +8,10 @@ use App\Enums\LanguageEnum;
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Support\Str;
 
 /**
- * @extends BaseFactory<CompanyContact>
+ * @extends Factory<CompanyContact>
  */
 class CompanyContactFactory extends Factory
 {

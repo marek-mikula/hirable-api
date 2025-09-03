@@ -4,25 +4,17 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Resources;
 
-use App\Http\Resources\Traits\ChecksRelations;
 use Domain\Company\Http\Resources\CompanyContactResource;
 use Domain\Position\Models\PositionApproval;
 use Domain\User\Http\Resources\UserResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property PositionApproval $resource
  */
-class PositionApprovalResource extends JsonResource
+class PositionApprovalResource extends Resource
 {
-    use ChecksRelations;
-
-    public function __construct(PositionApproval $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations('modelHasPosition');
@@ -42,8 +34,8 @@ class PositionApprovalResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'positionId' => $this->resource->position_id,
-            'role' => $this->resource->modelHasPosition?->role->value,
-            'state' => $this->resource->state->value,
+            'role' => $this->resource->modelHasPosition?->role,
+            'state' => $this->resource->state,
             'round' => $this->resource->round,
             'note' => $this->resource->note,
             'decidedAt' => $this->resource->decided_at?->toIso8601String(),

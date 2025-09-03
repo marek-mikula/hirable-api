@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Support\Classifier\Data;
 
-use Spatie\LaravelData\Data;
-
-class ClassifierData extends Data
+readonly class ClassifierData
 {
-    public string $value;
-
-    public string $label;
+    public function __construct(
+        public string $value,
+        public string $label,
+    ) {
+    }
 }

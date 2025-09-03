@@ -8,8 +8,8 @@ use App\Exceptions\RepositoryException;
 use Domain\Company\Models\Company;
 use Domain\ProcessStep\Models\Builders\ProcessStepBuilder;
 use Domain\ProcessStep\Models\ProcessStep;
-use Domain\ProcessStep\Repositories\Inputs\ProcessStepStoreInput;
-use Domain\ProcessStep\Repositories\Inputs\ProcessStepUpdateInput;
+use Domain\ProcessStep\Repositories\Input\ProcessStepStoreInput;
+use Domain\ProcessStep\Repositories\Input\ProcessStepUpdateInput;
 use Illuminate\Database\Eloquent\Collection;
 
 class ProcessStepRepository implements ProcessStepRepositoryInterface
@@ -21,6 +21,7 @@ class ProcessStepRepository implements ProcessStepRepositoryInterface
         $processStep->company_id = $input->company->id;
         $processStep->step = $input->step;
         $processStep->is_repeatable = $input->isRepeatable;
+        $processStep->triggers_action = $input->triggersAction;
 
         throw_if(!$processStep->save(), RepositoryException::stored(ProcessStep::class));
 
@@ -41,6 +42,7 @@ class ProcessStepRepository implements ProcessStepRepositoryInterface
     {
         $processStep->step = $input->step;
         $processStep->is_repeatable = $input->isRepeatable;
+        $processStep->triggers_action = $input->triggersAction;
 
         throw_if(!$processStep->save(), RepositoryException::updated(ProcessStep::class));
 

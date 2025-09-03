@@ -4,36 +4,33 @@ declare(strict_types=1);
 
 namespace Domain\Position\Http\Resources;
 
-use App\Http\Resources\Traits\ChecksRelations;
-use Domain\Candidate\Http\Resources\CandidateSimpleResource;
+use App\Http\Resources\Collections\ResourceCollection;
+use Domain\Candidate\Http\Resources\CandidateResource;
 use Domain\Position\Models\PositionCandidate;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
 /**
  * @property PositionCandidate $resource
  */
-class PositionCandidateResource extends JsonResource
+class PositionCandidateResource extends Resource
 {
-    use ChecksRelations;
-
-    public function __construct(PositionCandidate $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations('candidate');
+        $this->checkLoadedRelations(['candidate', 'step', 'actions']);
 
         return [
             'id' => $this->resource->id,
+            'positionId' => $this->resource->position_id,
             'score' => $this->resource->score,
             'totalScore' => $this->resource->total_score,
             'isScoreCalculated' => $this->resource->is_score_calculated,
-            'candidate' => new CandidateSimpleResource($this->resource->candidate),
+            'idleDays' => $this->resource->idle_days,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
+            'step' => new PositionProcessStepResource($this->resource->step),
+            'candidate' => new CandidateResource($this->resource->candidate),
+            'actions' => new ResourceCollection(PositionCandidateActionResource::class, $this->resource->actions),
         ];
     }
 }

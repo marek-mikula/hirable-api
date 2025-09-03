@@ -36,10 +36,6 @@ class ModelHasFile extends Model
         'fileable_id',
     ];
 
-    protected $attributes = [];
-
-    protected $casts = [];
-
     public function file(): BelongsTo
     {
         return $this->belongsTo(

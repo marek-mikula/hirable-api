@@ -141,60 +141,32 @@ return [
     ],
 
     ClassifierTypeEnum::INTERVIEW_TYPE->value => [
-        'phone_interview' => 'Telefonický pohovor',
-        'live_video_interview' => 'Videopohovor (živý)',
-        'pre_recorded_video_interview' => 'Videopohovor (asynchronní / nahraný)',
-        'in_person_interview' => 'Osobní pohovor',
-        'online_interview' => 'Online pohovor',
-        'group_interview' => 'Skupinový pohovor',
-        'panel_interview' => 'Panelový pohovor (více tazatelů)',
-        'hr_interview' => 'Pohovor s HR',
-        'manager_interview' => 'Pohovor s manažerem',
-        'executive_interview' => 'Pohovor s vedením firmy',
-        'technical_interview' => 'Technický pohovor',
-        'foreign_language_interview' => 'Pohovor v cizím jazyce',
-        'client_interview' => 'Pohovor se zákazníkem / klientem',
-        'structured_interview' => 'Strukturovaný pohovor',
-        'unstructured_interview' => 'Nestrukturovaný pohovor',
-        'behavioral_interview' => 'Behaviorální pohovor',
-        'competency_interview' => 'Kompetenční pohovor',
-        'stress_interview' => 'Stresový pohovor',
-        'case_interview' => 'Case interview (řešení případové studie)',
-        'assessment_center' => 'Assessment centrum',
-        'follow_up_interview' => 'Follow-up pohovor',
-        'final_interview' => 'Finální pohovor',
-        'other_interview' => 'Jiný typ pohovoru',
+        'screening' => 'Screening',
+        'hr' => 'S HR',
+        'manager' => 'S přímým nadřízeným',
+        'competency' => 'Kompetenční/Behaviorální',
+        'technical' => 'Technický',
+        'final' => 'S vedením/CEO'
     ],
 
-    ClassifierTypeEnum::TEST_TYPE->value => [
-        'logical_reasoning' => 'Test logického myšlení',
-        'verbal_reasoning' => 'Test verbálního myšlení',
-        'numerical_reasoning' => 'Test numerického myšlení',
-        'analytical_thinking' => 'Test analytického myšlení',
-        'personality_test' => 'Osobnostní test',
-        'psychological_test' => 'Psychologický test',
-        'work_style_test' => 'Test pracovního stylu',
-        'problem_solving' => 'Test schopnosti řešit problémy',
-        'english_language_test' => 'Jazykový test (angličtina)',
-        'foreign_language_test' => 'Jazykový test (jiný jazyk)',
-        'technical_knowledge_test' => 'Odborný test (technický)',
-        'nontechnical_knowledge_test' => 'Odborný test (netechnický)',
-        'computer_skills_test' => 'Test práce s počítačem',
-        'ms_office_test' => 'Test znalosti MS Office',
-        'programming_test' => 'Programátorský test',
-        'sales_skills_test' => 'Test obchodních dovedností',
-        'real_situation_simulation' => 'Simulace reálné situace',
-        'assessment_center' => 'Assessment centrum',
-        'manual_skills_test' => 'Test zručnosti',
-        'attention_test' => 'Test pozornosti',
-        'memory_test' => 'Test paměti',
-        'time_management_test' => 'Test time managementu',
-        'values_motivation_test' => 'Test hodnot a motivace',
-        'stress_resistance_test' => 'Test stresové odolnosti',
-        'other_test' => 'Jiný test',
+    ClassifierTypeEnum::INTERVIEW_FORM->value => [
+        'personal' => 'Osobní',
+        'phone' => 'Telefonický',
+        'online' => 'Online',
+        'async' => 'Asynchronní',
+        'chat' => 'Chatový',
     ],
 
-    ClassifierTypeEnum::REFUSAL_TYPE->value => [
+    ClassifierTypeEnum::TASK_TYPE->value => [
+        'language' => 'Jazykový',
+        'expertise' => 'Technický/Odborný',
+        'psychometric' => 'Psychometrický',
+        'skills' => 'Dovednostní',
+        'case_study' => 'Case study',
+        'other' => 'Ostatní',
+    ],
+
+    ClassifierTypeEnum::REFUSAL_REASON->value => [
         'accepted_other_offer' => 'Přijal jinou pracovní nabídku',
         'no_longer_available' => 'Není nadále dostupný',
         'lost_interest' => 'Ztratil zájem o pozici',
@@ -212,7 +184,7 @@ return [
         'other_reason' => 'Jiný důvod',
     ],
 
-    ClassifierTypeEnum::REJECTION_TYPE->value => [
+    ClassifierTypeEnum::REJECTION_REASON->value => [
         'lack_experience' => 'Nedostatek zkušeností',
         'insufficient_education' => 'Nedostatečné vzdělání',
         'skill_mismatch' => 'Nevyhovující dovednosti',
@@ -247,6 +219,11 @@ return [
     ClassifierTypeEnum::SALARY_TYPE->value => [
         'gross' => 'Hrubá',
         'net' => 'Čistá',
+    ],
+
+    ClassifierTypeEnum::EMPLOYMENT_DURATION->value => [
+        'certain' => 'Na dobu určitou',
+        'indefinite' => 'Na dobu neurčitou',
     ],
 
 ];

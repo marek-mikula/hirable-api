@@ -5,20 +5,15 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 use Support\Classifier\Data\ClassifierData;
 use Support\Classifier\Http\Resources\ClassifierResource;
 
 /**
  * @property array $resource
  */
-class GeneratedPositionResource extends JsonResource
+class GeneratedPositionResource extends Resource
 {
-    public function __construct(array $resource)
-    {
-        parent::__construct($resource);
-    }
-
     public function toArray(Request $request): array
     {
         return array_map([$this, 'mapValue'], $this->resource);

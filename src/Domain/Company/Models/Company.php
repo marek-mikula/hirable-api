@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Company\Models;
 
-use App\Casts\Capitalize;
-use App\Casts\Lowercase;
+use App\Casts\CapitalizeCast;
+use App\Casts\LowercaseCast;
 use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Company\Database\Factories\CompanyFactory;
@@ -54,11 +54,14 @@ class Company extends Model
 
     protected $attributes = [];
 
-    protected $casts = [
-        'name' => Capitalize::class,
-        'email' => Lowercase::class,
-        'ai_output_language' => LanguageEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'name' => CapitalizeCast::class,
+            'email' => LowercaseCast::class,
+            'ai_output_language' => LanguageEnum::class,
+        ];
+    }
 
     public function users(): HasMany
     {

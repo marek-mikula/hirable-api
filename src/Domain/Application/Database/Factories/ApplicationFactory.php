@@ -10,10 +10,9 @@ use Domain\Application\Models\Application;
 use Domain\Candidate\Enums\SourceEnum;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Position;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
- * @extends BaseFactory<Application>
+ * @extends Factory<Application>
  */
 class ApplicationFactory extends Factory
 {

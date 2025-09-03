@@ -10,9 +10,12 @@ use Domain\Candidate\Models\Candidate;
 use Domain\Position\Database\Factories\PositionCandidateFactory;
 use Domain\Position\Models\Builders\PositionCandidateBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder;
 
 /**
@@ -26,10 +29,14 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read bool $is_score_calculated
+ * @property-read int $idle_days
  * @property-read Position $position
  * @property-read Candidate $candidate
  * @property-read Application $application
  * @property-read PositionProcessStep $step
+ * @property-read Collection<PositionCandidateAction> $actions
+ * @property-read PositionCandidateAction|null $latestAction
+ * @property-read int|null $actions_count
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
  * @method static PositionCandidateBuilder query()
@@ -57,13 +64,21 @@ class PositionCandidate extends Model
         'score' => '{}'
     ];
 
-    protected $casts = [
-        'score' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'score' => 'array',
+        ];
+    }
 
     protected function isScoreCalculated(): Attribute
     {
-        return Attribute::get(fn () => $this->total_score !== null);
+        return Attribute::get(fn (): bool => $this->total_score !== null && !empty($this->score));
+    }
+
+    protected function idleDays(): Attribute
+    {
+        return Attribute::get(fn (): int => (int) $this->updated_at->diffInDays(now()));
     }
 
     public function position(): BelongsTo
@@ -102,10 +117,24 @@ class PositionCandidate extends Model
         );
     }
 
+    public function actions(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionCandidateAction::class,
+            foreignKey: 'position_candidate_id',
+            localKey: 'id',
+        )->latest('id');
+    }
+
+    public function latestAction(): HasOne
+    {
+        return $this->actions()->one();
+    }
+
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): PositionCandidateBuilder
+    public function newEloquentBuilder($query): PositionCandidateBuilder // @pest-ignore-type
     {
         return new PositionCandidateBuilder($query);
     }

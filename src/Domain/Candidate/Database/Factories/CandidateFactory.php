@@ -9,11 +9,10 @@ use Database\Factories\Factory;
 use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Models\Candidate;
 use Domain\Company\Models\Company;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Support\Str;
 
 /**
- * @extends BaseFactory<Candidate>
+ * @extends Factory<Candidate>
  */
 class CandidateFactory extends Factory
 {

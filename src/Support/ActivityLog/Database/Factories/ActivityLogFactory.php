@@ -6,12 +6,11 @@ namespace Support\ActivityLog\Database\Factories;
 
 use Database\Factories\Factory;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;
 use Support\ActivityLog\Models\ActivityLog;
 
 /**
- * @extends BaseFactory<ActivityLog>
+ * @extends Factory<ActivityLog>
  */
 class ActivityLogFactory extends Factory
 {

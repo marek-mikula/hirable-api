@@ -6,11 +6,11 @@ namespace Domain\Candidate\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\PaginatedResourceCollection;
 use Domain\Candidate\Http\Request\CandidateIndexRequest;
 use Domain\Candidate\Http\Request\CandidateShowRequest;
 use Domain\Candidate\Http\Request\CandidateUpdateRequest;
 use Domain\Candidate\Http\Resources\CandidateResource;
-use Domain\Candidate\Http\Resources\Collections\CandidateListPaginatedCollection;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\UseCases\CandidateIndexUseCase;
 use Domain\Candidate\UseCases\CandidateUpdateUseCase;
@@ -33,7 +33,7 @@ class CandidateController extends ApiController
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::CANDIDATE, $gridQuery));
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'candidates' => new CandidateListPaginatedCollection($candidates),
+            'candidates' => new PaginatedResourceCollection(CandidateResource::class, $candidates),
         ]);
     }
 

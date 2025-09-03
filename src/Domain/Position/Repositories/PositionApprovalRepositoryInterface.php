@@ -9,7 +9,7 @@ use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
-use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
+use Domain\Position\Repositories\Input\PositionApprovalDecideInput;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Support\Token\Models\Token;
@@ -24,7 +24,7 @@ interface PositionApprovalRepositoryInterface
      * @param string[] $with
      * @return Collection<PositionApproval>
      */
-    public function getApprovalsOnPositionInstate(Position $position, PositionApprovalStateEnum $state, array $with): Collection;
+    public function getApprovalsOnPositionInstate(Position $position, PositionApprovalStateEnum $state, array $with = []): Collection;
 
     public function hasApprovalsOnPositionInState(Position $position, PositionApprovalStateEnum $state): bool;
 
@@ -34,12 +34,12 @@ interface PositionApprovalRepositoryInterface
      * @param string[] $with
      * @return Collection<PositionApproval>
      */
-    public function getApprovalsByModelInstate(Model $model, PositionApprovalStateEnum $state, array $with): Collection;
+    public function getApprovalsByModelInstate(Model $model, PositionApprovalStateEnum $state, array $with = []): Collection;
 
-    public function setRemindedAt(PositionApproval $approval, ?Carbon $timestamp): PositionApproval;
+    public function setRemindedAt(PositionApproval $approval, ?Carbon $timestamp = null): PositionApproval;
 
     /**
      * @param string[] $with
      */
-    public function findByToken(Token $token, array $with): ?PositionApproval;
+    public function findByToken(Token $token, array $with = []): ?PositionApproval;
 }

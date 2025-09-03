@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\User\Models;
 
-use App\Casts\Capitalize;
-use App\Casts\Lowercase;
+use App\Casts\CapitalizeCast;
+use App\Casts\LowercaseCast;
 use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Company\Enums\RoleEnum;
@@ -92,17 +92,20 @@ class User extends Authenticatable implements HasLocalePreference
         'remember_token',
     ];
 
-    protected $casts = [
-        'company_role' => RoleEnum::class,
-        'company_owner' => 'boolean',
-        'language' => LanguageEnum::class,
-        'firstname' => Capitalize::class,
-        'lastname' => Capitalize::class,
-        'email' => Lowercase::class,
-        'password' => 'hashed',
-        'email_verified_at' => 'datetime',
-        'agreement_accepted_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'company_role' => RoleEnum::class,
+            'company_owner' => 'boolean',
+            'language' => LanguageEnum::class,
+            'firstname' => CapitalizeCast::class,
+            'lastname' => CapitalizeCast::class,
+            'email' => LowercaseCast::class,
+            'password' => 'hashed',
+            'email_verified_at' => 'datetime',
+            'agreement_accepted_at' => 'datetime',
+        ];
+    }
 
     protected function isEmailVerified(): Attribute
     {

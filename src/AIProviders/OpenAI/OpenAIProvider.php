@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AIProviders\OpenAI;
+
+use Domain\AI\Contracts\AIProviderInterface;
+use Domain\Candidate\Models\Candidate;
+use Domain\Position\Models\Position;
+use Domain\User\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
+use AIProviders\OpenAI\Actions\EvaluateCandidateAction;
+use AIProviders\OpenAI\Actions\ExtractCVDataAction;
+use AIProviders\OpenAI\Actions\GeneratePositionFromFileAction;
+use AIProviders\OpenAI\Actions\GeneratePositionFromPromptAction;
+use Support\File\Models\File;
+
+class OpenAIProvider implements AIProviderInterface
+{
+    public function extractCVData(File $cv): array
+    {
+        return ExtractCVDataAction::make()->handle($cv);
+    }
+
+    public function evaluateCandidate(Position $position, Candidate $candidate, Collection $files): array
+    {
+        return EvaluateCandidateAction::make()->handle($position, $candidate, $files);
+    }
+
+    public function generatePositionFromPrompt(User $user, string $prompt): array
+    {
+        return GeneratePositionFromPromptAction::make()->handle($user, $prompt);
+    }
+
+    public function generatePositionFromFile(User $user, UploadedFile $file): array
+    {
+        return GeneratePositionFromFileAction::make()->handle($user, $file);
+    }
+}

@@ -9,11 +9,10 @@ use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @extends BaseFactory<ModelHasPosition>
+ * @extends Factory<ModelHasPosition>
  */
 class ModelHasPositionFactory extends Factory
 {

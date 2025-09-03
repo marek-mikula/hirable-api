@@ -25,10 +25,7 @@ class PositionDeleteUseCase extends UseCase
             'files',
         ]);
 
-        DB::transaction(function () use (
-            $user,
-            $position,
-        ): void {
+        DB::transaction(function () use ($position): void {
             if ($position->files->isNotEmpty()) {
                 foreach ($position->files as $file) {
                     $this->fileRepository->delete($file);

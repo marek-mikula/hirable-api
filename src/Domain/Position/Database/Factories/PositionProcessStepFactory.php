@@ -8,10 +8,9 @@ use Database\Factories\Factory;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
 use Domain\ProcessStep\Enums\StepEnum;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
- * @extends BaseFactory<PositionProcessStep>
+ * @extends Factory<PositionProcessStep>
  */
 class PositionProcessStepFactory extends Factory
 {
@@ -26,6 +25,7 @@ class PositionProcessStepFactory extends Factory
             'order' => fake()->numberBetween(0, 20),
             'is_fixed' => false,
             'is_repeatable' => fake()->boolean,
+            'triggers_action' => null,
         ];
     }
 

@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Unit\App\Casts;
 
-use App\Casts\Uppercase;
+use App\Casts\UppercaseCast;
 use Tests\Common\Models\TestModel;
 
 use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertSame;
 
 /**
- * @covers \App\Casts\Uppercase::get
- * @covers \App\Casts\Uppercase::set
+ * @covers \App\Casts\UppercaseCast::get
+ * @covers \App\Casts\UppercaseCast::set
  */
 it('correctly casts value', function (): void {
-    $cast = new Uppercase();
+    $cast = new UppercaseCast();
     $model = new TestModel();
 
     // test that value gets cast when setting the value

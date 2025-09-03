@@ -55,9 +55,12 @@ class CompanyContact extends Model implements HasLocalePreference
         'company_name',
     ];
 
-    protected $casts = [
-        'language' => LanguageEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'language' => LanguageEnum::class,
+        ];
+    }
 
     protected function label(): Attribute
     {
@@ -81,7 +84,7 @@ class CompanyContact extends Model implements HasLocalePreference
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): CompanyContactBuilder
+    public function newEloquentBuilder($query): CompanyContactBuilder // @pest-ignore-type
     {
         return new CompanyContactBuilder($query);
     }

@@ -6,11 +6,11 @@ namespace Domain\ProcessStep\Https\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\ResourceCollection;
 use Domain\ProcessStep\Https\Requests\ProcessStepDeleteRequest;
 use Domain\ProcessStep\Https\Requests\ProcessStepIndexRequest;
 use Domain\ProcessStep\Https\Requests\ProcessStepStoreRequest;
 use Domain\ProcessStep\Https\Requests\ProcessStepUpdateRequest;
-use Domain\ProcessStep\Https\Resources\Collections\ProcessStepCollection;
 use Domain\ProcessStep\Https\Resources\ProcessStepResource;
 use Domain\ProcessStep\Models\ProcessStep;
 use Domain\ProcessStep\Repositories\ProcessStepRepositoryInterface;
@@ -31,7 +31,7 @@ class ProcessStepController extends ApiController
         $processSteps = $this->processStepRepository->getByCompany($request->user()->company, $request->includeCommon());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'processSteps' => new ProcessStepCollection($processSteps),
+            'processSteps' => new ResourceCollection(ProcessStepResource::class, $processSteps),
         ]);
     }
 

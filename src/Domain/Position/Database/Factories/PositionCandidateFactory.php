@@ -10,10 +10,9 @@ use Domain\Candidate\Models\Candidate;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionProcessStep;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
- * @extends BaseFactory<PositionCandidate>
+ * @extends Factory<PositionCandidate>
  */
 class PositionCandidateFactory extends Factory
 {

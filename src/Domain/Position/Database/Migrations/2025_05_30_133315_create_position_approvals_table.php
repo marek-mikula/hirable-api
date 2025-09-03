@@ -15,7 +15,7 @@ return new class () extends Migration {
             $table->foreignId('position_id');
             $table->unsignedTinyInteger('round');
             $table->foreignId('token_id')->nullable();
-            $table->string('state', 20);
+            $table->string('state');
             $table->string('note', 500)->nullable();
             $table->timestamp('decided_at')->nullable();
             $table->timestamp('reminded_at')->nullable();

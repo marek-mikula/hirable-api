@@ -7,7 +7,7 @@ namespace Domain\Position\Listeners;
 use App\Listeners\Listener;
 use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Events\PositionApprovalExpiredEvent;
-use Domain\Position\Repositories\Inputs\PositionApprovalDecideInput;
+use Domain\Position\Repositories\Input\PositionApprovalDecideInput;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Support\Token\Repositories\TokenRepositoryInterface;
 

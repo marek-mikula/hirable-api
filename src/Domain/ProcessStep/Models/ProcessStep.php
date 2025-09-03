@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\ProcessStep\Models;
 
-use App\Casts\EnumOrValue;
+use App\Casts\EnumOrValueCast;
 use Domain\Company\Models\Company;
+use Domain\Position\Enums\ActionTypeEnum;
 use Domain\ProcessStep\Database\Factories\ProcessStepFactory;
 use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Models\Builders\ProcessStepBuilder;
@@ -20,6 +21,7 @@ use Illuminate\Database\Query\Builder;
  * @property int|null $company_id
  * @property StepEnum|string $step
  * @property boolean $is_repeatable
+ * @property ActionTypeEnum|null $triggers_action
  * @property-read bool $is_custom
  * @property-read Company|null $company
  *
@@ -40,12 +42,17 @@ class ProcessStep extends Model
         'company_id',
         'step',
         'is_repeatable',
+        'triggers_action',
     ];
 
-    protected $casts = [
-        'step' => EnumOrValue::class . ':' . StepEnum::class,
-        'is_repeatable' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'step' => EnumOrValueCast::class . ':' . StepEnum::class,
+            'is_repeatable' => 'boolean',
+            'triggers_action' => ActionTypeEnum::class,
+        ];
+    }
 
     public function isCustom(): Attribute
     {
@@ -64,7 +71,7 @@ class ProcessStep extends Model
     /**
      * @param  Builder  $query
      */
-    public function newEloquentBuilder($query): ProcessStepBuilder
+    public function newEloquentBuilder($query): ProcessStepBuilder // @pest-ignore-type
     {
         return new ProcessStepBuilder($query);
     }

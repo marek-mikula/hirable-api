@@ -7,7 +7,7 @@ namespace Domain\Position\Listeners;
 use App\Listeners\Listener;
 use Domain\Position\Events\PositionOpenedEvent;
 use Domain\Position\Models\Position;
-use Domain\Position\Repositories\Inputs\PositionProcessStepStoreInput;
+use Domain\Position\Repositories\Input\PositionProcessStepStoreInput;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Domain\Position\Services\PositionProcessStepService;
 
@@ -33,6 +33,7 @@ class CreateProcessStepsListener extends Listener
                         order: $index,
                         isFixed: $step->isFixed,
                         isRepeatable: $step->isRepeatable,
+                        triggersAction: $step->triggersAction,
                     )
                 );
             }

@@ -7,7 +7,7 @@ namespace Domain\Position\UseCases;
 use App\UseCases\UseCase;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Models\Position;
-use Domain\Position\Repositories\Inputs\PositionStoreInput;
+use Domain\Position\Repositories\Input\PositionStoreInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
@@ -83,7 +83,6 @@ class PositionDuplicateUseCase extends UseCase
         );
 
         return DB::transaction(function () use (
-            $user,
             $position,
             $input,
         ): Position {

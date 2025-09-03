@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Unit\App\Casts;
 
-use App\Casts\Capitalize;
+use App\Casts\CapitalizeCast;
 use Tests\Common\Models\TestModel;
 
 use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertSame;
 
 /**
- * @covers \App\Casts\Capitalize::get
- * @covers \App\Casts\Capitalize::set
+ * @covers \App\Casts\CapitalizeCast::get
+ * @covers \App\Casts\CapitalizeCast::set
  */
 it('correctly casts value', function (): void {
-    $cast = new Capitalize();
+    $cast = new CapitalizeCast();
     $model = new TestModel();
 
     // test that value gets cast when setting the value
