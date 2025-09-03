@@ -18,6 +18,7 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
     public function store(PositionCandidateActionStoreInput $input): PositionCandidateAction
     {
         $positionCandidateAction = new PositionCandidateAction();
+        $positionCandidateAction->position_process_step_id = $input->positionProcessStep->id;
         $positionCandidateAction->position_candidate_id = $input->positionCandidate->id;
         $positionCandidateAction->user_id = $input->user->id;
         $positionCandidateAction->type = $input->type;
@@ -57,6 +58,7 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
 
         throw_if(!$positionCandidateAction->save(), RepositoryException::stored(PositionCandidateAction::class));
 
+        $positionCandidateAction->setRelation('positionProcessStep', $input->positionProcessStep);
         $positionCandidateAction->setRelation('positionCandidate', $input->positionCandidate);
         $positionCandidateAction->setRelation('user', $input->user);
 

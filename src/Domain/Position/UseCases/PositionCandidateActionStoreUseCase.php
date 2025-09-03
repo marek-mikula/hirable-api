@@ -34,6 +34,7 @@ class PositionCandidateActionStoreUseCase extends UseCase
         $state = $data->operation === ActionOperationEnum::FINISH ? ActionStateEnum::FINISHED : ActionStateEnum::ACTIVE;
 
         $input = new PositionCandidateActionStoreInput(
+            positionProcessStep: $positionCandidate->step,
             positionCandidate: $positionCandidate,
             user: $user,
             type: $data->type,

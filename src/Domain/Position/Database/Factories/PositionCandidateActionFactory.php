@@ -22,6 +22,7 @@ class PositionCandidateActionFactory extends Factory
     public function definition(): array
     {
         return [
+            'position_process_step_id' => null,
             'position_candidate_id' => PositionCandidate::factory(),
             'user_id' => User::factory(),
             'type' => ActionTypeEnum::INTERVIEW,

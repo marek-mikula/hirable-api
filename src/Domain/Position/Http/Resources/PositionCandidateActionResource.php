@@ -23,6 +23,7 @@ class PositionCandidateActionResource extends Resource
 
         return [
             'id' => $this->resource->id,
+            'positionProcessStepId' => $this->resource->position_process_step_id,
             'positionCandidateId' => $this->resource->position_candidate_id,
             'userId' => $this->resource->user_id,
             'type' => $this->resource->type,

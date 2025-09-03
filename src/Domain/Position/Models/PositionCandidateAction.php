@@ -18,6 +18,7 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @property-read int $id
+ * @property int|null $position_process_step_id
  * @property int $position_candidate_id
  * @property int $user_id
  * @property ActionTypeEnum $type
@@ -56,6 +57,7 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $note
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read PositionProcessStep|null $positionProcessStep
  * @property-read PositionCandidate $positionCandidate
  * @property-read User $user
  *
@@ -71,6 +73,7 @@ class PositionCandidateAction extends Model
     protected $table = 'position_candidate_actions';
 
     protected $fillable = [
+        'position_process_step_id',
         'position_candidate_id',
         'user_id',
         'type',
@@ -130,6 +133,15 @@ class PositionCandidateAction extends Model
             'offer_certain_period_to' => 'datetime:Y-m-d',
             'real_start_date' => 'datetime:Y-m-d',
         ];
+    }
+
+    public function positionProcessStep(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: PositionProcessStep::class,
+            foreignKey: 'position_process_step_id',
+            ownerKey: 'id',
+        );
     }
 
     public function positionCandidate(): BelongsTo

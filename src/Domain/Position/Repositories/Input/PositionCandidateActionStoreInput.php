@@ -8,11 +8,13 @@ use Carbon\Carbon;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Enums\OfferStateEnum;
 use Domain\Position\Models\PositionCandidate;
+use Domain\Position\Models\PositionProcessStep;
 use Domain\User\Models\User;
 
 readonly class PositionCandidateActionStoreInput
 {
     public function __construct(
+        public PositionProcessStep $positionProcessStep,
         public PositionCandidate $positionCandidate,
         public User $user,
         public ActionTypeEnum $type,

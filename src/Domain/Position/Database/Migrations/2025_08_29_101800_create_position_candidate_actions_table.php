@@ -11,6 +11,7 @@ return new class () extends Migration {
     {
         Schema::create('position_candidate_actions', static function (Blueprint $table): void {
             $table->id();
+            $table->foreignId('position_process_step_id')->nullable();
             $table->foreignId('position_candidate_id');
             $table->foreignId('user_id');
             $table->string('type');
@@ -48,6 +49,12 @@ return new class () extends Migration {
             $table->string('note', 500)->nullable();
             $table->date('real_start_date')->nullable();
             $table->timestamps();
+
+            $table->foreign('position_process_step_id', 'position_candidate_actions_position_process_step_foreign')
+                ->references('id')
+                ->on('position_process_steps')
+                ->nullOnDelete()
+                ->restrictOnUpdate();
 
             $table->foreign('position_candidate_id', 'position_candidate_actions_position_candidate_foreign')
                 ->references('id')

@@ -8,7 +8,6 @@ use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Position\Http\Request\PositionCandidateSetStepRequest;
 use Domain\Position\Http\Resources\PositionCandidateResource;
-use Domain\Position\Http\Resources\PositionProcessStepResource;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
@@ -33,7 +32,6 @@ class PositionCandidateSetStepController extends ApiController
         $positionCandidate->loadMissing(['actions', 'candidate', 'step']);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'positionProcessStep' => new PositionProcessStepResource($positionProcessStep),
             'positionCandidate' => new PositionCandidateResource($positionCandidate),
         ]);
     }
