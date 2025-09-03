@@ -29,3 +29,9 @@ When state method does not have an arguments, the name should be an **adjective*
 When state method has an argument, and it changes some model attribute, the name should start with `of` (i.e. `ofEntity(Entity $entity)`, `ofEmail(string $email)`).
 
 When state method has an argument, and it defines some relationship state, the name should start with `with` (i.e. `withUser(User $user)`, `withEntity(Entity $entity)`).
+
+## Query builder
+
+Each eloquent model should have its own query builder class defined.
+
+The name of the builder class should be `{modelName}Builder` and put in `./Models/Query` folder.
