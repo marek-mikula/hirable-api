@@ -11,7 +11,7 @@ use Domain\Position\Repositories\Input\PositionUpdateInput;
 
 interface PositionRepositoryInterface
 {
-    public function findBy(array $wheres, array $with): ?Position;
+    public function findBy(array $wheres, array $with = []): ?Position;
 
     public function store(PositionStoreInput $input): Position;
 

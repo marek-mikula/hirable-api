@@ -9,11 +9,10 @@ use Database\Factories\Factory;
 use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\Notification\Models\Notification;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @extends BaseFactory<Notification>
+ * @extends Factory<Notification>
  */
 class NotificationFactory extends Factory
 {

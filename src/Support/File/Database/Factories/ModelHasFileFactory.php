@@ -6,13 +6,12 @@ namespace Support\File\Database\Factories;
 
 use Database\Factories\Factory;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;
 use Support\File\Models\File;
 use Support\File\Models\ModelHasFile;
 
 /**
- * @extends BaseFactory<ModelHasFile>
+ * @extends Factory<ModelHasFile>
  */
 class ModelHasFileFactory extends Factory
 {

@@ -41,7 +41,7 @@ class PositionProcessStepRepository implements PositionProcessStepRepositoryInte
         return $positionProcessStep;
     }
 
-    public function find(int $id, array $with = []): PositionProcessStep
+    public function find(int $id, array $with = []): ?PositionProcessStep
     {
         /** @var PositionProcessStep|null $positionProcessStep */
         $positionProcessStep = PositionProcessStep::query()

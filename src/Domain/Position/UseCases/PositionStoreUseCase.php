@@ -114,7 +114,6 @@ class PositionStoreUseCase extends UseCase
             $data,
             $input,
             $state,
-            $user,
             $hiringManagers,
             $recruiters,
             $approvers,

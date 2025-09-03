@@ -120,7 +120,6 @@ class PositionUpdateUseCase extends UseCase
             : modelCollection(CompanyContact::class);
 
         return DB::transaction(function () use (
-            $user,
             $position,
             $data,
             $state,

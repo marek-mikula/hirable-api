@@ -20,6 +20,6 @@ class UnableToMoveFileException extends \Exception
             $file->size,
         );
 
-        return parent::__construct(message: $message, previous: $previous);
+        parent::__construct(message: $message, previous: $previous);
     }
 }

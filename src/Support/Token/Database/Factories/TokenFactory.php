@@ -7,13 +7,12 @@ namespace Support\Token\Database\Factories;
 use Carbon\Carbon;
 use Database\Factories\Factory;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Support\Str;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Models\Token;
 
 /**
- * @extends BaseFactory<Token>
+ * @extends Factory<Token>
  */
 class TokenFactory extends Factory
 {

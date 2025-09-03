@@ -7,10 +7,9 @@ namespace Domain\Company\Database\Factories;
 use App\Enums\LanguageEnum;
 use Database\Factories\Factory;
 use Domain\Company\Models\Company;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
- * @extends BaseFactory<Company>
+ * @extends Factory<Company>
  */
 class CompanyFactory extends Factory
 {

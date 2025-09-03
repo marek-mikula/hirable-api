@@ -9,11 +9,10 @@ use Database\Factories\Factory;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Support\Str;
 
 /**
- * @extends BaseFactory<User>
+ * @extends Factory<User>
  */
 class UserFactory extends Factory
 {

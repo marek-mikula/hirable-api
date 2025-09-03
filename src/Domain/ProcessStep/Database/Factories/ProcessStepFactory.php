@@ -8,10 +8,9 @@ use Database\Factories\Factory;
 use Domain\Company\Models\Company;
 use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Models\ProcessStep;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
- * @extends BaseFactory<ProcessStep>
+ * @extends Factory<ProcessStep>
  */
 class ProcessStepFactory extends Factory
 {

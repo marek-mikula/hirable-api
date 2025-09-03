@@ -6,12 +6,11 @@ namespace Support\Setting\Database\Factories;
 
 use Database\Factories\Factory;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Support\Setting\Enums\SettingKeyEnum;
 use Support\Setting\Models\Setting;
 
 /**
- * @extends BaseFactory<Setting>
+ * @extends Factory<Setting>
  */
 class SettingFactory extends Factory
 {

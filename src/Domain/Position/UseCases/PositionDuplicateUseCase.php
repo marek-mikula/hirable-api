@@ -83,7 +83,6 @@ class PositionDuplicateUseCase extends UseCase
         );
 
         return DB::transaction(function () use (
-            $user,
             $position,
             $input,
         ): Position {

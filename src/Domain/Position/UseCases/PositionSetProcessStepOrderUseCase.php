@@ -48,8 +48,6 @@ class PositionSetProcessStepOrderUseCase extends UseCase
             }
         )->values();
 
-        dump($positionProcessSteps->all());
-
         DB::transaction(function () use ($positionProcessSteps): void {
             /**
              * @var int $index

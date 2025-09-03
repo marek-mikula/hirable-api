@@ -16,7 +16,7 @@ interface PositionCandidateRepositoryInterface
      * @param string[] $with
      * @return Collection<PositionCandidate>
      */
-    public function index(Position $position, array $with): Collection;
+    public function index(Position $position, array $with = []): Collection;
 
     public function store(PositionCandidateStoreInput $input): PositionCandidate;
 

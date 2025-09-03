@@ -10,10 +10,9 @@ use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 
 /**
- * @extends BaseFactory<PositionCandidateAction>
+ * @extends Factory<PositionCandidateAction>
  */
 class PositionCandidateActionFactory extends Factory
 {

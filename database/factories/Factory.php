@@ -8,6 +8,10 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @template T
+ * @extends BaseFactory<T>
+ */
 abstract class Factory extends BaseFactory
 {
     protected bool $isMaking = false;

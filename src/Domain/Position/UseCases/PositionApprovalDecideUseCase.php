@@ -33,8 +33,6 @@ class PositionApprovalDecideUseCase extends UseCase
         );
 
         return DB::transaction(function () use (
-            $decidedBy,
-            $position,
             $approval,
             $input,
         ): PositionApproval {

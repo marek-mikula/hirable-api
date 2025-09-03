@@ -16,10 +16,10 @@ interface FileRepositoryInterface
 
     public function updateType(File $file, FileTypeEnum $type): File;
 
-    public function delete(File $file, bool $force): File;
+    public function delete(File $file, bool $force = false): File;
 
     /**
      * @param  File[]  $files
      */
-    public function deleteMany(array $files, bool $force): void;
+    public function deleteMany(array $files, bool $force = false): void;
 }

@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Support\Classifier\Database\Factories;
 
 use Database\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Models\Classifier;
 
 /**
- * @extends BaseFactory<Classifier>
+ * @extends Factory<Classifier>
  */
 class ClassifierFactory extends Factory
 {

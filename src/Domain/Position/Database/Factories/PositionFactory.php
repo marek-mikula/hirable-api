@@ -14,11 +14,10 @@ use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @extends BaseFactory<Position>
+ * @extends Factory<Position>
  */
 class PositionFactory extends Factory
 {

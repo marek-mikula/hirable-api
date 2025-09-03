@@ -10,11 +10,10 @@ use Domain\Position\Enums\PositionApprovalStateEnum;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
-use Illuminate\Database\Eloquent\Factories\Factory as BaseFactory;
 use Support\Token\Models\Token;
 
 /**
- * @extends BaseFactory<PositionApproval>
+ * @extends Factory<PositionApproval>
  */
 class PositionApprovalFactory extends Factory
 {
