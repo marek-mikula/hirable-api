@@ -18,10 +18,6 @@ class ProcessStepSeeder extends Seeder
                 'is_repeatable' => true,
                 'triggers_action' => ActionTypeEnum::INTERVIEW,
             ],
-            StepEnum::TEST->value => [
-                'is_repeatable' => true,
-                'triggers_action' => ActionTypeEnum::TEST,
-            ],
             StepEnum::TASK->value => [
                 'is_repeatable' => true,
                 'triggers_action' => ActionTypeEnum::TASK,

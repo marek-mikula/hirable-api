@@ -9,6 +9,7 @@ use Domain\Position\Database\Factories\PositionCandidateActionFactory;
 use Domain\Position\Enums\ActionAssessmentCenterResultEnum;
 use Domain\Position\Enums\ActionInterviewResultEnum;
 use Domain\Position\Enums\ActionStateEnum;
+use Domain\Position\Enums\ActionTaskResultEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Enums\OfferStateEnum;
 use Domain\Position\Models\Builders\PositionCandidateActionBuilder;
@@ -39,7 +40,8 @@ use Illuminate\Database\Query\Builder;
  * @property boolean|null $rejected_by_candidate
  * @property string|null $rejection_reason
  * @property string|null $refusal_reason
- * @property string|null $test_type
+ * @property string|null $task_type
+ * @property ActionTaskResultEnum|null $task_result
  * @property OfferStateEnum|null $offer_state
  * @property string|null $offer_job_title
  * @property string|null $offer_company
@@ -94,7 +96,8 @@ class PositionCandidateAction extends Model
         'rejected_by_candidate',
         'rejection_reason',
         'refusal_reason',
-        'test_type',
+        'task_type',
+        'task_result',
         'offer_state',
         'offer_job_title',
         'offer_company',
@@ -129,6 +132,7 @@ class PositionCandidateAction extends Model
             'interview_result' => ActionInterviewResultEnum::class,
             'assessment_center_result' => ActionAssessmentCenterResultEnum::class,
             'rejected_by_candidate' => 'boolean',
+            'task_result' => ActionTaskResultEnum::class,
             'offer_state' => OfferStateEnum::class,
             'offer_employment_forms' => 'array',
             'offer_start_date' => 'datetime:Y-m-d',

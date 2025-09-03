@@ -157,7 +157,7 @@ return [
         'chat' => 'Chatový',
     ],
 
-    ClassifierTypeEnum::TEST_TYPE->value => [
+    ClassifierTypeEnum::TASK_TYPE->value => [
         'language' => 'Jazykový',
         'expertise' => 'Technický/Odborný',
         'psychometric' => 'Psychometrický',

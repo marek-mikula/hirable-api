@@ -9,6 +9,7 @@ use App\Rules\Rule;
 use Domain\Position\Enums\ActionAssessmentCenterResultEnum;
 use Domain\Position\Enums\ActionInterviewResultEnum;
 use Domain\Position\Enums\ActionOperationEnum;
+use Domain\Position\Enums\ActionTaskResultEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Enums\OfferStateEnum;
 use Domain\Position\Http\Request\Data\ActionData;
@@ -79,23 +80,6 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     Rule::enum(ActionInterviewResultEnum::class),
                 ],
             ],
-            ActionTypeEnum::TEST => [
-                'testType' => [
-                    'required',
-                    'string',
-                ],
-                'instructions' => [
-                    'required',
-                    'string',
-                    'max:500',
-                ],
-                'evaluation' => [
-                    Rule::requiredIf($operation === ActionOperationEnum::FINISH),
-                    'nullable',
-                    'string',
-                    'max:500',
-                ],
-            ],
             ActionTypeEnum::TASK => [
                 'date' => [
                     'nullable',
@@ -105,17 +89,25 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 ],
                 'timeEnd' => [
                     'nullable',
-                    'required_with:date',
                     'string',
                     'date_format:H:i',
+                ],
+                'taskType' => [
+                    'required',
+                    'string',
                 ],
                 'instructions' => [
                     'required',
                     'string',
                     'max:500',
                 ],
-                'evaluation' => [
+                'taskResult' => [
                     Rule::requiredIf($operation === ActionOperationEnum::FINISH),
+                    'nullable',
+                    'string',
+                    Rule::enum(ActionTaskResultEnum::class),
+                ],
+                'evaluation' => [
                     'nullable',
                     'string',
                     'max:500',
@@ -154,7 +146,6 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     Rule::enum(ActionAssessmentCenterResultEnum::class),
                 ],
                 'evaluation' => [
-                    Rule::requiredIf($operation === ActionOperationEnum::FINISH),
                     'nullable',
                     'string',
                     'max:500',
@@ -301,14 +292,6 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 interviewResult: $this->filled('interviewResult') ? $this->enum('interviewResult', ActionInterviewResultEnum::class) : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
-            ActionTypeEnum::TEST => new ActionData(
-                type: $type,
-                operation: $operation,
-                instructions: (string) $this->input('instructions'),
-                evaluation: $this->filled('evaluation') ? (string) $this->input('evaluation') : null,
-                testType: (string) $this->input('testType'),
-                note: $this->filled('note') ? (string) $this->input('note') : null,
-            ),
             ActionTypeEnum::TASK => new ActionData(
                 type: $type,
                 operation: $operation,
@@ -316,6 +299,8 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 timeEnd: $this->filled('timeEnd') ? $this->date('timeEnd', 'H:i') : null,
                 instructions: (string) $this->input('instructions'),
                 evaluation: $this->filled('evaluation') ? (string) $this->input('evaluation') : null,
+                taskType: (string) $this->input('taskType'),
+                taskResult: $this->filled('taskResult') ? $this->enum('taskResult', ActionTaskResultEnum::class) : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::ASSESSMENT_CENTER => new ActionData(

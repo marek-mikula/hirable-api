@@ -6,7 +6,7 @@ namespace Support\Classifier\Database\Seeders;
 
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
-class ClassifierTestTypeDatabaseSeeder extends AbstractClassifierDatabaseSeeder
+class ClassifierTaskTypeDatabaseSeeder extends AbstractClassifierDatabaseSeeder
 {
     protected function getValues(): array
     {
@@ -22,6 +22,6 @@ class ClassifierTestTypeDatabaseSeeder extends AbstractClassifierDatabaseSeeder
 
     protected function getType(): ClassifierTypeEnum
     {
-        return ClassifierTypeEnum::TEST_TYPE;
+        return ClassifierTypeEnum::TASK_TYPE;
     }
 }

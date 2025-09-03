@@ -157,7 +157,7 @@ return [
         'chat' => 'Chat',
     ],
 
-    ClassifierTypeEnum::TEST_TYPE->value => [
+    ClassifierTypeEnum::TASK_TYPE->value => [
         'language' => 'Language',
         'expertise' => 'Proficiency',
         'psychometric' => 'Psychometric',

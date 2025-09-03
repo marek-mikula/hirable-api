@@ -7,6 +7,7 @@ namespace Domain\Position\Repositories\Input;
 use Carbon\Carbon;
 use Domain\Position\Enums\ActionAssessmentCenterResultEnum;
 use Domain\Position\Enums\ActionInterviewResultEnum;
+use Domain\Position\Enums\ActionTaskResultEnum;
 use Domain\Position\Enums\OfferStateEnum;
 
 readonly class PositionCandidateActionUpdateInput
@@ -26,7 +27,8 @@ readonly class PositionCandidateActionUpdateInput
         public ?bool $rejectedByCandidate = null,
         public ?string $rejectionReason = null,
         public ?string $refusalReason = null,
-        public ?string $testType = null,
+        public ?string $taskType = null,
+        public ?ActionTaskResultEnum $taskResult = null,
         public ?OfferStateEnum $offerState = null,
         public ?string $offerJobTitle = null,
         public ?string $offerCompany = null,

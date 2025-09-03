@@ -30,7 +30,8 @@ return new class () extends Migration {
             $table->boolean('rejected_by_candidate')->nullable();
             $table->string('rejection_reason')->nullable();
             $table->string('refusal_reason')->nullable();
-            $table->string('test_type')->nullable();
+            $table->string('task_type')->nullable();
+            $table->string('task_result')->nullable();
             $table->string('offer_state')->nullable();
             $table->string('offer_job_title')->nullable();
             $table->string('offer_company')->nullable();

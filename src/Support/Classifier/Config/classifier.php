@@ -19,7 +19,7 @@ use Support\Classifier\Database\Seeders\ClassifierRejectionTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSalaryFrequencyDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSalaryTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierSeniorityDatabaseSeeder;
-use Support\Classifier\Database\Seeders\ClassifierTestTypeDatabaseSeeder;
+use Support\Classifier\Database\Seeders\ClassifierTaskTypeDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierWorkloadDatabaseSeeder;
 use Support\Classifier\Database\Seeders\ClassifierEmploymentDurationDatabaseSeeder;
 use Support\Classifier\Enums\ClassifierTypeEnum;
@@ -129,9 +129,9 @@ return [
             'translate' => true,
             'seeder' => ClassifierInterviewFormDatabaseSeeder::class,
         ],
-        ClassifierTypeEnum::TEST_TYPE->value => [
+        ClassifierTypeEnum::TASK_TYPE->value => [
             'translate' => true,
-            'seeder' => ClassifierTestTypeDatabaseSeeder::class,
+            'seeder' => ClassifierTaskTypeDatabaseSeeder::class,
         ],
         ClassifierTypeEnum::REFUSAL_REASON->value => [
             'translate' => true,

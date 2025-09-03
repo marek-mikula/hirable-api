@@ -20,7 +20,7 @@ enum ClassifierTypeEnum: string
     case PHONE_PREFIX = 'phonePrefix';
     case INTERVIEW_TYPE = 'interviewType';
     case INTERVIEW_FORM = 'interviewForm';
-    case TEST_TYPE = 'testType';
+    case TASK_TYPE = 'taskType';
     case REFUSAL_REASON = 'refusalReason';
     case REJECTION_REASON = 'rejectionReason';
     case SALARY_FREQUENCY = 'salaryFrequency';

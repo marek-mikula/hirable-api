@@ -37,7 +37,8 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         $positionCandidateAction->rejected_by_candidate = $input->rejectedByCandidate;
         $positionCandidateAction->rejection_reason = $input->rejectionReason;
         $positionCandidateAction->refusal_reason = $input->refusalReason;
-        $positionCandidateAction->test_type = $input->testType;
+        $positionCandidateAction->task_type = $input->taskType;
+        $positionCandidateAction->task_result = $input->taskResult;
         $positionCandidateAction->offer_state = $input->offerState;
         $positionCandidateAction->offer_job_title = $input->offerJobTitle;
         $positionCandidateAction->offer_company = $input->offerCompany;
@@ -81,7 +82,8 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         $positionCandidateAction->rejected_by_candidate = $input->rejectedByCandidate;
         $positionCandidateAction->rejection_reason = $input->rejectionReason;
         $positionCandidateAction->refusal_reason = $input->refusalReason;
-        $positionCandidateAction->test_type = $input->testType;
+        $positionCandidateAction->task_type = $input->taskType;
+        $positionCandidateAction->task_result = $input->taskResult;
         $positionCandidateAction->offer_state = $input->offerState;
         $positionCandidateAction->offer_job_title = $input->offerJobTitle;
         $positionCandidateAction->offer_company = $input->offerCompany;

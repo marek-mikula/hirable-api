@@ -30,7 +30,6 @@ class ProcessStepActionService extends Service
             ],
             default => [
                 ActionTypeEnum::INTERVIEW,
-                ActionTypeEnum::TEST,
                 ActionTypeEnum::TASK,
                 ActionTypeEnum::ASSESSMENT_CENTER,
                 ActionTypeEnum::COMMUNICATION,

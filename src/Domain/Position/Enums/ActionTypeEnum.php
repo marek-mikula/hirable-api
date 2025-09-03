@@ -7,7 +7,6 @@ namespace Domain\Position\Enums;
 enum ActionTypeEnum: string
 {
     case INTERVIEW = 'interview';
-    case TEST = 'test';
     case TASK = 'task';
     case ASSESSMENT_CENTER = 'assessmentCenter';
     case OFFER = 'offer';

@@ -10,7 +10,6 @@ enum StepEnum: string
     case SCREENING = 'screening';
     case SHORTLIST = 'shortlist';
     case INTERVIEW = 'interview';
-    case TEST = 'test';
     case TASK = 'task';
     case OFFER = 'offer';
     case ASSESSMENT_CENTER = 'assessmentCenter';
