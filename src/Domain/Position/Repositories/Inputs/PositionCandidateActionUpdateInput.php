@@ -11,12 +11,13 @@ use Domain\Position\Enums\OfferStateEnum;
 use Domain\Position\Models\PositionCandidate;
 use Domain\User\Models\User;
 
-readonly class PositionCandidateActionStoreInput
+readonly class PositionCandidateActionUpdateInput
 {
     public function __construct(
         public PositionCandidate $positionCandidate,
         public User $user,
         public ActionTypeEnum $type,
+        public ActionStateEnum $state,
         public ?Carbon $date = null,
         public ?Carbon $timeStart = null,
         public ?Carbon $timeEnd = null,

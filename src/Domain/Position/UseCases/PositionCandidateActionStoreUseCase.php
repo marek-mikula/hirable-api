@@ -31,11 +31,12 @@ class PositionCandidateActionStoreUseCase extends UseCase
     {
         $this->validate($positionCandidate, $data);
 
+        $state = $data->operation === ActionOperationEnum::FINISH ? ActionStateEnum::FINISHED : ActionStateEnum::ACTIVE;
+
         $input = new PositionCandidateActionStoreInput(
             positionCandidate: $positionCandidate,
             user: $user,
             type: $data->type,
-            state: $data->operation === ActionOperationEnum::FINISH ? ActionStateEnum::FINISHED : ActionStateEnum::ACTIVE,
             date: $data->date,
             timeStart: $data->timeStart,
             timeEnd: $data->timeEnd,
@@ -70,8 +71,14 @@ class PositionCandidateActionStoreUseCase extends UseCase
             note: $data->note,
         );
 
-        return DB::transaction(function () use ($input): PositionCandidateAction {
-            return $this->positionCandidateActionRepository->store($input);
+        return DB::transaction(function () use ($input, $state): PositionCandidateAction {
+            $positionCandidateAction = $this->positionCandidateActionRepository->store($input);
+
+            if ($positionCandidateAction->state !== $state) {
+                $positionCandidateAction = $this->positionCandidateActionRepository->setState($positionCandidateAction, $state);
+            }
+
+            return $positionCandidateAction;
         }, attempts: 5);
     }
 
