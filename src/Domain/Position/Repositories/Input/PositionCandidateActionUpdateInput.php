@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories\Input;
 
 use Carbon\Carbon;
+use Domain\Position\Enums\ActionAssessmentCenterResultEnum;
+use Domain\Position\Enums\ActionInterviewResultEnum;
 use Domain\Position\Enums\OfferStateEnum;
 
 readonly class PositionCandidateActionUpdateInput
@@ -19,8 +21,8 @@ readonly class PositionCandidateActionUpdateInput
         public ?string $name = null,
         public ?string $interviewForm = null,
         public ?string $interviewType = null,
-        public ?bool $unavailable = null,
-        public ?bool $noShow = null,
+        public ?ActionInterviewResultEnum $interviewResult = null,
+        public ?ActionAssessmentCenterResultEnum $assessmentCenterResult = null,
         public ?bool $rejectedByCandidate = null,
         public ?string $rejectionReason = null,
         public ?string $refusalReason = null,

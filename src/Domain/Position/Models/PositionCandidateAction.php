@@ -6,6 +6,8 @@ namespace Domain\Position\Models;
 
 use Carbon\Carbon;
 use Domain\Position\Database\Factories\PositionCandidateActionFactory;
+use Domain\Position\Enums\ActionAssessmentCenterResultEnum;
+use Domain\Position\Enums\ActionInterviewResultEnum;
 use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Enums\OfferStateEnum;
@@ -32,8 +34,8 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $name
  * @property string|null $interview_form
  * @property string|null $interview_type
- * @property boolean|null $unavailable
- * @property boolean|null $no_show
+ * @property ActionInterviewResultEnum|null $interview_result
+ * @property ActionAssessmentCenterResultEnum|null $assessment_center_result
  * @property boolean|null $rejected_by_candidate
  * @property string|null $rejection_reason
  * @property string|null $refusal_reason
@@ -87,8 +89,8 @@ class PositionCandidateAction extends Model
         'name',
         'interview_form',
         'interview_type',
-        'unavailable',
-        'no_show',
+        'interview_result',
+        'assessment_center_result',
         'rejected_by_candidate',
         'rejection_reason',
         'refusal_reason',
@@ -124,8 +126,8 @@ class PositionCandidateAction extends Model
             'date' => 'datetime:Y-m-d',
             'time_start' => 'datetime:H:i:s',
             'time_end' => 'datetime:H:i:s',
-            'unavailable' => 'boolean',
-            'no_show' => 'boolean',
+            'interview_result' => ActionInterviewResultEnum::class,
+            'assessment_center_result' => ActionAssessmentCenterResultEnum::class,
             'rejected_by_candidate' => 'boolean',
             'offer_state' => OfferStateEnum::class,
             'offer_employment_forms' => 'array',

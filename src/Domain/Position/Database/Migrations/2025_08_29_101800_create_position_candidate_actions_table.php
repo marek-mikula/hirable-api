@@ -25,8 +25,8 @@ return new class () extends Migration {
             $table->string('name')->nullable();
             $table->string('interview_form')->nullable();
             $table->string('interview_type')->nullable();
-            $table->boolean('unavailable')->nullable();
-            $table->boolean('no_show')->nullable();
+            $table->string('interview_result')->nullable();
+            $table->string('assessment_center_result')->nullable();
             $table->boolean('rejected_by_candidate')->nullable();
             $table->string('rejection_reason')->nullable();
             $table->string('refusal_reason')->nullable();

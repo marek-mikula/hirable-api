@@ -32,8 +32,8 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         $positionCandidateAction->name = $input->name;
         $positionCandidateAction->interview_form = $input->interviewForm;
         $positionCandidateAction->interview_type = $input->interviewType;
-        $positionCandidateAction->unavailable = $input->unavailable;
-        $positionCandidateAction->no_show = $input->noShow;
+        $positionCandidateAction->interview_result = $input->interviewResult;
+        $positionCandidateAction->assessment_center_result = $input->assessmentCenterResult;
         $positionCandidateAction->rejected_by_candidate = $input->rejectedByCandidate;
         $positionCandidateAction->rejection_reason = $input->rejectionReason;
         $positionCandidateAction->refusal_reason = $input->refusalReason;
@@ -76,8 +76,8 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
         $positionCandidateAction->name = $input->name;
         $positionCandidateAction->interview_form = $input->interviewForm;
         $positionCandidateAction->interview_type = $input->interviewType;
-        $positionCandidateAction->unavailable = $input->unavailable;
-        $positionCandidateAction->no_show = $input->noShow;
+        $positionCandidateAction->interview_result = $input->interviewResult;
+        $positionCandidateAction->assessment_center_result = $input->assessmentCenterResult;
         $positionCandidateAction->rejected_by_candidate = $input->rejectedByCandidate;
         $positionCandidateAction->rejection_reason = $input->rejectionReason;
         $positionCandidateAction->refusal_reason = $input->refusalReason;

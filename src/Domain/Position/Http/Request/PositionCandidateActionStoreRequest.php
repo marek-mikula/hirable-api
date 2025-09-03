@@ -6,6 +6,8 @@ namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
 use App\Rules\Rule;
+use Domain\Position\Enums\ActionAssessmentCenterResultEnum;
+use Domain\Position\Enums\ActionInterviewResultEnum;
 use Domain\Position\Enums\ActionOperationEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Enums\OfferStateEnum;
@@ -25,12 +27,21 @@ class PositionCandidateActionStoreRequest extends AuthRequest
         ]);
     }
 
+    protected function getType(): ActionTypeEnum
+    {
+        return $this->enum('type', ActionTypeEnum::class);
+    }
+
+    protected function getOperation(): ActionOperationEnum
+    {
+        return $this->enum('operation', ActionOperationEnum::class);
+    }
+
     public function rules(): array
     {
-        $type = $this->enum('type', ActionTypeEnum::class);
-        $operation = $this->enum('operation', ActionOperationEnum::class);
+        $operation = $this->getOperation();
 
-        $actionFields = match ($type) {
+        $actionFields = match ($this->getType()) {
             ActionTypeEnum::INTERVIEW => [
                 'date' => [
                     'required',
@@ -61,13 +72,11 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'required',
                     'string',
                 ],
-                'unavailable' => [
-                    Rule::excludeIf($this->input('interviewType') !== 'screening'),
-                    'boolean',
-                ],
-                'noShow' => [
-                    Rule::excludeIf($this->input('interviewType') === 'screening'),
-                    'boolean',
+                'interviewResult' => [
+                    Rule::requiredIf($operation === ActionOperationEnum::FINISH),
+                    'nullable',
+                    'string',
+                    Rule::enum(ActionInterviewResultEnum::class),
                 ],
             ],
             ActionTypeEnum::TEST => [
@@ -138,8 +147,11 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'string',
                     'max:500',
                 ],
-                'noShow' => [
-                    'boolean',
+                'assessmentCenterResult' => [
+                    Rule::requiredIf($operation === ActionOperationEnum::FINISH),
+                    'nullable',
+                    'string',
+                    Rule::enum(ActionAssessmentCenterResultEnum::class),
                 ],
                 'evaluation' => [
                     Rule::requiredIf($operation === ActionOperationEnum::FINISH),
@@ -171,6 +183,11 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 ],
             ],
             ActionTypeEnum::OFFER => [
+                'offerState' => [
+                    'required',
+                    'string',
+                    Rule::enum(OfferStateEnum::class),
+                ],
                 'offerJobTitle' => [
                     'required',
                     'string',
@@ -268,8 +285,8 @@ class PositionCandidateActionStoreRequest extends AuthRequest
 
     public function toData(): ActionData
     {
-        $type = $this->enum('type', ActionTypeEnum::class);
-        $operation = $this->enum('operation', ActionOperationEnum::class);
+        $type = $this->getType();
+        $operation = $this->getOperation();
 
         return match ($type) {
             ActionTypeEnum::INTERVIEW => new ActionData(
@@ -281,8 +298,7 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 place: $this->input('interviewForm') === 'personal' ? (string) $this->input('place') : null,
                 interviewForm: (string) $this->input('interviewForm'),
                 interviewType: (string) $this->input('interviewType'),
-                unavailable: $this->input('interviewType') === 'screening' ? $this->boolean('unavailable') : null,
-                noShow: $this->input('interviewType') !== 'screening' ? $this->boolean('noShow') : null,
+                interviewResult: $this->filled('interviewResult') ? $this->enum('interviewResult', ActionInterviewResultEnum::class) : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::TEST => new ActionData(
@@ -311,7 +327,7 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 place: (string) $this->input('place'),
                 instructions: (string) $this->input('instructions'),
                 evaluation: $this->filled('evaluation') ? (string) $this->input('evaluation') : null,
-                noShow: $this->boolean('noShow'),
+                assessmentCenterResult: $this->filled('assessmentCenterResult') ? $this->enum('assessmentCenterResult', ActionAssessmentCenterResultEnum::class) : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
             ActionTypeEnum::COMMUNICATION => new ActionData(
@@ -328,7 +344,7 @@ class PositionCandidateActionStoreRequest extends AuthRequest
             ActionTypeEnum::OFFER => new ActionData(
                 type: $type,
                 operation: $operation,
-                offerState: OfferStateEnum::WAITING,
+                offerState: $this->enum('offerState', OfferStateEnum::class),
                 offerJobTitle: (string) $this->input('offerJobTitle'),
                 offerCompany: (string) $this->input('offerCompany'),
                 offerEmploymentForms: (array) $this->input('offerEmploymentForms'),
