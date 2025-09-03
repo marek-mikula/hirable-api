@@ -8,7 +8,7 @@ use App\Exceptions\RepositoryException;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionProcessStep;
-use Domain\Position\Repositories\Inputs\PositionCandidateStoreInput;
+use Domain\Position\Repositories\Input\PositionCandidateStoreInput;
 use Illuminate\Database\Eloquent\Collection;
 
 class PositionCandidateRepository implements PositionCandidateRepositoryInterface

@@ -14,7 +14,7 @@ use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionUpdateData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
-use Domain\Position\Repositories\Inputs\PositionUpdateInput;
+use Domain\Position\Repositories\Input\PositionUpdateInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;

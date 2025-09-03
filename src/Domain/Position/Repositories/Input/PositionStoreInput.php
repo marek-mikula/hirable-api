@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Repositories\Inputs;
+namespace Domain\Position\Repositories\Input;
 
 use Carbon\Carbon;
+use Domain\Company\Models\Company;
+use Domain\User\Models\User;
 
-readonly class PositionUpdateInput
+readonly class PositionStoreInput
 {
     /**
      * @param string[] $workloads
@@ -17,6 +19,8 @@ readonly class PositionUpdateInput
      * @param array[] $languageRequirements
      */
     public function __construct(
+        public Company $company,
+        public User $user,
         public string $name,
         public string $externName,
         public ?Carbon $approveUntil,

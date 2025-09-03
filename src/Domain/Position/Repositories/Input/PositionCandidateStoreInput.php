@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Repositories\Inputs;
+namespace Domain\Position\Repositories\Input;
 
 use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;

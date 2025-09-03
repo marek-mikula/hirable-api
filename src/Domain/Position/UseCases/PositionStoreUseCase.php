@@ -13,7 +13,7 @@ use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Http\Request\Data\LanguageRequirementData;
 use Domain\Position\Http\Request\Data\PositionStoreData;
 use Domain\Position\Models\Position;
-use Domain\Position\Repositories\Inputs\PositionStoreInput;
+use Domain\Position\Repositories\Input\PositionStoreInput;
 use Domain\Position\Repositories\ModelHasPositionRepositoryInterface;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;

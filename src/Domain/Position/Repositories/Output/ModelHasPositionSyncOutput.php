@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\Repositories\Outputs;
+namespace Domain\Position\Repositories\Output;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

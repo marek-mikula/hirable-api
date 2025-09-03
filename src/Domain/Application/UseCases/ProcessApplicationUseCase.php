@@ -9,7 +9,7 @@ use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Repositories\CandidateRepositoryInterface;
 use Domain\Candidate\Repositories\Input\CandidateStoreInput;
-use Domain\Position\Repositories\Inputs\PositionCandidateStoreInput;
+use Domain\Position\Repositories\Input\PositionCandidateStoreInput;
 use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Domain\ProcessStep\Enums\StepEnum;

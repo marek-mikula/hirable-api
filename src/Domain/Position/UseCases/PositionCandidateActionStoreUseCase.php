@@ -13,7 +13,7 @@ use Domain\Position\Http\Request\Data\ActionData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
-use Domain\Position\Repositories\Inputs\PositionCandidateActionStoreInput;
+use Domain\Position\Repositories\Input\PositionCandidateActionStoreInput;
 use Domain\Position\Repositories\PositionCandidateActionRepositoryInterface;
 use Domain\ProcessStep\Services\ProcessStepActionService;
 use Domain\User\Models\User;

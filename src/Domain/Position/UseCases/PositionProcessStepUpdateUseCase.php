@@ -8,7 +8,7 @@ use App\UseCases\UseCase;
 use Domain\Position\Http\Request\Data\PositionProcessStepData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
-use Domain\Position\Repositories\Inputs\PositionProcessStepUpdateInput;
+use Domain\Position\Repositories\Input\PositionProcessStepUpdateInput;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 

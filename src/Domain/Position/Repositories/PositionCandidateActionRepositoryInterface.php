@@ -8,8 +8,8 @@ use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
-use Domain\Position\Repositories\Inputs\PositionCandidateActionStoreInput;
-use Domain\Position\Repositories\Inputs\PositionCandidateActionUpdateInput;
+use Domain\Position\Repositories\Input\PositionCandidateActionStoreInput;
+use Domain\Position\Repositories\Input\PositionCandidateActionUpdateInput;
 
 interface PositionCandidateActionRepositoryInterface
 {

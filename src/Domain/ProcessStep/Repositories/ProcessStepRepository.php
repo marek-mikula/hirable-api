@@ -8,8 +8,8 @@ use App\Exceptions\RepositoryException;
 use Domain\Company\Models\Company;
 use Domain\ProcessStep\Models\Builders\ProcessStepBuilder;
 use Domain\ProcessStep\Models\ProcessStep;
-use Domain\ProcessStep\Repositories\Inputs\ProcessStepStoreInput;
-use Domain\ProcessStep\Repositories\Inputs\ProcessStepUpdateInput;
+use Domain\ProcessStep\Repositories\Input\ProcessStepStoreInput;
+use Domain\ProcessStep\Repositories\Input\ProcessStepUpdateInput;
 use Illuminate\Database\Eloquent\Collection;
 
 class ProcessStepRepository implements ProcessStepRepositoryInterface

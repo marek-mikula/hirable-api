@@ -7,7 +7,7 @@ namespace Domain\ProcessStep\UseCases;
 use App\UseCases\UseCase;
 use Domain\ProcessStep\Https\Requests\Data\ProcessStepData;
 use Domain\ProcessStep\Models\ProcessStep;
-use Domain\ProcessStep\Repositories\Inputs\ProcessStepStoreInput;
+use Domain\ProcessStep\Repositories\Input\ProcessStepStoreInput;
 use Domain\ProcessStep\Repositories\ProcessStepRepositoryInterface;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\DB;

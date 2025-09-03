@@ -7,8 +7,8 @@ namespace Domain\Position\Repositories;
 use App\Exceptions\RepositoryException;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
-use Domain\Position\Repositories\Inputs\PositionProcessStepStoreInput;
-use Domain\Position\Repositories\Inputs\PositionProcessStepUpdateInput;
+use Domain\Position\Repositories\Input\PositionProcessStepStoreInput;
+use Domain\Position\Repositories\Input\PositionProcessStepUpdateInput;
 use Domain\ProcessStep\Enums\StepEnum;
 use Illuminate\Database\Eloquent\Collection;
 

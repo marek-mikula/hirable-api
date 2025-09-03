@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\ProcessStep\Repositories\Inputs;
+namespace Domain\ProcessStep\Repositories\Input;
 
 use Domain\Company\Models\Company;
 use Domain\Position\Enums\ActionTypeEnum;

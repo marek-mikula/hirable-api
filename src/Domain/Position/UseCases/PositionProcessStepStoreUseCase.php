@@ -9,7 +9,7 @@ use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
-use Domain\Position\Repositories\Inputs\PositionProcessStepStoreInput;
+use Domain\Position\Repositories\Input\PositionProcessStepStoreInput;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Domain\ProcessStep\Repositories\ProcessStepRepositoryInterface;
 use Illuminate\Support\Facades\DB;

@@ -6,8 +6,8 @@ namespace Domain\ProcessStep\Repositories;
 
 use Domain\Company\Models\Company;
 use Domain\ProcessStep\Models\ProcessStep;
-use Domain\ProcessStep\Repositories\Inputs\ProcessStepStoreInput;
-use Domain\ProcessStep\Repositories\Inputs\ProcessStepUpdateInput;
+use Domain\ProcessStep\Repositories\Input\ProcessStepStoreInput;
+use Domain\ProcessStep\Repositories\Input\ProcessStepUpdateInput;
 use Illuminate\Database\Eloquent\Collection;
 
 interface ProcessStepRepositoryInterface

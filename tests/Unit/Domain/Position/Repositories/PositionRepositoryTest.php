@@ -8,8 +8,8 @@ use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\Position\Enums\PositionStateEnum;
 use Domain\Position\Models\Position;
-use Domain\Position\Repositories\Inputs\PositionStoreInput;
-use Domain\Position\Repositories\Inputs\PositionUpdateInput;
+use Domain\Position\Repositories\Input\PositionStoreInput;
+use Domain\Position\Repositories\Input\PositionUpdateInput;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Domain\User\Models\User;
 
