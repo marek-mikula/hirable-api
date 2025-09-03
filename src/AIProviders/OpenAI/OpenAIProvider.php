@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Services\OpenAI;
+namespace AIProviders\OpenAI;
 
 use Domain\AI\Contracts\AIProviderInterface;
 use Domain\Candidate\Models\Candidate;
@@ -10,10 +10,10 @@ use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
-use Services\OpenAI\Actions\EvaluateCandidateAction;
-use Services\OpenAI\Actions\ExtractCVDataAction;
-use Services\OpenAI\Actions\GeneratePositionFromFileAction;
-use Services\OpenAI\Actions\GeneratePositionFromPromptAction;
+use AIProviders\OpenAI\Actions\EvaluateCandidateAction;
+use AIProviders\OpenAI\Actions\ExtractCVDataAction;
+use AIProviders\OpenAI\Actions\GeneratePositionFromFileAction;
+use AIProviders\OpenAI\Actions\GeneratePositionFromPromptAction;
 use Support\File\Models\File;
 
 class OpenAIProvider implements AIProviderInterface

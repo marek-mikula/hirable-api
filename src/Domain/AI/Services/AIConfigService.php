@@ -15,23 +15,23 @@ class AIConfigService extends Service
     /**
      * @return array<string,class-string<AIProviderInterface>>
      */
-    public function getServices(): array
+    public function getProviders(): array
     {
-        return (array) config('ai.services');
+        return (array) config('ai.providers');
     }
 
     /**
      * @return class-string<AIProviderInterface>
      */
-    public function getServiceClass(): string
+    public function getProviderClass(): string
     {
-        $service = (string) config('ai.service');
+        $provider = (string) config('ai.provider');
 
-        $services = $this->getServices();
+        $providers = $this->getProviders();
 
-        throw_if(!array_key_exists($service, $services), new \Exception(sprintf('Undefined AI service %s given.', $service)));
+        throw_if(!array_key_exists($provider, $providers), new \Exception(sprintf('Undefined AI provider %s given.', $provider)));
 
-        return $services[$service];
+        return $providers[$provider];
     }
 
     /**

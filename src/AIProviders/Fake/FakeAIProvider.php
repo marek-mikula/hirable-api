@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Services\Fake;
+namespace AIProviders\Fake;
 
 use Domain\AI\Contracts\AIProviderInterface;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;

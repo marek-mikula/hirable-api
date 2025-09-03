@@ -6,10 +6,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class ServicesServiceProvider extends ServiceProvider
+class AIProvidersServiceProvider extends ServiceProvider
 {
     private array $providers = [
-        \Services\OpenAI\Providers\ServiceProvider::class,
+        \AIProviders\OpenAI\Providers\ServiceProvider::class,
     ];
 
     public function register(): void

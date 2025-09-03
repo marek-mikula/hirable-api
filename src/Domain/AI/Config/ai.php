@@ -5,44 +5,44 @@ declare(strict_types=1);
 use App\Enums\LanguageEnum;
 use Domain\AI\Context\Mappers\CandidateMapper;
 use Domain\AI\Context\Mappers\PositionMapper;
-use Domain\AI\Enums\AIServiceEnum;
+use Domain\AI\Enums\AIProviderEnum;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
 use Domain\Candidate\Enums\CandidateFieldEnum;
 use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Models\Position;
-use Services\Fake\FakeAIProvider;
-use Services\OpenAI\OpenAIProvider;
+use AIProviders\Fake\FakeAIProvider;
+use AIProviders\OpenAI\OpenAIProvider;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 
 return [
 
     /*
     |--------------------------------------------------------------------------
-    | Selected AI service
+    | Selected AI provider
     |--------------------------------------------------------------------------
     |
-    | AI service which is used for AI functions. Service name should be
-    | registered in the 'services' array below.
+    | AI provider which is used for AI functions. Provider name should be
+    | registered in the 'providers' array below.
     |
     */
 
-    'service' => env('AI_SERVICE', AIServiceEnum::OPENAI->value),
+    'provider' => env('AI_PROVIDER', AIProviderEnum::OPENAI->value),
 
     /*
     |--------------------------------------------------------------------------
-    | AI services
+    | AI providers
     |--------------------------------------------------------------------------
     |
-    | List of AI services. Each service should implement AI service
+    | List of AI providers. Each provider should implement AI provider
     | contract.
     |
     */
 
-    'services' => [
-        AIServiceEnum::OPENAI->value => OpenAIProvider::class,
-        AIServiceEnum::FAKE->value => FakeAIProvider::class,
+    'providers' => [
+        AIProviderEnum::OPENAI->value => OpenAIProvider::class,
+        AIProviderEnum::FAKE->value => FakeAIProvider::class,
     ],
 
     /*

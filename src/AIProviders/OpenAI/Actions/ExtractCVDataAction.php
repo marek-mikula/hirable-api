@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Services\OpenAI\Actions;
+namespace AIProviders\OpenAI\Actions;
 
 use App\Actions\Action;
 use Domain\AI\Context\ModelContexter;
 use Domain\Candidate\Enums\CandidateFieldEnum;
 use Domain\Candidate\Models\Candidate;
 use OpenAI\Laravel\Facades\OpenAI;
-use Services\OpenAI\Enums\PromptEnum;
-use Services\OpenAI\Services\OpenAIConfigService;
-use Services\OpenAI\Services\OpenAIFileManager;
+use AIProviders\OpenAI\Enums\PromptEnum;
+use AIProviders\OpenAI\Services\OpenAIConfigService;
+use AIProviders\OpenAI\Services\OpenAIFileManager;
 use Support\File\Models\File;
 
 class ExtractCVDataAction extends Action

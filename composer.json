@@ -43,7 +43,7 @@
             "Database\\Seeders\\": "database/seeders/",
             "Domain\\": "src/Domain/",
             "Support\\": "src/Support/",
-            "Services\\": "src/Services/"
+            "AIProviders\\": "src/AIProviders/"
         },
         "files": [
             "app/helpers.php"

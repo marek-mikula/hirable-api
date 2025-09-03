@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Services\OpenAI\Actions;
+namespace AIProviders\OpenAI\Actions;
 
 use App\Actions\Action;
 use App\Enums\LanguageEnum;
@@ -14,9 +14,9 @@ use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Models\Position;
 use Illuminate\Support\Collection;
 use OpenAI\Laravel\Facades\OpenAI;
-use Services\OpenAI\Enums\PromptEnum;
-use Services\OpenAI\Services\OpenAIConfigService;
-use Services\OpenAI\Services\OpenAIFileManager;
+use AIProviders\OpenAI\Enums\PromptEnum;
+use AIProviders\OpenAI\Services\OpenAIConfigService;
+use AIProviders\OpenAI\Services\OpenAIFileManager;
 use Support\File\Models\File;
 
 class EvaluateCandidateAction extends Action

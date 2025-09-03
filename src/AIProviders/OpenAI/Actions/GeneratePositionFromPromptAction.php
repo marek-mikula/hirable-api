@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Services\OpenAI\Actions;
+namespace AIProviders\OpenAI\Actions;
 
 use App\Actions\Action;
 use App\Enums\LanguageEnum;
@@ -10,26 +10,23 @@ use Domain\AI\Context\ModelContexter;
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
-use Illuminate\Http\UploadedFile;
 use OpenAI\Laravel\Facades\OpenAI;
-use Services\OpenAI\Enums\PromptEnum;
-use Services\OpenAI\Services\OpenAIConfigService;
-use Services\OpenAI\Services\OpenAIFileManager;
+use AIProviders\OpenAI\Enums\PromptEnum;
+use AIProviders\OpenAI\Services\OpenAIConfigService;
 
-class GeneratePositionFromFileAction extends Action
+class GeneratePositionFromPromptAction extends Action
 {
     public function __construct(
         private readonly OpenAIConfigService $configService,
         private readonly ModelContexter $modelContexter,
-        private readonly OpenAIFileManager $fileManager,
     ) {
     }
 
-    public function handle(User $user, UploadedFile $file): array
+    public function handle(User $user, string $prompt): array
     {
         $result = OpenAI::responses()->create([
-            'model' => $this->configService->getModel(PromptEnum::GENERATE_POSITION_FROM_FILE),
-            'prompt' => $this->configService->getPrompt(PromptEnum::GENERATE_POSITION_FROM_FILE, [
+            'model' => $this->configService->getModel(PromptEnum::GENERATE_POSITION_FROM_PROMPT),
+            'prompt' => $this->configService->getPrompt(PromptEnum::GENERATE_POSITION_FROM_PROMPT, [
                 'language' => __(sprintf('common.language.%s', $user->company->ai_output_language->value), locale: LanguageEnum::EN->value),
                 'attributes' => $this->modelContexter->getModelContext(Position::class, [
                     PositionFieldEnum::NAME,
@@ -57,13 +54,13 @@ class GeneratePositionFromFileAction extends Action
                     PositionFieldEnum::LEADERSHIP,
                     PositionFieldEnum::LANGUAGE_REQUIREMENTS,
                     PositionFieldEnum::TAGS,
-                ])
+                ]),
             ]),
             'input' => [
                 [
                     'role' => 'user',
                     'content' => [
-                        $this->fileManager->attachUploadedFile($file),
+                        ['type' => 'input_text', 'text' => $prompt]
                     ],
                 ]
             ]

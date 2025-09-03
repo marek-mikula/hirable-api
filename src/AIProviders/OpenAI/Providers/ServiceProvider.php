@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Services\OpenAI\Providers;
+namespace AIProviders\OpenAI\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Services\OpenAI\Enums;
+namespace AIProviders\OpenAI\Enums;
 
 enum PromptEnum: string
 {

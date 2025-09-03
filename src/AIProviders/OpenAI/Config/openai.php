@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Services\OpenAI\Enums\PromptEnum;
+use AIProviders\OpenAI\Enums\PromptEnum;
 
 return [
 

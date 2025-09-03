@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Services\OpenAI\Services;
+namespace AIProviders\OpenAI\Services;
 
-use Services\OpenAI\Enums\PromptEnum;
+use AIProviders\OpenAI\Enums\PromptEnum;
 
 class OpenAIConfigService
 {
