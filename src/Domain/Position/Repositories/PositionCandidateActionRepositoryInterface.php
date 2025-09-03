@@ -9,10 +9,13 @@ use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
 use Domain\Position\Repositories\Inputs\PositionCandidateActionStoreInput;
+use Domain\Position\Repositories\Inputs\PositionCandidateActionUpdateInput;
 
 interface PositionCandidateActionRepositoryInterface
 {
     public function store(PositionCandidateActionStoreInput $input): PositionCandidateAction;
+
+    public function update(PositionCandidateAction $positionCandidateAction, PositionCandidateActionUpdateInput $input): PositionCandidateAction;
 
     public function setState(PositionCandidateAction $positionCandidateAction, ActionStateEnum $state): PositionCandidateAction;
 

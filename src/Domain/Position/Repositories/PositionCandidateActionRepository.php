@@ -10,6 +10,7 @@ use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
 use Domain\Position\Repositories\Inputs\PositionCandidateActionStoreInput;
+use Domain\Position\Repositories\Inputs\PositionCandidateActionUpdateInput;
 use Illuminate\Support\Arr;
 
 class PositionCandidateActionRepository implements PositionCandidateActionRepositoryInterface
@@ -58,6 +59,46 @@ class PositionCandidateActionRepository implements PositionCandidateActionReposi
 
         $positionCandidateAction->setRelation('positionCandidate', $input->positionCandidate);
         $positionCandidateAction->setRelation('user', $input->user);
+
+        return $positionCandidateAction;
+    }
+
+    public function update(PositionCandidateAction $positionCandidateAction, PositionCandidateActionUpdateInput $input): PositionCandidateAction
+    {
+        $positionCandidateAction->date = $input->date;
+        $positionCandidateAction->time_start = $input->timeStart;
+        $positionCandidateAction->time_end = $input->timeEnd;
+        $positionCandidateAction->place = $input->place;
+        $positionCandidateAction->instructions = $input->instructions;
+        $positionCandidateAction->evaluation = $input->evaluation;
+        $positionCandidateAction->name = $input->name;
+        $positionCandidateAction->interview_form = $input->interviewForm;
+        $positionCandidateAction->interview_type = $input->interviewType;
+        $positionCandidateAction->unavailable = $input->unavailable;
+        $positionCandidateAction->no_show = $input->noShow;
+        $positionCandidateAction->rejected_by_candidate = $input->rejectedByCandidate;
+        $positionCandidateAction->rejection_reason = $input->rejectionReason;
+        $positionCandidateAction->refusal_reason = $input->refusalReason;
+        $positionCandidateAction->test_type = $input->testType;
+        $positionCandidateAction->offer_state = $input->offerState;
+        $positionCandidateAction->offer_job_title = $input->offerJobTitle;
+        $positionCandidateAction->offer_company = $input->offerCompany;
+        $positionCandidateAction->offer_employment_forms = $input->offerEmploymentForms;
+        $positionCandidateAction->offer_place = $input->offerPlace;
+        $positionCandidateAction->offer_salary = $input->offerSalary;
+        $positionCandidateAction->offer_salary_currency = $input->offerSalaryCurrency;
+        $positionCandidateAction->offer_salary_frequency = $input->offerSalaryFrequency;
+        $positionCandidateAction->offer_workload = $input->offerWorkload;
+        $positionCandidateAction->offer_employment_relationship = $input->offerEmploymentRelationship;
+        $positionCandidateAction->offer_start_date = $input->offerStartDate;
+        $positionCandidateAction->offer_employment_duration = $input->offerEmploymentDuration;
+        $positionCandidateAction->offer_certain_period_to = $input->offerCertainPeriodTo;
+        $positionCandidateAction->offer_trial_period = $input->offerTrialPeriod;
+        $positionCandidateAction->offer_candidate_note = $input->offerCandidateNote;
+        $positionCandidateAction->real_start_date = $input->realStartDate;
+        $positionCandidateAction->note = $input->note;
+
+        throw_if(!$positionCandidateAction->save(), RepositoryException::updated(PositionCandidateAction::class));
 
         return $positionCandidateAction;
     }
