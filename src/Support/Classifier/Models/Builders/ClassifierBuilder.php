@@ -12,7 +12,7 @@ class ClassifierBuilder extends Builder
     public function whereType(ClassifierTypeEnum|array $type): static
     {
         if (is_array($type)) {
-            return $this->whereIn('type', collect($type)->pluck('value'));
+            return $this->whereIn('type', $type);
         }
 
         return $this->where('type', $type->value);

@@ -96,7 +96,6 @@ class Position extends Model
 {
     use HasFactory;
     use HasFiles;
-    public const MAX_TAGS = 10;
 
     protected $primaryKey = 'id';
 

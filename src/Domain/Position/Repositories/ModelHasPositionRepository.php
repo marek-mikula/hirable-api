@@ -11,7 +11,6 @@ use Domain\Position\Models\Position;
 use Domain\Position\Repositories\Output\ModelHasPositionSyncOutput;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 
 class ModelHasPositionRepository implements ModelHasPositionRepositoryInterface
 {
@@ -103,12 +102,13 @@ class ModelHasPositionRepository implements ModelHasPositionRepositoryInterface
         return new ModelHasPositionSyncOutput(stored: $stored, deleted: $deleted);
     }
 
-    public function hasModelRoleOnPosition(Model $model, Position $position, PositionRoleEnum ...$role): bool
+    public function hasModelRoleOnPosition(Model $model, Position $position, PositionRoleEnum ...$roles): bool
     {
         return ModelHasPosition::query()
+            ->where('position_id', $position->id)
             ->where('model_type', $model::class)
             ->where('model_id', $model->getKey())
-            ->whereIn('role', Arr::pluck($role, 'value'))
+            ->whereIn('role', $roles)
             ->exists();
     }
 }

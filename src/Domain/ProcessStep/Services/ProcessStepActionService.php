@@ -34,7 +34,6 @@ class ProcessStepActionService extends Service
                 ActionTypeEnum::ASSESSMENT_CENTER,
                 ActionTypeEnum::COMMUNICATION,
                 ActionTypeEnum::CUSTOM,
-                ActionTypeEnum::SHARE_WITH_HM,
             ],
         };
     }
@@ -61,7 +60,6 @@ class ProcessStepActionService extends Service
             ActionTypeEnum::TASK,
             ActionTypeEnum::ASSESSMENT_CENTER,
             ActionTypeEnum::COMMUNICATION,
-            ActionTypeEnum::SHARE_WITH_HM,
             ActionTypeEnum::CUSTOM,
         ];
     }

@@ -28,12 +28,10 @@ interface ModelHasPositionRepositoryInterface
     public function delete(ModelHasPosition $model): void;
 
     /**
-     * @param Position $position
      * @param Collection<Model> $existingModels
      * @param Collection<Model> $models
-     * @param PositionRoleEnum $role
      */
     public function sync(Position $position, Collection $existingModels, Collection $models, PositionRoleEnum $role): ModelHasPositionSyncOutput;
 
-    public function hasModelRoleOnPosition(Model $model, Position $position, PositionRoleEnum ...$role): bool;
+    public function hasModelRoleOnPosition(Model $model, Position $position, PositionRoleEnum ...$roles): bool;
 }
