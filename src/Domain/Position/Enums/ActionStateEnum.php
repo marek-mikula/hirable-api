@@ -17,8 +17,7 @@ enum ActionStateEnum: string
     {
         return match ($this) {
             self::ACTIVE => [self::FINISHED, self::CANCELED],
-            self::FINISHED => [self::CANCELED],
-            self::CANCELED => [self::FINISHED],
+            self::FINISHED, self::CANCELED => [],
         };
     }
 }
