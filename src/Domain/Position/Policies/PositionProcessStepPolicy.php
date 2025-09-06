@@ -21,6 +21,16 @@ class PositionProcessStepPolicy
         return $user->can('show', $position);
     }
 
+    public function store(User $user, Position $position): bool
+    {
+        if ($position->state !== PositionStateEnum::OPENED) {
+            return false;
+        }
+
+        /** @see PositionPolicy::update() */
+        return $user->can('update', $position);
+    }
+
     public function show(User $user, PositionProcessStep $positionProcessStep, Position $position): bool
     {
         if ($position->state !== PositionStateEnum::OPENED) {
@@ -33,16 +43,6 @@ class PositionProcessStepPolicy
 
         /** @see PositionPolicy::show() */
         return $user->can('show', $position);
-    }
-
-    public function store(User $user, Position $position): bool
-    {
-        if ($position->state !== PositionStateEnum::OPENED) {
-            return false;
-        }
-
-        /** @see PositionPolicy::update() */
-        return $user->can('update', $position);
     }
 
     public function update(User $user, PositionProcessStep $positionProcessStep, Position $position): bool
