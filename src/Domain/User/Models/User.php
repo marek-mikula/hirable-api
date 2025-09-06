@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\Notification\Traits\Notifiable;
+use Domain\Position\Models\ModelHasPosition;
 use Domain\User\Database\Factories\UserFactory;
 use Domain\User\Models\Builders\UserBuilder;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Support\ActivityLog\Traits\CausesActivity;
@@ -49,6 +51,7 @@ use Support\Token\Models\Token;
  * @property-read bool $is_email_verified
  * @property-read Collection<Token> $tokens
  * @property-read Company $company
+ * @property-read Collection<ModelHasPosition> $positionModels
  *
  * @method static UserFactory factory($count = null, $state = [])
  * @method static UserBuilder query()
@@ -154,6 +157,17 @@ class User extends Authenticatable implements HasLocalePreference
             related: Company::class,
             foreignKey: 'company_id',
             ownerKey: 'id'
+        );
+    }
+
+    public function positionModels(): MorphMany
+    {
+        return $this->morphMany(
+            related: ModelHasPosition::class,
+            name: 'model',
+            type: 'model_type',
+            id: 'model_id',
+            localKey: 'id',
         );
     }
 

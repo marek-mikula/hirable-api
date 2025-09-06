@@ -13,7 +13,7 @@ class ProcessStepActionService extends Service
     /**
      * @return ActionTypeEnum[]
      */
-    public function getAllowedActions(StepEnum|string $step): array
+    public function getAllowedActionsForStep(StepEnum|string $step): array
     {
         return match ($step) {
             StepEnum::OFFER => [
@@ -34,6 +34,7 @@ class ProcessStepActionService extends Service
                 ActionTypeEnum::ASSESSMENT_CENTER,
                 ActionTypeEnum::COMMUNICATION,
                 ActionTypeEnum::CUSTOM,
+                ActionTypeEnum::SHARE_WITH_HM,
             ],
         };
     }
@@ -47,6 +48,21 @@ class ProcessStepActionService extends Service
             ActionTypeEnum::OFFER,
             ActionTypeEnum::REJECTION,
             ActionTypeEnum::START_OF_WORK,
+        ];
+    }
+
+    /**
+     * @return ActionTypeEnum[]
+     */
+    public function getTriggerableAction(): array
+    {
+        return [
+            ActionTypeEnum::INTERVIEW,
+            ActionTypeEnum::TASK,
+            ActionTypeEnum::ASSESSMENT_CENTER,
+            ActionTypeEnum::COMMUNICATION,
+            ActionTypeEnum::SHARE_WITH_HM,
+            ActionTypeEnum::CUSTOM,
         ];
     }
 }

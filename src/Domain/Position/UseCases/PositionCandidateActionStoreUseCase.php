@@ -86,7 +86,7 @@ class PositionCandidateActionStoreUseCase extends UseCase
 
     private function validate(PositionCandidate $positionCandidate, ActionData $data): void
     {
-        $allowedActions = $this->processStepActionService->getAllowedActions($positionCandidate->step->step);
+        $allowedActions = $this->processStepActionService->getAllowedActionsForStep($positionCandidate->step->step);
 
         if (!in_array($data->type, $allowedActions)) {
             throw new HttpException(responseCode: ResponseCodeEnum::NOT_SUFFICIENT_STEP);

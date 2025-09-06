@@ -11,6 +11,7 @@ use Domain\ProcessStep\Enums\StepEnum;
 use Domain\ProcessStep\Https\Requests\Data\ProcessStepData;
 use Domain\ProcessStep\Models\ProcessStep;
 use Domain\ProcessStep\Policies\ProcessStepPolicy;
+use Domain\ProcessStep\Services\ProcessStepActionService;
 
 class ProcessStepUpdateRequest extends AuthRequest
 {
@@ -20,7 +21,7 @@ class ProcessStepUpdateRequest extends AuthRequest
         return $this->user()->can('update', $this->route('processStep'));
     }
 
-    public function rules(): array
+    public function rules(ProcessStepActionService $processStepActionService): array
     {
         /** @var ProcessStep $processStep */
         $processStep = $this->route('processStep');
@@ -41,11 +42,7 @@ class ProcessStepUpdateRequest extends AuthRequest
             'triggersAction' => [
                 'nullable',
                 'string',
-                Rule::enum(ActionTypeEnum::class)->except([
-                    ActionTypeEnum::OFFER,
-                    ActionTypeEnum::REJECTION,
-                    ActionTypeEnum::START_OF_WORK,
-                ]),
+                Rule::enum(ActionTypeEnum::class)->only($processStepActionService->getTriggerableAction()),
             ],
         ];
     }

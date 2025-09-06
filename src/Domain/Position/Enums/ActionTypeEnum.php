@@ -13,6 +13,7 @@ enum ActionTypeEnum: string
     case COMMUNICATION = 'communication';
     case REJECTION = 'rejection';
     case START_OF_WORK = 'startOfWork';
+    case SHARE_WITH_HM = 'shareWithHm';
     case CUSTOM = 'custom';
 
     public function getDefaultState(): ActionStateEnum
