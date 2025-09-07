@@ -16,17 +16,14 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @property-read int $id
- * @property int $user_id
  * @property int $position_candidate_id
- * @property class-string<Model> $model_type
- * @property int $model_id
+ * @property int $user_id
  * @property string|null $evaluation
  * @property EvaluationResultEnum|null $result
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property-read User $user
- * @property-read User $model
  * @property-read PositionCandidate $positionCandidate
+ * @property-read User $user
  *
  * @method static PositionCandidateEvaluationFactory factory($count = null, $state = [])
  * @method static PositionCandidateEvaluationBuilder query()
@@ -42,10 +39,8 @@ class PositionCandidateEvaluation extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'user_id',
         'position_candidate_id',
-        'model_type',
-        'model_id',
+        'user_id',
         'evaluation',
         'result',
     ];
@@ -57,15 +52,6 @@ class PositionCandidateEvaluation extends Model
         ];
     }
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(
-            related: User::class,
-            foreignKey: 'user_id',
-            ownerKey: 'id',
-        );
-    }
-
     public function positionCandidate(): BelongsTo
     {
         return $this->belongsTo(
@@ -75,10 +61,11 @@ class PositionCandidateEvaluation extends Model
         );
     }
 
-    public function model(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->morphTo(
-            name: 'model',
+        return $this->belongsTo(
+            related: User::class,
+            foreignKey: 'user_id',
             ownerKey: 'id',
         );
     }

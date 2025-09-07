@@ -227,6 +227,9 @@ return [
             'approval_self' => 'You cannot assign yourself as an approver.',
             'approval_open' => 'Position cannot be opened if it has approvers assigned.'
         ],
+        'position_candidate' => [
+            'share_exists' => 'The candidate is already shared with some of the selected hiring managers.',
+        ],
     ],
 
 ];

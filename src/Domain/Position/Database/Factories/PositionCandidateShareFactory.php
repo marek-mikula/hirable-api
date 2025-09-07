@@ -8,7 +8,6 @@ use Database\Factories\Factory;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateShare;
 use Domain\User\Models\User;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @extends Factory<PositionCandidateShare>
@@ -20,10 +19,8 @@ class PositionCandidateShareFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->isMaking ? null : User::factory(),
             'position_candidate_id' => $this->isMaking ? null : PositionCandidate::factory(),
-            'model_type' => User::class,
-            'model_id' => $this->isMaking ? null : User::factory(),
+            'user_id' => $this->isMaking ? null : User::factory(),
         ];
     }
 
@@ -34,11 +31,10 @@ class PositionCandidateShareFactory extends Factory
         ]);
     }
 
-    public function ofModel(Model $model): static
+    public function ofUser(User $user): static
     {
         return $this->state(fn (array $attributes) => [
-            'model_type' => $model::class,
-            'model_id' => $model->getKey(),
+            'user_id' => $user->id,
         ]);
     }
 }

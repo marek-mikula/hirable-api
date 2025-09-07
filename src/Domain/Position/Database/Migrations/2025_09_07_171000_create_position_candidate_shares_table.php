@@ -11,10 +11,15 @@ return new class () extends Migration {
     {
         Schema::create('position_candidate_shares', static function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('user_id');
             $table->foreignId('position_candidate_id');
-            $table->morphs('model');
+            $table->foreignId('user_id');
             $table->timestamps();
+
+            $table->foreign('position_candidate_id', 'position_candidate_shares_position_candidate_foreign')
+                ->references('id')
+                ->on('position_candidates')
+                ->cascadeOnDelete()
+                ->restrictOnUpdate();
 
             $table->foreign('user_id', 'position_candidate_shares_user_foreign')
                 ->references('id')
@@ -22,11 +27,7 @@ return new class () extends Migration {
                 ->cascadeOnDelete()
                 ->restrictOnUpdate();
 
-            $table->foreign('position_candidate_id', 'position_candidate_shares_position_candidate_foreign')
-                ->references('id')
-                ->on('position_candidates')
-                ->cascadeOnDelete()
-                ->restrictOnUpdate();
+            $table->unique(['position_candidate_id', 'user_id'], 'position_candidate_shares_position_candidate_user_unique');
         });
     }
 

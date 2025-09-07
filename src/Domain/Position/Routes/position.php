@@ -7,6 +7,7 @@ use Domain\Position\Http\Controllers\PositionApprovalDecideController;
 use Domain\Position\Http\Controllers\PositionCandidateActionController;
 use Domain\Position\Http\Controllers\PositionCandidateController;
 use Domain\Position\Http\Controllers\PositionCandidateSetStepController;
+use Domain\Position\Http\Controllers\PositionCandidateShareController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
@@ -61,6 +62,13 @@ Route::middleware('auth:sanctum')->group(static function (): void {
                     Route::prefix('/{positionCandidateAction}')->whereNumber('positionCandidateAction')->group(function (): void {
                         Route::patch('/', [PositionCandidateActionController::class, 'update'])->name('update');
                         Route::get('/', [PositionCandidateActionController::class, 'show'])->name('show');
+                    });
+                });
+                Route::prefix('/shares')->as('share.')->group(function (): void {
+                    Route::get('/', [PositionCandidateShareController::class, 'index'])->name('index');
+                    Route::post('/', [PositionCandidateShareController::class, 'store'])->name('store');
+                    Route::prefix('/{positionCandidateShare}')->whereNumber('positionCandidateShare')->group(function (): void {
+                        Route::delete('/', [PositionCandidateShareController::class, 'delete'])->name('delete');
                     });
                 });
             });

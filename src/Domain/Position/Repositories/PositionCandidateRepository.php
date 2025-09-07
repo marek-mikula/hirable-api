@@ -26,9 +26,7 @@ class PositionCandidateRepository implements PositionCandidateRepositoryInterfac
             // to be shared with him
             ->when($user->company_role === RoleEnum::HIRING_MANAGER, function (PositionCandidateBuilder $query) use ($user): void {
                 $query->whereHas('shares', function (PositionCandidateShareBuilder $query) use ($user): void {
-                    $query
-                        ->where('position_candidate_shares.model_type', User::class)
-                        ->where('position_candidate_shares.model_id', $user->id);
+                    $query->where('position_candidate_shares.user_id', $user->id);
                 });
             })
             ->get();

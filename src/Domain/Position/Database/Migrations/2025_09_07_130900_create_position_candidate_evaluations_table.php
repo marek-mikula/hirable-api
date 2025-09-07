@@ -11,9 +11,8 @@ return new class () extends Migration {
     {
         Schema::create('position_candidate_evaluations', static function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('user_id');
             $table->foreignId('position_candidate_id');
-            $table->morphs('model');
+            $table->foreignId('user_id');
             $table->string('evaluation', 500)->nullable();
             $table->string('result')->nullable();
             $table->timestamps();
