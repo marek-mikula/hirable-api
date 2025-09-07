@@ -39,6 +39,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read Collection<PositionCandidateEvaluation> $evaluations
  * @property-read Collection<PositionCandidateShare> $shares
  * @property-read int|null $actions_count
+ * @property-read int|null $shares_count
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
  * @method static PositionCandidateBuilder query()

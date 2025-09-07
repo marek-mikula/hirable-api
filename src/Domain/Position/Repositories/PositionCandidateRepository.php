@@ -17,10 +17,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class PositionCandidateRepository implements PositionCandidateRepositoryInterface
 {
-    public function index(User $user, Position $position, array $with = []): Collection
+    public function index(User $user, Position $position, array $with = [], array $withCount = []): Collection
     {
         return PositionCandidate::query()
             ->with($with)
+            ->withCount($withCount)
             ->wherePosition($position->id)
             // when user is HM, candidates need
             // to be shared with him

@@ -15,9 +15,10 @@ interface PositionCandidateRepositoryInterface
 {
     /**
      * @param string[] $with
+     * @param string[] $withCount
      * @return Collection<PositionCandidate>
      */
-    public function index(User $user, Position $position, array $with = []): Collection;
+    public function index(User $user, Position $position, array $with = [], array $withCount = []): Collection;
 
     public function store(PositionCandidateStoreInput $input): PositionCandidate;
 

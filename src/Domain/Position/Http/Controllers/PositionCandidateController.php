@@ -26,6 +26,8 @@ class PositionCandidateController extends ApiController
             'candidate',
             'step',
             'actions'
+        ], [
+            'shares'
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
@@ -39,6 +41,8 @@ class PositionCandidateController extends ApiController
             'step',
             'candidate',
             'actions',
+        ])->loadCount([
+            'shares'
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
