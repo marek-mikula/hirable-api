@@ -22,8 +22,8 @@ class PositionCandidateActionFactory extends Factory
     {
         return [
             'position_process_step_id' => null,
-            'position_candidate_id' => PositionCandidate::factory(),
-            'user_id' => User::factory(),
+            'position_candidate_id' => $this->isMaking ? null : PositionCandidate::factory(),
+            'user_id' => $this->isMaking ? null : User::factory(),
             'type' => ActionTypeEnum::INTERVIEW,
             'state' => ActionStateEnum::ACTIVE,
             'date' => now(),

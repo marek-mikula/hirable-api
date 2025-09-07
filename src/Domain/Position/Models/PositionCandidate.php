@@ -36,6 +36,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read PositionProcessStep $step
  * @property-read Collection<PositionCandidateAction> $actions
  * @property-read PositionCandidateAction|null $latestAction
+ * @property-read Collection<PositionCandidateEvaluation> $evaluations
  * @property-read int|null $actions_count
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
@@ -129,6 +130,15 @@ class PositionCandidate extends Model
     public function latestAction(): HasOne
     {
         return $this->actions()->one();
+    }
+
+    public function evaluations(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionCandidateEvaluation::class,
+            foreignKey: 'position_candidate_id',
+            localKey: 'id',
+        )->latest('id');
     }
 
     /**
