@@ -6,16 +6,16 @@ namespace Domain\Position\Database\Factories;
 
 use Database\Factories\Factory;
 use Domain\Position\Models\PositionCandidate;
-use Domain\Position\Models\PositionCandidateEvaluation;
+use Domain\Position\Models\PositionCandidateShare;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @extends Factory<PositionCandidateEvaluation>
+ * @extends Factory<PositionCandidateShare>
  */
-class PositionCandidateEvaluationFactory extends Factory
+class PositionCandidateShareFactory extends Factory
 {
-    protected $model = PositionCandidateEvaluation::class;
+    protected $model = PositionCandidateShare::class;
 
     public function definition(): array
     {
@@ -24,8 +24,6 @@ class PositionCandidateEvaluationFactory extends Factory
             'position_candidate_id' => $this->isMaking ? null : PositionCandidate::factory(),
             'model_type' => User::class,
             'model_id' => $this->isMaking ? null : User::factory(),
-            'evaluation' => null,
-            'result' => null,
         ];
     }
 
