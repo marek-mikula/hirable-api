@@ -22,7 +22,7 @@ class PositionCandidateController extends ApiController
         /** @var PositionCandidateRepositoryInterface $repository */
         $repository = app(PositionCandidateRepositoryInterface::class);
 
-        $positionCandidates = $repository->index($position, [
+        $positionCandidates = $repository->index($request->user(), $position, [
             'candidate',
             'step',
             'actions'

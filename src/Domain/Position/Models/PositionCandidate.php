@@ -37,6 +37,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read Collection<PositionCandidateAction> $actions
  * @property-read PositionCandidateAction|null $latestAction
  * @property-read Collection<PositionCandidateEvaluation> $evaluations
+ * @property-read Collection<PositionCandidateShare> $shares
  * @property-read int|null $actions_count
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
@@ -139,6 +140,15 @@ class PositionCandidate extends Model
             foreignKey: 'position_candidate_id',
             localKey: 'id',
         )->latest('id');
+    }
+
+    public function shares(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionCandidateShare::class,
+            foreignKey: 'position_candidate_id',
+            localKey: 'id',
+        );
     }
 
     /**

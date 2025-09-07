@@ -5,19 +5,32 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories;
 
 use App\Exceptions\RepositoryException;
+use Domain\Company\Enums\RoleEnum;
+use Domain\Position\Models\Builders\PositionCandidateBuilder;
+use Domain\Position\Models\Builders\PositionCandidateShareBuilder;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionProcessStep;
 use Domain\Position\Repositories\Input\PositionCandidateStoreInput;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class PositionCandidateRepository implements PositionCandidateRepositoryInterface
 {
-    public function index(Position $position, array $with = []): Collection
+    public function index(User $user, Position $position, array $with = []): Collection
     {
         return PositionCandidate::query()
             ->with($with)
             ->wherePosition($position->id)
+            // when user is HM, candidates need
+            // to be shared with him
+            ->when($user->company_role === RoleEnum::HIRING_MANAGER, function (PositionCandidateBuilder $query) use ($user): void {
+                $query->whereHas('shares', function (PositionCandidateShareBuilder $query) use ($user): void {
+                    $query
+                        ->where('position_candidate_shares.model_type', User::class)
+                        ->where('position_candidate_shares.model_id', $user->id);
+                });
+            })
             ->get();
     }
 
