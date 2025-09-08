@@ -14,6 +14,9 @@ use Domain\Password\Notifications\PasswordChangedNotification;
 use Domain\Password\Notifications\PasswordResetRequestNotification;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
+use Domain\Position\Models\PositionCandidate;
+use Domain\Position\Notifications\PositionCandidateSharedNotification;
+use Domain\Position\Notifications\PositionCandidateShareStoppedNotification;
 use Domain\Position\Notifications\PositionNewCandidateNotification;
 use Domain\Position\Notifications\PositionApprovalApprovedNotification;
 use Domain\Position\Notifications\PositionApprovalCanceledNotification;
@@ -351,6 +354,43 @@ class NotificationRegistrar
                             $notifiable->setRelation('position', Position::factory()->make());
 
                             return $notifiable;
+                        },
+                    )
+                ]
+            ),
+            NotificationDomain::create(
+                key: 'positionCandidate',
+                notifications: [
+                    NotificationData::create(
+                        label: 'Shared',
+                        description: 'Notification informs users that a candidate on position has been shared with him.',
+                        notification: function (User $notifiable) {
+                            $positionCandidate = PositionCandidate::factory()->make();
+                            $position = Position::factory()->make();
+                            $candidate = Candidate::factory()->make();
+                            $positionCandidate->setRelation('position', $position);
+                            $positionCandidate->setRelation('candidate', $candidate);
+
+                            return new PositionCandidateSharedNotification($positionCandidate);
+                        },
+                        notifiable: function () {
+                            return User::factory()->make();
+                        },
+                    ),
+                    NotificationData::create(
+                        label: 'Sharing stopped',
+                        description: 'Notification informs users that sharing a candidate on position with him has been stopped.',
+                        notification: function (User $notifiable) {
+                            $positionCandidate = PositionCandidate::factory()->make();
+                            $position = Position::factory()->make();
+                            $candidate = Candidate::factory()->make();
+                            $positionCandidate->setRelation('position', $position);
+                            $positionCandidate->setRelation('candidate', $candidate);
+
+                            return new PositionCandidateShareStoppedNotification($positionCandidate);
+                        },
+                        notifiable: function () {
+                            return User::factory()->make();
                         },
                     )
                 ]
