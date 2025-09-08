@@ -31,5 +31,8 @@ enum NotificationTypeEnum: string
     case POSITION_REMOVED_AS_HM = 'position:removed_as_hm';
     case POSITION_NEW_CANDIDATE = 'position:new_candidate';
 
+    case POSITION_CANDIDATE_SHARED = 'position_candidate:shared';
+    case POSITION_CANDIDATE_SHARE_STOPPED = 'position_candidate:share_stopped';
+
     case APPLICATION_ACCEPTED = 'application:accepted';
 }
