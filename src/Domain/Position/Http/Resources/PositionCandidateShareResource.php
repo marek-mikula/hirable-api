@@ -17,7 +17,8 @@ class PositionCandidateShareResource extends Resource
     public function toArray(Request $request): array
     {
         $this->checkLoadedRelations([
-            'user'
+            'creator',
+            'user',
         ]);
 
         return [
@@ -25,6 +26,7 @@ class PositionCandidateShareResource extends Resource
             'positionCandidateId' => $this->resource->position_candidate_id,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
+            'creator' => new UserResource($this->resource->creator),
             'user' => new UserResource($this->resource->user),
         ];
     }

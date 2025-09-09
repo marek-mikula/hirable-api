@@ -10,6 +10,7 @@ use Domain\User\Models\User;
 readonly class PositionCandidateShareStoreInput
 {
     public function __construct(
+        public User $creator,
         public PositionCandidate $positionCandidate,
         public User $user,
     ) {

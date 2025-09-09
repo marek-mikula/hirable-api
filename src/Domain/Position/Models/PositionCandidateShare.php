@@ -16,10 +16,12 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @property-read int $id
+ * @property int $creator_id
  * @property int $position_candidate_id
  * @property int $user_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read User $creator
  * @property-read PositionCandidate $positionCandidate
  * @property-read User $user
  *
@@ -37,6 +39,7 @@ class PositionCandidateShare extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'creator_id',
         'position_candidate_id',
         'user_id',
     ];
@@ -44,6 +47,15 @@ class PositionCandidateShare extends Model
     protected function casts(): array
     {
         return [];
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: User::class,
+            foreignKey: 'creator_id',
+            ownerKey: 'id',
+        );
     }
 
     public function positionCandidate(): BelongsTo

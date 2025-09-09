@@ -11,11 +11,18 @@ return new class () extends Migration {
     {
         Schema::create('position_candidate_evaluations', static function (Blueprint $table): void {
             $table->id();
+            $table->foreignId('creator_id');
             $table->foreignId('position_candidate_id');
             $table->foreignId('user_id');
             $table->string('evaluation', 500)->nullable();
             $table->string('result')->nullable();
             $table->timestamps();
+
+            $table->foreign('creator_id', 'position_candidate_evaluations_creator_foreign')
+                ->references('id')
+                ->on('users')
+                ->restrictOnUpdate()
+                ->restrictOnUpdate();
 
             $table->foreign('user_id', 'position_candidate_evaluations_user_foreign')
                 ->references('id')

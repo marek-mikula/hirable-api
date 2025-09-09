@@ -16,12 +16,14 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @property-read int $id
+ * @property int $creator_id
  * @property int $position_candidate_id
  * @property int $user_id
  * @property string|null $evaluation
  * @property EvaluationResultEnum|null $result
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property-read User $creator
  * @property-read PositionCandidate $positionCandidate
  * @property-read User $user
  *
@@ -39,6 +41,7 @@ class PositionCandidateEvaluation extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'creator_id',
         'position_candidate_id',
         'user_id',
         'evaluation',
@@ -50,6 +53,15 @@ class PositionCandidateEvaluation extends Model
         return [
             'result' => EvaluationResultEnum::class,
         ];
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: User::class,
+            foreignKey: 'creator_id',
+            ownerKey: 'id',
+        );
     }
 
     public function positionCandidate(): BelongsTo

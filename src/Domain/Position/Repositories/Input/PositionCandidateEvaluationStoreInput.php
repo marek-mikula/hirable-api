@@ -11,6 +11,7 @@ use Domain\User\Models\User;
 readonly class PositionCandidateEvaluationStoreInput
 {
     public function __construct(
+        public User $creator,
         public PositionCandidate $positionCandidate,
         public User $user,
         public ?string $evaluation,

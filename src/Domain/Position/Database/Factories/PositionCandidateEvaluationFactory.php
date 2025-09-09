@@ -19,11 +19,19 @@ class PositionCandidateEvaluationFactory extends Factory
     public function definition(): array
     {
         return [
+            'creator_id' => $this->isMaking ? null : User::factory(),
             'position_candidate_id' => $this->isMaking ? null : PositionCandidate::factory(),
             'user_id' => $this->isMaking ? null : User::factory(),
             'evaluation' => null,
             'result' => null,
         ];
+    }
+
+    public function ofCreator(User $user): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'creator_id' => $user->id,
+        ]);
     }
 
     public function ofPositionCandidate(PositionCandidate $positionCandidate): static

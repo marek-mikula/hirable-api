@@ -43,6 +43,7 @@ class PositionCandidateShareStoreUseCase extends UseCase
             foreach ($hiringManagers as $hiringManager) {
                 $collection->push($this->positionCandidateShareRepository->store(
                     new PositionCandidateShareStoreInput(
+                        creator: $user,
                         positionCandidate: $positionCandidate,
                         user: $hiringManager,
                     )

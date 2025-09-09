@@ -14,6 +14,7 @@ class PositionCandidateEvaluationRepository implements PositionCandidateEvaluati
     public function store(PositionCandidateEvaluationStoreInput $input): PositionCandidateEvaluation
     {
         $positionCandidateEvaluation = new PositionCandidateEvaluation();
+        $positionCandidateEvaluation->creator_id = $input->creator->id;
         $positionCandidateEvaluation->position_candidate_id = $input->positionCandidate->id;
         $positionCandidateEvaluation->user_id = $input->user->id;
         $positionCandidateEvaluation->evaluation = $input->evaluation;
@@ -21,6 +22,7 @@ class PositionCandidateEvaluationRepository implements PositionCandidateEvaluati
 
         throw_if(!$positionCandidateEvaluation->save(), RepositoryException::stored(PositionCandidateEvaluation::class));
 
+        $positionCandidateEvaluation->setRelation('creator', $input->creator);
         $positionCandidateEvaluation->setRelation('positionCandidate', $input->positionCandidate);
         $positionCandidateEvaluation->setRelation('user', $input->user);
 

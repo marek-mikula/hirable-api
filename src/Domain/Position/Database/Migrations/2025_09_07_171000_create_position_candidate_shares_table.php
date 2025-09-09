@@ -11,9 +11,16 @@ return new class () extends Migration {
     {
         Schema::create('position_candidate_shares', static function (Blueprint $table): void {
             $table->id();
+            $table->foreignId('creator_id');
             $table->foreignId('position_candidate_id');
             $table->foreignId('user_id');
             $table->timestamps();
+
+            $table->foreign('creator_id', 'position_candidate_shares_creator_foreign')
+                ->references('id')
+                ->on('users')
+                ->restrictOnUpdate()
+                ->restrictOnUpdate();
 
             $table->foreign('position_candidate_id', 'position_candidate_shares_position_candidate_foreign')
                 ->references('id')

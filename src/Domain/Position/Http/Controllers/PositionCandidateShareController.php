@@ -28,6 +28,7 @@ class PositionCandidateShareController extends ApiController
 
         $positionCandidateShares = $repository->index($positionCandidate, [
             'user',
+            'creator',
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [

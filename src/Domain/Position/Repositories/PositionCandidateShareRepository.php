@@ -23,11 +23,13 @@ class PositionCandidateShareRepository implements PositionCandidateShareReposito
     public function store(PositionCandidateShareStoreInput $input): PositionCandidateShare
     {
         $positionCandidateShare = new PositionCandidateShare();
+        $positionCandidateShare->creator_id = $input->creator->id;
         $positionCandidateShare->position_candidate_id = $input->positionCandidate->id;
         $positionCandidateShare->user_id = $input->user->id;
 
         throw_if(!$positionCandidateShare->save(), RepositoryException::stored(PositionCandidateShare::class));
 
+        $positionCandidateShare->setRelation('creator', $input->creator);
         $positionCandidateShare->setRelation('positionCandidate', $input->positionCandidate);
         $positionCandidateShare->setRelation('user', $input->user);
 
