@@ -8,6 +8,7 @@ use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateEvaluation;
 use Domain\Position\Repositories\Input\PositionCandidateEvaluationStoreInput;
 use Domain\Position\Repositories\Input\PositionCandidateEvaluationUpdateInput;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 interface PositionCandidateEvaluationRepositoryInterface
@@ -23,4 +24,6 @@ interface PositionCandidateEvaluationRepositoryInterface
     public function update(PositionCandidateEvaluation $positionCandidateEvaluation, PositionCandidateEvaluationUpdateInput $input): PositionCandidateEvaluation;
 
     public function delete(PositionCandidateEvaluation $positionCandidateEvaluation): void;
+
+    public function evaluationExists(PositionCandidate $positionCandidate, User $user): bool;
 }

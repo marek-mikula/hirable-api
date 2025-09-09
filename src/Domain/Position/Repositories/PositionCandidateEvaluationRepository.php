@@ -9,6 +9,7 @@ use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateEvaluation;
 use Domain\Position\Repositories\Input\PositionCandidateEvaluationStoreInput;
 use Domain\Position\Repositories\Input\PositionCandidateEvaluationUpdateInput;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class PositionCandidateEvaluationRepository implements PositionCandidateEvaluationRepositoryInterface
@@ -55,5 +56,13 @@ class PositionCandidateEvaluationRepository implements PositionCandidateEvaluati
     public function delete(PositionCandidateEvaluation $positionCandidateEvaluation): void
     {
         throw_if(!$positionCandidateEvaluation->delete(), RepositoryException::updated(PositionCandidateEvaluation::class));
+    }
+
+    public function evaluationExists(PositionCandidate $positionCandidate, User $user): bool
+    {
+        return PositionCandidateEvaluation::query()
+            ->where('position_candidate_id', $positionCandidate->id)
+            ->where('user_id', $user->id)
+            ->exists();
     }
 }
