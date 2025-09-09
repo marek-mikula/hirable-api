@@ -6,6 +6,7 @@ namespace Domain\Position\Http\Controllers;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
+use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Position\Http\Request\PositionCandidateEvaluationRequestRequest;
 use Domain\Position\Http\Resources\PositionCandidateEvaluationResource;
 use Domain\Position\Models\Position;
@@ -17,7 +18,7 @@ class PositionCandidateEvaluationRequestController extends ApiController
 {
     public function __invoke(PositionCandidateEvaluationRequestRequest $request, Position $position, PositionCandidate $positionCandidate): JsonResponse
     {
-        $positionCandidateEvaluation = PositionCandidateEvaluationRequestUseCase::make()->handle(
+        $positionCandidateEvaluations = PositionCandidateEvaluationRequestUseCase::make()->handle(
             user: $request->user(),
             position: $position,
             positionCandidate: $positionCandidate,
@@ -25,7 +26,7 @@ class PositionCandidateEvaluationRequestController extends ApiController
         );
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'positionCandidateEvaluation' => new PositionCandidateEvaluationResource($positionCandidateEvaluation)
+            'positionCandidateEvaluations' => new ResourceCollection(PositionCandidateEvaluationResource::class, $positionCandidateEvaluations),
         ]);
     }
 }

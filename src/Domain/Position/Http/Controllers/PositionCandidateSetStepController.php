@@ -31,7 +31,7 @@ class PositionCandidateSetStepController extends ApiController
 
         $positionCandidate
             ->loadMissing(['actions', 'candidate', 'step'])
-            ->loadCount('shares');
+            ->loadCount(['shares', 'evaluations', 'filledEvaluations']);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'positionCandidate' => new PositionCandidateResource($positionCandidate),

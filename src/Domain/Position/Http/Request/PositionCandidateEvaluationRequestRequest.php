@@ -8,9 +8,10 @@ use App\Http\Requests\AuthRequest;
 use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Http\Request\Data\PositionCandidateEvaluationRequestData;
 use Domain\Position\Models\Position;
+use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateEvaluation;
 use Domain\Position\Policies\PositionCandidateEvaluationPolicy;
-use Domain\User\Models\User;
+use Domain\Position\Validation\ValidateEvaluationRequest;
 use Domain\User\Repositories\UserRepositoryInterface;
 use Domain\User\Rules\UserOnPositionRule;
 
@@ -28,7 +29,11 @@ class PositionCandidateEvaluationRequestRequest extends AuthRequest
         $position = $this->route('position');
 
         return [
-            'userId' => [
+            'hiringManagers' => [
+                'required',
+                'array',
+            ],
+            'hiringManagers.*' => [
                 'required',
                 'integer',
                 new UserOnPositionRule($position, [PositionRoleEnum::HIRING_MANAGER]),
@@ -40,16 +45,23 @@ class PositionCandidateEvaluationRequestRequest extends AuthRequest
         ];
     }
 
+    public function after(): array
+    {
+        /** @var PositionCandidate $positionCandidate */
+        $positionCandidate = $this->route('positionCandidate');
+
+        return [
+            new ValidateEvaluationRequest($positionCandidate),
+        ];
+    }
+
     public function toData(): PositionCandidateEvaluationRequestData
     {
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = app(UserRepositoryInterface::class);
 
-        /** @var User $user */
-        $user = $userRepository->getByIdsAndCompany($this->user()->company, [(int) $this->input('userId')])->first();
-
         return new PositionCandidateEvaluationRequestData(
-            user: $user,
+            hiringManagers: $userRepository->getByIdsAndCompany($this->user()->company, $this->array('hiringManagers')),
             fillUntil: $this->date('fillUntil', 'Y-m-d'),
         );
     }

@@ -19,7 +19,11 @@ class PositionCandidateResource extends Resource
     {
         $this->checkLoadedRelations(['candidate', 'step', 'actions']);
 
-        $this->checkLoadedCounts('shares');
+        $this->checkLoadedCounts([
+            'shares',
+            'evaluations',
+            'filledEvaluations',
+        ]);
 
         return [
             'id' => $this->resource->id,
@@ -31,6 +35,8 @@ class PositionCandidateResource extends Resource
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
             'sharesCount' => $this->resource->shares_count,
+            'evaluationsCount' => $this->resource->evaluations_count,
+            'filledEvaluationsCount' => $this->resource->filled_evaluations_count,
             'step' => new PositionProcessStepResource($this->resource->step),
             'candidate' => new CandidateResource($this->resource->candidate),
             'actions' => new ResourceCollection(PositionCandidateActionResource::class, $this->resource->actions),

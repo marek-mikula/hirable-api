@@ -228,6 +228,7 @@ return [
         ],
         'position_candidate' => [
             'share_exists' => 'Kandidát je již sdílen s některými z vybraných hiring manažerů.',
+            'evaluation_exists' => 'Někteří z vybraných hiring manažerů již kandidáta ohodnotili nebo o to byli požádáni.'
         ],
     ],
 
