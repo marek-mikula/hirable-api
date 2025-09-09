@@ -12,6 +12,7 @@ use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
 use Domain\Notification\Traits\Notifiable;
 use Domain\Position\Models\ModelHasPosition;
+use Domain\Position\Models\Position;
 use Domain\User\Database\Factories\UserFactory;
 use Domain\User\Models\Builders\UserBuilder;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -51,6 +52,7 @@ use Support\Token\Models\Token;
  * @property-read bool $is_email_verified
  * @property-read Collection<Token> $tokens
  * @property-read Company $company
+ * @property-read Collection<Position> $ownsPositions
  * @property-read Collection<ModelHasPosition> $positionModels
  *
  * @method static UserFactory factory($count = null, $state = [])
@@ -157,6 +159,15 @@ class User extends Authenticatable implements HasLocalePreference
             related: Company::class,
             foreignKey: 'company_id',
             ownerKey: 'id'
+        );
+    }
+
+    public function ownsPositions(): HasMany
+    {
+        return $this->hasMany(
+            related: Position::class,
+            foreignKey: 'user_id',
+            localKey: 'id',
         );
     }
 

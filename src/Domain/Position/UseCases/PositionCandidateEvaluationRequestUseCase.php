@@ -27,27 +27,27 @@ class PositionCandidateEvaluationRequestUseCase extends UseCase
      * @return Collection<PositionCandidateEvaluation>
      */
     public function handle(
-        User $user,
+        User $creator,
         Position $position,
         PositionCandidate $positionCandidate,
         PositionCandidateEvaluationRequestData $data
     ): Collection {
         return DB::transaction(function () use (
-            $user,
+            $creator,
             $position,
             $positionCandidate,
             $data,
         ): Collection {
             $collection = modelCollection(PositionCandidateEvaluation::class);
 
-            /** @var User $hiringManager */
-            foreach ($data->hiringManagers as $hiringManager) {
+            /** @var User $user */
+            foreach ($data->users as $user) {
                 $collection->push(
                     $this->positionCandidateEvaluationRepository->store(
                         new PositionCandidateEvaluationStoreInput(
-                            creator: $user,
+                            creator: $creator,
                             positionCandidate: $positionCandidate,
-                            user: $hiringManager,
+                            user: $user,
                             state: EvaluationStateEnum::WAITING,
                             evaluation: null,
                             stars: null,

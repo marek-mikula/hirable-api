@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
-use Domain\Position\Enums\PositionRoleEnum;
 use Domain\Position\Http\Request\Data\PositionCandidateEvaluationRequestData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
@@ -29,14 +28,14 @@ class PositionCandidateEvaluationRequestRequest extends AuthRequest
         $position = $this->route('position');
 
         return [
-            'hiringManagers' => [
+            'users' => [
                 'required',
                 'array',
             ],
-            'hiringManagers.*' => [
+            'users.*' => [
                 'required',
                 'integer',
-                new UserOnPositionRule($position, [PositionRoleEnum::HIRING_MANAGER]),
+                new UserOnPositionRule($position, notId: $this->user()->id),
             ],
             'fillUntil' => [
                 'nullable',
@@ -61,7 +60,7 @@ class PositionCandidateEvaluationRequestRequest extends AuthRequest
         $userRepository = app(UserRepositoryInterface::class);
 
         return new PositionCandidateEvaluationRequestData(
-            hiringManagers: $userRepository->getByIdsAndCompany($this->user()->company, $this->array('hiringManagers')),
+            users: $userRepository->getByIdsAndCompany($this->user()->company, $this->array('users')),
             fillUntil: $this->date('fillUntil', 'Y-m-d'),
         );
     }

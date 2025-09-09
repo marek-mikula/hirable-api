@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Collection;
 readonly class PositionCandidateEvaluationRequestData
 {
     /**
-     * @param Collection<User> $hiringManagers
+     * @param Collection<User> $users
      */
     public function __construct(
-        public Collection $hiringManagers,
+        public Collection $users,
         public ?Carbon $fillUntil,
     ) {
     }

@@ -20,18 +20,18 @@ class ValidateEvaluationRequest
     {
         $data = $validator->getData();
 
-        $hiringManagers = Arr::get($data, 'hiringManagers', []);
+        $users = Arr::get($data, 'users', []);
 
         $passes = $this->positionCandidate
             ->evaluations()
             ->where('state', EvaluationStateEnum::WAITING)
             ->pluck('user_id')
-            ->every(fn (int $id) => !in_array($id, $hiringManagers));
+            ->every(fn (int $id) => !in_array($id, $users));
 
         if ($passes) {
             return;
         }
 
-        $validator->errors()->add('hiringManagers', __('validation.after_rules.position_candidate.evaluation_exists'));
+        $validator->errors()->add('users', __('validation.after_rules.position_candidate.evaluation_exists'));
     }
 }

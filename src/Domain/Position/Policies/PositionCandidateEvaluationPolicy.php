@@ -50,7 +50,7 @@ class PositionCandidateEvaluationPolicy
             return false;
         }
 
-        return $user->company_role === RoleEnum::HIRING_MANAGER && $positionCandidateEvaluation->user_id === $user->id;
+        return $positionCandidateEvaluation->user_id === $user->id;
     }
 
     public function delete(User $user, PositionCandidateEvaluation $positionCandidateEvaluation, PositionCandidate $positionCandidate, Position $position): bool

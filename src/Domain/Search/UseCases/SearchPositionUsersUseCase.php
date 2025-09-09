@@ -6,9 +6,11 @@ namespace Domain\Search\UseCases;
 
 use App\UseCases\UseCase;
 use Domain\Position\Models\Builders\ModelHasPositionBuilder;
+use Domain\Position\Models\Builders\PositionBuilder;
 use Domain\Position\Models\Position;
 use Domain\Search\Data\ResultData;
 use Domain\Search\Data\SearchData;
+use Domain\User\Models\Builders\UserBuilder;
 use Domain\User\Models\User;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
@@ -23,15 +25,26 @@ class SearchPositionUsersUseCase extends UseCase
         return User::query()
             ->select(['id', 'firstname', 'lastname'])
             ->whereCompany($user->company_id)
-            ->whereHas('positionModels', function (ModelHasPositionBuilder $query) use (
+            ->where(function (UserBuilder $query) use (
                 $position,
-                $roles,
+                $roles
             ): void {
-                $query->where('position_id', $position->id);
+                $query
+                    ->whereHas('ownsPositions', function (PositionBuilder $query) use (
+                        $position,
+                    ): void {
+                        $query->where('id', $position->id);
+                    })
+                    ->orWhereHas('positionModels', function (ModelHasPositionBuilder $query) use (
+                        $position,
+                        $roles,
+                    ): void {
+                        $query->where('position_id', $position->id);
 
-                if ($roles->isNotEmpty()) {
-                    $query->whereIn('role', $roles);
-                }
+                        if ($roles->isNotEmpty()) {
+                            $query->whereIn('role', $roles);
+                        }
+                    });
             })
             ->when($data->hasQuery(), function (Builder $query) use ($data): void {
                 $query->where(function (Builder $query) use ($data): void {

@@ -19,7 +19,7 @@ class PositionCandidateEvaluationRequestController extends ApiController
     public function __invoke(PositionCandidateEvaluationRequestRequest $request, Position $position, PositionCandidate $positionCandidate): JsonResponse
     {
         $positionCandidateEvaluations = PositionCandidateEvaluationRequestUseCase::make()->handle(
-            user: $request->user(),
+            creator: $request->user(),
             position: $position,
             positionCandidate: $positionCandidate,
             data: $request->toData()
