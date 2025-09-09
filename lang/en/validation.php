@@ -229,7 +229,7 @@ return [
         ],
         'position_candidate' => [
             'share_exists' => 'The candidate is already shared with some of the selected hiring managers.',
-            'evaluation_exists' => 'Some of the select hiring managers already have evaluated the candidate or have been requested to do so.'
+            'evaluation_exists' => 'Some of the selected hiring managers have already been asked to complete an evaluation and have not yet completed it.'
         ],
     ],
 
