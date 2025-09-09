@@ -14,8 +14,10 @@ return new class () extends Migration {
             $table->foreignId('creator_id');
             $table->foreignId('position_candidate_id');
             $table->foreignId('user_id');
+            $table->string('state');
             $table->string('evaluation', 500)->nullable();
-            $table->string('result')->nullable();
+            $table->unsignedTinyInteger('stars')->nullable();
+            $table->date('fill_until')->nullable();
             $table->timestamps();
 
             $table->foreign('creator_id', 'position_candidate_evaluations_creator_foreign')

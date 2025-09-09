@@ -7,6 +7,7 @@ namespace Domain\Position\Repositories;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateShare;
 use Domain\Position\Repositories\Input\PositionCandidateShareStoreInput;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 interface PositionCandidateShareRepositoryInterface
@@ -20,4 +21,6 @@ interface PositionCandidateShareRepositoryInterface
     public function store(PositionCandidateShareStoreInput $input): PositionCandidateShare;
 
     public function delete(PositionCandidateShare $positionCandidateShare): void;
+
+    public function isSharedWith(PositionCandidate $positionCandidate, User $user): bool;
 }

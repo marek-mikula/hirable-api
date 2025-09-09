@@ -6,6 +6,8 @@ use Domain\Position\Http\Controllers\PositionCancelApprovalController;
 use Domain\Position\Http\Controllers\PositionApprovalDecideController;
 use Domain\Position\Http\Controllers\PositionCandidateActionController;
 use Domain\Position\Http\Controllers\PositionCandidateController;
+use Domain\Position\Http\Controllers\PositionCandidateEvaluationController;
+use Domain\Position\Http\Controllers\PositionCandidateEvaluationRequestController;
 use Domain\Position\Http\Controllers\PositionCandidateSetStepController;
 use Domain\Position\Http\Controllers\PositionCandidateShareController;
 use Domain\Position\Http\Controllers\PositionController;
@@ -69,6 +71,14 @@ Route::middleware('auth:sanctum')->group(static function (): void {
                     Route::post('/', [PositionCandidateShareController::class, 'store'])->name('store');
                     Route::prefix('/{positionCandidateShare}')->whereNumber('positionCandidateShare')->group(function (): void {
                         Route::delete('/', [PositionCandidateShareController::class, 'delete'])->name('delete');
+                    });
+                });
+                Route::prefix('/evaluations')->as('evaluation.')->group(function (): void {
+                    Route::get('/', [PositionCandidateEvaluationController::class, 'index'])->name('index');
+                    Route::post('/', [PositionCandidateEvaluationController::class, 'store'])->name('store');
+                    Route::post('/request', PositionCandidateEvaluationRequestController::class)->name('request');
+                    Route::prefix('/{positionCandidateEvaluation}')->whereNumber('positionCandidateEvaluation')->group(function (): void {
+                        Route::delete('/', [PositionCandidateEvaluationController::class, 'delete'])->name('delete');
                     });
                 });
             });

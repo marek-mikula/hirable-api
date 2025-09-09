@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Database\Factories;
 
 use Database\Factories\Factory;
+use Domain\Position\Enums\EvaluationStateEnum;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateEvaluation;
 use Domain\User\Models\User;
@@ -22,8 +23,10 @@ class PositionCandidateEvaluationFactory extends Factory
             'creator_id' => $this->isMaking ? null : User::factory(),
             'position_candidate_id' => $this->isMaking ? null : PositionCandidate::factory(),
             'user_id' => $this->isMaking ? null : User::factory(),
-            'evaluation' => null,
+            'state' => EvaluationStateEnum::WAITING,
+            'stars' => null,
             'result' => null,
+            'fill_until' => null,
         ];
     }
 

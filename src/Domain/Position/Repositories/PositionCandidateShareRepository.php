@@ -8,6 +8,7 @@ use App\Exceptions\RepositoryException;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateShare;
 use Domain\Position\Repositories\Input\PositionCandidateShareStoreInput;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class PositionCandidateShareRepository implements PositionCandidateShareRepositoryInterface
@@ -39,5 +40,13 @@ class PositionCandidateShareRepository implements PositionCandidateShareReposito
     public function delete(PositionCandidateShare $positionCandidateShare): void
     {
         throw_if(!$positionCandidateShare->delete(), RepositoryException::deleted(PositionCandidateShare::class));
+    }
+
+    public function isSharedWith(PositionCandidate $positionCandidate, User $user): bool
+    {
+        return PositionCandidateShare::query()
+            ->where('position_candidate_id', $positionCandidate->id)
+            ->where('user_id', $user->id)
+            ->exists();
     }
 }

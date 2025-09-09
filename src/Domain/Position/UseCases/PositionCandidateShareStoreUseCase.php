@@ -11,7 +11,6 @@ use Domain\Position\Models\PositionCandidateShare;
 use Domain\Position\Repositories\Input\PositionCandidateShareStoreInput;
 use Domain\Position\Repositories\PositionCandidateShareRepositoryInterface;
 use Domain\User\Models\User;
-use Domain\User\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -19,18 +18,15 @@ class PositionCandidateShareStoreUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionCandidateShareRepositoryInterface $positionCandidateShareRepository,
-        private readonly UserRepositoryInterface $userRepository
     ) {
     }
 
     /**
-     * @param int[] $hiringManagers
+     * @param Collection<User> $hiringManagers
      * @return Collection<PositionCandidateShare>
      */
-    public function handle(User $user, Position $position, PositionCandidate $positionCandidate, array $hiringManagers): Collection
+    public function handle(User $user, Position $position, PositionCandidate $positionCandidate, Collection $hiringManagers): Collection
     {
-        $hiringManagers = $this->userRepository->getByIdsAndCompany($user->company, $hiringManagers);
-
         return DB::transaction(function () use (
             $user,
             $position,

@@ -6,7 +6,7 @@ namespace Domain\Position\Models;
 
 use Carbon\Carbon;
 use Domain\Position\Database\Factories\PositionCandidateEvaluationFactory;
-use Domain\Position\Enums\EvaluationResultEnum;
+use Domain\Position\Enums\EvaluationStateEnum;
 use Domain\Position\Models\Builders\PositionCandidateEvaluationBuilder;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,8 +19,10 @@ use Illuminate\Database\Query\Builder;
  * @property int $creator_id
  * @property int $position_candidate_id
  * @property int $user_id
+ * @property EvaluationStateEnum $state
  * @property string|null $evaluation
- * @property EvaluationResultEnum|null $result
+ * @property int|null $stars
+ * @property Carbon|null $fill_until
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read User $creator
@@ -44,14 +46,17 @@ class PositionCandidateEvaluation extends Model
         'creator_id',
         'position_candidate_id',
         'user_id',
+        'state',
         'evaluation',
-        'result',
+        'stars',
+        'fill_until',
     ];
 
     protected function casts(): array
     {
         return [
-            'result' => EvaluationResultEnum::class,
+            'state' => EvaluationStateEnum::class,
+            'fill_until' => 'date',
         ];
     }
 
