@@ -8,7 +8,7 @@ use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Position\Http\Request\PositionCandidateEvaluationRequestRequest;
-use Domain\Position\Http\Resources\PositionCandidateEvaluationResource;
+use Domain\Position\Http\Resources\PositionCandidateEvaluationShowResource;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\UseCases\PositionCandidateEvaluationRequestUseCase;
@@ -26,7 +26,7 @@ class PositionCandidateEvaluationRequestController extends ApiController
         );
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'positionCandidateEvaluations' => new ResourceCollection(PositionCandidateEvaluationResource::class, $positionCandidateEvaluations),
+            'positionCandidateEvaluations' => new ResourceCollection(PositionCandidateEvaluationShowResource::class, $positionCandidateEvaluations),
         ]);
     }
 }

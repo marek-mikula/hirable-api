@@ -28,7 +28,7 @@ class PositionCandidateEvaluationStoreRequest extends AuthRequest
             'stars' => [
                 'required',
                 'integer',
-                'between:0,5',
+                'between:1,5',
             ],
         ];
     }

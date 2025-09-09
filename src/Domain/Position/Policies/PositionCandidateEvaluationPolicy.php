@@ -35,6 +35,19 @@ class PositionCandidateEvaluationPolicy
         return $user->can('update', [$positionCandidate, $position]);
     }
 
+    public function update(User $user, PositionCandidateEvaluation $positionCandidateEvaluation, PositionCandidate $positionCandidate, Position $position): bool
+    {
+        if ($positionCandidate->position_id !== $position->id) {
+            return false;
+        }
+
+        if ($positionCandidateEvaluation->position_candidate_id !== $positionCandidate->id) {
+            return false;
+        }
+
+        return $user->company_role === RoleEnum::HIRING_MANAGER && $positionCandidateEvaluation->user_id === $user->id;
+    }
+
     public function delete(User $user, PositionCandidateEvaluation $positionCandidateEvaluation, PositionCandidate $positionCandidate, Position $position): bool
     {
         if ($positionCandidate->position_id !== $position->id) {
@@ -46,7 +59,7 @@ class PositionCandidateEvaluationPolicy
         }
 
         if ($user->company_role === RoleEnum::HIRING_MANAGER) {
-            return $positionCandidateEvaluation->user_id === $user->id;
+            return $positionCandidateEvaluation->creator_id === $user->id && $positionCandidateEvaluation->user_id === $user->id;
         }
 
         return $positionCandidateEvaluation->creator_id === $user->id;

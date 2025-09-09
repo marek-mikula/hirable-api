@@ -78,6 +78,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
                     Route::post('/', [PositionCandidateEvaluationController::class, 'store'])->name('store');
                     Route::post('/request', PositionCandidateEvaluationRequestController::class)->name('request');
                     Route::prefix('/{positionCandidateEvaluation}')->whereNumber('positionCandidateEvaluation')->group(function (): void {
+                        Route::patch('/', [PositionCandidateEvaluationController::class, 'update'])->name('update');
                         Route::delete('/', [PositionCandidateEvaluationController::class, 'delete'])->name('delete');
                     });
                 });

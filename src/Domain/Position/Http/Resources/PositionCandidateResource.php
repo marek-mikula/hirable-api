@@ -17,12 +17,10 @@ class PositionCandidateResource extends Resource
 {
     public function toArray(Request $request): array
     {
-        $this->checkLoadedRelations(['candidate', 'step', 'actions']);
+        $this->checkLoadedRelations(['candidate', 'step', 'actions', 'evaluations']);
 
         $this->checkLoadedCounts([
             'shares',
-            'evaluations',
-            'filledEvaluations',
         ]);
 
         return [
@@ -35,11 +33,10 @@ class PositionCandidateResource extends Resource
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
             'sharesCount' => $this->resource->shares_count,
-            'evaluationsCount' => $this->resource->evaluations_count,
-            'filledEvaluationsCount' => $this->resource->filled_evaluations_count,
             'step' => new PositionProcessStepResource($this->resource->step),
             'candidate' => new CandidateResource($this->resource->candidate),
             'actions' => new ResourceCollection(PositionCandidateActionResource::class, $this->resource->actions),
+            'evaluations' => new ResourceCollection(PositionCandidateEvaluationResource::class, $this->resource->evaluations),
         ];
     }
 }

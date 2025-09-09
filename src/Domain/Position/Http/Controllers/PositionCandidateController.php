@@ -25,11 +25,10 @@ class PositionCandidateController extends ApiController
         $positionCandidates = $repository->index($request->user(), $position, [
             'candidate',
             'step',
-            'actions'
+            'actions',
+            'evaluations',
         ], [
             'shares',
-            'evaluations',
-            'filledEvaluations'
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
@@ -43,10 +42,9 @@ class PositionCandidateController extends ApiController
             'step',
             'candidate',
             'actions',
+            'evaluations',
         ])->loadCount([
             'shares',
-            'evaluations',
-            'filledEvaluations'
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [

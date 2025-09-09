@@ -10,13 +10,15 @@ use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Position\Http\Request\PositionCandidateEvaluationDeleteRequest;
 use Domain\Position\Http\Request\PositionCandidateEvaluationIndexRequest;
 use Domain\Position\Http\Request\PositionCandidateEvaluationStoreRequest;
-use Domain\Position\Http\Resources\PositionCandidateEvaluationResource;
+use Domain\Position\Http\Request\PositionCandidateEvaluationUpdateRequest;
+use Domain\Position\Http\Resources\PositionCandidateEvaluationShowResource;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateEvaluation;
 use Domain\Position\Repositories\PositionCandidateEvaluationRepositoryInterface;
 use Domain\Position\UseCases\PositionCandidateEvaluationDeleteUseCase;
 use Domain\Position\UseCases\PositionCandidateEvaluationStoreUseCase;
+use Domain\Position\UseCases\PositionCandidateEvaluationUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
 class PositionCandidateEvaluationController extends ApiController
@@ -32,7 +34,7 @@ class PositionCandidateEvaluationController extends ApiController
         ]);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'positionCandidateEvaluations' => new ResourceCollection(PositionCandidateEvaluationResource::class, $positionCandidateEvaluations),
+            'positionCandidateEvaluations' => new ResourceCollection(PositionCandidateEvaluationShowResource::class, $positionCandidateEvaluations),
         ]);
     }
 
@@ -45,8 +47,33 @@ class PositionCandidateEvaluationController extends ApiController
             data: $request->toData()
         );
 
+        $positionCandidateEvaluation->loadMissing([
+            'creator',
+            'user',
+        ]);
+
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'positionCandidateEvaluation' => new PositionCandidateEvaluationResource($positionCandidateEvaluation)
+            'positionCandidateEvaluation' => new PositionCandidateEvaluationShowResource($positionCandidateEvaluation)
+        ]);
+    }
+
+    public function update(PositionCandidateEvaluationUpdateRequest $request, Position $position, PositionCandidate $positionCandidate, PositionCandidateEvaluation $positionCandidateEvaluation): JsonResponse
+    {
+        $positionCandidateEvaluation = PositionCandidateEvaluationUpdateUseCase::make()->handle(
+            user: $request->user(),
+            position: $position,
+            positionCandidate: $positionCandidate,
+            positionCandidateEvaluation: $positionCandidateEvaluation,
+            data: $request->toData()
+        );
+
+        $positionCandidateEvaluation->loadMissing([
+            'creator',
+            'user',
+        ]);
+
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
+            'positionCandidateEvaluation' => new PositionCandidateEvaluationShowResource($positionCandidateEvaluation)
         ]);
     }
 

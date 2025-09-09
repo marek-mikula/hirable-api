@@ -46,7 +46,6 @@ class PositionCandidateEvaluationRepository implements PositionCandidateEvaluati
         $positionCandidateEvaluation->state = $input->state;
         $positionCandidateEvaluation->evaluation = $input->evaluation;
         $positionCandidateEvaluation->stars = $input->stars;
-        $positionCandidateEvaluation->fill_until = $input->fillUntil;
 
         throw_if(!$positionCandidateEvaluation->save(), RepositoryException::updated(PositionCandidateEvaluation::class));
 
