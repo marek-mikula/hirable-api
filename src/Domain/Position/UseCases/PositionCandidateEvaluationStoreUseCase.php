@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\Position\UseCases;
 
-use App\Enums\ResponseCodeEnum;
-use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
 use Domain\Position\Enums\EvaluationStateEnum;
 use Domain\Position\Http\Request\Data\PositionCandidateEvaluationData;
@@ -30,11 +28,6 @@ class PositionCandidateEvaluationStoreUseCase extends UseCase
         PositionCandidate $positionCandidate,
         PositionCandidateEvaluationData $data
     ): PositionCandidateEvaluation {
-        throw_if(
-            condition: $this->positionCandidateEvaluationRepository->evaluationExists($positionCandidate, $user),
-            exception: new HttpException(responseCode: ResponseCodeEnum::EVALUATION_EXISTS),
-        );
-
         return DB::transaction(function () use (
             $user,
             $position,

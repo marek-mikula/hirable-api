@@ -26,7 +26,12 @@ class PositionCandidateEvaluationPolicy
 
     public function store(User $user, PositionCandidate $positionCandidate, Position $position): bool
     {
-        return $user->company_role === RoleEnum::HIRING_MANAGER && $this->positionCandidateShareRepository->isSharedWith($positionCandidate, $user);
+        if ($user->company_role === RoleEnum::HIRING_MANAGER) {
+            return $this->positionCandidateShareRepository->isSharedWith($positionCandidate, $user);
+        }
+
+        /** @see PositionCandidatePolicy::update() */
+        return $user->can('update', [$positionCandidate, $position]);
     }
 
     public function request(User $user, PositionCandidate $positionCandidate, Position $position): bool
