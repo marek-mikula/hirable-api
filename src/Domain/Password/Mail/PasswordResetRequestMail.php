@@ -8,7 +8,6 @@ use App\Mail\QueueMailable;
 use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\User\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -49,13 +48,5 @@ class PasswordResetRequestMail extends QueueMailable
                 'token' => $this->token,
             ]
         );
-    }
-
-    /**
-     * @return Attachment[]
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

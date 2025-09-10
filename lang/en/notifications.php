@@ -11,6 +11,7 @@ return [
         'regards' => 'Best regards',
         'signature' => ':application Team',
         'link' => 'If the button link does not work, use this link instead: *:link*.',
+        'with_love' => 'made with 💙',
         'rights' => 'All rights reserved.',
     ],
 
@@ -170,6 +171,16 @@ return [
             'subject' => '✅ Application accepted!',
             'body' => [
                 'line1' => 'Your application for the position **:position** has been successfully accepted. We will contact you soon. Thank you for your interest and good luck in the selection process.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_CANDIDATE_EVALUATION_REQUESTED->value => [
+        'mail' => [
+            'subject' => '⭐ Evaluation requested for candidate :candidate at position :position',
+            'body' => [
+                'line1' => 'User **:creator** requests your evaluation of candidate **:candidate** at position **:position**.',
+                'line2' => 'Please submit your evaluation by **:date**.'
             ],
         ],
     ],

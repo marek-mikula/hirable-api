@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Database\Factories;
 
+use Carbon\Carbon;
 use Database\Factories\Factory;
 use Domain\Position\Enums\EvaluationStateEnum;
 use Domain\Position\Models\PositionCandidate;
@@ -28,6 +29,13 @@ class PositionCandidateEvaluationFactory extends Factory
             'result' => null,
             'fill_until' => null,
         ];
+    }
+
+    public function ofFillUntil(?Carbon $fillUntil): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'fill_until' => $fillUntil,
+        ]);
     }
 
     public function ofCreator(User $user): static

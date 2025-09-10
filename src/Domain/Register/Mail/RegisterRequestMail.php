@@ -7,7 +7,6 @@ namespace Domain\Register\Mail;
 use App\Mail\Mailable;
 use Domain\Notification\Enums\NotificationTypeEnum;
 use Illuminate\Mail\Mailables\Address;
-use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Notifications\AnonymousNotifiable;
@@ -47,13 +46,5 @@ class RegisterRequestMail extends Mailable
                 'token' => $this->token,
             ]
         );
-    }
-
-    /**
-     * @return Attachment[]
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

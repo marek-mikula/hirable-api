@@ -8,7 +8,6 @@ use App\Mail\Mailable;
 use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\User\Models\User;
 use Illuminate\Mail\Mailables\Address;
-use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
@@ -43,13 +42,5 @@ class InvitationAcceptedMail extends Mailable
                 'user' => $this->user,
             ]
         );
-    }
-
-    /**
-     * @return Attachment[]
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

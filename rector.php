@@ -17,8 +17,8 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     ->withRules([
-        StaticArrowFunctionRector::class,
-        StaticClosureRector::class,
+//        StaticArrowFunctionRector::class,
+//        StaticClosureRector::class,
     ])
     ->withSkipPath(__DIR__ . '/bootstrap/cache')
     ->withPhpSets()
