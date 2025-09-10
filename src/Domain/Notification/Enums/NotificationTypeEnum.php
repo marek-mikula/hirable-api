@@ -35,6 +35,7 @@ enum NotificationTypeEnum: string
     case POSITION_CANDIDATE_SHARE_STOPPED = 'position_candidate:share_stopped';
 
     case POSITION_CANDIDATE_EVALUATION_REQUESTED = 'position_candidate:evaluation_requested';
+    case POSITION_CANDIDATE_EVALUATION_CANCELED = 'position_candidate:evaluation_canceled';
 
     case APPLICATION_ACCEPTED = 'application:accepted';
 }
