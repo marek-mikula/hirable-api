@@ -48,7 +48,7 @@ class PositionCandidateEvaluationRequestUseCase extends UseCase
             foreach ($data->users as $user) {
                 $needsSharing = $user->company_role === RoleEnum::HIRING_MANAGER;
 
-                if ($needsSharing && ! $this->positionCandidateShareRepository->isSharedWith($positionCandidate, $user)) {
+                if ($needsSharing && !$this->positionCandidateShareRepository->isSharedWith($positionCandidate, $user)) {
                     $this->positionCandidateShareRepository->store(new PositionCandidateShareStoreInput(
                         creator: $creator,
                         positionCandidate: $positionCandidate,

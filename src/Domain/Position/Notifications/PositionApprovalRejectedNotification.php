@@ -58,6 +58,7 @@ class PositionApprovalRejectedNotification extends QueueNotification
             'rejectedByName' => $this->rejectedBy->full_name,
             'positionId' => $this->position->id,
             'positionName' => $this->position->name,
+            'ownerId' => $this->position->user_id,
         ];
     }
 }
