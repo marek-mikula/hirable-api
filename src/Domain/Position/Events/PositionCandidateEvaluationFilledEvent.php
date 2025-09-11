@@ -7,7 +7,7 @@ namespace Domain\Position\Events;
 use App\Events\Event;
 use Domain\Position\Models\PositionCandidateEvaluation;
 
-class PositionCandidateEvaluationRequestedEvent extends Event
+class PositionCandidateEvaluationFilledEvent extends Event
 {
     public function __construct(
         public readonly PositionCandidateEvaluation $positionCandidateEvaluation,

@@ -11,6 +11,8 @@ use Domain\Position\Events\PositionApprovalExpiredEvent;
 use Domain\Position\Events\PositionApprovalRejectedEvent;
 use Domain\Position\Events\PositionApprovedEvent;
 use Domain\Position\Events\PositionCandidateCreatedEvent;
+use Domain\Position\Events\PositionCandidateEvaluationDeletedEvent;
+use Domain\Position\Events\PositionCandidateEvaluationFilledEvent;
 use Domain\Position\Events\PositionCandidateEvaluationRequestedEvent;
 use Domain\Position\Events\PositionCandidateShareCreatedEvent;
 use Domain\Position\Events\PositionCandidateShareDeletedEvent;
@@ -25,6 +27,9 @@ use Domain\Position\Listeners\SendPositionApprovedNotificationsListener;
 use Domain\Position\Listeners\SendApprovalCanceledNotificationsListener;
 use Domain\Position\Listeners\SendApprovalExpiredNotificationsListener;
 use Domain\Position\Listeners\SendNewCandidateNotificationListener;
+use Domain\Position\Listeners\SendPositionCandidateEvaluationDeletedNotificationsListener;
+use Domain\Position\Listeners\SendPositionCandidateEvaluationFilledNotificationsListener;
+use Domain\Position\Listeners\SendPositionCandidateEvaluationRequestedNotificationsListener;
 use Domain\Position\Listeners\SendPositionCandidateSharedNotificationListener;
 use Domain\Position\Listeners\SendPositionCandidateShareStoppedNotificationListener;
 use Domain\Position\Listeners\SendPositionOpenedNotificationsListener;
@@ -88,7 +93,13 @@ class EventServiceProvider extends ServiceProvider
             SendPositionCandidateShareStoppedNotificationListener::class,
         ],
         PositionCandidateEvaluationRequestedEvent::class => [
-
+            SendPositionCandidateEvaluationRequestedNotificationsListener::class,
+        ],
+        PositionCandidateEvaluationFilledEvent::class => [
+            SendPositionCandidateEvaluationFilledNotificationsListener::class,
+        ],
+        PositionCandidateEvaluationDeletedEvent::class => [
+            SendPositionCandidateEvaluationDeletedNotificationsListener::class,
         ],
     ];
 

@@ -10,7 +10,7 @@ use Domain\Position\Models\PositionApproval;
 class PositionApprovalRejectedEvent extends Event
 {
     public function __construct(
-        public PositionApproval $approval,
+        public readonly PositionApproval $approval,
     ) {
     }
 }
