@@ -30,6 +30,7 @@ class PositionCandidateResource extends Resource
             'totalScore' => $this->resource->total_score,
             'isScoreCalculated' => $this->resource->is_score_calculated,
             'idleDays' => $this->resource->idle_days,
+            'priority' => $this->resource->priority,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
             'sharesCount' => $this->resource->shares_count,

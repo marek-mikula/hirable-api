@@ -27,6 +27,7 @@ class PositionCandidateFactory extends Factory
             'step_id' => $this->isMaking ? null : PositionProcessStep::factory(),
             'score' => [],
             'total_score' => null,
+            'priority' => null,
         ];
     }
 

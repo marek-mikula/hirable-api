@@ -9,6 +9,7 @@ use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Database\Factories\PositionCandidateFactory;
 use Domain\Position\Enums\EvaluationStateEnum;
+use Domain\Position\Enums\PositionCandidatePriorityEnum;
 use Domain\Position\Models\Builders\PositionCandidateBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -27,6 +28,7 @@ use Illuminate\Database\Query\Builder;
  * @property int $step_id
  * @property array $score
  * @property int|null $total_score
+ * @property PositionCandidatePriorityEnum|null $priority
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read bool $is_score_calculated
@@ -65,6 +67,7 @@ class PositionCandidate extends Model
         'step_id',
         'score',
         'total_score',
+        'priority',
     ];
 
     protected $attributes = [
@@ -75,6 +78,7 @@ class PositionCandidate extends Model
     {
         return [
             'score' => 'array',
+            'priority' => PositionCandidatePriorityEnum::class,
         ];
     }
 
