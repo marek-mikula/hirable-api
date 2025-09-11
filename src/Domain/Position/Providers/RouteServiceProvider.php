@@ -8,6 +8,8 @@ use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
+use Domain\Position\Models\PositionCandidateEvaluation;
+use Domain\Position\Models\PositionCandidateShare;
 use Domain\Position\Models\PositionProcessStep;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +35,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('positionProcessStep', PositionProcessStep::class);
         Route::model('positionCandidate', PositionCandidate::class);
         Route::model('positionCandidateAction', PositionCandidateAction::class);
+        Route::model('positionCandidateShare', PositionCandidateShare::class);
+        Route::model('positionCandidateEvaluation', PositionCandidateEvaluation::class);
     }
 }

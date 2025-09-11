@@ -8,10 +8,14 @@ use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
+use Domain\Position\Models\PositionCandidateEvaluation;
+use Domain\Position\Models\PositionCandidateShare;
 use Domain\Position\Models\PositionProcessStep;
 use Domain\Position\Policies\PositionApprovalPolicy;
 use Domain\Position\Policies\PositionCandidateActionPolicy;
+use Domain\Position\Policies\PositionCandidateEvaluationPolicy;
 use Domain\Position\Policies\PositionCandidatePolicy;
+use Domain\Position\Policies\PositionCandidateSharePolicy;
 use Domain\Position\Policies\PositionPolicy;
 use Domain\Position\Policies\PositionProcessStepPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -24,5 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         PositionProcessStep::class => PositionProcessStepPolicy::class,
         PositionCandidate::class => PositionCandidatePolicy::class,
         PositionCandidateAction::class => PositionCandidateActionPolicy::class,
+        PositionCandidateShare::class => PositionCandidateSharePolicy::class,
+        PositionCandidateEvaluation::class => PositionCandidateEvaluationPolicy::class,
     ];
 }

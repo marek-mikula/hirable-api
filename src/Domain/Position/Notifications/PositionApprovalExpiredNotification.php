@@ -50,6 +50,7 @@ class PositionApprovalExpiredNotification extends QueueNotification
         return [
             'positionId' => $this->position->id,
             'positionName' => $this->position->name,
+            'ownerId' => $this->position->user_id,
         ];
     }
 }

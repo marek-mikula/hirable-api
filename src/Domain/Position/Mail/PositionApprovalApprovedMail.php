@@ -9,7 +9,6 @@ use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 use Illuminate\Mail\Mailables\Address;
-use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
@@ -46,13 +45,5 @@ class PositionApprovalApprovedMail extends QueueMailable
                 'position' => $this->position,
             ]
         );
-    }
-
-    /**
-     * @return Attachment[]
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

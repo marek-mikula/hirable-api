@@ -13,7 +13,7 @@ interface TokenRepositoryInterface
 {
     public function store(TokenStoreInput $input): Token;
 
-    public function findByTokenAndType(string $token, TokenTypeEnum ...$type): ?Token;
+    public function findByTokenAndType(string $token, TokenTypeEnum ...$types): ?Token;
 
     public function findLatestByTypeAndEmail(TokenTypeEnum $type, string $email): ?Token;
 

@@ -11,6 +11,7 @@ return [
         'regards' => 'S pozdravem',
         'signature' => 'tým :application',
         'link' => 'Pokud odkaz tlačítka nefunguje, použijte místo toho tento link: *:link*.',
+        'with_love' => 'tvořeno s 💙.',
         'rights' => 'Všechna práva vyhrazena.',
     ],
 
@@ -170,6 +171,28 @@ return [
             'subject' => '✅ Přihláška přijata!',
             'body' => [
                 'line1' => 'Vaše přihláška na pozici **:position** byla úspěšně přijata. Brzy Vás budeme kontaktovat. Děkujeme za Váš zájem a přejem hodně štěstí ve výběrovém řízení.',
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_CANDIDATE_EVALUATION_REQUESTED->value => [
+        'mail' => [
+            'subject' => '⭐ Vyžádáno hodnocení kandidáta :candidate na pozici :position',
+            'body' => [
+                'line1' => 'Uživatel **:creator** žádá Vaše hodnocení kandidáta **:candidate** na pozici **:position**.',
+                'line2' => 'Hodnocení vložte do do **:date**.'
+            ],
+        ],
+    ],
+
+    NotificationTypeEnum::POSITION_CANDIDATE_EVALUATION_REMINDER->value => [
+        'mail' => [
+            'subject' => '❗⭐ Vyžádáno hodnocení kandidáta :candidate na pozici :position',
+            'subject_expired' => '‼️⭐ Vyžádáno hodnocení kandidáta :candidate na pozici :position',
+            'body' => [
+                'line1' => 'Uživatel **:creator** žádá Vaše hodnocení kandidáta **:candidate** na pozici **:position**.',
+                'line2' => 'Hodnocení vložte do do **:date**.',
+                'line2_expired' => 'Hodnocení mělo být vloženo do **:date**.'
             ],
         ],
     ],

@@ -353,11 +353,6 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 assessmentCenterResult: $this->filled('assessmentCenterResult') ? $this->enum('assessmentCenterResult', ActionAssessmentCenterResultEnum::class) : null,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
-            ActionTypeEnum::COMMUNICATION => new ActionData(
-                type: $type,
-                operation: $operation,
-                note: $this->filled('note') ? (string) $this->input('note') : null,
-            ),
             ActionTypeEnum::CUSTOM => new ActionData(
                 type: $type,
                 operation: $operation,
@@ -396,6 +391,11 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 type: $type,
                 operation: $operation,
                 realStartDate: $this->date('realStartDate', 'Y-m-d'),
+                note: $this->filled('note') ? (string) $this->input('note') : null,
+            ),
+            ActionTypeEnum::COMMUNICATION => new ActionData(
+                type: $type,
+                operation: $operation,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
         };

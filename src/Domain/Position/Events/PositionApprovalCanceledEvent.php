@@ -10,7 +10,7 @@ use Domain\Position\Models\Position;
 class PositionApprovalCanceledEvent extends Event
 {
     public function __construct(
-        public Position $position,
+        public readonly Position $position,
     ) {
     }
 }

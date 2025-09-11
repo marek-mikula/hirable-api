@@ -7,6 +7,7 @@ namespace Support\NotificationPreview\Services;
 use Domain\Application\Models\Application;
 use Domain\Application\Notifications\ApplicationAcceptedNotification;
 use Domain\Candidate\Models\Candidate;
+use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\CompanyContact;
 use Domain\Company\Notifications\InvitationAcceptedNotification;
 use Domain\Company\Notifications\InvitationSentNotification;
@@ -14,6 +15,12 @@ use Domain\Password\Notifications\PasswordChangedNotification;
 use Domain\Password\Notifications\PasswordResetRequestNotification;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
+use Domain\Position\Models\PositionCandidate;
+use Domain\Position\Models\PositionCandidateEvaluation;
+use Domain\Position\Notifications\PositionCandidateEvaluationReminderNotification;
+use Domain\Position\Notifications\PositionCandidateEvaluationRequestedNotification;
+use Domain\Position\Notifications\PositionCandidateSharedNotification;
+use Domain\Position\Notifications\PositionCandidateShareStoppedNotification;
 use Domain\Position\Notifications\PositionNewCandidateNotification;
 use Domain\Position\Notifications\PositionApprovalApprovedNotification;
 use Domain\Position\Notifications\PositionApprovalCanceledNotification;
@@ -351,6 +358,89 @@ class NotificationRegistrar
                             $notifiable->setRelation('position', Position::factory()->make());
 
                             return $notifiable;
+                        },
+                    )
+                ]
+            ),
+            NotificationDomain::create(
+                key: 'position-candidate',
+                notifications: [
+                    NotificationData::create(
+                        label: 'Shared',
+                        description: 'Notification informs users that a candidate on position has been shared with him.',
+                        notification: function (User $notifiable) {
+                            $positionCandidate = PositionCandidate::factory()->make();
+                            $position = Position::factory()->make();
+                            $candidate = Candidate::factory()->make();
+                            $positionCandidate->setRelation('position', $position);
+                            $positionCandidate->setRelation('candidate', $candidate);
+
+                            return new PositionCandidateSharedNotification($positionCandidate);
+                        },
+                        notifiable: function () {
+                            return User::factory()->make();
+                        },
+                    ),
+                    NotificationData::create(
+                        label: 'Sharing stopped',
+                        description: 'Notification informs users that sharing a candidate on position with him has been stopped.',
+                        notification: function (User $notifiable) {
+                            $positionCandidate = PositionCandidate::factory()->make();
+                            $position = Position::factory()->make();
+                            $candidate = Candidate::factory()->make();
+                            $positionCandidate->setRelation('position', $position);
+                            $positionCandidate->setRelation('candidate', $candidate);
+
+                            return new PositionCandidateShareStoppedNotification($positionCandidate);
+                        },
+                        notifiable: function () {
+                            return User::factory()->make();
+                        },
+                    ),
+                    NotificationData::create(
+                        label: 'Evaluation requested',
+                        description: 'Notification informs users that an evaluation has been requested from him.',
+                        notification: function (User $notifiable) {
+                            $creator = User::factory()->make();
+                            $positionCandidate = PositionCandidate::factory()->make();
+                            $position = Position::factory()->make();
+                            $candidate = Candidate::factory()->make();
+                            $positionCandidate->setRelation('position', $position);
+                            $positionCandidate->setRelation('candidate', $candidate);
+                            $positionCandidateEvaluation = PositionCandidateEvaluation::factory()
+                                ->ofFillUntil(now())
+                                ->make();
+                            $positionCandidateEvaluation->setRelation('creator', $creator);
+                            $positionCandidateEvaluation->setRelation('user', $notifiable);
+                            $positionCandidateEvaluation->setRelation('positionCandidate', $positionCandidate);
+
+                            return new PositionCandidateEvaluationRequestedNotification($positionCandidateEvaluation);
+                        },
+                        notifiable: function () {
+                            return User::factory()->ofCompanyRole(RoleEnum::HIRING_MANAGER)->make();
+                        },
+                    ),
+                    NotificationData::create(
+                        label: 'Evaluation reminder',
+                        description: 'Notification informs users that an evaluation is waiting for him to fill.',
+                        notification: function (User $notifiable) {
+                            $creator = User::factory()->make();
+                            $positionCandidate = PositionCandidate::factory()->make();
+                            $position = Position::factory()->make();
+                            $candidate = Candidate::factory()->make();
+                            $positionCandidate->setRelation('position', $position);
+                            $positionCandidate->setRelation('candidate', $candidate);
+                            $positionCandidateEvaluation = PositionCandidateEvaluation::factory()
+                                ->ofFillUntil(now())
+                                ->make();
+                            $positionCandidateEvaluation->setRelation('creator', $creator);
+                            $positionCandidateEvaluation->setRelation('user', $notifiable);
+                            $positionCandidateEvaluation->setRelation('positionCandidate', $positionCandidate);
+
+                            return new PositionCandidateEvaluationReminderNotification($positionCandidateEvaluation);
+                        },
+                        notifiable: function () {
+                            return User::factory()->ofCompanyRole(RoleEnum::HIRING_MANAGER)->make();
                         },
                     )
                 ]

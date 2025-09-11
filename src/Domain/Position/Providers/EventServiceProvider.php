@@ -11,6 +11,11 @@ use Domain\Position\Events\PositionApprovalExpiredEvent;
 use Domain\Position\Events\PositionApprovalRejectedEvent;
 use Domain\Position\Events\PositionApprovedEvent;
 use Domain\Position\Events\PositionCandidateCreatedEvent;
+use Domain\Position\Events\PositionCandidateEvaluationDeletedEvent;
+use Domain\Position\Events\PositionCandidateEvaluationFilledEvent;
+use Domain\Position\Events\PositionCandidateEvaluationRequestedEvent;
+use Domain\Position\Events\PositionCandidateShareCreatedEvent;
+use Domain\Position\Events\PositionCandidateShareDeletedEvent;
 use Domain\Position\Events\PositionOpenedEvent;
 use Domain\Position\Events\PositionRejectedEvent;
 use Domain\Position\Listeners\ApprovalCancelProcessListener;
@@ -22,6 +27,11 @@ use Domain\Position\Listeners\SendPositionApprovedNotificationsListener;
 use Domain\Position\Listeners\SendApprovalCanceledNotificationsListener;
 use Domain\Position\Listeners\SendApprovalExpiredNotificationsListener;
 use Domain\Position\Listeners\SendNewCandidateNotificationListener;
+use Domain\Position\Listeners\SendPositionCandidateEvaluationDeletedNotificationsListener;
+use Domain\Position\Listeners\SendPositionCandidateEvaluationFilledNotificationsListener;
+use Domain\Position\Listeners\SendPositionCandidateEvaluationRequestedNotificationsListener;
+use Domain\Position\Listeners\SendPositionCandidateSharedNotificationListener;
+use Domain\Position\Listeners\SendPositionCandidateShareStoppedNotificationListener;
 use Domain\Position\Listeners\SendPositionOpenedNotificationsListener;
 use Domain\Position\Listeners\SendApprovalRejectedNotificationsListener;
 use Domain\Position\Listeners\SendToApprovalListener;
@@ -31,9 +41,13 @@ use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\Position\Models\PositionCandidate;
+use Domain\Position\Models\PositionCandidateEvaluation;
+use Domain\Position\Models\PositionCandidateShare;
 use Domain\Position\Observers\ModelHasPositionObserver;
 use Domain\Position\Observers\PositionApprovalObserver;
+use Domain\Position\Observers\PositionCandidateEvaluationObserver;
 use Domain\Position\Observers\PositionCandidateObserver;
+use Domain\Position\Observers\PositionCandidateShareObserver;
 use Domain\Position\Observers\PositionObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -72,6 +86,21 @@ class EventServiceProvider extends ServiceProvider
             EvaluatePositionCandidateListener::class,
             SendNewCandidateNotificationListener::class,
         ],
+        PositionCandidateShareCreatedEvent::class => [
+            SendPositionCandidateSharedNotificationListener::class,
+        ],
+        PositionCandidateShareDeletedEvent::class => [
+            SendPositionCandidateShareStoppedNotificationListener::class,
+        ],
+        PositionCandidateEvaluationRequestedEvent::class => [
+            SendPositionCandidateEvaluationRequestedNotificationsListener::class,
+        ],
+        PositionCandidateEvaluationFilledEvent::class => [
+            SendPositionCandidateEvaluationFilledNotificationsListener::class,
+        ],
+        PositionCandidateEvaluationDeletedEvent::class => [
+            SendPositionCandidateEvaluationDeletedNotificationsListener::class,
+        ],
     ];
 
     protected $observers = [
@@ -79,5 +108,7 @@ class EventServiceProvider extends ServiceProvider
         PositionApproval::class => PositionApprovalObserver::class,
         ModelHasPosition::class => ModelHasPositionObserver::class,
         PositionCandidate::class => PositionCandidateObserver::class,
+        PositionCandidateShare::class => PositionCandidateShareObserver::class,
+        PositionCandidateEvaluation::class => PositionCandidateEvaluationObserver::class,
     ];
 }

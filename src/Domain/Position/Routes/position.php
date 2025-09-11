@@ -6,14 +6,17 @@ use Domain\Position\Http\Controllers\PositionCancelApprovalController;
 use Domain\Position\Http\Controllers\PositionApprovalDecideController;
 use Domain\Position\Http\Controllers\PositionCandidateActionController;
 use Domain\Position\Http\Controllers\PositionCandidateController;
+use Domain\Position\Http\Controllers\PositionCandidateEvaluationController;
+use Domain\Position\Http\Controllers\PositionCandidateEvaluationRequestController;
 use Domain\Position\Http\Controllers\PositionCandidateSetStepController;
+use Domain\Position\Http\Controllers\PositionCandidateShareController;
 use Domain\Position\Http\Controllers\PositionController;
 use Domain\Position\Http\Controllers\PositionDuplicateController;
 use Domain\Position\Http\Controllers\PositionExternalApprovalController;
 use Domain\Position\Http\Controllers\PositionGenerateFromFileController;
 use Domain\Position\Http\Controllers\PositionGenerateFromPromptController;
 use Domain\Position\Http\Controllers\PositionProcessStepController;
-use Domain\Position\Http\Controllers\PositionSetProcessStepOrderController;
+use Domain\Position\Http\Controllers\PositionProcessStepSetOrderController;
 use Domain\Position\Http\Controllers\PositionSuggestDepartmentsController;
 use Illuminate\Support\Facades\Route;
 use Support\Token\Enums\TokenTypeEnum;
@@ -35,7 +38,6 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::post('/duplicate', PositionDuplicateController::class)->name('duplicate');
 
         Route::patch('/cancel-approval', PositionCancelApprovalController::class)->name('cancel');
-        Route::patch('/set-process-step-order', PositionSetProcessStepOrderController::class)->name('set_process_step_order');
 
         Route::prefix('/approvals')->as('approvals.')->group(function (): void {
             Route::patch('/{positionApproval}/decide', PositionApprovalDecideController::class)->whereNumber('positionApproval')->name('decide');
@@ -44,6 +46,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
         Route::prefix('/process-steps')->as('process_steps.')->group(function (): void {
             Route::get('/', [PositionProcessStepController::class, 'index'])->name('index');
             Route::post('/', [PositionProcessStepController::class, 'store'])->name('store');
+            Route::patch('/set-order', PositionProcessStepSetOrderController::class)->name('set_process_step_order');
             Route::prefix('/{positionProcessStep}')->whereNumber('positionProcessStep')->group(function (): void {
                 Route::get('/', [PositionProcessStepController::class, 'show'])->name('show');
                 Route::delete('/', [PositionProcessStepController::class, 'delete'])->name('delete');
@@ -61,6 +64,22 @@ Route::middleware('auth:sanctum')->group(static function (): void {
                     Route::prefix('/{positionCandidateAction}')->whereNumber('positionCandidateAction')->group(function (): void {
                         Route::patch('/', [PositionCandidateActionController::class, 'update'])->name('update');
                         Route::get('/', [PositionCandidateActionController::class, 'show'])->name('show');
+                    });
+                });
+                Route::prefix('/shares')->as('share.')->group(function (): void {
+                    Route::get('/', [PositionCandidateShareController::class, 'index'])->name('index');
+                    Route::post('/', [PositionCandidateShareController::class, 'store'])->name('store');
+                    Route::prefix('/{positionCandidateShare}')->whereNumber('positionCandidateShare')->group(function (): void {
+                        Route::delete('/', [PositionCandidateShareController::class, 'delete'])->name('delete');
+                    });
+                });
+                Route::prefix('/evaluations')->as('evaluation.')->group(function (): void {
+                    Route::get('/', [PositionCandidateEvaluationController::class, 'index'])->name('index');
+                    Route::post('/', [PositionCandidateEvaluationController::class, 'store'])->name('store');
+                    Route::post('/request', PositionCandidateEvaluationRequestController::class)->name('request');
+                    Route::prefix('/{positionCandidateEvaluation}')->whereNumber('positionCandidateEvaluation')->group(function (): void {
+                        Route::patch('/', [PositionCandidateEvaluationController::class, 'update'])->name('update');
+                        Route::delete('/', [PositionCandidateEvaluationController::class, 'delete'])->name('delete');
                     });
                 });
             });

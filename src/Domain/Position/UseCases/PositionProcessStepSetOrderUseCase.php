@@ -8,9 +8,10 @@ use App\UseCases\UseCase;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
-class PositionSetProcessStepOrderUseCase extends UseCase
+class PositionProcessStepSetOrderUseCase extends UseCase
 {
     public function __construct(
         private readonly PositionProcessStepRepositoryInterface $positionProcessStepRepository,
@@ -18,16 +19,17 @@ class PositionSetProcessStepOrderUseCase extends UseCase
     }
 
     /**
-     * @param string[] $order
+     * @param int[] $order
+     * @return Collection<PositionProcessStep>
      */
-    public function handle(Position $position, array $order): void
+    public function handle(Position $position, array $order): Collection
     {
         $positionProcessSteps = $this->positionProcessStepRepository->index($position);
 
         $positionProcessSteps = $positionProcessSteps->sort(
             function (PositionProcessStep $a, PositionProcessStep $b) use ($order): int {
-                $indexA = array_search(is_string($a->step) ? $a->step : $a->step->value, $order);
-                $indexB = array_search(is_string($b->step) ? $b->step : $b->step->value, $order);
+                $indexA = array_search($a->id, $order);
+                $indexB = array_search($b->id, $order);
 
                 // both values have priority order
                 if ($indexA !== false && $indexB !== false) {
@@ -48,7 +50,7 @@ class PositionSetProcessStepOrderUseCase extends UseCase
             }
         )->values();
 
-        DB::transaction(function () use ($positionProcessSteps): void {
+        return DB::transaction(function () use ($positionProcessSteps): Collection {
             /**
              * @var int $index
              * @var PositionProcessStep $positionProcessStep
@@ -58,6 +60,8 @@ class PositionSetProcessStepOrderUseCase extends UseCase
                     $this->positionProcessStepRepository->updateOrder($positionProcessStep, $index);
                 }
             }
+
+            return $positionProcessSteps;
         }, attempts: 5);
     }
 }

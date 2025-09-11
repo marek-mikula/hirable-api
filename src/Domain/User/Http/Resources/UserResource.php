@@ -27,6 +27,7 @@ class UserResource extends Resource
             'email' => $this->resource->email,
             'role' => $this->resource->company_role,
             'createdAt' => $this->resource->created_at->toIso8601String(),
+            'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];
     }
 }

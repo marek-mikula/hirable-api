@@ -50,12 +50,12 @@ final class TokenRepository implements TokenRepositoryInterface
         return $token;
     }
 
-    public function findByTokenAndType(string $token, TokenTypeEnum ...$type): ?Token
+    public function findByTokenAndType(string $token, TokenTypeEnum ...$types): ?Token
     {
         /** @var Token|null $model */
         $model = Token::query()
             ->where('token', '=', $token)
-            ->whereIn('type', collect($type)->pluck('value'))
+            ->whereIn('type', $types)
             ->first();
 
         return $model;

@@ -11,7 +11,6 @@ use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionApproval;
 use Domain\User\Models\User;
 use Illuminate\Mail\Mailables\Address;
-use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
@@ -54,13 +53,5 @@ class PositionApprovalRejectedMail extends QueueMailable
                 'position' => $this->position,
             ]
         );
-    }
-
-    /**
-     * @return Attachment[]
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

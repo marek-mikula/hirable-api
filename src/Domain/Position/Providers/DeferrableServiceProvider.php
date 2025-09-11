@@ -10,8 +10,12 @@ use Domain\Position\Repositories\PositionApprovalRepository;
 use Domain\Position\Repositories\PositionApprovalRepositoryInterface;
 use Domain\Position\Repositories\PositionCandidateActionRepository;
 use Domain\Position\Repositories\PositionCandidateActionRepositoryInterface;
+use Domain\Position\Repositories\PositionCandidateEvaluationRepository;
+use Domain\Position\Repositories\PositionCandidateEvaluationRepositoryInterface;
 use Domain\Position\Repositories\PositionCandidateRepository;
 use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
+use Domain\Position\Repositories\PositionCandidateShareRepository;
+use Domain\Position\Repositories\PositionCandidateShareRepositoryInterface;
 use Domain\Position\Repositories\PositionProcessStepRepository;
 use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Domain\Position\Repositories\PositionRepository;
@@ -32,6 +36,8 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
         $this->app->bind(PositionCandidateRepositoryInterface::class, PositionCandidateRepository::class);
         $this->app->bind(PositionProcessStepRepositoryInterface::class, PositionProcessStepRepository::class);
         $this->app->bind(PositionCandidateActionRepositoryInterface::class, PositionCandidateActionRepository::class);
+        $this->app->bind(PositionCandidateEvaluationRepositoryInterface::class, PositionCandidateEvaluationRepository::class);
+        $this->app->bind(PositionCandidateShareRepositoryInterface::class, PositionCandidateShareRepository::class);
     }
 
     public function provides(): array
@@ -44,6 +50,8 @@ class DeferrableServiceProvider extends ServiceProvider implements BaseDeferrabl
             PositionCandidateRepositoryInterface::class,
             PositionProcessStepRepositoryInterface::class,
             PositionCandidateActionRepositoryInterface::class,
+            PositionCandidateEvaluationRepositoryInterface::class,
+            PositionCandidateShareRepositoryInterface::class,
         ];
     }
 }

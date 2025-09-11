@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Position\Models;
 
 use Carbon\Carbon;
-use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 use Domain\Position\Database\Factories\ModelHasPositionFactory;
 use Domain\Position\Enums\PositionRoleEnum;
@@ -26,8 +25,6 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read bool $is_external
- * @property-read Company $company
- * @property-read User $user
  * @property-read User|CompanyContact $model
  * @property-read Position $position
  *

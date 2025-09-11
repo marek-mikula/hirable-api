@@ -17,6 +17,7 @@ class PositionProcessStepResource extends Resource
     {
         return [
             'id' => $this->resource->id,
+            'positionId' => $this->resource->position_id,
             'step' => $this->resource->step,
             'label' => $this->resource->label,
             'order' => $this->resource->order,

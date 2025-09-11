@@ -8,7 +8,6 @@ use App\Mail\QueueMailable;
 use Domain\Notification\Enums\NotificationTypeEnum;
 use Domain\User\Models\User;
 use Illuminate\Mail\Mailables\Address;
-use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\Attributes\WithoutRelations;
@@ -42,13 +41,5 @@ class RegisterRegisteredMail extends QueueMailable
                 'notifiable' => $this->notifiable,
             ]
         );
-    }
-
-    /**
-     * @return Attachment[]
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

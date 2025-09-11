@@ -21,7 +21,7 @@ class ModelHasFileFactory extends Factory
     {
         return [
             'file_id' => $this->isMaking ? null : File::factory(),
-            'fileable_id' => User::factory(),
+            'fileable_id' => $this->isMaking ? null : User::factory(),
             'fileable_type' => User::class,
         ];
     }

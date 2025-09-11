@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Database\Factories\PositionCandidateFactory;
+use Domain\Position\Enums\EvaluationStateEnum;
 use Domain\Position\Models\Builders\PositionCandidateBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -36,7 +37,13 @@ use Illuminate\Database\Query\Builder;
  * @property-read PositionProcessStep $step
  * @property-read Collection<PositionCandidateAction> $actions
  * @property-read PositionCandidateAction|null $latestAction
+ * @property-read Collection<PositionCandidateEvaluation> $evaluations
+ * @property-read Collection<PositionCandidateEvaluation> $filledEvaluations
+ * @property-read Collection<PositionCandidateShare> $shares
  * @property-read int|null $actions_count
+ * @property-read int|null $shares_count
+ * @property-read int|null $evaluations_count
+ * @property-read int|null $filled_evaluations_count
  *
  * @method static PositionCandidateFactory factory($count = null, $state = [])
  * @method static PositionCandidateBuilder query()
@@ -129,6 +136,29 @@ class PositionCandidate extends Model
     public function latestAction(): HasOne
     {
         return $this->actions()->one();
+    }
+
+    public function evaluations(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionCandidateEvaluation::class,
+            foreignKey: 'position_candidate_id',
+            localKey: 'id',
+        )->latest('id');
+    }
+
+    public function filledEvaluations(): HasMany
+    {
+        return $this->evaluations()->where('state', EvaluationStateEnum::FILLED);
+    }
+
+    public function shares(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionCandidateShare::class,
+            foreignKey: 'position_candidate_id',
+            localKey: 'id',
+        );
     }
 
     /**

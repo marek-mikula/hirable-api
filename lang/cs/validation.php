@@ -226,6 +226,10 @@ return [
             'approval_self' => 'Nemůžete přiřadit sebe jako schvalovatele.',
             'approval_open' => 'Pozici nelze otevřít, pokud má přiřazené schvalovatele.'
         ],
+        'position_candidate' => [
+            'share_exists' => 'Kandidát je již sdílen s některými z vybraných hiring manažerů.',
+            'evaluation_exists' => 'Někteří z vybraných uživatelů již byli požádáni o hodnocení a zatím ho nevyplnili.'
+        ],
     ],
 
 ];

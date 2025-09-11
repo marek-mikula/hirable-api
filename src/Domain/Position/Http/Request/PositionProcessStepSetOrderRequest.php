@@ -8,7 +8,7 @@ use App\Http\Requests\AuthRequest;
 use App\Http\Requests\Traits\ValidationFailsWithStatus;
 use Domain\Position\Policies\PositionPolicy;
 
-class PositionSetProcessStepOrderRequest extends AuthRequest
+class PositionProcessStepSetOrderRequest extends AuthRequest
 {
     use ValidationFailsWithStatus;
 
@@ -27,16 +27,16 @@ class PositionSetProcessStepOrderRequest extends AuthRequest
             ],
             'order.*' => [
                 'required',
-                'string',
+                'integer',
             ],
         ];
     }
 
     /**
-     * @return string[]
+     * @return int[]
      */
     public function getOrder(): array
     {
-        return $this->collect('order')->map(fn (mixed $value) => (string) $value)->values()->all();
+        return $this->collect('order')->map(fn (mixed $value) => (int) $value)->values()->all();
     }
 }
