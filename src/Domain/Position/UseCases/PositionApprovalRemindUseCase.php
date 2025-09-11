@@ -23,18 +23,18 @@ class PositionApprovalRemindUseCase extends UseCase
      */
     public function handle(Collection $approvals): void
     {
-        DB::transaction(function () use (
-            $approvals,
-        ): void {
-            /** @var PositionApproval $approval */
-            foreach ($approvals as $approval) {
-                $approval->modelHasPosition->model->notify(new PositionApprovalReminderNotification(
+        /** @var PositionApproval $approval */
+        foreach ($approvals as $approval) {
+            DB::transaction(function () use ($approval): void {
+                $notification = new PositionApprovalReminderNotification(
                     position: $approval->position,
                     token: $approval->token,
-                ));
+                );
+
+                $approval->modelHasPosition->model->notify($notification);
 
                 $this->positionApprovalRepository->setRemindedAt($approval);
-            }
-        }, attempts: 5);
+            }, attempts: 5);
+        }
     }
 }

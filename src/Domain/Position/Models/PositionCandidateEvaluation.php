@@ -23,6 +23,7 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $evaluation
  * @property int|null $stars
  * @property Carbon|null $fill_until
+ * @property Carbon|null $reminded_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read User $creator
@@ -50,6 +51,7 @@ class PositionCandidateEvaluation extends Model
         'evaluation',
         'stars',
         'fill_until',
+        'reminded_at',
     ];
 
     protected function casts(): array
@@ -57,6 +59,7 @@ class PositionCandidateEvaluation extends Model
         return [
             'state' => EvaluationStateEnum::class,
             'fill_until' => 'date',
+            'reminded_at' => 'datetime',
         ];
     }
 

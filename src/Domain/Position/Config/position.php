@@ -85,4 +85,32 @@ return [
 
     'max_tags' => 10,
 
+    'evaluation' => [
+
+        /*
+        |--------------------------------------------------------------------------
+        | Notify days
+        |--------------------------------------------------------------------------
+        |
+        | Here we can configure the number of days after which a user
+        | who has not completed the evaluation should be notified.
+        |
+        */
+
+        'notify_days' => 2,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Notify expired days
+        |--------------------------------------------------------------------------
+        |
+        | Here we can configure the number of days after which a user
+        | who has not completed an evaluation that has already expired should be notified.
+        |
+        */
+
+        'notify_expired_days' => 1,
+
+    ]
+
 ];

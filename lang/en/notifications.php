@@ -185,4 +185,16 @@ return [
         ],
     ],
 
+    NotificationTypeEnum::POSITION_CANDIDATE_EVALUATION_REMINDER->value => [
+        'mail' => [
+            'subject' => '❗⭐ Evaluation requested for candidate :candidate at position :position',
+            'subject_expired' => '‼️⭐ Evaluation requested for candidate :candidate at position :position',
+            'body' => [
+                'line1' => 'User **:creator** requests your evaluation of candidate **:candidate** at position **:position**.',
+                'line2' => 'Please submit your evaluation by **:date**.',
+                'line2_expired' => 'Evaluation should have been filled by **:date**.'
+            ],
+        ],
+    ],
+
 ];

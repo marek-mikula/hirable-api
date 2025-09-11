@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Repositories;
 
+use Carbon\Carbon;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateEvaluation;
 use Domain\Position\Repositories\Input\PositionCandidateEvaluationStoreInput;
@@ -26,4 +27,6 @@ interface PositionCandidateEvaluationRepositoryInterface
     public function delete(PositionCandidateEvaluation $positionCandidateEvaluation): void;
 
     public function evaluationExists(PositionCandidate $positionCandidate, User $user): bool;
+
+    public function setRemindedAt(PositionCandidateEvaluation $positionCandidateEvaluation, ?Carbon $now = null): PositionCandidateEvaluation;
 }

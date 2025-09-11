@@ -28,6 +28,7 @@ class PositionCandidateEvaluationFactory extends Factory
             'stars' => null,
             'result' => null,
             'fill_until' => null,
+            'reminded_at' => null,
         ];
     }
 

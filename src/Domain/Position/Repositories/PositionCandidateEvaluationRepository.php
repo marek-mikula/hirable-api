@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Repositories;
 
 use App\Exceptions\RepositoryException;
+use Carbon\Carbon;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateEvaluation;
 use Domain\Position\Repositories\Input\PositionCandidateEvaluationStoreInput;
@@ -64,5 +65,14 @@ class PositionCandidateEvaluationRepository implements PositionCandidateEvaluati
             ->where('position_candidate_id', $positionCandidate->id)
             ->where('user_id', $user->id)
             ->exists();
+    }
+
+    public function setRemindedAt(PositionCandidateEvaluation $positionCandidateEvaluation, ?Carbon $now = null): PositionCandidateEvaluation
+    {
+        $positionCandidateEvaluation->reminded_at = $now ?? now();
+
+        throw_if(!$positionCandidateEvaluation->save(), RepositoryException::updated(PositionCandidateEvaluation::class));
+
+        return $positionCandidateEvaluation;
     }
 }

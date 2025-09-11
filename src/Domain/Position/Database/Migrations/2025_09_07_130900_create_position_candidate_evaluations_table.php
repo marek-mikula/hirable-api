@@ -18,6 +18,7 @@ return new class () extends Migration {
             $table->string('evaluation', 500)->nullable();
             $table->unsignedTinyInteger('stars')->nullable();
             $table->date('fill_until')->nullable();
+            $table->timestamp('reminded_at')->nullable();
             $table->timestamps();
 
             $table->foreign('creator_id', 'position_candidate_evaluations_creator_foreign')

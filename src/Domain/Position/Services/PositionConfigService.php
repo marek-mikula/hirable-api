@@ -40,4 +40,14 @@ class PositionConfigService extends Service
     {
         return (int) config('position.max_tags');
     }
+
+    public function getEvaluationNotifyDays(): int
+    {
+        return (int) config('position.evaluation.notify_days');
+    }
+
+    public function getEvaluationNotifyExpiredDays(): int
+    {
+        return (int) config('position.evaluation.notify_expired_days');
+    }
 }

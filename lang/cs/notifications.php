@@ -185,4 +185,16 @@ return [
         ],
     ],
 
+    NotificationTypeEnum::POSITION_CANDIDATE_EVALUATION_REMINDER->value => [
+        'mail' => [
+            'subject' => '❗⭐ Vyžádáno hodnocení kandidáta :candidate na pozici :position',
+            'subject_expired' => '‼️⭐ Vyžádáno hodnocení kandidáta :candidate na pozici :position',
+            'body' => [
+                'line1' => 'Uživatel **:creator** žádá Vaše hodnocení kandidáta **:candidate** na pozici **:position**.',
+                'line2' => 'Hodnocení vložte do do **:date**.',
+                'line2_expired' => 'Hodnocení mělo být vloženo do **:date**.'
+            ],
+        ],
+    ],
+
 ];
