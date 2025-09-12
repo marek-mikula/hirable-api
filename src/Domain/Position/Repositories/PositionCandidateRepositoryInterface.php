@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Position\Repositories;
 
+use Domain\Position\Enums\PositionCandidatePriorityEnum;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionProcessStep;
@@ -25,4 +26,6 @@ interface PositionCandidateRepositoryInterface
     public function setScore(PositionCandidate $positionCandidate, array $score, int $totalScore): PositionCandidate;
 
     public function setStep(PositionCandidate $positionCandidate, PositionProcessStep $positionProcessStep): PositionCandidate;
+
+    public function setPriority(PositionCandidate $positionCandidate, PositionCandidatePriorityEnum $priority): PositionCandidate;
 }

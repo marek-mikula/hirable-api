@@ -8,6 +8,7 @@ use Domain\Position\Http\Controllers\PositionCandidateActionController;
 use Domain\Position\Http\Controllers\PositionCandidateController;
 use Domain\Position\Http\Controllers\PositionCandidateEvaluationController;
 use Domain\Position\Http\Controllers\PositionCandidateEvaluationRequestController;
+use Domain\Position\Http\Controllers\PositionCandidateSetPriorityController;
 use Domain\Position\Http\Controllers\PositionCandidateSetStepController;
 use Domain\Position\Http\Controllers\PositionCandidateShareController;
 use Domain\Position\Http\Controllers\PositionController;
@@ -59,6 +60,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
             Route::prefix('/{positionCandidate}')->whereNumber('positionCandidate')->group(function (): void {
                 Route::get('/', [PositionCandidateController::class, 'show'])->name('show');
                 Route::patch('/set-step', PositionCandidateSetStepController::class)->name('set_step');
+                Route::patch('/set-priority', PositionCandidateSetPriorityController::class)->name('set_priority');
                 Route::prefix('/actions')->as('action.')->group(function (): void {
                     Route::post('/', [PositionCandidateActionController::class, 'store'])->name('store');
                     Route::prefix('/{positionCandidateAction}')->whereNumber('positionCandidateAction')->group(function (): void {

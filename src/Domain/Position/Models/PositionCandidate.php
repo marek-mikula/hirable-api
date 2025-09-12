@@ -28,7 +28,7 @@ use Illuminate\Database\Query\Builder;
  * @property int $step_id
  * @property array $score
  * @property int|null $total_score
- * @property PositionCandidatePriorityEnum|null $priority
+ * @property PositionCandidatePriorityEnum $priority
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read bool $is_score_calculated

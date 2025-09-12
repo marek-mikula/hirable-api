@@ -10,7 +10,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('position_candidates', static function (Blueprint $table): void {
-            $table->unsignedTinyInteger('priority')->nullable()->after('total_score');
+            $table->unsignedTinyInteger('priority')->default(0)->after('total_score');
         });
     }
 

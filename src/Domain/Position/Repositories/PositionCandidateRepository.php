@@ -6,6 +6,7 @@ namespace Domain\Position\Repositories;
 
 use App\Exceptions\RepositoryException;
 use Domain\Company\Enums\RoleEnum;
+use Domain\Position\Enums\PositionCandidatePriorityEnum;
 use Domain\Position\Models\Builders\PositionCandidateBuilder;
 use Domain\Position\Models\Builders\PositionCandidateShareBuilder;
 use Domain\Position\Models\Position;
@@ -41,6 +42,7 @@ class PositionCandidateRepository implements PositionCandidateRepositoryInterfac
         $positionCandidate->candidate_id = $input->candidate->id;
         $positionCandidate->application_id = $input->application->id;
         $positionCandidate->step_id = $input->step->id;
+        $positionCandidate->priority = PositionCandidatePriorityEnum::NONE;
 
         throw_if(!$positionCandidate->save(), RepositoryException::stored(PositionCandidate::class));
 
@@ -71,6 +73,15 @@ class PositionCandidateRepository implements PositionCandidateRepositoryInterfac
         throw_if(!$positionCandidate->save(), RepositoryException::updated(PositionCandidate::class));
 
         $positionCandidate->setRelation('step', $positionProcessStep);
+
+        return $positionCandidate;
+    }
+
+    public function setPriority(PositionCandidate $positionCandidate, PositionCandidatePriorityEnum $priority): PositionCandidate
+    {
+        $positionCandidate->priority = $priority;
+
+        throw_if(!$positionCandidate->save(), RepositoryException::updated(PositionCandidate::class));
 
         return $positionCandidate;
     }

@@ -7,6 +7,7 @@ namespace Domain\Position\Database\Factories;
 use Database\Factories\Factory;
 use Domain\Application\Models\Application;
 use Domain\Candidate\Models\Candidate;
+use Domain\Position\Enums\PositionCandidatePriorityEnum;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionProcessStep;
@@ -27,7 +28,7 @@ class PositionCandidateFactory extends Factory
             'step_id' => $this->isMaking ? null : PositionProcessStep::factory(),
             'score' => [],
             'total_score' => null,
-            'priority' => null,
+            'priority' => PositionCandidatePriorityEnum::NONE,
         ];
     }
 
