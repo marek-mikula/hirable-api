@@ -8,6 +8,6 @@ enum PositionCandidatePriorityEnum: int
 {
     case NONE = 0;
     case LOW = 1;
-    case HIGH = 2;
-    case HIGHEST = 3;
+    case MEDIUM = 2;
+    case HIGH = 3;
 }
