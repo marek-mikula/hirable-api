@@ -25,8 +25,6 @@ class PositionProcessStepUpdateUseCase extends UseCase
             label: $data->label,
         );
 
-        return DB::transaction(function () use ($positionProcessStep, $input): PositionProcessStep {
-            return $this->positionProcessStepRepository->update($positionProcessStep, $input);
-        }, attempts: 5);
+        return DB::transaction(fn (): PositionProcessStep => $this->positionProcessStepRepository->update($positionProcessStep, $input), attempts: 5);
     }
 }

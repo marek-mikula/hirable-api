@@ -33,12 +33,10 @@ class ExtractCVDataUseCase extends UseCase
         $attributes = $this->AIService->extractCVData($cv);
 
         collect($attributes)
-            ->filter(function (mixed $value, string $key): bool { // filter invalid keys
-                return CandidateFieldEnum::tryFrom($key) !== null;
-            })
-            ->map(function (mixed $value, string $key): mixed {
-                return $this->candidateTransformer->transformField($key, $value);
-            })
+            ->filter(fn (mixed $value, string $key): bool =>
+                // filter invalid keys
+                CandidateFieldEnum::tryFrom($key) !== null)
+            ->map(fn (mixed $value, string $key): mixed => $this->candidateTransformer->transformField($key, $value))
             ->all();
 
         $input = new CandidateUpdateInput(
@@ -58,11 +56,6 @@ class ExtractCVDataUseCase extends UseCase
             tags: $attributes[CandidateFieldEnum::TAGS->value] ?? [],
         );
 
-        return DB::transaction(function () use (
-            $candidate,
-            $input
-        ): Candidate {
-            return $this->candidateRepository->update($candidate, $input);
-        }, attempts: 5);
+        return DB::transaction(fn (): Candidate => $this->candidateRepository->update($candidate, $input), attempts: 5);
     }
 }

@@ -79,18 +79,14 @@ return [
                     'label' => 'Gender',
                     'schema' => [
                         'type' => 'string',
-                        'enum' => collect(GenderEnum::cases())->mapWithKeys(function (GenderEnum $gender) {
-                            return [$gender->value => __(sprintf('common.gender.%s', $gender->value))];
-                        })->toArray(),
+                        'enum' => collect(GenderEnum::cases())->mapWithKeys(fn (GenderEnum $gender) => [$gender->value => __(sprintf('common.gender.%s', $gender->value))])->toArray(),
                     ],
                 ],
                 CandidateFieldEnum::LANGUAGE->value => [
                     'label' => 'Communication language',
                     'schema' => [
                         'type' => 'string',
-                        'enum' => collect(LanguageEnum::cases())->mapWithKeys(function (LanguageEnum $language) {
-                            return [$language->value => __(sprintf('common.language.%s', $language->value))];
-                        })->toArray(),
+                        'enum' => collect(LanguageEnum::cases())->mapWithKeys(fn (LanguageEnum $language) => [$language->value => __(sprintf('common.language.%s', $language->value))])->toArray(),
                     ]
                 ],
                 CandidateFieldEnum::EMAIL->value => [

@@ -52,12 +52,10 @@ class PositionMapper extends ModelMapper
             PositionFieldEnum::TIME_MANAGEMENT => (string) $model->time_management,
             PositionFieldEnum::COMMUNICATION_SKILLS => (string) $model->communication_skills,
             PositionFieldEnum::LEADERSHIP => (string) $model->leadership,
-            PositionFieldEnum::LANGUAGE_REQUIREMENTS => array_map(function (array $item): array {
-                return [
-                    'language' => $this->classifierTranslateService->translateValue(ClassifierTypeEnum::LANGUAGE, Arr::get($item, 'language'), LanguageEnum::EN->value),
-                    'level' => $this->classifierTranslateService->translateValue(ClassifierTypeEnum::LANGUAGE_LEVEL, Arr::get($item, 'level'), LanguageEnum::EN->value),
-                ];
-            }, $model->language_requirements),
+            PositionFieldEnum::LANGUAGE_REQUIREMENTS => array_map(fn (array $item): array => [
+                'language' => $this->classifierTranslateService->translateValue(ClassifierTypeEnum::LANGUAGE, Arr::get($item, 'language'), LanguageEnum::EN->value),
+                'level' => $this->classifierTranslateService->translateValue(ClassifierTypeEnum::LANGUAGE_LEVEL, Arr::get($item, 'level'), LanguageEnum::EN->value),
+            ], $model->language_requirements),
             PositionFieldEnum::TAGS => $model->tags,
             default => throw new \Exception(sprintf('Mapping for field %s is not implemented for %s', $field->value, $model::class)),
         };

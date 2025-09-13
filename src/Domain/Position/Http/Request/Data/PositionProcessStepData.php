@@ -8,5 +8,5 @@ use Spatie\LaravelData\Data;
 
 class PositionProcessStepData extends Data
 {
-    public ?string $label;
+    public ?string $label = null;
 }

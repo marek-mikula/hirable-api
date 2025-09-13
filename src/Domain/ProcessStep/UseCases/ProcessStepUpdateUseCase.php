@@ -26,8 +26,6 @@ class ProcessStepUpdateUseCase extends UseCase
             triggersAction: $data->triggersAction,
         );
 
-        return DB::transaction(function () use ($processStep, $input): ProcessStep {
-            return $this->processStepRepository->update($processStep, $input);
-        }, attempts: 5);
+        return DB::transaction(fn (): ProcessStep => $this->processStepRepository->update($processStep, $input), attempts: 5);
     }
 }

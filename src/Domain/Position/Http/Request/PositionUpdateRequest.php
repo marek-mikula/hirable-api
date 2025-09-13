@@ -577,12 +577,10 @@ class PositionUpdateRequest extends AuthRequest
             'employmentForms' => in_array('employmentForms', $keys) ? ($this->collect('employmentForms')->map(fn (mixed $val) => (string) $val)->all()) : [],
             'benefits' => in_array('benefits', $keys) ? ($this->collect('benefits')->map(fn (mixed $val) => (string) $val)->all()) : [],
             'files' => in_array('files', $keys) ? ($this->file('files', [])) : [],
-            'languageRequirements' => in_array('languageRequirements', $keys) ? $this->collect('languageRequirements')->map(function (array $item) {
-                return LanguageRequirementData::from([
-                    'language' => (string) $item['language'],
-                    'level' => (string) $item['level'],
-                ]);
-            }) : [],
+            'languageRequirements' => in_array('languageRequirements', $keys) ? $this->collect('languageRequirements')->map(fn (array $item) => LanguageRequirementData::from([
+                'language' => (string) $item['language'],
+                'level' => (string) $item['level'],
+            ])) : [],
             'hiringManagers' => in_array('hiringManagers', $keys) ? ($this->collect('hiringManagers')->map(fn (mixed $value) => (int) $value)->all()) : [],
             'recruiters' => in_array('recruiters', $keys) ? ($this->collect('recruiters')->map(fn (mixed $value) => (int) $value)->all()) : [],
             'approvers' => in_array('approvers', $keys) ? ($this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all()) : [],

@@ -29,8 +29,6 @@ class CompanyContactUpdateUseCase extends UseCase
             companyName: $data->companyName,
         );
 
-        return DB::transaction(function () use ($contact, $input): CompanyContact {
-            return $this->companyContactRepository->update($contact, $input);
-        }, attempts: 5);
+        return DB::transaction(fn (): CompanyContact => $this->companyContactRepository->update($contact, $input), attempts: 5);
     }
 }

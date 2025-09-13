@@ -19,8 +19,6 @@ class PositionCandidateSetPriorityUseCase extends UseCase
 
     public function handle(PositionCandidate $positionCandidate, PositionCandidatePriorityEnum $priority): PositionCandidate
     {
-        return DB::transaction(function () use ($positionCandidate, $priority): PositionCandidate {
-            return $this->positionCandidateRepository->setPriority($positionCandidate, $priority);
-        }, attempts: 5);
+        return DB::transaction(fn (): PositionCandidate => $this->positionCandidateRepository->setPriority($positionCandidate, $priority), attempts: 5);
     }
 }

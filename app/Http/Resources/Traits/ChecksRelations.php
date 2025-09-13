@@ -21,7 +21,7 @@ trait ChecksRelations
      */
     protected function checkLoadedRelations(array|string $relations, ?Model $resource = null): void
     {
-        $resource = $resource ?? $this->resource;
+        $resource ??= $this->resource;
 
         foreach (Arr::wrap($relations) as $relation) {
             throw_unless($resource->relationLoaded($relation), new NeedsRelationshipException(static::class, $resource::class, $relation));

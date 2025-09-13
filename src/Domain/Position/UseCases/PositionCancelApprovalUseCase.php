@@ -20,8 +20,6 @@ class PositionCancelApprovalUseCase extends UseCase
 
     public function handle(User $user, Position $position): Position
     {
-        return DB::transaction(function () use ($position): Position {
-            return $this->positionRepository->updateState($position, PositionStateEnum::APPROVAL_CANCELED);
-        }, attempts: 5);
+        return DB::transaction(fn (): Position => $this->positionRepository->updateState($position, PositionStateEnum::APPROVAL_CANCELED), attempts: 5);
     }
 }

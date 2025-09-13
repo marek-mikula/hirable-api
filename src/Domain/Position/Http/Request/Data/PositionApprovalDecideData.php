@@ -11,5 +11,5 @@ class PositionApprovalDecideData extends Data
 {
     public PositionApprovalStateEnum $state;
 
-    public ?string $note;
+    public ?string $note = null;
 }

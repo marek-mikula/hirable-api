@@ -23,11 +23,6 @@ class PositionCandidateSetStepUseCase extends UseCase
         PositionCandidate $positionCandidate,
         PositionProcessStep $positionProcessStep
     ): PositionCandidate {
-        return DB::transaction(function () use (
-            $positionCandidate,
-            $positionProcessStep,
-        ): PositionCandidate {
-            return $this->positionCandidateRepository->setStep($positionCandidate, $positionProcessStep);
-        }, attempts: 5);
+        return DB::transaction(fn (): PositionCandidate => $this->positionCandidateRepository->setStep($positionCandidate, $positionProcessStep), attempts: 5);
     }
 }

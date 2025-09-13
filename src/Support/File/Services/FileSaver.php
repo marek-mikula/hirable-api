@@ -30,7 +30,7 @@ class FileSaver
         FileTypeEnum $type,
         ?FileDiskEnum $disk = null,
     ): File {
-        $disk = $disk ?? $this->fileConfigService->getDefaultDisk();
+        $disk ??= $this->fileConfigService->getDefaultDisk();
 
         $storage = Storage::disk($disk->value);
 

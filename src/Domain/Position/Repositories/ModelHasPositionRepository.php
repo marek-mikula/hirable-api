@@ -57,7 +57,7 @@ class ModelHasPositionRepository implements ModelHasPositionRepositoryInterface
             ->where('model_type', $model::class)
             ->where('model_id', $model->getKey())
             ->get()
-            ->each(function (ModelHasPosition $model) {
+            ->each(function (ModelHasPosition $model): void {
                 $this->delete($model);
             });
     }

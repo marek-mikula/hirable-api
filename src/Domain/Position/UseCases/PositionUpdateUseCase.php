@@ -169,9 +169,7 @@ class PositionUpdateUseCase extends UseCase
             return;
         }
 
-        $newApprovals = $position->approvals->filter(function (PositionApproval $approval) use ($sync) {
-            return $approval->modelHasPosition && !$sync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model));
-        });
+        $newApprovals = $position->approvals->filter(fn (PositionApproval $approval) => $approval->modelHasPosition && !$sync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model)));
 
         $position->setRelation('approvals', $newApprovals);
     }

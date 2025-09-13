@@ -17,53 +17,53 @@ class PositionUpdateData extends Data
     /** @var string[] */
     public array $keys;
 
-    public ?string $name;
+    public ?string $name = null;
 
-    public ?string $externName;
+    public ?string $externName = null;
 
-    public ?string $department;
+    public ?string $department = null;
 
-    public ?string $field;
+    public ?string $field = null;
 
-    public ?int $jobSeatsNum;
+    public ?int $jobSeatsNum = null;
 
-    public ?string $description;
+    public ?string $description = null;
 
-    public ?string $address;
+    public ?string $address = null;
 
-    public ?int $salaryFrom;
+    public ?int $salaryFrom = null;
 
-    public ?int $salaryTo;
+    public ?int $salaryTo = null;
 
-    public ?int $salary;
+    public ?int $salary = null;
 
-    public ?string $salaryType;
+    public ?string $salaryType = null;
 
-    public ?string $salaryFrequency;
+    public ?string $salaryFrequency = null;
 
-    public ?string $salaryCurrency;
+    public ?string $salaryCurrency = null;
 
-    public ?string $salaryVar;
+    public ?string $salaryVar = null;
 
-    public ?string $minEducationLevel;
+    public ?string $minEducationLevel = null;
 
-    public ?string $educationField;
+    public ?string $educationField = null;
 
-    public ?int $experience;
+    public ?int $experience = null;
 
-    public ?string $hardSkills;
+    public ?string $hardSkills = null;
 
-    public ?int $organisationSkills;
+    public ?int $organisationSkills = null;
 
-    public ?int $teamSkills;
+    public ?int $teamSkills = null;
 
-    public ?int $timeManagement;
+    public ?int $timeManagement = null;
 
-    public ?int $communicationSkills;
+    public ?int $communicationSkills = null;
 
-    public ?int $leadership;
+    public ?int $leadership = null;
 
-    public ?string $note;
+    public ?string $note = null;
 
     /** @var string[] */
     public array $workloads;
@@ -98,23 +98,23 @@ class PositionUpdateData extends Data
     /** @var int[] */
     public array $externalApprovers;
 
-    public ?Carbon $approveUntil;
+    public ?Carbon $approveUntil = null;
 
-    public ?string $approveMessage;
+    public ?string $approveMessage = null;
 
-    public ?int $hardSkillsWeight;
+    public ?int $hardSkillsWeight = null;
 
-    public ?int $softSkillsWeight;
+    public ?int $softSkillsWeight = null;
 
-    public ?int $languageSkillsWeight;
+    public ?int $languageSkillsWeight = null;
 
-    public ?int $experienceWeight;
+    public ?int $experienceWeight = null;
 
-    public ?int $educationWeight;
+    public ?int $educationWeight = null;
 
-    public ?bool $shareSalary;
+    public ?bool $shareSalary = null;
 
-    public ?bool $shareContact;
+    public ?bool $shareContact = null;
 
     /** @var string[] */
     public array $tags;

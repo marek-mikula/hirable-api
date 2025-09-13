@@ -36,22 +36,16 @@ class PositionProcessStepStoreUseCase extends UseCase
 
         $nextOrder = $this->positionProcessStepRepository->getNextOrderNum($position);
 
-        return DB::transaction(function () use (
-            $position,
-            $processStep,
-            $nextOrder,
-        ): PositionProcessStep {
-            return $this->positionProcessStepRepository->store(
-                new PositionProcessStepStoreInput(
-                    position: $position,
-                    step: $processStep->step,
-                    label: null,
-                    order: $nextOrder,
-                    isFixed: false,
-                    isRepeatable: $processStep->is_repeatable,
-                    triggersAction: $processStep->triggers_action,
-                )
-            );
-        }, attempts: 5);
+        return DB::transaction(fn (): PositionProcessStep => $this->positionProcessStepRepository->store(
+            new PositionProcessStepStoreInput(
+                position: $position,
+                step: $processStep->step,
+                label: null,
+                order: $nextOrder,
+                isFixed: false,
+                isRepeatable: $processStep->is_repeatable,
+                triggersAction: $processStep->triggers_action,
+            )
+        ), attempts: 5);
     }
 }

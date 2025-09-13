@@ -114,11 +114,9 @@ class ModelContexter
             Arr::forget($attributes, $key);
 
             // transform classifiers into array
-            $enums = withLocale(LanguageEnum::EN, function () use ($classifierValues, $type): array {
-                return $classifierValues[$type->value]
-                    ->pluck('label', 'value')
-                    ->toArray();
-            });
+            $enums = withLocale(LanguageEnum::EN, fn (): array => $classifierValues[$type->value]
+                ->pluck('label', 'value')
+                ->toArray());
 
             // set new enum attributes with classifier values
             Arr::set($attributes, sprintf('%s.enum', $parentKey), $enums);

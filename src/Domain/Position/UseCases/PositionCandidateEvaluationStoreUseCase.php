@@ -28,23 +28,16 @@ class PositionCandidateEvaluationStoreUseCase extends UseCase
         PositionCandidate $positionCandidate,
         PositionCandidateEvaluationData $data
     ): PositionCandidateEvaluation {
-        return DB::transaction(function () use (
-            $user,
-            $position,
-            $positionCandidate,
-            $data,
-        ): PositionCandidateEvaluation {
-            return $this->positionCandidateEvaluationRepository->store(
-                new PositionCandidateEvaluationStoreInput(
-                    creator: $user,
-                    positionCandidate: $positionCandidate,
-                    user: $user,
-                    state: EvaluationStateEnum::FILLED,
-                    evaluation: $data->evaluation,
-                    stars: $data->stars,
-                    fillUntil: null,
-                )
-            );
-        }, attempts: 5);
+        return DB::transaction(fn (): PositionCandidateEvaluation => $this->positionCandidateEvaluationRepository->store(
+            new PositionCandidateEvaluationStoreInput(
+                creator: $user,
+                positionCandidate: $positionCandidate,
+                user: $user,
+                state: EvaluationStateEnum::FILLED,
+                evaluation: $data->evaluation,
+                stars: $data->stars,
+                fillUntil: null,
+            )
+        ), attempts: 5);
     }
 }

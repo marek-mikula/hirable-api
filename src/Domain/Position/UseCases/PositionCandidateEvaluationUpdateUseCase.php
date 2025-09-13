@@ -29,21 +29,13 @@ class PositionCandidateEvaluationUpdateUseCase extends UseCase
         PositionCandidateEvaluation $positionCandidateEvaluation,
         PositionCandidateEvaluationData $data
     ): PositionCandidateEvaluation {
-        return DB::transaction(function () use (
-            $user,
-            $position,
-            $positionCandidate,
+        return DB::transaction(fn (): PositionCandidateEvaluation => $this->positionCandidateEvaluationRepository->update(
             $positionCandidateEvaluation,
-            $data
-        ): PositionCandidateEvaluation {
-            return $this->positionCandidateEvaluationRepository->update(
-                $positionCandidateEvaluation,
-                new PositionCandidateEvaluationUpdateInput(
-                    state: EvaluationStateEnum::FILLED,
-                    evaluation: $data->evaluation,
-                    stars: $data->stars,
-                )
-            );
-        }, attempts: 5);
+            new PositionCandidateEvaluationUpdateInput(
+                state: EvaluationStateEnum::FILLED,
+                evaluation: $data->evaluation,
+                stars: $data->stars,
+            )
+        ), attempts: 5);
     }
 }

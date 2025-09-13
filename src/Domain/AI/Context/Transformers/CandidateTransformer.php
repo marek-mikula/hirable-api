@@ -35,15 +35,13 @@ class CandidateTransformer extends ModelTransformer
 
             CandidateFieldEnum::BIRTH_DATE => $this->toCarbon((string) $value, 'Y-m-d'),
 
-            CandidateFieldEnum::EXPERIENCE => array_map(function (array $item) {
-                return [
-                    'position' => Arr::get($item, 'position'),
-                    'employer' => Arr::get($item, 'employer'),
-                    'from' => empty($from = Arr::get($item, 'from')) ? null : $this->toCarbonFormat($from, 'Y-m-d'),
-                    'to' => empty($to = Arr::get($item, 'to')) ? null : $this->toCarbonFormat($to, 'Y-m-d'),
-                    'description' => Arr::get($item, 'description'),
-                ];
-            }, $value),
+            CandidateFieldEnum::EXPERIENCE => array_map(fn (array $item) => [
+                'position' => Arr::get($item, 'position'),
+                'employer' => Arr::get($item, 'employer'),
+                'from' => empty($from = Arr::get($item, 'from')) ? null : $this->toCarbonFormat($from, 'Y-m-d'),
+                'to' => empty($to = Arr::get($item, 'to')) ? null : $this->toCarbonFormat($to, 'Y-m-d'),
+                'description' => Arr::get($item, 'description'),
+            ], $value),
 
             CandidateFieldEnum::TAGS => collect($value)
                 ->filter(fn (mixed $value) => !empty($value) && is_string($value))

@@ -18,21 +18,21 @@ class PositionStoreData extends Data
 
     public string $externName;
 
-    public ?string $department;
+    public ?string $department = null;
 
-    public ?string $field;
+    public ?string $field = null;
 
     public int $jobSeatsNum;
 
     public string $description;
 
-    public ?string $address;
+    public ?string $address = null;
 
-    public ?int $salaryFrom;
+    public ?int $salaryFrom = null;
 
-    public ?int $salaryTo;
+    public ?int $salaryTo = null;
 
-    public ?int $salary;
+    public ?int $salary = null;
 
     public string $salaryType;
 
@@ -40,15 +40,15 @@ class PositionStoreData extends Data
 
     public string $salaryCurrency;
 
-    public ?string $salaryVar;
+    public ?string $salaryVar = null;
 
-    public ?string $minEducationLevel;
+    public ?string $minEducationLevel = null;
 
-    public ?string $educationField;
+    public ?string $educationField = null;
 
-    public ?int $experience;
+    public ?int $experience = null;
 
-    public ?string $hardSkills;
+    public ?string $hardSkills = null;
 
     public int $organisationSkills;
 
@@ -60,7 +60,7 @@ class PositionStoreData extends Data
 
     public int $leadership;
 
-    public ?string $note;
+    public ?string $note = null;
 
     /** @var string[] */
     public array $seniority;
@@ -95,9 +95,9 @@ class PositionStoreData extends Data
     /** @var int[] */
     public array $externalApprovers;
 
-    public ?Carbon $approveUntil;
+    public ?Carbon $approveUntil = null;
 
-    public ?string $approveMessage;
+    public ?string $approveMessage = null;
 
     public int $hardSkillsWeight;
 

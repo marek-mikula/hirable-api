@@ -17,7 +17,7 @@ class OpenAIFileManager
         return [
             'type' => 'input_file',
             'filename' => $file->name,
-            'file_data' => sprintf('%s,%s', 'data:application/pdf;base64', base64_encode($content))
+            'file_data' => sprintf('%s,%s', 'data:application/pdf;base64', base64_encode((string) $content))
         ];
     }
 

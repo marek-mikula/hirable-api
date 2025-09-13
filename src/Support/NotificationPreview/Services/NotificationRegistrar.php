@@ -201,9 +201,7 @@ class NotificationRegistrar
                             $candidate = Candidate::factory()->make();
                             return new PositionNewCandidateNotification(position: $position, candidate: $candidate);
                         },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
+                        notifiable: fn () => User::factory()->make(),
                     ),
                 ],
             ),
@@ -350,9 +348,7 @@ class NotificationRegistrar
                     NotificationData::create(
                         label: 'Accepted',
                         description: 'Notification informs candidate that his application has been accepted.',
-                        notification: function (Application $notifiable) {
-                            return new ApplicationAcceptedNotification();
-                        },
+                        notification: fn (Application $notifiable) => new ApplicationAcceptedNotification(),
                         notifiable: function () {
                             $notifiable = Application::factory()->make();
                             $notifiable->setRelation('position', Position::factory()->make());
@@ -377,9 +373,7 @@ class NotificationRegistrar
 
                             return new PositionCandidateSharedNotification($positionCandidate);
                         },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
+                        notifiable: fn () => User::factory()->make(),
                     ),
                     NotificationData::create(
                         label: 'Sharing stopped',
@@ -393,9 +387,7 @@ class NotificationRegistrar
 
                             return new PositionCandidateShareStoppedNotification($positionCandidate);
                         },
-                        notifiable: function () {
-                            return User::factory()->make();
-                        },
+                        notifiable: fn () => User::factory()->make(),
                     ),
                     NotificationData::create(
                         label: 'Evaluation requested',
@@ -416,9 +408,7 @@ class NotificationRegistrar
 
                             return new PositionCandidateEvaluationRequestedNotification($positionCandidateEvaluation);
                         },
-                        notifiable: function () {
-                            return User::factory()->ofCompanyRole(RoleEnum::HIRING_MANAGER)->make();
-                        },
+                        notifiable: fn () => User::factory()->ofCompanyRole(RoleEnum::HIRING_MANAGER)->make(),
                     ),
                     NotificationData::create(
                         label: 'Evaluation reminder',
@@ -439,9 +429,7 @@ class NotificationRegistrar
 
                             return new PositionCandidateEvaluationReminderNotification($positionCandidateEvaluation);
                         },
-                        notifiable: function () {
-                            return User::factory()->ofCompanyRole(RoleEnum::HIRING_MANAGER)->make();
-                        },
+                        notifiable: fn () => User::factory()->ofCompanyRole(RoleEnum::HIRING_MANAGER)->make(),
                     )
                 ]
             ),

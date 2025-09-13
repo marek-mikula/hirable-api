@@ -33,7 +33,7 @@ class ApplicationTokenInfoController extends ApiController
 
         try {
             $tokenPackage = $this->tokenPackageExtractorService->extract($token);
-        } catch (UnableExtractTokenDataException|UnableExtractTokenInfoException $e) {
+        } catch (UnableExtractTokenDataException|UnableExtractTokenInfoException) {
             throw new HttpException(responseCode: ResponseCodeEnum::TOKEN_INVALID);
         }
 

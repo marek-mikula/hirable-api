@@ -35,8 +35,6 @@ class CompanyUpdateUseCase extends UseCase
             $input[$key] = $value;
         }
 
-        return DB::transaction(function () use ($company, $input): Company {
-            return $this->companyRepository->update($company, new CompanyUpdateInput(...$input));
-        }, attempts: 5);
+        return DB::transaction(fn (): Company => $this->companyRepository->update($company, new CompanyUpdateInput(...$input)), attempts: 5);
     }
 }

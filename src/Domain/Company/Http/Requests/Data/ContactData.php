@@ -17,7 +17,7 @@ class ContactData extends Data
 
     public string $email;
 
-    public ?string $note;
+    public ?string $note = null;
 
-    public ?string $companyName;
+    public ?string $companyName = null;
 }

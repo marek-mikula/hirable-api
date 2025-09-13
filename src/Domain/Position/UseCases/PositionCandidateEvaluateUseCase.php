@@ -48,24 +48,16 @@ class PositionCandidateEvaluateUseCase extends UseCase
         $totalScore = $this->scoreCounter->calculateTotalScore($positionCandidate->position, $score);
         $mappedScore = $this->mapScore($positionCandidate->position, $score);
 
-        return DB::transaction(function () use (
-            $positionCandidate,
-            $mappedScore,
-            $totalScore,
-        ): PositionCandidate {
-            return $this->positionCandidateRepository->setScore($positionCandidate, $mappedScore, $totalScore);
-        }, attempts: 5);
+        return DB::transaction(fn (): PositionCandidate => $this->positionCandidateRepository->setScore($positionCandidate, $mappedScore, $totalScore), attempts: 5);
     }
 
     private function mapScore(Position $position, array $score): array
     {
-        return array_map(function (ScoreCategoryData $data) use ($position) {
-            return [
-                'category' => $data->category->value,
-                'score' => $data->score,
-                'comment' => $data->comment,
-                'weight' => $data->category->getWeight($position),
-            ];
-        }, $score);
+        return array_map(fn (ScoreCategoryData $data) => [
+            'category' => $data->category->value,
+            'score' => $data->score,
+            'comment' => $data->comment,
+            'weight' => $data->category->getWeight($position),
+        ], $score);
     }
 }

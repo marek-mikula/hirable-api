@@ -441,12 +441,10 @@ class PositionStoreRequest extends AuthRequest
             'employmentForms' => $this->collect('employmentForms')->map(fn (mixed $val) => (string) $val)->all(),
             'benefits' => $this->collect('benefits')->map(fn (mixed $val) => (string) $val)->all(),
             'files' => $this->file('files', []),
-            'languageRequirements' => $this->collect('languageRequirements')->map(function (array $item) {
-                return LanguageRequirementData::from([
-                    'language' => (string) $item['language'],
-                    'level' => (string) $item['level'],
-                ]);
-            }),
+            'languageRequirements' => $this->collect('languageRequirements')->map(fn (array $item) => LanguageRequirementData::from([
+                'language' => (string) $item['language'],
+                'level' => (string) $item['level'],
+            ])),
             'hiringManagers' => $this->collect('hiringManagers')->map(fn (mixed $value) => (int) $value)->all(),
             'recruiters' => $this->collect('recruiters')->map(fn (mixed $value) => (int) $value)->all(),
             'approvers' => $this->collect('approvers')->map(fn (mixed $value) => (int) $value)->all(),

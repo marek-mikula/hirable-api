@@ -24,12 +24,10 @@ class PositionGenerateFromFileUseCase extends UseCase
         $attributes = $this->AIService->generatePositionFromFile($user, $file);
 
         return collect($attributes)
-            ->filter(function (mixed $value, string $key): bool { // filter invalid keys
-                return PositionFieldEnum::tryFrom($key) !== null;
-            })
-            ->map(function (mixed $value, string $key): mixed {
-                return $this->positionTransformer->transformField($key, $value);
-            })
+            ->filter(fn (mixed $value, string $key): bool =>
+                // filter invalid keys
+                PositionFieldEnum::tryFrom($key) !== null)
+            ->map(fn (mixed $value, string $key): mixed => $this->positionTransformer->transformField($key, $value))
             ->all();
     }
 }

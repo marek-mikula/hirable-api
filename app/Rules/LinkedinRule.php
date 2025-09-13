@@ -20,7 +20,7 @@ class LinkedinRule implements ValidationRule
             return;
         }
 
-        if (preg_match('/^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/', $value)) {
+        if (preg_match('/^(https:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/', (string) $value)) {
             return;
         }
 

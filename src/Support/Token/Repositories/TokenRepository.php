@@ -12,10 +12,10 @@ use Support\Token\Models\Token;
 use Support\Token\Repositories\Input\TokenStoreInput;
 use Support\Token\Services\TokenConfigService;
 
-final class TokenRepository implements TokenRepositoryInterface
+final readonly class TokenRepository implements TokenRepositoryInterface
 {
     public function __construct(
-        private readonly TokenConfigService $tokenConfigService,
+        private TokenConfigService $tokenConfigService,
     ) {
     }
 

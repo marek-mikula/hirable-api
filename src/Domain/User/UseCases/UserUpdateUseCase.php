@@ -55,8 +55,6 @@ class UserUpdateUseCase extends UseCase
             $input[$key] = $value;
         }
 
-        return DB::transaction(function () use ($user, $input): User {
-            return $this->userRepository->update($user, new UserUpdateInput(...$input));
-        }, attempts: 5);
+        return DB::transaction(fn (): User => $this->userRepository->update($user, new UserUpdateInput(...$input)), attempts: 5);
     }
 }

@@ -22,8 +22,6 @@ class NotificationMarkReadUseCase extends UseCase
             return $notification;
         }
 
-        return DB::transaction(function () use ($notification): Notification {
-            return $this->notificationRepository->markRead($notification);
-        }, attempts: 5);
+        return DB::transaction(fn (): Notification => $this->notificationRepository->markRead($notification), attempts: 5);
     }
 }

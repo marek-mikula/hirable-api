@@ -20,7 +20,7 @@ class NotificationData extends Data
 
     public \Closure $notifiable;
 
-    public ?string $key;
+    public ?string $key = null;
 
     public function getNotifiable(): Model|AnonymousNotifiable
     {

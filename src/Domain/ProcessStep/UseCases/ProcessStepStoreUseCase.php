@@ -28,8 +28,6 @@ class ProcessStepStoreUseCase extends UseCase
             triggersAction: $data->triggersAction,
         );
 
-        return DB::transaction(function () use ($input): ProcessStep {
-            return $this->processStepRepository->store($input);
-        }, attempts: 5);
+        return DB::transaction(fn (): ProcessStep => $this->processStepRepository->store($input), attempts: 5);
     }
 }

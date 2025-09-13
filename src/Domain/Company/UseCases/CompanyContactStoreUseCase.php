@@ -31,8 +31,6 @@ class CompanyContactStoreUseCase extends UseCase
             companyName: $data->companyName,
         );
 
-        return DB::transaction(function () use ($input): CompanyContact {
-            return $this->companyContactRepository->store($input);
-        }, attempts: 5);
+        return DB::transaction(fn (): CompanyContact => $this->companyContactRepository->store($input), attempts: 5);
     }
 }
