@@ -20,9 +20,9 @@ class CompanyUserIndexUseCase extends UseCase
             ->when($gridQuery->hasSearchQuery(), function (UserBuilder $query) use ($gridQuery): void {
                 $query->where(function (UserBuilder $query) use ($gridQuery): void {
                     $query
-                        ->where('firstname', 'like', "%{$gridQuery->searchQuery}%")
-                        ->orWhere('lastname', 'like', "%{$gridQuery->searchQuery}%")
-                        ->orWhere('email', 'like', "%{$gridQuery->searchQuery}%");
+                        ->where('firstname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
+                        ->orWhere('lastname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
+                        ->orWhere('email', 'like', sprintf('%%%s%%', $gridQuery->searchQuery));
                 });
             })
             ->when($gridQuery->hasSort(), function (UserBuilder $query) use ($gridQuery): void {

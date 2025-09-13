@@ -37,8 +37,8 @@ class FileCopier
                 type: $type,
                 disk: $file->disk,
             );
-        } catch (UnableToSaveFileException $e) {
-            throw new UnableToCopyFileException($file, $path, previous: $e);
+        } catch (UnableToSaveFileException $unableToSaveFileException) {
+            throw new UnableToCopyFileException($file, $path, previous: $unableToSaveFileException);
         }
     }
 }

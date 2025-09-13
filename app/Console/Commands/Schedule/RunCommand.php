@@ -29,8 +29,8 @@ class RunCommand extends Command
 
         try {
             $event->run(app());
-        } catch (\Exception $e) {
-            $this->error(sprintf('Schedule failed with message "%s".', $e->getMessage()));
+        } catch (\Exception $exception) {
+            $this->error(sprintf('Schedule failed with message "%s".', $exception->getMessage()));
 
             return 1;
         }

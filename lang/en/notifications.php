@@ -19,7 +19,7 @@ return [
         'mail' => [
             'subject' => 'Finish your registration to start using :application 🚀',
             'body' => [
-                'line1' => 'We\'re thrilled that you\'ve decided to join us! To finish your registration, use the button below!',
+                'line1' => "We're thrilled that you've decided to join us! To finish your registration, use the button below!",
                 'line2' => 'The link is valid until **:validity**.',
                 'action' => 'Finish registration',
             ],
@@ -30,7 +30,7 @@ return [
         'mail' => [
             'subject' => 'Woohoo! 🎉 Welcome to :application!',
             'body' => [
-                'line1' => 'Thank you for joining :application! We\'re thrilled to have you on board and we look forward to making your experience truly awesome.',
+                'line1' => "Thank you for joining :application! We're thrilled to have you on board and we look forward to making your experience truly awesome.",
             ],
         ],
     ],
@@ -50,7 +50,7 @@ return [
         'mail' => [
             'subject' => '🎉 Your email address is verified',
             'body' => [
-                'line1' => 'Your email address has been successfully verified! You\'re all set to dive into our platform and explore everything it has to offer.',
+                'line1' => "Your email address has been successfully verified! You're all set to dive into our platform and explore everything it has to offer.",
             ],
         ],
     ],
@@ -70,7 +70,7 @@ return [
         'mail' => [
             'subject' => 'Password reset request',
             'body' => [
-                'line1' => 'We\'ve received a request to reset the password associated with your account. Use the button below to navigate to the link to reset your password.',
+                'line1' => "We've received a request to reset the password associated with your account. Use the button below to navigate to the link to reset your password.",
                 'line2' => 'The link is valid until **:validity**.',
                 'line3' => 'If you did not request a password reset, please ignore this email.',
                 'action' => 'Reset password',
@@ -80,11 +80,11 @@ return [
 
     NotificationTypeEnum::INVITATION_SENT->value => [
         'mail' => [
-            'subject' => 'You\'ve been invited to join :application!',
+            'subject' => "You've been invited to join :application!",
             'body' => [
-                'line1' => 'You\'ve been invited to join :application. Use the button below to navigate to the link to finish your registration.',
+                'line1' => "You've been invited to join :application. Use the button below to navigate to the link to finish your registration.",
                 'line2' => 'The link is valid until **:validity**.',
-                'line3' => 'If you don\'t know what this is, you can safely ignore this email.',
+                'line3' => "If you don't know what this is, you can safely ignore this email.",
                 'action' => 'Finish registration',
             ],
         ],

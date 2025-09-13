@@ -17,7 +17,7 @@ class PositionSuggestRepository implements PositionSuggestRepositoryInterface
             ->whereNotNull('department')
             ->whereCompany($user->company_id)
             ->when(!empty($value), function (PositionBuilder $query) use ($value): void {
-                $query->where('department', 'like', "%{$value}%");
+                $query->where('department', 'like', sprintf('%%%s%%', $value));
             })
             ->orderBy('department')
             ->distinct()

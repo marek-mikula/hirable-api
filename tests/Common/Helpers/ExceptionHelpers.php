@@ -26,11 +26,11 @@ function assertHttpException(\Closure $closure, \Closure|ResponseCodeEnum $asser
 {
     try {
         call_user_func($closure);
-    } catch (HttpException $exception) {
+    } catch (HttpException $httpException) {
         if ($assert instanceof \Closure) {
-            call_user_func($assert, $exception);
+            call_user_func($assert, $httpException);
         } else {
-            assertSame($assert, $exception->getResponseCode());
+            assertSame($assert, $httpException->getResponseCode());
         }
 
         return;

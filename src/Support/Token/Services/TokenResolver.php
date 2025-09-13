@@ -18,7 +18,7 @@ class TokenResolver
     {
         if ($this->token === null) {
             throw new \Exception(
-                message: sprintf('No token found! Haven\'t you forgotten to add the %s to your route?', TokenMiddleware::class)
+                message: sprintf("No token found! Haven't you forgotten to add the %s to your route?", TokenMiddleware::class)
             );
         }
 

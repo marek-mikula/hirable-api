@@ -20,7 +20,7 @@ class CompanyInvitationIndexUseCase extends UseCase
             ->when($gridQuery->hasSearchQuery(), function (TokenBuilder $query) use ($gridQuery): void {
                 $query->where(function (TokenBuilder $query) use ($gridQuery): void {
                     $query
-                        ->where('data->email', 'like', "%{$gridQuery->searchQuery}%");
+                        ->where('data->email', 'like', sprintf('%%%s%%', $gridQuery->searchQuery));
                 });
             })
             ->when($gridQuery->hasSort(), function (TokenBuilder $query) use ($gridQuery): void {

@@ -32,10 +32,10 @@ class SearchCompanyContactsUseCase extends UseCase
                         }
 
                         $query
-                            ->orWhere('firstname', 'like', "%{$word}%")
-                            ->orWhere('lastname', 'like', "%{$word}%")
-                            ->orWhere('email', 'like', "%{$word}%")
-                            ->orWhere('company_name', 'like', "%{$word}%");
+                            ->orWhere('firstname', 'like', sprintf('%%%s%%', $word))
+                            ->orWhere('lastname', 'like', sprintf('%%%s%%', $word))
+                            ->orWhere('email', 'like', sprintf('%%%s%%', $word))
+                            ->orWhere('company_name', 'like', sprintf('%%%s%%', $word));
                     }
                 });
             })

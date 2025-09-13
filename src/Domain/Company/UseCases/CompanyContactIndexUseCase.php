@@ -20,9 +20,9 @@ class CompanyContactIndexUseCase extends UseCase
             ->when($gridQuery->hasSearchQuery(), function (CompanyContactBuilder $query) use ($gridQuery): void {
                 $query->where(function (CompanyContactBuilder $query) use ($gridQuery): void {
                     $query
-                        ->orWhere('firstname', 'like', "%{$gridQuery->searchQuery}%")
-                        ->orWhere('lastname', 'like', "%{$gridQuery->searchQuery}%")
-                        ->orWhere('email', 'like', "%{$gridQuery->searchQuery}%");
+                        ->orWhere('firstname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
+                        ->orWhere('lastname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
+                        ->orWhere('email', 'like', sprintf('%%%s%%', $gridQuery->searchQuery));
                 });
             })
             ->when($gridQuery->hasSort(), function (CompanyContactBuilder $query) use ($gridQuery): void {

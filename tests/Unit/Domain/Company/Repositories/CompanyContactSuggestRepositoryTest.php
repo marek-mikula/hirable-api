@@ -35,9 +35,9 @@ it('tests suggestCompanies method with query', function (): void {
 
     $word = fake()->word;
 
-    $contact1 = CompanyContact::factory()->ofCompany($company)->create(['company_name' => "{$query}{$word}"]);
-    $contact2 = CompanyContact::factory()->ofCompany($company)->create(['company_name' => "{$word}{$query}{$word}"]);
-    $contact3 = CompanyContact::factory()->ofCompany($company)->create(['company_name' => "{$word}{$query}"]);
+    $contact1 = CompanyContact::factory()->ofCompany($company)->create(['company_name' => $query . $word]);
+    $contact2 = CompanyContact::factory()->ofCompany($company)->create(['company_name' => $word . $query . $word]);
+    $contact3 = CompanyContact::factory()->ofCompany($company)->create(['company_name' => $word . $query]);
 
     $result = $repository->suggestCompanies($company, value: $query);
 

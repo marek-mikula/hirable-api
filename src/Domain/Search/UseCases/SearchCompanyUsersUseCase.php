@@ -34,9 +34,9 @@ class SearchCompanyUsersUseCase extends UseCase
                         }
 
                         $query
-                            ->orWhere('firstname', 'like', "%{$word}%")
-                            ->orWhere('lastname', 'like', "%{$word}%")
-                            ->orWhere('email', 'like', "%{$word}%");
+                            ->orWhere('firstname', 'like', sprintf('%%%s%%', $word))
+                            ->orWhere('lastname', 'like', sprintf('%%%s%%', $word))
+                            ->orWhere('email', 'like', sprintf('%%%s%%', $word));
                     }
                 });
             })

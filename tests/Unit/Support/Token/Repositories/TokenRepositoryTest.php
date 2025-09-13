@@ -56,7 +56,7 @@ it('tests store method - valid minutes from config', function (): void {
     $validMinutes = fake()->numberBetween(1, 160);
 
     // set config value
-    config()->set("token.validity.{$type->value}", $validMinutes);
+    config()->set('token.validity.' . $type->value, $validMinutes);
 
     $token = $repository->store(new TokenStoreInput(
         type: $type,
