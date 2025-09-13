@@ -33,7 +33,7 @@ final readonly class ModelHasPositionRepository implements ModelHasPositionRepos
 
     public function storeMany(Position $position, Collection $models, PositionRoleEnum $role): Collection
     {
-        return $models->map(fn (Model $model): \Domain\Position\Models\ModelHasPosition => $this->store($position, $model, $role));
+        return $models->map(fn (Model $model): ModelHasPosition => $this->store($position, $model, $role));
     }
 
     public function deleteByRoleOnPosition(Position $position, Model $model, PositionRoleEnum $role): void
