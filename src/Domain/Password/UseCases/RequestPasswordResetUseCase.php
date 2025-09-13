@@ -28,7 +28,7 @@ class RequestPasswordResetUseCase extends UseCase
     {
         $user = $this->userRepository->findByEmail($email);
 
-        if (!$user) {
+        if ($user === null) {
             return;
         }
 

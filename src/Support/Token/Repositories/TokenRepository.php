@@ -25,7 +25,7 @@ final readonly class TokenRepository implements TokenRepositoryInterface
 
         $validUntil = $input->validUntil;
 
-        if (!$validUntil) {
+        if ($validUntil === null) {
             // use either explicitly set valid minutes
             // or use the default value from config
             $validMinutes = $input->validMinutes ?: $this->tokenConfigService->getTokenValidity($input->type);

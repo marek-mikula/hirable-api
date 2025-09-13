@@ -69,6 +69,7 @@ class PositionApprovalFactory extends Factory
             'note' => $note,
         ]);
     }
+
     public function rejected(?string $note = null): static
     {
         return $this->state(fn (array $attributes): array => [
@@ -76,12 +77,14 @@ class PositionApprovalFactory extends Factory
             'note' => $note,
         ]);
     }
+
     public function canceled(): static
     {
         return $this->state(fn (array $attributes): array => [
             'state' => PositionApprovalStateEnum::APPROVED,
         ]);
     }
+
     public function expired(): static
     {
         return $this->state(fn (array $attributes): array => [

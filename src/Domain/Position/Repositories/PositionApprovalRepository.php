@@ -34,7 +34,7 @@ class PositionApprovalRepository implements PositionApprovalRepositoryInterface
         $approval->setRelation('modelHasPosition', $modelHasPosition);
         $approval->setRelation('position', $position);
 
-        if ($token) {
+        if ($token !== null) {
             $approval->setRelation('token', $token);
         }
 

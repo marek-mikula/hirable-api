@@ -26,7 +26,7 @@ class SettingRepository implements SettingRepositoryInterface
     {
         $model = $this->find($user, $key);
 
-        if (!$model) {
+        if ($model === null) {
             $model = new Setting();
             $model->key = $key;
             $model->user_id = $user->id;

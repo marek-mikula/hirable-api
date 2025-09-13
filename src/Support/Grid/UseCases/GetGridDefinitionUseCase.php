@@ -29,7 +29,7 @@ class GetGridDefinitionUseCase extends UseCase
             return $definition;
         }
 
-        if (!$setting) {
+        if ($setting === null) {
             return $definition;
         }
 
@@ -68,7 +68,7 @@ class GetGridDefinitionUseCase extends UseCase
             $columnDefinition = $definition->getColumn($key);
 
             // column was probably removed from the definition => skip
-            if (!$columnDefinition) {
+            if ($columnDefinition === null) {
                 continue;
             }
 

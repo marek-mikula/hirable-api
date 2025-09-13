@@ -20,7 +20,7 @@ class GetGridQueryUseCase extends UseCase
             'sort' => [],
         ]);
 
-        if (!$setting) {
+        if ($setting === null) {
             return $query;
         }
 
@@ -39,7 +39,7 @@ class GetGridQueryUseCase extends UseCase
             $columnDefinition = $definition->getColumn($key);
 
             // column was probably removed from the definition => skip
-            if (!$columnDefinition) {
+            if ($columnDefinition === null) {
                 continue;
             }
 
