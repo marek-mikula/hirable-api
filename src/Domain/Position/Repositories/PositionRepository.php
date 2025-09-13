@@ -10,7 +10,7 @@ use Domain\Position\Models\Position;
 use Domain\Position\Repositories\Input\PositionStoreInput;
 use Domain\Position\Repositories\Input\PositionUpdateInput;
 
-class PositionRepository implements PositionRepositoryInterface
+final readonly class PositionRepository implements PositionRepositoryInterface
 {
     public function findBy(array $wheres, array $with = []): ?Position
     {

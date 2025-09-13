@@ -12,7 +12,7 @@ use Domain\User\Repositories\Input\UserStoreInput;
 use Domain\User\Repositories\Input\UserUpdateInput;
 use Illuminate\Database\Eloquent\Collection;
 
-final class UserRepository implements UserRepositoryInterface
+final readonly class UserRepository implements UserRepositoryInterface
 {
     public function store(UserStoreInput $input): User
     {

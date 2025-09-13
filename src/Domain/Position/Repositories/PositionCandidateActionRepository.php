@@ -13,7 +13,7 @@ use Domain\Position\Repositories\Input\PositionCandidateActionStoreInput;
 use Domain\Position\Repositories\Input\PositionCandidateActionUpdateInput;
 use Illuminate\Support\Arr;
 
-class PositionCandidateActionRepository implements PositionCandidateActionRepositoryInterface
+final readonly class PositionCandidateActionRepository implements PositionCandidateActionRepositoryInterface
 {
     public function store(PositionCandidateActionStoreInput $input): PositionCandidateAction
     {

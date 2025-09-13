@@ -11,7 +11,7 @@ use Domain\Company\Repositories\Input\CompanyContactStoreInput;
 use Domain\Company\Repositories\Input\CompanyContactUpdateInput;
 use Illuminate\Database\Eloquent\Collection;
 
-class CompanyContactRepository implements CompanyContactRepositoryInterface
+final readonly class CompanyContactRepository implements CompanyContactRepositoryInterface
 {
     public function store(CompanyContactStoreInput $input): CompanyContact
     {

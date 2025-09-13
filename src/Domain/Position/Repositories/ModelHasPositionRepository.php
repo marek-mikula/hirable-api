@@ -12,7 +12,7 @@ use Domain\Position\Repositories\Output\ModelHasPositionSyncOutput;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class ModelHasPositionRepository implements ModelHasPositionRepositoryInterface
+final readonly class ModelHasPositionRepository implements ModelHasPositionRepositoryInterface
 {
     public function store(Position $position, Model $model, PositionRoleEnum $role): ModelHasPosition
     {

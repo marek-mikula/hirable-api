@@ -12,7 +12,7 @@ use Domain\Position\Repositories\Input\PositionProcessStepUpdateInput;
 use Domain\ProcessStep\Enums\StepEnum;
 use Illuminate\Database\Eloquent\Collection;
 
-class PositionProcessStepRepository implements PositionProcessStepRepositoryInterface
+final readonly class PositionProcessStepRepository implements PositionProcessStepRepositoryInterface
 {
     public function index(Position $position): Collection
     {

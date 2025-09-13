@@ -11,7 +11,7 @@ use Domain\Application\Repositories\Input\ApplicationStoreInput;
 use Domain\Position\Models\Position;
 use Illuminate\Support\Str;
 
-class ApplicationRepository implements ApplicationRepositoryInterface
+final readonly class ApplicationRepository implements ApplicationRepositoryInterface
 {
     public function store(ApplicationStoreInput $input): Application
     {

@@ -16,7 +16,7 @@ use Domain\Position\Repositories\Input\PositionCandidateStoreInput;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class PositionCandidateRepository implements PositionCandidateRepositoryInterface
+final readonly class PositionCandidateRepository implements PositionCandidateRepositoryInterface
 {
     public function index(User $user, Position $position, array $with = [], array $withCount = []): Collection
     {

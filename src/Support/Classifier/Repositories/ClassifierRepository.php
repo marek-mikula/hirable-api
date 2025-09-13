@@ -9,10 +9,10 @@ use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Models\Classifier;
 use Support\Classifier\Services\ClassifierSortService;
 
-class ClassifierRepository implements ClassifierRepositoryInterface
+final readonly class ClassifierRepository implements ClassifierRepositoryInterface
 {
     public function __construct(
-        private readonly ClassifierSortService $classifierSortService,
+        private ClassifierSortService $classifierSortService,
     ) {
     }
 

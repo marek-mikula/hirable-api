@@ -11,7 +11,7 @@ use Domain\Candidate\Repositories\Input\CandidateStoreInput;
 use Domain\Candidate\Repositories\Input\CandidateUpdateInput;
 use Domain\Company\Models\Company;
 
-class CandidateRepository implements CandidateRepositoryInterface
+final readonly class CandidateRepository implements CandidateRepositoryInterface
 {
     public function store(CandidateStoreInput $input): Candidate
     {

@@ -9,7 +9,7 @@ use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
 use Support\File\Repositories\Input\FileStoreInput;
 
-final class FileRepository implements FileRepositoryInterface
+final readonly class FileRepository implements FileRepositoryInterface
 {
     public function store(FileStoreInput $input): File
     {

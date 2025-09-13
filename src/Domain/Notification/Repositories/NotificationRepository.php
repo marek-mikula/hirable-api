@@ -9,7 +9,7 @@ use Domain\Notification\Models\Notification;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class NotificationRepository implements NotificationRepositoryInterface
+final readonly class NotificationRepository implements NotificationRepositoryInterface
 {
     public function markRead(Notification $notification): Notification
     {

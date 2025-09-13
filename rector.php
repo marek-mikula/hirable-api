@@ -17,8 +17,12 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     ->withRules([
-//        StaticArrowFunctionRector::class,
-//        StaticClosureRector::class,
+        // these rules add static keyword to the
+        // factory state methods, which makes the
+        // broken, because of Laravel bug.
+        // @see https://github.com/laravel/framework/issues/51839
+        // StaticArrowFunctionRector::class,
+        // StaticClosureRector::class,
     ])
     ->withSkipPath(__DIR__ . '/bootstrap/cache')
     ->withPhpSets()

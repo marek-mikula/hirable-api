@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Cache;
 use Support\Classifier\Enums\ClassifierTypeEnum;
 use Support\Classifier\Services\ClassifierConfigService;
 
-class ClassifierCachedRepository implements ClassifierRepositoryInterface
+final readonly class ClassifierCachedRepository implements ClassifierRepositoryInterface
 {
     public function __construct(
-        private readonly ClassifierConfigService $classifierConfigService,
-        private readonly ClassifierRepository $classifierRepository,
+        private ClassifierConfigService $classifierConfigService,
+        private ClassifierRepository $classifierRepository,
     ) {
     }
 

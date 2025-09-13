@@ -12,7 +12,7 @@ use Domain\ProcessStep\Repositories\Input\ProcessStepStoreInput;
 use Domain\ProcessStep\Repositories\Input\ProcessStepUpdateInput;
 use Illuminate\Database\Eloquent\Collection;
 
-class ProcessStepRepository implements ProcessStepRepositoryInterface
+final readonly class ProcessStepRepository implements ProcessStepRepositoryInterface
 {
     public function store(ProcessStepStoreInput $input): ProcessStep
     {

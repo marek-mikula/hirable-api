@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Support\Token\Models\Token;
 
-class PositionApprovalRepository implements PositionApprovalRepositoryInterface
+final readonly class PositionApprovalRepository implements PositionApprovalRepositoryInterface
 {
     public function store(Position $position, ModelHasPosition $modelHasPosition, ?Token $token): PositionApproval
     {

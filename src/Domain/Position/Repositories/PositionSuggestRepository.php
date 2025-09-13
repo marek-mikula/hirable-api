@@ -8,7 +8,7 @@ use Domain\Position\Models\Builders\PositionBuilder;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
 
-class PositionSuggestRepository implements PositionSuggestRepositoryInterface
+final readonly class PositionSuggestRepository implements PositionSuggestRepositoryInterface
 {
     public function suggestDepartments(User $user, ?string $value): array
     {

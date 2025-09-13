@@ -9,7 +9,7 @@ use Domain\Company\Models\Company;
 use Domain\Company\Repositories\Input\CompanyStoreInput;
 use Domain\Company\Repositories\Input\CompanyUpdateInput;
 
-final class CompanyRepository implements CompanyRepositoryInterface
+final readonly class CompanyRepository implements CompanyRepositoryInterface
 {
     public function find(int $id): ?Company
     {

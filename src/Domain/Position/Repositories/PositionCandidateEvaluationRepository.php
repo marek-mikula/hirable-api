@@ -13,7 +13,7 @@ use Domain\Position\Repositories\Input\PositionCandidateEvaluationUpdateInput;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class PositionCandidateEvaluationRepository implements PositionCandidateEvaluationRepositoryInterface
+final readonly class PositionCandidateEvaluationRepository implements PositionCandidateEvaluationRepositoryInterface
 {
     public function index(PositionCandidate $positionCandidate, array $with = []): Collection
     {

@@ -8,7 +8,7 @@ use Domain\Company\Models\Builders\CompanyContactBuilder;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
 
-class CompanyContactSuggestRepository implements CompanyContactSuggestRepositoryInterface
+final readonly class CompanyContactSuggestRepository implements CompanyContactSuggestRepositoryInterface
 {
     public function suggestCompanies(Company $company, ?string $value): array
     {

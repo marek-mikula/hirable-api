@@ -9,7 +9,7 @@ use Domain\User\Models\User;
 use Support\Setting\Enums\SettingKeyEnum;
 use Support\Setting\Models\Setting;
 
-class SettingRepository implements SettingRepositoryInterface
+final readonly class SettingRepository implements SettingRepositoryInterface
 {
     public function find(User $user, SettingKeyEnum $key): ?Setting
     {

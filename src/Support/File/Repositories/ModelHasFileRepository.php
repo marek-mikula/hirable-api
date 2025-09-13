@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Support\File\Models\File;
 use Support\File\Models\ModelHasFile;
 
-final class ModelHasFileRepository implements ModelHasFileRepositoryInterface
+final readonly class ModelHasFileRepository implements ModelHasFileRepositoryInterface
 {
     public function store(Model $fileable, File $file): ModelHasFile
     {
