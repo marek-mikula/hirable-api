@@ -36,7 +36,7 @@ function createRequest(
 
     // create route object so we
     // can mock route binding
-    $route = new Route(methods: [$method], uri: $uri, action: static fn () => null);
+    $route = new Route(methods: [$method], uri: $uri, action: static fn (): null => null);
 
     // bind the route object to request object
     $route->bind($request);
@@ -52,7 +52,7 @@ function createRequest(
     }
 
     // set route resolver to request class
-    $request->setRouteResolver(static fn () => $route);
+    $request->setRouteResolver(static fn (): Route => $route);
 
     // set correct user resolver
     $request->setUserResolver(static fn ($guard = null) => auth()->guard($guard)->user());

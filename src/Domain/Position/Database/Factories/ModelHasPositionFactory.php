@@ -30,14 +30,14 @@ class ModelHasPositionFactory extends Factory
 
     public function ofPosition(Position $position): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'position_id' => $position->id,
         ]);
     }
 
     public function ofModel(Model $model): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'model_type' => $model::class,
             'model_id' => $model->getKey(),
         ]);
@@ -45,7 +45,7 @@ class ModelHasPositionFactory extends Factory
 
     public function ofRole(PositionRoleEnum $role): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'role' => $role,
         ]);
     }

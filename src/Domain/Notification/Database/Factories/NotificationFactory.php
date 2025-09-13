@@ -39,7 +39,7 @@ class NotificationFactory extends Factory
 
     public function ofNotifiable(Model $model): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'notifiable_type' => $model::class,
             'notifiable_id' => $model->getKey(),
         ]);
@@ -47,35 +47,35 @@ class NotificationFactory extends Factory
 
     public function unread(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'read_at' => null,
         ]);
     }
 
     public function read(Carbon $timestamp): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'read_at' => $timestamp,
         ]);
     }
 
     public function ofType(NotificationTypeEnum $type): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'type' => $type,
         ]);
     }
 
     public function ofData(array $data): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'data' => $data,
         ]);
     }
 
     public function ofMergedData(array $data): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'data' => array_merge($attributes['data'] ?? [], $data),
         ]);
     }

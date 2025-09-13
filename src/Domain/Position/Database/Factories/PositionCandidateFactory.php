@@ -34,28 +34,28 @@ class PositionCandidateFactory extends Factory
 
     public function ofPosition(Position $position): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'position_id' => $position->id,
         ]);
     }
 
     public function ofCandidate(Candidate $candidate): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'candidate_id' => $candidate->id,
         ]);
     }
 
     public function ofApplication(Application $application): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'application_id' => $application->id,
         ]);
     }
 
     public function ofStep(PositionProcessStep $step): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'step_id' => $step->id,
         ]);
     }

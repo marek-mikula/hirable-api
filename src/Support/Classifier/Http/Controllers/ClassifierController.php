@@ -22,7 +22,7 @@ class ClassifierController extends ApiController
     {
         $index = ClassifierIndexUseCase::make()->handle($request->getTypes());
 
-        $index = array_map(fn (Collection $classifiers) => new ResourceCollection(ClassifierResource::class, $classifiers), $index);
+        $index = array_map(fn (Collection $classifiers): \App\Http\Resources\Collections\ResourceCollection => new ResourceCollection(ClassifierResource::class, $classifiers), $index);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'classifiers' => $index,

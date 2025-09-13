@@ -24,7 +24,7 @@ class ValidateShare
         $passes = $this->positionCandidate
             ->shares()
             ->pluck('user_id')
-            ->every(fn (int $id) => !in_array($id, $hiringManagers));
+            ->every(fn (int $id): bool => !in_array($id, $hiringManagers));
 
         if ($passes) {
             return;

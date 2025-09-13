@@ -36,6 +36,6 @@ readonly class ApplyData
 
     public function getOtherFilesAsFileData(): array
     {
-        return array_map(fn (UploadedFile $file) => FileData::make($file), $this->otherFiles);
+        return array_map(fn (UploadedFile $file): FileData => FileData::make($file), $this->otherFiles);
     }
 }

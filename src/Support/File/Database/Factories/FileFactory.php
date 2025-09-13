@@ -42,14 +42,14 @@ class FileFactory extends Factory
 
     public function ofType(FileTypeEnum $type): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'type' => $type,
         ]);
     }
 
     public function ofDisk(FileDiskEnum $disk): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'disk' => $disk,
         ]);
     }

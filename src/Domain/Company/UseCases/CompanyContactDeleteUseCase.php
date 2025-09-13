@@ -35,7 +35,7 @@ class CompanyContactDeleteUseCase extends UseCase
             throw new HttpException(responseCode: ResponseCodeEnum::CONTACT_PENDING_APPROVALS, data: [
                 'positions' => $pendingApprovals
                     ->pluck('position')
-                    ->map(fn (Position $position) => [
+                    ->map(fn (Position $position): array => [
                         'id' => $position->id,
                         'name' => $position->name,
                     ])

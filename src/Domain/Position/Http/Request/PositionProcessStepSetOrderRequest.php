@@ -37,6 +37,6 @@ class PositionProcessStepSetOrderRequest extends AuthRequest
      */
     public function getOrder(): array
     {
-        return $this->collect('order')->map(fn (mixed $value) => (int) $value)->values()->all();
+        return $this->collect('order')->map(fn (mixed $value): int => (int) $value)->values()->all();
     }
 }

@@ -41,7 +41,7 @@ class PositionCandidateEvaluateUseCase extends UseCase
         $files = $positionCandidate
             ->candidate
             ->files
-            ->filter(fn (File $file) => in_array($file->extension, $allowedFiles));
+            ->filter(fn (File $file): bool => in_array($file->extension, $allowedFiles));
 
         $score = $this->AIService->evaluateCandidate($positionCandidate->position, $positionCandidate->candidate, $files);
 
@@ -53,7 +53,7 @@ class PositionCandidateEvaluateUseCase extends UseCase
 
     private function mapScore(Position $position, array $score): array
     {
-        return array_map(fn (ScoreCategoryData $data) => [
+        return array_map(fn (ScoreCategoryData $data): array => [
             'category' => $data->category->value,
             'score' => $data->score,
             'comment' => $data->comment,

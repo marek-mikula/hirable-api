@@ -20,8 +20,8 @@ class CandidateShowResource extends CandidateResource
     {
         $this->checkLoadedRelations('files');
 
-        $cvs = $this->resource->files->filter(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_CV);
-        $otherFiles = $this->resource->files->filter(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_OTHER);
+        $cvs = $this->resource->files->filter(fn (File $file): bool => $file->type === FileTypeEnum::CANDIDATE_CV);
+        $otherFiles = $this->resource->files->filter(fn (File $file): bool => $file->type === FileTypeEnum::CANDIDATE_OTHER);
 
         return array_merge(parent::toArray($request), [
             'cvs' => new ResourceCollection(FileResource::class, $cvs),

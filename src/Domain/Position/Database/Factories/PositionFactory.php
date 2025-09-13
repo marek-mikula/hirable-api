@@ -108,42 +108,42 @@ class PositionFactory extends Factory
 
     public function ofName(string $name): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'name' => $name,
         ]);
     }
 
     public function ofCompany(Company|int $company): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'company_id' => is_int($company) ? $company : $company->id,
         ]);
     }
 
     public function ofUser(User|int $user): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'user_id' => is_int($user) ? $user : $user->id,
         ]);
     }
 
     public function ofState(PositionStateEnum $state): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'state' => $state,
         ]);
     }
 
     public function ofApproveUntil(?Carbon $timestamp): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'approve_until' => $timestamp,
         ]);
     }
 
     public function ofApproveMessage(string $approveMessage): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'approve_message' => $approveMessage,
         ]);
     }

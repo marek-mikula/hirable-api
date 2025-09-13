@@ -103,7 +103,7 @@ class RegisterRegisterRequest extends TokenRequest
         $token = $this->getToken();
 
         if ($token->type === TokenTypeEnum::INVITATION) {
-            return once(fn () => RegisterData::from([
+            return once(fn (): \Domain\Register\Http\Requests\Data\RegisterData => RegisterData::from([
                 'firstname' => (string) $this->input('firstname'),
                 'lastname' => (string) $this->input('lastname'),
                 'password' => (string) $this->input('password'),
@@ -113,7 +113,7 @@ class RegisterRegisterRequest extends TokenRequest
             ]));
         }
 
-        return once(fn () => RegisterData::from([
+        return once(fn (): \Domain\Register\Http\Requests\Data\RegisterData => RegisterData::from([
             'firstname' => (string) $this->input('firstname'),
             'lastname' => (string) $this->input('lastname'),
             'password' => (string) $this->input('password'),

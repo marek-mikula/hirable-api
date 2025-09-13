@@ -27,7 +27,7 @@ class SearchData extends Data
             ->trim()
             ->explode(',')
             ->filter()
-            ->map(fn (string $word) => trim($word))
+            ->map(fn (string $word): string => trim($word))
             ->all();
     }
 }

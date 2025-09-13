@@ -51,7 +51,7 @@ class ActivityLogFactory extends Factory
 
     public function ofCauser(Model $causer): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'causer_type' => $causer::class,
             'causer_id' => $causer->getKey(),
         ]);
@@ -59,7 +59,7 @@ class ActivityLogFactory extends Factory
 
     public function ofSubject(Model $subject): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'subject_type' => $subject::class,
             'subject_id' => $subject->getKey(),
         ]);
@@ -67,14 +67,14 @@ class ActivityLogFactory extends Factory
 
     public function ofData(array $data): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'data' => $data,
         ]);
     }
 
     public function ofMergedData(array $data): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'data' => array_merge($attributes['data'] ?? [], $data),
         ]);
     }

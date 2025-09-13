@@ -24,7 +24,7 @@ class ValidateApprovalSelf
             return;
         }
 
-        $hasSelf = collect($data['approvers'] ?? [])->some(fn (mixed $value) => $value === $this->user->id);
+        $hasSelf = collect($data['approvers'] ?? [])->some(fn (mixed $value): bool => $value === $this->user->id);
 
         if ($hasSelf) {
             $validator->errors()->add('approvers', __('validation.after_rules.position.approval_self'));

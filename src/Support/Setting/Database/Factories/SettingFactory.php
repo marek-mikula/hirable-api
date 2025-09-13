@@ -27,21 +27,21 @@ class SettingFactory extends Factory
 
     public function ofUser(User $user): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'user_id' => $user->id,
         ]);
     }
 
     public function ofKey(SettingKeyEnum $key): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'key' => $key,
         ]);
     }
 
     public function ofData(array $data): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'data' => $data,
         ]);
     }

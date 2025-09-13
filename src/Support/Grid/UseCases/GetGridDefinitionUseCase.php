@@ -92,13 +92,13 @@ class GetGridDefinitionUseCase extends UseCase
         // new columns were probably added and user
         // had some order saved from the past
         if (count($order) !== count($definition->columns)) {
-            $missingColumns = Arr::where($definition->columns, static fn (GridColumnDefinition $column) => !in_array($column->key, $order));
+            $missingColumns = Arr::where($definition->columns, static fn (GridColumnDefinition $column): bool => !in_array($column->key, $order));
         }
 
         if (empty($missingColumns)) {
             $columns = $definition->columns;
         } else {
-            $columns = Arr::where($definition->columns, static fn (GridColumnDefinition $column) => in_array($column->key, $order));
+            $columns = Arr::where($definition->columns, static fn (GridColumnDefinition $column): bool => in_array($column->key, $order));
         }
 
         // sort only those columns, which are

@@ -65,7 +65,7 @@ class PositionTransformer extends ModelTransformer
             }, $value),
 
             PositionFieldEnum::TAGS => collect($value)
-                ->filter(fn (mixed $value) => !empty($value) && is_string($value))
+                ->filter(fn (mixed $value): bool => !empty($value) && is_string($value))
                 ->take($this->positionConfigService->getMaxTags())
                 ->values(),
             default => throw new \Exception(sprintf('Transformation for field %s is not implemented for %s', $field->value, Position::class)),

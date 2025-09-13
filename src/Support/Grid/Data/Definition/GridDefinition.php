@@ -32,7 +32,7 @@ class GridDefinition extends Data
     public function getColumn(string $key): ?GridColumnDefinition
     {
         /** @var GridColumnDefinition|null $column */
-        $column = Arr::first($this->columns, fn (GridColumnDefinition $item) => $item->key === $key);
+        $column = Arr::first($this->columns, fn (GridColumnDefinition $item): bool => $item->key === $key);
 
         return $column;
     }

@@ -28,14 +28,14 @@ class ProcessStepFactory extends Factory
 
     public function ofCompany(Company $company): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'company_id' => $company->id,
         ]);
     }
 
     public function ofStep(StepEnum|string $step): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'step' => is_string($step) ? $step : $step->value,
         ]);
     }

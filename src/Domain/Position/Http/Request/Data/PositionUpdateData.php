@@ -154,7 +154,7 @@ class PositionUpdateData extends Data
      */
     public function getFilesData(): array
     {
-        return array_map(fn (UploadedFile $file) => FileData::make($file), $this->files);
+        return array_map(fn (UploadedFile $file): \Support\File\Data\FileData => FileData::make($file), $this->files);
     }
 
     public function hasKey(string $key): bool

@@ -35,56 +35,56 @@ class TokenFactory extends Factory
 
     public function used(?Carbon $datetime = null): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'used_at' => $datetime ?? now()->subDay(),
         ]);
     }
 
     public function unused(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'used_at' => null,
         ]);
     }
 
     public function expired(?Carbon $datetime = null): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'valid_until' => $datetime ?? now()->subDay(),
         ]);
     }
 
     public function ofMergedData(array $data): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'data' => array_merge($attributes['data'] ?? [], $data),
         ]);
     }
 
     public function ofData(array $data): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'data' => $data,
         ]);
     }
 
     public function ofUser(User $user): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'user_id' => $user->id,
         ]);
     }
 
     public function ofType(TokenTypeEnum $type): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'type' => $type,
         ]);
     }
 
     public function ofToken(string $token): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'token' => $token,
         ]);
     }

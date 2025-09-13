@@ -248,7 +248,7 @@ class CandidateUpdateRequest extends AuthRequest
                 ? $this->date('birthDate', 'Y-m-d')
                 : null,
             tags: in_array('tags', $keys) && $this->filled('tags')
-                ? $this->collect('tags')->map(fn (mixed $tag) => (string) $tag)->all()
+                ? $this->collect('tags')->map(fn (mixed $tag): string => (string) $tag)->all()
                 : [],
             cv: in_array('cv', $keys) && $this->hasFile('cv')
                 ? $this->file('cv')

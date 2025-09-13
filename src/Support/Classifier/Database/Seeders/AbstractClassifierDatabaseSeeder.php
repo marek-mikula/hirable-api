@@ -14,7 +14,7 @@ abstract class AbstractClassifierDatabaseSeeder extends Seeder
     {
         $type = $this->getType();
 
-        $values = array_map(fn (string $value) => [
+        $values = array_map(fn (string $value): array => [
             'type' => $type->value,
             'value' => $value,
         ], $this->getValues());

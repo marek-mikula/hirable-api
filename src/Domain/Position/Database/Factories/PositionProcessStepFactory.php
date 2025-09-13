@@ -31,14 +31,14 @@ class PositionProcessStepFactory extends Factory
 
     public function ofPosition(Position $position): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'position_id' => $position->id,
         ]);
     }
 
     public function ofStep(StepEnum|string $step): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'step' => is_string($step) ? $step : $step->value,
         ]);
     }

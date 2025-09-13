@@ -51,7 +51,7 @@ class AIService extends Service
 
         $score = (array) Arr::get($json, 'score', []);
 
-        return array_map(fn (array $item) => ScoreCategoryData::from([
+        return array_map(static fn (array $item): ScoreCategoryData => ScoreCategoryData::from([
             'category' => ScoreCategoryEnum::from((string) Arr::get($item, 'category')),
             'score' => (int) Arr::get($item, 'score'),
             'comment' => (string) Arr::get($item, 'comment'),

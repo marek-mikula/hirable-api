@@ -20,7 +20,7 @@ class CheckCommand extends Command
     {
         $types = $notificationRegistrar
             ->getNotifications()
-            ->map(static fn (NotificationDomain $domain) => $domain->notifications)
+            ->map(static fn (NotificationDomain $domain): \Illuminate\Support\Collection => $domain->notifications)
             ->flatten()
             ->map(static fn (NotificationData $notification) => $notification->getType()->value);
 

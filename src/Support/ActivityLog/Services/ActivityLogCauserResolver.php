@@ -48,7 +48,7 @@ class ActivityLogCauserResolver
      */
     public function setCauser(?Model $causer): void
     {
-        $this->setCauserResolver(static fn () => $causer);
+        $this->setCauserResolver(static fn (): ?\Illuminate\Database\Eloquent\Model => $causer);
     }
 
     /**

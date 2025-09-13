@@ -44,14 +44,14 @@ class CompanyContactFactory extends Factory
 
     public function ofEmail(string $email): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'email' => $email,
         ]);
     }
 
     public function ofCompany(Company|int $company): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'company_id' => is_int($company) ? $company : $company->id,
         ]);
     }

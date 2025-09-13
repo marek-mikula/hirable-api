@@ -52,56 +52,56 @@ class UserFactory extends Factory
 
     public function emailNotVerified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'email_verified_at' => null,
         ]);
     }
 
     public function emailVerified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'email_verified_at' => now(),
         ]);
     }
 
     public function ofEmail(string $email): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'email' => $email,
         ]);
     }
 
     public function ofPassword(string $password): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'password' => $password,
         ]);
     }
 
     public function ofLanguage(LanguageEnum $language): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'language' => $language,
         ]);
     }
 
     public function ofCompany(Company $company, RoleEnum $role): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'company_id' => $company->id,
         ])->ofCompanyRole($role);
     }
 
     public function ofCompanyRole(RoleEnum $role): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'company_role' => $role,
         ]);
     }
 
     public function companyOwner(bool $state = true): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'company_owner' => $state,
         ]);
     }

@@ -58,7 +58,7 @@ class CandidateUpdateUseCase extends UseCase
 
             if ($data->hasKey('cv') && $data->cv) {
                 /** @var File|null $previousCv */
-                $previousCv = $candidate->files->first(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_CV);
+                $previousCv = $candidate->files->first(fn (File $file): bool => $file->type === FileTypeEnum::CANDIDATE_CV);
 
                 // move previously saved CV to other files
                 if ($previousCv) {

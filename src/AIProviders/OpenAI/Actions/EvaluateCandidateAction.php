@@ -60,7 +60,7 @@ class EvaluateCandidateAction extends Action
             'input' => [
                 [
                     'role' => 'user',
-                    'content' => $files->map(fn (File $file) => $this->fileManager->attachFile($file))->all()
+                    'content' => $files->map(fn (File $file): array => $this->fileManager->attachFile($file))->all()
                 ]
             ]
         ]);

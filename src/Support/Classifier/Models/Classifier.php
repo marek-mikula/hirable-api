@@ -46,7 +46,7 @@ class Classifier extends Model
 
     protected function label(): Attribute
     {
-        return Attribute::get(injectClosure(fn (ClassifierTranslateService $translateService) => $translateService->translate($this)));
+        return Attribute::get(injectClosure(fn (ClassifierTranslateService $translateService): string => $translateService->translate($this)));
     }
 
     /**

@@ -65,7 +65,7 @@ class PositionProcessStep extends Model
 
     public function isCustom(): Attribute
     {
-        return Attribute::get(fn () => is_string($this->step));
+        return Attribute::get(fn (): bool => is_string($this->step));
     }
 
     public function position(): BelongsTo

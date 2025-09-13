@@ -26,7 +26,7 @@ class ValidateEvaluationRequest
             ->evaluations()
             ->where('state', EvaluationStateEnum::WAITING)
             ->pluck('user_id')
-            ->every(fn (int $id) => !in_array($id, $users));
+            ->every(fn (int $id): bool => !in_array($id, $users));
 
         if ($passes) {
             return;

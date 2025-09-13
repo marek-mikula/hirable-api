@@ -59,7 +59,7 @@ class GridSettingUpdateRequest extends AuthRequest
             'perPage' => $this->enum('perPage', PerPageEnum::class),
             'stickyHeader' => $this->boolean('stickyHeader'),
             'stickyFooter' => $this->boolean('stickyFooter'),
-            'columns' => $this->collect('columns')->map(static fn (mixed $column) => GridColumnSettingData::from([
+            'columns' => $this->collect('columns')->map(static fn (mixed $column): \Support\Grid\Http\Requests\Data\GridColumnSettingData => GridColumnSettingData::from([
                 'key' => (string) Arr::get($column, 'key'),
                 'enabled' => (bool) Arr::get($column, 'enabled'),
             ]))->all(),

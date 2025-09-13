@@ -38,7 +38,7 @@ class ApplicationFactory extends Factory
 
     public function ofPosition(Position $position): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'position_id' => $position->id,
         ]);
     }

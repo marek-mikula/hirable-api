@@ -28,7 +28,7 @@ final class CompanyRoleMiddleware
 
         throw_if(empty($user), new \Exception('User is not logged in. Cannot check company role.'));
 
-        $hasAnyRole = $roles->some(static fn (RoleEnum $role) => $user->company_role === $role);
+        $hasAnyRole = $roles->some(static fn (RoleEnum $role): bool => $user->company_role === $role);
 
         if (!$hasAnyRole) {
             throw new HttpException(responseCode: ResponseCodeEnum::UNAUTHORIZED, data: [

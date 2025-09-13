@@ -64,8 +64,8 @@ class ProcessApplicationUseCase extends UseCase
             linkedin: $application->linkedin,
         );
 
-        $otherFiles = $application->files->filter(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_OTHER);
-        $cv = $application->files->first(fn (File $file) => $file->type === FileTypeEnum::CANDIDATE_CV);
+        $otherFiles = $application->files->filter(fn (File $file): bool => $file->type === FileTypeEnum::CANDIDATE_OTHER);
+        $cv = $application->files->first(fn (File $file): bool => $file->type === FileTypeEnum::CANDIDATE_CV);
 
         return DB::transaction(function () use (
             $application,

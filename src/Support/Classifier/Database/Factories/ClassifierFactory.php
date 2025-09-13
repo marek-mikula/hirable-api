@@ -25,14 +25,14 @@ class ClassifierFactory extends Factory
 
     public function ofType(ClassifierTypeEnum $type): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'type' => $type,
         ]);
     }
 
     public function ofValue(string $value): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'value' => $value,
         ]);
     }

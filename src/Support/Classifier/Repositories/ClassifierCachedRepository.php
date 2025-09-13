@@ -23,7 +23,7 @@ class ClassifierCachedRepository implements ClassifierRepositoryInterface
 
         $cacheTime = now()->addSeconds($this->classifierConfigService->getCacheTime());
 
-        return Cache::memo('file')->remember($key, $cacheTime, fn () => $this->classifierRepository->getValuesForType($type));
+        return Cache::memo('file')->remember($key, $cacheTime, fn (): \Illuminate\Database\Eloquent\Collection => $this->classifierRepository->getValuesForType($type));
     }
 
     public function getValuesForTypes(array $types): array

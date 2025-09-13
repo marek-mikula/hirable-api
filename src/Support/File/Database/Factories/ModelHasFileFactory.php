@@ -28,14 +28,14 @@ class ModelHasFileFactory extends Factory
 
     public function ofFile(File $file): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'file_id' => $file->id,
         ]);
     }
 
     public function ofFileable(Model $fileable): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'fileable_id' => (int) $fileable->getKey(),
             'fileable_type' => $fileable::class,
         ]);

@@ -58,7 +58,7 @@ class GridSettingMapper implements SettingMapper
         }
 
         $data->columns = collect($data->columns)
-            ->filter(fn (GridColumnSetting $column) => $column->enabled !== null || $column->width !== null)
+            ->filter(fn (GridColumnSetting $column): bool => $column->enabled !== null || $column->width !== null)
             ->all();
 
         if (!empty($data->columns)) {

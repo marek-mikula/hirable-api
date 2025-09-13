@@ -71,7 +71,7 @@ class NotificationRegistrar
                     NotificationData::create(
                         label: 'Registered',
                         description: 'Notification notifies user that he successfully finished his registration.',
-                        notification: fn (User $notifiable) => new RegisterRegisteredNotification(),
+                        notification: fn (User $notifiable): \Domain\Register\Notifications\RegisterRegisteredNotification => new RegisterRegisteredNotification(),
                         notifiable: fn () => User::factory()->make(),
                     ),
                 ],
@@ -92,7 +92,7 @@ class NotificationRegistrar
                     NotificationData::create(
                         label: 'Email verified',
                         description: 'Notification informs the user that his email has been verified.',
-                        notification: fn (User $notifiable) => new EmailVerifiedNotification(),
+                        notification: fn (User $notifiable): \Domain\Verification\Notifications\EmailVerifiedNotification => new EmailVerifiedNotification(),
                         notifiable: fn () => User::factory()->make(),
                     ),
                 ],
@@ -113,7 +113,7 @@ class NotificationRegistrar
                     NotificationData::create(
                         label: 'Reset',
                         description: 'Notification notifies user that his password was successfully reset.',
-                        notification: fn (User $notifiable) => new PasswordChangedNotification(),
+                        notification: fn (User $notifiable): \Domain\Password\Notifications\PasswordChangedNotification => new PasswordChangedNotification(),
                         notifiable: fn () => User::factory()->make(),
                     ),
                 ]
@@ -348,7 +348,7 @@ class NotificationRegistrar
                     NotificationData::create(
                         label: 'Accepted',
                         description: 'Notification informs candidate that his application has been accepted.',
-                        notification: fn (Application $notifiable) => new ApplicationAcceptedNotification(),
+                        notification: fn (Application $notifiable): \Domain\Application\Notifications\ApplicationAcceptedNotification => new ApplicationAcceptedNotification(),
                         notifiable: function () {
                             $notifiable = Application::factory()->make();
                             $notifiable->setRelation('position', Position::factory()->make());

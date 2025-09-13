@@ -28,14 +28,14 @@ class CompanyFactory extends Factory
 
     public function ofEmail(string $email): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'email' => $email,
         ]);
     }
 
     public function ofIdNumber(string $idNumber): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'id_number' => $idNumber,
         ]);
     }

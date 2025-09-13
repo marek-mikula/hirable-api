@@ -31,7 +31,7 @@ class GridSetting extends Data
     public function getColumn(string $key): GridColumnSetting
     {
         /** @var GridColumnSetting $setting */
-        $setting = Arr::get($this->columns, $key, fn () => GridColumnSetting::from([
+        $setting = Arr::get($this->columns, $key, fn (): \Support\Grid\Data\Settings\GridColumnSetting => GridColumnSetting::from([
             'enabled' => null,
             'width' => null,
         ]));

@@ -64,28 +64,28 @@ class PositionCandidateActionFactory extends Factory
 
     public function ofUser(User $user): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'user_id' => $user->id,
         ]);
     }
 
     public function ofPositionCandidate(PositionCandidate $positionCandidate): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'position_candidate_id' => $positionCandidate->id,
         ]);
     }
 
     public function ofType(ActionTypeEnum $type): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'type' => $type,
         ]);
     }
 
     public function ofState(ActionStateEnum $state): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'state' => $state,
         ]);
     }

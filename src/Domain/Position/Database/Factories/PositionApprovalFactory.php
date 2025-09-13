@@ -35,21 +35,21 @@ class PositionApprovalFactory extends Factory
 
     public function ofRemindedAt(?Carbon $timestamp): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'reminded_at' => $timestamp,
         ]);
     }
 
     public function ofToken(Token $token): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'token_id' => $token->id,
         ]);
     }
 
     public function ofModelHasPosition(ModelHasPosition $modelHasPosition): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'model_has_position_id' => $modelHasPosition->id,
             'position_id' => $modelHasPosition->position_id,
         ]);
@@ -57,34 +57,34 @@ class PositionApprovalFactory extends Factory
 
     public function ofState(PositionApprovalStateEnum $state): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'state' => $state,
         ]);
     }
 
     public function approved(?string $note = null): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'state' => PositionApprovalStateEnum::APPROVED,
             'note' => $note,
         ]);
     }
     public function rejected(?string $note = null): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'state' => PositionApprovalStateEnum::APPROVED,
             'note' => $note,
         ]);
     }
     public function canceled(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'state' => PositionApprovalStateEnum::APPROVED,
         ]);
     }
     public function expired(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'state' => PositionApprovalStateEnum::APPROVED,
         ]);
     }

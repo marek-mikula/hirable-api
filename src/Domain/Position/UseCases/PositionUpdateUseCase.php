@@ -92,7 +92,7 @@ class PositionUpdateUseCase extends UseCase
             employmentRelationships: $data->hasKey('employmentRelationships') ? $data->employmentRelationships : $position->employment_relationships,
             employmentForms: $data->hasKey('employmentForms') ? $data->employmentForms : $position->employment_forms,
             benefits: $data->hasKey('benefits') ? $data->benefits : $position->benefits,
-            languageRequirements: $data->hasKey('languageRequirements') ? array_map(fn (LanguageRequirementData $requirement) => $requirement->toArray(), $data->languageRequirements) : $position->language_requirements,
+            languageRequirements: $data->hasKey('languageRequirements') ? array_map(fn (LanguageRequirementData $requirement): array => $requirement->toArray(), $data->languageRequirements) : $position->language_requirements,
             hardSkillsWeight: $data->hasKey('hardSkillsWeight') ? $data->hardSkillsWeight : $position->hard_skills_weight,
             softSkillsWeight: $data->hasKey('softSkillsWeight') ? $data->softSkillsWeight : $position->soft_skills_weight,
             languageSkillsWeight: $data->hasKey('languageSkillsWeight') ? $data->languageSkillsWeight : $position->language_skills_weight,
@@ -169,7 +169,7 @@ class PositionUpdateUseCase extends UseCase
             return;
         }
 
-        $newApprovals = $position->approvals->filter(fn (PositionApproval $approval) => $approval->modelHasPosition && !$sync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model)));
+        $newApprovals = $position->approvals->filter(fn (PositionApproval $approval): bool => $approval->modelHasPosition && !$sync->deleted->some(fn (Model $model) => $model->is($approval->modelHasPosition->model)));
 
         $position->setRelation('approvals', $newApprovals);
     }

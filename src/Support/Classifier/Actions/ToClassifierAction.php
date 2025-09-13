@@ -34,7 +34,7 @@ class ToClassifierAction extends Action
         // if value is some kind of list, transform
         // the values recursively
         if ($raw instanceof Collection) {
-            return $raw->map(fn (mixed $item) => $this->handle($item, $type));
+            return $raw->map(fn (mixed $item): \Illuminate\Support\Collection|\Support\Classifier\Data\ClassifierData => $this->handle($item, $type));
         }
 
         if (is_string($raw)) {

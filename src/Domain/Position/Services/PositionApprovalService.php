@@ -49,7 +49,7 @@ class PositionApprovalService extends Service
 
         $position = $this->positionRepository->updateApproveRound($position, round: ($position->approve_round ?? 0) + 1);
 
-        return $models->map(fn (ModelHasPosition $model) => $this->sendApproval($user, $position, $model));
+        return $models->map(fn (ModelHasPosition $model): \Domain\Position\Models\PositionApproval => $this->sendApproval($user, $position, $model));
     }
 
     private function sendApproval(User $user, Position $position, ModelHasPosition $model): PositionApproval

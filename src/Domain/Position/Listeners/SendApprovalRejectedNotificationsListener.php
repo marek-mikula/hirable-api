@@ -46,7 +46,7 @@ class SendApprovalRejectedNotificationsListener extends QueuedListener
             ->get()
             ->map(fn (ModelHasPosition $modelHasPosition) => $modelHasPosition->model)
             ->add($owner)
-            ->filter(fn (User|CompanyContact $model) => !$model->is($rejectedBy))
+            ->filter(fn (User|CompanyContact $model): bool => !$model->is($rejectedBy))
             ->each(function (User|CompanyContact $model) use ($event, $approval, $rejectedBy): void {
                 $model->notify(
                     new PositionApprovalRejectedNotification(

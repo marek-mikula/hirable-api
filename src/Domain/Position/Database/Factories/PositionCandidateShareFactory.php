@@ -27,21 +27,21 @@ class PositionCandidateShareFactory extends Factory
 
     public function ofCreator(User $user): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'creator_id' => $user->id,
         ]);
     }
 
     public function ofPositionCandidate(PositionCandidate $positionCandidate): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'position_candidate_id' => $positionCandidate->id,
         ]);
     }
 
     public function ofUser(User $user): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'user_id' => $user->id,
         ]);
     }

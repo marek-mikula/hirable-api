@@ -16,12 +16,12 @@ class RunCommand extends Command
 
     public function handle(Schedule $schedule): int
     {
-        $events = collect($schedule->events())->filter(static fn (Event $event) => !empty($event->description));
+        $events = collect($schedule->events())->filter(static fn (Event $event): bool => !empty($event->description));
 
         $selectedEvent = $this->choice('Which schedule you want to run?', $events->pluck('description')->all());
 
         /** @var Event $event */
-        $event = $events->first(static fn (Event $event) => $event->description === $selectedEvent);
+        $event = $events->first(static fn (Event $event): bool => $event->description === $selectedEvent);
 
         if (!$this->confirm(sprintf('Are you sure you want to run the "%s" schedule?', $event->description), true)) {
             return 0;
