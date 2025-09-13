@@ -17,12 +17,12 @@ class PositionApprovalPolicy
             return false;
         }
 
-        /** @see PositionPolicy::show() */
-        if (!$user->can('show', $position)) {
+        if ($approval->state !== PositionApprovalStateEnum::PENDING) {
             return false;
         }
 
-        if ($approval->state !== PositionApprovalStateEnum::PENDING) {
+        /** @see PositionPolicy::show() */
+        if (!$user->can('show', $position)) {
             return false;
         }
 

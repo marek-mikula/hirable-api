@@ -118,14 +118,6 @@ class PositionPolicy
 
     public function setProcessStepOrder(User $user, Position $position): bool
     {
-        if ($user->company_id !== $position->company_id) {
-            return false;
-        }
-
-        if ($position->state !== PositionStateEnum::OPENED) {
-            return false;
-        }
-
-        return $user->id === $position->user_id || $this->modelHasPositionRepository->hasModelRoleOnPosition($user, $position, PositionRoleEnum::RECRUITER);
+        return $position->state === PositionStateEnum::OPENED && $this->update($user, $position);
     }
 }
