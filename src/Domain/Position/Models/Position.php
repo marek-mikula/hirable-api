@@ -88,6 +88,7 @@ use Support\File\Models\Traits\HasFiles;
  * @property-read Collection<User> $recruiters
  * @property-read Collection<PositionApproval> $approvals
  * @property-read Collection<PositionProcessStep> $steps
+ * @property-read Collection<PositionCandidate> $positionCandidates
  *
  * @method static PositionFactory factory($count = null, $state = [])
  * @method static PositionBuilder query()
@@ -280,6 +281,15 @@ class Position extends Model
     {
         return $this->hasMany(
             related: PositionApproval::class,
+            foreignKey: 'position_id',
+            localKey: 'id',
+        );
+    }
+
+    public function positionCandidates(): HasMany
+    {
+        return $this->hasMany(
+            related: PositionCandidate::class,
             foreignKey: 'position_id',
             localKey: 'id',
         );
