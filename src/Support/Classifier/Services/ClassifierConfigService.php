@@ -42,7 +42,7 @@ class ClassifierConfigService extends Service
             throw new \Exception(sprintf('Invalid classifier seeder class for type %s. Class does not exist.', $type->value));
         }
 
-        return (string) $seederClass;
+        return $seederClass;
     }
 
     public function getOrder(ClassifierTypeEnum $type): ?array

@@ -54,11 +54,11 @@ class SetColumnWidthUseCase extends UseCase
     private function validateWidth(GridColumnDefinition $column, int $width): int
     {
         if ($column->minWidth !== null && $width < $column->minWidth) {
-            return (int) $column->minWidth;
+            return $column->minWidth;
         }
 
         if ($column->maxWidth !== null && $width > $column->maxWidth) {
-            return (int) $column->maxWidth;
+            return $column->maxWidth;
         }
 
         return $width;

@@ -23,6 +23,6 @@ return RectorConfig::configure()
     ->withSkipPath(__DIR__ . '/bootstrap/cache')
     ->withPhpSets()
     ->withTypeCoverageLevel(10)
-    ->withDeadCodeLevel(0)
+    ->withDeadCodeLevel(10)
     ->withCodeQualityLevel(0)
     ->withCodingStyleLevel(0);

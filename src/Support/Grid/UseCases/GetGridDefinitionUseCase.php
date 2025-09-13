@@ -114,11 +114,11 @@ class GetGridDefinitionUseCase extends UseCase
     private function resolveColumnWidth(GridColumnDefinition $column, GridColumnSetting $setting): int
     {
         if ($column->minWidth !== null && $setting->width < $column->minWidth) {
-            return (int) $column->minWidth;
+            return $column->minWidth;
         }
 
         if ($column->maxWidth !== null && $setting->width > $column->maxWidth) {
-            return (int) $column->maxWidth;
+            return $column->maxWidth;
         }
 
         return (int) $setting->width;
