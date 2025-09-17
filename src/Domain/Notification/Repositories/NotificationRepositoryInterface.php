@@ -16,4 +16,6 @@ interface NotificationRepositoryInterface
      * @return Collection<Notification>
      */
     public function getUnreadForModel(Model $model): Collection;
+
+    public function countUnreadForModel(Model $model): int;
 }

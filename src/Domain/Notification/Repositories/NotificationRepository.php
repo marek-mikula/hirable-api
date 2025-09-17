@@ -27,4 +27,12 @@ final readonly class NotificationRepository implements NotificationRepositoryInt
             ->unread()
             ->get();
     }
+
+    public function countUnreadForModel(Model $model): int
+    {
+        return Notification::query()
+            ->whereMorphedTo('notifiable', $model)
+            ->unread()
+            ->count();
+    }
 }

@@ -8,7 +8,7 @@ use App\Http\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
-class NeedsCountException extends \Exception
+final class NeedsCountException extends \Exception
 {
     /**
      * @param  class-string<Resource>  $resource

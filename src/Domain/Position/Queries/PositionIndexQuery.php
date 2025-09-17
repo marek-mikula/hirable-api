@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Domain\Position\UseCases;
+namespace Domain\Position\Queries;
 
-use App\UseCases\UseCase;
+use App\Queries\Query;
 use Domain\Position\Models\Builders\PositionBuilder;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
-class PositionIndexUseCase extends UseCase
+class PositionIndexQuery extends Query
 {
-    public function handle(User $user, GridRequestQuery $gridQuery): Paginator
+    public function handle(User $user, GridRequestQuery $gridQuery): LengthAwarePaginator
     {
         return Position::query()
             ->with([

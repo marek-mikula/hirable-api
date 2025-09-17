@@ -6,6 +6,7 @@ namespace AIProviders\OpenAI\Actions;
 
 use App\Actions\Action;
 use Domain\AI\Context\ModelContexter;
+use Domain\AI\Exceptions\InvalidJsonResponseException;
 use Domain\Candidate\Enums\CandidateFieldEnum;
 use Domain\Candidate\Models\Candidate;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -23,6 +24,9 @@ class ExtractCVDataAction extends Action
     ) {
     }
 
+    /**
+     * @throws InvalidJsonResponseException
+     */
     public function handle(File $cv): array
     {
         $result = OpenAI::responses()->create([
@@ -51,7 +55,7 @@ class ExtractCVDataAction extends Action
         try {
             return json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
         } catch (\Exception) {
-            throw new \Exception(sprintf('Cannot parse json: %s', $result->outputText));
+            throw new InvalidJsonResponseException($result->id);
         }
     }
 }

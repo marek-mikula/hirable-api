@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Domain\Candidate\UseCases;
+namespace Domain\Company\Queries;
 
-use App\UseCases\UseCase;
-use Domain\Candidate\Models\Builders\CandidateBuilder;
-use Domain\Candidate\Models\Candidate;
-use Domain\User\Models\User;
-use Illuminate\Contracts\Pagination\Paginator;
+use App\Queries\Query;
+use Domain\Company\Models\Builders\CompanyContactBuilder;
+use Domain\Company\Models\Company;
+use Domain\Company\Models\CompanyContact;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
-class CandidateIndexUseCase extends UseCase
+class CompanyContactIndexQuery extends Query
 {
-    public function handle(User $user, GridRequestQuery $gridQuery): Paginator
+    public function handle(Company $company, GridRequestQuery $gridQuery): LengthAwarePaginator
     {
-        return Candidate::query()
-            ->whereCompany($user->company_id)
-            ->when($gridQuery->hasSearchQuery(), function (CandidateBuilder $query) use ($gridQuery): void {
-                $query->where(function (CandidateBuilder $query) use ($gridQuery): void {
+        return CompanyContact::query()
+            ->whereCompany($company->id)
+            ->when($gridQuery->hasSearchQuery(), function (CompanyContactBuilder $query) use ($gridQuery): void {
+                $query->where(function (CompanyContactBuilder $query) use ($gridQuery): void {
                     $query
-                        ->where('firstname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
+                        ->orWhere('firstname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
                         ->orWhere('lastname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
                         ->orWhere('email', 'like', sprintf('%%%s%%', $gridQuery->searchQuery));
                 });
             })
-            ->when($gridQuery->hasSort(), function (CandidateBuilder $query) use ($gridQuery): void {
+            ->when($gridQuery->hasSort(), function (CompanyContactBuilder $query) use ($gridQuery): void {
                 // todo rewrite to common logic
                 foreach ($gridQuery->sort as $column => $order) {
                     if ($column === 'id') {
@@ -36,11 +36,11 @@ class CandidateIndexUseCase extends UseCase
                         $query->orderBy('lastname', $order->value);
                     } elseif ($column === 'email') {
                         $query->orderBy('email', $order->value);
-                    } elseif ($column === 'createdAt') {
-                        $query->orderBy('created_at', $order->value);
+                    } elseif ($column === 'companyName') {
+                        $query->orderBy('company_name', $order->value);
                     }
                 }
-            }, function (CandidateBuilder $query): void {
+            }, function (CompanyContactBuilder $query): void {
                 $query->orderBy('id', 'desc');
             })
             ->paginate(

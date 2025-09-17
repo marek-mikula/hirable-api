@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
-use App\Http\Requests\Traits\ValidationFailsWithStatus;
+use App\Http\Requests\Concerns\FailsWithStatus;
 
 class PositionSuggestRequest extends AuthRequest
 {
-    use ValidationFailsWithStatus;
+    use FailsWithStatus;
 
     public function authorize(): bool
     {

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Casts;
 
-use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
-class EnumOrValueCast implements CastsAttributes
+class EnumOrValueCast extends Cast
 {
     /**
      * @param class-string<\BackedEnum> $enumClass

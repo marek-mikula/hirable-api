@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
-use App\Http\Requests\Traits\ValidationFailsWithStatus;
+use App\Http\Requests\Concerns\FailsWithStatus;
 use App\Rules\Rule;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionProcessStep;
@@ -13,7 +13,7 @@ use Domain\Position\Policies\PositionCandidatePolicy;
 
 class PositionCandidateSetStepRequest extends AuthRequest
 {
-    use ValidationFailsWithStatus;
+    use FailsWithStatus;
 
     public function authorize(): bool
     {

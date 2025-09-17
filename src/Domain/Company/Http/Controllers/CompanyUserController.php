@@ -9,7 +9,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Resources\Collections\PaginatedResourceCollection;
 use Domain\Company\Http\Requests\CompanyUserIndexRequest;
 use Domain\Company\Models\Company;
-use Domain\Company\UseCases\CompanyUserIndexUseCase;
+use Domain\Company\Queries\CompanyUserIndexQuery;
 use Domain\User\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
@@ -25,7 +25,7 @@ class CompanyUserController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $users = CompanyUserIndexUseCase::make()->handle($company, $gridQuery);
+        $users = CompanyUserIndexQuery::make()->handle($company, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_USER, $gridQuery));
 

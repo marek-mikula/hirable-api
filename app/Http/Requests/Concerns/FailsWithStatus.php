@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Traits;
+namespace App\Http\Requests\Concerns;
 
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
@@ -12,7 +12,7 @@ use Illuminate\Contracts\Validation\Validator;
 /**
  * @mixin Request
  */
-trait ValidationFailsWithStatus
+trait FailsWithStatus
 {
     protected ResponseCodeEnum $code = ResponseCodeEnum::CLIENT_ERROR;
 

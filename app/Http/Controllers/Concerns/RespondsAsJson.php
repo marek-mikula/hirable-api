@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Traits;
+namespace App\Http\Controllers\Concerns;
 
 use App\Enums\ResponseCodeEnum;
 use App\Http\Resources\Resource;

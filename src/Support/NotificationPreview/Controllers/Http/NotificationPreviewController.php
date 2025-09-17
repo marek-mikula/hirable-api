@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\NotificationPreview\Controllers\Http;
 
-use App\Http\Controllers\WebController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Request;
 use App\Mail\Mailable;
 use Domain\Notification\Enums\NotificationTypeEnum;
@@ -15,7 +15,7 @@ use Support\NotificationPreview\Data\NotificationData;
 use Support\NotificationPreview\Data\NotificationDomain;
 use Support\NotificationPreview\Services\NotificationRegistrar;
 
-class NotificationPreviewController extends WebController
+class NotificationPreviewController extends Controller
 {
     public function __construct(
         private readonly NotificationRegistrar $notificationRegistrar,

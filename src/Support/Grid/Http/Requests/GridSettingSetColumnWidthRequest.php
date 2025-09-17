@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Support\Grid\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
-use App\Http\Requests\Traits\ValidationFailsWithStatus;
+use App\Http\Requests\Concerns\FailsWithStatus;
 use Support\Grid\Http\Requests\Data\GridColumnWidthData;
 
 class GridSettingSetColumnWidthRequest extends AuthRequest
 {
-    use ValidationFailsWithStatus;
+    use FailsWithStatus;
 
     public function authorize(): bool
     {

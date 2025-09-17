@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Domain\Notification\UseCases;
+namespace Domain\Notification\Queries;
 
-use App\UseCases\UseCase;
+use App\Queries\Query;
 use Domain\Notification\Models\Notification;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 
-class NotificationIndexUseCase extends UseCase
+class NotificationIndexQuery extends Query
 {
-    public function handle(Model $model, int $page): Paginator
+    public function handle(Model $model, int $page): LengthAwarePaginator
     {
         return Notification::query()
             ->whereMorphedTo('notifiable', $model)

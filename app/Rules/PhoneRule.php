@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Rules;
 
-use App\Rules\Traits\HandlesData;
+use App\Rules\Concerns\HandlesData;
 use App\Services\ValidationConfigService;
 use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;

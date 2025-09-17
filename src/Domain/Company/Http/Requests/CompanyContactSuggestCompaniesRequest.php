@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Domain\Company\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
-use App\Http\Requests\Traits\ValidationFailsWithStatus;
+use App\Http\Requests\Concerns\FailsWithStatus;
 
 class CompanyContactSuggestCompaniesRequest extends AuthRequest
 {
-    use ValidationFailsWithStatus;
+    use FailsWithStatus;
 
     public function authorize(): bool
     {

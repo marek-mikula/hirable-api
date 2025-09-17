@@ -15,8 +15,8 @@ use Domain\Position\Http\Request\PositionUpdateRequest;
 use Domain\Position\Http\Resources\PositionListResource;
 use Domain\Position\Http\Resources\PositionShowResource;
 use Domain\Position\Models\Position;
+use Domain\Position\Queries\PositionIndexQuery;
 use Domain\Position\UseCases\PositionDeleteUseCase;
-use Domain\Position\UseCases\PositionIndexUseCase;
 use Domain\Position\UseCases\PositionStoreUseCase;
 use Domain\Position\UseCases\PositionUpdateUseCase;
 use Illuminate\Http\JsonResponse;
@@ -33,7 +33,7 @@ class PositionController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $positions = PositionIndexUseCase::make()->handle($request->user(), $request->getGridQuery());
+        $positions = PositionIndexQuery::make()->handle($request->user(), $request->getGridQuery());
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::POSITION, $gridQuery));
 

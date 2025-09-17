@@ -8,7 +8,7 @@ use App\Http\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
-class NeedsRelationshipException extends \Exception
+final class NeedsRelationshipException extends \Exception
 {
     /**
      * @param  class-string<Resource>  $resource

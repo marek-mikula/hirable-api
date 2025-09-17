@@ -9,7 +9,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Resources\Collections\PaginatedResourceCollection;
 use Domain\Notification\Http\Request\NotificationIndexRequest;
 use Domain\Notification\Http\Resources\NotificationResource;
-use Domain\Notification\UseCases\NotificationIndexUseCase;
+use Domain\Notification\Queries\NotificationIndexQuery;
 use Illuminate\Http\JsonResponse;
 
 class NotificationController extends ApiController
@@ -18,7 +18,7 @@ class NotificationController extends ApiController
     {
         $page = max((int) $request->input('page', 1), 1);
 
-        $notifications = NotificationIndexUseCase::make()->handle($request->user(), $page);
+        $notifications = NotificationIndexQuery::make()->handle($request->user(), $page);
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'notifications' => new PaginatedResourceCollection(NotificationResource::class, $notifications),

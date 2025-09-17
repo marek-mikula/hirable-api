@@ -14,8 +14,8 @@ use Domain\Company\Http\Requests\CompanyContactUpdateRequest;
 use Domain\Company\Http\Resources\CompanyContactResource;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyContact;
+use Domain\Company\Queries\CompanyContactIndexQuery;
 use Domain\Company\UseCases\CompanyContactDeleteUseCase;
-use Domain\Company\UseCases\CompanyContactIndexUseCase;
 use Domain\Company\UseCases\CompanyContactStoreUseCase;
 use Domain\Company\UseCases\CompanyContactUpdateUseCase;
 use Illuminate\Http\JsonResponse;
@@ -32,7 +32,7 @@ class CompanyContactController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $contacts = CompanyContactIndexUseCase::make()->handle($company, $gridQuery);
+        $contacts = CompanyContactIndexQuery::make()->handle($company, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_CONTACT, $gridQuery));
 

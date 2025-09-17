@@ -13,7 +13,7 @@ use Domain\Candidate\Http\Request\CandidateUpdateRequest;
 use Domain\Candidate\Http\Resources\CandidateResource;
 use Domain\Candidate\Http\Resources\CandidateShowResource;
 use Domain\Candidate\Models\Candidate;
-use Domain\Candidate\UseCases\CandidateIndexUseCase;
+use Domain\Candidate\Queries\CandidateIndexQuery;
 use Domain\Candidate\UseCases\CandidateUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
@@ -29,7 +29,7 @@ class CandidateController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $candidates = CandidateIndexUseCase::make()->handle($user, $gridQuery);
+        $candidates = CandidateIndexQuery::make()->handle($user, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::CANDIDATE, $gridQuery));
 

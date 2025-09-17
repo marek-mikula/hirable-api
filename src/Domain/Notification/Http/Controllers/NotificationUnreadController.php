@@ -7,17 +7,20 @@ namespace Domain\Notification\Http\Controllers;
 use App\Enums\ResponseCodeEnum;
 use App\Http\Controllers\ApiController;
 use Domain\Notification\Http\Request\NotificationUnreadRequest;
-use Domain\Notification\UseCases\NotificationUnreadUseCase;
+use Domain\Notification\Repositories\NotificationRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
 class NotificationUnreadController extends ApiController
 {
+    public function __construct(
+        private readonly NotificationRepositoryInterface $notificationRepository,
+    ) {
+    }
+
     public function __invoke(NotificationUnreadRequest $request): JsonResponse
     {
-        $count = NotificationUnreadUseCase::make()->handle($request->user());
-
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
-            'count' => $count,
+            'count' => $this->notificationRepository->countUnreadForModel($request->user()),
         ]);
     }
 }

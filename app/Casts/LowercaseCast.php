@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Casts;
 
-use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class LowercaseCast implements CastsAttributes
+class LowercaseCast extends Cast
 {
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {

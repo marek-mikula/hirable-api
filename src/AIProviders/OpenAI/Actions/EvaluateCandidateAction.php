@@ -8,6 +8,7 @@ use App\Actions\Action;
 use App\Enums\LanguageEnum;
 use Domain\AI\Context\CommonContexter;
 use Domain\AI\Context\ModelContexter;
+use Domain\AI\Exceptions\InvalidJsonResponseException;
 use Domain\AI\Scoring\ScoreCategorySerializer;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Enums\PositionFieldEnum;
@@ -31,6 +32,7 @@ class EvaluateCandidateAction extends Action
     }
 
     /**
+     * @throws InvalidJsonResponseException
      * @param Collection<File> $files
      */
     public function handle(Position $position, Candidate $candidate, Collection $files): array
@@ -68,7 +70,7 @@ class EvaluateCandidateAction extends Action
         try {
             return json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
         } catch (\Exception) {
-            throw new \Exception(sprintf('Cannot parse json: %s', $result->outputText));
+            throw new InvalidJsonResponseException($result->id);
         }
     }
 }

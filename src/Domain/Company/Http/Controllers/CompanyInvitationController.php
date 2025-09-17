@@ -11,8 +11,8 @@ use Domain\Company\Http\Requests\CompanyInvitationDeleteRequest;
 use Domain\Company\Http\Requests\CompanyInvitationIndexRequest;
 use Domain\Company\Http\Requests\CompanyInvitationsStoreRequest;
 use Domain\Company\Models\Company;
+use Domain\Company\Queries\CompanyInvitationIndexQuery;
 use Domain\Company\UseCases\CompanyInvitationDeleteUseCase;
-use Domain\Company\UseCases\CompanyInvitationIndexUseCase;
 use Domain\Company\UseCases\CompanyInvitationStoreUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
@@ -30,7 +30,7 @@ class CompanyInvitationController extends ApiController
 
         $gridQuery = $request->getGridQuery();
 
-        $invitations = CompanyInvitationIndexUseCase::make()->handle($company, $gridQuery);
+        $invitations = CompanyInvitationIndexQuery::make()->handle($company, $gridQuery);
 
         defer(fn () => SaveGridRequestQueryAction::make()->handle($user, GridEnum::COMPANY_INVITATION, $gridQuery));
 

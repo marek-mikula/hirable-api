@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Domain\Company\UseCases;
+namespace Domain\Company\Queries;
 
-use App\UseCases\UseCase;
+use App\Queries\Query;
 use Domain\Company\Models\Company;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 use Support\Token\Models\Builders\TokenBuilder;
 use Support\Token\Models\Token;
 
-class CompanyInvitationIndexUseCase extends UseCase
+class CompanyInvitationIndexQuery extends Query
 {
-    public function handle(Company $company, GridRequestQuery $gridQuery): Paginator
+    public function handle(Company $company, GridRequestQuery $gridQuery): LengthAwarePaginator
     {
         return Token::query()
             ->whereCompany($company->id)

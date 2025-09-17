@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use App\Enums\ResponseCodeEnum;
-use App\Http\Controllers\Traits\RespondsAsJson;
+use App\Http\Controllers\Concerns\RespondsAsJson;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Throwable;
 
-class ExceptionJsonHandler
+final class ExceptionJsonHandler
 {
     use RespondsAsJson;
 

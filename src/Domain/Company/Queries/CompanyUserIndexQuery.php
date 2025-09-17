@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Domain\Company\UseCases;
+namespace Domain\Company\Queries;
 
-use App\UseCases\UseCase;
+use App\Queries\Query;
 use Domain\Company\Models\Company;
 use Domain\User\Models\Builders\UserBuilder;
 use Domain\User\Models\User;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Support\Grid\Data\Query\GridRequestQuery;
 
-class CompanyUserIndexUseCase extends UseCase
+class CompanyUserIndexQuery extends Query
 {
-    public function handle(Company $company, GridRequestQuery $gridQuery): Paginator
+    public function handle(Company $company, GridRequestQuery $gridQuery): LengthAwarePaginator
     {
         return User::query()
             ->whereCompany($company->id)

@@ -7,6 +7,7 @@ namespace AIProviders\OpenAI\Actions;
 use App\Actions\Action;
 use App\Enums\LanguageEnum;
 use Domain\AI\Context\ModelContexter;
+use Domain\AI\Exceptions\InvalidJsonResponseException;
 use Domain\Position\Enums\PositionFieldEnum;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
@@ -22,6 +23,9 @@ class GeneratePositionFromPromptAction extends Action
     ) {
     }
 
+    /**
+     * @throws InvalidJsonResponseException
+     */
     public function handle(User $user, string $prompt): array
     {
         $result = OpenAI::responses()->create([
@@ -69,7 +73,7 @@ class GeneratePositionFromPromptAction extends Action
         try {
             return json_decode((string) $result->outputText, true, flags: JSON_THROW_ON_ERROR);
         } catch (\Exception) {
-            throw new \Exception(sprintf('Cannot parse json: %s', $result->outputText));
+            throw new InvalidJsonResponseException($result->id);
         }
     }
 }

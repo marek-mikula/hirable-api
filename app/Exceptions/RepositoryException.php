@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-class RepositoryException extends \Exception
+final class RepositoryException extends \Exception
 {
     final public function __construct(string $model, string $action)
     {
