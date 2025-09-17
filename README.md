@@ -19,7 +19,7 @@ Before running any command, make sure you are in the project folder.
 Firstly, copy [.env file](./.env.example) and set needed environment variables.
 
 ```bash
-$ cp .env.example .env
+cp .env.example .env
 ```
 
 (optional) To have functional email sending, set SMTP variables for email notifications testing. You can use [Mailtrap](https://mailtrap.io/) for
@@ -35,7 +35,7 @@ instance or **Mailpit** for local email client.
 Install Composer dependencies using Docker container.
 
 ```bash
-$ docker run --rm \
+docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v "$(pwd):/var/www/html" \
     -w /var/www/html \
@@ -52,27 +52,27 @@ alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 Start Sail.
 
 ```bash
-$ sail up
+sail up
 ```
 
 All containers should start. If MySQL container can't successfully boot, try to use these commands.
 
 ```bash
-$ docker-compose down --volumes
+docker-compose down --volumes
 
-$ sail up --build
+sail up --build
 ```
 
 Now generate application key for encryption. This command should set `APP_KEY` env variable.
 
 ```bash
-$ sail art key:generate
+sail art key:generate
 ```
 
 Lastly, run application installation command.
 
 ```bash
-$ sail art app:install
+sail art app:install
 ```
 
 ## IDE setup
@@ -92,61 +92,61 @@ You should exclude listed folders from indexing for better performance if your I
 Refactor code (dry-run)
 
 ```bash
-$ sail composer refactor:dry
+sail composer refactor:dry
 ```
 
 Refactor code
 
 ```bash
-$ sail composer refactor
+sail composer refactor
 ```
 
 Reformat code
 
 ```bash
-$ sail composer format
+sail composer format
 ```
 
 Reformat & refactor code
 
 ```bash
-$ sail composer format:all
+sail composer format:all
 ```
 
 Run all tests
 
 ```bash
-$ sail composer test
+sail composer test
 ```
 
 Check code format
 
 ```bash
-$ sail composer test:lint
+sail composer test:lint
 ```
 
 Check type coverage
 
 ```bash
-$ sail composer test:type-coverage
+sail composer test:type-coverage
 ```
 
 Check coverage
 
 ```bash
-$ sail composer test:coverage
+sail composer test:coverage
 ```
 
 Analyse code
 
 ```bash
-$ sail composer test:analyse
+sail composer test:analyse
 ```
 
 Run all test commands at once
 
 ```bash
-$ sail composer test:all
+sail composer test:all
 ```
 
 ## Notifications preview
