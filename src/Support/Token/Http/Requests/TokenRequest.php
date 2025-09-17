@@ -25,11 +25,6 @@ class TokenRequest extends Request
      */
     public function getToken(): Token
     {
-        return once(function (): Token {
-            /** @var TokenResolver $resolver */
-            $resolver = app(TokenResolver::class);
-
-            return $resolver->getToken();
-        });
+        return once(static fn (): Token => TokenResolver::resolve()->getToken());
     }
 }
