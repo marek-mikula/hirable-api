@@ -17,7 +17,7 @@ use Support\Grid\UseCases\ResetGridSettingUseCase;
 use Support\Grid\UseCases\SetColumnWidthUseCase;
 use Support\Grid\UseCases\UpdateGridSettingsUseCase;
 
-class GridSettingController extends ApiController
+final class GridSettingController extends ApiController
 {
     public function update(GridSettingUpdateRequest $request, GridEnum $grid): JsonResponse
     {

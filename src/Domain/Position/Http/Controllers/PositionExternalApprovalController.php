@@ -17,7 +17,7 @@ use Domain\User\Models\User;
 use Illuminate\Http\JsonResponse;
 use Support\File\Models\File;
 
-class PositionExternalApprovalController extends ApiController
+final class PositionExternalApprovalController extends ApiController
 {
     public function __construct(
         private readonly PositionApprovalRepositoryInterface $positionApprovalRepository,

@@ -11,7 +11,7 @@ use Domain\Position\Models\Position;
 use Domain\Position\UseCases\PositionProcessStepSetOrderUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionProcessStepSetOrderController extends ApiController
+final class PositionProcessStepSetOrderController extends ApiController
 {
     public function __invoke(PositionProcessStepSetOrderRequest $request, Position $position): JsonResponse
     {

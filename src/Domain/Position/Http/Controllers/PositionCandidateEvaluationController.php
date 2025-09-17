@@ -21,7 +21,7 @@ use Domain\Position\UseCases\PositionCandidateEvaluationStoreUseCase;
 use Domain\Position\UseCases\PositionCandidateEvaluationUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionCandidateEvaluationController extends ApiController
+final class PositionCandidateEvaluationController extends ApiController
 {
     public function index(PositionCandidateEvaluationIndexRequest $request, Position $position, PositionCandidate $positionCandidate): JsonResponse
     {

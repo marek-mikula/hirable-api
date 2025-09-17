@@ -19,7 +19,7 @@ use Domain\Position\UseCases\PositionCandidateShareDeleteUseCase;
 use Domain\Position\UseCases\PositionCandidateShareStoreUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionCandidateShareController extends ApiController
+final class PositionCandidateShareController extends ApiController
 {
     public function index(PositionCandidateShareIndexRequest $request, Position $position, PositionCandidate $positionCandidate): JsonResponse
     {

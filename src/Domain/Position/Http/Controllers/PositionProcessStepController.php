@@ -21,7 +21,7 @@ use Domain\Position\UseCases\PositionProcessStepUpdateUseCase;
 use Domain\Position\UseCases\PositionProcessStepStoreUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionProcessStepController extends ApiController
+final class PositionProcessStepController extends ApiController
 {
     public function index(PositionProcessStepIndexRequest $request, Position $position): JsonResponse
     {

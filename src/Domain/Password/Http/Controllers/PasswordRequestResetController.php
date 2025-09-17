@@ -10,7 +10,7 @@ use Domain\Password\Http\Requests\PasswordRequestResetRequest;
 use Domain\Password\UseCases\RequestPasswordResetUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PasswordRequestResetController extends ApiController
+final class PasswordRequestResetController extends ApiController
 {
     public function __invoke(PasswordRequestResetRequest $request): JsonResponse
     {

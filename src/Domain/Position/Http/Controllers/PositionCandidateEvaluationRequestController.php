@@ -14,7 +14,7 @@ use Domain\Position\Models\PositionCandidate;
 use Domain\Position\UseCases\PositionCandidateEvaluationRequestUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionCandidateEvaluationRequestController extends ApiController
+final class PositionCandidateEvaluationRequestController extends ApiController
 {
     public function __invoke(PositionCandidateEvaluationRequestRequest $request, Position $position, PositionCandidate $positionCandidate): JsonResponse
     {

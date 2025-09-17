@@ -11,7 +11,7 @@ use Domain\Position\Models\Position;
 use Domain\Position\UseCases\PositionCancelApprovalUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionCancelApprovalController extends ApiController
+final class PositionCancelApprovalController extends ApiController
 {
     public function __invoke(PositionCancelApprovalRequest $request, Position $position): JsonResponse
     {

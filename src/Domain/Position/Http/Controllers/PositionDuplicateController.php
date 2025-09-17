@@ -11,7 +11,7 @@ use Domain\Position\Models\Position;
 use Domain\Position\UseCases\PositionDuplicateUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionDuplicateController extends ApiController
+final class PositionDuplicateController extends ApiController
 {
     public function __invoke(PositionDuplicateRequest $request, Position $position): JsonResponse
     {

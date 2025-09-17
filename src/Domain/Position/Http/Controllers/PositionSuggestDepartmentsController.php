@@ -10,7 +10,7 @@ use Domain\Position\Http\Request\PositionSuggestRequest;
 use Domain\Position\Repositories\PositionSuggestRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
-class PositionSuggestDepartmentsController extends ApiController
+final class PositionSuggestDepartmentsController extends ApiController
 {
     public function __construct(
         private readonly PositionSuggestRepositoryInterface $positionSuggestRepository,

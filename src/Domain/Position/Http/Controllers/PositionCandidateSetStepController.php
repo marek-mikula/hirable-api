@@ -14,7 +14,7 @@ use Domain\Position\Repositories\PositionProcessStepRepositoryInterface;
 use Domain\Position\UseCases\PositionCandidateSetStepUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionCandidateSetStepController extends ApiController
+final class PositionCandidateSetStepController extends ApiController
 {
     public function __construct(
         private readonly PositionProcessStepRepositoryInterface $positionProcessStepRepository,

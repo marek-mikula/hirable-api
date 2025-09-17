@@ -10,7 +10,7 @@ use Domain\Notification\Http\Request\NotificationUnreadRequest;
 use Domain\Notification\Repositories\NotificationRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
-class NotificationUnreadController extends ApiController
+final class NotificationUnreadController extends ApiController
 {
     public function __construct(
         private readonly NotificationRepositoryInterface $notificationRepository,

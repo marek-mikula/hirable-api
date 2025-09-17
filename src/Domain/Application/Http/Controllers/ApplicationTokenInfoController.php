@@ -15,7 +15,7 @@ use Domain\Application\TokenProcessing\Exceptions\UnableExtractTokenInfoExceptio
 use Domain\Application\TokenProcessing\TokenPackageExtractorService;
 use Illuminate\Http\JsonResponse;
 
-class ApplicationTokenInfoController extends ApiController
+final class ApplicationTokenInfoController extends ApiController
 {
     public function __construct(
         private readonly TokenPackageExtractorService $tokenPackageExtractorService,

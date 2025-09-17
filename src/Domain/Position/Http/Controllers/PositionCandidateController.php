@@ -15,7 +15,7 @@ use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Repositories\PositionCandidateRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
-class PositionCandidateController extends ApiController
+final class PositionCandidateController extends ApiController
 {
     public function index(PositionCandidateIndexRequest $request, Position $position): JsonResponse
     {

@@ -21,7 +21,7 @@ use Support\Grid\Enums\GridEnum;
 
 use function Illuminate\Support\defer;
 
-class CandidateController extends ApiController
+final class CandidateController extends ApiController
 {
     public function index(CandidateIndexRequest $request): JsonResponse
     {

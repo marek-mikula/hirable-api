@@ -10,7 +10,7 @@ use Domain\Verification\Http\Requests\VerificationVerifyEmailRequest;
 use Domain\Verification\UseCases\VerifyEmailUseCase;
 use Illuminate\Http\JsonResponse;
 
-class VerificationController extends ApiController
+final class VerificationController extends ApiController
 {
     public function verifyEmail(VerificationVerifyEmailRequest $request): JsonResponse
     {

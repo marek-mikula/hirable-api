@@ -12,7 +12,7 @@ use Domain\Notification\Models\Notification;
 use Domain\Notification\UseCases\NotificationMarkReadUseCase;
 use Illuminate\Http\JsonResponse;
 
-class NotificationMarkReadController extends ApiController
+final class NotificationMarkReadController extends ApiController
 {
     public function __invoke(NotificationMarkReadRequest $request, Notification $notification): JsonResponse
     {

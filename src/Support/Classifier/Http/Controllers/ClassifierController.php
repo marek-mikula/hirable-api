@@ -16,7 +16,7 @@ use Support\Classifier\Http\Resources\ClassifierResource;
 use Support\Classifier\UseCases\ClassifierIndexUseCase;
 use Support\Classifier\UseCases\ClassifierListUseCase;
 
-class ClassifierController extends ApiController
+final class ClassifierController extends ApiController
 {
     public function index(ClassifierIndexRequest $request): JsonResponse
     {

@@ -12,7 +12,7 @@ use Domain\User\Models\User;
 use Domain\User\UseCases\UserUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
-class UserController extends ApiController
+final class UserController extends ApiController
 {
     public function update(UserUpdateRequest $request, User $user): JsonResponse
     {

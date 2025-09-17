@@ -15,7 +15,7 @@ use Support\Grid\UseCases\GetGridDefinitionUseCase;
 use Support\Grid\UseCases\GetGridQueryUseCase;
 use Support\Grid\UseCases\GetGridSettingUseCase;
 
-class GridController extends ApiController
+final class GridController extends ApiController
 {
     public function show(GridShowRequest $request, GridEnum $grid): JsonResponse
     {

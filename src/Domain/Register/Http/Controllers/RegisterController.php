@@ -16,7 +16,7 @@ use Domain\Register\UseCases\RequestRegistrationUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Token\Enums\TokenTypeEnum;
 
-class RegisterController extends ApiController
+final class RegisterController extends ApiController
 {
     public function request(RegisterRequestRequest $request): JsonResponse
     {

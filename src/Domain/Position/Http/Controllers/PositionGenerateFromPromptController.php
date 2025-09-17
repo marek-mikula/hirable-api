@@ -11,7 +11,7 @@ use Domain\Position\Http\Resources\GeneratedPositionResource;
 use Domain\Position\UseCases\PositionGenerateFromPromptUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionGenerateFromPromptController extends ApiController
+final class PositionGenerateFromPromptController extends ApiController
 {
     public function __invoke(PositionGenerateFromPromptRequest $request): JsonResponse
     {

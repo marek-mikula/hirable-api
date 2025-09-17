@@ -17,7 +17,7 @@ use Domain\Position\UseCases\PositionCandidateActionStoreUseCase;
 use Domain\Position\UseCases\PositionCandidateActionUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionCandidateActionController extends ApiController
+final class PositionCandidateActionController extends ApiController
 {
     public function store(PositionCandidateActionStoreRequest $request, Position $position, PositionCandidate $positionCandidate): JsonResponse
     {

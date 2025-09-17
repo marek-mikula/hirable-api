@@ -10,7 +10,7 @@ use Domain\Notification\Http\Request\NotificationMarkAllReadRequest;
 use Domain\Notification\UseCases\NotificationMarkAllReadUseCase;
 use Illuminate\Http\JsonResponse;
 
-class NotificationMarkAllReadController extends ApiController
+final class NotificationMarkAllReadController extends ApiController
 {
     public function __invoke(NotificationMarkAllReadRequest $request): JsonResponse
     {

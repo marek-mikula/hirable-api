@@ -12,7 +12,7 @@ use Domain\Notification\Http\Resources\NotificationResource;
 use Domain\Notification\Queries\NotificationIndexQuery;
 use Illuminate\Http\JsonResponse;
 
-class NotificationController extends ApiController
+final class NotificationController extends ApiController
 {
     public function index(NotificationIndexRequest $request): JsonResponse
     {

@@ -22,7 +22,7 @@ use Support\Token\Models\Token;
 
 use function Illuminate\Support\defer;
 
-class CompanyInvitationController extends ApiController
+final class CompanyInvitationController extends ApiController
 {
     public function index(CompanyInvitationIndexRequest $request, Company $company): JsonResponse
     {

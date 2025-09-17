@@ -19,7 +19,7 @@ use Domain\ProcessStep\UseCases\ProcessStepStoreUseCase;
 use Domain\ProcessStep\UseCases\ProcessStepUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
-class ProcessStepController extends ApiController
+final class ProcessStepController extends ApiController
 {
     public function __construct(
         private readonly ProcessStepRepositoryInterface $processStepRepository,

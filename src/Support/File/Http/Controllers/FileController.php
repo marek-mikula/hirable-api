@@ -13,7 +13,7 @@ use Support\File\Models\File;
 use Support\File\Repositories\FileRepositoryInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class FileController extends ApiController
+final class FileController extends ApiController
 {
     public function __construct(
         private readonly FileRepositoryInterface $fileRepository,

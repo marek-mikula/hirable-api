@@ -9,7 +9,7 @@ use Support\File\Http\Requests\FileDownloadRequest;
 use Support\File\Models\File;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class FileDownloadController extends ApiController
+final class FileDownloadController extends ApiController
 {
     public function __invoke(FileDownloadRequest $request, File $file): BinaryFileResponse
     {

@@ -16,7 +16,7 @@ use Domain\Application\TokenProcessing\TokenPackageExtractorService;
 use Domain\Application\UseCases\ApplicationApplyUseCase;
 use Illuminate\Http\JsonResponse;
 
-class ApplicationApplyController extends ApiController
+final class ApplicationApplyController extends ApiController
 {
     public function __construct(
         private readonly TokenPackageExtractorService $tokenPackageExtractorService,

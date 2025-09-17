@@ -13,7 +13,7 @@ use Domain\Company\Models\Company;
 use Domain\Company\UseCases\CompanyUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 
-class CompanyController extends ApiController
+final class CompanyController extends ApiController
 {
     public function show(CompanyShowRequest $request, Company $company): JsonResponse
     {

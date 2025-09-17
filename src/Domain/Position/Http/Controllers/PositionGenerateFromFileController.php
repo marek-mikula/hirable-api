@@ -11,7 +11,7 @@ use Domain\Position\Http\Resources\GeneratedPositionResource;
 use Domain\Position\UseCases\PositionGenerateFromFileUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionGenerateFromFileController extends ApiController
+final class PositionGenerateFromFileController extends ApiController
 {
     public function __invoke(PositionGenerateFromFileRequest $request): JsonResponse
     {

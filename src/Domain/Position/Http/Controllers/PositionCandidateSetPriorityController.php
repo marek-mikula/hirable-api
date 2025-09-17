@@ -13,7 +13,7 @@ use Domain\Position\Models\PositionCandidate;
 use Domain\Position\UseCases\PositionCandidateSetPriorityUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionCandidateSetPriorityController extends ApiController
+final class PositionCandidateSetPriorityController extends ApiController
 {
     public function __invoke(PositionCandidateSetPriorityRequest $request, Position $position, PositionCandidate $positionCandidate): JsonResponse
     {

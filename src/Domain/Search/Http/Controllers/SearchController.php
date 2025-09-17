@@ -17,7 +17,7 @@ use Domain\Search\UseCases\SearchCompanyUsersUseCase;
 use Domain\Search\UseCases\SearchPositionUsersUseCase;
 use Illuminate\Http\JsonResponse;
 
-class SearchController extends ApiController
+final class SearchController extends ApiController
 {
     public function companyUsers(SearchCompanyUsersRequest $request): JsonResponse
     {

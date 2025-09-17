@@ -13,7 +13,7 @@ use Domain\Position\Models\PositionApproval;
 use Domain\Position\UseCases\PositionApprovalDecideUseCase;
 use Illuminate\Http\JsonResponse;
 
-class PositionApprovalDecideController extends ApiController
+final class PositionApprovalDecideController extends ApiController
 {
     public function __invoke(PositionApprovalDecideRequest $request, Position $position, PositionApproval $positionApproval): JsonResponse
     {

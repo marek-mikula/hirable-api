@@ -13,7 +13,7 @@ use Domain\Auth\Http\Resources\AuthUserResource;
 use Domain\Auth\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 
-class AuthController extends ApiController
+final class AuthController extends ApiController
 {
     public function login(AuthLoginRequest $request): JsonResponse
     {

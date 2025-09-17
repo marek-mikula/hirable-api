@@ -11,7 +11,7 @@ use Domain\Company\Models\Company;
 use Domain\Company\Repositories\CompanyContactSuggestRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
-class CompanyContactSuggestCompaniesController extends ApiController
+final class CompanyContactSuggestCompaniesController extends ApiController
 {
     public function __construct(
         private readonly CompanyContactSuggestRepositoryInterface $companyContactSuggestRepository,
