@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Support\Format\Traits;
+namespace Support\Format\Concerns;
 
 use Carbon\Carbon;
 
-trait UseTimeFormatting
+trait UsesTimeFormatting
 {
     public function formatTime(?Carbon $value, string $empty = '-', bool $withSeconds = false): string
     {

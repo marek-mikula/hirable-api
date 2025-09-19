@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Domain\Application\Database\Factories\ApplicationFactory;
 use Domain\Application\Models\Builders\ApplicationBuilder;
 use Domain\Candidate\Enums\SourceEnum;
-use Domain\Notification\Traits\Notifiable;
+use Domain\Notification\Concerns\Notifiable;
 use Domain\Position\Models\Position;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
-use Support\File\Models\Traits\HasFiles;
+use Support\File\Models\Concerns\HasFiles;
 
 /**
  * @property-read int $id

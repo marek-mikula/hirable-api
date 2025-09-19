@@ -8,7 +8,7 @@ use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Company\Database\Factories\CompanyContactFactory;
 use Domain\Company\Models\Builders\CompanyContactBuilder;
-use Domain\Notification\Traits\Notifiable;
+use Domain\Notification\Concerns\Notifiable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

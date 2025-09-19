@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Enums\EnvEnum;
 use Illuminate\Support\ServiceProvider;
 
 class DomainServiceProvider extends ServiceProvider
 {
-    private array $providers = [
+    private array $domainProviders = [
         \Domain\AI\Providers\ServiceProvider::class,
         \Domain\Application\Providers\ServiceProvider::class,
         \Domain\Auth\Providers\ServiceProvider::class,
@@ -24,10 +25,34 @@ class DomainServiceProvider extends ServiceProvider
         \Domain\ProcessStep\Providers\ServiceProvider::class,
     ];
 
+    private array $supportProviders = [
+        \Support\ActivityLog\Providers\ServiceProvider::class,
+        \Support\File\Providers\ServiceProvider::class,
+        \Support\Grid\Providers\ServiceProvider::class,
+        \Support\Setting\Providers\ServiceProvider::class,
+        \Support\Token\Providers\ServiceProvider::class,
+        \Support\Classifier\Providers\ServiceProvider::class,
+        \Support\Format\Providers\ServiceProvider::class,
+    ];
+
+    private array $AIProviders = [
+        \AIProviders\OpenAI\Providers\ServiceProvider::class,
+    ];
+
     public function register(): void
     {
-        foreach ($this->providers as $provider) {
+        $providers = array_merge(
+            $this->domainProviders,
+            $this->supportProviders,
+            $this->AIProviders,
+        );
+
+        foreach ($providers as $provider) {
             $this->app->register($provider);
+        }
+
+        if (!isEnv(EnvEnum::PRODUCTION, EnvEnum::TESTING)) {
+            $this->app->register(\Support\NotificationPreview\Providers\ServiceProvider::class);
         }
     }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Setting\Models;
 
-use App\Models\Traits\HasArrayData;
+use App\Models\Concerns\HasArrayData;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Query\Builder;
-use Support\File\Models\Traits\HasFiles;
+use Support\File\Models\Concerns\HasFiles;
 
 /**
  * @property-read int $id

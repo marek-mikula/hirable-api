@@ -6,7 +6,7 @@ namespace Domain\Company\Http\Requests;
 
 use App\Http\Requests\AuthRequest;
 use Domain\Company\Policies\CompanyPolicy;
-use Support\Grid\Traits\AsGridRequest;
+use Support\Grid\Concerns\AsGridRequest;
 
 class CompanyContactIndexRequest extends AuthRequest
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\User\Models\Builders\Traits;
+namespace Domain\User\Models\Builders\Concerns;
 
 use App\Models\Builders\Builder;
 

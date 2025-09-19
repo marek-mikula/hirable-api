@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Notification\Traits;
+namespace Domain\Notification\Concerns;
 
 use Domain\Notification\Models\Notification;
 use Illuminate\Database\Eloquent\Collection;

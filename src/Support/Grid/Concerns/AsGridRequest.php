@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Support\Grid\Traits;
+namespace Support\Grid\Concerns;
 
 use App\Http\Requests\Request;
 use Support\Grid\Actions\CollectGridRequestQueryAction;

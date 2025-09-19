@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Support\Token\Models\Builders;
 
 use App\Models\Builders\Builder;
-use Domain\User\Models\Builders\Traits\BelongsToUser;
+use Domain\User\Models\Builders\Concerns\BelongsToUser;
 use Support\Token\Enums\TokenTypeEnum;
 use Support\Token\Services\TokenConfigService;
 

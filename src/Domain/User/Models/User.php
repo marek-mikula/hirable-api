@@ -10,7 +10,7 @@ use App\Enums\LanguageEnum;
 use Carbon\Carbon;
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
-use Domain\Notification\Traits\Notifiable;
+use Domain\Notification\Concerns\Notifiable;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
 use Domain\User\Database\Factories\UserFactory;
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Support\ActivityLog\Traits\CausesActivity;
+use Support\ActivityLog\Concerns\CausesActivity;
 use Support\Token\Models\Token;
 
 /**

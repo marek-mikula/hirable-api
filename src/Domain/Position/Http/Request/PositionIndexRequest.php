@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Position\Http\Request;
 
 use App\Http\Requests\AuthRequest;
-use Support\Grid\Traits\AsGridRequest;
+use Support\Grid\Concerns\AsGridRequest;
 
 class PositionIndexRequest extends AuthRequest
 {

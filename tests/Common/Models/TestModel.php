@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Support\ActivityLog\Data\LogOptions;
-use Support\ActivityLog\Traits\LogsActivity;
+use Support\ActivityLog\Concerns\LogsActivity;
 
 /**
  * @property-read int $id

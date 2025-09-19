@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Domain\Candidate\Database\Factories\CandidateFactory;
 use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Models\Builders\CandidateBuilder;
-use Domain\Notification\Traits\Notifiable;
+use Domain\Notification\Concerns\Notifiable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Query\Builder;
 use Support\File\Enums\FileTypeEnum;
 use Support\File\Models\File;
-use Support\File\Models\Traits\HasFiles;
+use Support\File\Models\Concerns\HasFiles;
 
 /**
  * @property-read int $id

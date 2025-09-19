@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\ActivityLog\Models;
 
-use App\Models\Traits\HasArrayData;
+use App\Models\Concerns\HasArrayData;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

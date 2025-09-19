@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Token\Models;
 
-use App\Models\Traits\HasArrayData;
+use App\Models\Concerns\HasArrayData;
 use Carbon\Carbon;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
