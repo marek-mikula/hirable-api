@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Concerns\Resolvable;
+
 abstract class Service
 {
-    public static function resolve(): static
-    {
-        return app(static::class);
-    }
+    use Resolvable;
 }
