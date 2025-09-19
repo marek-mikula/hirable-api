@@ -22,8 +22,7 @@ Firstly, copy [.env file](./.env.example) and set needed environment variables.
 cp .env.example .env
 ```
 
-(optional) To have functional email sending, set SMTP variables for email notifications testing. You can use [Mailtrap](https://mailtrap.io/) for
-instance or **Mailpit** for local email client.
+(optional) To have functional email sending, set SMTP variables. You can use [Mailtrap](https://mailtrap.io/) or **Mailpit** as email client.
 
 - `MAIL_MAILER`
 - `MAIL_HOST`

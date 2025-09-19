@@ -34,4 +34,4 @@ When state method has an argument, and it defines some relationship state, the n
 
 Each eloquent model should have its own query builder class defined.
 
-The name of the builder class should be `{modelName}Builder` and put in `./Models/Query` folder.
+The name of the builder class should be `{modelName}Builder` and put in `./Models/Builders` folder.
