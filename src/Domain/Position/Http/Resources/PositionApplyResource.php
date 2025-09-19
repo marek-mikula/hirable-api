@@ -6,7 +6,7 @@ namespace Domain\Position\Http\Resources;
 
 use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Position\Models\Position;
-use Domain\User\Http\Resources\UserContactResource;
+use Domain\User\Http\Resources\UserBriefResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\Resource;
 use Support\Classifier\Actions\ToClassifierAction;
@@ -38,7 +38,7 @@ class PositionApplyResource extends Resource
             'employmentForms' => new ResourceCollection(ClassifierResource::class, $toClassifier->handle($this->resource->employment_forms, ClassifierTypeEnum::EMPLOYMENT_FORM)),
             'address' => $this->resource->address,
             'salary' => $this->resource->share_salary ? new PositionSalaryResource($this->resource) : null,
-            'contact' => $this->resource->share_contact ? new UserContactResource($this->resource->user) : null,
+            'contact' => $this->resource->share_contact ? new UserBriefResource($this->resource->user) : null,
             'benefits' => new ResourceCollection(ClassifierResource::class, $toClassifier->handle($this->resource->benefits, ClassifierTypeEnum::BENEFIT)),
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),

@@ -11,7 +11,7 @@ use Support\Setting\Models\Setting;
 
 final readonly class SettingRepository implements SettingRepositoryInterface
 {
-    public function find(User $user, SettingKeyEnum $key): ?Setting
+    public function findBy(User $user, SettingKeyEnum $key): ?Setting
     {
         /** @var Setting|null $model */
         $model = Setting::query()
@@ -24,7 +24,7 @@ final readonly class SettingRepository implements SettingRepositoryInterface
 
     public function findOrNew(User $user, SettingKeyEnum $key): Setting
     {
-        $model = $this->find($user, $key);
+        $model = $this->findBy($user, $key);
 
         if ($model === null) {
             $model = new Setting();

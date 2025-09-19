@@ -9,7 +9,6 @@ Methods should have standard names.
 
 - `store` - Stores a new model
 - `index` - Lists all models, no pagination
-- `list` - Lists all models for list views with pagination, searching, etc.
 - `update` - Updates existing model
 - `delete` - Deletes existing model
 - `find` - Finds single model by given ID

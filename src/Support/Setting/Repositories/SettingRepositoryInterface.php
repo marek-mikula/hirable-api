@@ -10,7 +10,7 @@ use Support\Setting\Models\Setting;
 
 interface SettingRepositoryInterface
 {
-    public function find(User $user, SettingKeyEnum $key): ?Setting;
+    public function findBy(User $user, SettingKeyEnum $key): ?Setting;
 
     public function findOrNew(User $user, SettingKeyEnum $key): Setting;
 

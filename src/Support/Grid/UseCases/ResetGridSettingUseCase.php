@@ -20,7 +20,7 @@ class ResetGridSettingUseCase extends UseCase
 
     public function handle(User $user, GridEnum $grid): void
     {
-        $setting = $this->settingRepository->find($user, $grid->getSettingKey());
+        $setting = $this->settingRepository->findBy($user, $grid->getSettingKey());
 
         if ($setting === null) {
             return;

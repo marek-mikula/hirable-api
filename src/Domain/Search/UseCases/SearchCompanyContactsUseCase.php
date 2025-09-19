@@ -41,7 +41,7 @@ class SearchCompanyContactsUseCase extends UseCase
             })
             ->limit($data->limit)
             ->get()
-            ->map(static fn (CompanyContact $item): \Domain\Search\Data\ResultData => ResultData::from([
+            ->map(static fn (CompanyContact $item): ResultData => ResultData::from([
                 'value' => $item->id,
                 'label' => $item->label,
             ]));

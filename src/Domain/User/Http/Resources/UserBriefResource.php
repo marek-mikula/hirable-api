@@ -11,7 +11,7 @@ use App\Http\Resources\Resource;
 /**
  * @property User $resource
  */
-class UserContactResource extends Resource
+class UserBriefResource extends Resource
 {
     public function toArray(Request $request): array
     {

@@ -7,7 +7,3 @@
 - [Resources](architecture/resources.md)
 - [Controllers](architecture/controllers.md)
 - [Repositories](architecture/repositories.md)
-
-## Testing
-
-- [Testing](testing.md)

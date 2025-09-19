@@ -1,6 +1,6 @@
 # Hirable REST API
 
-API for Hirable app.
+REST API for a Hirable app.
 
 ## Sanctum authentication
 

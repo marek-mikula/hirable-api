@@ -15,7 +15,7 @@ use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
-/** @covers \Support\Setting\Repositories\SettingRepository::find */
+/** @covers \Support\Setting\Repositories\SettingRepository::findBy */
 it('tests find method', function (): void {
     /** @var SettingRepositoryInterface $repository */
     $repository = app(SettingRepositoryInterface::class);
@@ -27,7 +27,7 @@ it('tests find method', function (): void {
         ->ofKey(SettingKeyEnum::GRID_CANDIDATE)
         ->create();
 
-    $model = $repository->find($user, SettingKeyEnum::GRID_CANDIDATE);
+    $model = $repository->findBy($user, SettingKeyEnum::GRID_CANDIDATE);
 
     assertNotNull($model);
     assertTrue($setting->is($model));
