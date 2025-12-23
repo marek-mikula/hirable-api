@@ -19,9 +19,4 @@ class ApplicationTokenUrlService extends Service
     {
         return frontendLink('/apply?token={token}', ['token' => $this->tokenParserService->toUrlValue($source, $token)]);
     }
-
-    public function getReferralUrl(string $token): string
-    {
-        return frontendLink('/referral?token={token}', ['token' => $this->tokenParserService->toUrlValue(SourceEnum::REFERRAL, $token)]);
-    }
 }

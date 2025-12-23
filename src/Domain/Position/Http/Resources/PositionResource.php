@@ -70,8 +70,6 @@ class PositionResource extends Resource
             'shareContact' => $this->resource->share_contact,
             'tags' => $this->resource->tags,
             'commonLink' => $this->resource->common_link,
-            'internLink' => $this->resource->intern_link,
-            'referralLink' => $this->resource->referral_link,
             'createdAt' => $this->resource->created_at->toIso8601String(),
             'updatedAt' => $this->resource->updated_at->toIso8601String(),
         ];

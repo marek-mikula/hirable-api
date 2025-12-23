@@ -101,8 +101,6 @@ class PositionFactory extends Factory
             'share_contact' => fake()->boolean,
             'tags' => fake()->words(fake()->numberBetween(0, 5)),
             'common_token' => null,
-            'intern_token' => null,
-            'referral_token' => null,
         ];
     }
 
