@@ -23,5 +23,5 @@ interface PositionRepositoryInterface
 
     public function updateApproveRound(Position $position, int $round): Position;
 
-    public function setTokens(Position $position, string $commonToken, string $internToken, string $referralToken): Position;
+    public function setToken(Position $position, string $token): Position;
 }

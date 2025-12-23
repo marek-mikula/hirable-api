@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Application\TokenProcessing;
 
-use Domain\Application\TokenProcessing\Extractors\InternTokenDataExtractor;
 use Domain\Application\TokenProcessing\Extractors\PositionTokenDataExtractor;
-use Domain\Application\TokenProcessing\Extractors\ReferralTokenDataExtractor;
 use Domain\Application\TokenProcessing\Extractors\TokenDataExtractor;
 use Domain\Candidate\Enums\SourceEnum;
 
@@ -16,8 +14,6 @@ class TokenDataExtractorFactory
     {
         $extractor = match ($source) {
             SourceEnum::POSITION => PositionTokenDataExtractor::class,
-            SourceEnum::INTERN => InternTokenDataExtractor::class,
-            SourceEnum::REFERRAL => ReferralTokenDataExtractor::class,
         };
 
         /** @var TokenDataExtractor $extractor */

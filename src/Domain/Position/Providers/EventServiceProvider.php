@@ -35,7 +35,7 @@ use Domain\Position\Listeners\SendPositionCandidateShareStoppedNotificationListe
 use Domain\Position\Listeners\SendPositionOpenedNotificationsListener;
 use Domain\Position\Listeners\SendApprovalRejectedNotificationsListener;
 use Domain\Position\Listeners\SendToApprovalListener;
-use Domain\Position\Listeners\SetTokensListener;
+use Domain\Position\Listeners\SetTokenListener;
 use Domain\Position\Listeners\EvaluatePositionCandidateListener;
 use Domain\Position\Models\ModelHasPosition;
 use Domain\Position\Models\Position;
@@ -75,7 +75,7 @@ class EventServiceProvider extends ServiceProvider
             SendApprovalRejectedNotificationsListener::class,
         ],
         PositionOpenedEvent::class => [
-            SetTokensListener::class,
+            SetTokenListener::class,
             CreateProcessStepsListener::class,
             SendPositionOpenedNotificationsListener::class,
         ],

@@ -263,25 +263,16 @@ it('tests updateApproveRound method', function (): void {
     assertSame($round, $position->approve_round);
 });
 
-/** @covers \Domain\Position\Repositories\PositionRepository::setTokens */
-it('tests setTokens method', function (): void {
+/** @covers \Domain\Position\Repositories\PositionRepository::setToken */
+it('tests setToken method', function (): void {
     /** @var PositionRepositoryInterface $repository */
     $repository = app(PositionRepositoryInterface::class);
 
     $position = Position::factory()->create();
 
-    $commonToken = fake()->word;
-    $internToken = fake()->word;
-    $referralToken = fake()->word;
+    $token = fake()->word;
 
-    $position = $repository->setTokens(
-        position: $position,
-        commonToken: $commonToken,
-        internToken: $internToken,
-        referralToken: $referralToken,
-    );
+    $position = $repository->setToken($position, $token);
 
-    assertSame($commonToken, $position->common_token);
-    assertSame($internToken, $position->intern_token);
-    assertSame($referralToken, $position->referral_token);
+    assertSame($token, $position->common_token);
 });

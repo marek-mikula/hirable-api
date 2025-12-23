@@ -10,7 +10,7 @@ use Domain\Position\Models\Position;
 use Domain\Position\Repositories\PositionRepositoryInterface;
 use Support\Token\Actions\GenerateTokenAction;
 
-class SetTokensListener extends Listener
+class SetTokenListener extends Listener
 {
     public function __construct(
         private readonly PositionRepositoryInterface $positionRepository,
@@ -22,11 +22,9 @@ class SetTokensListener extends Listener
         // do not trigger events, because otherwise
         // it would trigger observer infinite times
         Position::withoutEvents(function () use ($event): void {
-            $this->positionRepository->setTokens(
-                position: $event->position,
-                commonToken: GenerateTokenAction::make()->handle(),
-                internToken: GenerateTokenAction::make()->handle(),
-                referralToken: GenerateTokenAction::make()->handle(),
+            $this->positionRepository->setToken(
+                $event->position,
+                GenerateTokenAction::make()->handle(),
             );
         });
     }

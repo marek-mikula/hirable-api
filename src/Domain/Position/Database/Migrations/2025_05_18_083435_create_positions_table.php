@@ -55,8 +55,6 @@ return new class () extends Migration {
             $table->boolean('share_contact');
             $table->json('tags');
             $table->string('common_token')->nullable();
-            $table->string('intern_token')->nullable();
-            $table->string('referral_token')->nullable();
             $table->timestamps();
 
             $table->foreign('company_id', 'positions_company_foreign')

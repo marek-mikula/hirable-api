@@ -70,13 +70,9 @@ use Support\File\Models\Concerns\HasFiles;
  * @property boolean $share_contact
  * @property string[] $tags
  * @property string|null $common_token
- * @property string|null $intern_token
- * @property string|null $referral_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read string|null $common_link
- * @property-read string|null $intern_link
- * @property-read string|null $referral_link
  * @property-read Company $company
  * @property-read User $user // todo rename to owner, so its more clear
  * @property-read Collection<ModelHasPosition> $models
@@ -149,8 +145,6 @@ class Position extends Model
         'share_contact',
         'tags',
         'common_token',
-        'intern_token',
-        'referral_token',
     ];
 
     protected $attributes = [
@@ -183,16 +177,6 @@ class Position extends Model
     protected function commonLink(): Attribute
     {
         return Attribute::get(fn (): ?string => empty($this->common_token) ? null : ApplicationTokenUrlService::resolve()->getApplyUrl(SourceEnum::POSITION, $this->common_token));
-    }
-
-    protected function internLink(): Attribute
-    {
-        return Attribute::get(fn (): ?string => empty($this->intern_token) ? null : ApplicationTokenUrlService::resolve()->getApplyUrl(SourceEnum::INTERN, $this->intern_token));
-    }
-
-    protected function referralLink(): Attribute
-    {
-        return Attribute::get(fn (): ?string => empty($this->referral_token) ? null : ApplicationTokenUrlService::resolve()->getReferralUrl($this->referral_token));
     }
 
     public function company(): BelongsTo
