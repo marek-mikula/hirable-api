@@ -6,10 +6,6 @@ namespace Domain\Position\Models;
 
 use Carbon\Carbon;
 use Domain\Position\Database\Factories\PositionCandidateActionFactory;
-use Domain\Position\Enums\ActionAssessmentCenterResultEnum;
-use Domain\Position\Enums\ActionInterviewResultEnum;
-use Domain\Position\Enums\ActionStateEnum;
-use Domain\Position\Enums\ActionTaskResultEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Enums\OfferStateEnum;
 use Domain\Position\Models\Builders\PositionCandidateActionBuilder;
@@ -25,23 +21,18 @@ use Illuminate\Database\Query\Builder;
  * @property int $position_candidate_id
  * @property int $user_id
  * @property ActionTypeEnum $type
- * @property ActionStateEnum $state
  * @property Carbon|null $date
  * @property Carbon|null $time_start
  * @property Carbon|null $time_end
  * @property string|null $place
- * @property string|null $instructions
  * @property string|null $evaluation
  * @property string|null $name
  * @property string|null $interview_form
  * @property string|null $interview_type
- * @property ActionInterviewResultEnum|null $interview_result
- * @property ActionAssessmentCenterResultEnum|null $assessment_center_result
  * @property boolean|null $rejected_by_candidate
  * @property string|null $rejection_reason
  * @property string|null $refusal_reason
  * @property string|null $task_type
- * @property ActionTaskResultEnum|null $task_result
  * @property OfferStateEnum|null $offer_state
  * @property string|null $offer_job_title
  * @property string|null $offer_company
@@ -56,7 +47,6 @@ use Illuminate\Database\Query\Builder;
  * @property string|null $offer_employment_duration
  * @property Carbon|null $offer_certain_period_to
  * @property int|null $offer_trial_period
- * @property string|null $offer_candidate_note
  * @property Carbon|null $real_start_date
  * @property string|null $note
  * @property Carbon $created_at
@@ -81,23 +71,18 @@ class PositionCandidateAction extends Model
         'position_candidate_id',
         'user_id',
         'type',
-        'state',
         'date',
         'time_start',
         'time_end',
         'place',
-        'instructions',
         'evaluation',
         'name',
         'interview_form',
         'interview_type',
-        'interview_result',
-        'assessment_center_result',
         'rejected_by_candidate',
         'rejection_reason',
         'refusal_reason',
         'task_type',
-        'task_result',
         'offer_state',
         'offer_job_title',
         'offer_company',
@@ -112,7 +97,6 @@ class PositionCandidateAction extends Model
         'offer_employment_duration',
         'offer_certain_period_to',
         'offer_trial_period',
-        'offer_candidate_note',
         'real_start_date',
         'note',
     ];
@@ -125,14 +109,10 @@ class PositionCandidateAction extends Model
     {
         return [
             'type' => ActionTypeEnum::class,
-            'state' => ActionStateEnum::class,
             'date' => 'datetime:Y-m-d',
             'time_start' => 'datetime:H:i:s',
             'time_end' => 'datetime:H:i:s',
-            'interview_result' => ActionInterviewResultEnum::class,
-            'assessment_center_result' => ActionAssessmentCenterResultEnum::class,
             'rejected_by_candidate' => 'boolean',
-            'task_result' => ActionTaskResultEnum::class,
             'offer_state' => OfferStateEnum::class,
             'offer_employment_forms' => 'array',
             'offer_start_date' => 'datetime:Y-m-d',

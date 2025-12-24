@@ -7,8 +7,6 @@ namespace Domain\Position\UseCases;
 use App\Enums\ResponseCodeEnum;
 use App\Exceptions\HttpException;
 use App\UseCases\UseCase;
-use Domain\Position\Enums\ActionOperationEnum;
-use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Http\Request\Data\ActionData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
@@ -31,8 +29,6 @@ class PositionCandidateActionStoreUseCase extends UseCase
     {
         $this->validate($positionCandidate, $data);
 
-        $state = $data->operation === ActionOperationEnum::FINISH ? ActionStateEnum::FINISHED : $data->type->getDefaultState();
-
         $input = new PositionCandidateActionStoreInput(
             positionProcessStep: $positionCandidate->step,
             positionCandidate: $positionCandidate,
@@ -42,18 +38,14 @@ class PositionCandidateActionStoreUseCase extends UseCase
             timeStart: $data->timeStart,
             timeEnd: $data->timeEnd,
             place: $data->place,
-            instructions: $data->instructions,
             evaluation: $data->evaluation,
             name: $data->name,
             interviewForm: $data->interviewForm,
             interviewType: $data->interviewType,
-            interviewResult: $data->interviewResult,
-            assessmentCenterResult: $data->assessmentCenterResult,
             rejectedByCandidate: $data->rejectedByCandidate,
             rejectionReason: $data->rejectionReason,
             refusalReason: $data->refusalReason,
             taskType: $data->taskType,
-            taskResult: $data->taskResult,
             offerState: $data->offerState,
             offerJobTitle: $data->offerJobTitle,
             offerCompany: $data->offerCompany,
@@ -68,19 +60,12 @@ class PositionCandidateActionStoreUseCase extends UseCase
             offerEmploymentDuration: $data->offerEmploymentDuration,
             offerCertainPeriodTo: $data->offerCertainPeriodTo,
             offerTrialPeriod: $data->offerTrialPeriod,
-            offerCandidateNote: $data->offerCandidateNote,
             realStartDate: $data->realStartDate,
             note: $data->note,
         );
 
-        return DB::transaction(function () use ($input, $state): PositionCandidateAction {
-            $positionCandidateAction = $this->positionCandidateActionRepository->store($input);
-
-            if ($positionCandidateAction->state !== $state) {
-                $positionCandidateAction = $this->positionCandidateActionRepository->setState($positionCandidateAction, $state);
-            }
-
-            return $positionCandidateAction;
+        return DB::transaction(function () use ($input): PositionCandidateAction {
+            return $this->positionCandidateActionRepository->store($input);
         }, attempts: 5);
     }
 
@@ -96,10 +81,7 @@ class PositionCandidateActionStoreUseCase extends UseCase
             return;
         }
 
-        $duplicateExists = $this->positionCandidateActionRepository->existsByTypeAndState($positionCandidate, $data->type, [
-            ActionStateEnum::ACTIVE,
-            ActionStateEnum::FINISHED,
-        ]);
+        $duplicateExists = $this->positionCandidateActionRepository->existsByType($positionCandidate, $data->type);
 
         if ($duplicateExists) {
             throw new HttpException(responseCode: ResponseCodeEnum::ACTION_EXISTS);

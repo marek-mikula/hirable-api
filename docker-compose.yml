@@ -1,7 +1,5 @@
 name: 'hirable-api'
 
-version: '3'
-
 services:
     php:
         build:

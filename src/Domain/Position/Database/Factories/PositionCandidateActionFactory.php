@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Domain\Position\Database\Factories;
 
 use Database\Factories\Factory;
-use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Enums\ActionTypeEnum;
 use Domain\Position\Models\PositionCandidate;
 use Domain\Position\Models\PositionCandidateAction;
@@ -25,23 +24,18 @@ class PositionCandidateActionFactory extends Factory
             'position_candidate_id' => $this->isMaking ? null : PositionCandidate::factory(),
             'user_id' => $this->isMaking ? null : User::factory(),
             'type' => ActionTypeEnum::INTERVIEW,
-            'state' => ActionStateEnum::ACTIVE,
             'date' => now(),
             'time_start' => now()->setTime(10, 0),
             'time_end' => now()->setTime(14, 0),
             'place' => fake()->address,
-            'instructions' => null,
             'evaluation' => null,
             'name' => null,
             'interview_form' => 'personal',
             'interview_type' => 'technical',
-            'interview_result' => null,
-            'assessment_center_result' => null,
             'rejected_by_candidate' => null,
             'rejection_reason' => null,
             'refusal_reason' => null,
             'task_type' => null,
-            'task_result' => null,
             'offer_state' => null,
             'offer_job_title' => null,
             'offer_company' => null,
@@ -56,7 +50,6 @@ class PositionCandidateActionFactory extends Factory
             'offer_employment_duration' => null,
             'offer_certain_period_to' => null,
             'offer_trial_period' => null,
-            'offer_candidate_note' => null,
             'real_start_date' => null,
             'note' => fake()->text(500),
         ];
@@ -80,13 +73,6 @@ class PositionCandidateActionFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => [
             'type' => $type,
-        ]);
-    }
-
-    public function ofState(ActionStateEnum $state): static
-    {
-        return $this->state(fn (array $attributes): array => [
-            'state' => $state,
         ]);
     }
 }

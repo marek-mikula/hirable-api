@@ -66,6 +66,7 @@ Route::middleware('auth:sanctum')->group(static function (): void {
                     Route::prefix('/{positionCandidateAction}')->whereNumber('positionCandidateAction')->group(function (): void {
                         Route::patch('/', [PositionCandidateActionController::class, 'update'])->name('update');
                         Route::get('/', [PositionCandidateActionController::class, 'show'])->name('show');
+                        Route::delete('/', [PositionCandidateActionController::class, 'delete'])->name('delete');
                     });
                 });
                 Route::prefix('/shares')->as('share.')->group(function (): void {
