@@ -17,22 +17,18 @@ class ProcessStepActionService extends Service
     {
         return match ($step) {
             StepEnum::OFFER => [
-                ActionTypeEnum::COMMUNICATION,
                 ActionTypeEnum::OFFER,
             ],
             StepEnum::PLACEMENT => [
-                ActionTypeEnum::COMMUNICATION,
                 ActionTypeEnum::START_OF_WORK,
             ],
             StepEnum::REJECTED => [
-                ActionTypeEnum::COMMUNICATION,
                 ActionTypeEnum::REJECTION,
             ],
             default => [
                 ActionTypeEnum::INTERVIEW,
                 ActionTypeEnum::TASK,
                 ActionTypeEnum::ASSESSMENT_CENTER,
-                ActionTypeEnum::COMMUNICATION,
                 ActionTypeEnum::CUSTOM,
             ],
         };
@@ -59,7 +55,6 @@ class ProcessStepActionService extends Service
             ActionTypeEnum::INTERVIEW,
             ActionTypeEnum::TASK,
             ActionTypeEnum::ASSESSMENT_CENTER,
-            ActionTypeEnum::COMMUNICATION,
             ActionTypeEnum::CUSTOM,
         ];
     }

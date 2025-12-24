@@ -257,7 +257,6 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                     'date_format:Y-m-d',
                 ]
             ],
-            ActionTypeEnum::COMMUNICATION => [],
         };
 
         return array_merge($actionFields, [
@@ -391,11 +390,6 @@ class PositionCandidateActionStoreRequest extends AuthRequest
                 type: $type,
                 operation: $operation,
                 realStartDate: $this->date('realStartDate', 'Y-m-d'),
-                note: $this->filled('note') ? (string) $this->input('note') : null,
-            ),
-            ActionTypeEnum::COMMUNICATION => new ActionData(
-                type: $type,
-                operation: $operation,
                 note: $this->filled('note') ? (string) $this->input('note') : null,
             ),
         };
