@@ -101,4 +101,9 @@ final readonly class PositionCandidateActionRepository implements PositionCandid
             ->where('type', $type)
             ->exists();
     }
+
+    public function delete(PositionCandidateAction $positionCandidateAction): void
+    {
+        throw_if(!$positionCandidateAction->delete(), RepositoryException::deleted(PositionCandidateAction::class));
+    }
 }

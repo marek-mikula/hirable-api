@@ -17,4 +17,6 @@ interface PositionCandidateActionRepositoryInterface
     public function update(PositionCandidateAction $positionCandidateAction, PositionCandidateActionUpdateInput $input): PositionCandidateAction;
 
     public function existsByType(PositionCandidate $positionCandidate, ActionTypeEnum $type): bool;
+
+    public function delete(PositionCandidateAction $positionCandidateAction): void;
 }
