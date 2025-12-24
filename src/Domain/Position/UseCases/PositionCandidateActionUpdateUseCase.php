@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Domain\Position\UseCases;
 
 use App\UseCases\UseCase;
-use Domain\Position\Enums\ActionOperationEnum;
-use Domain\Position\Enums\ActionStateEnum;
 use Domain\Position\Http\Request\Data\ActionData;
 use Domain\Position\Models\Position;
 use Domain\Position\Models\PositionCandidate;
@@ -30,29 +28,19 @@ class PositionCandidateActionUpdateUseCase extends UseCase
         PositionCandidateAction $positionCandidateAction,
         ActionData $data
     ): PositionCandidateAction {
-        $state = match ($data->operation) {
-            ActionOperationEnum::SAVE => $positionCandidateAction->state,
-            ActionOperationEnum::FINISH => ActionStateEnum::FINISHED,
-            ActionOperationEnum::CANCEL => ActionStateEnum::CANCELED,
-        };
-
         $input = new PositionCandidateActionUpdateInput(
             date: $data->date,
             timeStart: $data->timeStart,
             timeEnd: $data->timeEnd,
             place: $data->place,
-            instructions: $data->instructions,
             evaluation: $data->evaluation,
             name: $data->name,
             interviewForm: $data->interviewForm,
             interviewType: $data->interviewType,
-            interviewResult: $data->interviewResult,
-            assessmentCenterResult: $data->assessmentCenterResult,
             rejectedByCandidate: $data->rejectedByCandidate,
             rejectionReason: $data->rejectionReason,
             refusalReason: $data->refusalReason,
             taskType: $data->taskType,
-            taskResult: $data->taskResult,
             offerState: $data->offerState,
             offerJobTitle: $data->offerJobTitle,
             offerCompany: $data->offerCompany,
@@ -67,7 +55,6 @@ class PositionCandidateActionUpdateUseCase extends UseCase
             offerEmploymentDuration: $data->offerEmploymentDuration,
             offerCertainPeriodTo: $data->offerCertainPeriodTo,
             offerTrialPeriod: $data->offerTrialPeriod,
-            offerCandidateNote: $data->offerCandidateNote,
             realStartDate: $data->realStartDate,
             note: $data->note,
         );
@@ -75,15 +62,8 @@ class PositionCandidateActionUpdateUseCase extends UseCase
         return DB::transaction(function () use (
             $positionCandidateAction,
             $input,
-            $state,
         ): PositionCandidateAction {
-            $positionCandidateAction = $this->positionCandidateActionRepository->update($positionCandidateAction, $input);
-
-            if ($positionCandidateAction->state !== $state) {
-                $positionCandidateAction = $this->positionCandidateActionRepository->setState($positionCandidateAction, $state);
-            }
-
-            return $positionCandidateAction;
+            return $this->positionCandidateActionRepository->update($positionCandidateAction, $input);
         }, attempts: 5);
     }
 }

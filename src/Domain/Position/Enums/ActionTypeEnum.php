@@ -13,12 +13,4 @@ enum ActionTypeEnum: string
     case REJECTION = 'rejection';
     case START_OF_WORK = 'startOfWork';
     case CUSTOM = 'custom';
-
-    public function getDefaultState(): ActionStateEnum
-    {
-        return match ($this) {
-            self::REJECTION, self::START_OF_WORK => ActionStateEnum::FINISHED,
-            default => ActionStateEnum::ACTIVE,
-        };
-    }
 }
