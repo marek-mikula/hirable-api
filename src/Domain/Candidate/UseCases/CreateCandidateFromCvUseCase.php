@@ -10,6 +10,10 @@ use Domain\AI\Context\Transformers\CandidateTransformer;
 use Domain\AI\Services\AIService;
 use Domain\Candidate\Enums\CandidateFieldEnum;
 use Domain\Candidate\Models\Candidate;
+use Domain\Candidate\Notifications\CandidateCreationDuplicity;
+use Domain\Candidate\Notifications\CandidateCreationFailed;
+use Domain\Candidate\Notifications\CandidateCreationMissingAttributes;
+use Domain\Candidate\Notifications\CandidateCreationSucceeded;
 use Domain\Candidate\Repositories\CandidateRepositoryInterface;
 use Domain\Candidate\Repositories\Input\CandidateStoreInput;
 use Domain\Position\Models\Position;
@@ -44,7 +48,13 @@ final class CreateCandidateFromCvUseCase extends UseCase
         File $cv,
         Position|null $position,
     ): void {
-        $attributes = $this->AIService->extractCVData($cv);
+        try {
+            $attributes = $this->AIService->extractCVData($cv);
+        } catch (\Exception) {
+            $user->notify(new CandidateCreationFailed($cv));
+
+            return;
+        }
 
         $attributes = collect($attributes)
             ->filter(fn (mixed $value, string $key): bool => CandidateFieldEnum::tryFrom($key) !== null)
@@ -60,7 +70,24 @@ final class CreateCandidateFromCvUseCase extends UseCase
         ]);
 
         if (!$hasRequiredFields) {
-            // todo send failed notification
+            $user->notify(new CandidateCreationMissingAttributes($cv));
+
+            return;
+        }
+
+        $email = $attributes[CandidateFieldEnum::EMAIL->value];
+        $phonePrefix = $attributes[CandidateFieldEnum::PHONE_PREFIX->value];
+        $phoneNumber = $attributes[CandidateFieldEnum::PHONE_NUMBER->value];
+
+        $duplicate = $this->candidateRepository->findDuplicateInCompany(
+            $user->company,
+            $email,
+            $phonePrefix,
+            $phoneNumber,
+        );
+
+        if ($duplicate !== null) {
+            $user->notify(new CandidateCreationDuplicity($cv));
 
             return;
         }
@@ -87,6 +114,7 @@ final class CreateCandidateFromCvUseCase extends UseCase
             $input,
             $position,
             $cv,
+            $user,
         ): void {
             /** @var Candidate $candidate */
             $candidate = Candidate::withoutEvents(fn () => $this->candidateRepository->store($input));
@@ -112,7 +140,7 @@ final class CreateCandidateFromCvUseCase extends UseCase
 
             $this->modelHasFileRepository->store($candidate, $cv);
 
-            // todo send success notification
+            $user->notify(new CandidateCreationSucceeded($candidate));
         }, attempts: 5);
     }
 }
