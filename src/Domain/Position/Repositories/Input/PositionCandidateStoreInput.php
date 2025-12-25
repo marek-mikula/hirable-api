@@ -14,7 +14,7 @@ readonly class PositionCandidateStoreInput
     public function __construct(
         public Position $position,
         public Candidate $candidate,
-        public Application $application,
+        public Application|null $application,
         public PositionProcessStep $step,
     ) {
     }

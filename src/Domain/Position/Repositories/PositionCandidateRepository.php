@@ -40,7 +40,7 @@ final readonly class PositionCandidateRepository implements PositionCandidateRep
 
         $positionCandidate->position_id = $input->position->id;
         $positionCandidate->candidate_id = $input->candidate->id;
-        $positionCandidate->application_id = $input->application->id;
+        $positionCandidate->application_id = $input->application?->id;
         $positionCandidate->step_id = $input->step->id;
         $positionCandidate->priority = PositionCandidatePriorityEnum::NONE;
 

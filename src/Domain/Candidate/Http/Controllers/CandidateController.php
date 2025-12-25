@@ -9,11 +9,13 @@ use App\Http\Controllers\ApiController;
 use App\Http\Resources\Collections\PaginatedResourceCollection;
 use Domain\Candidate\Http\Request\CandidateIndexRequest;
 use Domain\Candidate\Http\Request\CandidateShowRequest;
+use Domain\Candidate\Http\Request\CandidateStoreRequest;
 use Domain\Candidate\Http\Request\CandidateUpdateRequest;
 use Domain\Candidate\Http\Resources\CandidateResource;
 use Domain\Candidate\Http\Resources\CandidateShowResource;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Queries\CandidateIndexQuery;
+use Domain\Candidate\UseCases\CandidateStoreUseCase;
 use Domain\Candidate\UseCases\CandidateUpdateUseCase;
 use Illuminate\Http\JsonResponse;
 use Support\Grid\Actions\SaveGridRequestQueryAction;
@@ -56,5 +58,12 @@ final class CandidateController extends ApiController
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'candidate' => new CandidateShowResource($candidate),
         ]);
+    }
+
+    public function store(CandidateStoreRequest $request): JsonResponse
+    {
+        CandidateStoreUseCase::make()->handle($request->user(), $request->toData());
+
+        return $this->jsonResponse(ResponseCodeEnum::SUCCESS);
     }
 }

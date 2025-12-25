@@ -24,7 +24,14 @@ final readonly class CandidateRepository implements CandidateRepositoryInterface
         $candidate->email = $input->email;
         $candidate->phone_prefix = $input->phonePrefix;
         $candidate->phone_number = $input->phoneNumber;
+        $candidate->gender = $input->gender;
         $candidate->linkedin = $input->linkedin;
+        $candidate->instagram = $input->instagram;
+        $candidate->github = $input->github;
+        $candidate->portfolio = $input->portfolio;
+        $candidate->birth_date = $input->birthDate;
+        $candidate->experience = $input->experience;
+        $candidate->tags = $input->tags;
 
         throw_if(!$candidate->save(), RepositoryException::stored(Candidate::class));
 

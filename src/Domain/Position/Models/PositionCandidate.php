@@ -24,7 +24,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read int $id
  * @property int $position_id
  * @property int $candidate_id
- * @property int $application_id
+ * @property int|null $application_id
  * @property int $step_id
  * @property array $score
  * @property int|null $total_score
@@ -35,7 +35,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read int $idle_days
  * @property-read Position $position
  * @property-read Candidate $candidate
- * @property-read Application $application
+ * @property-read Application|null $application
  * @property-read PositionProcessStep $step
  * @property-read Collection<PositionCandidateAction> $actions
  * @property-read PositionCandidateAction|null $latestAction
