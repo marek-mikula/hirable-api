@@ -12,7 +12,8 @@ readonly class CandidateStoreData
      * @param FileData[] $cvs
      */
     public function __construct(
-        public ?array $cvs
+        public ?array $cvs,
+        public ?int $positionId,
     ) {
     }
 }

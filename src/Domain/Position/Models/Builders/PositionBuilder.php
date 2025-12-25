@@ -31,7 +31,7 @@ class PositionBuilder extends Builder
         return $this->where(function (PositionBuilder $query) use ($user): void {
             $query
                 // positions where I am the owner
-                ->where('user_id', $user->id)
+                ->where('positions.user_id', $user->id)
 
                 // positions where I am hiring manager or recruiter
                 // and the position has been opened
@@ -70,6 +70,47 @@ class PositionBuilder extends Builder
                                 ->where('model_has_positions.role', PositionRoleEnum::APPROVER)
                                 ->where('position_approvals.state', PositionApprovalStateEnum::PENDING);
                         });
+                });
+        });
+    }
+
+    public function userCanEdit(User $user): static
+    {
+        return $this->where(function (PositionBuilder $query) use ($user): void {
+            $query
+
+                // positions where I am recruiter or owner
+                // and the position is opened
+                ->where(function (PositionBuilder $query) use ($user): void {
+                    $query
+                        ->where('positions.state', PositionStateEnum::OPENED)
+                        ->where(function (PositionBuilder $query) use ($user): void {
+                            $query
+                                ->where('positions.user_id', $user->id)
+                                ->orWhereExists(
+                                    function (\Illuminate\Contracts\Database\Query\Builder $query) use ($user): void {
+                                        $query
+                                            ->selectRaw('1')
+                                            ->from('model_has_positions')
+                                            ->whereColumn('model_has_positions.position_id', 'positions.id')
+                                            ->where('model_has_positions.model_type', User::class)
+                                            ->where('model_has_positions.model_id', $user->id)
+                                            ->where('model_has_positions.role', PositionRoleEnum::RECRUITER);
+                                    }
+                                );
+                        });
+                })
+
+                // positions where I am owner and position is not in
+                // forbidden states
+                ->orWhere(function (PositionBuilder $query) use ($user): void {
+                    $query
+                        ->where('positions.user_id', $user->id)
+                        ->whereNotIn('positions.state', [
+                            PositionStateEnum::APPROVAL_PENDING,
+                            PositionStateEnum::CLOSED,
+                            PositionStateEnum::CANCELED,
+                        ]);
                 });
         });
     }

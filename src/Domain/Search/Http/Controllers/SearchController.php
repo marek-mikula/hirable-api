@@ -10,12 +10,12 @@ use App\Http\Resources\Collections\ResourceCollection;
 use Domain\Position\Models\Position;
 use Domain\Search\Http\Requests\SearchCompanyContactsRequest;
 use Domain\Search\Http\Requests\SearchCompanyUsersRequest;
-use Domain\Search\Http\Requests\SearchPositionsRequest;
+use Domain\Search\Http\Requests\SearchEditablePositionsRequest;
 use Domain\Search\Http\Requests\SearchPositionUsersRequest;
 use Domain\Search\Http\Resources\SearchResultResource;
 use Domain\Search\UseCases\SearchCompanyContactsUseCase;
 use Domain\Search\UseCases\SearchCompanyUsersUseCase;
-use Domain\Search\UseCases\SearchPositionsUseCase;
+use Domain\Search\UseCases\SearchEditablePositionsUseCase;
 use Domain\Search\UseCases\SearchPositionUsersUseCase;
 use Illuminate\Http\JsonResponse;
 
@@ -48,9 +48,9 @@ final class SearchController extends ApiController
         ]);
     }
 
-    public function positions(SearchPositionsRequest $request): JsonResponse
+    public function editablePositions(SearchEditablePositionsRequest $request): JsonResponse
     {
-        $results = SearchPositionsUseCase::make()->handle($request->user(), $request->toData(), $request->states());
+        $results = SearchEditablePositionsUseCase::make()->handle($request->user(), $request->toData(), $request->states());
 
         return $this->jsonResponse(ResponseCodeEnum::SUCCESS, [
             'results' => new ResourceCollection(SearchResultResource::class, $results),

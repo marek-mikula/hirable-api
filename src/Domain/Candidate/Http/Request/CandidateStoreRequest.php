@@ -33,7 +33,12 @@ class CandidateStoreRequest extends AuthRequest
                 Rule::file()
                     ->max($fileConfigService->getFileMaxSize(FileTypeEnum::CANDIDATE_CV))
                     ->extensions($fileConfigService->getFileExtensions(FileTypeEnum::CANDIDATE_CV))
-            ]
+            ],
+            'positionId' => [
+                'nullable',
+                'integer',
+                Rule::editablePosition($this->user()),
+            ],
         ];
     }
 
@@ -42,6 +47,7 @@ class CandidateStoreRequest extends AuthRequest
         return [
             'cvs' => __('model.candidate.cv'),
             'cvs.*' => __('model.candidate.cv'),
+            'positionId' => __('common.assign_to_position'),
         ];
     }
 
@@ -59,6 +65,7 @@ class CandidateStoreRequest extends AuthRequest
     {
         return new CandidateStoreData(
             cvs: array_map(FileData::make(...), $this->file('cvs', [])),
+            positionId: $this->filled('positionId') ? (int) $this->input('positionId') : null,
         );
     }
 }

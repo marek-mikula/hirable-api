@@ -8,7 +8,7 @@ use App\Rules\Rule;
 use Domain\Position\Enums\PositionStateEnum;
 use Illuminate\Support\Collection;
 
-class SearchPositionsRequest extends SearchRequest
+class SearchEditablePositionsRequest extends SearchRequest
 {
     public function authorize(): bool
     {

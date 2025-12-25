@@ -18,6 +18,8 @@ return [
     'gender' => [
         GenderEnum::MALE->value => 'Male',
         GenderEnum::FEMALE->value => 'Female',
-    ]
+    ],
+
+    'assign_to_position' => 'Assign to position',
 
 ];

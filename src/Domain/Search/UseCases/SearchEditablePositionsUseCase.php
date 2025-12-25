@@ -12,7 +12,7 @@ use Domain\User\Models\User;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 
-class SearchPositionsUseCase extends UseCase
+class SearchEditablePositionsUseCase extends UseCase
 {
     /**
      * @return Collection<ResultData>
@@ -22,7 +22,7 @@ class SearchPositionsUseCase extends UseCase
         return Position::query()
             ->select(['id', 'name'])
             ->whereCompany($user->company_id)
-            ->userCanSee($user)
+            ->userCanEdit($user)
             ->when($states->isNotEmpty(), function (Builder $query) use ($states) {
                 $query->whereIn('state', $states);
             })

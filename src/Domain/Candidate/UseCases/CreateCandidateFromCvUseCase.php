@@ -9,6 +9,7 @@ use App\UseCases\UseCase;
 use Domain\AI\Context\Transformers\CandidateTransformer;
 use Domain\AI\Services\AIService;
 use Domain\Candidate\Enums\CandidateFieldEnum;
+use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Repositories\CandidateRepositoryInterface;
 use Domain\Candidate\Repositories\Input\CandidateStoreInput;
 use Domain\Position\Models\Position;
@@ -87,7 +88,8 @@ final class CreateCandidateFromCvUseCase extends UseCase
             $position,
             $cv,
         ): void {
-            $candidate = $this->candidateRepository->store($input);
+            /** @var Candidate $candidate */
+            $candidate = Candidate::withoutEvents(fn () => $this->candidateRepository->store($input));
 
             if ($position !== null) {
                 $positionProcessStep = $this->positionProcessStepRepository->findByPosition($position, StepEnum::NEW);

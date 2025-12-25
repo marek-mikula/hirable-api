@@ -32,6 +32,7 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read bool $is_score_calculated
+ * @property-read bool $is_manual
  * @property-read int $idle_days
  * @property-read Position $position
  * @property-read Candidate $candidate
@@ -80,6 +81,11 @@ class PositionCandidate extends Model
             'score' => 'array',
             'priority' => PositionCandidatePriorityEnum::class,
         ];
+    }
+
+    protected function isManual(): Attribute
+    {
+        return Attribute::get(fn (): bool => $this->application_id === null);
     }
 
     protected function isScoreCalculated(): Attribute

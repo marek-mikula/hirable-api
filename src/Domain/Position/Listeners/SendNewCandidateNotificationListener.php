@@ -31,4 +31,9 @@ class SendNewCandidateNotificationListener extends QueuedListener
                 ));
             });
     }
+
+    public function shouldQueue(PositionCandidateCreatedEvent $event): bool
+    {
+        return $event->positionCandidate->is_manual === false;
+    }
 }

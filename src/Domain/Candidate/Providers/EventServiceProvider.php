@@ -6,7 +6,6 @@ namespace Domain\Candidate\Providers;
 
 use Domain\Candidate\Events\CandidateCreatedEvent;
 use Domain\Candidate\Listeners\ExtractCVDataListener;
-use Domain\Candidate\Listeners\FindDuplicateCandidatesListener;
 use Domain\Candidate\Models\Candidate;
 use Domain\Candidate\Observers\CandidateObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -16,7 +15,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         CandidateCreatedEvent::class => [
             ExtractCVDataListener::class,
-            FindDuplicateCandidatesListener::class,
         ],
     ];
 
