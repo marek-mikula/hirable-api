@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Domain\Candidate\Repositories\Input;
 
 use App\Enums\LanguageEnum;
+use Carbon\Carbon;
+use Domain\Candidate\Enums\GenderEnum;
 use Domain\Company\Models\Company;
 
 readonly class CandidateStoreInput
@@ -17,7 +19,14 @@ readonly class CandidateStoreInput
         public string $email,
         public string $phonePrefix,
         public string $phoneNumber,
-        public ?string $linkedin,
+        public ?GenderEnum $gender = null,
+        public ?string $linkedin = null,
+        public ?string $instagram = null,
+        public ?string $github = null,
+        public ?string $portfolio = null,
+        public ?Carbon $birthDate = null,
+        public array $experience = [],
+        public array $tags = [],
     ) {
     }
 }

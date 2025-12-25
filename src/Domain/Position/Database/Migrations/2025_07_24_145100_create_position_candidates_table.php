@@ -13,10 +13,28 @@ return new class () extends Migration {
             $table->id();
             $table->foreignId('position_id');
             $table->foreignId('candidate_id');
-            $table->foreignId('application_id');
+            $table->foreignId('application_id')->nullable();
             $table->json('score');
             $table->unsignedTinyInteger('total_score')->nullable();
             $table->timestamps();
+
+            $table->foreign('position_id', 'position_candidates_position_foreign')
+                ->references('id')
+                ->on('positions')
+                ->cascadeOnDelete()
+                ->restrictOnUpdate();
+
+            $table->foreign('candidate_id', 'position_candidates_candidate_foreign')
+                ->references('id')
+                ->on('candidates')
+                ->cascadeOnDelete()
+                ->restrictOnUpdate();
+
+            $table->foreign('application_id', 'position_candidates_application_foreign')
+                ->references('id')
+                ->on('applications')
+                ->restrictOnDelete()
+                ->restrictOnUpdate();
         });
     }
 

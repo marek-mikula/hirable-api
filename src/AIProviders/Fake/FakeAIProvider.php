@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace AIProviders\Fake;
 
+use App\Enums\LanguageEnum;
 use Domain\AI\Contracts\AIProviderInterface;
 use Domain\AI\Scoring\Enums\ScoreCategoryEnum;
+use Domain\Candidate\Enums\CandidateFieldEnum;
+use Domain\Candidate\Enums\GenderEnum;
 use Domain\Candidate\Models\Candidate;
 use Domain\Position\Models\Position;
 use Domain\User\Models\User;
@@ -17,9 +20,86 @@ class FakeAIProvider implements AIProviderInterface
 {
     public function extractCVData(File $cv): array
     {
-        $json = '{"attributes":[{"key":"gender","value":"m"},{"key":"experience","value":"[{\"position\":\"Fullstack web developer\",\"employer\":\"JustIT Pro s.r.o.\",\"from\":\"2019-01-01\",\"to\":\"2021-01-01\",\"description\":\"Development of large HR applications for the biggest corporate in the Czech republic PPF and its subsidiaries in Europe. Scrum, Laravel, JS, Redis, DevOps, Git, Jira, Bitbucket\"},{\"position\":\"Fullstack web developer\",\"employer\":\"DAMI development s.r.o.\",\"from\":\"2021-01-01\",\"to\":\"2022-01-01\",\"description\":\"Development of the Tanix IoT portal connecting hundreds of active sensors and detectors throughout the Czech Republic operating on NB-IoT, Lora, Sigfox, etc. networks. Scrum/Kanban, Yii2, Vue.js, TS, JS, Node.js, RabbitMQ, DevOps, Git, Jira, GitLab\"},{\"position\":\"Fullstack web developer\",\"employer\":\"JustIT Pro s.r.o.\",\"from\":\"2022-01-01\",\"to\":null,\"description\":\"Development of large HR applications for the biggest corporate in the Czech republic PPF and its subsidiaries in Asia and across Europe. Scrum, Laravel, Nuxt, TS, JS, Node.js, Redis, RabbitMQ, DevOps, Git, Jira, Bitbucket\"}]"},{"key":"tags","value":"[\"php\",\"laravel\",\"javascript\",\"typescript\",\"vue.js\",\"nuxt.js\",\"node.js\",\"scrum\",\"kanban\",\"devops\"]"}]}';
+        $gender = fake()->randomElement(['male', 'female']);
 
-        return json_decode($json, true);
+        $experiences = [];
+        for ($x = 0; $x < fake()->numberBetween(1, 4); $x++) {
+            $experiences[] = [
+                'position' => fake()->jobTitle,
+                'employer' => fake()->company,
+                'description' => fake()->text,
+                'from' => now()->startOfYear()->addYears($x)->format('Y-m-d'),
+                'to' => now()->endOfYear()->addYears($x)->format('Y-m-d'),
+            ];
+        }
+
+        return [
+            'attributes' => [
+                [
+                    'key' => CandidateFieldEnum::FIRSTNAME->value,
+                    'value' => fake()->firstName($gender),
+                ],
+                [
+                    'key' => CandidateFieldEnum::LASTNAME->value,
+                    'value' => fake()->lastName($gender),
+                ],
+                [
+                    'key' => CandidateFieldEnum::GENDER->value,
+                    'value' => match ($gender) {
+                        'male' => GenderEnum::MALE->value,
+                        'female' => GenderEnum::FEMALE->value,
+                    },
+                ],
+                [
+                    'key' => CandidateFieldEnum::LANGUAGE->value,
+                    'value' => LanguageEnum::CS->value,
+                ],
+                [
+                    'key' => CandidateFieldEnum::EMAIL->value,
+                    'value' => fake()->email,
+                ],
+                [
+                    'key' => CandidateFieldEnum::PHONE_PREFIX->value,
+                    'value' => '+420',
+                ],
+                [
+                    'key' => CandidateFieldEnum::PHONE_NUMBER->value,
+                    'value' => fake()->numerify('#########'),
+                ],
+                [
+                    'key' => CandidateFieldEnum::LINKEDIN->value,
+                    'value' => null,
+                ],
+                [
+                    'key' => CandidateFieldEnum::INSTAGRAM->value,
+                    'value' => null,
+                ],
+                [
+                    'key' => CandidateFieldEnum::GITHUB->value,
+                    'value' => null,
+                ],
+                [
+                    'key' => CandidateFieldEnum::PORTFOLIO->value,
+                    'value' => null,
+                ],
+                [
+                    'key' => CandidateFieldEnum::BIRTH_DATE->value,
+                    'value' => now()
+                        ->subYears(fake()->numberBetween(10, 50))
+                        ->setMonth(fake()->numberBetween(1, 12))
+                        ->setDay(fake()->numberBetween(1, 28))
+                        ->format('Y-m-d'),
+                ],
+                [
+                    'key' => CandidateFieldEnum::EXPERIENCE->value,
+                    'value' => json_encode($experiences),
+                ],
+                [
+                    'key' => CandidateFieldEnum::TAGS->value,
+                    'value' => json_encode(fake()->words(fake()->numberBetween(1, 5))),
+                ],
+            ],
+        ];
     }
 
     public function evaluateCandidate(Position $position, Candidate $candidate, Collection $files): array

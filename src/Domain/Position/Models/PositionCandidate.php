@@ -24,7 +24,7 @@ use Illuminate\Database\Query\Builder;
  * @property-read int $id
  * @property int $position_id
  * @property int $candidate_id
- * @property int $application_id
+ * @property int|null $application_id
  * @property int $step_id
  * @property array $score
  * @property int|null $total_score
@@ -32,10 +32,11 @@ use Illuminate\Database\Query\Builder;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property-read bool $is_score_calculated
+ * @property-read bool $is_manual
  * @property-read int $idle_days
  * @property-read Position $position
  * @property-read Candidate $candidate
- * @property-read Application $application
+ * @property-read Application|null $application
  * @property-read PositionProcessStep $step
  * @property-read Collection<PositionCandidateAction> $actions
  * @property-read PositionCandidateAction|null $latestAction
@@ -80,6 +81,11 @@ class PositionCandidate extends Model
             'score' => 'array',
             'priority' => PositionCandidatePriorityEnum::class,
         ];
+    }
+
+    protected function isManual(): Attribute
+    {
+        return Attribute::get(fn (): bool => $this->application_id === null);
     }
 
     protected function isScoreCalculated(): Attribute

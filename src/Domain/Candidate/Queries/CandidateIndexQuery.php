@@ -19,8 +19,12 @@ class CandidateIndexQuery extends Query
             ->whereCompany($user->company_id)
             ->when($gridQuery->hasSearchQuery(), function (CandidateBuilder $query) use ($gridQuery): void {
                 $query->where(function (CandidateBuilder $query) use ($gridQuery): void {
+                    if (is_numeric($gridQuery->searchQuery)) {
+                        $query->orWhere('id', $gridQuery->searchQuery);
+                    }
+
                     $query
-                        ->where('firstname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
+                        ->orWhere('firstname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
                         ->orWhere('lastname', 'like', sprintf('%%%s%%', $gridQuery->searchQuery))
                         ->orWhere('email', 'like', sprintf('%%%s%%', $gridQuery->searchQuery));
                 });

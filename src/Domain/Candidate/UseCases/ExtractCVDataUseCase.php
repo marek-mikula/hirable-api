@@ -14,7 +14,7 @@ use Domain\Candidate\Repositories\Input\CandidateUpdateInput;
 use Illuminate\Support\Facades\DB;
 use Support\File\Models\File;
 
-class ExtractCVDataUseCase extends UseCase
+final class ExtractCVDataUseCase extends UseCase
 {
     public function __construct(
         private readonly CandidateRepositoryInterface $candidateRepository,
@@ -32,12 +32,10 @@ class ExtractCVDataUseCase extends UseCase
 
         $attributes = $this->AIService->extractCVData($cv);
 
-        collect($attributes)
-            ->filter(fn (mixed $value, string $key): bool =>
-                // filter invalid keys
-                CandidateFieldEnum::tryFrom($key) !== null)
+        $attributes = collect($attributes)
+            ->filter(fn (mixed $value, string $key): bool => CandidateFieldEnum::tryFrom($key) !== null)
             ->map(fn (mixed $value, string $key): mixed => $this->candidateTransformer->transformField($key, $value))
-            ->all();
+            ->toArray();
 
         $input = new CandidateUpdateInput(
             language: $candidate->language,

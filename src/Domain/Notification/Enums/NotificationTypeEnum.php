@@ -40,4 +40,9 @@ enum NotificationTypeEnum: string
     case POSITION_CANDIDATE_EVALUATION_REMINDER = 'position_candidate:evaluation_reminder';
 
     case APPLICATION_ACCEPTED = 'application:accepted';
+
+    case CANDIDATE_CREATION_FAILED = 'candidate:creation_failed';
+    case CANDIDATE_CREATION_MISSING_ATTRIBUTES = 'candidate:creation_missing_attributes';
+    case CANDIDATE_CREATION_DUPLICITY = 'candidate:creation_duplicity';
+    case CANDIDATE_CREATION_SUCCEEDED = 'candidate:creation_succeeded';
 }

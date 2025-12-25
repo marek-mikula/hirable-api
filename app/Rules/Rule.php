@@ -6,6 +6,8 @@ namespace App\Rules;
 
 use Domain\Company\Enums\RoleEnum;
 use Domain\Company\Models\Company;
+use Domain\Position\Rules\EditablePositionRule;
+use Domain\User\Models\User;
 use Domain\User\Rules\UserRule;
 use Illuminate\Validation\Rule as BaseRule;
 
@@ -27,5 +29,10 @@ class Rule extends BaseRule
     public static function phone(string $prefixField = 'phonePrefix'): PhoneRule
     {
         return new PhoneRule($prefixField);
+    }
+
+    public static function editablePosition(User $user): EditablePositionRule
+    {
+        return new EditablePositionRule($user);
     }
 }

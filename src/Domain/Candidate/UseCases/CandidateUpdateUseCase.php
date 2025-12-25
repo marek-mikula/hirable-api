@@ -19,7 +19,7 @@ use Support\File\Repositories\ModelHasFileRepositoryInterface;
 use Support\File\Services\FilePathService;
 use Support\File\Services\FileSaver;
 
-class CandidateUpdateUseCase extends UseCase
+final class CandidateUpdateUseCase extends UseCase
 {
     public function __construct(
         private readonly ModelHasFileRepositoryInterface $modelHasFileRepository,

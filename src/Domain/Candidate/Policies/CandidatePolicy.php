@@ -18,6 +18,14 @@ class CandidatePolicy
     public function update(User $user, Candidate $candidate): bool
     {
         return $this->show($user, $candidate) && in_array($user->company_role, [
+                RoleEnum::ADMIN,
+                RoleEnum::RECRUITER,
+            ]);
+    }
+
+    public function store(User $user): bool
+    {
+        return in_array($user->company_role, [
             RoleEnum::ADMIN,
             RoleEnum::RECRUITER,
         ]);
